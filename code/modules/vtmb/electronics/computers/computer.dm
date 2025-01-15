@@ -1,3 +1,5 @@
+
+
 GLOBAL_LIST_EMPTY(vampire_computers)
 
 /obj/vampire_computer
@@ -33,6 +35,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	var/datum/app/notepad/notepad = new ()
 	var/datum/app/gmail/gmail = new ()
 	var/datum/app/news/news = new ()
+	var/datum/app/cheburnet/cheburnet = new()
 
 	gmail.generate_email()
 	if(main)
@@ -42,6 +45,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	apps.Add(notepad)
 	apps.Add(gmail)
 	apps.Add(news)
+	apps.Add(cheburnet)
 
 	for(var/obj/vampire_computer/C in GLOB.vampire_computers)
 		if(C.main)
@@ -207,6 +211,14 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 			else
 				playsound(loc, 'sound/winxp/error.wav', 100)
 				return TRUE
+		if("poiskovik")
+			var/datum/app/cheburnet/cheburnet = apps[5]
+
+
+
+
+
+
 
 /obj/vampire_computer/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

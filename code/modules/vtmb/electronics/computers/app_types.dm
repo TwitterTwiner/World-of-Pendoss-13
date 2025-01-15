@@ -124,3 +124,18 @@
 	.=..()
 	. += list("text"=text)
 	. += list("can_send"=can_send)
+
+/datum/app/cheburnet
+	title = "Cheburnet"
+	app_type = "cheburnet"
+	var/text = "Добро пожаловать в Шрекнет"
+	var/poisk = "Введите запрос"
+
+/datum/app/cheburnet/data()
+	.=..()
+	. += list("text"=text)
+	. +=list("poiskovik"=poisk)
+
+/datum/app/cheburnet/proc/zakladki()
+
+
