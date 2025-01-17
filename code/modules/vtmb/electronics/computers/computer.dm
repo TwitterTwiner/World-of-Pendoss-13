@@ -212,6 +212,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 				playsound(loc, 'sound/winxp/error.wav', 100)
 				return TRUE
 		if("poiskovik")
+			if(params["poiski"] != "" && params["message"])
 			var/datum/app/cheburnet/cheburnet = apps[5]
 
 

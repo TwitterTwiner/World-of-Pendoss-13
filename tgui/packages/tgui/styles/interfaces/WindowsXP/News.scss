@@ -53,3 +53,28 @@
     opacity: 0;
   }
 }
+
+.chebu__screen {
+  animation: color2Pulse 5s infinite ease-in-out;
+  background-color: #000;
+  box-sizing: border-box;
+  font-family: 'Fira Mono', monospace;
+  font-size: 20px;
+  height: 100%;
+  overflow: hidden;
+  padding: 10vmin;
+  width: 100%;
+}
+@keyframes color2Pulse {
+  0%,
+  100% {
+    color: rgb(151, 151, 151);
+  }
+  48%,
+  52% {
+    color: rgb(139, 141, 139);
+  }
+  50% {
+    color: rgb(96, 96, 96);
+  }
+}

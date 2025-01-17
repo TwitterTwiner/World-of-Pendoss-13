@@ -1,24 +1,25 @@
 import { useLocalState } from '../../../backend';
-import cheburIcon from '../../assets/WindowsXP/chebur.png';
+import chebur from '../../../assets/WindowsXP/chebur.png';
 import { Button, Input } from '../../../components';
 
 export const Cheburnet = (props, context) => {
   const { app, act } = props;
-  const [message, setMessage] = useLocalState(context, 'news_message', '');
+  const [poiski, setMessage] = useLocalState(context, 'news_message', '');
   return (
-    <div className="news__screen">
-      <div className="news__text">{app.text}</div>
+    <div className="chebu__screen">
+      <img width="180px" src={chebur} />
+      <div className="news__text">{app.shrek}</div>
       {app.can_send === 1 && (
         <div className="news__actions">
           <Input
-            value={message}
+            value={poiski}
             onChange={(e, value) => setMessage(value)}
-            placeholder="Input new text..."
+            placeholder="Введите запрос..."
           />
           <Button
             icon="paper-plane"
             onClick={() => {
-              act('news_send_message', { message: message });
+              act('news_send_message', { poiski: message });
               setMessage('');
             }}
           />

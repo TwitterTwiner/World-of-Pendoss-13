@@ -125,16 +125,29 @@
 	. += list("text"=text)
 	. += list("can_send"=can_send)
 
+
+/datum/poiski
+	var/poiski
+
+/datum/poiski/New(param_poiski)
+	poiski = param_poiski
+
+/datum/app/icq/proc/Poisk(poiski)
+	var/datum/poiski/send = new(poiski)
+
 /datum/app/cheburnet
 	title = "Cheburnet"
 	app_type = "cheburnet"
-	var/text = "Добро пожаловать в Шрекнет"
+	var/shrek = "Добро пожаловать в Шрекнет"
 	var/poisk = "Введите запрос"
+
+
+
 
 /datum/app/cheburnet/data()
 	.=..()
-	. += list("text"=text)
-	. +=list("poiskovik"=poisk)
+	. += list("poisk"=poisk)
+//	. +=list("can_send"=can_send)
 
 /datum/app/cheburnet/proc/zakladki()
 

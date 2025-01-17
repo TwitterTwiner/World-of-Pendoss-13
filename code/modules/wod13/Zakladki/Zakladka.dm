@@ -1,11 +1,21 @@
+GLOBAL_LIST_EMPTY(masterclad)
+GLOBAL_LIST_EMPTY(miniclad)
+GLOBAL_LIST_EMPTY(grafity)
+
+
 /obj/structure/vamp/zakladkagrafity
 	icon = null
 	icon_state = null
 	name = ""
 	desc = ""
 
+
+/obj/structure/vamp/zakladkagrafity/Initialize()
+	GLOB.grafity += src
+
 /obj/item/vamp/zakladka
 	icon = 'code/modules/wod13/Zakladki/clad.dmi'
+
 
 
 
@@ -15,7 +25,12 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "Masterklad1"
 
-/obj/item/vamp/zakladka/mastercla/update_icon()
+/obj/item/vamp/zakladka/masterclad/Initialize()
+	.=..()
+	GLOB.masterclad += src
+
+
+/obj/item/vamp/zakladka/masterclad/update_icon()
 	. = ..()
 	icon_state = "Malenkiiklad"
 
@@ -25,10 +40,9 @@
 	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)
 
 
-/*
-/obj/item/vamp/zakladka/masterclad/Initialize()
-	.=..()
-*/
+
+
+
 
 
 /obj/item/vamp/zakladka/Klad
