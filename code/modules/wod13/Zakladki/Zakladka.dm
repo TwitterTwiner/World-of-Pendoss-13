@@ -4,10 +4,10 @@ GLOBAL_LIST_EMPTY(grafity)
 
 
 /obj/structure/vamp/zakladkagrafity
-	icon = null
-	icon_state = null
+	icon = 'code/modules/wod13/Zakladki/clad.dmi'
+	icon_state = "Malenkiiklad"
 	name = ""
-	desc = ""
+	desc = "Ниггер сайт [src] "
 
 
 /obj/structure/vamp/zakladkagrafity/Initialize()

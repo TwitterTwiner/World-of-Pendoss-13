@@ -140,8 +140,18 @@
 	app_type = "cheburnet"
 	var/shrek = "Добро пожаловать в Шрекнет"
 	var/poisk = "Введите запрос"
+	var/global/adress = "www.Hydra.cum"
 
 
+/datum/app/cheburnet/proc/generate_adress()
+	var/newAdress
+	newAdress += "www."
+	newAdress += pick("seradin", "nigger", "weed", "alphaPVP", "pendosi", "you", "crack", "Omega", "snow", "dead", "drunk", "cock", "meth")
+	newAdress += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
+	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+	newAdress += ".luc"
+	adress = newAdress
 
 
 /datum/app/cheburnet/data()

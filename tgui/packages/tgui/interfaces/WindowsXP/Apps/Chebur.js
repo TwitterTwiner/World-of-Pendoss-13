@@ -4,7 +4,7 @@ import { Button, Input } from '../../../components';
 
 export const Cheburnet = (props, context) => {
   const { app, act } = props;
-  const [poiski, setMessage] = useLocalState(context, 'news_message', '');
+  const [poiski, setMessage] = useLocalState(context, 'cheburnet_poiaki', '');
   return (
     <div className="chebu__screen">
       <img width="180px" src={chebur} />
@@ -19,7 +19,7 @@ export const Cheburnet = (props, context) => {
           <Button
             icon="paper-plane"
             onClick={() => {
-              act('news_send_message', { poiski: message });
+              act('poiskovik', { poiski: poiski });
               setMessage('');
             }}
           />
