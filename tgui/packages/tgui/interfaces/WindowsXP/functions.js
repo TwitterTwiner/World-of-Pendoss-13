@@ -3,11 +3,14 @@ import notepadIcon from '../../assets/WindowsXP/327(32x32).png';
 import errorIcon from '../../assets/WindowsXP/897(32x32).png';
 import gmailicon from '../../assets/WindowsXP/gmail_icon.png';
 import newsIcon from '../../assets/WindowsXP/news.png';
+import cheburIcon from '../../assets/WindowsXP/chebur.png';
+
 import { Notepad } from './Apps/Notepad';
 import { ICQ as Icq } from './Apps/ICQ';
 import { Error } from './Apps/Error';
 import { Gmail } from './Apps/Gmail';
 import { News } from './Apps/News';
+import { Cheburnet } from './Apps/Chebur';
 
 
 export const GetIconByName = name => {
@@ -22,6 +25,8 @@ export const GetIconByName = name => {
       return gmailicon;
     case "news":
       return newsIcon;
+    case "cheburnet":
+      return cheburIcon;
     default:
       return null;
   }
@@ -39,6 +44,8 @@ export const GetAppByName = (app, act) => {
       return <Gmail app={app} act={act} />;
     case "news":
       return <News app={app} act={act} />;
+      case "cheburnet":
+      return <Cheburnet app={app} act={act} />;
     default:
       return null;
   }
