@@ -4,6 +4,7 @@ GLOBAL_LIST_EMPTY(grafity)
 
 
 /obj/structure/vamp/zakladkagrafity
+	var/adress = "negr"
 	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 	icon_state = "Malenkiiklad"
 	name = "Графити"
@@ -14,7 +15,7 @@ GLOBAL_LIST_EMPTY(grafity)
 	. = ..()
 	GLOB.grafity += src
 //	var/datum/app/cheburnet/site/narko/N = drak
-	desc = replacetext(desc, "NAME", name)
+	desc = "[GLOB.adressnegra]"
 
 
 
@@ -52,7 +53,7 @@ GLOBAL_LIST_EMPTY(grafity)
 	. = ..()
 	icon_state = "Malenkiiklad"
 
-/obj/item/vamp/zakladka/masterclad/proc/raspakovka(mob/user)
+/obj/item/vamp/zakladka/masterclad/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>Ты начинаешь распоковку мастерклада.</span>")
 	update_icon()
 	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)

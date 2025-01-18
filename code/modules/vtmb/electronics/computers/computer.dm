@@ -38,7 +38,6 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	var/datum/app/cheburnet/cheburnet = new()
 	var/datum/app/cheburnet/site/narko/narko = new()
 
-	narko.generate_adress()
 	gmail.generate_email()
 	if(main)
 		news.can_send = TRUE

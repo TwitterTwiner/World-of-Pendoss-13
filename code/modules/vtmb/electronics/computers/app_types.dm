@@ -96,7 +96,6 @@ GLOBAL_LIST_EMPTY(adressnegra)
 	newEmail += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newEmail += "@gmail.com"
 	email_adress = newEmail
-	GLOB.adressnegra += src
 
 /datum/email
 	var/sender
@@ -147,8 +146,12 @@ GLOBAL_LIST_EMPTY(adressnegra)
 
 
 /datum/app/cheburnet/site/narko
-	desc = "www.Hydra.CUM"
+	adress = "www.Hydra.CUM"
 	title = "Нарики-хуярики"
+
+/datum/app/cheburnet/site/narko/New()
+	.=..()
+	generate_adress()
 
 /datum/app/cheburnet/site/narko/proc/generate_adress()
 	var/newAdress
@@ -158,8 +161,11 @@ GLOBAL_LIST_EMPTY(adressnegra)
 	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newAdress += ".luc"
-	desc = newAdress
+	adress = newAdress
+	GLOB.adressnegra += src
 
+/datum/app/cheburnet/site/narko/data()
+	. +=list("adresshydra"=adress)
 
 /datum/app/cheburnet/data()
 	.=..()
