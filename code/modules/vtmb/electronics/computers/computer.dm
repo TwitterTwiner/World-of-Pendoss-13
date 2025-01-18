@@ -36,7 +36,9 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	var/datum/app/gmail/gmail = new ()
 	var/datum/app/news/news = new ()
 	var/datum/app/cheburnet/cheburnet = new()
+	var/datum/app/cheburnet/site/narko/narko = new()
 
+	narko.generate_adress()
 	gmail.generate_email()
 	if(main)
 		news.can_send = TRUE
@@ -213,7 +215,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 				return TRUE
 		if("poiskovik")
 			var/datum/app/cheburnet/cheburnet = apps[5]
-			if(params["poiski"] == cheburnet.adress)
+		//	if(params["poiski"] == cheburnet.adress)
 
 			if(!params["poiski"])
 				throw_error("Введите запрос!")

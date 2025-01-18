@@ -4,17 +4,21 @@ GLOBAL_LIST_EMPTY(grafity)
 
 
 /obj/structure/vamp/zakladkagrafity
+	var/adress
 	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 	icon_state = "Malenkiiklad"
 	name = "Графити"
-	desc = "Ниггер сайт "
+	desc = "Топ сайт "
 
 
 /obj/structure/vamp/zakladkagrafity/Initialize()
 	. = ..()
 	GLOB.grafity += src
-	var/datum/app/cheburnet/generate_adress/Da = new(src)
-	desc += "[Da]"
+	var/datum/app/cheburnet/site/narko/N
+	desc += N.adress
+
+
+
 
 /obj/structure/vamp/zakladkagrafity/Destroy()
 	GLOB.grafity -= src

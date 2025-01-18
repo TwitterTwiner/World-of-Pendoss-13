@@ -140,10 +140,14 @@
 	app_type = "cheburnet"
 	var/shrek = "Добро пожаловать в Шрекнет"
 	var/poisk = "Введите запрос"
-	var/global/adress = "www.Hydra.cum"
+	var/can_sond = TRUE
 
 
-/datum/app/cheburnet/proc/generate_adress()
+/datum/app/cheburnet/site/narko
+	adress = "www.Hydra.CUM"
+	title = "Нарики-хуярики"
+
+/datum/app/cheburnet/site/narko/proc/generate_adress()
 	var/newAdress
 	newAdress += "www."
 	newAdress += pick("seradin", "nigger", "weed", "alphaPVP", "pendosi", "you", "crack", "Omega", "snow", "dead", "drunk", "cock", "meth")
@@ -157,7 +161,7 @@
 /datum/app/cheburnet/data()
 	.=..()
 	. += list("poisk"=poisk)
-//	. +=list("can_send"=can_send)
+	. +=list("can_sond"=can_sond)
 
 /datum/app/cheburnet/proc/zakladki()
 

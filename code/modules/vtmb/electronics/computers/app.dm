@@ -21,3 +21,9 @@
 	data["height"]= height
 	data["desktop_app"]= desktop_app
 	return data
+
+
+/datum/app/cheburnet/site
+	var
+		desc = ""
+		adress = ""

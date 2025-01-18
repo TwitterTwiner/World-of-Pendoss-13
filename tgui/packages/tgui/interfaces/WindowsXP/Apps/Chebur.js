@@ -9,7 +9,7 @@ export const Cheburnet = (props, context) => {
     <div className="chebu__screen">
       <img width="180px" src={chebur} />
       <div className="news__text">{app.shrek}</div>
-      {app.can_send === 1 && (
+      {app.can_sond === 1 && (
         <div className="news__actions">
           <Input
             value={poiski}
