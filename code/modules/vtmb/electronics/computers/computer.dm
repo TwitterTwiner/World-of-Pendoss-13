@@ -212,10 +212,11 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 				playsound(loc, 'sound/winxp/error.wav', 100)
 				return TRUE
 		if("poiskovik")
-//			if(params["poiski"] == ["src.adress"])
+			var/datum/app/cheburnet/cheburnet = apps[5]
+			if(params["poiski"] == cheburnet.adress)
+
 			if(!params["poiski"])
 				throw_error("Введите запрос!")
-			var/datum/app/cheburnet/cheburnet = apps[5]
 
 
 

@@ -4,7 +4,6 @@ GLOBAL_LIST_EMPTY(grafity)
 
 
 /obj/structure/vamp/zakladkagrafity
-	var/adress = adress(src)
 	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 	icon_state = "Malenkiiklad"
 	name = "Графити"
@@ -12,14 +11,21 @@ GLOBAL_LIST_EMPTY(grafity)
 
 
 /obj/structure/vamp/zakladkagrafity/Initialize()
+	. = ..()
 	GLOB.grafity += src
+	var/datum/app/cheburnet/generate_adress/Da = new(src)
+	desc += "[Da]"
 
+/obj/structure/vamp/zakladkagrafity/Destroy()
+	GLOB.grafity -= src
 
+/*
 /obj/structure/vamp/zakladkagrafity/examine(mob/user)
 	. = ..()
 
-	. += "<span class='warning'> [adress]</span>"
 
+	. += adress
+*/
 
 
 /obj/item/vamp/zakladka
@@ -47,7 +53,7 @@ GLOBAL_LIST_EMPTY(grafity)
 	to_chat(user, "<span class='notice'>Ты начинаешь распоковку мастерклада.</span>")
 	update_icon()
 	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)
-
+	GLOB.masterclad -= src
 
 
 
