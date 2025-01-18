@@ -64,6 +64,20 @@
   overflow: hidden;
   padding: 10vmin;
   width: 100%;
+
+  .chebu__screen:after {
+    background-image: linear-gradient(transparent, transparent 3px, #222);
+    background-size: 4px 4px;
+    bottom: 0;
+    content: '';
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+
 }
 @keyframes color2Pulse {
   0%,

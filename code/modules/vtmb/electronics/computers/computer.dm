@@ -220,8 +220,15 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 		//	if(params["poiski"] == cheburnet.adress)
 
 			if(!params["poiski"])
-				throw_error("Введите запрос!")
-
+				switch(rand(1, 4))
+					if(1)
+						throw_error("Введите запрос!")
+					if(2)
+						throw_error("Введи запрос, мать твою!")
+					if(3)
+						throw_error("ЗАПРОС ВВЕДИ!")
+					if(4)
+						throw_error("Ты че, тупой...?")
 
 
 

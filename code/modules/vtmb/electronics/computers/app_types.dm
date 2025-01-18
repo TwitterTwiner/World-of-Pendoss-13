@@ -151,18 +151,7 @@ GLOBAL_LIST_EMPTY(adressnegra)
 
 /datum/app/cheburnet/site/narko/New()
 	.=..()
-	generate_adress()
 
-/datum/app/cheburnet/site/narko/proc/generate_adress()
-	var/newAdress
-	newAdress += "www."
-	newAdress += pick("seradin", "nigger", "weed", "alphaPVP", "pendosi", "you", "crack", "Omega", "snow", "dead", "drunk", "cock", "meth")
-	newAdress += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
-	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-	newAdress += ".luc"
-	adress = newAdress
-	GLOB.adressnegra += src
 
 /datum/app/cheburnet/site/narko/data()
 	. +=list("adresshydra"=adress)

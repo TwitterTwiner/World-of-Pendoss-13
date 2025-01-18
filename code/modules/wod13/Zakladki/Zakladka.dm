@@ -3,8 +3,10 @@ GLOBAL_LIST_EMPTY(miniclad)
 GLOBAL_LIST_EMPTY(grafity)
 
 
+
+
 /obj/structure/vamp/zakladkagrafity
-	var/adress = "negr"
+//	var/adress = "negr"
 	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 	icon_state = "Malenkiiklad"
 	name = "Графити"
@@ -14,10 +16,17 @@ GLOBAL_LIST_EMPTY(grafity)
 /obj/structure/vamp/zakladkagrafity/Initialize()
 	. = ..()
 	GLOB.grafity += src
-//	var/datum/app/cheburnet/site/narko/N = drak
-	desc = "[GLOB.adressnegra]"
+	generate_adress()
 
-
+/obj/structure/vamp/zakladkagrafity/proc/generate_adress()
+	var/newAdress
+	newAdress += "www."
+	newAdress += pick("seradin", "nigger", "weed", "alphaPVP", "pendosi", "you", "crack", "Omega", "snow", "dead", "drunk", "cock", "meth")
+	newAdress += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
+	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+	newAdress += ".luc"
+	desc += newAdress
 
 
 /obj/structure/vamp/zakladkagrafity/Destroy()
