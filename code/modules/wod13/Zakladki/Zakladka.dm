@@ -4,17 +4,26 @@ GLOBAL_LIST_EMPTY(grafity)
 
 
 /obj/structure/vamp/zakladkagrafity
-	icon = 'code/modules/wod13/Zakladki/clad.dmi'
+	var/adress = adress(src)
+	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 	icon_state = "Malenkiiklad"
-	name = ""
-	desc = "Ниггер сайт [src] "
+	name = "Графити"
+	desc = "Ниггер сайт "
 
 
 /obj/structure/vamp/zakladkagrafity/Initialize()
 	GLOB.grafity += src
 
+
+/obj/structure/vamp/zakladkagrafity/examine(mob/user)
+	. = ..()
+
+	. += "<span class='warning'> [adress]</span>"
+
+
+
 /obj/item/vamp/zakladka
-	icon = 'code/modules/wod13/Zakladki/clad.dmi'
+	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 
 
 
