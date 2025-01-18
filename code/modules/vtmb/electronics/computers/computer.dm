@@ -215,6 +215,9 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 				return TRUE
 		if("poiskovik")
 			var/datum/app/cheburnet/cheburnet = apps[5]
+			if(params["poiski"] != "" && params["poiski"])
+				var/poiski = trim(copytext_char(sanitize(params["poiski"]), 1, MAX_MESSAGE_LEN))
+				cheburnet.poisk = poiski
 		//	if(params["poiski"] == cheburnet.adress)
 
 			if(!params["poiski"])

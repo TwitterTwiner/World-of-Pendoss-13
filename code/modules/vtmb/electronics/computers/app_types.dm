@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(adressnegra)
+
 
 /datum/app/icq
 	title = "ICQ"
@@ -94,6 +96,7 @@
 	newEmail += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newEmail += "@gmail.com"
 	email_adress = newEmail
+	GLOB.adressnegra += src
 
 /datum/email
 	var/sender
@@ -144,7 +147,7 @@
 
 
 /datum/app/cheburnet/site/narko
-	adress = "www.Hydra.CUM"
+	desc = "www.Hydra.CUM"
 	title = "Нарики-хуярики"
 
 /datum/app/cheburnet/site/narko/proc/generate_adress()
@@ -155,7 +158,7 @@
 	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newAdress += ".luc"
-	adress = newAdress
+	desc = newAdress
 
 
 /datum/app/cheburnet/data()

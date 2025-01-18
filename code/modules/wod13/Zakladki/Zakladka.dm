@@ -4,7 +4,6 @@ GLOBAL_LIST_EMPTY(grafity)
 
 
 /obj/structure/vamp/zakladkagrafity
-	var/adress
 	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 	icon_state = "Malenkiiklad"
 	name = "Графити"
@@ -14,8 +13,8 @@ GLOBAL_LIST_EMPTY(grafity)
 /obj/structure/vamp/zakladkagrafity/Initialize()
 	. = ..()
 	GLOB.grafity += src
-	var/datum/app/cheburnet/site/narko/N
-	desc += N.adress
+//	var/datum/app/cheburnet/site/narko/N = drak
+	desc = replacetext(desc, "NAME", name)
 
 
 

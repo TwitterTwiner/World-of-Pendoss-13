@@ -4,10 +4,10 @@ import { Button, Input } from '../../../components';
 
 export const Cheburnet = (props, context) => {
   const { app, act } = props;
-  const [poiski, setMessage] = useLocalState(context, 'cheburnet_poiaki', '');
+  const [poiski, setMessage] = useLocalState(context, 'cheburnet_poiski', '');
   return (
-    <div className="chebu__screen">
-      <img width="180px" src={chebur} />
+    <div className="news__screen">
+      <img width="120px" src={chebur} />
       <div className="news__text">{app.shrek}</div>
       {app.can_sond === 1 && (
         <div className="news__actions">
