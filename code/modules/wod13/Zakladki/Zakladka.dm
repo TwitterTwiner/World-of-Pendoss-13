@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(hydra)
 
 
 /obj/structure/vamp/zakladkagrafity
-	var/adress
+	var/global/adress = null
 	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 	icon_state = "Malenkiiklad"
 	name = "Графити"
@@ -16,8 +16,14 @@ GLOBAL_LIST_EMPTY(hydra)
 /obj/structure/vamp/zakladkagrafity/Initialize(mapload)
 	. = ..()
 	GLOB.grafity += src
-	if(GLOB.hydra == 1)
+
+	if(adress == null)
 		generate_adress()
+	else
+		desc = adress
+
+
+
 
 
 /obj/structure/vamp/zakladkagrafity/proc/generate_adress()
@@ -29,7 +35,7 @@ GLOBAL_LIST_EMPTY(hydra)
 	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newAdress += ".luc"
 	desc += newAdress
-	adress = newAdress
+	adress = "Топ сайт [newAdress]"
 	GLOB.hydra += src
 
 /obj/structure/vamp/zakladkagrafity/Destroy()

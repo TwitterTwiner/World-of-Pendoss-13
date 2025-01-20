@@ -11,6 +11,7 @@ import { Error } from './Apps/Error';
 import { Gmail } from './Apps/Gmail';
 import { News } from './Apps/News';
 import { Cheburnet } from './Apps/Chebur';
+import {Hydra} from './Apps/Hydra';
 
 
 export const GetIconByName = name => {
@@ -44,6 +45,8 @@ export const GetAppByName = (app, act) => {
       return <Gmail app={app} act={act} />;
     case "news":
       return <News app={app} act={act} />;
+      case "hydra":
+      return <Hydraa app={app} act={act} />;
       case "cheburnet":
       return <Cheburnet app={app} act={act} />;
     default:
