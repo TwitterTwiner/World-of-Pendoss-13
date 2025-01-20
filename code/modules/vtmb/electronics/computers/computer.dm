@@ -47,6 +47,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	apps.Add(gmail)
 	apps.Add(news)
 	apps.Add(cheburnet)
+	apps.Add(narko)
 
 	for(var/obj/vampire_computer/C in GLOB.vampire_computers)
 		if(C.main)
@@ -213,12 +214,6 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 				playsound(loc, 'sound/winxp/error.wav', 100)
 				return TRUE
 		if("poiskovik")
-			var/datum/app/cheburnet/cheburnet = apps[5]
-			if(params["poiski"] != "" && params["poiski"])
-				var/poiski = trim(copytext_char(sanitize(params["poiski"]), 1, MAX_MESSAGE_LEN))
-				cheburnet.poisk = poiski
-		//	if(params["poiski"] == cheburnet.adress)
-
 			if(!params["poiski"])
 				switch(rand(1, 4))
 					if(1)
@@ -230,7 +225,17 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 					if(4)
 						throw_error("Ты че, тупой...?")
 
+			var/datum/app/cheburnet/cheburnet = apps[5]
+			if(params["poiski"] != "" && params["poiski"])
+				var/poiski = trim(copytext_char(sanitize(params["poiski"]), 1, MAX_MESSAGE_LEN))
+				cheburnet.poisk = poiski
+			//	for(var/obj/structure/vamp/zakladkagrafity/ZG in GLOB.hydra )
+			//		if(params["poiski"] == GLOB.hydra)
 
+
+
+
+	//		if(params["poiski"] == cheburnet.adress)
 
 
 
