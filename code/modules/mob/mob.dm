@@ -444,7 +444,7 @@
 	if(ishuman(src))
 		if(ishuman(A) || isitem(A))
 			var/mob/living/carbon/human/ueban = src
-			if(!do_mob(src, src, max(1, 15-ueban.mentality*3)))
+			if(!do_mob(src, src, max(1, 30-((get_a_perception(ueban)+get_a_investigation(ueban))*2))))
 				return
 
 	if(isturf(A) && !(sight & SEE_TURFS) && !(A in view(client ? client.view : world.view, src)))
@@ -583,6 +583,11 @@
 		return FALSE
 
 	point_at(A)
+
+	if(iscathayan(A))
+		var/mob/living/carbon/human/hum = A
+		if(hum.mind?.dharma?.Po == "Legalist")
+			hum.mind.dharma.roll_po(src, hum)
 
 	return TRUE
 
@@ -1203,6 +1208,8 @@
 		var/mob/living/carbon/human/H = src
 		if(istype(H.get_active_held_item(), /obj/item/gun))
 			shootahell = TRUE
+		if(H.discipline_ranged)
+			discipliner = TRUE
 //		for(var/atom/movable/screen/disciplines/DISCP in H.hud_used.static_inventory)
 //			if(DISCP)
 //				if(DISCP.active)
@@ -1221,6 +1228,8 @@
 		var/obj/vehicle/sealed/E = loc
 		if(E.mouse_pointer)
 			client.mouse_pointer_icon = E.mouse_pointer
+	else
+		client.mouse_pointer_icon = default_cursor_icon
 
 
 ///This mob is abile to read books

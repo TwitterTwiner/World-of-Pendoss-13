@@ -33,6 +33,7 @@ GLOBAL_LIST_INIT(anarch_positions, list(
 
 GLOBAL_LIST_INIT(citizen_positions, list(
 	"Citizen",
+	"Elder",
 ))
 
 GLOBAL_LIST_INIT(police_positions, list(
@@ -50,6 +51,7 @@ GLOBAL_LIST_INIT(services_positions, list(
     "Graveyard Keeper",
     "Stripper",
     "Street Janitor",
+	"Chief Doctor",
     "Doctor",
     "Taxi Driver"
 ))

@@ -392,12 +392,12 @@
 		to_chat(src, text="You are unable to succumb to death! This life continues.", type=MESSAGE_TYPE_INFO)
 		return
 	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
-	if(iskindred(src) && !HAS_TRAIT(src, TRAIT_TORPOR))
+	if((iskindred(src) || iscathayan(src)) && !HAS_TRAIT(src, TRAIT_TORPOR))
 		adjustOxyLoss(health - HEALTH_THRESHOLD_VAMPIRE_TORPOR)
 		updatehealth()
-	if(iskindred(src) && HAS_TRAIT(src, TRAIT_TORPOR))
+	if((iskindred(src) || iscathayan(src)) && HAS_TRAIT(src, TRAIT_TORPOR))
 		adjustOxyLoss(health - HEALTH_THRESHOLD_VAMPIRE_DEAD)
-	if(!iskindred(src))
+	if(!iskindred(src) && !iscathayan(src))
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		updatehealth()
 	if(!whispered)
@@ -406,12 +406,24 @@
 /mob/living/verb/untorpor()
 	set hidden = TRUE
 	if(HAS_TRAIT(src, TRAIT_TORPOR))
-		if (bloodpool > 0)
-			bloodpool -= 1
-			cure_torpor()
-			to_chat(src, "<span class='notice'>You have awoken from your Torpor.</span>")
-		else
-			to_chat(src, "<span class='warning'>You have no blood to re-awaken with...</span>")
+		if(iskindred(src))
+			if (bloodpool > 0)
+				bloodpool -= 1
+				cure_torpor()
+				to_chat(src, "<span class='notice'>You have awoken from your Torpor.</span>")
+			else
+				to_chat(src, "<span class='warning'>You have no blood to re-awaken with...</span>")
+		if(iscathayan(src))
+			if (yang_chi > 0)
+				yang_chi -= 1
+				cure_torpor()
+				to_chat(src, "<span class='notice'>You have awoken from your Little Death.</span>")
+			else if (yin_chi > 0)
+				yin_chi -= 1
+				cure_torpor()
+				to_chat(src, "<span class='notice'>You have awoken from your Little Death.</span>")
+			else
+				to_chat(src, "<span class='warning'>You have no Chi to re-awaken with...</span>")
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED) || (!ignore_restraints && (HAS_TRAIT(src, TRAIT_RESTRAINED) || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))) || (!ignore_stasis && IS_IN_STASIS(src)))
@@ -937,12 +949,12 @@
 		var/altered_grab_state = pulledby.grab_state
 		if((resting || HAS_TRAIT(src, TRAIT_GRABWEAKNESS)) && pulledby.grab_state < GRAB_KILL) //If resting, resisting out of a grab is equivalent to 1 grab state higher. won't make the grab state exceed the normal max, however
 			altered_grab_state++
-		var/resist_chance = BASE_GRAB_RESIST_CHANCE /// see defines/combat.dm, this should be baseline 60%
 		var/mob/living/G = pulledby
-		var/grabber_physique = (G.get_total_physique()) * 10 // The one who is grabbing physique
-		var/resist_physique = (get_total_physique()) * 10 // The one who is  resisting physique
-		resist_chance = ((resist_chance + (resist_physique - grabber_physique))/altered_grab_state)
-		if(prob(resist_chance))
+		var/grabber_physique = get_a_strength(G)+get_a_brawl(G) // The one who is grabbing physique
+		var/resist_physique = get_a_strength(src)+get_a_brawl(src) // The one who is  resisting physique
+		var/difficulty = secret_vampireroll(grabber_physique, 6, G)
+		var/roll_result = secret_vampireroll(resist_physique, difficulty+altered_grab_state, src)
+		if(roll_result > 1)
 			visible_message("<span class='danger'>[src] breaks free of [pulledby]'s grip!</span>", \
 							"<span class='danger'>You break free of [pulledby]'s grip!</span>", null, null, pulledby)
 			to_chat(pulledby, "<span class='warning'>[src] breaks free of your grip!</span>")
@@ -950,6 +962,8 @@
 			pulledby.stop_pulling()
 			return FALSE
 		else
+			if(roll_result == -1)
+				AdjustKnockdown(10, TRUE)
 			adjustStaminaLoss(rand(15,20))//failure to escape still imparts a pretty serious penalty
 			visible_message("<span class='danger'>[src] struggles as they fail to break free of [pulledby]'s grip!</span>", \
 							"<span class='warning'>You struggle as you fail to break free of [pulledby]'s grip!</span>", null, null, pulledby)
@@ -1017,6 +1031,7 @@
 				if(NPC.stat < SOFT_CRIT)
 					if(istype(what, /obj/item/clothing) || istype(what, /obj/item/vamp/keys) || istype(what, /obj/item/stack/dollar))
 						H.AdjustHumanity(-1, 6)
+						call_dharma("steal", H)
 			if(islist(where))
 				var/list/L = where
 				if(what == who.get_item_for_held_index(L[2]))
@@ -1973,26 +1988,3 @@
 			if (INTENT_HELP)
 				attack_result = style.help_act(src, target)
 	return attack_result
-
-//Making a proc for each of these.
-
-/mob/living/proc/get_total_physique()
-	return physique + additional_physique
-
-/mob/living/proc/get_total_dexterity()
-	return dexterity + additional_dexterity
-
-/mob/living/proc/get_total_social()
-	return social + additional_social
-
-/mob/living/proc/get_total_mentality()
-	return mentality + additional_mentality
-
-/mob/living/proc/get_total_blood()
-	return blood + additional_blood
-
-/mob/living/proc/get_total_lockpicking()
-	return lockpicking + additional_lockpicking
-
-/mob/living/proc/get_total_athletics()
-	return athletics + additional_athletics

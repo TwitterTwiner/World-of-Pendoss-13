@@ -226,6 +226,40 @@
 			if(!found_something)
 				to_chat(user, "<I># No forensic traces found #</I>") // Don't display this to the holder user
 			return
+		else if(isobj(src) || ismob(src))
+			if(secret_vampireroll(get_a_perception(user)+get_a_investigation(user), 6, user) < 4)
+				return
+
+			var/list/fingerprints = list()
+			var/list/fibers = return_fibers()
+
+			if(ishuman(src))
+				var/mob/living/carbon/human/H = src
+				if(!H.gloves)
+					fingerprints += md5(H.dna.uni_identity)
+
+			else if(!ismob(src))
+				fingerprints = return_fingerprints()
+
+			var/found_something = FALSE
+
+			// Fingerprints
+			if(length(fingerprints))
+				to_chat(user, "<span class='info'><B>Prints:</B></span>")
+				for(var/finger in fingerprints)
+					to_chat(user, "[finger]")
+				found_something = TRUE
+
+			//Fibers
+			if(length(fibers))
+				to_chat(user, "<span class='info'><B>Fibers:</B></span>")
+				for(var/fiber in fibers)
+					to_chat(user, "[fiber]")
+				found_something = TRUE
+
+			if(!found_something)
+				to_chat(user, "<I># No forensic traces found #</I>") // Don't display this to the holder user
+			return
 
 /datum/discipline/proc/check_activated(var/mob/living/target, var/mob/living/carbon/human/caster)
 	if(caster.stat >= HARD_CRIT || caster.IsSleeping() || caster.IsUnconscious() || caster.IsParalyzed() || caster.IsStun() || HAS_TRAIT(caster, TRAIT_RESTRAINED) || !isturf(caster.loc))
@@ -320,7 +354,7 @@
 	. = ..()
 	if(!AN)
 		AN = new(caster)
-	var/limit = min(2, level) + caster.social + caster.more_companions - 1
+	var/limit = min(2, level) + get_a_charisma(caster)+get_a_empathy(caster)
 	if(length(caster.beastmaster) >= limit)
 		var/mob/living/simple_animal/hostile/beastmaster/B = pick(caster.beastmaster)
 		B.death()
@@ -332,7 +366,7 @@
 				var/datum/action/beastmaster_deaggro/E2 = new()
 				E2.Grant(caster)
 			var/mob/living/simple_animal/hostile/beastmaster/rat/R = new(get_turf(caster))
-			R.my_creator = caster
+//			R.my_creator = caster
 			caster.beastmaster |= R
 			R.beastmaster = caster
 		if(2)
@@ -342,7 +376,7 @@
 				var/datum/action/beastmaster_deaggro/E2 = new()
 				E2.Grant(caster)
 			var/mob/living/simple_animal/hostile/beastmaster/cat/C = new(get_turf(caster))
-			C.my_creator = caster
+//			C.my_creator = caster
 			caster.beastmaster |= C
 			C.beastmaster = caster
 		if(3)
@@ -352,7 +386,7 @@
 				var/datum/action/beastmaster_deaggro/E2 = new()
 				E2.Grant(caster)
 			var/mob/living/simple_animal/hostile/beastmaster/D = new(get_turf(caster))
-			D.my_creator = caster
+//			D.my_creator = caster
 			caster.beastmaster |= D
 			D.beastmaster = caster
 		if(4)
@@ -362,7 +396,7 @@
 				var/datum/action/beastmaster_deaggro/E2 = new()
 				E2.Grant(caster)
 			var/mob/living/simple_animal/hostile/beastmaster/rat/flying/F = new(get_turf(caster))
-			F.my_creator = caster
+//			F.my_creator = caster
 			caster.beastmaster |= F
 			F.beastmaster = caster
 		if(5)
@@ -459,7 +493,11 @@
 		C.name = name
 		C.appearance = appearance
 		C.dir = dir
-		animate(C, pixel_x = rand(-16, 16), pixel_y = rand(-16, 16), alpha = 0, time = 5)
+		if(iscathayan(src))
+			C.color = "#40ffb4"		////WE GIVE IT SANDEVISTAN LOOK YEEEHAAAAW
+			animate(C, pixel_x = rand(-16, 16), pixel_y = rand(-16, 16), color = "#00196e", time = 5)
+		else
+			animate(C, pixel_x = rand(-16, 16), pixel_y = rand(-16, 16), alpha = 0, time = 5)
 		if(CheckEyewitness(src, src, 7, FALSE))
 			AdjustMasquerade(-1)
 
@@ -552,21 +590,33 @@
 
 /datum/discipline/dominate/activate(mob/living/target, mob/living/carbon/human/caster)
 	. = ..()
+	if(iscathayan(target))
+		if(target.mind.dharma?.Po == "Legalist")
+			target.mind.dharma?.roll_po(caster, target)
 	if(target.spell_immunity)
 		return
-	var/mypower = caster.get_total_social()
-	var/theirpower = target.get_total_mentality()
 	var/dominate_me = FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.clane)
 			if(H.clane.name == "Gargoyle")
 				dominate_me = TRUE
-	if(((theirpower >= mypower) || (caster.generation > target.generation)) && !dominate_me)
-		to_chat(caster, "<span class='warning'>[target]'s mind is too powerful to dominate!</span>")
-		return
 	if(HAS_TRAIT(caster, TRAIT_MUTE))
 		to_chat(caster, "<span class='warning'>You find yourself unable to speak!</span>")
+		return
+	var/mypower = secret_vampireroll(max(get_a_strength(caster), get_a_manipulation(caster))+get_a_intimidation(caster), 7-level, caster)
+	if(mypower < 1)
+		to_chat(caster, "<span class='warning'>You fail at dominating!</span>")
+		if(mypower == -1)
+			caster.Stun(3 SECONDS)
+			caster.do_jitter_animation(10)
+		return
+	var/difficulty = 4+mypower-(caster.generation-target.generation)
+	if(dominate_me)
+		difficulty = 10
+	var/theirpower = secret_vampireroll(get_a_wits(target)+get_a_alertness(target), difficulty, target)
+	if(theirpower >= 2)
+		to_chat(caster, "<span class='warning'>[target]'s mind is too powerful to dominate!</span>")
 		return
 	var/mob/living/carbon/human/TRGT
 	if(ishuman(target))
@@ -720,6 +770,9 @@
 
 /datum/discipline/dementation/activate(mob/living/target, mob/living/carbon/human/caster)
 	. = ..()
+	if(iscathayan(target))
+		if(target.mind.dharma?.Po == "Legalist")
+			target.mind.dharma?.roll_po(caster, target)
 	//1 - instant laugh
 	//2 - hallucinations and less damage
 	//3 - victim dances
@@ -727,9 +780,15 @@
 	//5 - victim starts to attack themself
 	if(target.spell_immunity)
 		return
-	var/mypower = caster.get_total_social()
-	var/theirpower = target.get_total_mentality()
-	if(theirpower >= mypower)
+	var/mypower = secret_vampireroll(max(get_a_manipulation(caster), get_a_intelligence(caster))+max(get_a_empathy(caster), get_a_intimidation(caster)), 7-level, caster)
+	if(mypower < 1)
+		to_chat(caster, "<span class='warning'>You fail at corrupting!</span>")
+		if(mypower == -1)
+			caster.Stun(3 SECONDS)
+			caster.do_jitter_animation(10)
+		return
+	var/theirpower = secret_vampireroll(get_a_wits(target)+get_a_alertness(target), 4+mypower-(caster.generation-target.generation), target)
+	if(theirpower >= 2)
 		to_chat(caster, "<span class='warning'>[target]'s mind is too powerful to corrupt!</span>")
 		return
 	if(!ishuman(target))
@@ -783,15 +842,11 @@
 
 /datum/discipline/potence/activate(mob/living/target, mob/living/carbon/human/caster)
 	. = ..()
-	var/mod = 8*level_casting
-	var/armah = 0.4*level_casting
 	caster.remove_overlay(POTENCE_LAYER)
 	var/mutable_appearance/potence_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "potence", -POTENCE_LAYER)
 	caster.overlays_standing[POTENCE_LAYER] = potence_overlay
 	caster.apply_overlay(POTENCE_LAYER)
-	caster.dna.species.punchdamagelow += mod
-	caster.dna.species.punchdamagehigh += mod
-	caster.dna.species.meleemod += armah
+	caster.attributes.potence_bonus = level_casting
 	caster.dna.species.attack_sound = 'code/modules/wod13/sounds/heavypunch.ogg'
 	tackler = caster.AddComponent(/datum/component/tackler, stamina_cost=0, base_knockdown = 1 SECONDS, range = 2+level_casting, speed = 1, skill_mod = 0, min_distance = 0)
 	caster.potential = level_casting
@@ -800,13 +855,11 @@
 			if(caster.dna)
 				if(caster.dna.species)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/potence_deactivate.ogg', 50, FALSE)
-					caster.dna.species.punchdamagelow -= mod
-					caster.dna.species.punchdamagehigh -= mod
-					caster.dna.species.meleemod -= armah
+					caster.attributes.potence_bonus = 0
 					caster.dna.species.attack_sound = initial(caster.dna.species.attack_sound)
 					caster.remove_overlay(POTENCE_LAYER)
 					caster.potential = 0
-					qdel(tackler)
+					tackler.RemoveComponent()
 
 /datum/discipline/fortitude
 	name = "Fortitude"
@@ -819,19 +872,15 @@
 
 /datum/discipline/fortitude/activate(mob/living/target, mob/living/carbon/human/caster)
 	. = ..()
-	var/mod = min(3, level_casting)
-	var/armah = 15*mod
 //	caster.remove_overlay(FORTITUDE_LAYER)
 //	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "fortitude", -FORTITUDE_LAYER)
 //	caster.overlays_standing[FORTITUDE_LAYER] = fortitude_overlay
 //	caster.apply_overlay(FORTITUDE_LAYER)
-	caster.physiology.armor.melee += armah
-	caster.physiology.armor.bullet += armah
+	caster.attributes.fortitude_bonus = level_casting
 	spawn(delay+caster.discipline_time_plus)
 		if(caster)
 			caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/fortitude_deactivate.ogg', 50, FALSE)
-			caster.physiology.armor.melee -= armah
-			caster.physiology.armor.bullet -= armah
+			caster.attributes.fortitude_bonus = 0
 //			caster.remove_overlay(FORTITUDE_LAYER)
 
 /datum/discipline/obfuscate
@@ -898,9 +947,18 @@
 
 /datum/discipline/presence/activate(mob/living/target, mob/living/carbon/human/caster)
 	. = ..()
-	var/mypower = caster.get_total_social()
-	var/theirpower = target.get_total_mentality()
-	if((theirpower >= mypower) || ((caster.generation - 3) >= target.generation))
+	if(iscathayan(target))
+		if(target.mind.dharma?.Po == "Legalist")
+			target.mind.dharma?.roll_po(caster, target)
+	var/mypower = secret_vampireroll(max(get_a_charisma(caster), get_a_appearance(caster))+get_a_empathy(caster), 7-level, caster)
+	if(mypower < 1)
+		to_chat(caster, "<span class='warning'>You fail at sway!</span>")
+		if(mypower == -1)
+			caster.Stun(3 SECONDS)
+			caster.do_jitter_animation(10)
+		return
+	var/theirpower = secret_vampireroll(get_a_wits(target)+get_a_alertness(target), 4+mypower-(caster.generation-target.generation), target)
+	if(theirpower >= 2)
 		to_chat(caster, "<span class='warning'>[target]'s mind is too powerful to sway!</span>")
 		return
 	if(ishuman(target))
@@ -925,18 +983,39 @@
 				if(target.body_position == STANDING_UP)
 					target.toggle_resting()
 			if(3)
-				var/obj/item/I1 = H.get_active_held_item()
-				var/obj/item/I2 = H.get_inactive_held_item()
-				to_chat(target, "<span class='userlove'><b>PLEASE ME</b></span>")
-				caster.say("PLEASE ME!!")
-				target.face_atom(caster)
-				target.do_jitter_animation(30)
-				target.Immobilize(10)
-				target.drop_all_held_items()
-				if(I1)
-					I1.throw_at(get_turf(caster), 3, 1, target)
-				if(I2)
-					I2.throw_at(get_turf(caster), 3, 1, target)
+				// If target is an NPC, link them
+				if(istype(target, /mob/living/carbon/human/npc) && caster.puppets.len < get_a_charisma(caster)+get_a_empathy(caster))
+					var/mob/living/carbon/human/npc/N = target
+					if(!N.presence_master)
+						if(!length(caster.puppets))
+							var/datum/action/presence_stay/E1 = new()
+							E1.Grant(caster)
+							var/datum/action/presence_deaggro/E2 = new()
+							E2.Grant(caster)
+
+						N.presence_master = caster
+
+						N.presence_follow = TRUE
+						caster.puppets |= N
+						var/initial_fights_anyway = N.fights_anyway
+						N.fights_anyway = TRUE
+						caster.say("Come with me...")
+
+						addtimer(CALLBACK(src, PROC_REF(presence_end), target, caster, initial_fights_anyway), 50 SECONDS * mypower)
+				else
+					// continue your normal presence code for players
+					var/obj/item/I1 = H.get_active_held_item()
+					var/obj/item/I2 = H.get_inactive_held_item()
+					to_chat(target, "<span class='userlove'><b>PLEASE ME</b></span>")
+					caster.say("PLEASE ME!!")
+					target.face_atom(caster)
+					target.do_jitter_animation(30)
+					target.Immobilize(10)
+					target.drop_all_held_items()
+					if(I1)
+						I1.throw_at(get_turf(caster), 3, 1, target)
+					if(I2)
+						I2.throw_at(get_turf(caster), 3, 1, target)
 			if(4)
 				to_chat(target, "<span class='userlove'><b>FEAR ME</b></span>")
 				caster.say("FEAR ME!!")
@@ -957,6 +1036,95 @@
 				H.remove_overlay(MUTATIONS_LAYER)
 				if(caster)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/presence_deactivate.ogg', 50, FALSE)
+
+/datum/discipline/presence/proc/presence_end(mob/living/target, mob/living/carbon/human/caster, var/initial_fights_anyway)
+	var/mob/living/carbon/human/npc/N = target
+	if(N && N.presence_master == caster)
+		// End presence effect
+		N.presence_master = null
+		N.presence_follow = FALSE
+		N.remove_overlay(MUTATIONS_LAYER)
+		N.presence_enemies = list()
+		N.danger_source = null
+		caster.puppets -= N
+		N.fights_anyway = initial_fights_anyway
+		if(!length(caster.puppets))
+			for(var/datum/action/presence_stay/VI in caster.actions)
+				if(VI)
+					VI.Remove(caster)
+			for(var/datum/action/presence_deaggro/VI in caster.actions)
+				if(VI)
+					VI.Remove(caster)
+
+/mob/living/carbon/human/npc/proc/handle_presence_movement()
+	if(!presence_master || stat >= DEAD)
+		return
+	if(presence_enemies.len)
+		var/dist = 100
+		var/mob/enemy = null
+		for(var/mob/i in presence_enemies)
+			if(get_dist(presence_master,i) < dist && i.stat < 2)
+				dist = get_dist(presence_master,i)
+				enemy = i
+		danger_source = enemy
+
+	if(!presence_follow && !danger_source)
+		walktarget = null
+	if(presence_follow)
+		if(presence_master.z == z && get_dist(src, presence_master) > 3)
+			walktarget = presence_master
+		else
+			walktarget = null
+	else
+		face_atom(presence_master)
+
+/datum/action/presence_stay
+	name = "Stay/Follow (Presence)"
+	desc = "Tell your Presence-thralled NPC to stay put or follow."
+	button_icon_state = "wait"
+	var/cool_down = 0
+	var/following = TRUE
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+
+/datum/action/presence_stay/Trigger()
+	. = ..()
+	if(ishuman(owner))
+		if(cool_down + 10 >= world.time)
+			return
+		cool_down = world.time
+		var/mob/living/carbon/human/H = owner
+			// flip “following” on or off
+		following = !following
+		if(following)
+			H.say("Follow me")
+			to_chat(H, "You call your thralls to follow you.")
+		else
+			H.say("Stay here")
+			to_chat(H, "You command your thralls to remain here.")
+			// For each Presence’d NPC you control, apply the new setting
+		for(var/mob/living/carbon/human/npc/N in GLOB.npc_list)
+			if(N.presence_master == H)
+				N.presence_follow = following
+
+/datum/action/presence_deaggro
+	name = "Loose Aggression (Presence)"
+	desc = "Command to stop your Presence-thralled NPC any aggressive moves."
+	button_icon_state = "deaggro"
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	var/cool_down = 0
+
+/datum/action/presence_deaggro/Trigger()
+	. = ..()
+	if(ishuman(owner))
+		if(cool_down+10 >= world.time)
+			return
+		cool_down = world.time
+		var/mob/living/carbon/human/H = owner
+		H.say("Stop it!")
+		to_chat(H, "You order your thralls to stop attacking.")
+		for(var/mob/living/carbon/human/npc/N in H.puppets)
+			N.presence_enemies = list()
+			N.danger_source = null
 
 /datum/discipline/protean
 	name = "Protean"
@@ -1347,7 +1515,7 @@
 			if(istype(target, /mob/living/carbon/human/npc))
 				var/mob/living/carbon/human/npc/NPC = target
 				NPC.last_attacker = null
-			if(!iskindred(target) || !isgarou(target))
+			if(!iskindred(target) && !isgarou(target) && !iscathayan(target))	//Who tf wrote this with || lmao
 				if(H.stat != DEAD)
 					H.death()
 				switch(level_casting)
@@ -1555,7 +1723,7 @@
 /datum/discipline/necromancy/activate(mob/living/target, mob/living/carbon/human/caster)
 	. = ..()
 	caster.playsound_local(target.loc, 'code/modules/wod13/sounds/necromancy.ogg', 50, TRUE)
-	var/limit = min(3, level)+caster.social-1+caster.more_companions
+	var/limit = min(3, level)+get_a_intelligence(caster)+get_a_occult(caster)
 	if(length(caster.beastmaster) >= limit)
 		var/mob/living/simple_animal/hostile/beastmaster/B = pick(caster.beastmaster)
 		B.death()
@@ -1835,7 +2003,7 @@
 					difficulty_malus = 0
 					if (get_dist(hearer, target) > 3)
 						difficulty_malus += 1
-					if (storyteller_roll(hearer.get_total_mentality(), base_difficulty + difficulty_malus) == ROLL_SUCCESS)
+					if (storyteller_roll(get_a_wits(hearer)+get_a_alertness(hearer), base_difficulty + difficulty_malus) == ROLL_SUCCESS)
 						if (masked)
 							to_chat(hearer, "<span class='warning'>[target.name]'s jaw isn't moving to match [target.p_their()] words.</span>")
 						else

@@ -14,6 +14,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 
 	var/list/candidates = list()
 	var/max_candidates = 0
+	var/species_restrict = list()
 	var/datum/outfit/job/Next = null
 	var/go_on_next_fire = FALSE
 
@@ -33,7 +34,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 	return jobs[rank]
 
 /datum/controller/subsystem/bad_guys_party/proc/set_badguys(var/new_setting)
-	if(new_setting in list("caitiff", "sabbat", "hunter"))
+	if(new_setting in list("caitiff", "sabbat", "hunter", "kuei-jin", "noddist"))
 		SSbad_guys_party.setting = new_setting
 	else
 		setting = null
@@ -48,6 +49,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 					qdel(Next)
 				threat = min(100, threat+60)
 				max_candidates = 1
+				species_restrict = list("Vampire")
 				go_on_next_fire = TRUE
 				Next = new /datum/outfit/job/caitiff()
 				setting = null
@@ -56,6 +58,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 					qdel(Next)
 				threat = min(100, threat+30)
 				max_candidates = 2
+				species_restrict = list("Ghoul", "Vampire")
 				go_on_next_fire = TRUE
 				Next = new /datum/outfit/job/sabbatist()
 				setting = null
@@ -64,8 +67,27 @@ SUBSYSTEM_DEF(bad_guys_party)
 					qdel(Next)
 				threat = min(100, threat+60)
 				max_candidates = 5
+				species_restrict = list("Human")
 				go_on_next_fire = TRUE
 				Next = new /datum/outfit/job/hunter()
+				setting = null
+			if("kuei-jin")
+				if(Next)
+					qdel(Next)
+				threat = min(100, threat+60)
+				max_candidates = 1
+				species_restrict = list("Kuei-Jin")
+				go_on_next_fire = TRUE
+				Next = new /datum/outfit/job/kuei_jin()
+				setting = null
+			if("noddist")
+				if(Next)
+					qdel(Next)
+				threat = min(100, threat+60)
+				max_candidates = 5
+				species_restrict = list("Vampire")
+				go_on_next_fire = TRUE
+				Next = new /datum/outfit/job/noddist()
 				setting = null
 	else if(setting == null)
 		switch(level)
@@ -76,16 +98,27 @@ SUBSYSTEM_DEF(bad_guys_party)
 						qdel(Next)
 					threat = min(100, threat+60)
 					max_candidates = 1
+					species_restrict = list("Vampire")
 					go_on_next_fire = TRUE
 					Next = new /datum/outfit/job/caitiff()
-				else
+				else if(prob(20))
 					//sabbat
 					if(Next)
 						qdel(Next)
 					threat = min(100, threat+30)
-					max_candidates = 2
+					max_candidates = 3
+					species_restrict = list("Ghoul", "Vampire")
 					go_on_next_fire = TRUE
 					Next = new /datum/outfit/job/sabbatist()
+				else
+					//kuei-jin
+					if(Next)
+						qdel(Next)
+					threat = min(100, threat+30)
+					max_candidates = 1
+					species_restrict = list("Kuei-Jin")
+					go_on_next_fire = TRUE
+					Next = new /datum/outfit/job/kuei_jin()
 			if(2)
 				if(prob(30))
 					//sabbat
@@ -93,33 +126,55 @@ SUBSYSTEM_DEF(bad_guys_party)
 						qdel(Next)
 					threat = min(100, threat+90)
 					max_candidates = 4
+					species_restrict = list("Ghoul", "Vampire")
 					go_on_next_fire = TRUE
 					Next = new /datum/outfit/job/sabbatist()
-				else
+				else if(prob(30))
 					//hunt
 					if(Next)
 						qdel(Next)
 					threat = min(100, threat+60)
-					max_candidates = 2
+					max_candidates = 4
+					species_restrict = list("Human")
 					go_on_next_fire = TRUE
 					Next = new /datum/outfit/job/hunter()
-			/*if(3)
+				else
+					//kuei-jin
+					if(Next)
+						qdel(Next)
+					threat = min(100, threat+30)
+					max_candidates = 1
+					species_restrict = list("Kuei-Jin")
+					go_on_next_fire = TRUE
+					Next = new /datum/outfit/job/kuei_jin()
+			if(3)
 				if(prob(50))
 					//hunt
 					if(Next)
 						qdel(Next)
 					threat = min(100, threat+60)
-					max_candidates = 2
+					species_restrict = list("Human")
+					max_candidates = 5
 					go_on_next_fire = TRUE
 					Next = new /datum/outfit/job/hunter()
-				else
+				else if(prob(50))
 					//sabbat
 					if(Next)
 						qdel(Next)
 					threat = min(100, threat+90)
+					species_restrict = list("Ghoul", "Vampire")
 					max_candidates = 3
 					go_on_next_fire = TRUE
-					Next = new /datum/outfit/job/sabbatist()*/
+					Next = new /datum/outfit/job/sabbatist()
+				else
+					//nod
+					if(Next)
+						qdel(Next)
+					threat = min(100, threat+90)
+					species_restrict = list("Vampire")
+					max_candidates = 6
+					go_on_next_fire = TRUE
+					Next = new /datum/outfit/job/noddist()
 
 /mob/dead/new_player/proc/ForceLateSpawn()
 	if(SSticker.late_join_disabled)
@@ -130,7 +185,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 	SSticker.queued_players -= src
 	SSticker.queue_delay = 4
 
-	SSjob.AssignRole(src, "Citizen", 1)
+	SSjob.AssignRole(src, "Citizen", 1, TRUE)
 
 	var/mob/living/character = create_character(TRUE)	//creates the human and transfers vars and mind
 	SSbad_guys_party.Next.equip(H = character, visualsOnly = FALSE)
@@ -162,6 +217,12 @@ SUBSYSTEM_DEF(bad_guys_party)
 				if(length(candidates) > max_candidates)
 					for(var/i in 1 to length(candidates)-max_candidates)
 						actual_candidates -= pick(candidates)
+				for(var/mob/dead/new_player/newplayer in candidates)
+					if(newplayer?.client?.prefs?.pref_species)
+						if(!newplayer.client.prefs.pref_species.name in species_restrict)
+							actual_candidates -= newplayer
+					else
+						actual_candidates -= newplayer
 				for(var/mob/dead/new_player/NP in actual_candidates)
 					candidates -= NP
 					NP.late_ready = FALSE

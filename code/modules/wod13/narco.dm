@@ -95,17 +95,21 @@
 	if(growth_stage == 4)
 		growth_stage = 1
 		to_chat(user, "<span class='notice'>You pull the grown weed out of [src].</span>")
-		var/mob/living/carbon/human/H = user
 		var/amount
-		switch(storyteller_roll(H.get_total_mentality(), 6, TRUE))
-			if(3 to INFINITY)
+		var/stuff_roll = secret_vampireroll(get_a_intelligence(user)+get_a_medicine(user), 6, user)
+		switch(stuff_roll)
+			if(5 to INFINITY)
 				amount = 4
-			if(2)
+			if(3 to 4)
 				amount = 3
-			if(1)
+			if(1 to 2)
 				amount = 2
-			else
+			if(0)
 				amount = 1
+			if(-1)
+				to_chat(user, "<span class='warning'>The leaf is too weak to survive the rip!</span>")
+				update_weed_icon()
+				return
 		for(var/i = 1 to amount)
 			new /obj/item/food/vampire/weed(get_turf(user))
 	update_weed_icon()
@@ -129,6 +133,7 @@
 			wet = TRUE
 			to_chat(user, "<span class='notice'>You fill [src] with water.</span>")
 			playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
+			call_dharma("cleangrow", user)
 		else
 			to_chat(user, "<span class='warning'>[W] is empty!</span>")
 	if(istype(W, /obj/item/weedseed))

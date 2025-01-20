@@ -31,7 +31,7 @@
 
 
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
+	var/armor_block = D.run_armor_check(affecting, BASHING)
 
 	playsound(D.loc, species.attack_sound, 25, TRUE, -1)
 
@@ -43,7 +43,7 @@
 	log_combat(A, D, "punched (boxing) ")
 	if(D.getStaminaLoss() > 60 && istype(D.mind?.martial_art, /datum/martial_art/boxing))
 		var/knockout_prob = D.getStaminaLoss()-20
-		if((D.stat != DEAD) && prob(knockout_prob) && !iskindred(D) && !iscrinos(D) && !iswerewolf(D))
+		if((D.stat != DEAD) && prob(knockout_prob) && !iscathayan(D) && !iskindred(D) && !iscrinos(D) && !iswerewolf(D))
 			D.visible_message("<span class='danger'>[A] knocks [D] out with a haymaker!</span>", \
 							"<span class='userdanger'>You're knocked unconscious by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, A)
 			to_chat(A, "<span class='danger'>You knock [D] out with a haymaker!</span>")

@@ -1001,6 +1001,44 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	return stol >= amount
 
 
+/datum/objective/steal_skull
+	name = "steal skull"
+	explanation_text = "Steal the Archon, which is used amongst western kin to announce bloodhunt."
+
+/datum/objective/steal_skull/check_completion()
+	var/stol = FALSE
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		if(!isliving(M.current))
+			continue
+		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		for(var/obj/item/blood_hunt/I in all_items) //Check for wanted items
+			if(I)
+				stol = TRUE
+	return stol
+
+/datum/objective/reach_sarcophagus
+	name = "reach sarcophagus"
+	explanation_text = "Scavenge for new cultists and find the sarcophagus."
+
+/datum/objective/reach_sarcophagus/check_completion()
+	return GLOB.noddists >= round(GLOB.player_list/2)
+
+/datum/objective/steal_keys
+	name = "steal keys"
+	explanation_text = "Steal the main keys of Millenium Tower."
+
+/datum/objective/steal_keys/check_completion()
+	var/stol = FALSE
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		if(!isliving(M.current))
+			continue
+		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		for(var/obj/item/vamp/keys/prince/I in all_items) //Check for wanted items
+			if(I)
+				stol = TRUE
+	return stol
 
 
 /datum/objective/artefact
@@ -1016,9 +1054,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		if(!isliving(M.current))
 			continue
 		var/list/all_items = M.current.GetAllContents()
-		for(var/obj/item/vtm_artifact/I in all_items) 
+		for(var/obj/item/vtm_artifact/I in all_items)
 			return TRUE
-	return FALSE 
+	return FALSE
 
 
 /datum/objective/blood
@@ -1069,3 +1107,10 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		if(L.last_repainted_mark == faction && L.vampire_faction == faction)
 			return TRUE
 	return FALSE
+
+/datum/objective/sabbat
+	name = "sabbat"
+	explanation_text = "Gain the power for Sabbat by claiming faction marks, shovelhead!"
+
+/datum/objective/sabbat/check_completion()
+	return (length(SSfactionwar.marks_sabbat) > length(SSfactionwar.marks_camarilla)+length(SSfactionwar.marks_anarch))

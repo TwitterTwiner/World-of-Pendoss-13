@@ -75,7 +75,7 @@ Dancer
 	value = 2
 	gain_text = "<span class='notice'>You feel more experienced in love.</span>"
 	lose_text = "<span class='warning'>You feel more clueless in love.</span>"
-	allowed_species = list("Vampire")
+	allowed_species = list("Vampire", "Kuei-Jin")
 
 /datum/quirk/tough_flesh
 	name = "Tough Flesh"
@@ -106,7 +106,7 @@ Dancer
 	value = -2
 	gain_text = "<span class='warning'>You feel anxious about the way you feed.</span>"
 	lose_text = "<span class='warning'>You can feed normal again.</span>"
-	allowed_species = list("Vampire")
+	allowed_species = list("Vampire", "Kuei-Jin")
 
 /datum/quirk/lazy
 	name = "Lazy"
@@ -142,7 +142,7 @@ Dancer
 	value = -5
 	gain_text = "<span class='warning'>You feel dumb.</span>"
 	lose_text = "<span class='notice'>You don't feel dumb anymore.</span>"
-	allowed_species = list("Vampire", "Human", "Ghoul")
+	allowed_species = list("Vampire", "Human", "Ghoul", "Kuei-Jin")
 
 /datum/quirk/coffin_therapy
 	name = "Coffin Therapy"
@@ -511,6 +511,37 @@ Dancer
 	var/mob/living/carbon/H = quirk_holder
 	H.remove_blocked_language(/datum/language/english)
 
+/datum/quirk/boxer
+	name = "Boxing Champion"
+	desc = "You know something about boxing."
+	allowed_species = list("Human", "Ghoul")
+	value = 2
+
+/datum/quirk/boxer/add()
+	var/datum/martial_art/boxing/W = new
+	W.teach(quirk_holder, FALSE)
+
+/datum/quirk/wrestler
+	name = "Wrestling Champion"
+	desc = "You know something about wrestling."
+	allowed_species = list("Human", "Ghoul")
+	value = 3
+
+/datum/quirk/wrestler/add()
+	var/datum/martial_art/wrestling/W = new
+	W.teach(quirk_holder, FALSE)
+
+/datum/quirk/krav_maga
+	name = "Krav Maga Master"
+	desc = "You know a really lethal martial art."
+	allowed_species = list("Human", "Kuei-Jin")
+	value = 5
+
+/datum/quirk/krav_maga/add()
+	var/datum/martial_art/krav_maga/W = new
+	W.teach(quirk_holder, FALSE)
+
+/*
 /datum/quirk/espanol
 	name = "Espanol"
 	desc = "You know the Spanish language."
@@ -618,7 +649,7 @@ Dancer
 /datum/quirk/greek/add()
 	var/mob/living/carbon/H = quirk_holder
 	H.grant_language(/datum/language/greek)
-
+*/
 
 /datum/quirk/consumption
 	name = "Consumption"
@@ -627,7 +658,7 @@ Dancer
 	gain_text = "<span class='danger'>You feel injured from inside.</span>"
 	lose_text = "<span class='notice'>You feel healthy again.</span>"
 	medical_record_text = "Patient has aggressive flesh eating bacteria in their boody."
-	allowed_species = list("Vampire", "Ghoul", "Human")
+	allowed_species = list("Vampire", "Ghoul", "Human", "Kuei-Jin")
 
 /datum/quirk/consumption/on_process(delta_time)
 	if(prob(5))
@@ -645,13 +676,13 @@ Dancer
 		return
 	if(isturf(quirk_holder.loc))
 		SSbloodhunt.announce_hunted(quirk_holder, "Camarilla Wanted List")
-/*
+
 /datum/quirk/diablerist
 	name = "Black Secret"
 	desc = "You have a small, ancient secret, somehow related to Diablerie, and this decreases your chance to survive another one. <b>This isn't a licence to diablerie anyone you want!</b>"
 	value = -3
 	allowed_species = list("Vampire")
-*/
+
 /datum/quirk/diablerist/on_spawn()
 	if(iswerewolf(quirk_holder) || isgarou(quirk_holder))
 		return
@@ -682,7 +713,7 @@ Dancer
 	desc = "You can't recover your masquerade at all."
 	value = -2
 	mob_trait = TRAIT_VIOLATOR
-	allowed_species = list("Vampire", "Ghoul")
+	allowed_species = list("Vampire", "Ghoul", "Kuei-Jin")
 
 /datum/quirk/irongullet
 	name = "Iron Gullet"
@@ -700,7 +731,7 @@ Dancer
 	mob_trait = TRAIT_CHARMER
 	gain_text = "<span class='notice'>You feel charismatic.</span>"
 	lose_text = "<span class='notice'>You don't feel charismatic anymore.</span>"
-	allowed_species = list("Vampire")
+	allowed_species = list("Vampire", "Kuei-Jin")
 
 /datum/quirk/tower
 	name = "Tower"

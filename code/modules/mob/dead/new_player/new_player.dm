@@ -66,7 +66,7 @@
 			if(PLAYER_READY_TO_OBSERVE)
 				output += "<p>\[ [LINKIFY_READY("Ready", PLAYER_READY_TO_PLAY)] | [LINKIFY_READY("Not Ready", PLAYER_NOT_READY)] | <b> Observe </b> \]</p>"
 	else
-//		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>View the Kindred Population</a></p>"
+		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>View Population</a></p>"
 		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Join Game!</a></p>"
 		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
 
@@ -311,8 +311,6 @@
 	var/datum/job/job = SSjob.GetJob(rank)
 	if(!job)
 		return JOB_UNAVAILABLE_GENERIC
-	if (job.title == "Citizen")
-		return JOB_AVAILABLE
 	if((job.current_positions >= job.total_positions) && (job.total_positions != -1))
 		return JOB_UNAVAILABLE_SLOTFULL
 	if(is_banned_from(ckey, rank))
@@ -325,8 +323,12 @@
 		return JOB_UNAVAILABLE_PLAYTIME
 	if(latejoin && !job.special_check_latejoin(client))
 		return JOB_UNAVAILABLE_GENERIC
-	if((client.prefs.generation > job.minimal_generation) && !bypass)
+	if((client.prefs.generation-client.prefs.generation_bonus > job.minimal_generation) && !bypass)
 		return JOB_UNAVAILABLE_GENERATION
+	if((client.prefs.generation < job.max_generation) && !bypass)
+		return JOB_UNAVAILABLE_GENERATION
+	if (job.title == "Citizen")
+		return JOB_AVAILABLE
 	if((client.prefs.masquerade < job.minimal_masquerade) && !bypass)
 		return JOB_UNAVAILABLE_MASQUERADE
 	if(!job.allowed_species.Find(client.prefs.pref_species.name) && !bypass)
@@ -538,6 +540,8 @@
 			var/mob/living/carbon/human/H = new_character
 			if(H.client)
 				H.true_real_name = H.client.prefs.real_name
+				for(var/i in H.client.prefs.languages)
+					H.grant_language(i)
 				if(H.age < 16)
 					H.add_quirk(/datum/quirk/freerunning)
 					H.add_quirk(/datum/quirk/light_step)
@@ -551,6 +555,14 @@
 				if(H.client.prefs.ambitious)
 					if(H.mind)
 						H.mind.add_antag_datum(/datum/antagonist/ambitious)
+				if(iscathayan(H))
+					if(H.mind)
+						H.mind.dharma = new H.client.prefs.dharma_type()
+						H.mind.dharma.level = H.client.prefs.dharma_level
+						H.mind.dharma.Po = H.client.prefs.po_type
+						H.mind.dharma.Hun = H.client.prefs.hun
+						H.mind.dharma.on_gain(H)
+//						H.mind.dharma.initial_skin_color = H.skin_tone
 				GLOB.fucking_joined |= H.client.prefs.real_name
 				var/datum/relationship/R = new ()
 				H.Myself = R
@@ -573,7 +585,7 @@
 	client.crew_manifest_delay = world.time + (1 SECONDS)
 
 	var/dat = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><body>"
-	dat += "<h4>Kindred population</h4>"
+	dat += "<h4>City population</h4>"
 	dat += GLOB.data_core.get_manifest_html()
 
 	src << browse(dat, "window=manifest;size=387x420;can_close=1")

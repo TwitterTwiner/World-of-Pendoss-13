@@ -1,15 +1,15 @@
 /datum/job
 	var/experience_addition = 5
 
+/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(H.clane?.name == "Ventrue")
+		backpack_contents += /obj/item/stack/dollar/hundred
+	for(var/i in 1 to get_a_manipulation(H)+get_a_finance(H))
+		backpack_contents += /obj/item/stack/dollar/hundred
+
 /datum/outfit/job/post_equip(mob/living/carbon/human/H)
 	. = ..()
-	if(H.clane)
-		if(H.clane.name == "Ventrue")
-			var/obj/item/stack/dollar/hundred/HUN = new(H.loc)
-			for(var/obj/item/storage/backpack/B in H)
-				if(B)
-					HUN.forceMove(B)
-
 	var/obj/item/storage/backpack/b = locate() in H
 	if(b)
 		var/obj/item/vamp/creditcard/card = locate() in b.contents

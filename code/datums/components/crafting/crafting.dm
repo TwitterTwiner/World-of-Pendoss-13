@@ -178,13 +178,18 @@
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
-			if(ismob(a) && !do_after(a, R.time*max(1, (5-PIS.mentality)), target = a))
+			if(ismob(a) && !do_after(a, R.time, target = a))
 				return "."
 			contents = get_surroundings(a,R.blacklist)
 			if(!check_contents(a, R, contents))
 				return ", missing component."
 			if(!check_tools(a, R, contents))
 				return ", missing tool."
+			var/craftroll = secret_vampireroll(get_a_intelligence(PIS)+get_a_crafts(PIS), 6, PIS)
+			if(craftroll < 1)
+				if(craftroll == -1)
+					del_reqs(R, a)
+				return ", failed."
 			var/list/parts = del_reqs(R, a)
 			var/atom/movable/I = new R.result (get_turf(a.loc))
 			if(istype(I, /mob/living/simple_animal/hostile))
@@ -348,9 +353,9 @@
 	return GLOB.not_incapacitated_turf_state
 
 //For the UI related things we're going to assume the user is a mob rather than typesetting it to an atom as the UI isn't generated if the parent is an atom
-/datum/component/personal_crafting/ui_interact(mob/user, datum/tgui/ui)
+/datum/component/personal_crafting/ui_interact(mob/user, datum/tgui/ui, var/open_ui = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
+	if(!ui && open_ui)
 		cur_category = categories[1]
 		if(islist(categories[cur_category]))
 			var/list/subcats = categories[cur_category]
@@ -431,6 +436,7 @@
 			else
 				to_chat(user, "<span class='warning'>Construction failed[result]</span>")
 			busy = FALSE
+			ui_interact(user, open_ui = FALSE) //Update the UI again as soon as possible after the UI is no longer busy, but don't open it again if it got closed.
 		if("toggle_recipes")
 			display_craftable_only = !display_craftable_only
 			. = TRUE
