@@ -185,6 +185,7 @@
 	addiction_threshold = 10
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 
+
 /datum/reagent/drug/methamphetamine/on_mob_metabolize(mob/living/L)
 	..()
 	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
@@ -204,6 +205,7 @@
 	M.AdjustParalyzed(-40)
 	M.AdjustImmobilized(-40)
 	M.adjustStaminaLoss(-2, 0)
+	M.attributes.stamina_reagent = 2
 	M.Jitter(2)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(1,4))
 	if(prob(5))

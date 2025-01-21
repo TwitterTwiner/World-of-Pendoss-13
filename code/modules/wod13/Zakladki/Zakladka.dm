@@ -6,6 +6,8 @@ GLOBAL_LIST_EMPTY(hydra)
 /obj
 	var/zaklad = FALSE
 	var/list/datum/klad/Z= list()
+	var/obj/item/vamp/zakladka/clad
+
 
 /obj/structure/vamp/zakladkagrafity
 	var/adress = null
@@ -57,9 +59,30 @@ GLOBAL_LIST_EMPTY(hydra)
 
 /obj/item/vamp/zakladka
 	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
+	var/datum/component/storage/ss
 
 
 
+/obj/item/vamp/zakladka/proc/attach(obj/U, user)
+	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
+	if(storage)
+		if(SEND_SIGNAL(U, COMSIG_CONTAINS_STORAGE))
+			return FALSE
+		U.TakeComponent(storage)
+		ss = storage
+	U.clad = src
+	forceMove(U)
+	layer = FLOAT_LAYER
+	plane = FLOAT_PLANE
+
+	return TRUE
+
+/obj/item/vamp/zakladka/proc/detach(obj/U, user)
+	if(ss && ss.parent == U)
+		TakeComponent(ss)
+
+	layer = initial(layer)
+	plane = initial(plane)
 
 /obj/item/vamp/zakladka/masterclad
 	name = "Мастерклад"
@@ -112,6 +135,7 @@ GLOBAL_LIST_EMPTY(hydra)
 
 
 
+
 /*
 /obj/item/vamp/zakladka/masterclad/attack_obj(obj/structure/S)
 	if(zaklad == TRUE)
@@ -120,15 +144,15 @@ GLOBAL_LIST_EMPTY(hydra)
 /obj/item/vamp/zakladka/masterclad/attack_obj(obj/target, /obj/item/vamp/zakladka/Z, proximity, params)
 	if(!proximity)
 		return
-	if(!do_after(Z.time))
-		return "."
-
+	src.attach()
+	src.Destroy()
+/*
 	if(isobj(target) && (target.zaklad & TRUE))
 		spawn(10 SECONDS)
-			klad.Add(src)
+			Z.Add(src)
 			SEND_SIGNAL(target, COMSIG_OBJ_ZAKLADEN)
 			src.Destroy()
-
+*/
 
 
 /obj/item/vamp/zakladka/Klad/small
