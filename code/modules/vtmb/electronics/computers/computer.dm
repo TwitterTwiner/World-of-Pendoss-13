@@ -229,8 +229,15 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 			if(params["poiski"] != "" && params["poiski"])
 				var/poiski = trim(copytext_char(sanitize(params["poiski"]), 1, MAX_MESSAGE_LEN))
 				cheburnet.poisk = poiski
-			//	for(var/obj/structure/vamp/zakladkagrafity/ZG in GLOB.hydra )
-			//		if(params["poiski"] == GLOB.hydra)
+				for(var/obj/structure/vamp/zakladkagrafity/Z in GLOB.grafity )
+					if(params["poiski"] == Z.adress)
+						var/datum/app/cheburnet/site/narko/happ = locate(params["ref"]) in apps
+						if(!happ.launched)
+							happ.launched = TRUE
+						else
+							happ.minimized = FALSE
+							current_app = happ
+							focus_app = null
 
 
 

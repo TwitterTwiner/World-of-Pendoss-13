@@ -3,10 +3,12 @@ GLOBAL_LIST_EMPTY(miniclad)
 GLOBAL_LIST_EMPTY(grafity)
 GLOBAL_LIST_EMPTY(hydra)
 
-
+/obj
+	var/zaklad = FALSE
+	var/list/datum/klad/Z= list()
 
 /obj/structure/vamp/zakladkagrafity
-	var/global/adress = null
+	var/adress = null
 	icon = 'code/modules/wod13/Zakladki/CLAD.dmi'
 	icon_state = "Malenkiiklad"
 	name = "Графити"
@@ -20,7 +22,7 @@ GLOBAL_LIST_EMPTY(hydra)
 	if(adress == null)
 		generate_adress()
 	else
-		desc = adress
+		desc = "Топ сайт [adress]"
 
 
 
@@ -35,7 +37,7 @@ GLOBAL_LIST_EMPTY(hydra)
 	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newAdress += ".luc"
 	desc += newAdress
-	adress = "Топ сайт [newAdress]"
+	adress = newAdress
 	GLOB.hydra += src
 
 /obj/structure/vamp/zakladkagrafity/Destroy()
@@ -64,6 +66,7 @@ GLOBAL_LIST_EMPTY(hydra)
 	desc = "Лялялялля"
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "Masterklad1"
+
 
 /obj/item/vamp/zakladka/masterclad/Initialize()
 	.=..()
@@ -107,10 +110,24 @@ GLOBAL_LIST_EMPTY(hydra)
 
 	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)
 
-/obj/item/vamp/zakladka/masterclad/proc/zaklad(mob/user)
 
 
+/*
+/obj/item/vamp/zakladka/masterclad/attack_obj(obj/structure/S)
+	if(zaklad == TRUE)
+*/
 
+/obj/item/vamp/zakladka/masterclad/attack_obj(obj/target, /obj/item/vamp/zakladka/Z, proximity, params)
+	if(!proximity)
+		return
+	if(!do_after(Z.time))
+		return "."
+
+	if(isobj(target) && (target.zaklad & TRUE))
+		spawn(10 SECONDS)
+			klad.Add(src)
+			SEND_SIGNAL(target, COMSIG_OBJ_ZAKLADEN)
+			src.Destroy()
 
 
 

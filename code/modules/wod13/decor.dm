@@ -241,6 +241,7 @@
 	anchored = TRUE
 	density = TRUE
 	var/searching = FALSE
+	zaklad = TRUE
 
 /obj/structure/trashcan/Initialize()
 	. = ..()
@@ -289,6 +290,7 @@
 	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "garbage1"
 	anchored = TRUE
+	zaklad = TRUE
 
 /obj/structure/trashbag/Initialize()
 	. = ..()
@@ -616,6 +618,7 @@
 	name = "trash"
 	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "trash1"
+	zaklad = TRUE
 
 /obj/effect/decal/trash/Initialize()
 	. = ..()
