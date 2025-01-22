@@ -234,11 +234,26 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 						var/datum/app/cheburnet/site/narko/happ = locate(params["ref"]) in apps
 						if(!happ.launched)
 							happ.launched = TRUE
+							cheburnet.launched = FALSE
+							if(!cheburnet.desktop_app)
+								apps.Remove(cheburnet)
 						else
 							happ.minimized = FALSE
 							current_app = happ
 							focus_app = null
 
+
+
+				if("hydra_login_user")
+					if(params["username"] != "" && params["username"])
+						for(var/obj/vampire_computer/C in GLOB.vampire_computers)
+							var/datum/app/cheburnet/site/narko/hydra = C.apps[6]
+							if(hydra.username == params["username"])
+								throw_error("This name is already exists!")
+								return TRUE
+						var/datum/app/cheburnet/site/narko/app = locate(params["ref"]) in apps
+						app.username = params["username"]
+						return TRUE
 
 
 

@@ -5,9 +5,10 @@ GLOBAL_LIST_EMPTY(hydra)
 
 /obj
 	var/zaklad = FALSE
-	var/list/datum/klad/Z= list()
-	var/obj/item/vamp/zakladka/clad
+	var/list/klad = list()
+	var/max_clad =  2
 
+/obj/AltClick(mob/user)
 
 /obj/structure/vamp/zakladkagrafity
 	var/adress = null
@@ -70,7 +71,7 @@ GLOBAL_LIST_EMPTY(hydra)
 			return FALSE
 		U.TakeComponent(storage)
 		ss = storage
-	U.clad = src
+//	U.clad = src
 	forceMove(U)
 	layer = FLOAT_LAYER
 	plane = FLOAT_PLANE
