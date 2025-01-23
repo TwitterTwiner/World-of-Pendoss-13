@@ -148,6 +148,8 @@ GLOBAL_LIST_EMPTY(adressnegra)
 /datum/app/cheburnet/site/narko
 	adress = "www.Hydra.CUM"
 	title = "Нарики-хуярики"
+	var/username
+
 
 /datum/app/cheburnet/site/narko/New()
 	.=..()
