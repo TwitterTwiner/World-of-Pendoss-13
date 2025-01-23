@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	var/datum/app/gmail/gmail = new ()
 	var/datum/app/news/news = new ()
 	var/datum/app/cheburnet/cheburnet = new()
-	var/datum/app/cheburnet/site/narko/narko = new()
+//	var/datum/app/cheburnet/site/narko/narko = new()
 
 	gmail.generate_email()
 	if(main)
@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	apps.Add(gmail)
 	apps.Add(news)
 	apps.Add(cheburnet)
-	apps.Add(narko)
+//	apps.Add(narko)
 
 	for(var/obj/vampire_computer/C in GLOB.vampire_computers)
 		if(C.main)
@@ -231,16 +231,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 				cheburnet.poisk = poiski
 				for(var/obj/structure/vamp/zakladkagrafity/Z in GLOB.grafity )
 					if(params["poiski"] == Z.adress)
-						var/datum/app/cheburnet/site/narko/happ = locate(params["ref"]) in apps
-						if(!happ.launched)
-							happ.launched = TRUE
-							cheburnet.launched = FALSE
-							if(!cheburnet.desktop_app)
-								apps.Remove(cheburnet)
-						else
-							happ.minimized = FALSE
-							current_app = happ
-							focus_app = null
+						throw_site()
 
 
 
@@ -275,6 +266,13 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	error_app.launched = TRUE
 	current_app = error_app
 	apps.Add(error_app)
+
+/obj/vampire_computer/proc/throw_site(site)
+	playsound(loc, 'sound/winxp/error.wav', 100)
+	var/datum/app/cheburnet/site/narko/hydra= new ()
+	hydra.launched = TRUE
+	current_app = hydra
+	apps.Add(hydra)
 
 /obj/vampire_computer/proc/set_cords(cord, max, min)
 	if(cord < max && cord > min)

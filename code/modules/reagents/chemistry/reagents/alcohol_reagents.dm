@@ -245,7 +245,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.attributes.dexterity_reagent = 0
 	M.attributes.wits_reagent = 0
 
-
 /datum/reagent/consumable/ethanol/gin
 	name = "Gin"
 	description = "It's gin. In space. I say, good sir."
