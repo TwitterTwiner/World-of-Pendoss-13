@@ -46,7 +46,7 @@ export const GetAppByName = (app, act) => {
     case "news":
       return <News app={app} act={act} />;
       case "hydra":
-      return <Hydraa app={app} act={act} />;
+      return <Hydra app={app} act={act} />;
       case "cheburnet":
       return <Cheburnet app={app} act={act} />;
     default:

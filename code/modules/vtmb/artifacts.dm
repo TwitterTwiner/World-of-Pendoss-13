@@ -239,3 +239,20 @@
 									/obj/item/vtm_artifact/weekapaug_thistle)
 		new spawn_artifact(loc)
 	qdel(src)
+
+/obj/item/vtm_artifact/attack_self(mob/living/user)
+	if(user.attributes.Occult < 2)
+		to_chat(user, "<span class='warning'>Ты слишком юн в этом деле!</span>")
+		return
+	if(do_mob(user, src, 1 SECONDS))
+		var/result = secret_vampireroll(get_a_occult(user)+get_a_investigation(user)+get_a_intelligence(user), 8, user)
+		switch(result)
+			if(0 to 2)
+				user.overlay_fullscreen("yomi", /atom/movable/screen/fullscreen/yomi_world)
+				user.clear_fullscreen("yomi", 5)
+				playsound(get_turf(user), 'code/modules/wod13/sounds/portal.ogg', 100, TRUE)
+				src.Destroy()
+			if(3 to INFINITY)
+				if(!identified)
+					src.identificate()
+
