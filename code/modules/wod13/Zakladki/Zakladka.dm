@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(hydra)
 	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newAdress += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	newAdress += ".luc"
-	desc += newAdress
+//	desc += newAdress
 	adress = newAdress
 	GLOB.hydra += src
 
@@ -154,6 +154,12 @@ GLOBAL_LIST_EMPTY(hydra)
 			SEND_SIGNAL(target, COMSIG_OBJ_ZAKLADEN)
 			src.Destroy()
 */
+
+
+/obj/item/vamp/zakladka/raw/weed
+
+/obj/item/vamp/zakladka/raw/meth
+
 
 
 /obj/item/vamp/zakladka/Klad/small
