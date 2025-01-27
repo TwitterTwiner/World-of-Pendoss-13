@@ -88,7 +88,7 @@
 */
 /obj/item/drinkable_bloodpack
 	name = "\improper drinkable blood pack (full)"
-	desc = "Fast way to feed your inner beast."
+	desc = "Быстрый путь насытить твоего зверя."
 	icon = 'code/modules/wod13/items.dmi'
 	icon_state = "blood4"
 	inhand_icon_state = "blood4"
@@ -105,7 +105,7 @@
 	var/amount_of_bloodpoints = 2
 	var/vitae = FALSE
 
-/obj/item/drinkable_bloodpack/attack(mob/living/M, mob/living/user)
+/obj/item/drinkable_bloodpack/full/attack(mob/living/M, mob/living/user)
 	. = ..()
 	if(!iskindred(M))
 		if(!vitae || iscathayan(M))
@@ -116,9 +116,8 @@
 	if(do_mob(user, src, 3 SECONDS))
 		feeding = FALSE
 		empty = TRUE
-		icon_state = "blood0"
-		inhand_icon_state = "blood0"
-		name = "\improper drinkable blood pack (empty)"
+		var/obj/item/drinkable_bloodpack/empty/R = new /obj/item/drinkable_bloodpack/empty(user.loc)
+		user.put_in_active_hand(R)
 		M.bloodpool = min(M.maxbloodpool, M.bloodpool+amount_of_bloodpoints)
 		M.adjustBruteLoss(-20, TRUE)
 		M.adjustFireLoss(-20, TRUE)
@@ -127,19 +126,36 @@
 		if(iskindred(M))
 			M.update_blood_hud()
 		playsound(M.loc,'sound/items/drink.ogg', 50, TRUE)
+		src.Destroy()
 		return
 	else
 		feeding = FALSE
 		return
 
-/obj/item/drinkable_bloodpack/elite
+/obj/item/drinkable_bloodpack/full
+	name = "\improper drinkable blood pack (full)"
+
+/obj/item/drinkable_bloodpack/full/bloodpack
+	name = "\improper drinkable blood pack (full)"
+
+
+/obj/item/drinkable_bloodpack/full/elite
 	name = "\improper elite blood pack (full)"
+	desc = "Путь насытить зверя, если Вы - аристократ"
 	amount_of_bloodpoints = 4
 
-/obj/item/drinkable_bloodpack/vitae
+/obj/item/drinkable_bloodpack/full/vitae
 	name = "\improper vampire vitae pack (full)"
 	amount_of_bloodpoints = 4
 	vitae = TRUE
+
+/obj/item/drinkable_bloodpack/empty
+	name = "\improper drinkable blood pack (empty)"
+	desc = "Пустой пакетик с кровью"
+	icon_state = "blood0"
+	inhand_icon_state = "blood0"
+	empty = TRUE
+	feeding = FALSE
 
 /obj/item/blood_hunt
 	name = "Blood Hunt Announcer"

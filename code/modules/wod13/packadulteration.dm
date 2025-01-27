@@ -1,23 +1,23 @@
 /datum/crafting_recipe/methpack
-	name = "Make Meth Adulterated Bloodpack"
+	name = "Сделать метамфетаминовый пакетик"
 	time = 25
-	reqs = list(/obj/item/reagent_containers/food/drinks/meth = 1, /obj/item/drinkable_bloodpack = 1)
+	reqs = list(/obj/item/reagent_containers/food/drinks/meth = 1, /obj/item/drinkable_bloodpack/full = 1)
 	result = /obj/item/reagent_containers/drug/methpack
 	always_available = TRUE
 	category = CAT_DRUGS
 
 /datum/crafting_recipe/morphpack
-	name = "Make Morphine Adulterated Bloodpack"
+	name = "Сделать морфиновый пакетик"
 	time = 25
-	reqs = list(/obj/item/reagent_containers/syringe/contraband/morphine = 1, /obj/item/drinkable_bloodpack = 1)
+	reqs = list(/datum/reagent/medicine/morphine = 15, /obj/item/drinkable_bloodpack/full = 1)
 	result = /obj/item/reagent_containers/drug/morphpack
 	always_available = TRUE
 	category = CAT_DRUGS
 
 /datum/crafting_recipe/cokepack
-	name = "Make Cocaine Adulterated Bloodpack"
+	name = "Сделать кокаиновый пакетик"
 	time = 25
-	reqs = list(/obj/item/reagent_containers/food/drinks/meth/cocaine = 1, /obj/item/drinkable_bloodpack = 1)
+	reqs = list(/obj/item/reagent_containers/food/drinks/meth/cocaine = 1, /obj/item/drinkable_bloodpack/full = 1)
 	result = /obj/item/reagent_containers/drug/morphpack
 	always_available = TRUE
 	category = CAT_DRUGS

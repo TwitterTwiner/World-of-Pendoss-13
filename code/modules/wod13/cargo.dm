@@ -54,14 +54,14 @@
 	name = "Blood Pack"
 	desc = "Contains 5 default blood packs."
 	cost = 100
-	contains = list(/obj/item/drinkable_bloodpack, /obj/item/drinkable_bloodpack, /obj/item/drinkable_bloodpack, /obj/item/drinkable_bloodpack, /obj/item/drinkable_bloodpack)
+	contains = list(/obj/item/drinkable_bloodpack/full/bloodpack, /obj/item/drinkable_bloodpack/full/bloodpack, /obj/item/drinkable_bloodpack/full/bloodpack, /obj/item/drinkable_bloodpack/full/bloodpack, /obj/item/drinkable_bloodpack/full/bloodpack)
 	crate_name = "blood crate"
 
 /datum/supply_pack/vampire/bloodpack_elite
 	name = "Elite Blood Pack"
 	desc = "Contains 5 elite blood packs."
 	cost = 300
-	contains = list(/obj/item/drinkable_bloodpack/elite, /obj/item/drinkable_bloodpack/elite, /obj/item/drinkable_bloodpack/elite, /obj/item/drinkable_bloodpack/elite, /obj/item/drinkable_bloodpack/elite)
+	contains = list(/obj/item/drinkable_bloodpack/full/elite, /obj/item/drinkable_bloodpack/full/elite, /obj/item/drinkable_bloodpack/full/elite, /obj/item/drinkable_bloodpack/full/elite, /obj/item/drinkable_bloodpack/full/elite)
 	crate_name = "blood crate"
 
 /datum/supply_pack/vampire/weaponstake
