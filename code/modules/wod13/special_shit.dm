@@ -117,7 +117,7 @@
 		feeding = FALSE
 		empty = TRUE
 		var/obj/item/drinkable_bloodpack/empty/R = new /obj/item/drinkable_bloodpack/empty(user.loc)
-		user.put_in_active_hand(R)
+		user.put_in_inactive_hand(R)
 		M.bloodpool = min(M.maxbloodpool, M.bloodpool+amount_of_bloodpoints)
 		M.adjustBruteLoss(-20, TRUE)
 		M.adjustFireLoss(-20, TRUE)
