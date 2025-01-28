@@ -1065,6 +1065,7 @@
 		var/difficulties = 0
 		for(var/obj/item/clothing/C in user)
 			if(C)
+	//			if(C != )
 				difficulties += 1
 		difficulties = round(difficulties/2)
 		if(difficulties)
