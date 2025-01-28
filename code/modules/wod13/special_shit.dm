@@ -110,14 +110,12 @@
 	if(!iskindred(M))
 		if(!vitae || iscathayan(M))
 			return
-	if(empty)
-		return
 	feeding = TRUE
 	if(do_mob(user, src, 3 SECONDS))
 		feeding = FALSE
-		empty = TRUE
 		var/obj/item/drinkable_bloodpack/empty/R = new /obj/item/drinkable_bloodpack/empty(user.loc)
-		user.put_in_inactive_hand(R)
+		src.Destroy()
+		user.put_in_active_hand(R)
 		M.bloodpool = min(M.maxbloodpool, M.bloodpool+amount_of_bloodpoints)
 		M.adjustBruteLoss(-20, TRUE)
 		M.adjustFireLoss(-20, TRUE)
@@ -126,14 +124,10 @@
 		if(iskindred(M))
 			M.update_blood_hud()
 		playsound(M.loc,'sound/items/drink.ogg', 50, TRUE)
-		src.Destroy()
 		return
 	else
 		feeding = FALSE
 		return
-
-/obj/item/drinkable_bloodpack/full
-	name = "\improper drinkable blood pack (full)"
 
 /obj/item/drinkable_bloodpack/full/bloodpack
 	name = "\improper drinkable blood pack (full)"
@@ -155,7 +149,6 @@
 	icon_state = "blood0"
 	inhand_icon_state = "blood0"
 	empty = TRUE
-	feeding = FALSE
 
 /obj/item/blood_hunt
 	name = "Blood Hunt Announcer"
