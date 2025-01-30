@@ -1,3 +1,5 @@
+
+
 GLOBAL_LIST_EMPTY(vampire_computers)
 
 /obj/vampire_computer
@@ -33,6 +35,8 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	var/datum/app/notepad/notepad = new ()
 	var/datum/app/gmail/gmail = new ()
 	var/datum/app/news/news = new ()
+	var/datum/app/cheburnet/cheburnet = new()
+//	var/datum/app/cheburnet/site/narko/narko = new()
 
 	gmail.generate_email()
 	if(main)
@@ -42,6 +46,8 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	apps.Add(notepad)
 	apps.Add(gmail)
 	apps.Add(news)
+	apps.Add(cheburnet)
+//	apps.Add(narko)
 
 	for(var/obj/vampire_computer/C in GLOB.vampire_computers)
 		if(C.main)
@@ -207,6 +213,45 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 			else
 				playsound(loc, 'sound/winxp/error.wav', 100)
 				return TRUE
+		if("poiskovik")
+			if(!params["poiski"])
+				switch(rand(1, 4))
+					if(1)
+						throw_error("Введите запрос!")
+					if(2)
+						throw_error("Введи запрос, мать твою!")
+					if(3)
+						throw_error("ЗАПРОС ВВЕДИ!")
+					if(4)
+						throw_error("Ты че, тупой...?")
+
+			var/datum/app/cheburnet/cheburnet = apps[5]
+			if(params["poiski"] != "" && params["poiski"])
+				var/poiski = trim(copytext_char(sanitize(params["poiski"]), 1, MAX_MESSAGE_LEN))
+				cheburnet.poisk = poiski
+				for(var/obj/structure/vamp/zakladkagrafity/Z in GLOB.grafity )
+					if(params["poiski"] == Z.adress)
+						throw_site()
+
+
+
+				if("hydra_login_user")
+					if(params["username"] != "" && params["username"])
+						for(var/obj/vampire_computer/C in GLOB.vampire_computers)
+							var/datum/app/cheburnet/site/narko/hydra = C.apps[6]
+							if(hydra.username == params["username"])
+								throw_error("This name is already exists!")
+								return TRUE
+						var/datum/app/cheburnet/site/narko/app = locate(params["ref"]) in apps
+						app.username = params["username"]
+						return TRUE
+
+
+
+	//		if(params["poiski"] == cheburnet.adress)
+
+
+
 
 /obj/vampire_computer/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -221,6 +266,13 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	error_app.launched = TRUE
 	current_app = error_app
 	apps.Add(error_app)
+
+/obj/vampire_computer/proc/throw_site()
+	playsound(loc, 'sound/winxp/Falko_1.wav', 100)
+	var/datum/app/cheburnet/site/narko/hydra = new ()
+	hydra.launched = TRUE
+	current_app = hydra
+	apps.Add(hydra)
 
 /obj/vampire_computer/proc/set_cords(cord, max, min)
 	if(cord < max && cord > min)

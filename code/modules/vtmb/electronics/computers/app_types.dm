@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(adressnegra)
+
 
 /datum/app/icq
 	title = "ICQ"
@@ -124,3 +126,43 @@
 	.=..()
 	. += list("text"=text)
 	. += list("can_send"=can_send)
+
+
+/datum/poiski
+	var/poiski
+
+/datum/poiski/New(param_poiski)
+	poiski = param_poiski
+
+/datum/app/icq/proc/Poisk(poiski)
+	var/datum/poiski/send = new(poiski)
+
+/datum/app/cheburnet
+	title = "Cheburnet"
+	app_type = "cheburnet"
+	var/shrek = "Добро пожаловать в Шрекнет"
+	var/poisk = "Введите запрос"
+	var/can_sond = TRUE
+
+
+/datum/app/cheburnet/site/narko
+	adress = "www.Hydra.CUM"
+	title = "Нарики-хуярики"
+	var/username
+
+
+/datum/app/cheburnet/site/narko/New()
+	.=..()
+
+
+/datum/app/cheburnet/site/narko/data()
+	. +=list("adresshydra"=adress)
+
+/datum/app/cheburnet/data()
+	.=..()
+	. += list("poisk"=poisk)
+	. +=list("can_sond"=can_sond)
+
+/datum/app/cheburnet/proc/zakladki()
+
+
