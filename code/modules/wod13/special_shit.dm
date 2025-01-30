@@ -129,7 +129,7 @@
 		feeding = FALSE
 		return
 
-/obj/item/drinkable_bloodpack/full/bloodpack
+/obj/item/drinkable_bloodpack/full
 	name = "\improper drinkable blood pack (full)"
 
 

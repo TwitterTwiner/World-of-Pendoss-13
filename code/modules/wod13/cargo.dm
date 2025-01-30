@@ -54,7 +54,7 @@
 	name = "Blood Pack"
 	desc = "Contains 5 default blood packs."
 	cost = 100
-	contains = list(/obj/item/drinkable_bloodpack/full/bloodpack, /obj/item/drinkable_bloodpack/full/bloodpack, /obj/item/drinkable_bloodpack/full/bloodpack, /obj/item/drinkable_bloodpack/full/bloodpack, /obj/item/drinkable_bloodpack/full/bloodpack)
+	contains = list(/obj/item/drinkable_bloodpack/full, /obj/item/drinkable_bloodpack/full, /obj/item/drinkable_bloodpack/full, /obj/item/drinkable_bloodpack/full, /obj/item/drinkable_bloodpack/full)
 	crate_name = "blood crate"
 
 /datum/supply_pack/vampire/bloodpack_elite

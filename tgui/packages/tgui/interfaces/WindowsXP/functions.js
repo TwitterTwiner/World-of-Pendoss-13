@@ -4,6 +4,7 @@ import errorIcon from '../../assets/WindowsXP/897(32x32).png';
 import gmailicon from '../../assets/WindowsXP/gmail_icon.png';
 import newsIcon from '../../assets/WindowsXP/news.png';
 import cheburIcon from '../../assets/WindowsXP/chebur.png';
+import hydraIcon from '../../assets/WindowsXP/chebur.png'
 
 import { Notepad } from './Apps/Notepad';
 import { ICQ as Icq } from './Apps/ICQ';
@@ -11,7 +12,7 @@ import { Error } from './Apps/Error';
 import { Gmail } from './Apps/Gmail';
 import { News } from './Apps/News';
 import { Cheburnet } from './Apps/Chebur';
-import {Hydra} from './Apps/Hydra';
+import { Hydra } from './Apps/Hydra';
 
 
 export const GetIconByName = name => {
@@ -28,6 +29,8 @@ export const GetIconByName = name => {
       return newsIcon;
     case "cheburnet":
       return cheburIcon;
+    case "hydra":
+      return hydraIcon;
     default:
       return null;
   }

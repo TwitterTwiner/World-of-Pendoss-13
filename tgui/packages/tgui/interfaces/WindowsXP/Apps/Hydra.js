@@ -7,7 +7,7 @@ export const Hydra = (props, context) => {
   return app.username === '' ? (
     <div className="visitor">
       <div>
-        <img width="120px" src={icq} />
+        <img width="120px" src={chebur} />
         <div className="visitor-text">Enter username:</div>
         <Input
           className="user-input"
@@ -25,7 +25,7 @@ export const Hydra = (props, context) => {
       </div>
     </div>
   ) : (
-    <div className="HYDRA">
+    <div className="chebur">
       <div className="chat-header">
         <img src={chess} className="picture" />
         <div className="user-info">

@@ -798,7 +798,7 @@
 				return
 			V.last_extracted = world.time
 			if(!iskindred(src))
-				new /obj/item/drinkable_bloodpack/full/bloodpack(get_step(V, SOUTH))
+				new /obj/item/drinkable_bloodpack/full(get_step(V, SOUTH))
 				bloodpool = max(0, bloodpool-2)
 			else
 				new /obj/item/drinkable_bloodpack/full/vitae(get_step(V, SOUTH))

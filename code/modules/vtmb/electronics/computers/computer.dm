@@ -268,8 +268,8 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	apps.Add(error_app)
 
 /obj/vampire_computer/proc/throw_site()
-	playsound(loc, 'sound/winxp/error.wav', 100)
-	var/datum/app/cheburnet/site/narko/hydra= new ()
+	playsound(loc, 'sound/winxp/Falko_1.wav', 100)
+	var/datum/app/cheburnet/site/narko/hydra = new ()
 	hydra.launched = TRUE
 	current_app = hydra
 	apps.Add(hydra)
