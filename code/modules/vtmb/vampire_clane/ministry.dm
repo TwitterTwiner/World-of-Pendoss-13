@@ -1,5 +1,5 @@
-/datum/vampireclane/ministry
-	name = "Ministry"
+/datum/vampireclane/setite
+	name = "Followers of Set"
 	desc = "The Ministry, also called the Ministry of Set, Followers of Set, or Setites, are a clan of vampires who believe their founder was the Egyptian god Set."
 	curse = "Decreased moving speed in lighted areas."
 	clane_disciplines = list(
@@ -10,11 +10,11 @@
 	male_clothes = /obj/item/clothing/under/vampire/slickback
 	female_clothes = /obj/item/clothing/under/vampire/burlesque
 
-/datum/vampireclane/ministry/on_gain(mob/living/carbon/human/H)
+/datum/vampireclane/setite/on_gain(mob/living/carbon/human/H)
 	..()
 	H.add_quirk(/datum/quirk/lightophobia)
 
-/datum/vampireclane/ministry/post_gain(mob/living/carbon/human/H)
+/datum/vampireclane/setite/post_gain(mob/living/carbon/human/H)
 	..()
 	var/obj/item/organ/eyes/night_vision/NV = new()
 	NV.Insert(H, TRUE, FALSE)
@@ -133,7 +133,6 @@
 	button_icon_state = "cobra"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/cobra/BC
 
 /datum/action/cobra/Trigger()
 	. = ..()
@@ -144,15 +143,9 @@
 	if(H.bloodpool < 2)
 		to_chat(owner, "<span class='warning'>You don't have enough <b>BLOOD</b> to do that!</span>")
 		return
-	if(!BC)
-		BC = new(owner)
 	H.bloodpool = max(0, H.bloodpool-2)
-	BC.Shapeshift(H)
-	spawn(150)
-		if(BC)
-			BC.Restore(BC.myshape)
-			NG.Stun(15)
-			NG.do_jitter_animation(30)
+	var/datum/warform/Warform = new
+	Warform.transform(/mob/living/simple_animal/hostile/cobra, NG, TRUE)
 
 /mob/living/simple_animal/hostile/cobra
 	name = "Cobra Form"

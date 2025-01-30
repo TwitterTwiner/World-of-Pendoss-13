@@ -221,7 +221,15 @@
 		return FALSE
 	return TRUE
 
+/mob/living/carbon/human/npc
+	var/client_cleaned = FALSE
+
 /mob/living/carbon/human/npc/proc/handle_automated_movement()
+	if(client)
+		if(!client_cleaned)
+			remove_movespeed_modifier(/datum/movespeed_modifier/npc)
+			client_cleaned = TRUE
+		return
 	if(CheckMove())
 		return
 	if(presence_master && stat < DEAD)

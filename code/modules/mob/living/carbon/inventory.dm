@@ -189,41 +189,44 @@
 				var/guh = secret_vampireroll(get_a_appearance(caster)+get_a_empathy(caster), 6, caster)
 				if(guh == -1)
 					N.Aggro(src, FALSE)
-				else if(guh >= 2)
+				else if(guh >= 1)
 					if(istype(C, /mob/living/carbon/human/npc/hobo))
-						if(C.take(src, receiving))
-							if(prob(round(D.amount/10)))
-								caster.AdjustHumanity(1, 10)
-							N.RealisticSay(pick("Охх... Спасибо...", "Благодарю вас...", "С вашей помощью я смогу купить еды..."))
-							qdel(receiving)
-							if(caster.puppets.len > get_a_charisma(caster)+get_a_empathy(caster))
-								var/mob/living/carbon/human/npc/NPC = pick(caster.puppets)
-								if(NPC && NPC.presence_master == caster)
-									NPC.presence_master = null
-									NPC.presence_follow = FALSE
-									NPC.presence_enemies = list()
-									NPC.danger_source = null
-									caster.puppets -= NPC
-								if(!length(caster.puppets))
-									for(var/datum/action/presence_stay/VI in caster.actions)
-										if(VI)
-											VI.Remove(caster)
-									for(var/datum/action/presence_deaggro/VI in caster.actions)
-										if(VI)
-											VI.Remove(caster)
-							if(!N.presence_master)
-								if(!length(caster.puppets))
-									var/datum/action/presence_stay/E1 = new()
-									E1.Grant(caster)
-									var/datum/action/presence_deaggro/E2 = new()
-									E2.Grant(caster)
-								N.presence_master = caster
-								N.presence_follow = TRUE
-								caster.puppets |= N
-								N.fights_anyway = TRUE
+						C.take(src, receiving)
+						if(prob(round(D.amount/10)))
+							caster.AdjustHumanity(1, 10)
+						N.RealisticSay(pick("Охх... Спасибо...", "Благодарю вас...", "С вашей помощью я смогу купить еды..."))
+						qdel(receiving)
+						if(caster.puppets.len > get_a_charisma(caster)+get_a_empathy(caster))
+							var/mob/living/carbon/human/npc/NPC = pick(caster.puppets)
+							if(NPC && NPC.presence_master == caster)
+								NPC.presence_master = null
+								NPC.presence_follow = FALSE
+								NPC.presence_enemies = list()
+								NPC.danger_source = null
+								NPC.add_movespeed_modifier(/datum/movespeed_modifier/npc)
+								caster.puppets -= NPC
+							if(!length(caster.puppets))
+								for(var/datum/action/presence_stay/VI in caster.actions)
+									if(VI)
+										VI.Remove(caster)
+								for(var/datum/action/presence_deaggro/VI in caster.actions)
+									if(VI)
+										VI.Remove(caster)
+						if(!N.presence_master)
+							if(!length(caster.puppets))
+								var/datum/action/presence_stay/E1 = new()
+								E1.Grant(caster)
+								var/datum/action/presence_deaggro/E2 = new()
+								E2.Grant(caster)
+							N.presence_master = caster
+							N.remove_movespeed_modifier(/datum/movespeed_modifier/npc)
+							N.presence_follow = TRUE
+							caster.puppets |= N
+							N.fights_anyway = TRUE
 					else
-						if(D.amount > 200)
-							if(C.take(src, receiving))
+						if(D.amount >= 200)
+							if(guh >= 3)
+								C.take(src, receiving)
 								N.RealisticSay(pick("Возможно можно договориться.", "Допустим, я смогу с этим поработать...", "Я помогу с этим."))
 								qdel(receiving)
 								if(caster.puppets.len > get_a_charisma(caster)+get_a_empathy(caster))
@@ -233,6 +236,7 @@
 										NPC.presence_follow = FALSE
 										NPC.presence_enemies = list()
 										NPC.danger_source = null
+										NPC.add_movespeed_modifier(/datum/movespeed_modifier/npc)
 										caster.puppets -= NPC
 									if(!length(caster.puppets))
 										for(var/datum/action/presence_stay/VI in caster.actions)
@@ -248,6 +252,7 @@
 										var/datum/action/presence_deaggro/E2 = new()
 										E2.Grant(caster)
 									N.presence_master = caster
+									N.remove_movespeed_modifier(/datum/movespeed_modifier/npc)
 									N.presence_follow = TRUE
 									caster.puppets |= N
 									N.fights_anyway = TRUE

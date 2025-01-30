@@ -64,6 +64,7 @@
 	contains = list(/obj/item/drinkable_bloodpack/full/elite, /obj/item/drinkable_bloodpack/full/elite, /obj/item/drinkable_bloodpack/full/elite, /obj/item/drinkable_bloodpack/full/elite, /obj/item/drinkable_bloodpack/full/elite)
 	crate_name = "blood crate"
 
+
 /datum/supply_pack/vampire/weaponstake
 	name = "Weapon (stake)"
 	desc = "Contains 3 usable wooden stakes."

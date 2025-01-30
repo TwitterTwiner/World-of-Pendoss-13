@@ -25,12 +25,12 @@
 
 	my_contact_is_important = TRUE
 	known_contacts = list("Prince","Seneschal", "Sheriff", "Baron")
-	allowed_bloodlines = list("True Brujah", "Brujah", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Tzimisce", "Caitiff", "Ventrue", "Ministry", "Kiasyd", "Cappadocian")
+	allowed_bloodlines = list("True Brujah", "Brujah", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Tzimisce", "Caitiff", "Ventrue", "Followers of Set", "Kiasyd", "Cappadocian")
 
 	v_duty = "You provide supplies to other kindred. The warehouse is yours, and it's your business who you'll deal with."
 	minimal_masquerade = 3
 	allowed_species = list("Vampire")
-	experience_addition = 20
+	experience_addition = 8
 	minimal_generation = 11
 	max_generation = 9
 

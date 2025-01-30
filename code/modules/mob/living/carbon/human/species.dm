@@ -1345,7 +1345,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 						"<span class='userdanger'>You block [user]'s grab!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, "<span class='warning'>Your grab at [target] was blocked!</span>")
 		return FALSE
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6+user.stat, user)
+	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6, user)
 	if(modifikator == -1)
 		user.AdjustKnockdown(20, TRUE)
 		playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
@@ -1370,7 +1370,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
 
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6+user.stat, user)
+	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6, user)
 	var/atk_verb = user.dna.species.attack_verb
 	if(modifikator == -1)
 		target = user
@@ -1410,7 +1410,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else
 				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
-		var/damage = (rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh))*(modifikator/3)
+		var/damage = round((rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh))*(modifikator+1)/4)
 		if(user.age < 16)
 			damage = round(damage/2)
 
@@ -1429,7 +1429,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			return FALSE
 
 		var/armor_block
-		if(get_potence_dices(user))
+		if(get_potence_dices(user) || iscrinos(user))
 			armor_block = target.run_armor_check(affecting, AGGRAVATED)
 		else
 			armor_block = target.run_armor_check(affecting, BASHING)
@@ -1440,9 +1440,9 @@ GLOBAL_LIST_EMPTY(selectable_races)
 						"<span class='userdanger'>You're [atk_verb]ed by [user]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, "<span class='danger'>You [atk_verb] [target]!</span>")
 
-		if(user.potential >= 5)
+		if(user.potential >= 5 || modifikator > 5)
 			var/atom/throw_target = get_edge_target_turf(target, user.dir)
-			target.throw_at(throw_target, rand(5, 7), 4, user)
+			target.throw_at(throw_target, rand(5, 7), 4, user, gentle = TRUE)
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -1477,7 +1477,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 						"<span class='danger'>You block [user]'s shove!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, "<span class='warning'>Your shove at [target] was blocked!</span>")
 		return FALSE
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6+user.stat, user)
+	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6, user)
 	if(modifikator == -1)
 		user.AdjustKnockdown(20, TRUE)
 		playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
@@ -1539,10 +1539,14 @@ GLOBAL_LIST_EMPTY(selectable_races)
 	// Allows you to put in item-specific reactions based on species
 	var/add_hard = 0
 	if(user.zone_selected == BODY_ZONE_HEAD)
-		add_hard = 2
+		add_hard = 1
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
-		add_hard = 3
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user)+get_potence_dices(user), 6+user.stat+add_hard, user)
+		add_hard = 2
+	var/modifikator
+	if(I.attack_diff_override > 0)
+		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user)+get_potence_dices(user), I.attack_diff_override, user)
+	else
+		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user)+get_potence_dices(user), 6+add_hard, user)
 	if(modifikator == -1)
 		H = user
 		modifikator = 3
@@ -1557,8 +1561,6 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		H.visible_message("<span class='warning'>[H] blocks [I]!</span>", \
 						"<span class='userdanger'>You block [I]!</span>")
 		return FALSE
-
-	modifikator = modifikator/3
 
 	var/hit_area
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
@@ -1592,7 +1594,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 					if(H.bloodpool)
 						H.bloodpool = max(0, H.bloodpool-1)
 						OC.stored_blood = OC.stored_blood+1
-	apply_damage((I.force*modifikator) * weakness, I.damtype, def_zone, armor_block, H, wound_bonus = Iwound_bonus, bare_wound_bonus = I.bare_wound_bonus, sharpness = I.get_sharpness())
+	apply_damage(round(I.force*((modifikator+1)/4)) * weakness, I.damtype, def_zone, armor_block, H, wound_bonus = Iwound_bonus, bare_wound_bonus = I.bare_wound_bonus, sharpness = I.get_sharpness())
 
 	if(!I.force)
 		return FALSE //item force is zero

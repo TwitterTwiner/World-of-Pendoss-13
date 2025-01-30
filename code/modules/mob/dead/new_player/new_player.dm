@@ -70,8 +70,8 @@
 		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Join Game!</a></p>"
 		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
 
-	if(!IsGuestKey(src.key))
-		output += playerpolls()
+//	if(!IsGuestKey(src.key))
+//		output += playerpolls()
 
 	output += "</center>"
 
@@ -327,6 +327,8 @@
 		return JOB_UNAVAILABLE_GENERATION
 	if((client.prefs.generation < job.max_generation) && !bypass)
 		return JOB_UNAVAILABLE_GENERATION
+	if(!job.scale_with_pop() && !bypass)
+		return JOB_UNAVAILABLE_GENERIC
 	if (job.title == "Citizen")
 		return JOB_AVAILABLE
 	if((client.prefs.masquerade < job.minimal_masquerade) && !bypass)

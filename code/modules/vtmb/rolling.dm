@@ -34,6 +34,21 @@ SUBSYSTEM_DEF(woddices)
 		if(a)
 			GLOB.vampireroll_numbers -= a
 			qdel(a)
+	if(length(GLOB.vampireroll_numbers))
+		var/atom/a = pick(GLOB.vampireroll_numbers)
+		if(a)
+			GLOB.vampireroll_numbers -= a
+			qdel(a)
+	if(length(GLOB.vampireroll_numbers))
+		var/atom/a = pick(GLOB.vampireroll_numbers)
+		if(a)
+			GLOB.vampireroll_numbers -= a
+			qdel(a)
+	if(length(GLOB.vampireroll_numbers))
+		var/atom/a = pick(GLOB.vampireroll_numbers)
+		if(a)
+			GLOB.vampireroll_numbers -= a
+			qdel(a)
 
 /proc/create_number_on_mob(mob/Mob, what_color, text)
 	var/turf/T = get_turf(Mob)
@@ -59,6 +74,7 @@ SUBSYSTEM_DEF(woddices)
 /mob/living/Initialize()
 	. = ..()
 	attributes = new ()
+	attributes.randomize()
 
 /datum/attributes
 	var/strength = 1
@@ -135,23 +151,23 @@ SUBSYSTEM_DEF(woddices)
 	intelligence = rand(1, 3)
 	wits = rand(1, 3)
 
-	Alertness = rand(0, 3)
-	Athletics = rand(0, 3)
-	Brawl = rand(0, 3)
-	Empathy = rand(0, 3)
-	Intimidation = rand(0, 3)
+	Alertness = rand(0, 4)
+	Athletics = rand(0, 4)
+	Brawl = rand(0, 4)
+	Empathy = rand(0, 4)
+	Intimidation = rand(0, 4)
 
-	Crafts = rand(0, 3)
-	Melee = rand(0, 3)
-	Firearms = rand(0, 3)
-	Drive = rand(0, 3)
-	Security = rand(0, 3)
+	Crafts = rand(0, 4)
+	Melee = rand(0, 4)
+	Firearms = rand(0, 4)
+	Drive = rand(0, 4)
+	Security = rand(0, 4)
 
-	Finance = rand(0, 3)
-	Investigation = rand(0, 3)
-	Medicine = rand(0, 3)
-	Linguistics = rand(0, 3)
-	Occult = rand(0, 3)
+	Finance = rand(0, 4)
+	Investigation = rand(0, 4)
+	Medicine = rand(0, 4)
+	Linguistics = rand(0, 4)
+	Occult = rand(0, 4)
 
 /proc/get_fortitude_dices(mob/living/Living)
 	if(Living.attributes)
@@ -283,7 +299,7 @@ SUBSYSTEM_DEF(woddices)
 	if(Living.attributes)
 		return Living.attributes.strength+Living.attributes.strength_bonus+Living.attributes.strength_reagent
 	else
-		return 3
+		return 4
 
 /proc/get_a_dexterity(mob/living/Living)
 	if(Living.attributes)
@@ -333,46 +349,91 @@ SUBSYSTEM_DEF(woddices)
 	else
 		return 3
 
-/proc/secret_vampireroll(var/dices_num = 1, var/hardness = 1, var/mob/living/rollperformer)
+/proc/get_dice_image(input, diff)
+	var/dat = ""
+	var/span_end = ""
+	if((input >= diff && input != 1) || input == 10)
+		dat += "<span class='nicegreen'>"
+		span_end = "</span>"
+	if(input == 1)
+		dat += "<span class='danger'>"
+		span_end = "</span>"
+	switch(input)
+		if(1)
+			dat += "❶"
+		if(2)
+			dat += "❷"
+		if(3)
+			dat += "❸"
+		if(4)
+			dat += "❹"
+		if(5)
+			dat += "❺"
+		if(6)
+			dat += "❻"
+		if(7)
+			dat += "❼"
+		if(8)
+			dat += "❽"
+		if(9)
+			dat += "❾"
+		if(10)
+			dat += "❿"
+		else
+			dat += "⓿"
+	dat += span_end
+	return dat
+
+/proc/secret_vampireroll(var/dices_num = 1, var/hardness = 1, var/mob/living/rollperformer, var/stealthy = FALSE)
+	if(!dices_num)
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#646464", "0")
+			to_chat(rollperformer, "<b>No dicepool!</b>")
+		return 0
 	hardness = clamp(hardness, 1, 10)
 	var/dices_decap = rollperformer.get_health_difficulty()
 	dices_num = max(1, dices_num-dices_decap)
 	var/wins = 0
-	var/crits = 0
 	var/brokes = 0
+	var/result = ""
 	for(var/i in 1 to dices_num)
 		var/roll = rand(1, 10)
-		if(roll == 10)
-			crits += 1
-		else if(roll == 1)
+		if(roll == 1)
 			brokes += 1
-		else if(roll >= hardness)
+		else if(roll >= hardness || roll == 10)
 			wins += 1
-	wins = wins+(max(0, crits-brokes))
+		result += get_dice_image(roll, hardness)
+	wins = wins-brokes
+	if(!stealthy)
+		to_chat(rollperformer, result)
 	if(wins < 0)
-		create_number_on_mob(rollperformer, "#ff0000", "Botch!")
-		to_chat(rollperformer, "<span class='danger'>Botch!</span>")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#ff0000", "Botch!")
 		return -1
 	if(wins == 0)
-		create_number_on_mob(rollperformer, "#646464", "0")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#646464", "0")
 	if(wins == 1)
-		create_number_on_mob(rollperformer, "#dc9f2d", "1")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#dc9f2d", "1")
 	if(wins == 2)
-		create_number_on_mob(rollperformer, "#e6de29", "2")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#e6de29", "2")
 	if(wins == 3)
-		create_number_on_mob(rollperformer, "#7af321", "3")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#7af321", "3")
 	if(wins == 4)
-		create_number_on_mob(rollperformer, "#00ff77", "4")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#00ff77", "4")
 	if(wins == 5)
-		create_number_on_mob(rollperformer, "#00c6ff", "5")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#00c6ff", "5")
 	if(wins == 6)
-		create_number_on_mob(rollperformer, "#0066ff", "6")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#0066ff", "6")
 	if(wins >= 7)
-		create_number_on_mob(rollperformer, "#b200ff", "7+")
-	if(wins)
-		to_chat(rollperformer, "<span class='help'><b>[wins] successes!</b></span>")
-	else
-		to_chat(rollperformer, "<b>No successes!</b>")
+		if(!stealthy)
+			create_number_on_mob(rollperformer, "#b200ff", "7+")
 	return wins
 
 /datum/action/aboutme

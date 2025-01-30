@@ -82,7 +82,7 @@
 	///List of species that are limited to a certain amount of that species doing this job.
 	var/list/species_slots = list()
 	///List of Bloodlines that are allowed to do this job.
-	var/list/allowed_bloodlines = list("Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Ministry")
+	var/list/allowed_bloodlines = list("Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Followers of Set")
 
 	// List for phone shit
 	var/my_contact_is_important = FALSE
@@ -260,12 +260,12 @@
 
 	var/jobtype = null
 
-	uniform = /obj/item/clothing/under/color/grey
-	id = /obj/item/card/id
+	uniform = /obj/item/clothing/under/vampire/emo
+	id = /obj/item/cockclock
 //	ears = /obj/item/radio/headset
 //	belt = /obj/item/pda
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/sneakers/black
+	shoes = /obj/item/clothing/shoes/vampire
 //	box = /obj/item/storage/box/survival
 
 	var/backpack = /obj/item/storage/backpack

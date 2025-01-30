@@ -307,6 +307,30 @@
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/firstaid/average
+	name = "Medical Aid Kit"
+	desc = "An Individual First Aid Kit. Standard issue."
+	icon_state = "medkit"
+	icon = 'code/modules/wod13/items.dmi'
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	component_type = /datum/component/storage/concrete/vtm/firstaid
+
+/obj/item/storage/firstaid/average/PopulateContents()
+	if(empty)
+		return
+	var/static/items_inside = list(
+		/obj/item/healthanalyzer/wound = 1,
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/suture/emergency = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/reagent_containers/hypospray/medipen/ekit = 1,
+		/obj/item/storage/pill_bottle/iron = 1,
+		/obj/item/reagent_containers/pill/patch/libital = 1,
+		/obj/item/reagent_containers/pill/patch/aiuri = 1)
+	generate_items_inside(items_inside,src)
+
 //medibot assembly
 /obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, params)
 	if((!istype(S, /obj/item/bodypart/l_arm/robot)) && (!istype(S, /obj/item/bodypart/r_arm/robot)))

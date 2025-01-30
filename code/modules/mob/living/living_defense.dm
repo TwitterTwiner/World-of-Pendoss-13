@@ -17,7 +17,7 @@
 	total_cubes += get_fortitude_dices(src)+get_visceratika_dices(src)+get_bloodshield_dices(src)+get_lasombra_dices(src)+get_tzimisce_dices(src)
 
 	if(attack_flag == BASHING || attack_flag == LETHAL || attack_flag == AGGRAVATED)
-		var/final_block = secret_vampireroll(total_cubes, 6, src)
+		var/final_block = secret_vampireroll(total_cubes, 6, src, silent)
 		if(final_block == -1)
 			if(penetrated_text)
 				to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
@@ -128,7 +128,10 @@
 						"<span class='userdanger'>You're hit by [thrown_item]!</span>")
 		if(!thrown_item.throwforce)
 			return
-		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration)
+		var/itemflag = BASHING
+		if(thrown_item.sharpness)
+			itemflag = LETHAL
+		var/armor = run_armor_check(zone, itemflag, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration)
 		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, sharpness = thrown_item.get_sharpness(), wound_bonus = (nosell_hit * CANT_WOUND))
 		if(QDELETED(src)) //Damage can delete the mob.
 			return

@@ -402,11 +402,3 @@
 
 /obj/item/ravnos/proc/create_illusion(atom/A)
 	return
-
-/obj/item/ravnos/item
-
-/obj/item/ravnos/structure
-
-/obj/item/ravnos_illusion/mob
-
-/obj/item/ravnos_illusion/human

@@ -259,7 +259,7 @@
 		var/travel_time = distance * 0.5
 		spawn(travel_time)
 			if(get_dist(loc, adjusted_target) <= 1 && H.potential > 0)
-				H.epic_fall(FALSE, FALSE)
+				H.epic_fall()
 
 
 //		newtonian_move(get_dir(target, src))
@@ -915,14 +915,7 @@
 		return
 	if(stat != DEAD)
 		//special death handling for vampires, who don't die until -200 health
-		if (iskindred(src))
-			if(health <= HEALTH_THRESHOLD_VAMPIRE_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
-				death()
-				return
-			if((health <= HEALTH_THRESHOLD_VAMPIRE_TORPOR) && !HAS_TRAIT(src, TRAIT_TORPOR))
-				spawn()
-					torpor("damage")
-		if(iscathayan(src))
+		if (iskindred(src) || iscathayan(src))
 			if(health <= HEALTH_THRESHOLD_VAMPIRE_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
 				death()
 				return

@@ -8,6 +8,48 @@
 
 /obj/item
 	var/masquerade_violating = FALSE
+	var/attack_diff_override = 0
+
+/obj/item/kastet
+	icon_state = "kastet"
+	name = "brass knuckles"
+	desc = "Lethaly efficient brawl weapon."
+	force = 20
+	attack_diff_override = 4
+	icon = 'code/modules/wod13/weapons.dmi'
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	cost = 25
+
+/obj/item/kastet/spiked
+	icon_state = "kastet_s"
+	name = "brass knuckles"
+	force = 35
+	attack_diff_override = 5
+	sharpness = SHARP_EDGED
+
+/obj/item/melee/vampirearms/sledgehammer
+	icon_state = "sledgehammer"
+	name = "sledgehammer"
+	desc = "Truly, the weapon of a madman. Who would think to fight sledge with an hammer?"
+	force = 50
+	throwforce = 20
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb_continuous = list("attacks", "bumps", "squeashes", "tears", "hits", "bonks")
+	attack_verb_simple = list("attack", "bump", "squeash", "tear", "hit", "bonk")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = SHARP_EDGED
+	max_integrity = 200
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	resistance_flags = FIRE_PROOF
+	wound_bonus = 25
+	bare_wound_bonus = 20
+	armour_penetration = 0
+	block_chance = 0
+	pixel_w = -8
+	masquerade_violating = FALSE
 
 /obj/item/melee/vampirearms/fireaxe
 	icon = 'code/modules/wod13/48x32weapons.dmi'
@@ -25,9 +67,9 @@
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
-	wound_bonus = -15
+	wound_bonus = 25
 	bare_wound_bonus = 20
-	armour_penetration = 35
+	armour_penetration = 0
 	block_chance = 15
 	pixel_w = -8
 	masquerade_violating = FALSE
@@ -76,7 +118,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	block_chance = 40
-	armour_penetration = 35
+	armour_penetration = 0
 	sharpness = SHARP_EDGED
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
@@ -119,7 +161,7 @@
 	force = 48
 	throwforce = 10
 	block_chance = 45
-	armour_penetration = 30
+	armour_penetration = 0
 	sharpness = SHARP_POINTY
 	attack_verb_continuous = list("stabs", "pokes")
 	attack_verb_simple = list("stab", "poke")
@@ -143,7 +185,7 @@
     w_class = WEIGHT_CLASS_BULKY
     slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
     block_chance = 40
-    armour_penetration = 25
+    armour_penetration = 0
     sharpness = SHARP_EDGED
     attack_verb_continuous = list("slashes", "cuts")
     attack_verb_simple = list("slash", "cut")
@@ -165,7 +207,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 35
-	armour_penetration = 35
+	armour_penetration = 0
 	sharpness = SHARP_EDGED
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
@@ -187,7 +229,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 40
-	armour_penetration = 40
+	armour_penetration = 0
 	sharpness = SHARP_EDGED
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
@@ -358,7 +400,7 @@
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
 	hitsound = 'sound/weapons/slash.ogg'
-	armour_penetration = 35
+	armour_penetration = 0
 	block_chance = 5
 	sharpness = SHARP_EDGED
 	w_class = WEIGHT_CLASS_NORMAL
@@ -371,7 +413,7 @@
 	icon_state = "gangrel"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 6
-	armour_penetration = 100	//It's magical damage
+	armour_penetration = 0	//It's magical damage
 	block_chance = 20
 	item_flags = DROPDEL
 	masquerade_violating = TRUE
@@ -387,7 +429,7 @@
 /obj/item/melee/vampirearms/knife/gangrel/lasombra
 	name = "shadow tentacle"
 	force = 7
-	armour_penetration = 100
+	armour_penetration = 0
 	block_chance = 0
 	icon_state = "lasombra"
 	masquerade_violating = TRUE
@@ -536,7 +578,7 @@
 	attack_verb_continuous = list("pierces", "cuts")
 	attack_verb_simple = list("pierce", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armour_penetration = 50
+	armour_penetration = 0
 	sharpness = SHARP_EDGED
 	w_class = WEIGHT_CLASS_SMALL
 	is_wood = TRUE
@@ -597,7 +639,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = null
 	block_chance = 12
-	armour_penetration = 25
+	armour_penetration = 0
 	sharpness = SHARP_EDGED
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
@@ -625,7 +667,7 @@
 	resistance_flags = FIRE_PROOF
 	wound_bonus = -15
 	bare_wound_bonus = 15
-	armour_penetration = 30
+	armour_penetration = 0
 	pixel_w = -8
 	actions_types = list(/datum/action/item_action/eguitar)
 	is_wood = TRUE
@@ -730,7 +772,7 @@
 		force = 25
 		w_class = WEIGHT_CLASS_NORMAL
 		throwforce = 15
-		armour_penetration = 55
+		armour_penetration = 0
 		wound_bonus = 5
 		bare_wound_bonus = 5
 		icon_state = "switchblade1"

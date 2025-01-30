@@ -107,6 +107,8 @@ SUBSYSTEM_DEF(job)
 			return FALSE
 		if((player.client.prefs.generation < job.max_generation) && !bypass)
 			return FALSE
+		if(!job.scale_with_pop())
+			return FALSE
 		if((player.client.prefs.masquerade < job.minimal_masquerade) && !bypass)
 			return FALSE
 		if(!job.allowed_species.Find(player.client.prefs.pref_species.name) && !bypass)
@@ -148,6 +150,9 @@ SUBSYSTEM_DEF(job)
 			continue
 		if((player.client.prefs.generation < job.max_generation) && !bypass)
 			JobDebug("FOC player not enough generation, Player: [player]")
+			continue
+		if(!job.scale_with_pop())
+			JobDebug("FOC job limit reached, Player: [player]")
 			continue
 		if((player.client.prefs.masquerade < job.minimal_masquerade) && !bypass)
 			JobDebug("FOC player not enough masquerade, Player: [player]")
@@ -212,7 +217,9 @@ SUBSYSTEM_DEF(job)
 		if(player.client.prefs.generation < job.max_generation)
 			JobDebug("GRJ player not enough generation, Player: [player]")
 			continue
-
+		if(!job.scale_with_pop())
+			JobDebug("GRJ job limit reached, Player: [player]")
+			continue
 		if(player.client.prefs.masquerade < job.minimal_masquerade)
 			JobDebug("GRJ player not enough masquerade, Player: [player]")
 			continue
@@ -425,7 +432,9 @@ SUBSYSTEM_DEF(job)
 				if((player.client.prefs.generation < job.max_generation) && !bypass)
 					JobDebug("DO player not enough generation, Player: [player]")
 					continue
-
+				if(!job.scale_with_pop())
+					JobDebug("DO job limit reached, Player: [player]")
+					continue
 				if((player.client.prefs.masquerade < job.minimal_masquerade) && !bypass)
 					JobDebug("DO player not enough masquerade, Player: [player]")
 					continue
@@ -653,7 +662,6 @@ SUBSYSTEM_DEF(job)
 			GLOB.secequipment -= spawnloc
 		else //We ran out of spare locker spawns!
 			break
-
 
 /datum/controller/subsystem/job/proc/LoadJobs()
 	var/jobstext = file2text("[global.config.directory]/jobs.txt")

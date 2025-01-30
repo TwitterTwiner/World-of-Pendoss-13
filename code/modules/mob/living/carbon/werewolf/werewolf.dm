@@ -56,7 +56,7 @@
 	var/wound_bonus = 20
 	var/bare_wound_bonus = 25
 	var/sharpness = 50
-	var/armour_penetration = 100
+	var/armour_penetration = 0
 	var/melee_damage_type = BRUTE
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	var/attack_verb_continuous = "attacks"
@@ -181,7 +181,7 @@
 /mob/living/carbon/werewolf/crinos
 	name = "werewolf"
 	icon_state = "black"
-	mob_size = MOB_SIZE_LARGE
+	mob_size = MOB_SIZE_HUGE
 	butcher_results = list(/obj/item/food/meat/slab = 5)
 	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	limb_destroyer = 1
@@ -209,7 +209,7 @@
 	werewolf_armor = 30
 
 /datum/movespeed_modifier/crinosform
-	multiplicative_slowdown = -0.2
+	multiplicative_slowdown = -0.25
 
 /datum/movespeed_modifier/silver_slowdown
 	multiplicative_slowdown = 0.3

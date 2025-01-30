@@ -269,7 +269,7 @@
 			if(1 to 2)
 				to_chat(user, "<span class='warning'>В этом вещице что-то есть.</span>")
 			if(3 to INFINITY)
-				to_chat(user, "<span class='warning'>Ты понял, что это некий артефакт... Ты пытаешься его распознать используя свой оккультный опыт</span>")
+				to_chat(user, "<span class='warning'>Ты понял, что это некий артефакт... Ты пытаешься его распознать</span>")
 				spawn(2 SECONDS)
 					var/result2 = secret_vampireroll(get_a_occult(user)+get_a_intelligence(user), 8, user)
 					switch(result2)
@@ -319,4 +319,3 @@
 							if(!identified)
 								src.identificate()
 								to_chat(user, "<span class='warning'>Ты раскрыл тайну и мощь этого таинственного талисмана</span>")
-

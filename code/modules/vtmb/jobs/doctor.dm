@@ -25,9 +25,9 @@
 
 	v_duty = "Help your fellow kindred in all matters medicine related. Sell blood. Keep your human colleagues ignorant."
 	duty = "Collect blood by helping mortals at the Clinic."
-	experience_addition = 15
+	experience_addition = 6
 	max_generation = 11
-	allowed_bloodlines = list("Daughters of Cacophony", "Salubri", "Baali", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Ministry", "Tzimisce", "Lasombra", "Caitiff", "Kiasyd")
+	allowed_bloodlines = list("Daughters of Cacophony", "Salubri", "Baali", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Followers of Set", "Tzimisce", "Lasombra", "Caitiff", "Kiasyd")
 
 /datum/outfit/job/vdoctor
 	name = "Doctor"
@@ -39,7 +39,7 @@
 	shoes = /obj/item/clothing/shoes/vampire/white
 	suit =  /obj/item/clothing/suit/vampire/labcoat
 	gloves = /obj/item/clothing/gloves/vampire/latex
-	l_hand = /obj/item/storage/firstaid/medical
+	l_hand = /obj/item/storage/firstaid/average
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/vamp/keys/clinic
 	r_hand = /obj/item/radio/clinic
@@ -81,7 +81,7 @@
 
 	v_duty = "Help your fellow kindred in all matters medicine related. Sell blood. Keep your human colleagues ignorant."
 	duty = "Collect blood by helping mortals at the Clinic."
-	experience_addition = 15
+	experience_addition = 6
 	max_generation = 7
 	allowed_bloodlines = list("Salubri", "Tremere", "Malkavian", "Tzimisce", "Kiasyd")
 	known_contacts = list("Prince","Seneschal","Dealer")
@@ -96,7 +96,7 @@
 	shoes = /obj/item/clothing/shoes/vampire/white
 	suit =  /obj/item/clothing/suit/vampire/labcoat
 	gloves = /obj/item/clothing/gloves/vampire/latex
-	l_hand = /obj/item/storage/firstaid/medical
+	l_hand = /obj/item/storage/firstaid/average
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/vamp/keys/clinic
 	r_hand = /obj/item/radio/clinic
@@ -107,3 +107,7 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag
 
 	skillchips = list(/obj/item/skillchip/entrails_reader, /obj/item/skillchip/quickcarry)
+
+/obj/effect/landmark/start/vcdoctor
+	name = "Chief Doctor"
+	icon_state = "Doctor"

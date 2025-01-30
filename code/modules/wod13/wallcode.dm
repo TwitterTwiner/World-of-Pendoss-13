@@ -497,6 +497,14 @@
 	icon_state = "stock"
 	mouse_opacity = 0
 
+/obj/effect/decal/ventilation_system
+	name = "ventilation"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "vents"
+	mouse_opacity = 0
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = GAME_PLANE
+
 /turf/open/floor/plating/sidewalkalt
 	gender = PLURAL
 	name = "sidewalk"

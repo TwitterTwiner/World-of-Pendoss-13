@@ -37,13 +37,13 @@
 	max_generation = 7
 	minimal_masquerade = 5
 	allowed_species = list("Vampire")
-	allowed_bloodlines = list("True Brujah", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Ministry", "Lasombra")
+	allowed_bloodlines = list("True Brujah", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Followers of Set", "Lasombra")
 
 	my_contact_is_important = TRUE
 	known_contacts = list("Prince","Seneschal","Dealer")
 
 	v_duty = "Protect the Prince and the Masquerade. You are their sword."
-	experience_addition = 20
+	experience_addition = 8
 
 /datum/outfit/job/sheriff
 	name = "Sheriff"

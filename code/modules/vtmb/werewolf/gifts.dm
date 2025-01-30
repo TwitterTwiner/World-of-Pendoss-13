@@ -299,8 +299,8 @@
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
-		C.obfuscate_level = 3
-		C.alpha = 36
+		C.obfuscate_level = 4
+		C.alpha = 26
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/milky_blur.ogg', 75, FALSE)
 		spawn(200)
 			C.obfuscate_level = 0
@@ -341,7 +341,7 @@
 		C.emote("laugh")
 		C.Stun(10)
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/infectious_laughter.ogg', 100, FALSE)
-		for(var/mob/living/L in oviewers(4, src))
+		for(var/mob/living/L in oviewers(4, owner))
 			if(L)
 				L.emote("laugh")
 				L.Stun(20)
@@ -425,7 +425,7 @@
 			H.pixel_w = -16
 			H.pixel_z = -16
 			H.melee_damage_lower = 35
-			H.melee_damage_upper = 55
+			H.melee_damage_upper = 50
 			H.hispo = TRUE
 			H.update_icons()
 			H.remove_movespeed_modifier(/datum/movespeed_modifier/lupusform)
