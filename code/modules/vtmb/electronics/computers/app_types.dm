@@ -136,6 +136,7 @@ GLOBAL_LIST_EMPTY(adressnegra)
 
 /datum/app/icq/proc/Poisk(poiski)
 	var/datum/poiski/send = new(poiski)
+	app.history += send
 
 /datum/app/cheburnet
 	title = "Cheburnet"
@@ -143,19 +144,25 @@ GLOBAL_LIST_EMPTY(adressnegra)
 	var/shrek = "Добро пожаловать в Шрекнет"
 	var/poisk = "Введите запрос"
 	var/can_sond = TRUE
+	var/list/datum/poiski/history = list()
 
-
-/datum/app/cheburnet/site/narko
+/datum/app/site
 	adress = "www.Hydra.CUM"
-	title = "Нарики-хуярики"
+	title = "Nariki-huariki"
 	var/username
+	app_type = "hydra"
+	width = 660
+	height = 500
+	x = 300
+	y = 300
+//	desktop_app = TRUE
 
-
+/*
 /datum/app/cheburnet/site/narko/New()
 	.=..()
+*/
 
-
-/datum/app/cheburnet/site/narko/data()
+/datum/app/site/data()
 	. +=list("adresshydra"=adress)
 
 /datum/app/cheburnet/data()

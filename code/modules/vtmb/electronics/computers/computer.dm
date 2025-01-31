@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	var/datum/app/gmail/gmail = new ()
 	var/datum/app/news/news = new ()
 	var/datum/app/cheburnet/cheburnet = new()
-//	var/datum/app/cheburnet/site/narko/narko = new()
+	var/datum/app/site/site = new()
 
 	gmail.generate_email()
 	if(main)
@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	apps.Add(gmail)
 	apps.Add(news)
 	apps.Add(cheburnet)
-//	apps.Add(narko)
+	apps.Add(site)
 
 	for(var/obj/vampire_computer/C in GLOB.vampire_computers)
 		if(C.main)
@@ -229,22 +229,14 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 			if(params["poiski"] != "" && params["poiski"])
 				var/poiski = trim(copytext_char(sanitize(params["poiski"]), 1, MAX_MESSAGE_LEN))
 				cheburnet.poisk = poiski
-				for(var/obj/structure/vamp/zakladkagrafity/Z in GLOB.grafity )
+		/*		for(var/obj/structure/vamp/zakladkagrafity/Z in GLOB.grafity )
 					if(params["poiski"] == Z.adress)
 						throw_site()
+*/
 
 
-
-				if("hydra_login_user")
-					if(params["username"] != "" && params["username"])
-						for(var/obj/vampire_computer/C in GLOB.vampire_computers)
-							var/datum/app/cheburnet/site/narko/hydra = C.apps[6]
-							if(hydra.username == params["username"])
-								throw_error("This name is already exists!")
-								return TRUE
-						var/datum/app/cheburnet/site/narko/app = locate(params["ref"]) in apps
-						app.username = params["username"]
-						return TRUE
+		if("hydra_login_user")
+			var/datum/app/site/site = apps[6]
 
 
 
@@ -266,14 +258,14 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	error_app.launched = TRUE
 	current_app = error_app
 	apps.Add(error_app)
-
+/*
 /obj/vampire_computer/proc/throw_site()
 	playsound(loc, 'sound/winxp/Falko_1.wav', 100)
-	var/datum/app/cheburnet/site/narko/hydra = new ()
+	var/datum/app/site/narko/hydra = new ()
 	hydra.launched = TRUE
 	current_app = hydra
 	apps.Add(hydra)
-
+*/
 /obj/vampire_computer/proc/set_cords(cord, max, min)
 	if(cord < max && cord > min)
 		return cord
