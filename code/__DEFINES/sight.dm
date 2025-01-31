@@ -7,6 +7,9 @@
 //#define SEE_INVISIBLE_LEVEL_ONE 35 //currently unused
 //#define INVISIBILITY_LEVEL_ONE 35 //currently unused
 
+#define SEE_INVISIBLE_LEVEL_OBFUSCATE 40
+#define INVISIBILITY_LEVEL_OBFUSCATE 40
+
 //#define SEE_INVISIBLE_LEVEL_TWO 45 //currently unused
 //#define INVISIBILITY_LEVEL_TWO 45 //currently unused
 

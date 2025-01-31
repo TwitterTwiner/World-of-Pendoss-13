@@ -1334,14 +1334,15 @@
 	equip_to_slot_or_del(new /obj/item/clothing/head/vampire/nazi(src), ITEM_SLOT_HEAD)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/vampire/jackboots/high(src), ITEM_SLOT_FEET)
 	equip_to_slot_or_del(new /obj/item/clothing/under/vampire/nazi(src), ITEM_SLOT_ICLOTHING)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/vampire/gasmask/military(src), ITEM_SLOT_MASK)
 
 /mob/living/carbon/human/species/vamp_mannequin/conquestador
 
 /mob/living/carbon/human/species/vamp_mannequin/conquestador/Initialize()
 	. = ..()
-	equip_to_slot_or_del(new /obj/item/clothing/head/vampire/helmet/spain(src), ITEM_SLOT_HEAD)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/vampire/jackboots/work(src), ITEM_SLOT_FEET)
-	equip_to_slot_or_del(new /obj/item/clothing/under/vampire/tremere(src), ITEM_SLOT_ICLOTHING)
+	equip_to_slot_or_del(new /obj/item/clothing/head/vampire/musketeer(src), ITEM_SLOT_HEAD)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/vampire/brown(src), ITEM_SLOT_FEET)
+	equip_to_slot_or_del(new /obj/item/clothing/under/vampire/musketeer(src), ITEM_SLOT_ICLOTHING)
 	equip_to_slot_or_del(new /obj/item/clothing/suit/vampire/vest/medieval(src), ITEM_SLOT_OCLOTHING)
 
 /mob/living/carbon/human/species/vamp_mannequin/cowboy

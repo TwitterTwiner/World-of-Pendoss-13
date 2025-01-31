@@ -228,6 +228,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/list/priorities = list("Physical" = 1, "Social" = 2, "Mental" = 3)
 	var/list/languages = list()
+	var/list/loadout = list()
 
 	var/Strength = 1
 	var/Dexterity = 1

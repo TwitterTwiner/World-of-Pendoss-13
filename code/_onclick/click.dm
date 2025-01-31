@@ -131,6 +131,12 @@
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
 		return
 
+	if((isobj(A) || ismob(A) || isturf(A)) && A.loc != src)
+		if(invisibility == INVISIBILITY_LEVEL_OBFUSCATE)
+			invisibility = initial(invisibility)
+			alpha = 255
+			playsound_local(loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
+
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["middle"])
 		ShiftMiddleClickOn(A)

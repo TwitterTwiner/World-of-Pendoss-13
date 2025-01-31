@@ -2,7 +2,7 @@
 	name = "National Guard Soldier"
 	ears = /obj/item/p25radio/police/government
 	uniform = /obj/item/clothing/under/vampire/military_fatigues
-	mask = /obj/item/clothing/mask/vampire/balaclava
+	mask = /obj/item/clothing/mask/vampire/gasmask/tactical
 	r_pocket = /obj/item/flashlight
 	l_pocket = /obj/item/ammo_box/magazine/vampaug
 	shoes = /obj/item/clothing/shoes/vampire/jackboots

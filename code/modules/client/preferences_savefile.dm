@@ -391,6 +391,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	READ_FILE(S["a_priorities"], priorities)
 	READ_FILE(S["a_languages"], languages)
+	READ_FILE(S["a_loadout"], loadout)
 
 	READ_FILE(S["a_strength"], Strength)
 	READ_FILE(S["a_dexterity"], Dexterity)
@@ -597,6 +598,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		languages = list()
 	else
 		languages = sanitize_islist(languages, list())
+	loadout = sanitize_islist(loadout, list())
 	Strength				= sanitize_integer(Strength, 1, 10, initial(Strength))
 	Dexterity				= sanitize_integer(Dexterity, 1, 10, initial(Dexterity))
 	Stamina				= sanitize_integer(Stamina, 1, 10, initial(Stamina))
@@ -749,6 +751,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	WRITE_FILE(S["a_priorities"], priorities)
 	WRITE_FILE(S["a_languages"], languages)
+	WRITE_FILE(S["a_loadout"], loadout)
 
 	WRITE_FILE(S["a_strength"], Strength)
 	WRITE_FILE(S["a_dexterity"], Dexterity)

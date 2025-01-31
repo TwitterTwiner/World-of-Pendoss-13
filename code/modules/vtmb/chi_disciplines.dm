@@ -401,13 +401,15 @@
 					REMOVE_TRAIT(caster, TRAIT_SUPERNATURAL_DEXTERITY, "jade shintai 2")
 		if(3)
 			ADD_TRAIT(caster, TRAIT_PASS_THROUGH_WALLS, "jade shintai 3")
-			caster.alpha = 128
+			caster.invisibility = INVISIBILITY_LEVEL_OBFUSCATE
+			caster.alpha = 100
 			caster.obfuscate_level = 3
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/wall_passing)
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
 					caster.obfuscate_level = 0
 					caster.alpha = 255
+					caster.invisibility = initial(caster.invisibility)
 					REMOVE_TRAIT(caster, TRAIT_PASS_THROUGH_WALLS, "jade shintai 3")
 					caster.remove_movespeed_modifier(/datum/movespeed_modifier/wall_passing)
 		if(4)
@@ -1192,7 +1194,7 @@
 	icon_state = "ironmountain"
 	ranged = FALSE
 	activate_sound = 'code/modules/wod13/sounds/ironmountain_activate.ogg'
-	delay = 12 SECONDS
+	delay = 24 SECONDS
 	cost_demon = 1
 	discipline_type = "Demon"
 
@@ -1202,7 +1204,7 @@
 //	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "mountain", -FORTITUDE_LAYER)
 //	caster.overlays_standing[FORTITUDE_LAYER] = fortitude_overlay
 //	caster.apply_overlay(FORTITUDE_LAYER)
-	caster.attributes.fortitude_bonus = level_casting
+	caster.attributes.fortitude_bonus = level_casting*2
 	spawn(delay+caster.discipline_time_plus)
 		if(caster)
 			caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/ironmountain_deactivate.ogg', 50, FALSE)
@@ -1797,6 +1799,7 @@
 			var/sound/auspexbeat = sound('code/modules/wod13/sounds/auspex.ogg', repeat = TRUE)
 			caster.playsound_local(caster, auspexbeat, 75, 0, channel = CHANNEL_DISCIPLINES, use_reverb = FALSE)
 			ADD_TRAIT(caster, TRAIT_NIGHT_VISION, TRAIT_GENERIC)
+			caster.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE
 			caster.update_sight()
 			caster.add_client_colour(/datum/client_colour/glass_colour/lightblue)
 			var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -1817,6 +1820,7 @@
 			caster.playsound_local(caster, auspexbeat, 75, 0, channel = CHANNEL_DISCIPLINES, use_reverb = FALSE)
 			ADD_TRAIT(caster, TRAIT_THERMAL_VISION, TRAIT_GENERIC)
 			ADD_TRAIT(caster, TRAIT_NIGHT_VISION, TRAIT_GENERIC)
+			caster.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE
 			caster.update_sight()
 			var/datum/atom_hud/health_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 			health_hud.add_hud_to(caster)
@@ -2108,13 +2112,15 @@
 	..()
 	switch(level_casting)
 		if(1)
-			animate(caster, alpha = 10, time = 1 SECONDS)
+			caster.invisibility = INVISIBILITY_LEVEL_OBFUSCATE
+			caster.alpha = 100
 			caster.obfuscate_level = 3
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
 					caster.obfuscate_level = 0
-					if(caster.alpha != 255)
+					if(caster.alpha != initial(caster.invisibility))
 						caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
+						caster.invisibility = initial(caster.invisibility)
 						caster.alpha = 255
 		if(2)
 			var/atom/movable/light_source = new(target)
