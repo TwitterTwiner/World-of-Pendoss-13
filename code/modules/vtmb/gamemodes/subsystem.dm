@@ -229,7 +229,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 						actual_candidates -= pick(candidates)
 				for(var/mob/dead/new_player/newplayer in candidates)
 					if(newplayer?.client?.prefs?.pref_species)
-						if(!newplayer.client.prefs.pref_species.name in species_restrict)
+						if(!(newplayer.client.prefs.pref_species.name in species_restrict))
 							actual_candidates -= newplayer
 					else
 						actual_candidates -= newplayer

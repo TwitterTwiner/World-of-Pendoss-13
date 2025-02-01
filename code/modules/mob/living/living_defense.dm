@@ -4,6 +4,11 @@
 
 	var/total_cubes = max(0, armor)
 
+	if(invisibility == INVISIBILITY_LEVEL_OBFUSCATE)
+		invisibility = initial(invisibility)
+		alpha = 255
+		playsound_local(loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
+
 	switch(attack_flag)
 		if(BASHING)
 			total_cubes += get_a_stamina(src)

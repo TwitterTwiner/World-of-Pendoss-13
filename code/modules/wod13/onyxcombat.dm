@@ -777,7 +777,7 @@
 	update_blood_hud()
 	update_zone_hud()
 	update_rage_hud()
-	update_shadow()
+//	update_shadow()
 	handle_vampire_music()
 	update_auspex_hud()
 	if(warrant)

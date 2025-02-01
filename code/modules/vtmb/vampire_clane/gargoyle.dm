@@ -74,12 +74,14 @@
 			spawn(delay+caster.discipline_time_plus)
 				REMOVE_TRAIT(caster, TRAIT_THERMAL_VISION, TRAIT_GENERIC)
 		if(3)
-			caster.alpha = 10
+			caster.invisibility = INVISIBILITY_LEVEL_OBFUSCATE
+			caster.alpha = 100
 			caster.obfuscate_level = 3
 			ADD_TRAIT(caster, TRAIT_THERMAL_VISION, TRAIT_GENERIC)
 			spawn(delay+caster.discipline_time_plus)
 				caster.obfuscate_level = 0
 				caster.alpha = 255
+				caster.invisibility = initial(caster.invisibility)
 				REMOVE_TRAIT(caster, TRAIT_THERMAL_VISION, TRAIT_GENERIC)
 		if(4)
 			caster.Stun(delay+caster.discipline_time_plus)
@@ -89,12 +91,14 @@
 				REMOVE_TRAIT(caster, TRAIT_THERMAL_VISION, TRAIT_GENERIC)
 		if(5)
 			ADD_TRAIT(caster, TRAIT_PASS_THROUGH_WALLS, "visceratika 5")
-			caster.alpha = 10
+			caster.invisibility = INVISIBILITY_LEVEL_OBFUSCATE
+			caster.alpha = 100
 			caster.obfuscate_level = 3
 			ADD_TRAIT(caster, TRAIT_THERMAL_VISION, TRAIT_GENERIC)
 			spawn(delay+caster.discipline_time_plus)
 				caster.obfuscate_level = 0
 				caster.alpha = 255
+				caster.invisibility = initial(caster.invisibility)
 				REMOVE_TRAIT(caster, TRAIT_PASS_THROUGH_WALLS, "visceratika 5")
 				REMOVE_TRAIT(caster, TRAIT_THERMAL_VISION, TRAIT_GENERIC)
 

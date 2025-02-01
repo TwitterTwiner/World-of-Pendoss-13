@@ -300,11 +300,13 @@
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
 		C.obfuscate_level = 4
-		C.alpha = 26
+		C.alpha = 100
+		C.invisibility = INVISIBILITY_LEVEL_OBFUSCATE
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/milky_blur.ogg', 75, FALSE)
 		spawn(200)
 			C.obfuscate_level = 0
 			C.alpha = 255
+			C.invisibility = initial(C.invisibility)
 
 /datum/action/gift/open_seal
 	name = "Open Seal"

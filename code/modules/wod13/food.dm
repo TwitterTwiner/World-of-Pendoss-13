@@ -365,7 +365,10 @@
 		new /datum/data/mining_equipment("blue stripe", /obj/item/reagent_containers/food/drinks/beer/vampire/blue_stripe, 8),
 		new /datum/data/mining_equipment("candle pack",	/obj/item/storage/fancy/candle_box,	12),
 		new /datum/data/mining_equipment("bruise pack", /obj/item/stack/medical/bruise_pack, 100),
-		new /datum/data/mining_equipment("respirator",	/obj/item/clothing/mask/vampire,	35)
+		new /datum/data/mining_equipment("respirator",	/obj/item/clothing/mask/vampire,	35),
+		new /datum/data/mining_equipment("gas mask",	/obj/item/clothing/mask/vampire/gasmask,	40),
+		new /datum/data/mining_equipment("tactical gas mask",	/obj/item/clothing/mask/vampire/gasmask/tactical,	45),
+		new /datum/data/mining_equipment("military gas mask",	/obj/item/clothing/mask/vampire/gasmask/military,	50)
 	)
 
 /obj/machinery/mineral/equipment_vendor/fastfood/clothing
@@ -474,7 +477,6 @@
 		new /datum/data/mining_equipment("medical mask",	/obj/item/clothing/mask/surgical,	10),
 		new /datum/data/mining_equipment("mummy mask",	/obj/item/clothing/mask/mummy,	15),
 		new /datum/data/mining_equipment("scarecrow mask",	/obj/item/clothing/mask/scarecrow,	10),
-		new /datum/data/mining_equipment("respirator",	/obj/item/clothing/mask/vampire,	35),
 		new /datum/data/mining_equipment("black and gold luchador mask",	/obj/item/clothing/mask/luchador,	10),
 		new /datum/data/mining_equipment("green luchador mask",	/obj/item/clothing/mask/luchador/tecnicos,	10),
 		new /datum/data/mining_equipment("red and blue luchador mask",	/obj/item/clothing/mask/luchador/rudos,	10),
