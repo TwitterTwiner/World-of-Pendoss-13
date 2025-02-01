@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 			else
 				playsound(loc, 'sound/winxp/error.wav', 100)
 				return TRUE
-		if("poiskovik")
+/*		if("poiskovik")
 			if(!params["poiski"])
 				switch(rand(1, 4))
 					if(1)
@@ -229,7 +229,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 			if(params["poiski"] != "" && params["poiski"])
 				var/poiski = trim(copytext_char(sanitize(params["poiski"]), 1, MAX_MESSAGE_LEN))
 				cheburnet.poisk = poiski
-		/*		for(var/obj/structure/vamp/zakladkagrafity/Z in GLOB.grafity )
+				for(var/obj/structure/vamp/zakladkagrafity/Z in GLOB.grafity )
 					if(params["poiski"] == Z.adress)
 						throw_site()
 */

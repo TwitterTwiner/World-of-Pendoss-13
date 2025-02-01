@@ -127,17 +127,6 @@ GLOBAL_LIST_EMPTY(adressnegra)
 	. += list("text"=text)
 	. += list("can_send"=can_send)
 
-
-/datum/poiski
-	var/poiski
-
-/datum/poiski/New(param_poiski)
-	poiski = param_poiski
-
-/datum/app/icq/proc/Poisk(poiski)
-	var/datum/poiski/send = new(poiski)
-	app.history += send
-
 /datum/app/cheburnet
 	title = "Cheburnet"
 	app_type = "cheburnet"
@@ -145,6 +134,17 @@ GLOBAL_LIST_EMPTY(adressnegra)
 	var/poisk = "Введите запрос"
 	var/can_sond = TRUE
 	var/list/datum/poiski/history = list()
+
+/datum/poiski
+	var/poiski
+
+/datum/poiski/New(param_poiski)
+	poiski = param_poiski
+
+/datum/app/cheburnet/proc/Poisk(poiski)
+	var/datum/poiski/send = new(username, poiski)
+	var/datum/app/cheburnet/app = apps(5)
+	app.history += send
 
 /datum/app/site
 	adress = "www.Hydra.CUM"

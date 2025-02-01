@@ -1065,8 +1065,9 @@
 		var/difficulties = 0
 		for(var/obj/item/clothing/C in user)
 			if(C)
-	//			if(C != )
-				difficulties += 1
+				if(!istype(C, /obj/item/clothing/head/vampire))
+					difficulties += 1
+					return
 		difficulties = round(difficulties/2)
 		if(difficulties)
 			to_chat(user, "<span class='warning'>Clothes are making you worse at dancing... Take them off.")

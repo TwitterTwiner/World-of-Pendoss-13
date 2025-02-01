@@ -491,9 +491,16 @@
 				return
 		else
 			if (closed) //yes, this is a thing you can extremely easily do in real life
-				to_chat(user, "<span class='notice'>You re-lock the door with your lockpick.</span>")
-				locked = TRUE
-				playsound(src, 'code/modules/wod13/sounds/hack.ogg', 100, TRUE)
+				if(do_mob(user, src, lockpick_timer))
+					var/roll = secret_vampireroll(get_a_dexterity(user)+get_a_security(user), 5, user)
+					if(roll == -1)
+						to_chat(user, "<span class='warning'>Your lockpick broke!</span>")
+						qdel(W)
+					if(roll >= 2)
+						to_chat(user, "<span class='notice'>You re-lock the door with your lockpick.</span>")
+						locked = TRUE
+						playsound(src, 'code/modules/wod13/sounds/hack.ogg', 100, TRUE)
+						return
 				return
 	else if(istype(W, /obj/item/vamp/keys))
 		var/obj/item/vamp/keys/KEY = W
