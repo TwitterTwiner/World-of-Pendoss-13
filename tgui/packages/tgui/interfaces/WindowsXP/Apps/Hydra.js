@@ -1,4 +1,5 @@
 import { useLocalState } from '../../../backend';
+import { TextArea, Input } from '../../../components';
 import chebur from '../../../assets/WindowsXP/chebur.png';
 
 export const Hydra = (props, context) => {
@@ -27,7 +28,7 @@ export const Hydra = (props, context) => {
   ) : (
     <div className="chebur">
       <div className="chat-header">
-        <img src={chess} className="picture" />
+        <img src={chebur} className="picture" />
         <div className="user-info">
           <div className="header-container">
             <div className="username">{app.username}</div>

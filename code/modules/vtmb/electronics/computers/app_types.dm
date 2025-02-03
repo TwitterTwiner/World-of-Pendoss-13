@@ -133,6 +133,7 @@ GLOBAL_LIST_EMPTY(adressnegra)
 	var/shrek = "Добро пожаловать в Шрекнет"
 	var/poisk = "Введите запрос"
 	var/can_sond = TRUE
+	var/usernameCH = ""
 	var/list/datum/poiski/history = list()
 
 /datum/poiski
@@ -142,14 +143,15 @@ GLOBAL_LIST_EMPTY(adressnegra)
 	poiski = param_poiski
 
 /datum/app/cheburnet/proc/Poisk(poiski)
-	var/datum/poiski/send = new(username, poiski)
-	var/datum/app/cheburnet/app = apps(5)
-	app.history += send
+	var/datum/poiski/send = new(usernameCH, poiski)
+	/*var/vampire_computer/C
+	var/datum/app/cheburnet/app = C.apps(5)
+	app.history += send*/
 
 /datum/app/site
 	adress = "www.Hydra.CUM"
 	title = "Nariki-huariki"
-	var/username
+	var/username = ""
 	app_type = "hydra"
 	width = 660
 	height = 500
@@ -163,12 +165,13 @@ GLOBAL_LIST_EMPTY(adressnegra)
 */
 
 /datum/app/site/data()
+	.=..()
 	. +=list("adresshydra"=adress)
-
 /datum/app/cheburnet/data()
 	.=..()
 	. += list("poisk"=poisk)
 	. +=list("can_sond"=can_sond)
+	. +=list("usernameCH"=usernameCH)
 
 /datum/app/cheburnet/proc/zakladki()
 

@@ -496,7 +496,7 @@
 					if(roll == -1)
 						to_chat(user, "<span class='warning'>Your lockpick broke!</span>")
 						qdel(W)
-					if(roll >= 2)
+					if(roll >= 3)
 						to_chat(user, "<span class='notice'>You re-lock the door with your lockpick.</span>")
 						locked = TRUE
 						playsound(src, 'code/modules/wod13/sounds/hack.ogg', 100, TRUE)
