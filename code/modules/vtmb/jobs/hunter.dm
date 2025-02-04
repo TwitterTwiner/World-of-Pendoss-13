@@ -62,6 +62,7 @@
 			if("Fire Fighter")
 				H.equip_to_slot_or_del(new /obj/item/clothing/head/vampire/helmet(H), ITEM_SLOT_HEAD)
 				H.equip_to_slot_or_del(new /obj/item/clothing/suit/vampire/vest(H), ITEM_SLOT_OCLOTHING)
+				H.equip_to_slot_or_del(new /obj/item/clothing/mask/vampire/gasmask(H), ITEM_SLOT_MASK)
 				H.put_in_r_hand(new /obj/item/vampire_flamethrower(H))
 				H.put_in_l_hand(new /obj/item/melee/vampirearms/fireaxe(H))
 			if("EOD Suit")

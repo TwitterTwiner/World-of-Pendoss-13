@@ -452,8 +452,9 @@ SUBSYSTEM_DEF(woddices)
 				background-color: #090909; color: white;
 			}
 
-	 		 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-     		 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 			</style>
 			"}
@@ -469,12 +470,14 @@ SUBSYSTEM_DEF(woddices)
 			if(iskindred(host))
 				if(host.clane)
 					dat += " the [host.clane.name]"
-				if(!host.clane)
+				else
 					dat += " the caitiff"
 			else if(isgarou(host) || iswerewolf(host))
 				dat += " the garou"
 			else if(iscathayan(host))
 				dat += " the kuei-jin"
+			else if(isghoul(host))
+				dat += " the ghoul"
 			else
 				dat += " the mortal"
 

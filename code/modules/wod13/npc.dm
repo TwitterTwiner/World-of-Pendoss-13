@@ -428,13 +428,15 @@
 
 /mob/living/carbon/Move(NewLoc, direct)
 	if(obfuscate_level < 2)
-		if(alpha < 200)
+		if(invisibility != initial(invisibility))
 			playsound(loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
+			invisibility = initial(invisibility)
 			alpha = 255
 	if(m_intent != MOVE_INTENT_WALK)
 		if(obfuscate_level < 3)
-			if(alpha < 200)
+			if(invisibility != initial(invisibility))
 				playsound(loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
+				invisibility = initial(invisibility)
 				alpha = 255
 //		for(var/obj/effect/decal/cleanable/blood/B in NewLoc)
 //			if(B)
@@ -449,14 +451,14 @@
 	..()
 
 
-/mob/living/carbon/human/toggle_resting()
-	. = ..()
-	update_shadow()
+//mob/living/carbon/human/toggle_resting()
+//	. = ..()
+//	update_shadow()
 
 
 /mob/living/carbon/human
 	var/last_shadow_was = TRUE
-
+/*
 /mob/living/carbon/human/proc/update_shadow()
 	if(body_position != LYING_DOWN)
 		if(!last_shadow_was)
@@ -472,7 +474,7 @@
 			last_shadow_was = FALSE
 			if(overlays_standing[UNDERSHADOW_LAYER])
 				remove_overlay(UNDERSHADOW_LAYER)
-
+*/
 /mob/living/carbon/human/npc/attack_hand(mob/user)
 	if(user)
 		if(user.a_intent == INTENT_HELP)

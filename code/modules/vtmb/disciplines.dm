@@ -418,6 +418,7 @@
 	if(!HAS_TRAIT(caster, TRAIT_NIGHT_VISION))
 		ADD_TRAIT(caster, TRAIT_NIGHT_VISION, TRAIT_GENERIC)
 		loh = TRUE
+	caster.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE
 	caster.update_sight()
 	caster.add_client_colour(/datum/client_colour/glass_colour/lightblue)
 	var/shitcasted = FALSE
@@ -474,7 +475,7 @@
 
 /mob/living/carbon/human/Move(atom/newloc, direct, glide_size_override)
 	. = ..()
-	update_shadow()
+//	update_shadow()
 	if(celerity_visual)
 		var/obj/effect/celerity/C = new(loc)
 		C.name = name
@@ -823,7 +824,7 @@
 	icon_state = "potence"
 	cost = 1
 	ranged = FALSE
-	delay = 10 SECONDS
+	delay = 15 SECONDS
 	activate_sound = 'code/modules/wod13/sounds/potence_activate.ogg'
 	var/datum/component/tackler
 
@@ -854,7 +855,7 @@
 	icon_state = "fortitude"
 	cost = 1
 	ranged = FALSE
-	delay = 7.5 SECONDS
+	delay = 30 SECONDS
 	activate_sound = 'code/modules/wod13/sounds/fortitude_activate.ogg'
 
 /datum/discipline/fortitude/activate(mob/living/target, mob/living/carbon/human/caster)
@@ -863,7 +864,7 @@
 //	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "fortitude", -FORTITUDE_LAYER)
 //	caster.overlays_standing[FORTITUDE_LAYER] = fortitude_overlay
 //	caster.apply_overlay(FORTITUDE_LAYER)
-	caster.attributes.fortitude_bonus = level_casting
+	caster.attributes.fortitude_bonus = level_casting*2
 	spawn(delay+caster.discipline_time_plus)
 		if(caster)
 			caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/fortitude_deactivate.ogg', 50, FALSE)
@@ -886,12 +887,14 @@
 		if(NPC)
 			if(NPC.danger_source == caster)
 				NPC.danger_source = null
-	caster.alpha = 10
+	caster.invisibility = INVISIBILITY_LEVEL_OBFUSCATE
+	caster.alpha = 100
 	caster.obfuscate_level = level_casting
 	spawn((delay*level_casting)+caster.discipline_time_plus)
 		if(caster)
-			if(caster.alpha != 255)
+			if(caster.invisibility != initial(caster.invisibility))
 				caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
+				caster.invisibility = initial(caster.invisibility)
 				caster.alpha = 255
 
 /datum/discipline/presence

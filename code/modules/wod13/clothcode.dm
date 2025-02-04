@@ -103,6 +103,11 @@
 	desc = "Some historical clothes."
 	icon_state = "nazi"
 
+/obj/item/clothing/under/vampire/musketeer
+	name = "musketeer uniform"
+	desc = "Some historical clothes."
+	icon_state = "musketeer"
+
 /obj/item/clothing/under/vampire/military_fatigues
 	name = "Military fatigues"
 	desc = "Some military clothes."
@@ -894,6 +899,12 @@
 	icon_state = "ss"
 	armor = list(BASHING = 2, LETHAL = 1, AGGRAVATED = 0, MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, WOUND = 0)
 
+/obj/item/clothing/head/vampire/musketeer
+	name = "musketeer hat"
+	desc = "Load thy barrels, poop-heads!"
+	icon_state = "musketeer_hat"
+	armor = list(BASHING = 2, LETHAL = 1, AGGRAVATED = 0, MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, WOUND = 0)
+
 /obj/item/clothing/head/vampire/top
 	name = "top hat"
 	desc = "Want some tea? Provides some kind of protection."
@@ -1167,6 +1178,20 @@
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clothing/mask/vampire/gasmask
+	name = "gas mask"
+	icon_state = "gasmask1"
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+
+/obj/item/clothing/mask/vampire/gasmask/tactical
+	name = "tactical gas mask"
+	icon_state = "gasmask2"
+
+/obj/item/clothing/mask/vampire/gasmask/military
+	name = "military gas mask"
+	icon_state = "gasmask3"
 
 /obj/item/clothing/mask/vampire/tragedy
 	name = "tragedy"
