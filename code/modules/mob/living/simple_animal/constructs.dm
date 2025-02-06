@@ -505,10 +505,10 @@
 	else if(health > maxHealth*0.8)
 		return 0
 	else if(health > maxHealth*0.6)
-		return -1
+		return 1
 	else if(health > maxHealth*0.4)
-		return -2
+		return 2
 	else if(health > maxHealth*0.2)
-		return -5
+		return 5
 	else
-		return -10
+		return 10

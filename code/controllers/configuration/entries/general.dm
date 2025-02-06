@@ -216,13 +216,13 @@
 	config_entry_value = ""
 
 /datum/config_entry/string/discordurl
-	config_entry_value = "https://discord.com/invite/WU92NG2Me8"
+	config_entry_value = "https://discord.gg/ZzCrYNaFzJ"
 
 /datum/config_entry/string/rulesurl
 	config_entry_value = ""
 
 /datum/config_entry/string/githuburl
-	config_entry_value = "https://github.com/WorldOfDarknessXIII/World-of-Darkness-13"
+	config_entry_value = "https://github.com/Discozavisim/World-of-Darkness-13"
 /datum/config_entry/string/discordbotcommandprefix
 	config_entry_value = "?"
 
