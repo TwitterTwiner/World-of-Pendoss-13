@@ -5,6 +5,7 @@ import chebur from '../../../assets/WindowsXP/chebur.png';
 export const Hydra = (props, context) => {
   const { app, act } = props;
   const [username, setUsername] = useLocalState(context, 'hydra_username', '');
+  const [message, setMessage] = useLocalState(context, 'icq_message', '');
   return app.username === '' ? (
     <div className="visitor">
       <div>
