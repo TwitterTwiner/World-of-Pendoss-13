@@ -512,33 +512,20 @@
 
 	if(ishuman(user))
 		. += "<a href='?src=[REF(src)];masquerade=1'>Spot a Masquerade violation</a>"
+		. += "<a href='?src=[REF(src)];headshot=1'>View headshot</a>"
 
-
-	var/mob/living/L = user
-	var/imya = L.get_visible_name()
 	if(flavor_text)
+		var/mob/living/L = user
+		var/imya = L.get_visible_name()
+
 
 		if(imya == "Unknown")
-			. += "Kto eto...?"
+			. += "...?"
 			return
-		if(imya != L.real_name)
+		if(imya != L.true_real_name)
 			return
 		else
 			. += "[sanitize_text(flavor_text)]\n"
-
-
-
-
-	if(headshot)
-		if(imy == "Unknown")
-			return
-		//. += "<a href='?src=[REF(usr)];cumshot=1'>Увидеть хэдшот-камшот</a>"
-	//	. += "[sanitize_text("<img src="headshot" width='160px' height='120px'>")]\n"
-
-
-		//. += "[sanitize_text("<img src=headshot_link width=160px height=120px>")\n"
-		. += "<img src='headshot' width='260px' height='120px'>"
-
 
 	var/perpname = get_face_name(get_id_name(""))
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))

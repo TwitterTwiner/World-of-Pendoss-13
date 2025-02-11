@@ -45,14 +45,6 @@ export const Hydra = (props, context) => {
       <div className="chat">
         <div className="chat-footer">
           <div class="messages">
-            {app.messages.map(message => {
-              return (
-                <>
-                  <b>{message.author}</b>
-                  <div>{message.message}</div>
-                </>
-              );
-            })}
           </div>
           <TextArea
             placeholder={'Enter message...'}

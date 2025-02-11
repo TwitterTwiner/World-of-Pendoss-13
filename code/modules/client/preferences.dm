@@ -190,7 +190,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/ambitious = FALSE
 	var/flavor_text
-
+	var/headshot
+	var/headshot_link
 	var/friend_text
 	var/enemy_text
 	var/lover_text
@@ -724,14 +725,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<a href='?_src_=prefs;preference=change_appearance;task=input'>Change Appearance (3)</a><BR>"
 
 			dat += "<BR><b>Flavor Text:</b> [flavor_text] <a href='?_src_=prefs;preference=flavor_text;task=input'>Change</a><BR>"
+			dat += "<br><br>"
 
 			dat += "<h2>Headshot Image</h2>"
 			dat += "<a href='?_src_=prefs;preference=headshot'><b>Set Headshot Image</b></a><br>"
 			if(features["headshot_link"])
-				dat += "<img src='[features["headshot_link"]]' width='160px' height='120px'>"
-			dat += "<br><br>"
-			dat += "<h2>[make_font_cool("EQUIP")]</h2>"
+				dat += "<img style='border:2px solid rgb(255, 255, 255)' src='[features["headshot_link"]]' width='200px' height='200px'>"
 
+			dat += "<h2>[make_font_cool("EQUIP")]</h2>"
+			dat += "<br><br>"
 			dat += "<b>Underwear:</b><BR><a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a>"
 //			dat += "<a href='?_src_=prefs;preference=toggle_random;random_type=[RANDOM_UNDERWEAR]'>[(randomise[RANDOM_UNDERWEAR]) ? "Lock" : "Unlock"]</A>"
 
@@ -2637,7 +2639,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						lover_text = trim(copytext_char(sanitize(new_text), 1, 512))
 
 				if("flavor_text")
-					var/new_flavor = input(user, "Choose your character's flavor text:", "Character Preference")  as text|null
+					var/new_flavor = input(user, "Choose your character's flavor text:", "Character Preference") as text|null
 					if(new_flavor)
 						var/pattern = "]"
 						var/pos = findtext(new_flavor, pattern)
@@ -2646,39 +2648,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							to_chat(usr, "<span class='reallybig'> Ниггер хакерский. Не используй квадратные скобочки. </span>")
 							message_admins("[ADMIN_LOOKUPFLW(usr)] пытался вставить в флавор хуйню с скобочками")
 							return
-					/*	pattern = "]"
-						pos = findtext(new_flavor, pattern)
-						if(pos)
-							to_chat(src, "Пашон нахо.")
-							return*/
 						if(length(new_flavor) > 3 * 512)
 							to_chat(user, "Too long...")
 						else
-							flavor_text = sanitize_text(new_flavor)
-				if("headshot")
-					var/usr_input = input(user, "Input the image link: (For Discord links, try putting the file's type at the end of the link, after the '&'. for example '&.jpg/.png/.jpeg')", "Headshot Image", features["headshot_link"]) as text|null
-					if(isnull(usr_input))
-						return
-					if(!usr_input)
-						features["headshot_link"] = null
-						return
-
-					var/static/link_regex = regex("https://i.gyazo.com|https://static1.e621.net") //Do not touch the damn duplicates.
-					var/static/end_regex = regex(".jpg|.jpg|.png|.jpeg|.jpeg") //Regex is terrible, don't touch the duplicate extensions
-
-					if(!findtext(usr_input, link_regex))
-						to_chat(usr, "You need a valid link!")
-						return
-					if(!findtext(usr_input, end_regex))
-						to_chat(usr, "You need either \".png\", \".jpg\", or \".jpeg\" in the link!")
-						return
-
-					if(features["headshot_link"] != usr_input)
-						to_chat(usr, "If the photo doesn't show up properly in-game, ensure that it's a direct image link that opens properly in a browser.")
-						to_chat(usr, "Keep in mind that the photo will be downsized to 250x250 pixels, so the more square the photo, the better it will look.")
-					features["headshot_link"] = usr_input
-
-
+							flavor_text = trim(copytext_char(sanitize(new_flavor), 1, 512))
 				if("change_appearance")
 					if((true_experience < 3) || !slotlocked)
 						return
@@ -3400,9 +3373,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			GLOB.masquerade_breakers_list += character
 
 	character.flavor_text = sanitize_text(flavor_text)
+	if (features["headshot_link"])
+		character.headshot_link += (features["headshot_link"])
 	character.gender = gender
 	character.age = age
-//	character.headshot = sanitize_text(headshot)
 	character.chronological_age = total_age
 	if(gender == MALE || gender == FEMALE)
 		character.body_type = gender

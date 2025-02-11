@@ -184,3 +184,6 @@ GLOBAL_PROTECT(exp_specialmap)
 	job = chef_expand.Replace(job, "cook")
 	job = borg_expand.Replace(job, "cyborg")
 	return job
+
+/datum/job/proc/get_description_blurb()
+	return ""

@@ -439,6 +439,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["lover"], lover)
 	READ_FILE(S["ambitious"], ambitious)
 	READ_FILE(S["flavor_text"], flavor_text)
+	READ_FILE(S["headshot"], features["headshot_link"] )
 	READ_FILE(S["friend_text"], friend_text)
 	READ_FILE(S["enemy_text"], enemy_text)
 	READ_FILE(S["lover_text"], lover_text)
@@ -578,6 +579,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	werewolf_hair_color		= sanitize_ooccolor(werewolf_hair_color, 3, 0)
 	werewolf_eye_color		= sanitize_ooccolor(werewolf_eye_color, 3, 0)
 	flavor_text		= sanitize_text(flavor_text)
+	headshot		= features["headshot_link"]
 	socks			= sanitize_inlist(socks, GLOB.socks_list)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	diablerist				= sanitize_integer(diablerist, 0, 1, initial(diablerist))
@@ -799,6 +801,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["lover"]			, lover)
 	WRITE_FILE(S["ambitious"]			, ambitious)
 	WRITE_FILE(S["flavor_text"]			, flavor_text)
+	WRITE_FILE(S["headshot"],			features["headshot_link"] )
 	WRITE_FILE(S["friend_text"]			, friend_text)
 	WRITE_FILE(S["enemy_text"]			, enemy_text)
 	WRITE_FILE(S["lover_text"]			, lover_text)

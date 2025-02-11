@@ -157,7 +157,7 @@ GLOBAL_LIST_EMPTY(adressnegra)
 	height = 500
 	x = 300
 	y = 300
-//	desktop_app = TRUE
+	desktop_app = FALSE
 
 /*
 /datum/app/cheburnet/site/narko/New()

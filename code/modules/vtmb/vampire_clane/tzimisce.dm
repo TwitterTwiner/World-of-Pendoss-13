@@ -339,11 +339,13 @@
 	var/last_bodysprite
 	var/last_eyecolor
 	var/last_realname
+	var/last_headshot
 	var/last_age
 	var/last_body_mode
 
 	var/original_hair
 	var/original_facehair
+	var/original_headshot
 	var/original_skintone
 	var/original_gender
 	var/original_bodytype
@@ -399,6 +401,7 @@
 				original_bodysprite = H.unique_body_sprite
 				original_eyecolor = H.eye_color
 				original_realname = H.real_name
+				original_headshot = H.headshot_link
 				original_age = H.age
 				original_body_mode = H.base_body_mod
 				playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
@@ -414,6 +417,7 @@
 				H.unique_body_sprite = last_bodysprite
 				H.eye_color = last_eyecolor
 				H.real_name = last_realname
+				H.headshot_link = last_headshot
 				H.name = H.real_name
 				H.age = last_age
 				H.base_body_mod = last_body_mode
@@ -436,6 +440,7 @@
 				original_bodysprite = H.unique_body_sprite
 				original_eyecolor = H.eye_color
 				original_realname = H.real_name
+				original_headshot = H.headshot_link
 				original_age = H.age
 				original_body_mode = H.base_body_mod
 				playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
@@ -452,6 +457,7 @@
 				H.unique_body_sprite = ZV.unique_body_sprite
 				H.eye_color = ZV.eye_color
 				H.real_name = ZV.real_name
+				H.headshot_link = ZV.headshot_link
 				H.name = H.real_name
 				H.age = ZV.age
 				H.base_body_mod = ZV.base_body_mod
@@ -468,6 +474,7 @@
 				last_bodysprite = H.unique_body_sprite
 				last_eyecolor = H.eye_color
 				last_realname = H.real_name
+				last_headshot = H.headshot_link
 				last_age = H.age
 				last_body_mode = H.base_body_mod
 				furry_changed = TRUE
@@ -495,6 +502,7 @@
 		H.eye_color = original_eyecolor
 		H.real_name = original_realname
 		H.name = H.real_name
+		H.headshot_link = original_headshot
 		H.age = original_age
 		H.base_body_mod = original_body_mode
 		H.update_body()
