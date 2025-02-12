@@ -314,6 +314,7 @@
 	if(href_list["headshot"])
 		var/mob/living/carbon/human/HS = src
 		var/mob/living/carbon/human/H = usr
+		var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
 		var/niggercumshot = {"
 <html>
 <head><title>Headshot</title></head>
@@ -322,13 +323,11 @@
 </body>
 </html>
 "}
-		if(!ishuman(usr))
-			return
 		var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]
 		if(H.stat > UNCONSCIOUS)
 			return
 		if(P)
-			if(HS.headshot_link == null)
+			if(HS.headshot_link == null | skipface)
 				return
 			else
 				user << browse(niggercumshot, "window=Headshot;border=1;can_resize=0;can_minimize=0")

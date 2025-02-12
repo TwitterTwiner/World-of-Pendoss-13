@@ -519,7 +519,7 @@
 		var/imya = L.get_visible_name()
 
 
-		if(imya == "Unknown")
+		if(skipface)
 			. += "...?"
 			return
 		if(imya != L.true_real_name)
