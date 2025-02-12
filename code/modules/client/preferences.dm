@@ -1395,18 +1395,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return mental_priorities
 	return 0
 
-/proc/get_gen_attribute_limit(var/gen = 13)
-	switch(gen)
-		if(9)
-			return 6
-		if(8)
-			return 7
-		if(7)
-			return 8
-		if(6)
-			return 9
-	if(gen < 6)
-		return 10
+/datum/preferences/proc/get_gen_attribute_limit(var/gen = 13)
+	if(pref_species.name == "Vampire")
+		switch(gen)
+			if(9)
+				return 6
+			if(8)
+				return 7
+			if(7)
+				return 8
+			if(6)
+				return 9
+		if(gen < 6)
+			return 10
+	if(pref_species.name == "Kuei-Jin")
+		return max(5, 4+dharma_level)
 	return 5
 
 #undef APPEARANCE_CATEGORY_COLUMN
@@ -2705,14 +2708,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						SetQuirks(user)
 						var/newtype = GLOB.species_list[result]
 						pref_species = new newtype()
-						if(pref_species.id == "ghoul" || pref_species.id == "human" || pref_species.id == "kuei-jin")
-							discipline_types = list()
-							discipline_levels = list()
+						discipline_types = list()
+						discipline_levels = list()
 						if(pref_species.id == "kindred")
 							qdel(clane)
 							clane = new /datum/vampireclane/brujah()
-							discipline_types = list()
-							discipline_levels = list()
 							for (var/i in 1 to clane.clane_disciplines.len)
 								discipline_types += clane.clane_disciplines[i]
 								discipline_levels += 1
@@ -3301,15 +3301,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.name = character.real_name
 	character.diablerist = diablerist
 
-	character.attributes.strength = Strength
-	character.attributes.dexterity = Dexterity
-	character.attributes.stamina = Stamina
-	character.attributes.charisma = Charisma
-	character.attributes.manipulation = Manipulation
-	character.attributes.appearance = Appearance
-	character.attributes.perception = Perception
-	character.attributes.intelligence = Intelligence
-	character.attributes.wits = Wits
+	var/genlimited = get_gen_attribute_limit(generation-generation_bonus)
+
+	character.attributes.strength = min(genlimited, Strength)
+	character.attributes.dexterity = min(genlimited, Dexterity)
+	character.attributes.stamina = min(genlimited, Stamina)
+	character.attributes.charisma = min(genlimited, Charisma)
+	character.attributes.manipulation = min(genlimited, Manipulation)
+	character.attributes.appearance = min(genlimited, Appearance)
+	character.attributes.perception = min(genlimited, Perception)
+	character.attributes.intelligence = min(genlimited, Intelligence)
+	character.attributes.wits = min(genlimited, Wits)
 
 	character.attributes.Alertness = Alertness
 	character.attributes.Athletics = Athletics

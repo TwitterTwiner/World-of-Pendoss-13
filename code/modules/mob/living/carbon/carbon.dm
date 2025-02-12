@@ -207,15 +207,15 @@
 	if(pulledby && H.pulledby.grab_state >= GRAB_PASSIVE)
 		return
 
+	var/current_time = world.time
+	if(current_time - last_jump_time < JUMP_DELAY)
+		to_chat(src, "<span class='notice'>You can't jump so soon!")
+		return
+
 	var/total_successess = secret_vampireroll(max(get_a_strength(src), get_a_dexterity(src))+get_a_athletics(src), 6, src)
 	if(total_successess == -1)
 		visible_message("<span class='danger'>[src] fails to jump and falls!</span>")
 		AdjustKnockdown(10, TRUE)
-		return
-
-	var/current_time = world.time
-	if(current_time - last_jump_time < JUMP_DELAY)
-		to_chat(src, "<span class='notice'>You can't jump so soon!")
 		return
 
 	var/adjusted_jump_range = MAX_JUMP_DISTANCE
