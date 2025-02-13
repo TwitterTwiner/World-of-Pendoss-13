@@ -214,7 +214,7 @@
 
 /mob/living/carbon/human/npc/proc/route_optimisation()
 	var/sosat = FALSE
-	for(var/mob/M in viewers(7, src))
+	for(var/mob/living/M in oviewers(5, src))
 		if(M.client)
 			sosat = TRUE
 	if(sosat)

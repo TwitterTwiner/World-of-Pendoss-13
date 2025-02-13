@@ -340,9 +340,8 @@ SUBSYSTEM_DEF(carpool)
 /obj/vampire_car/proc/get_damage(var/cost, var/mob/living/bumped_into, var/onbump_force = 0)
 	if(cost < 0)
 		var/dam_multiplicator = 1
-		var/hardness_bonus = round((6/initial(health))*health)
 		if(driver)
-			dam_multiplicator = secret_vampireroll(get_a_dexterity(driver)+get_a_drive(driver), 10-hardness_bonus, driver)
+			dam_multiplicator = secret_vampireroll(get_a_dexterity(driver)+get_a_drive(driver), 6, driver)
 		if(dam_multiplicator == -1)
 			on = FALSE
 			set_light(0)
@@ -529,7 +528,8 @@ SUBSYSTEM_DEF(carpool)
 				owner.client.pixel_y = 0
 		playsound(V, 'code/modules/wod13/sounds/door.ogg', 50, TRUE)
 		for(var/datum/action/carr/C in owner.actions)
-			C.Remove(owner)
+			if(C)
+				qdel(C)
 
 /mob/living/carbon/human/MouseDrop(atom/over_object)
 	. = ..()
@@ -617,8 +617,12 @@ SUBSYSTEM_DEF(carpool)
 				L.client.pixel_x = 0
 				L.client.pixel_y = 0
 	if(istype(A, /mob/living))
-		var/dam = prev_speed*2
+		var/dam = prev_speed
 		get_damage(dam, A, dam)
+		if(abs(prev_speed) >= 32)
+			var/mob/living/Livedyoung = A
+			var/atom/throw_target = get_edge_target_turf(src, dir)
+			Livedyoung.throw_at(throw_target, max(1, abs(prev_speed)/32), 4, driver)
 	else
 		var/dam = prev_speed*2
 		get_damage(dam, , dam)
@@ -867,26 +871,27 @@ SUBSYSTEM_DEF(carpool)
 			z
 		)
 		for(var/turf/T in get_line(src, check_turf_ahead))
-			if(length(T.unpassable))
-				for(var/contact in T.unpassable)
-					//make NPC move out of car's way
-					if(istype(contact, /mob/living/carbon/human/npc))
-						var/mob/living/carbon/human/npc/NPC = contact
-						if(COOLDOWN_FINISHED(NPC, car_dodge) && !HAS_TRAIT(NPC, TRAIT_INCAPACITATED))
-							var/list/dodge_direction = list(
-								SIMPLIFY_DEGREES(movement_vector + 45),
-								SIMPLIFY_DEGREES(movement_vector - 45),
-								SIMPLIFY_DEGREES(movement_vector + 90),
-								SIMPLIFY_DEGREES(movement_vector - 90),
-							)
-							for(var/angle in dodge_direction)
-								if(get_step(NPC, angle2dir(angle)).density)
-									dodge_direction.Remove(angle)
-							if(length(dodge_direction))
-								step(NPC, angle2dir(pick(dodge_direction)), NPC.total_multiplicative_slowdown())
-								COOLDOWN_START(NPC, car_dodge, 2 SECONDS)
-								if(prob(50))
-									NPC.RealisticSay(pick(NPC.socialrole.car_dodged))
+			if(T)
+				if(length(T.unpassable))
+					for(var/contact in T.unpassable)
+						//make NPC move out of car's way
+						if(istype(contact, /mob/living/carbon/human/npc))
+							var/mob/living/carbon/human/npc/NPC = contact
+							if(COOLDOWN_FINISHED(NPC, car_dodge) && !HAS_TRAIT(NPC, TRAIT_INCAPACITATED))
+								var/list/dodge_direction = list(
+									SIMPLIFY_DEGREES(movement_vector + 45),
+									SIMPLIFY_DEGREES(movement_vector - 45),
+									SIMPLIFY_DEGREES(movement_vector + 90),
+									SIMPLIFY_DEGREES(movement_vector - 90),
+								)
+								for(var/angle in dodge_direction)
+									if(get_step(NPC, angle2dir(angle)).density)
+										dodge_direction.Remove(angle)
+								if(length(dodge_direction))
+									step(NPC, angle2dir(pick(dodge_direction)), NPC.total_multiplicative_slowdown())
+									COOLDOWN_START(NPC, car_dodge, 2 SECONDS)
+									if(prob(50))
+										NPC.RealisticSay(pick(NPC.socialrole.car_dodged))
 		var/turf/hit_turf
 		var/list/in_line = get_line(src, check_turf)
 		for(var/turf/T in in_line)
@@ -983,7 +988,7 @@ SUBSYSTEM_DEF(carpool)
 		if(NORTHWEST)
 			controlling(1, -turn_speed)
 		if(SOUTH)
-			controlling(-1, turn_speed)
+			controlling(-1, 0)
 		if(SOUTHEAST)
 			controlling(-1, turn_speed)
 		if(SOUTHWEST)
@@ -1006,11 +1011,11 @@ SUBSYSTEM_DEF(carpool)
 		if(on)
 			if(adjusting_speed > 0 && speed_in_pixels <= 0)
 				playsound(src, 'code/modules/wod13/sounds/stopping.ogg', 10, FALSE)
-				speed_in_pixels = speed_in_pixels+adjusting_speed*3
+				speed_in_pixels = speed_in_pixels+adjusting_speed*6
 				movement_vector = SIMPLIFY_DEGREES(movement_vector+adjust_true*drift)
 			else if(adjusting_speed < 0 && speed_in_pixels > 0)
 				playsound(src, 'code/modules/wod13/sounds/stopping.ogg', 10, FALSE)
-				speed_in_pixels = speed_in_pixels+adjusting_speed*3
+				speed_in_pixels = speed_in_pixels+adjusting_speed*6
 				movement_vector = SIMPLIFY_DEGREES(movement_vector+adjust_true*drift)
 			else
 				speed_in_pixels = min(stage*64, max(-stage*64, speed_in_pixels+adjusting_speed*stage))
@@ -1018,11 +1023,11 @@ SUBSYSTEM_DEF(carpool)
 		else
 			if(adjusting_speed > 0 && speed_in_pixels < 0)
 				playsound(src, 'code/modules/wod13/sounds/stopping.ogg', 10, FALSE)
-				speed_in_pixels = min(0, speed_in_pixels+adjusting_speed*3)
+				speed_in_pixels = min(0, speed_in_pixels+adjusting_speed*6)
 				movement_vector = SIMPLIFY_DEGREES(movement_vector+adjust_true*drift)
 			else if(adjusting_speed < 0 && speed_in_pixels > 0)
 				playsound(src, 'code/modules/wod13/sounds/stopping.ogg', 10, FALSE)
-				speed_in_pixels = max(0, speed_in_pixels+adjusting_speed*3)
+				speed_in_pixels = max(0, speed_in_pixels+adjusting_speed*6)
 				movement_vector = SIMPLIFY_DEGREES(movement_vector+adjust_true*drift)
 
 /obj/vampire_car/proc/apply_vector_angle()

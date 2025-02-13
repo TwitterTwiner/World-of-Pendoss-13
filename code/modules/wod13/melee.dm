@@ -34,6 +34,7 @@
 	icon_state = "sledgehammer"
 	name = "sledgehammer"
 	desc = "Truly, the weapon of a madman. Who would think to fight sledge with an hammer?"
+	icon = 'code/modules/wod13/weapons.dmi'
 	force = 50
 	throwforce = 20
 	w_class = WEIGHT_CLASS_BULKY
@@ -412,35 +413,22 @@
 	name = "claws"
 	icon_state = "gangrel"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 6
+	force = 20
+	damtype = CLONE
 	armour_penetration = 0	//It's magical damage
 	block_chance = 20
 	item_flags = DROPDEL
 	masquerade_violating = TRUE
 	is_iron = FALSE
 
-/obj/item/melee/vampirearms/knife/gangrel/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity)
-		return
-	if(isliving(target))
-		var/mob/living/L = target
-		L.apply_damage(30, CLONE)
-
 /obj/item/melee/vampirearms/knife/gangrel/lasombra
 	name = "shadow tentacle"
-	force = 7
+	force = 20
+	damtype = CLONE
 	armour_penetration = 0
 	block_chance = 0
 	icon_state = "lasombra"
 	masquerade_violating = TRUE
-
-/obj/item/melee/vampirearms/knife/gangrel/lasombra/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity)
-		return
-	if(isliving(target))
-		var/mob/living/L = target
-		L.apply_damage(16, CLONE)
-		L.apply_damage(7, BURN)
 
 /obj/item/melee/touch_attack/quietus
 	name = "\improper poison touch"
@@ -456,9 +444,8 @@
 		return
 	if(isliving(target))
 		var/mob/living/L = target
-		L.adjustFireLoss(10)
 		L.AdjustKnockdown(3 SECONDS)
-		L.adjustStaminaLoss(50)
+		L.adjustStaminaLoss(25)
 	return ..()
 
 /obj/item/melee/touch_attack/werewolf
@@ -476,7 +463,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		L.AdjustKnockdown(4 SECONDS)
-		L.adjustStaminaLoss(50)
+		L.adjustStaminaLoss(25)
 		L.Immobilize(3 SECONDS)
 		if(L.body_position != LYING_DOWN)
 			L.toggle_resting()
@@ -495,7 +482,7 @@
 	if(istype(I, /obj/item/quietus_upgrade))
 		if(!quieted)
 			quieted = TRUE
-			armour_penetration = min(100, armour_penetration+30)
+//			armour_penetration = min(100, armour_penetration+30)
 			force += 20
 			color = "#72b27c"
 			qdel(I)
@@ -674,7 +661,7 @@
 	var/wielded = FALSE
 	var/on = FALSE
 	var/last_solo = 0
-
+/*
 /obj/item/melee/vampirearms/eguitar/AltClick(mob/user)
 	if(last_solo+600 > world.time)
 		return
@@ -689,7 +676,7 @@
 			playsound(loc, 'code/modules/wod13/sounds/solo3.ogg', 100, FALSE)
 		if(result == "4")
 			playsound(loc, 'code/modules/wod13/sounds/solo4.ogg', 100, FALSE)
-
+*/
 /obj/item/melee/vampirearms/eguitar/Initialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))

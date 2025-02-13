@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/list/ignoring = list()
 
-	var/clientfps = -1
+	var/clientfps = 60
 
 	var/parallax
 
@@ -256,6 +256,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/Medicine = 0
 	var/Linguistics = 0
 	var/Occult = 0
+
+	var/old_enough_to_get_exp = FALSE
 
 /datum/preferences/proc/add_experience(amount)
 	true_experience = clamp(true_experience + amount, 0, 1000)
@@ -2364,39 +2366,39 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						reset_stats(TRUE)
 
 				if("strength")
-					if(handle_upgrade(Strength, Strength * 5, get_gen_attribute_limit(generation), "Physical"))
+					if(handle_upgrade(Strength, Strength * 5, get_gen_attribute_limit(generation-generation_bonus), "Physical"))
 						Strength++
 
 				if("dexterity")
-					if(handle_upgrade(Dexterity, Dexterity * 5, get_gen_attribute_limit(generation), "Physical"))
+					if(handle_upgrade(Dexterity, Dexterity * 5, get_gen_attribute_limit(generation-generation_bonus), "Physical"))
 						Dexterity++
 
 				if("stamina")
-					if(handle_upgrade(Stamina, Stamina * 5, get_gen_attribute_limit(generation), "Physical"))
+					if(handle_upgrade(Stamina, Stamina * 5, get_gen_attribute_limit(generation-generation_bonus), "Physical"))
 						Stamina++
 
 				if("charisma")
-					if(handle_upgrade(Charisma, Charisma * 5, get_gen_attribute_limit(generation), "Social"))
+					if(handle_upgrade(Charisma, Charisma * 5, get_gen_attribute_limit(generation-generation_bonus), "Social"))
 						Charisma++
 
 				if("manipulation")
-					if(handle_upgrade(Manipulation, Manipulation * 5, get_gen_attribute_limit(generation), "Social"))
+					if(handle_upgrade(Manipulation, Manipulation * 5, get_gen_attribute_limit(generation-generation_bonus), "Social"))
 						Manipulation++
 
 				if("appearance")
-					if(handle_upgrade(Appearance, Appearance * 5, get_gen_attribute_limit(generation), "Social"))
+					if(handle_upgrade(Appearance, Appearance * 5, get_gen_attribute_limit(generation-generation_bonus), "Social"))
 						Appearance++
 
 				if("perception")
-					if(handle_upgrade(Perception, Perception * 5, get_gen_attribute_limit(generation), "Mental"))
+					if(handle_upgrade(Perception, Perception * 5, get_gen_attribute_limit(generation-generation_bonus), "Mental"))
 						Perception++
 
 				if("intelligence")
-					if(handle_upgrade(Intelligence, Intelligence * 5, get_gen_attribute_limit(generation), "Mental"))
+					if(handle_upgrade(Intelligence, Intelligence * 5, get_gen_attribute_limit(generation-generation_bonus), "Mental"))
 						Intelligence++
 
 				if("wits")
-					if(handle_upgrade(Wits, Wits * 5, get_gen_attribute_limit(generation), "Mental"))
+					if(handle_upgrade(Wits, Wits * 5, get_gen_attribute_limit(generation-generation_bonus), "Mental"))
 						Wits++
 
 				if("alertness")
@@ -2646,6 +2648,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_gen = input(user, "Select your generation (LOWER GENERATION MEANS LESS JOB SLOTS):", "Character Preference") as num|null
 					if(new_gen)
 						generation = clamp(new_gen, 7, 13)
+						generation_bonus = 0
+						diablerist = FALSE
 
 				if("friend_text")
 					var/new_text = input(user, "What a Friend knows about me:", "Character Preference") as text|null
@@ -2663,17 +2667,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("flavor_text")
 					var/new_flavor = input(user, "Choose your character's flavor text:", "Character Preference") as text|null
 					if(new_flavor)
-						var/pattern = "]"
-						var/pos = findtext(new_flavor, pattern)
-						if(pos)
-							playsound(get_turf(user), 'code/modules/wod13/sounds/CURSE.ogg', 70, TRUE)
-							to_chat(usr, "<span class='reallybig'> Ниггер хакерский. Не используй квадратные скобочки. </span>")
-							message_admins("[ADMIN_LOOKUPFLW(usr)] пытался вставить в флавор хуйню с скобочками")
-							return
+
 						if(length(new_flavor) > 3 * 512)
-							to_chat(user, "Too long...")
+							to_chat(user, "Слишком большой...")
 						else
 							flavor_text = trim(copytext_char(sanitize(new_flavor), 1, 512))
+            
+
 				if("change_appearance")
 					if((true_experience < 3) || !slotlocked)
 						return
@@ -2704,8 +2704,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					var/result = input(user, "Select a species", "Species Selection") as null|anything in choose_species
 					if(result)
-						all_quirks = list()
-						SetQuirks(user)
 						var/newtype = GLOB.species_list[result]
 						pref_species = new newtype()
 						discipline_types = list()
@@ -2722,6 +2720,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							features["mcolor"] = pref_species.default_color
 						if(randomise[RANDOM_NAME])
 							real_name = pref_species.random_name(gender)
+						all_quirks = list()
+						SetQuirks(user)
 
 				if("mutant_color")
 					if(slotlocked)
@@ -3345,7 +3345,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/datum/vampireclane/CLN = new clane.type()
 		character.clane = CLN
 		character.clane.current_accessory = clane_accessory
-		character.maxbloodpool = 10 + ((13 - generation) * 3)
+		character.maxbloodpool = get_gen_bloodpool(generation-generation_bonus)
 		character.bloodpool = rand(2, character.maxbloodpool)
 		character.generation = generation-generation_bonus
 		character.max_yin_chi = character.maxbloodpool

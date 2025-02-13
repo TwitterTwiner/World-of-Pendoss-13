@@ -218,6 +218,12 @@
 	if(required_status && (status != required_status))
 		return FALSE
 
+	if(burn && (iskindred(owner) || iscathayan(owner)))
+		owner.adjustCloneLoss(burn, updating_health)
+		burn = 0
+		if(!brute && !stamina)
+			return FALSE
+
 	var/dmg_mlt = CONFIG_GET(number/damage_multiplier) * hit_percent
 	brute = round(max(brute * dmg_mlt, 0),DAMAGE_PRECISION)
 	burn = round(max(burn * dmg_mlt, 0),DAMAGE_PRECISION)

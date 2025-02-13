@@ -12,9 +12,33 @@
 	action_icon_state = "mindswap"
 	active_msg = "You prepare to swap minds with a target..."
 	/// For how long is the caster stunned for after the spell
-	var/unconscious_amount_caster = 40 SECONDS
+	var/unconscious_amount_caster = 15 SECONDS
 	/// For how long is the victim stunned for after the spell
-	var/unconscious_amount_victim = 40 SECONDS
+	var/unconscious_amount_victim = 0
+	var/return_after_caster_stun = TRUE
+
+	var/mob/living/victimmob
+	var/mob/living/castermob
+
+	var/victimkey
+	var/casterkey
+
+/obj/effect/proc_holder/spell/pointed/mind_transfer/proc/return_minds()
+	if(!victimmob || !castermob)
+		return
+	if(!victimmob)
+		castermob.key = victimkey
+		return
+	if(!castermob)
+		victimmob.key = casterkey
+		return
+	var/mob/dead/observer/ghost = castermob.ghostize()
+	victimmob.mind.transfer_to(castermob)
+
+	ghost.mind.transfer_to(victimmob)
+	if(ghost.key)
+		victimmob.key = ghost.key	//have to transfer the key since the mind was not active
+	qdel(ghost)
 
 /obj/effect/proc_holder/spell/pointed/mind_transfer/cast(list/targets, mob/living/user, silent = FALSE)
 	if(!targets.len)
@@ -45,6 +69,10 @@
 		return
 
 	//MIND TRANSFER BEGIN
+	victimmob = victim
+	victimkey = victim.key
+	castermob = user
+	casterkey = user.key
 	var/mob/dead/observer/ghost = victim.ghostize()
 	user.mind.transfer_to(victim)
 
@@ -59,6 +87,9 @@
 	victim.Unconscious(unconscious_amount_victim)
 	SEND_SOUND(user, sound('sound/magic/mandswap.ogg'))
 	SEND_SOUND(victim, sound('sound/magic/mandswap.ogg')) // only the caster and victim hear the sounds, that way no one knows for sure if the swap happened
+	if(return_after_caster_stun)
+		var/datum/cb = CALLBACK(src, PROC_REF(return_minds))
+		addtimer(cb, unconscious_amount_caster)
 	return TRUE
 
 /obj/effect/proc_holder/spell/pointed/mind_transfer/can_target(atom/target, mob/user, silent)
@@ -85,7 +116,7 @@
 		if(!silent)
 			to_chat(user, "<span class='warning'>You don't particularly want to be dead!</span>")
 		return FALSE
-	if(!victim.key || !victim.mind)
+	if(!victim.mind)
 		if(!silent)
 			to_chat(user, "<span class='warning'>[t_He] appear[victim.p_s()] to be catatonic! Not even magic can affect [victim.p_their()] vacant mind.</span>")
 		return FALSE

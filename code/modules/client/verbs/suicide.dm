@@ -26,58 +26,58 @@
 	if(!canSuicide())
 		return
 	var/oldkey = ckey
-	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
+//	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 	if(ckey != oldkey)
 		return
 	if(!canSuicide())
 		return
-	if(confirm == "Yes")
-		set_suicide(TRUE) //need to be called before calling suicide_act as fuck knows what suicide_act will do with your suicider
-		var/obj/item/held_item = get_active_held_item()
-		if(held_item)
-			var/damagetype = held_item.suicide_act(src)
-			if(damagetype)
-				if(damagetype & SHAME)
-					adjustStaminaLoss(200)
-					set_suicide(FALSE)
-					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "shameful_suicide", /datum/mood_event/shameful_suicide)
-					return
-
-				if(damagetype & MANUAL_SUICIDE_NONLETHAL) //Make sure to call the necessary procs if it does kill later
-					set_suicide(FALSE)
-					return
-
-				suicide_log()
-
-				var/damage_mod = 0
-				for(var/T in list(BRUTELOSS, FIRELOSS, TOXLOSS, OXYLOSS))
-					damage_mod += (T & damagetype) ? 1 : 0
-				damage_mod = max(1, damage_mod)
-
-				//Do 200 damage divided by the number of damage types applied.
-				if(damagetype & BRUTELOSS)
-					adjustBruteLoss(200/damage_mod)
-
-				if(damagetype & FIRELOSS)
-					adjustFireLoss(200/damage_mod)
-
-				if(damagetype & TOXLOSS)
-					adjustToxLoss(200/damage_mod)
-
-				if(damagetype & OXYLOSS)
-					adjustOxyLoss(200/damage_mod)
-
-				if(damagetype & MANUAL_SUICIDE)	//Assume the object will handle the death.
-					return
-
-				//If something went wrong, just do normal oxyloss
-				if(!(damagetype & (BRUTELOSS | FIRELOSS | TOXLOSS | OXYLOSS) ))
-					adjustOxyLoss(max(200 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-
-				death(FALSE)
-				ghostize(FALSE)	// Disallows reentering body and disassociates mind
-
+//	if(confirm == "Yes")
+	set_suicide(TRUE) //need to be called before calling suicide_act as fuck knows what suicide_act will do with your suicider
+	var/obj/item/held_item = get_active_held_item()
+	if(held_item)
+		var/damagetype = held_item.suicide_act(src)
+		if(damagetype)
+			if(damagetype & SHAME)
+				adjustStaminaLoss(200)
+				set_suicide(FALSE)
+				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "shameful_suicide", /datum/mood_event/shameful_suicide)
 				return
+
+			if(damagetype & MANUAL_SUICIDE_NONLETHAL) //Make sure to call the necessary procs if it does kill later
+				set_suicide(FALSE)
+				return
+
+			suicide_log()
+
+			var/damage_mod = 0
+			for(var/T in list(BRUTELOSS, FIRELOSS, TOXLOSS, OXYLOSS))
+				damage_mod += (T & damagetype) ? 1 : 0
+			damage_mod = max(1, damage_mod)
+
+			//Do 200 damage divided by the number of damage types applied.
+			if(damagetype & BRUTELOSS)
+				adjustBruteLoss(200/damage_mod)
+
+			if(damagetype & FIRELOSS)
+				adjustFireLoss(200/damage_mod)
+
+			if(damagetype & TOXLOSS)
+				adjustToxLoss(200/damage_mod)
+
+			if(damagetype & OXYLOSS)
+				adjustOxyLoss(200/damage_mod)
+
+			if(damagetype & MANUAL_SUICIDE)	//Assume the object will handle the death.
+				return
+
+			//If something went wrong, just do normal oxyloss
+			if(!(damagetype & (BRUTELOSS | FIRELOSS | TOXLOSS | OXYLOSS) ))
+				adjustOxyLoss(max(200 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
+
+			death(FALSE)
+			ghostize(FALSE)	// Disallows reentering body and disassociates mind
+
+			return
 
 		var/suicide_message
 
@@ -122,18 +122,16 @@
 	set hidden = TRUE
 	if(!canSuicide())
 		return
-	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 	if(!canSuicide())
 		return
-	if(confirm == "Yes")
-		set_suicide(TRUE)
-		visible_message("<span class='danger'>[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live.</span>", \
+	set_suicide(TRUE)
+	visible_message("<span class='danger'>[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live.</span>", \
 						"<span class='userdanger'>[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live.</span>")
 
-		suicide_log()
+	suicide_log()
 
-		death(FALSE)
-		ghostize(FALSE)	// Disallows reentering body and disassociates mind
+	death(FALSE)
+	ghostize(FALSE)	// Disallows reentering body and disassociates mind
 
 /mob/living/silicon/ai/verb/suicide()
 	set hidden = TRUE

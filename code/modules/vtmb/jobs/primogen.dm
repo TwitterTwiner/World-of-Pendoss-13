@@ -21,7 +21,7 @@
 	minimal_generation = 8	//Uncomment when players get exp enough
 
 	v_duty = "Offer your infinite knowledge to Prince of the City."
-	experience_addition = 8
+	experience_addition = 0
 	minimal_masquerade = 5
 	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
@@ -72,7 +72,7 @@
 	minimal_generation = 8	//Uncomment when players get exp enough
 
 	v_duty = "Offer your infinite knowledge to Prince of the City."
-	experience_addition = 8
+	experience_addition = 0
 	minimal_masquerade = 5
 	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
@@ -119,7 +119,7 @@
 	minimal_generation = 8	//Uncomment when players get exp enough
 
 	v_duty = "Offer your infinite knowledge to Prince of the City."
-	experience_addition = 8
+	experience_addition = 0
 	minimal_masquerade = 5
 	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
@@ -165,7 +165,7 @@
 	minimal_generation = 8	//Uncomment when players get exp enough
 
 	v_duty = "Offer your infinite knowledge to Prince of the City."
-	experience_addition = 8
+	experience_addition = 0
 	minimal_masquerade = 5
 	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
@@ -181,7 +181,7 @@
 	shoes = /obj/item/clothing/shoes/vampire
 	l_pocket = /obj/item/vamp/phone/toreador
 	r_pocket = /obj/item/cockclock
-	backpack_contents = list(/obj/item/vamp/keys/toreador/primogen=1, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/elder=1)
+	backpack_contents = list(/obj/item/vamp/keys/toreador/primogen=1, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/elder=1, /obj/item/gun/ballistic/automatic/vampire/beretta/toreador=1, /obj/item/ammo_box/magazine/semi9mm/toreador=1)
 
 /datum/outfit/job/toreador/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -213,7 +213,7 @@
 	minimal_generation = 8	//Uncomment when players get exp enough
 
 	v_duty = "Offer your infinite knowledge to Prince of the City."
-	experience_addition = 8
+	experience_addition = 0
 	minimal_masquerade = 5
 	my_contact_is_important = TRUE
 	known_contacts = list("Prince")

@@ -341,16 +341,20 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/switchblade
 	name = "switchblade"
-	icon_state = "switchblade"
+	icon_state = "switchblade" //sprite by Spefo
+	w_class = WEIGHT_CLASS_TINY
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A sharp, concealable, spring-loaded knife."
 	flags_1 = CONDUCT_1
 	force = 3
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 6
+	armour_penetration = 0
+	grid_width = 1 GRID_BOXES
+	grid_height = 1 GRID_BOXES
+	sharpness = SHARP_NONE
 	custom_materials = list(/datum/material/iron=12000)
 	hitsound = 'sound/weapons/genhit.ogg'
 	attack_verb_continuous = list("stubs", "pokes")
@@ -372,7 +376,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		sharpness = SHARP_EDGED
 	else
 		force = 3
-		w_class = WEIGHT_CLASS_SMALL
+		w_class = WEIGHT_CLASS_TINY
 		throwforce = 5
 		icon_state = "switchblade"
 		attack_verb_continuous = list("stubs", "pokes")

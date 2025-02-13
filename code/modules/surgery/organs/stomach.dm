@@ -48,6 +48,12 @@
 			humi.dna.species.handle_digestion(humi)
 
 	var/mob/living/carbon/body = owner
+	var/datum/reagent/consumable/milk/milk = locate(/datum/reagent/consumable/milk) in reagents.reagent_list
+	if(milk)
+		for(var/i in body.all_wounds)
+			var/datum/wound/iter_wound = i
+			iter_wound.on_xadone(1)
+		reagents.remove_reagent(milk.type, milk.metabolization_rate)
 
 	// digest food, sent all reagents that can metabolize to the body
 	for(var/chunk in reagents.reagent_list)

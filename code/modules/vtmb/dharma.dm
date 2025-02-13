@@ -164,9 +164,10 @@
 	if(P)
 		P.dharma_level = dharma.level
 		if(dharma.level <= 0)
-			P.dharma_level = 1
-			P.save_preferences()
-			P.save_character()
+//			P.dharma_level = 1
+//			P.save_preferences()
+//			P.save_character()
+			reset_shit(kueijin)
 			kueijin.enter_frenzymod()
 			to_chat(kueijin, "<span class='userdanger'>You have lost control of the P'o within you, and it has taken your body. Stay closer to your Dharma next time.</span>")
 			kueijin.ghostize(FALSE)

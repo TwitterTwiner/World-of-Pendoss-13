@@ -127,6 +127,7 @@
 		H.bloodpool = max(0, H.bloodpool-1)
 		SEND_SOUND(H, sound('code/modules/wod13/sounds/bloodhealing.ogg', 0, 0, 50))
 		H.adjustBruteLoss(-20, TRUE)
+		H.adjustFireLoss(-20, TRUE)
 		H.adjustOxyLoss(-30, TRUE)
 		H.adjustToxLoss(-30, TRUE)
 		H.adjustCloneLoss(-10, TRUE)

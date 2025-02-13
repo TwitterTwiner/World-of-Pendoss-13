@@ -9,12 +9,17 @@
 	)
 	male_clothes = /obj/item/clothing/under/vampire/ventrue
 	female_clothes = /obj/item/clothing/under/vampire/ventrue/female
+	clan_keys = /obj/item/vamp/keys/ventrue
 
 /datum/discipline/presence/post_gain(mob/living/carbon/human/H)
 	if(level >= 5)
 		var/obj/effect/proc_holder/spell/voice_of_god/S = new(H)
 		H.mind.AddSpell(S)
-/*
+
+/datum/discipline/dominate/post_gain(mob/living/carbon/human/H)
+	var/datum/action/dominate/DOMINATE = new()
+	DOMINATE.Grant(H)
+
 /datum/action/dominate
 	name = "Dominate"
 	desc = "Dominate over other living or un-living beings."
@@ -31,16 +36,29 @@
 	if(HAS_TRAIT(A, TRAIT_MUTE))
 		to_chat(A, "<span class='warning'>You find yourself unable to speak!</span>")
 		return
-	var/new_say = input(owner, "Choose the phrase to dominate:") as text|null
-	if(new_say)
-		for(var/mob/living/carbon/human/H in ohearers(7, src))
-			if(H)
-				if(H.can_hear())
-					var/mypower = 13
-					var/theirpower = 13
-					if(theirpower <= mypower)
-						H.cure_trauma_type(/datum/brain_trauma/severe/hypnotic_trigger, TRAUMA_RESILIENCE_BASIC)
-						H.gain_trauma(new /datum/brain_trauma/severe/hypnotic_trigger(new_say), TRAUMA_RESILIENCE_BASIC)
-						H.do_jitter_animation(30)
-		owner.say("[new_say]")
-*/
+	var/list/mob/living/carbon/human/victims_list = list()
+	for (var/mob/living/carbon/human/adding_victim in oviewers(5, owner))
+		victims_list += adding_victim
+	if(!length(victims_list))
+		to_chat(owner, "<span class='warning'>There's no one to <b>DOMINATE</b> around...</span>")
+		return
+
+	var/mob/living/carbon/human/victim = input(owner, "Choose the target to Dominate over", "Dominate") as null|anything in victims_list
+	if(victim)
+		var/dominate_me = get_a_wits(victim)+2
+		if(victim.clane?.name == "Gargoyle")
+			dominate_me = 1
+		if(secret_vampireroll(max(get_a_manipulation(owner), get_a_strength(owner))+get_a_intimidation(owner), dominate_me, owner) < 3)
+			to_chat(owner, "<span class='warning'>You fail to <b>DOMINATE</b>...</span>")
+			return
+		var/new_say = input(owner, "What are you trying to say?", "Say") as null|text
+		new_say = sanitize_text(new_say)
+		if(new_say)
+			owner.say(new_say)
+			victim.cure_trauma_type(/datum/brain_trauma/hypnosis/dominate, TRAUMA_RESILIENCE_MAGIC)
+			victim.gain_trauma(new /datum/brain_trauma/hypnosis/dominate(new_say), TRAUMA_RESILIENCE_MAGIC)
+
+			spawn(60 SECONDS)
+				if(victim)
+					victim.cure_trauma_type(/datum/brain_trauma/hypnosis/dominate, TRAUMA_RESILIENCE_MAGIC)
+

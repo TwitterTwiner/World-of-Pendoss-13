@@ -268,6 +268,7 @@
 		..()
 
 /datum/warform/proc/transform(var/animal_atom, var/mob/living/carbon/human/owner, var/masquerady = TRUE)
+	owner.drop_all_held_items()
 	humanform = owner
 	owner.invisibility = INVISIBILITY_MAXIMUM
 	warform = new animal_atom(get_turf(owner))

@@ -37,10 +37,12 @@ SUBSYSTEM_DEF(statpanels)
 			"---",
 			"Camarilla Power: [length(SSfactionwar.marks_camarilla)]",
 			"Anarch Power: [length(SSfactionwar.marks_anarch)]",
-			"Sabbat Power: [length(SSfactionwar.marks_sabbat)]",
-			"---",
-			"Angst: 0",
-			"Plasm: ●●●●●" // [ChillRaccoon] - trolling
+			"Giovanni Power: [length(SSfactionwar.marks_giovanni)]",
+			"Triad Power: [length(SSfactionwar.marks_triad)]",
+			"Sabbat Power: [length(SSfactionwar.marks_sabbat)]"
+//			"---",
+//			"Angst: 0",
+//			"Plasm: ●●●●●" // [ChillRaccoon] - trolling
 //			"Time Dilation: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)"
 		)
 

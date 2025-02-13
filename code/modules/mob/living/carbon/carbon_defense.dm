@@ -465,8 +465,20 @@
 		var/mob/living/carbon/human/human = M
 		if(human.Myself?.Lover?.owner == src)
 			call_dharma("meet", M)
+			if(!human.Myself.got_lovero)
+				human.Myself.got_lovero = TRUE
+				if(M.key)
+					var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
+					if(P)
+						P.add_experience(3)
 		if(human.Myself?.Friend?.owner == src)
 			call_dharma("meet", M)
+			if(!human.Myself.got_friendo)
+				human.Myself.got_friendo = TRUE
+				if(M.key)
+					var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
+					if(P)
+						P.add_experience(3)
 
 	if(body_position == LYING_DOWN)
 		if(buckled)

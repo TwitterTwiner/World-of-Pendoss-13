@@ -24,12 +24,6 @@
 	//This was messing with the visualiser in the character setup menu somehow
 	if (H.clane?.type != /datum/vampireclane/kiasyd)
 		return
-	if(H.isdwarfy)
-		H.RemoveElement(/datum/element/dwarfism, COMSIG_PARENT_PREQDELETED, src)
-		H.isdwarfy = FALSE
-	if(!H.istower)
-		H.AddElement(/datum/element/giantism, COMSIG_PARENT_PREQDELETED, src)
-		H.istower = TRUE
 	var/obj/item/organ/eyes/night_vision/kiasyd/NV = new()
 	NV.Insert(H, TRUE, FALSE)
 	if(H.base_body_mod == "f")
@@ -38,6 +32,12 @@
 
 /datum/vampireclane/kiasyd/post_gain(mob/living/carbon/human/H)
 	. = ..()
+	if(H.isdwarfy)
+		H.RemoveElement(/datum/element/dwarfism, COMSIG_PARENT_PREQDELETED, src)
+		H.isdwarfy = FALSE
+	if(!H.istower)
+		H.AddElement(/datum/element/giantism, COMSIG_PARENT_PREQDELETED, src)
+		H.istower = TRUE
 
 	//give them sunglasses to hide their freakish eyes
 	var/obj/item/clothing/glasses/vampire/sun/new_glasses = new(H.loc)

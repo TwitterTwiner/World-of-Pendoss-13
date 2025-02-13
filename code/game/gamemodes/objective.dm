@@ -983,7 +983,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/money
 	name = "earn money"
-	var/amount = 500
+	var/amount = 5000
 
 /datum/objective/money/update_explanation_text()
 	..()

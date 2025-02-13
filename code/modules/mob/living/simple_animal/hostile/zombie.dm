@@ -34,8 +34,20 @@
 /mob/living/simple_animal/hostile/zombie/Initialize()
 	. = ..()
 	GLOB.zombie_list += src
-
+/*
+/mob/living/simple_animal/hostile/zombie/Bump(atom/A)
+	if(!istype(A, /mob/living/simple_animal/hostile/zombie))
+		ClickOn(A)
+	..()
+*/
 /mob/living/simple_animal/hostile/zombie/proc/handle_automated_patriotification()
+	var/obj/MovableShit
+	if(target_to_zombebe)
+		MovableShit = locate() in get_step_towards(src, target_to_zombebe)
+	else if(GLOB.vampgate)
+		MovableShit = locate() in get_step_towards(src, GLOB.vampgate)
+	if(MovableShit)
+		ClickOn(MovableShit)
 	if(target_to_zombebe)
 		if(get_dist(src, target_to_zombebe) > 7)
 			target_to_zombebe = null

@@ -946,7 +946,7 @@ VENTORY!
 
 /obj/item/ammo_box/magazine/glock9mm
 	grid_width = 1 GRID_BOXES
-	grid_height = 1 GRID_BOXES
+	grid_height = 2 GRID_BOXES
 
 /obj/item/gun/ballistic/automatic/vampire/glock19
 	grid_width = 2 GRID_BOXES
@@ -1019,6 +1019,18 @@ VENTORY!
 /obj/item/ammo_box/magazine/vamp545
 	grid_width = 1 GRID_BOXES
 	grid_height = 2 GRID_BOXES
+
+/obj/item/gun/ballistic/automatic/vampire/huntrifle
+	grid_width = 8 GRID_BOXES
+	grid_height = 2 GRID_BOXES
+
+/obj/item/ammo_box/magazine/semi9mm
+	grid_width = 1 GRID_BOXES
+	grid_height = 2 GRID_BOXES
+
+/obj/item/gun/ballistic/automatic/vampire/beretta
+	grid_width = 2 GRID_BOXES
+	grid_height = 1 GRID_BOXES
 
 /obj/item/gun/ballistic/automatic/vampire/ak74
 	grid_width = 8 GRID_BOXES

@@ -86,6 +86,8 @@ And it also helps for the character set panel
 	var/phone_number
 
 	var/mob/living/carbon/human/owner
+	var/got_friendo = FALSE
+	var/got_lovero = FALSE
 
 /datum/relationship/proc/generate_relationships()
 	if(!owner)

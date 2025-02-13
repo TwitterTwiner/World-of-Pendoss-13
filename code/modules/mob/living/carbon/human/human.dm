@@ -297,16 +297,25 @@
 				to_chat(H, "<span class='warning'>You have already noted their masquerade breach! Wait some time until you do that again.</span>")
 				return
 			var/reason = input(usr, "Write a description of violation:", "Spot a Masquerade violation") as text|null
-			if(reason)
+			if(reason && (iskindred(src) || isghoul(src) || iscathayan(src) || isgarou(src) || iswerewolf(src)))
 				if (H.voted_for.Find(dna.real_name)) //Rudimentary check to avoid queueing a whole bunch of reason texts and then nuking their masquerade to 0.
 					to_chat(H, "<span class='warning'>You have already noted their masquerade breach! Wait some time until you do that again.</span>")
 					return
 				reason = trim(copytext_char(sanitize(reason), 1, MAX_MESSAGE_LEN))
 				masquerade_votes++
+				masquerade_voters += H
 				message_admins("[ADMIN_LOOKUPFLW(H)] spotted [ADMIN_LOOKUPFLW(src)]'s Masquerade violation. Description: [reason]")
+				to_chat(src, "<span class='warning'>Someone spotted your behaviour as Masquerade Breach. Reason: [reason]</span>")
 				H.voted_for |= dna.real_name
 				if(masquerade_votes > 1)
 					masquerade_votes = 0
+					for(var/mob/living/LivingSpotters in masquerade_voters)
+						if(LivingSpotters)
+							if(LivingSpotters.key)
+								var/datum/preferences/P = GLOB.preferences_datums[ckey(LivingSpotters.key)]
+								if(P)
+									P.add_experience(1)
+					masquerade_voters = list()
 					last_masquerade_violation = 0
 					AdjustMasquerade(-1)
 
@@ -331,7 +340,6 @@
 				return
 			else
 				user << browse(niggercumshot, "window=Headshot;border=1;can_resize=0;can_minimize=0")
-
 
 
 ///////HUDs///////
@@ -1214,7 +1222,7 @@
 			return
 
 		//(< 5, slip and take damage), (5-14, fail to climb), (>= 15, climb up successfully)
-		var/roll = secret_vampireroll(max(get_a_strength(src), get_a_dexterity(src))+get_a_athletics(src)+get_potence_dices(src), 6, src)
+		var/roll = secret_vampireroll(max(get_a_strength(src), get_a_dexterity(src))+get_a_athletics(src), 6, src)
 		// var/physique = physique
 		if(roll >= 3)
 			loc = above_turf

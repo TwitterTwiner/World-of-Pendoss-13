@@ -500,15 +500,13 @@
 
 
 /mob/living/proc/get_health_difficulty()
-	if(health >= maxHealth)
+	if(health > maxHealth*0.6)
 		return 0
-	else if(health > maxHealth*0.8)
-		return 0
-	else if(health > maxHealth*0.6)
-		return 1
 	else if(health > maxHealth*0.4)
-		return 2
+		return 1
 	else if(health > maxHealth*0.2)
+		return 2
+	else if(health > HEALTH_THRESHOLD_FULLCRIT)
 		return 5
 	else
 		return 10

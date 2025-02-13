@@ -3,8 +3,8 @@
 	desc = "The Baali are a bloodline of vampires associated with demon worship. Because of their affinity with the unholy, the Baali are particularly vulnerable to holy iconography, holy ground and holy water. They are highly vulnerable to True Faith."
 	curse = "Fear of the Religion."
 	clane_disciplines = list(
-		/datum/discipline/obfuscate,
-		/datum/discipline/presence,
+		/datum/discipline/obtenebration,
+		/datum/discipline/thaumaturgy,
 		/datum/discipline/daimonion
 	)
 	male_clothes = /obj/item/clothing/under/vampire/baali
@@ -20,12 +20,13 @@
 	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/discipline/daimonion/post_gain(mob/living/carbon/human/H)
-	if(level >= 3)
+	/* if(level >= 3)
 		var/obj/effect/proc_holder/spell/aimed/fireball/baali/S = new (H)
 		H.mind.AddSpell(S)
 	if(level >= 5)
 		var/datum/action/antifrenzy/A = new ()
-		A.Grant(H)
+		A.Grant(H) */
+	return
 
 /datum/action/antifrenzy
 	name = "Resist Beast"
