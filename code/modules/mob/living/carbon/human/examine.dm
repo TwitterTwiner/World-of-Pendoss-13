@@ -518,6 +518,7 @@
 		var/mob/living/L = user
 		var/imya = L.get_visible_name()
 
+
 		if(skipface)
 			. += "...?"
 			return

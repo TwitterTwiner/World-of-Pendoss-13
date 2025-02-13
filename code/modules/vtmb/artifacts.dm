@@ -319,5 +319,3 @@
 							if(!identified)
 								src.identificate()
 								to_chat(user, "<span class='warning'>Ты раскрыл тайну и мощь этого таинственного талисмана</span>")
-
-
