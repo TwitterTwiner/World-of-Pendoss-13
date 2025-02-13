@@ -24,7 +24,7 @@
 	wings_icon = "Dragon"
 	mutant_bodyparts = list("tail_human" = "None", "ears" = "None", "wings" = "None")
 	mutantbrain = /obj/item/organ/brain/vampire
-	brutemod = 1	// or change to 0.8
+	brutemod = 0.5	// or change to 0.8
 	heatmod = 1		//Sucking due to overheating	///THEY DON'T SUCK FROM FIRE ANYMORE
 	burnmod = 1
 	punchdamagelow = 15
@@ -180,7 +180,7 @@
 				var/new_master = FALSE
 				BLOODBONDED.faction |= H.faction
 				if(!istype(BLOODBONDED, /mob/living/carbon/human/npc))
-					if(H.vampire_faction == "Camarilla" || H.vampire_faction == "Anarchs" || H.vampire_faction == "Sabbat")
+					if(H.vampire_faction == "Camarilla" || H.vampire_faction == "Anarchs" || H.vampire_faction == "Sabbat" || H.vampire_faction == "Giovanni" || H.vampire_faction == "Triad")
 						if(BLOODBONDED.vampire_faction != H.vampire_faction)
 							BLOODBONDED.vampire_faction = H.vampire_faction
 							if(H.vampire_faction == "Sabbat")
@@ -273,11 +273,11 @@
 								disciplines_to_give += H.client.prefs.discipline_types[i]
 							BLOODBONDED.create_disciplines(FALSE, disciplines_to_give)
 
-							BLOODBONDED.maxbloodpool = 10+((13-min(13, BLOODBONDED.generation))*3)
+							BLOODBONDED.maxbloodpool = get_gen_bloodpool(BLOODBONDED.generation)
 							BLOODBONDED.clane.enlightenment = H.clane.enlightenment
 						else
-							BLOODBONDED.maxbloodpool = 10+((13-min(13, BLOODBONDED.generation))*3)
 							BLOODBONDED.generation = 14
+							BLOODBONDED.maxbloodpool = get_gen_bloodpool(BLOODBONDED.generation)
 							BLOODBONDED.clane = new /datum/vampireclane/caitiff()
 
 						//Verify if they accepted to save being a vampire
@@ -333,7 +333,7 @@
 
 					if(H.reagents)
 						if(length(H.reagents.reagent_list))
-							H.reagents.trans_to(BLOODBONDED, min(10, H.reagents.total_volume), transfered_by = H, methods = VAMPIRE)
+							H.reagents.trans_to(BLOODBONDED, min(5, H.reagents.total_volume), transfered_by = H, methods = VAMPIRE)
 					BLOODBONDED.adjustBruteLoss(-25, TRUE)
 					if(length(BLOODBONDED.all_wounds))
 						var/datum/wound/W = pick(BLOODBONDED.all_wounds)
@@ -559,7 +559,7 @@
 /mob/living/carbon/human/verb/teach_discipline(mob/living/carbon/human/student in (range(1, src) - src))
 	set name = "Teach Discipline"
 	set category = "IC"
-	set desc ="Teach a Discipline to a Kindred who has recently drank your blood. Costs 10 experience points."
+	set desc ="Teach a Discipline to a Kindred who has recently drank your blood. Costs 50 experience points."
 
 	var/mob/living/carbon/human/teacher = src
 	var/datum/preferences/teacher_prefs = teacher.client.prefs
@@ -576,8 +576,8 @@
 	if (student.stat >= SOFT_CRIT)
 		to_chat(teacher, "<span class='warning'>Your student needs to be conscious!</span>")
 		return
-	if (teacher_prefs.true_experience < 10)
-		to_chat(teacher, "<span class='warning'>You don't have enough experience to teach them this Discipline!</span>")
+	if (teacher_prefs.true_experience < 50)
+		to_chat(teacher, "<span class='warning'>You don't have enough experience (50) to teach them this Discipline!</span>")
 		return
 	//checks that the teacher has blood bonded the student, this is something that needs to be reworked when blood bonds are made better
 	if (student.mind.enslaved_to != teacher)
@@ -631,7 +631,7 @@
 
 		visible_message("<span class='notice'>[teacher] begins mentoring [student] in [giving_discipline].</span>")
 		if (do_after(teacher, 30 SECONDS, student))
-			teacher_prefs.true_experience -= 10
+			teacher_prefs.true_experience -= 50
 
 			student_prefs.discipline_types += teaching_discipline
 			student_prefs.discipline_levels += 0

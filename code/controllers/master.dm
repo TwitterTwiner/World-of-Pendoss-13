@@ -231,32 +231,44 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(new_runlevel == RUNLEVEL_POSTGAME)
 		GLOB.canon_event = FALSE
 		var/won
-		if(length(SSfactionwar.marks_camarilla) > length(SSfactionwar.marks_anarch) && length(SSfactionwar.marks_camarilla) > length(SSfactionwar.marks_sabbat))
-			won = "camarilla"
-		if(length(SSfactionwar.marks_anarch) > length(SSfactionwar.marks_camarilla) && length(SSfactionwar.marks_anarch) > length(SSfactionwar.marks_sabbat))
-			won = "anarch"
-		if(length(SSfactionwar.marks_sabbat) > length(SSfactionwar.marks_anarch) && length(SSfactionwar.marks_sabbat) > length(SSfactionwar.marks_camarilla))
-			won = "sabbat"
+		var/last_winner_points = 0
+		if(length(SSfactionwar.marks_camarilla) > last_winner_points)
+			last_winner_points = length(SSfactionwar.marks_camarilla)
+			won = "Camarilla"
+		if(length(SSfactionwar.marks_anarch) > last_winner_points)
+			last_winner_points = length(SSfactionwar.marks_anarch)
+			won = "Anarchs"
+		if(length(SSfactionwar.marks_giovanni) > last_winner_points)
+			last_winner_points = length(SSfactionwar.marks_giovanni)
+			won = "Giovanni"
+		if(length(SSfactionwar.marks_triad) > last_winner_points)
+			last_winner_points = length(SSfactionwar.marks_triad)
+			won = "Triad"
+		if(length(SSfactionwar.marks_sabbat) > last_winner_points)
+			last_winner_points = length(SSfactionwar.marks_sabbat)
+			won = "Sabbat"
 		for(var/mob/living/carbon/werewolf/W in GLOB.player_list)
 			if(W)
 				if(W.stat != DEAD)
 					if(W.key)
 						var/datum/preferences/P = GLOB.preferences_datums[ckey(W.key)]
 						if(P)
-							P.add_experience(get_a_intelligence(W))
+							if(P.old_enough_to_get_exp)
+								P.add_experience(get_a_intelligence(W))
 		for(var/mob/living/carbon/human/H in GLOB.human_list)
 			if(H)
 				if(H.stat != DEAD)
 					if(H.key)
 						var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]
 						if(P)
-							P.add_experience(get_a_intelligence(H))
+							if(P.old_enough_to_get_exp)
+								P.add_experience(get_a_intelligence(H))
 							if(H.mind)
-								if("[H.mind.assigned_role]" == "Prince" || "[H.mind.assigned_role]" == "Sheriff" || "[H.mind.assigned_role]" == "Scourge" ||  "[H.mind.assigned_role]" == "Seneschal" || "[H.mind.assigned_role]" == "Chantry Regent" || "[H.mind.assigned_role]" == "Baron" || "[H.mind.assigned_role]" == "Dealer")
-									P.add_experience(2)
+								if("[H.mind.assigned_role]" == "Prince" || "[H.mind.assigned_role]" == "Sheriff" || "[H.mind.assigned_role]" == "Hound" ||  "[H.mind.assigned_role]" == "Seneschal" || "[H.mind.assigned_role]" == "Chantry Regent" || "[H.mind.assigned_role]" == "Baron" || "[H.mind.assigned_role]" == "Dealer")
+									P.add_experience(3)
 							if(won)
 								if(H.vampire_faction == won)
-									P.add_experience(1)
+									P.add_experience(3)
 //							if(H.total_contracted > 1)
 //								P.add_experience(1)
 /*							var/toreador_bonus = 0
@@ -264,14 +276,14 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 								if(H.clane.name == "Toreador")
 									toreador_bonus = 1*/
 							if(H.total_erp > 9000)
-								P.add_experience(2)
+								P.add_experience(3)
 							if(H.total_cleaned > 25)
-								P.add_experience(1)
+								P.add_experience(3)
 								call_dharma("cleangrow", H)
 							if(H.mind)
 								if(H.mind.assigned_role == "Graveyard Keeper")
 									if(SSgraveyard.total_good > SSgraveyard.total_bad)
-										P.add_experience(1)
+										P.add_experience(3)
 								if(H.mind.special_role)
 									var/datum/antagonist/A = H.mind.special_role
 									if(A.check_completed())

@@ -50,7 +50,7 @@
 	message = "screams!"
 	message_mime = "acts out a scream!"
 	emote_type = EMOTE_AUDIBLE
-	only_forced_audio = TRUE
+//	only_forced_audio = TRUE
 	vary = TRUE
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
@@ -59,15 +59,13 @@
 	var/mob/living/carbon/human/H = user
 	if(H.mind?.miming)
 		return
-	if(ishumanbasic(H) || isfelinid(H))
+	if(ishuman(H))
 		if(user.gender == FEMALE)
 			return pick('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg', 'sound/voice/human/femalescream_5.ogg')
 		else
-			if(prob(1))
-				return 'sound/voice/human/wilhelm_scream.ogg'
+//			if(prob(1))
+//				return 'sound/voice/human/wilhelm_scream.ogg'
 			return pick('sound/voice/human/malescream_1.ogg', 'sound/voice/human/malescream_2.ogg', 'sound/voice/human/malescream_3.ogg', 'sound/voice/human/malescream_4.ogg', 'sound/voice/human/malescream_5.ogg', 'sound/voice/human/malescream_6.ogg')
-	else if(ismoth(H))
-		return 'sound/voice/moth/scream_moth.ogg'
 	else if(ismonkey(user)) //If its a monkey, override it.
 		return pick('sound/creatures/monkey/monkey_screech_1.ogg',
 					'sound/creatures/monkey/monkey_screech_2.ogg',

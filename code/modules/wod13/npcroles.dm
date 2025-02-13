@@ -947,7 +947,7 @@
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.bloodpool)
-			if(prob(10))
+			if(prob(5))
 				H.bloodpool = max(0, H.bloodpool-1)
 				beastmaster.bloodpool = min(beastmaster.maxbloodpool, beastmaster.bloodpool+1)
 
@@ -1189,14 +1189,13 @@
 	ignores_warrant = TRUE
 	AssignSocialRole(/datum/socialrole/police)
 
-/mob/living/carbon/human/npc/police/Life()
+/mob/living/carbon/human/npc/police/handle_automated_action()
 	. = ..()
 	if(stat < 1)
-		if(prob(10))
-			for(var/mob/living/carbon/human/H in oviewers(4, src))
-				if(H)
-					if(H.warrant)
-						Aggro(H, FALSE)
+		for(var/mob/living/carbon/human/H in oviewers(4, src))
+			if(H)
+				if(H.warrant)
+					Aggro(H, FALSE)
 
 /datum/socialrole/guard
 	s_tones = list(
@@ -1311,25 +1310,30 @@
 	my_weapon = new /obj/item/gun/ballistic/automatic/vampire/m1911(src)
 	AssignSocialRole(/datum/socialrole/guard)
 
-/mob/living/carbon/human/npc/walkby/club/Life()
+/mob/living/carbon/human/npc/walkby/club/Initialize()
+	. = ..()
+	for(var/obj/machinery/jukebox/Juke in range(7, src))
+		if(Juke)
+			MyJuke = Juke
+
+/mob/living/carbon/human/npc/walkby/club/handle_automated_action()
 	. = ..()
 	if(staying && stat < 2)
-		if(prob(5))
-			var/hasjukebox = FALSE
-			for(var/obj/machinery/jukebox/J in range(5, src))
-				if(J)
-					hasjukebox = TRUE
-					if(J.active)
-						if(prob(50))
-							dancefirst(src)
-						else
-							dancesecond(src)
-			if(!hasjukebox)
-				staying = FALSE
+		if(MyJuke)
+			if(MyJuke.active)
+				if(prob(10))
+					if(prob(50))
+						dancefirst(src)
+					else
+						dancesecond(src)
+		else
+			staying = FALSE
+			MyJuke = null
 
 /mob/living/carbon/human/npc/walkby/club
 	vampire_faction = "City"
 	staying = TRUE
+	var/obj/machinery/jukebox/MyJuke
 
 /datum/socialrole/stripfemale
 	s_tones = list("albino",
@@ -1444,6 +1448,7 @@
 /mob/living/carbon/human/npc/stripper
 	vampire_faction = "City"
 	staying = TRUE
+	var/obj/structure/pole/MyPole
 
 /mob/living/carbon/human/npc/stripper/Initialize()
 	..()
@@ -1453,15 +1458,20 @@
 	undershirt = "Nude"
 	socks = "Nude"
 	update_body()
+	for(var/obj/structure/pole/Pole in orange(1, src))
+		if(Pole)
+			MyPole = Pole
 
-/mob/living/carbon/human/npc/stripper/Life()
+/mob/living/carbon/human/npc/stripper/handle_automated_action()
 	. = ..()
 	if(stat < 2)
-		if(prob(20))
-			for(var/obj/structure/pole/P in range(1, src))
-				if(P)
+		if(MyPole)
+			if(prob(20))
+				if(get_dist(src, MyPole) <= 1)
 					drop_all_held_items()
-					ClickOn(P)
+					ClickOn(MyPole)
+				else
+					MyPole = null
 
 /mob/living/carbon/human/npc/incel
 	vampire_faction = "City"

@@ -21,13 +21,14 @@
 	minimal_generation = 13
 
 	duty = "Make money, do drugs, fight law. Your hideout is the laundromat in Chinatown."
-	experience_addition = 4
+	experience_addition = 0
 	minimal_masquerade = 0
 	my_contact_is_important = FALSE
 
 /datum/outfit/job/triad_soldier/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.grant_language(/datum/language/cantonese)
+	H.vampire_faction = "Triad"
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/vampire/suit/female
 		shoes = /obj/item/clothing/shoes/vampire/heels
@@ -46,4 +47,4 @@
 	r_pocket = /obj/item/flashlight
 	l_hand = /obj/item/vamp/keys/triads
 //	r_hand = /obj/item/police_radio
-	backpack_contents = list(/obj/item/passport=1, /obj/item/vamp/creditcard=1, /obj/item/clothing/mask/vampire/balaclava =1, /obj/item/gun/ballistic/automatic/vampire/glock19, /obj/item/melee/vampirearms/knife)
+	backpack_contents = list(/obj/item/passport=1, /obj/item/vamp/creditcard=1, /obj/item/clothing/mask/vampire/balaclava =1, /obj/item/gun/ballistic/automatic/vampire/beretta=2,/obj/item/ammo_box/magazine/semi9mm=2, /obj/item/melee/vampirearms/knife)

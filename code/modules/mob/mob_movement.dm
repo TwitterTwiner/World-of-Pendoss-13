@@ -104,6 +104,7 @@
 			H.warform.warform.Move(get_step(H.warform.warform, direct), direct)
 			H.warform.warform.dir = direct
 			H.dir = direct
+			H.warform.warform.handle_gravity()
 			if(H.warform.warform.lying_angle != H.lying_angle)
 				var/matrix/Matrix = matrix()
 				Matrix.Turn(H.lying_angle)
@@ -523,6 +524,11 @@
 		to_chat(src, "<span class='notice'>You are not Superman.<span>")
 		return
 
+	if(ishuman(src))
+		var/mob/living/carbon/human/humane = src
+		if(humane.warform?.warform)
+			return
+
 	if(zMove(UP, TRUE))
 		to_chat(src, "<span class='notice'>You move upwards.</span>")
 
@@ -530,6 +536,11 @@
 /mob/verb/down()
 	set name = "Move Down"
 	set category = "IC"
+
+	if(ishuman(src))
+		var/mob/living/carbon/human/humane = src
+		if(humane.warform?.warform)
+			return
 
 	if(zMove(DOWN, TRUE))
 		to_chat(src, "<span class='notice'>You move down.</span>")

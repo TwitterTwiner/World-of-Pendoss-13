@@ -136,12 +136,12 @@
 						else
 							to_chat(M, "<span class='userhelp'><b>Violator was punished</b></span>")
 							if(P1)
-								P1.add_experience(1)
+								P1.add_experience(3)
 					if(H.diablerist)
 						if(M.vampire_faction == "Camarilla")
 							to_chat(M, "<span class='userhelp'><b>Diablerist was punished</b></span>")
 							if(P1)
-								P1.add_experience(1)
+								P1.add_experience(3)
 						else if(M.vampire_faction)
 							loved = FALSE
 							to_chat(M, "<span class='userdanger'><b>You feel your interests being ignored</b></span>")
@@ -149,7 +149,7 @@
 						if(M.vampire_faction == "Camarilla")
 							to_chat(M, "<span class='userhelp'><b>Blood Hunt after [H] is over</b></span>")
 							if(P1)
-								P1.add_experience(1)
+								P1.add_experience(3)
 						else if(M.vampire_faction)
 							loved = FALSE
 							to_chat(M, "<span class='userdanger'><b>You feel your interests being ignored</b></span>")
@@ -158,7 +158,7 @@
 							to_chat(M, "<span class='userhelp'><b>Authority increased</b></span>")
 							loved = TRUE
 							if(P1)
-								P1.add_experience(1)
+								P1.add_experience(3)
 					if(loved)
 						M.emote("clap")
 			var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]

@@ -589,7 +589,7 @@
 				var/view_buff = min(14, get_a_perception(usr)+get_a_alertness(usr))
 				var/view_distance = round((actual_distance/15)*view_buff)
 				var/myangle = get_angle_raw(H.x, H.y, 0, 0, x, y, 0, 0)
-				var/time_to_animate = 5
+				var/time_to_animate = 3
 				animate(H.client, pixel_x = round(view_distance*sin(myangle)), pixel_y = round(view_distance*cos(myangle)), time = time_to_animate)
 
 /mob/living/carbon/Move(atom/newloc, direct, glide_size_override)
@@ -648,11 +648,14 @@
 								HUY.put_in_active_hand(item_to_pick)
 							return
 				else
-					if(isturf(HUY.loc))
+					if(isturf(HUY.loc) && get_a_perception(HUY)+get_a_alertness(HUY) >= 4)
 						HUY.binocling = !HUY.binocling
 						if(!HUY.binocling)
+							to_chat(HUY, "<span class='notice'>You are no more looking far away...</span>")
 							HUY.client.pixel_x = 0
 							HUY.client.pixel_y = 0
+						else
+							to_chat(HUY, "<span class='notice'>You are looking far away.</span>")
 		if(HUY.warform)
 			if(istype(src, /obj) || istype(src, /mob))
 				if(Adjacent(HUY.warform.warform))
@@ -835,7 +838,8 @@
 /mob/living/proc/update_blood_hud()
 	if(!client || !hud_used)
 		return
-	maxbloodpool = get_gen_bloodpool(generation)
+	maxbloodpool = get_gen_bloodpool(generation)-cursed_bloodpool
+	bloodpool = min(maxbloodpool, bloodpool)
 	if(hud_used.blood_icon)
 		var/emm = round((bloodpool/maxbloodpool)*10)
 		if(emm > 10)

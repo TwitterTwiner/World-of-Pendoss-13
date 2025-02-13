@@ -70,6 +70,7 @@
 		if(!antifrenzy)
 			if(P.humanity < 1)
 				enter_frenzymod()
+				reset_shit(src)
 				to_chat(src, "<span class='userdanger'>You have lost control of the Beast within you, and it has taken your body. Be more humane next time.</span>")
 				ghostize(FALSE)
 				P.reason_of_death = "Lost control to the Beast ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."

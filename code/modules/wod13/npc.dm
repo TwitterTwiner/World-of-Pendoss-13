@@ -428,13 +428,13 @@
 
 /mob/living/carbon/Move(NewLoc, direct)
 	if(obfuscate_level < 2)
-		if(invisibility != initial(invisibility))
+		if(invisibility <= INVISIBILITY_LEVEL_OBFUSCATE+5 && invisibility != initial(invisibility))
 			playsound(loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
 			invisibility = initial(invisibility)
 			alpha = 255
 	if(m_intent != MOVE_INTENT_WALK)
 		if(obfuscate_level < 3)
-			if(invisibility != initial(invisibility))
+			if(invisibility <= INVISIBILITY_LEVEL_OBFUSCATE+5 && invisibility != initial(invisibility))
 				playsound(loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
 				invisibility = initial(invisibility)
 				alpha = 255

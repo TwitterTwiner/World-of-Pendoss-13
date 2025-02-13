@@ -1,5 +1,5 @@
 /datum/job
-	var/experience_addition = 1
+	var/experience_addition = 0
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H)
 	. = ..()
@@ -410,7 +410,7 @@
 		if(2)
 			var/datum/objective/money/money_objective = new
 			money_objective.owner = owner
-			money_objective.amount = rand(500, 3000)
+			money_objective.amount = rand(3000, 5000)
 			objectives += money_objective
 			money_objective.update_explanation_text()
 		if(3)
@@ -435,7 +435,7 @@
 			else
 				var/datum/objective/money/money_objective = new
 				money_objective.owner = owner
-				money_objective.amount = rand(300, 1000)
+				money_objective.amount = rand(3000, 5000)
 				objectives += money_objective
 				money_objective.update_explanation_text()
 		if(4)

@@ -328,7 +328,10 @@
 		/obj/item/reagent_containers/hypospray/medipen/ekit = 1,
 		/obj/item/storage/pill_bottle/iron = 1,
 		/obj/item/reagent_containers/pill/patch/libital = 1,
-		/obj/item/reagent_containers/pill/patch/aiuri = 1)
+		/obj/item/reagent_containers/pill/patch/aiuri = 1,
+		/obj/item/storage/pill_bottle/multiver/less = 1,
+		/obj/item/reagent_containers/syringe/syriniver = 1,
+		/obj/item/storage/pill_bottle/potassiodide = 1)
 	generate_items_inside(items_inside,src)
 
 //medibot assembly

@@ -45,12 +45,8 @@
 	var/matrix/M = matrix()
 	if(dir == WEST || dir == EAST)
 		M.Scale(-1, 1)
-	else if(dir == SOUTH|| dir == NORTH)
-		M.Scale(1, -1)
-		pixel_y = mirror.pixel_y + 5
 
 	transform = M
-
 	filters += filter("type" = "alpha", "icon" = icon(alpha_icon, alpha_icon_state), "x" = 0, "y" = 0)
 
 	vis_contents += get_turf(mirror)

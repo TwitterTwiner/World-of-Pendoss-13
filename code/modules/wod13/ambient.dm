@@ -51,6 +51,7 @@
 /area/vtm/interior/laundromat
 	name = "Laundromat"
 	icon_state = "shop"
+	zone_owner = "Triad"
 	upper = FALSE
 	fire_controled = TRUE
 	wall_rating = LOW_WALL_RATING
@@ -139,6 +140,7 @@
 /area/vtm/chinatown
 	name = "Chinatown"
 	icon_state = "chinatown"
+	zone_owner = "Triad"
 	ambience_index = AMBIENCE_CITY
 	music = /datum/vampiremusic/chinatown
 	upper = TRUE
@@ -385,6 +387,11 @@
 	yang_chi = 0
 	yin_chi = 2
 	wall_rating = LOW_WALL_RATING
+
+/area/vtm/interior/wyrm_corrupted/pentex
+	name = "Pentex Facility"
+	icon_state = "supply"
+	music = /datum/vampiremusic/nosferatu
 
 /area/vtm/interior/penumbra
 	name = "Penumbra"

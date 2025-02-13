@@ -40,6 +40,6 @@
 			notify_ghosts("All ghosts are being called by [L]!", source = L, action = NOTIFY_ORBIT, header = "Ghost Summoning")
 			to_chat(owner, "<span class='notice'>You activate the Oblivion Communication.</span>")
 		else
-			L.see_invisible = initial(owner.see_invisible)
+			L.update_sight()
 			L.client?.prefs.chat_toggles &= ~CHAT_DEAD
 			to_chat(owner, "<span class='warning'>You deactivate the Oblivion Communication.</span>")

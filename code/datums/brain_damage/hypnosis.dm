@@ -9,6 +9,9 @@
 	var/hypnotic_phrase = ""
 	var/regex/target_phrase
 
+	var/hypnospan = "<span class='hypnophrase'>"
+	var/bighypnospan = "<span class='reallybig hypnophrase'>"
+
 /datum/brain_trauma/hypnosis/New(phrase)
 	if(!phrase)
 		qdel(src)
@@ -23,7 +26,7 @@
 /datum/brain_trauma/hypnosis/on_gain()
 	message_admins("[ADMIN_LOOKUPFLW(owner)] was hypnotized with the phrase '[hypnotic_phrase]'.")
 	log_game("[key_name(owner)] was hypnotized with the phrase '[hypnotic_phrase]'.")
-	to_chat(owner, "<span class='reallybig hypnophrase'>[hypnotic_phrase]</span>")
+	to_chat(owner, "[bighypnospan][hypnotic_phrase]</span>")
 	to_chat(owner, "<span class='notice'>[pick("You feel your thoughts focusing on this phrase... you can't seem to get it out of your head.",\
 												"Your head hurts, but this is all you can think of. It must be vitally important.",\
 												"You feel a part of your mind repeating this over and over. You need to follow these words.",\
@@ -48,9 +51,17 @@
 	if(prob(2))
 		switch(rand(1,2))
 			if(1)
-				to_chat(owner, "<span class='hypnophrase'><i>...[lowertext(hypnotic_phrase)]...</i></span>")
+				to_chat(owner, "[hypnospan]<i>...[lowertext(hypnotic_phrase)]...</i></span>")
 			if(2)
-				new /datum/hallucination/chat(owner, TRUE, FALSE, "<span class='hypnophrase'>[hypnotic_phrase]</span>")
+				new /datum/hallucination/chat(owner, TRUE, FALSE, "[hypnospan][hypnotic_phrase]</span>")
 
 /datum/brain_trauma/hypnosis/handle_hearing(datum/source, list/hearing_args)
-	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='hypnophrase'>$1</span>")
+	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], "[hypnospan]$1</span>")
+
+/datum/brain_trauma/hypnosis/dominate
+	name = "Submissive"
+	desc = "Patient's unconscious is completely enthralled by a word or sentence, focusing their thoughts and actions on it."
+	scan_desc = "looping thought pattern"
+
+	hypnospan = "<span class='phobia'>"
+	bighypnospan = "<span class='reallybig phobia'>"

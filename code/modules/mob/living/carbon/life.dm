@@ -544,7 +544,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			Dizzy(10)
 
 		if(drunkenness >= 51)
-			if(prob(3))
+			if(iscathayan(src))
+				drunkenness = 50
+			else if(prob(3))
 				add_confusion(15)
 				vomit() // vomiting clears toxloss, consider this a blessing
 			Dizzy(25)

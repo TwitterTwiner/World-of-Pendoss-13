@@ -71,7 +71,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	if(current_version < 37)
 		if(clientfps == 0)
-			clientfps = -1
+			clientfps = 60
 
 	if (current_version < 38)
 		var/found_block_movement = FALSE

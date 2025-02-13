@@ -348,7 +348,7 @@
 	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 	if(!affecting)
 		affecting = get_bodypart(BODY_ZONE_CHEST)
-	var/modifikator = secret_vampireroll(get_a_strength(M)+get_a_brawl(M)+get_potence_dices(M), 6, M)
+	var/modifikator = secret_vampireroll(get_a_strength(M)+get_a_brawl(M), 6, M)
 	if(modifikator <= 0)
 		M.visible_message("<span class='warning'>[M] fails to attack [src]!</span>", \
 						"<span class='userdanger'>You fail to attack [src]!</span>")

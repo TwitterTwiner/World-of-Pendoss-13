@@ -268,10 +268,9 @@ SUBSYSTEM_DEF(witness_pool)
 				if((last_frenzy_check + 40 SECONDS) <= world.time)
 					last_frenzy_check = world.time
 					rollfrenzy()
-					if(clane)
-						if(clane.enlightenment)
-							if(!CheckFrenzyMove())
-								AdjustHumanity(1, 10)
+					if(clane?.enlightenment && humanity > 2)
+						if(!CheckFrenzyMove())
+							AdjustHumanity(1, 10)
 
 	else if(isgarou(src))
 

@@ -24,7 +24,7 @@
 	duty = "Keep the streets clean. You are paid to keep your mouth shut about the things you see."
 	minimal_masquerade = 0
 	max_generation = 11
-	experience_addition = 6
+	experience_addition = 0
 
 /datum/outfit/job/vjanitor
 	name = "Street Janitor"

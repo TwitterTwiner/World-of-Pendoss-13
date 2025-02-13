@@ -94,7 +94,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
-GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_direct_mob_sound, /client/proc/play_sound, /client/proc/set_round_end_sound))
+GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_direct_mob_sound, /client/proc/play_sound, /client/proc/play_web_sound, /client/proc/set_round_end_sound))
 GLOBAL_PROTECT(admin_verbs_sounds)
 GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/cmd_admin_dress,
@@ -234,6 +234,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/cmd_admin_local_narrate,
 	/client/proc/play_local_sound,
 	/client/proc/play_sound,
+	/client/proc/play_web_sound,
 	/client/proc/set_round_end_sound,
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
@@ -370,7 +371,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 					message_admins("[key_name_admin(usr)] re-entered corpse")
 				ghost.can_reenter_corpse = TRUE //force re-entering even when otherwise not possible
 				ghost.client.show_popup_menus = 0
-				ghost.client.color = CMNoir
+//				ghost.client.color = CMNoir
 				ghost.reenter_corpse()
 
 				SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin Reenter") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

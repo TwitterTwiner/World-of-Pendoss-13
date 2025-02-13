@@ -637,7 +637,7 @@
 
 /datum/chi_discipline/ghost_flame_shintai/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
-	var/limit = min(2, level) + get_a_charisma(caster)+get_a_empathy(caster)
+	var/limit = get_a_charisma(caster)+get_a_empathy(caster)
 	if(length(caster.beastmaster) >= limit)
 		var/mob/living/simple_animal/hostile/beastmaster/random_beast = pick(caster.beastmaster)
 		random_beast.death()
@@ -697,7 +697,7 @@
 	var/loop_started_time = world.time
 	while (world.time <= (loop_started_time + duration))
 		for(var/mob/living/carbon/burned_mob in oviewers(3, caster))
-			burned_mob.adjustFireLoss(5, TRUE)
+			burned_mob.adjustFireLoss(10, TRUE)
 			burned_mob.adjust_bodytemperature(15)
 
 		sleep(2 SECONDS)
@@ -1175,7 +1175,7 @@
 			target.clear_fullscreen("yomi", 5)
 			if(ishuman(target))
 				var/mob/living/carbon/human/human_target = target
-				var/datum/cb = CALLBACK(human_target, /mob/living/carbon/human/proc/attack_myself_command)
+				var/datum/cb = CALLBACK(human_target, TYPE_PROC_REF(/mob/living/carbon/human, attack_myself_command))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1) * 1.5 SECONDS)
 				target.emote("scream")
@@ -1198,13 +1198,16 @@
 	cost_demon = 1
 	discipline_type = "Demon"
 
+/datum/chi_discipline/iron_mountain/post_gain(mob/living/carbon/human/user)
+	user.attributes.passive_fortitude = level
+
 /datum/chi_discipline/iron_mountain/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
 //	caster.remove_overlay(FORTITUDE_LAYER)
 //	var/mutable_appearance/fortitude_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "mountain", -FORTITUDE_LAYER)
 //	caster.overlays_standing[FORTITUDE_LAYER] = fortitude_overlay
 //	caster.apply_overlay(FORTITUDE_LAYER)
-	caster.attributes.fortitude_bonus = level_casting*2
+	caster.attributes.fortitude_bonus = level_casting
 	spawn(delay+caster.discipline_time_plus)
 		if(caster)
 			caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/ironmountain_deactivate.ogg', 50, FALSE)
@@ -1261,14 +1264,14 @@
 			target.emote("stare")
 			if(ishuman(target))
 				var/mob/living/carbon/human/human_target = target
-				var/datum/cb = CALLBACK(human_target, /mob/living/carbon/human/proc/combat_to_caster)
+				var/datum/cb = CALLBACK(human_target, TYPE_PROC_REF(/mob/living/carbon/human, combat_to_caster))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1) * 1.5 SECONDS)
 		if(3)
 			target.emote("scream")
 			if(ishuman(target))
 				var/mob/living/carbon/human/human_target = target
-				var/datum/cb = CALLBACK(human_target, /mob/living/carbon/human/proc/step_away_caster)
+				var/datum/cb = CALLBACK(human_target, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1) * 1.5 SECONDS)
 		if(4)
@@ -1329,7 +1332,7 @@
 
 /datum/chi_discipline/beast_shintai/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
-	var/limit = min(2, level) + get_a_charisma(caster)+get_a_empathy(caster)
+	var/limit = get_a_charisma(caster)+get_a_empathy(caster)
 	if(length(caster.beastmaster) >= limit)
 		var/mob/living/simple_animal/hostile/beastmaster/random_beast = pick(caster.beastmaster)
 		random_beast.death()
@@ -1382,8 +1385,6 @@
 	delay = 12 SECONDS
 	cost_yang = 1
 	activate_sound = 'code/modules/wod13/sounds/smokeshintai_activate.ogg'
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/smoke_form/smoke_shapeshift
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/hidden_smoke_form/hidden_smoke_shapeshift
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/smoke_form
 	name = "Smoke Form"
@@ -1437,10 +1438,6 @@
 
 /datum/chi_discipline/smoke_shintai/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
-	if(!smoke_shapeshift)
-		smoke_shapeshift = new(caster)
-	if(!hidden_smoke_shapeshift)
-		hidden_smoke_shapeshift = new(caster)
 	switch(level_casting)
 		if(1)
 			var/datum/effect_system/smoke_spread/bad/smoke = new
@@ -1496,23 +1493,13 @@
 				qdel(visual2)
 				qdel(visual3)
 		if(4)
-			smoke_shapeshift.Shapeshift(caster)
-			var/mob/living/simple_animal/hostile/host = smoke_shapeshift.myshape
-			host.my_creator = null
 			playsound(get_turf(caster), 'sound/effects/smoke.ogg', 50, TRUE)
-			spawn(delay+caster.discipline_time_plus)
-				if(caster && caster.stat != DEAD)
-					smoke_shapeshift.Restore(smoke_shapeshift.myshape)
-					caster.Stun(1.5 SECONDS)
+			var/datum/warform/Warform = new
+			Warform.transform(/mob/living/simple_animal/hostile/smokecrawler, caster, TRUE)
 		if(5)
-			hidden_smoke_shapeshift.Shapeshift(caster)
-			var/mob/living/simple_animal/hostile/host = hidden_smoke_shapeshift.myshape
-			host.my_creator = null
 			playsound(get_turf(caster), 'sound/effects/smoke.ogg', 50, TRUE)
-			spawn(30 SECONDS + caster.discipline_time_plus)
-				if(caster && caster.stat != DEAD)
-					hidden_smoke_shapeshift.Restore(hidden_smoke_shapeshift.myshape)
-					caster.Stun(1.5 SECONDS)
+			var/datum/warform/Warform = new
+			Warform.transform(/mob/living/simple_animal/hostile/smokecrawler/hidden, caster, TRUE)
 
 /datum/chi_discipline/storm_shintai
 	name = "Storm Shintai"
@@ -1799,7 +1786,7 @@
 			var/sound/auspexbeat = sound('code/modules/wod13/sounds/auspex.ogg', repeat = TRUE)
 			caster.playsound_local(caster, auspexbeat, 75, 0, channel = CHANNEL_DISCIPLINES, use_reverb = FALSE)
 			ADD_TRAIT(caster, TRAIT_NIGHT_VISION, TRAIT_GENERIC)
-			caster.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE
+			caster.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+level
 			caster.update_sight()
 			caster.add_client_colour(/datum/client_colour/glass_colour/lightblue)
 			var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -1808,7 +1795,7 @@
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
 					caster.auspex_examine = FALSE
-					caster.see_invisible = initial(caster.see_invisible)
+					caster.update_sight()
 					abductor_hud.remove_hud_from(caster)
 					caster.stop_sound_channel(CHANNEL_DISCIPLINES)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/auspex_deactivate.ogg', 50, FALSE)
@@ -1820,7 +1807,7 @@
 			caster.playsound_local(caster, auspexbeat, 75, 0, channel = CHANNEL_DISCIPLINES, use_reverb = FALSE)
 			ADD_TRAIT(caster, TRAIT_THERMAL_VISION, TRAIT_GENERIC)
 			ADD_TRAIT(caster, TRAIT_NIGHT_VISION, TRAIT_GENERIC)
-			caster.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE
+			caster.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+level
 			caster.update_sight()
 			var/datum/atom_hud/health_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 			health_hud.add_hud_to(caster)
@@ -1828,7 +1815,7 @@
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
 					caster.auspex_examine = FALSE
-					caster.see_invisible = initial(caster.see_invisible)
+					caster.update_sight()
 					health_hud.remove_hud_from(caster)
 					caster.stop_sound_channel(CHANNEL_DISCIPLINES)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/auspex_deactivate.ogg', 50, FALSE)
@@ -1990,7 +1977,7 @@
 			spawn(30 SECONDS)
 				if(caster)
 					caster.client?.prefs.chat_toggles &= ~CHAT_DEAD
-					caster.see_invisible = initial(caster.see_invisible)
+					caster.update_sight()
 		if(2)
 			var/chosen_z
 			var/umbra_z

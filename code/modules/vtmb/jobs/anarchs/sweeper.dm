@@ -26,7 +26,7 @@
 	minimal_masquerade = 2
 	minimal_generation = 12
 	max_generation = 10
-	experience_addition = 6
+	experience_addition = 0
 
 /datum/outfit/job/sweeper
 	name = "Sweeper"

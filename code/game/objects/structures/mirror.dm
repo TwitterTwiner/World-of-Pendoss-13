@@ -32,16 +32,31 @@ GLOBAL_LIST_EMPTY(las_mirrors)
 	reflection.setup_visuals(src)
 	ref = WEAKREF(reflection)
 
+/obj/structure/mirror/Uncrossed(atom/movable/AM)
+	. = ..()
+	if(ishuman(AM))
+		var/mob/living/carbon/human/H = AM
+		H.My_reflection = null
+		AM.vis_flags = initial(AM.vis_flags)
+
+/mob/living
+	var/obj/structure/mirror/My_reflection
+
+/mob/living/carbon/human/face_atom(atom/A)
+	. = ..()
+	if(My_reflection)
+		if(My_reflection.dir == dir)
+			if(dir == NORTH || dir == SOUTH)
+				My_reflection.dir = turn(dir, 180)
+
 /obj/structure/mirror/Crossed(atom/movable/AM)
 	. = ..()
-//	if(ishuman(AM) && ref)
-//		var/mob/living/carbon/human/H = AM
-//		if(H.clane)
-//			if(H.clane.name == "Lasombra")
-//				var/obj/effect/reflection/reflection = ref.resolve()
-//				if(istype(reflection))
-//					qdel(reflection)
-//					ref = null
+	AM.vis_flags = VIS_INHERIT_DIR
+	if(ishuman(AM) && ref)
+		var/mob/living/carbon/human/H = AM
+		H.My_reflection = src
+		if(H.clane?.name == "Lasombra")
+			AM.vis_flags = VIS_HIDE
 	if(!ref)
 		var/obj/effect/reflection/reflection = new(src.loc)
 		reflection.setup_visuals(src)

@@ -286,7 +286,7 @@
 		var/mob/living/carbon/C = owner
 		C.see_invisible = SEE_INVISIBLE_OBSERVER
 		spawn(200)
-			C.see_invisible = initial(C.see_invisible)
+			C.update_sight()
 
 /datum/action/gift/blur_of_the_milky_eye
 	name = "Blur Of The Milky Eye"

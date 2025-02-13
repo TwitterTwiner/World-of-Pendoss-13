@@ -1345,7 +1345,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 						"<span class='userdanger'>You block [user]'s grab!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, "<span class='warning'>Your grab at [target] was blocked!</span>")
 		return FALSE
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6, user)
+	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user)
 	if(modifikator == -1)
 		user.AdjustKnockdown(20, TRUE)
 		playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
@@ -1370,7 +1370,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
 
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6, user)
+	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user)
 	var/atk_verb = user.dna.species.attack_verb
 	if(modifikator == -1)
 		target = user
@@ -1453,11 +1453,12 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, user.dna.species.attack_type, affecting, armor_block)
+			target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block)
+			target.apply_damage(damage, STAMINA, affecting, armor_block)
 			log_combat(user, target, "kicked")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
 			target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block)
-			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+//			target.apply_damage(damage, STAMINA, affecting, armor_block)
 			log_combat(user, target, "punched")
 
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
@@ -1477,7 +1478,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 						"<span class='danger'>You block [user]'s shove!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, "<span class='warning'>Your shove at [target] was blocked!</span>")
 		return FALSE
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user)+get_potence_dices(user), 6, user)
+	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user)
 	if(modifikator == -1)
 		user.AdjustKnockdown(20, TRUE)
 		playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
@@ -1544,12 +1545,14 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		add_hard = 2
 	var/modifikator
 	if(I.attack_diff_override > 0)
-		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user)+get_potence_dices(user), I.attack_diff_override, user)
+		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user), I.attack_diff_override, user)
 	else
-		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user)+get_potence_dices(user), 6+add_hard, user)
+		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user), 6+add_hard, user)
 	if(modifikator == -1)
-		H = user
-		modifikator = 3
+		user.visible_message("<span class='warning'>[user] slips, trying to swing [I]!</span>", \
+						"<span class='userdanger'>You slip, trying to swing [I]!</span>")
+		user.AdjustKnockdown(30, TRUE)
+		return
 	else if(modifikator == 0)
 		user.visible_message("<span class='warning'>[user] fails to attack with [I]!</span>", \
 						"<span class='userdanger'>You fail to attack with [I]!</span>")
@@ -1687,13 +1690,17 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else//no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod
-			if(BP)
-				if(BP.receive_damage(0, damage_amount, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness))
-					H.update_damage_overlays()
+			if(iskindred(H) || iscathayan(H))
+				var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.burn_mod
+				H.adjustCloneLoss(damage_amount)
 			else
-				H.adjustFireLoss(damage_amount)
+				H.damageoverlaytemp = 20
+				var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod
+				if(BP)
+					if(BP.receive_damage(0, damage_amount, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness))
+						H.update_damage_overlays()
+				else
+					H.adjustFireLoss(damage_amount)
 		if(TOX)
 			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.tox_mod
 			H.adjustToxLoss(damage_amount)

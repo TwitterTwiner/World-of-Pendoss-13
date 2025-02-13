@@ -24,7 +24,7 @@
 	allowed_species = list("Vampire")
 	allowed_bloodlines = list("Tremere", "Gargoyle")
 	known_contacts = list("Tremere Regent")
-	experience_addition = 6
+	experience_addition = 0
 
 /datum/outfit/job/archivist
 	name = "Archivist"
