@@ -333,8 +333,6 @@
 </html>
 "}
 		var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]
-		if(H.stat > UNCONSCIOUS)
-			return
 		if(P)
 			if(HS.headshot_link == null | skipface)
 				return

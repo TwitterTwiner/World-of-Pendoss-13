@@ -1,7 +1,7 @@
 #define ACTION_HEADSHOT_LINK_NOOP 0
 #define ACTION_HEADSHOT_LINK_REMOVE -1
 
-#define HEADSHOT_LINK_MAX_LENGTH 200
+#define HEADSHOT_LINK_MAX_LENGTH 220
 
 
 /datum/preferences/process_link(mob/user, list/href_list)
@@ -37,6 +37,7 @@
 	if(!usr_input)
 		return ACTION_HEADSHOT_LINK_REMOVE
 	var/nigga = "]"
+
 	var/static/link_regex = regex("^(https://i\\.gyazo\\.com|https://static1\\.e621\\.net|https://i\\.ibb\\.co/||https://cdn\\.discordapp\\.com)")
 	var/static/end_regex = regex("(\\.jpg|\\.png|\\.jpeg)$")
 
@@ -58,7 +59,6 @@
 		return ACTION_HEADSHOT_LINK_NOOP
 	var/static/list/repl_chars = list("\n"="#","\t"="#","'"="","\""=""," "="")
 	return trim(usr_input, repl_chars)
-
 
 #undef HEADSHOT_LINK_MAX_LENGTH
 

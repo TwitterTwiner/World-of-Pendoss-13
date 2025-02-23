@@ -37,30 +37,9 @@ export const Hydra = (props, context) => {
           </div>
           <TextArea
             value={message}
-            placeholder={'Enter some text...'}
+            placeholder={'Введитее свой логин...'}
             className="userinfo"
           />
-        </div>
-      </div>
-      <div className="chat">
-        <div className="chat-footer">
-          <div class="messages">
-          </div>
-          <TextArea
-            placeholder={'Enter message...'}
-            onChange={(e, value) => {
-              setMessage(value);
-            }}
-            className="chat-input"
-          />
-          <div
-            onClick={() => {
-              act('send_message', { ref: app.reference, message: message });
-              setMessage('');
-            }}
-            className="send-button">
-            <b style={{ color: 'black' }}>Send</b>
-          </div>
         </div>
       </div>
     </div>
