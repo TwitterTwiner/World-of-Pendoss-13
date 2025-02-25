@@ -519,6 +519,7 @@
 	if(flavor_text)
 		var/mob/living/L = src
 		var/imya = L.get_visible_name()
+
 		if(skipface)
 			. += "...?"
 			return

@@ -53,3 +53,42 @@
     opacity: 0;
   }
 }
+
+.chebu__screen {
+  animation: color2Pulse 5s infinite ease-in-out;
+  background-color: #000;
+  box-sizing: border-box;
+  font-family: 'Fira Mono', monospace;
+  font-size: 20px;
+  height: 100%;
+  overflow: hidden;
+  padding: 10vmin;
+  width: 100%;
+
+  .chebu__screen:after {
+    background-image: linear-gradient(transparent, transparent 3px, #222);
+    background-size: 4px 4px;
+    bottom: 0;
+    content: '';
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+
+}
+@keyframes color2Pulse {
+  0%,
+  100% {
+    color: rgb(151, 151, 151);
+  }
+  48%,
+  52% {
+    color: rgb(139, 141, 139);
+  }
+  50% {
+    color: rgb(96, 96, 96);
+  }
+}
