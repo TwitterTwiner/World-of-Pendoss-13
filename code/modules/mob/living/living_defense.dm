@@ -22,7 +22,7 @@
 	total_cubes += get_fortitude_dices(src)+get_visceratika_dices(src)+get_bloodshield_dices(src)+get_lasombra_dices(src)+get_tzimisce_dices(src)
 
 	if(attack_flag == BASHING || attack_flag == LETHAL || attack_flag == AGGRAVATED)
-		var/final_block = secret_vampireroll(total_cubes, 5, src, silent)
+		var/final_block = secret_vampireroll(total_cubes, 5, src, silent, FALSE)
 		if(final_block == -1)
 			if(penetrated_text)
 				to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
