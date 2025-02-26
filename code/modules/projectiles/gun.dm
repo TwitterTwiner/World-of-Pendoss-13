@@ -289,10 +289,10 @@
 		if(target == user)
 			add_hard = -6
 		var/successess = secret_vampireroll(used_roll+get_a_firearms(user), 7+add_hard, user)
-		if(successess == -1)
-			shoot_with_empty_chamber(user)
-			firing_burst = FALSE
-			return FALSE
+//		if(successess == -1)
+//			shoot_with_empty_chamber(user)
+//			firing_burst = FALSE
+//			return FALSE
 		if(randomspread)
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
 		else //Smart spread

@@ -8,6 +8,8 @@
 		actual_spread = rand(-45, 45)
 	if(successes == 2)
 		actual_spread = rand(-15, 15)
+	if(successes == -1)
+		actual_spread = pick(rand(-90, -135), rand(90, 135))
 //	if(successes == 3)
 //		actual_spread = rand(-6, 6)
 
