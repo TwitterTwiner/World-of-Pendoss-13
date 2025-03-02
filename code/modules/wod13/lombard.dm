@@ -17,12 +17,13 @@
 			return
 	if(W.cost > 0)
 		if(W.illegal == illegal)
+			qdel(W)
 			for(var/i in 1 to max(2, round((W.cost / 3) * secret_vampireroll(get_a_manipulation(user)+get_a_finance(user), 6, user))))
 				new /obj/item/stack/dollar(loc)
 			playsound(loc, 'code/modules/wod13/sounds/sell.ogg', 50, TRUE)
 			if(istype(W, /obj/item/organ))
 				var/mob/living/carbon/human/H = user
-				to_chat(src, "<span class='userdanger'><b>Selling organs is a depraved act! If I keep doing this I will become a wight.</b></span>")
+				to_chat(user, "<span class='userdanger'><b>Selling organs is a depraved act! If I keep doing this I will become a wight.</b></span>")
 				H.AdjustHumanity(-1, 0)
 			else if(istype(W, /obj/item/reagent_containers/food/drinks/meth/cocaine))
 				var/mob/living/carbon/human/H = user
@@ -33,7 +34,7 @@
 			else if(illegal)
 				var/mob/living/carbon/human/H = user
 				H.AdjustHumanity(-1, 7)
-			qdel(W)
+			//qdel(W)
 			return
 	else
 		..()

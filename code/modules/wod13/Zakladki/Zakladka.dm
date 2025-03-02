@@ -108,28 +108,18 @@ GLOBAL_LIST_EMPTY(hydra)
 
 	to_chat(user, "<span class='notice'>Ты начинаешь распоковку мастерклада.</span>")
 	update_icon()
-	var/vibor = alert("На сколько частей ты хочешь разделить?","Мастерклад","2", "4", "6")
+	var/vibor = alert("На сколько частей ты хочешь разделить?","Мастерклад","Мет", "Конопля")
 	switch(vibor)
-		if("2")
-			var/nega = 2
+		if("Мет")
 			src.Destroy()
-			while(nega)
-				nega--
-				var/obj/item/vamp/zakladka/Klad/big/B = new(get_turf(user.loc))
+			var/obj/item/vamp/zakladka/raw/meth/M = new(user.loc)
+			user.put_in_active_hand(M)
 
-		if("4")
-			var/nega = 4
+		if("Конопля")
 			src.Destroy()
-			while(nega)
-				nega--
-				var/obj/item/vamp/zakladka/Klad/normal/N = new(get_turf(user.loc))
+			var/obj/item/vamp/zakladka/raw/weed/W = new(user.loc)
+			user.put_in_active_hand(W)
 
-		if("6")
-			var/nega = 6
-			src.Destroy()
-			while(nega)
-				nega--
-				var/obj/item/vamp/zakladka/Klad/small/S = new(get_turf(user.loc))
 
 
 	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)
@@ -157,9 +147,16 @@ GLOBAL_LIST_EMPTY(hydra)
 
 
 /obj/item/vamp/zakladka/raw/weed
+	name = "Конопля"
+	desc = "ЪУЪ VTKRB ПЕНДОСЫ"
+	icon_state = "Malenkiiklad"
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/vamp/zakladka/raw/meth
-
+	name = "Метамфетамин"
+	desc = "ЪУЪ VTKRB ПЕНДОСЫ"
+	icon_state = "Malenkiiklad"
+	w_class = WEIGHT_CLASS_NORMAL
 
 
 /obj/item/vamp/zakladka/Klad/small
