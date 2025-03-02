@@ -18,6 +18,6 @@
 	name = "Сделать кокаиновый пакетик"
 	time = 25
 	reqs = list(/obj/item/reagent_containers/food/drinks/meth/cocaine = 1, /obj/item/drinkable_bloodpack/full = 1)
-	result = /obj/item/reagent_containers/drug/morphpack
+	result = /obj/item/reagent_containers/drug/cokepack
 	always_available = TRUE
 	category = CAT_DRUGS
