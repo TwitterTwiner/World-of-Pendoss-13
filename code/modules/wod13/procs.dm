@@ -80,6 +80,8 @@
 		return
 	if(!GLOB.canon_event)
 		return
+	if(stat > 0)
+		return
 	if (!forced)
 		if(value > 0)
 			if(HAS_TRAIT(src, TRAIT_VIOLATOR))

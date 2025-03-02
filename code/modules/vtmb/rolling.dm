@@ -388,7 +388,7 @@ SUBSYSTEM_DEF(woddices)
 	return dat
 
 
-/proc/secret_vampireroll(var/dices_num = 1, var/hardness = 1, var/mob/living/rollperformer, var/stealthy = FALSE)
+/proc/secret_vampireroll(var/dices_num = 1, var/hardness = 1, var/mob/living/rollperformer, var/stealthy = FALSE, var/decap_rolls = TRUE)
 	if(!dices_num)
 		if(!stealthy)
 			create_number_on_mob(rollperformer, "#646464", "0")
@@ -408,7 +408,9 @@ SUBSYSTEM_DEF(woddices)
 						to_chat(Roller, "<span class='warning'>The light around is making everything difficult...</span>")
 					clan_difficulty = 1
 	hardness = clamp(hardness+rollperformer.attributes.diff_curse+clan_difficulty, 1, 10)
-	var/dices_decap = rollperformer.get_health_difficulty()
+	var/dices_decap = 0
+	if(decap_rolls)
+		dices_decap = rollperformer.get_health_difficulty()
 	dices_num = max(1, dices_num-dices_decap)
 	var/wins = 0
 	var/brokes = 0

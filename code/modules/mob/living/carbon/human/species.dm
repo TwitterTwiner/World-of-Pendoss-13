@@ -1370,7 +1370,15 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
 
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user)
+	var/add_hard = 0
+	if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
+		add_hard = 1
+	if(user.zone_selected == BODY_ZONE_HEAD)
+		add_hard = 2
+	if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		add_hard = 3
+
+	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6+add_hard, user)
 	var/atk_verb = user.dna.species.attack_verb
 	if(modifikator == -1)
 		target = user
@@ -1419,6 +1427,15 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		var/miss_chance = 0//calculate the odds that a punch misses entirely. considers stamina and brute damage of the puncher. punches miss by default to prevent weird cases
 		if(user.dna.species.punchdamagelow)
 			miss_chance = 0
+
+		var/my_dodge_chances = get_a_dexterity(target)+get_a_alertness(target)-target.getarmor(user.zone_selected, LETHAL)
+		if(my_dodge_chances && target.stat == 0)
+			if(secret_vampireroll(my_dodge_chances, 6+target.get_health_difficulty(), target, TRUE) >= 2)
+				var/matrix/initial_transform = matrix(target.transform)
+				var/matrix/rotated_transform = target.transform.Turn(pick(-15, 15))
+				animate(target, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
+				animate(transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
+				miss_chance = 100
 
 		if(!damage || !affecting || prob(miss_chance))//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
@@ -1539,10 +1556,12 @@ GLOBAL_LIST_EMPTY(selectable_races)
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	// Allows you to put in item-specific reactions based on species
 	var/add_hard = 0
-	if(user.zone_selected == BODY_ZONE_HEAD)
+	if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 		add_hard = 1
-	if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	if(user.zone_selected == BODY_ZONE_HEAD)
 		add_hard = 2
+	if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		add_hard = 3
 	var/modifikator
 	if(I.attack_diff_override > 0)
 		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user), I.attack_diff_override, user)
@@ -1577,6 +1596,17 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		damagtype = LETHAL
 	if(I.damtype == CLONE || ((iskindred(H) || iscathayan(H)) && I.damtype == BURN))
 		damagtype = AGGRAVATED
+
+	var/my_dodge_chances = get_a_dexterity(H)+get_a_alertness(H)-H.getarmor(def_zone, LETHAL)
+	if(my_dodge_chances && H.stat == 0)
+		if(secret_vampireroll(my_dodge_chances, 7+H.get_health_difficulty(), H, TRUE) >= 2)
+			var/matrix/initial_transform = matrix(H.transform)
+			var/matrix/rotated_transform = H.transform.Turn(pick(-15, 15))
+			animate(H, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
+			animate(transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
+			H.visible_message("<span class='warning'>[H] dodges [I]!</span>", \
+						"<span class='userdanger'>You dodge [I]!</span>")
+			return FALSE
 
 	var/armor_block = H.run_armor_check(affecting, damagtype, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 //	armor_block = min(90,armor_block) //cap damage reduction at 90%

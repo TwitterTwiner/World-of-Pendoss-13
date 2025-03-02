@@ -62,6 +62,16 @@
 			P.setAngle(rand(0, 360))//SHING
 			emote("flip")
 			return BULLET_ACT_FORCE_PIERCE
+	var/my_dodge_chances = get_a_dexterity(src)+get_a_alertness(src)-getarmor(def_zone, LETHAL)
+	if(my_dodge_chances && stat == 0)
+		if(secret_vampireroll(my_dodge_chances, 7+get_health_difficulty()+1-body_position, src, TRUE) >= 2)
+			var/matrix/initial_transform = matrix(transform)
+			var/matrix/rotated_transform = transform.Turn(pick(-15, 15))
+			animate(src, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
+			animate(transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
+			src.visible_message("<span class='danger'>[src] dodges the projectile!</span>", "<span class='danger'>You dodge the projectile!</span>")
+			playsound(get_turf(src), pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+			return BULLET_ACT_FORCE_PIERCE
 	if(dna?.species)
 		var/spec_return = dna.species.bullet_act(P, src)
 		if(spec_return)
@@ -148,6 +158,7 @@
 	return FALSE
 
 /mob/living/carbon/human/proc/check_block()
+
 	if(mind)
 		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 			return TRUE

@@ -282,12 +282,14 @@
 //			if(humhuman.binocling)
 //				used_roll = get_a_perception(user)
 		var/add_hard = 0
-		if(user.zone_selected == BODY_ZONE_HEAD)
+		if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 			add_hard = 1
-		if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		if(user.zone_selected == BODY_ZONE_HEAD)
 			add_hard = 2
+		if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+			add_hard = 3
 		if(target == user)
-			add_hard = -6
+			add_hard = -4
 		var/successess = secret_vampireroll(used_roll+get_a_firearms(user), 7+add_hard, user)
 //		if(successess == -1)
 //			shoot_with_empty_chamber(user)
@@ -358,10 +360,12 @@
 //				if(humhuman.binocling)
 //					used_roll = get_a_perception(user)
 			var/add_hard = 0
-			if(user.zone_selected == BODY_ZONE_HEAD)
+			if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 				add_hard = 1
-			if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+			if(user.zone_selected == BODY_ZONE_HEAD)
 				add_hard = 2
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+				add_hard = 3
 			if(target == user)
 				add_hard = -5
 			var/successess = secret_vampireroll(used_roll+get_a_firearms(user), 6+add_hard, user)
