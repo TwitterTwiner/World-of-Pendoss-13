@@ -842,6 +842,9 @@
 		return
 	maxbloodpool = get_gen_bloodpool(generation)-cursed_bloodpool
 	bloodpool = min(maxbloodpool, bloodpool)
+	if(istype(src, /mob/living/carbon/human/species/vamp_mannequin))
+		maxbloodpool = 0
+		bloodpool = 0
 	if(hud_used.blood_icon)
 		var/emm = round((bloodpool/maxbloodpool)*10)
 		if(emm > 10)

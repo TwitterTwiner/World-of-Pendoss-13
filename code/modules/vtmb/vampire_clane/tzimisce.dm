@@ -191,12 +191,12 @@
 	if(level >= 3)
 		var/datum/action/basic_vicissitude/BV = new()
 		BV.Grant(H)
-	if(level >= 4)
-		var/datum/action/vicissitude_blood/VB = new()
-		VB.Grant(H)
-	if(level >= 5)
-		var/datum/action/vicissitude_form/VF = new()
-		VF.Grant(H)
+//	if(level >= 4)
+//		var/datum/action/vicissitude_blood/VB = new()
+//		VB.Grant(H)
+//	if(level >= 5)
+//		var/datum/action/vicissitude_form/VF = new()
+//		VF.Grant(H)
 	if(H.mind)
 		if(level >= 1)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_wall)
@@ -706,11 +706,10 @@
 /mob/living/simple_animal/hostile/tzimisce_beast
 	name = "Tzimisce Beast Form"
 	desc = "The peak of abominations armor. Unbelievably undamagable..."
-	icon = 'code/modules/wod13/64x64.dmi'
-	icon_state = "weretzi"
-	icon_living = "weretzi"
+	icon = 'code/modules/wod13/48x64.dmi'
+	icon_state = "4armstzi"
+	icon_living = "4armstzi"
 	pixel_w = -16
-	pixel_z = -16
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_size = MOB_SIZE_HUGE
 	speak_chance = 0

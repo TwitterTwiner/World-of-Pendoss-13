@@ -44,6 +44,10 @@
 		if(istype(usr.client.mob, /mob/dead/observer))
 			var/mob/dead/observer/obs = usr.client.mob
 			if(obs.auspex_ghosted)
+				to_chat(usr, "<span class='notice'>You cannot spawn while astrally projecting!</span>")
+				return
+
+		to_chat(usr, "<span class='notice'>You need to wait [DisplayTimeText(GLOB.respawn_timers[usr.client.ckey] + 2 MINUTES - world.time)] before you can  spawn.</span>")
 				to_chat(usr, "<span class='notice'>You cannot respawn while astrally projecting!</span>")
 				return
 
