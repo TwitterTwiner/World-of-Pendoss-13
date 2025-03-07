@@ -57,3 +57,8 @@
 /obj/effect/landmark/start/barkeeper
 	name = "Baron"
 	icon_state = "Barkeeper"
+
+
+/datum/job/vamp/barkeeper/get_description_blurb()
+	return "Ниггер хранящий бар в порядке"
+

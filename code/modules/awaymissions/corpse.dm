@@ -48,6 +48,10 @@
 				return
 
 		to_chat(usr, "<span class='notice'>You need to wait [DisplayTimeText(GLOB.respawn_timers[usr.client.ckey] + 2 MINUTES - world.time)] before you can  spawn.</span>")
+				to_chat(usr, "<span class='notice'>You cannot respawn while astrally projecting!</span>")
+				return
+
+		to_chat(usr, "<span class='notice'>You need to wait [DisplayTimeText(GLOB.respawn_timers[usr.client.ckey] + 2 MINUTES - world.time)] before you can respawn.</span>")
 
 		if(check_rights_for(usr.client, R_ADMIN))
 			if(alert(usr, "Do you want to respawn faster than usual player? (only admins can)", "Respawn", "Yes", "No") != "Yes")
