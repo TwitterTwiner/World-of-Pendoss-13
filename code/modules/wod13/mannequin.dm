@@ -30,6 +30,8 @@
 	C.real_name = "mannequin"
 	C.true_real_name = "mannequin"
 	C.real_name = "mannequin"
+	C.maxbloodpool = 0
+	C.bloodpool = 0
 
 /datum/species/vamp_mannequin/check_roundstart_eligible()
 	return FALSE

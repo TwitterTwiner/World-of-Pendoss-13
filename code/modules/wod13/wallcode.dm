@@ -1148,8 +1148,8 @@
 /turf/open/floor/plating/vampocean
 	gender = PLURAL
 	name = "water"
-	icon = 'code/modules/wod13/tiles.dmi'
-	icon_state = "ocean"
+	icon = 'wotah.dmi'
+	icon_state = "0,0"
 	flags_1 = NONE
 	attachment_holes = FALSE
 	bullet_bounce_sound = null
@@ -1167,7 +1167,13 @@
 	. = ..()
 
 /turf/open/floor/plating/vampocean/Initialize()
-	..()
+	. = ..()
+//	var/myx = 0
+//	if(x/5 == round(x/5))
+//		myx = 0
+//	var/myy = 0
+	color = "#414141"
+	icon_state = "[(x - 1) % 5],[(y - 1) % 2]"
 	set_light(1, 0.5, "#a4b7ff")
 
 /turf/open/floor/plating/vampacid

@@ -512,7 +512,7 @@
 
 	if(ishuman(user))
 		. += "<a href='?src=[REF(src)];masquerade=1'>Spot a Masquerade violation</a>"
-
+    
 	if(isobserver(user) || ishuman(user))
 		. += "<a href='?src=[REF(src)];headshot=1'>View headshot</a>"
 
