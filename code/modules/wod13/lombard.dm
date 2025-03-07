@@ -7,6 +7,7 @@
 	anchored = TRUE
 	var/illegal = FALSE
 
+
 /obj/lombard/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stack))
 		return
@@ -23,8 +24,14 @@
 			playsound(loc, 'code/modules/wod13/sounds/sell.ogg', 50, TRUE)
 			if(istype(W, /obj/item/organ))
 				var/mob/living/carbon/human/H = user
-				to_chat(user, "<span class='userdanger'><b>Selling organs is a depraved act! If I keep doing this I will become a wight.</b></span>")
 				H.AdjustHumanity(-1, 0)
+				//
+				var/enlight = FALSE
+				if(H.clane)
+					if(H.clane.enlightenment)
+						enlight = TRUE
+				if(!enlight)
+					to_chat(user, "<span class='userdanger'><b>Selling organs is a depraved act! If I keep doing this I will become a wight.</b></span>")
 			else if(istype(W, /obj/item/reagent_containers/food/drinks/meth/cocaine))
 				var/mob/living/carbon/human/H = user
 				H.AdjustHumanity(-1, 5)
