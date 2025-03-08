@@ -204,6 +204,48 @@
 	admin_ticket_log(M, msg)
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Godmode", "[M.status_flags & GODMODE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/*
+/// Allow admin to change information handled in .sav file
+/client/proc/modify_savefile()
+	set category = "Admin.Game"
+	set name = "\[!\] Modify Savefiles"
+
+	var/optional = input(src, "Does savefile array should handle EVERY SAVEFILE (can cause a lag-spike)\nPress \"NO\" if you want to change \
+	savefile of someone who on the server", "Savefile editor", "CANCEL") in list("YES", "NO", "CANCEL")
+	var/list/paths_array = list()
+	var/list/sf_array = list()
+	switch(optional)
+		if("CANCEL") return
+		if("YES")
+			paths_array = flist("data/player_saves/")
+			to_chat(src, "PA DEBUG :: [paths_array.len]")
+			for(var/i in paths_array)
+				for(var/a in flist("data/player_saves/[i]/"))
+					sf_array += list("[a]" = "[i]")
+				to_chat(src, "SFA DEBUG :: [sf_array.len]")
+			if(sf_array.len < 1)
+				to_chat(src, "Savefile array has length of [sf_array.len], this is an ERROR!\nError in file: [__FILE__]:[__LINE__]")
+				return
+			to_chat(src, "sf_array :: [sf_array[sf_array.len]], [sf_array[sf_array.len][1]]")
+			sf_array = list("\[CANCEL\]") + sf_array
+			var/chosen_sf = input(src, "", "CHOOSE", "undefined") in sf_array
+			if(chosen_sf == "\[CANCEL\]" || chosen_sf == "undefined") return
+			var/path = "data/player_saves/[sf_array[chosen_sf][1]]/[chosen_sf]"
+			to_chat(src, "[path]preferences.sav")
+
+			var/savefile/SF = new /savefile("[path]preferences.sav")
+			var/savefile/saveFile_export = new /savefile("[path]preferences_BACKUP.sav")
+			fcopy(SF, "[path]preferences_BACKUP.sav")
+			// var/text_file = file("[path]prefs_txt_testing.txt")
+
+			var/file_content = SF.ExportText()
+
+			//!TODO
+
+
+
+		if("NO") return
+*/
 
 /proc/cmd_admin_mute(whom, mute_type, automute = 0)
 	if(!whom)

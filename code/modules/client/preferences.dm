@@ -2321,9 +2321,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								var/new_discipline = input(user, "Select a Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
 								if (new_discipline)
 									clane.clane_disciplines += new_discipline
-						for (var/i in 1 to clane.clane_disciplines.len)
-							discipline_types += clane.clane_disciplines[i]
-							discipline_levels += 1
+						else //Separate this fucking shit, otherwise we can encounter with some trouble. This is a bug. [ChillRaccoon]
+							for (var/i in 1 to clane.clane_disciplines.len)
+								discipline_types += clane.clane_disciplines[i]
+								discipline_levels += 1
 						humanity = clane.start_humanity
 						enlightenment = clane.enlightenment
 						if(clane.no_hair)
@@ -2672,7 +2673,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							to_chat(user, "Слишком большой...")
 						else
 							flavor_text = trim(copytext_char(sanitize(new_flavor), 1, 512))
-            
+
 
 				if("change_appearance")
 					if((true_experience < 3) || !slotlocked)

@@ -111,10 +111,13 @@
 	if(istype(owner, /mob/living/carbon/human))
 		if (HAS_TRAIT(owner, TRAIT_TORPOR))
 			return
+		var/in_coffin = 0
+		if(istype(H.loc, /obj/structure/closet/crate/coffin))
+			in_coffin = 1
 		var/mob/living/carbon/human/H = owner
 		level = max(1, 13-H.generation)
 		if(HAS_TRAIT(H, TRAIT_COFFIN_THERAPY))
-			if(!istype(H.loc, /obj/structure/closet/crate/coffin))
+			if(!in_coffin)
 				to_chat(usr, "<span class='warning'>You need to be in a coffin to use that!</span>")
 				return
 		if(H.bloodpool < 1)
@@ -130,7 +133,10 @@
 		H.adjustFireLoss(-20, TRUE)
 		H.adjustOxyLoss(-30, TRUE)
 		H.adjustToxLoss(-30, TRUE)
-		H.adjustCloneLoss(-10, TRUE)
+		if(in_coffin) //Request due to balancing purposes [ChiillRaccoon]
+			H.adjustCloneLoss(-15, TRUE)
+		else
+			H.adjustCloneLoss(-5, TRUE)
 		H.blood_volume = min(H.blood_volume + 56, 560)
 		button.color = "#970000"
 		animate(button, color = "#ffffff", time = 20, loop = 1)
