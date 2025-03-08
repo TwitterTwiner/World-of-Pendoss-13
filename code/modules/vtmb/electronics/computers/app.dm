@@ -21,3 +21,20 @@
 	data["height"]= height
 	data["desktop_app"]= desktop_app
 	return data
+
+
+/datum/app/site
+	var/adress
+/*
+/datum/app/site
+	var/adress
+	var/title
+	var/x = 50
+	var/y = 50
+	var/minimized= FALSE
+	var/launched = FALSE
+	var/app_type
+	var/width = 660
+	var/height = 500
+	var/desktop_app = FALSE
+*/

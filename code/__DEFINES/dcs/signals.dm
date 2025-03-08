@@ -539,6 +539,8 @@
 /// from /obj/item/toy/crayon/spraycan/afterattack: (color_is_dark)
 #define COMSIG_OBJ_PAINTED "obj_painted"
 
+#define COMSIG_OBJ_ZAKLADEN "obj_zakladen"
+
 // /obj/machinery signals
 
 ///from /obj/machinery/obj_break(damage_flag): (damage_flag)

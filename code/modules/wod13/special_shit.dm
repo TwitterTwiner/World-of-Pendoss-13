@@ -88,7 +88,7 @@
 */
 /obj/item/drinkable_bloodpack
 	name = "\improper drinkable blood pack (full)"
-	desc = "Fast way to feed your inner beast."
+	desc = "Быстрый путь насытить твоего зверя."
 	icon = 'code/modules/wod13/items.dmi'
 	icon_state = "blood4"
 	inhand_icon_state = "blood4"
