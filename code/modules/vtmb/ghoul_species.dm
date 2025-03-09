@@ -112,9 +112,9 @@
 		if (HAS_TRAIT(owner, TRAIT_TORPOR))
 			return
 		var/in_coffin = 0
+		var/mob/living/carbon/human/H = owner
 		if(istype(H.loc, /obj/structure/closet/crate/coffin))
 			in_coffin = 1
-		var/mob/living/carbon/human/H = owner
 		level = max(1, 13-H.generation)
 		if(HAS_TRAIT(H, TRAIT_COFFIN_THERAPY))
 			if(!in_coffin)

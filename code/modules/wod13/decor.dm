@@ -59,11 +59,24 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/effect/decal/lamplight
-	alpha = 0
+	icon = 'code/modules/wod13/lamppost.dmi'
+	icon_state = "light"
+	pixel_x = -32
+	pixel_y = -32
+	layer = O_LIGHTING_VISUAL_LAYER
+	plane = O_LIGHTING_VISUAL_PLANE
+	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+//	Fari.vis_flags = NONE
+	alpha = 140
+	color = "#fff0d2"
 
 /obj/effect/decal/lamplight/Initialize()
 	. = ..()
-	set_light(4, 3, "#ffde9b")
+//	set_light(4, 3, "#ffde9b")
+	var/matrix/M = matrix()
+	M.Scale(3, 2.25)
+	transform = M
 
 /obj/structure/lamppost/Initialize()
 	. = ..()
@@ -72,6 +85,17 @@
 			var/area/vtm/V = get_area(src)
 			if(V.upper)
 				icon_state = "[initial(icon_state)]-snow"
+	if(number_of_lamps < 5)
+		var/mutable_appearance/light_overlay = mutable_appearance(icon, "[icon_state]-light")
+		light_overlay.color = "#fff0d2"
+		light_overlay.alpha = 110
+		light_overlay.plane = ABOVE_LIGHTING_PLANE
+		light_overlay.layer = ABOVE_LIGHTING_LAYER
+		add_overlay(light_overlay)
+	var/mutable_appearance/bulb_overlay = mutable_appearance(icon, "[icon_state]-bulb")
+	bulb_overlay.plane = ABOVE_LIGHTING_PLANE
+	bulb_overlay.layer = ABOVE_LIGHTING_LAYER
+	add_overlay(bulb_overlay)
 	switch(number_of_lamps)
 		if(1)
 			switch(dir)
