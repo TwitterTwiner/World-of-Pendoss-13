@@ -329,6 +329,7 @@
 
 	var/baseicon = "door"
 
+	var/magic_lock = FALSE
 	var/closed = TRUE
 	var/locked = FALSE
 	var/lock_id = "nothing"
@@ -623,6 +624,7 @@
 	lock_id = "prince"
 	burnable = TRUE
 	lockpick_difficulty = 7
+	magic_lock = TRUE
 
 /obj/structure/vampdoor/daughters
 	icon_state = "wood-1"
@@ -670,6 +672,7 @@
 	locked = TRUE
 	lock_id = "archive"
 	lockpick_difficulty = 7
+	magic_lock = TRUE
 
 /obj/structure/vampdoor/anarch
 	icon_state = "cam-1"
@@ -712,7 +715,7 @@
 	baseicon = "cam"
 	locked = TRUE
 	lock_id = "police_secure"
-	lockpick_difficulty = 21
+	lockpick_difficulty = 10
 
 /obj/structure/vampdoor/police/chief
 	icon_state = "shop-1"
@@ -721,7 +724,7 @@
 	baseicon = "shop"
 	glass = TRUE
 	lock_id = "police_chief"
-	lockpick_difficulty = 21
+	lockpick_difficulty = 10
 
 /obj/structure/vampdoor/prison
 	icon_state = "prison-1"
@@ -753,6 +756,7 @@
 	lock_id = "baali"
 	burnable = FALSE
 	lockpick_difficulty = 6
+	magic_lock = TRUE
 
 /obj/structure/vampdoor/salubri
 	icon_state = "oldwood-1"
@@ -769,6 +773,7 @@
 	lock_id = "old_clan_tzimisce"
 	burnable = FALSE
 	lockpick_difficulty = 6
+	magic_lock = TRUE
 
 /obj/structure/vampdoor/npc/Initialize()
 	. = ..()
