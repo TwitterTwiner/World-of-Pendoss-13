@@ -521,6 +521,7 @@
 /turf/open/floor/plating/sidewalkalt/Initialize()
 	. = ..()
 	icon_state = "sidewalk_alt[rand(1, 4)]"
+	set_light(1, 0.5, "#a4b7ff")
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)

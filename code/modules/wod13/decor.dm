@@ -59,7 +59,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/effect/decal/lamplight
-	icon = 'code/modules/wod13/lamppost.dmi'
+	icon = 'icons/effects/light_overlays/light_96.dmi'
 	icon_state = "light"
 	pixel_x = -32
 	pixel_y = -32
@@ -68,7 +68,7 @@
 	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 //	Fari.vis_flags = NONE
-	alpha = 140
+	alpha = 190
 	color = "#fff0d2"
 
 /obj/effect/decal/lamplight/Initialize()
@@ -88,7 +88,7 @@
 	if(number_of_lamps < 5)
 		var/mutable_appearance/light_overlay = mutable_appearance(icon, "[icon_state]-light")
 		light_overlay.color = "#fff0d2"
-		light_overlay.alpha = 110
+		light_overlay.alpha = 72
 		light_overlay.plane = ABOVE_LIGHTING_PLANE
 		light_overlay.layer = ABOVE_LIGHTING_LAYER
 		add_overlay(light_overlay)
@@ -98,52 +98,35 @@
 	add_overlay(bulb_overlay)
 	switch(number_of_lamps)
 		if(1)
-			switch(dir)
-				if(NORTH)
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-				if(SOUTH)
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-				if(EAST)
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-				if(WEST)
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			L1.pixel_w += sin(dir2angle(dir))*96
+			L1.pixel_z += cos(dir2angle(dir))*96
 		if(2)
-			switch(dir)
-				if(NORTH)
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-				if(SOUTH)
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-				if(EAST)
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
-				if(WEST)
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			L1.pixel_w += sin(dir2angle(dir))*96
+			L1.pixel_z += cos(dir2angle(dir))*96
+			var/obj/effect/decal/lamplight/L2 = new (loc)
+			L2.pixel_w += sin(dir2angle(turn(dir, 180)))*96
+			L2.pixel_z += cos(dir2angle(turn(dir, 180)))*96
 		if(3)
-			switch(dir)
-				if(NORTH)
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
-				if(SOUTH)
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
-				if(EAST)
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-				if(WEST)
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			L1.pixel_w += sin(dir2angle(dir))*96
+			L1.pixel_z += cos(dir2angle(dir))*96
+			var/obj/effect/decal/lamplight/L2 = new (loc)
+			L2.pixel_w += sin(dir2angle(turn(dir, 90)))*96
+			L2.pixel_z += cos(dir2angle(turn(dir, 90)))*96
+			var/obj/effect/decal/lamplight/L3 = new (loc)
+			L3.pixel_w += sin(dir2angle(turn(dir, 270)))*96
+			L3.pixel_z += cos(dir2angle(turn(dir, 270)))*96
 		if(4)
-			new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-			new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-			new /obj/effect/decal/lamplight(get_step(loc, EAST))
-			new /obj/effect/decal/lamplight(get_step(loc, WEST))
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			L1.pixel_w += 96
+			var/obj/effect/decal/lamplight/L2 = new (loc)
+			L2.pixel_w -= 96
+			var/obj/effect/decal/lamplight/L3 = new (loc)
+			L3.pixel_z += 96
+			var/obj/effect/decal/lamplight/L4 = new (loc)
+			L4.pixel_z -= 96
 		else
 			new /obj/effect/decal/lamplight(loc)
 

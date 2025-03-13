@@ -278,14 +278,19 @@
 /mob/living/simple_animal/hostile/bloodcrawler/Move(NewLoc, direct)
 	. = ..()
 	var/obj/structure/vampdoor/V = locate() in NewLoc
+	var/obj/machinery/door/poddoor/shutters/S = locate() in NewLoc
 	if(V)
-		if(V.lockpick_difficulty <= 10)
+	//	if(V.lockpick_difficulty <= 10)
+		if(!V.magic_lock)
 			forceMove(get_turf(V))
+	if(S)
+		forceMove(get_turf(S))
 	for(var/obj/effect/decal/cleanable/blood/B in range(1, NewLoc))
 		if(B)
 			if(B.bloodiness)
 				collected_blood = collected_blood+1
-				to_chat(src, "You sense blood entering your mass...")
+				bloodpool = min(bloodpool+round(collected_blood/2), maxbloodpool)
+				visible_message("<span class='warning'>Кровь без следа впитывается в эту массу...")
 				var/turf/T = get_turf(B)
 				if(T)
 					T.wash(CLEAN_WASH)
@@ -712,6 +717,7 @@
 	pixel_w = -16
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_size = MOB_SIZE_HUGE
+	AIStatus = AI_OFF
 	speak_chance = 0
 	speed = -0.55
 	maxHealth = 575

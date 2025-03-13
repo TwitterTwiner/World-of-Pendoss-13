@@ -273,6 +273,12 @@
 	owner.invisibility = INVISIBILITY_MAXIMUM
 	warform = new animal_atom(get_turf(owner))
 	warform.attributes = owner.attributes
+	warform.bloodpool = humanform.bloodpool
+	warform.maxbloodpool = humanform.maxbloodpool
+	if(animal_atom == /mob/living/simple_animal/hostile/tzimisce_beast)
+		warform.attributes.strength_bonus = 3
+		warform.attributes.dexterity_bonus = 3
+		warform.attributes.stamina_bonus = 3
 	warform.stop_automated_movement = TRUE
 	warform.wander = FALSE
 	humanform.dna.species.brutemod = initial(humanform.dna.species.brutemod)*(initial(humanform.maxHealth)/initial(warform.maxHealth))
@@ -288,6 +294,7 @@
 	owner.forceMove(warform)
 
 /datum/warform/proc/end()
+	humanform.bloodpool = warform.bloodpool
 	humanform.forceMove(get_turf(warform))
 	qdel(warform)
 	humanform.dna.species.brutemod = initial(humanform.dna.species.brutemod)
@@ -304,8 +311,12 @@
 	desc = "Exit your current warform."
 	button_icon_state = "bloodcrawler"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/BZ
 
 /datum/action/end_warform/Trigger()
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		H.warform.end()
+		H.attributes.strength_bonus = 0
+		H.attributes.dexterity_bonus = 0
+		H.attributes.stamina_bonus = 0

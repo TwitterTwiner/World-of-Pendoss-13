@@ -47,6 +47,9 @@
 	icon_state = "vicissitude"
 	inhand_icon_state = "zapper"
 
+/obj/item/melee/touch_attack/vicissitude_touch/Click()
+	src.Destroy()
+
 /obj/item/melee/touch_attack/vicissitude_touch/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity)
 		return
