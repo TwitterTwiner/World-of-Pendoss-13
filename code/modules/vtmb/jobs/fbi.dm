@@ -45,4 +45,3 @@
 /datum/outfit/job/fbi/post_equip(mob/living/carbon/human/H)
 	..()
 	H.ignores_warrant = TRUE
-

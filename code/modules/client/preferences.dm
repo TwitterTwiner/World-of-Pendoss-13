@@ -1537,6 +1537,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/prefLevelColor = "pink"
 			var/prefUpperLevel = -1 // level to assign on left click
 			var/prefLowerLevel = -1 // level to assign on right click
+			var/description = job.get_description_blurb()
+			if(description)
+				HTML += "<a href='?src=[REF(src)];opisanie_jobpki=1'>?</a>"
 
 			switch(job_preferences[job.title])
 				if(JP_HIGH)
@@ -1746,6 +1749,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/client/C = usr.client
 		if(C)
 			C.clear_character_previews()
+	if(href_list["opisanie_jopki"])
+//		var/client/C = usr.client
+	//	for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
+		var/datum/job/job
+		var/description = job.get_description_blurb()
+		var/ambatacum = {"
+<html>
+<head><title>RAB</title></head>
+<body style="overflow:hidden; margin:0; text-align:center;">
+[description]
+</body>
+</html>
+"}
+		usr.client << browse(ambatacum, "window=RAB")
+		usr.client << browse("[description]", "window=RAB")
+
 
 /datum/preferences/proc/process_link(mob/user, list/href_list)
 	if(href_list["bancheck"])
@@ -2649,10 +2668,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("flavor_text")
 					var/new_flavor = input(user, "Choose your character's flavor text:", "Character Preference") as text|null
 					if(new_flavor)
+
 						if(length(new_flavor) > 3 * 512)
 							to_chat(user, "Слишком большой...")
 						else
 							flavor_text = trim(copytext_char(sanitize(new_flavor), 1, 512))
+
 
 				if("change_appearance")
 					if((true_experience < 3) || !slotlocked)

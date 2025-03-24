@@ -318,6 +318,7 @@
 					masquerade_voters = list()
 					last_masquerade_violation = 0
 					AdjustMasquerade(-1)
+
 //////CUMSHOT/////
 	if(href_list["headshot"])
 		var/mob/living/carbon/human/HS = src
@@ -337,6 +338,7 @@
 				return
 			else
 				user << browse(niggercumshot, "window=Headshot;border=1;can_resize=0;can_minimize=0")
+
 
 ///////HUDs///////
 	if(href_list["hud"])

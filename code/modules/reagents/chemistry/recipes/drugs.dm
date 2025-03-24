@@ -19,6 +19,23 @@
 	required_reagents = list(/datum/reagent/medicine/ephedrine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1)
 	required_temp = 374
 
+/datum/chemical_reaction/cocaine/methcock
+	results = list(/datum/reagent/drug/smes/methcock = 1)
+	required_reagents = list(/datum/reagent/drug/methamphetamine = 1, /datum/reagent/drug/cocaine = 1 )
+
+/datum/chemical_reaction/cocaine/methcrank
+	results = list(/datum/reagent/drug/smes/methcrank = 1)
+	required_reagents = list(/datum/reagent/drug/methamphetamine = 1, /datum/reagent/drug/crank = 1 )
+
+/datum/chemical_reaction/methamphetamine/mephedronemeth
+	results = list(/datum/reagent/drug/smes/mephedronemeth = 1)
+	required_reagents = list(/datum/reagent/drug/methamphetamine = 1, /datum/reagent/drug/mephedrone = 1 )
+
+/datum/chemical_reaction/methamphetamine/mephedronecocaine
+	results = list(/datum/reagent/drug/smes/mephedronecocaine = 1)
+	required_reagents = list(/datum/reagent/drug/cocaine = 1, /datum/reagent/drug/mephedrone = 1 )
+
+
 /datum/chemical_reaction/bath_salts
 	results = list(/datum/reagent/drug/bath_salts = 7)
 	required_reagents = list(/datum/reagent/toxin/bad_food = 1, /datum/reagent/saltpetre = 1, /datum/reagent/consumable/nutriment = 1, /datum/reagent/space_cleaner = 1, /datum/reagent/consumable/enzyme = 1, /datum/reagent/consumable/tea = 1, /datum/reagent/mercury = 1)
