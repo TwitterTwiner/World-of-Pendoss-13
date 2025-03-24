@@ -40,7 +40,7 @@
 
 	if(mob.bloodpool <= 1 && mob.maxbloodpool > 1)
 		to_chat(src, "<span class='warning'>You feel small amount of <b>BLOOD</b> in your victim.</span>")
-		if(iskindred(mob) && iskindred(src))
+		if(iskindred(mob) && iskindred(src) && !src.in_frenzy)
 			if(!mob.client)
 				to_chat(src, "<span class='warning'>You need [mob]'s attention to do that...</span>")
 				return

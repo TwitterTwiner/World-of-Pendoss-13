@@ -109,7 +109,10 @@ SUBSYSTEM_DEF(carpool)
 
 	var/last_vzhzh = 0
 
-	var/image/Fari
+	var/mutable_appearance/Fari
+	var/image/CarImage
+	var/mutable_appearance/CarLights
+	var/lighticon = "lights1"
 	var/fari_on = FALSE
 
 	var/mob/living/driver
@@ -337,7 +340,7 @@ SUBSYSTEM_DEF(carpool)
 		for(var/mob/living/rider in src)
 			. += "<span class='notice'>* [rider]</span>"
 
-/obj/vampire_car/proc/get_damage(var/cost, var/mob/living/bumped_into, var/onbump_force = 0)
+/obj/vampire_car/proc/get_damage(var/cost, var/mob/living/bumped_into, var/onbump_force)
 	if(cost < 0)
 		var/dam_multiplicator = 1
 		if(driver)
@@ -349,7 +352,7 @@ SUBSYSTEM_DEF(carpool)
 		if(onbump_force)
 			for(var/mob/living/L in src)
 				if(L)
-					var/dam = round((onbump_force*5)/dam_multiplicator)
+					var/dam = round((onbump_force*10)/dam_multiplicator)
 					if(driver)
 						if(HAS_TRAIT(driver, TRAIT_EXP_DRIVER))
 							dam = round(dam/2)
@@ -414,11 +417,17 @@ SUBSYSTEM_DEF(carpool)
 		if(!V.fari_on)
 			V.fari_on = TRUE
 			V.add_overlay(V.Fari)
+			V.cut_overlay(V.CarImage)
+			V.CarImage.add_overlay(V.CarLights)
+			V.add_overlay(V.CarImage)
 			to_chat(owner, "<span class='notice'>You toggle [V]'s lights.</span>")
 			playsound(V, 'sound/weapons/magin.ogg', 40, TRUE)
 		else
 			V.fari_on = FALSE
 			V.cut_overlay(V.Fari)
+			V.cut_overlay(V.CarImage)
+			V.CarImage.cut_overlay(V.CarLights)
+			V.add_overlay(V.CarImage)
 			to_chat(owner, "<span class='notice'>You toggle [V]'s lights.</span>")
 			playsound(V, 'sound/weapons/magout.ogg', 40, TRUE)
 
@@ -716,6 +725,7 @@ SUBSYSTEM_DEF(carpool)
 /obj/vampire_car/track
 	icon_state = "track"
 	max_passengers = 6
+	lighticon = "lights2"
 	dir = WEST
 	access = "none"
 	baggage_limit = 100
@@ -729,10 +739,12 @@ SUBSYSTEM_DEF(carpool)
 
 /obj/vampire_car/track/volkswagen
 	icon_state = "volkswagen"
+	lighticon = "lights3"
 	baggage_limit = 60
 
 /obj/vampire_car/track/ambulance
 	icon_state = "ambulance"
+	lighticon = "lights2"
 	access = "clinic"
 	baggage_limit = 60
 
@@ -764,15 +776,28 @@ SUBSYSTEM_DEF(carpool)
 
 /obj/vampire_car/Initialize()
 	. = ..()
-	Fari = new (src)
-	Fari.icon = 'icons/effects/light_overlays/light_cone_car.dmi'
-	Fari.icon_state = "light"
-	Fari.pixel_x = -64
-	Fari.pixel_y = -64
+	CarImage = image(icon = src.icon, icon_state = src.icon_state, pixel_x = -32, pixel_y = -32)
+	CarImage.appearance_flags = KEEP_TOGETHER
+	Fari = mutable_appearance('icons/effects/light_overlays/light_cone_cars.dmi', "light")
+//	Fari.icon = 'icons/effects/light_overlays/light_cone_cars.dmi'
+//	Fari.icon_state = "light"
+	Fari.pixel_x = -144
+	Fari.pixel_y = -128
 	Fari.layer = O_LIGHTING_VISUAL_LAYER
 	Fari.plane = O_LIGHTING_VISUAL_PLANE
 	Fari.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 	Fari.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/mutable_appearance/eye_overlay = mutable_appearance('icons/effects/light_overlays/light_cone_cars.dmi', "light")
+	eye_overlay.plane = ABOVE_LIGHTING_PLANE
+	eye_overlay.layer = ABOVE_LIGHTING_LAYER
+	eye_overlay.alpha = 64
+	Fari.add_overlay(eye_overlay)
+	CarLights = mutable_appearance(icon, lighticon)
+	CarLights.plane = ABOVE_LIGHTING_PLANE
+	CarLights.layer = ABOVE_LIGHTING_LAYER
+//	lights_overlay.pixel_x = 112
+//	lights_overlay.pixel_y = 96
+//	Fari.add_overlay(lights_overlay)
 //	Fari.vis_flags = NONE
 	Fari.alpha = 110
 	gas = rand(100, 1000)
@@ -788,7 +813,7 @@ SUBSYSTEM_DEF(carpool)
 			movement_vector = 90
 		if(WEST)
 			movement_vector = 270
-	add_overlay(image(icon = src.icon, icon_state = src.icon_state, pixel_x = -32, pixel_y = -32))
+	add_overlay(CarImage)
 	icon_state = "empty"
 
 /turf

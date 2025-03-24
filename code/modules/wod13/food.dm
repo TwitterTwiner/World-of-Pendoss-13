@@ -198,6 +198,7 @@
 	icon = 'code/modules/wod13/items.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	isGlass = FALSE
+	w_class = WEIGHT_CLASS_NORMAL
 	list_reagents = list(/datum/reagent/consumable/space_cola = 100)
 	foodtype = SUGAR
 	age_restricted = FALSE
@@ -570,7 +571,10 @@
 		new /datum/data/mining_equipment("bruise pack", /obj/item/stack/medical/bruise_pack, 100),
 		new /datum/data/mining_equipment("burn ointment", /obj/item/stack/medical/ointment, 100),
 		new /datum/data/mining_equipment("latex gloves", /obj/item/clothing/gloves/vampire/latex, 150),
-		new /datum/data/mining_equipment("box of syringes", /obj/item/storage/box/syringes, 300)
+		new /datum/data/mining_equipment("box of syringes", /obj/item/storage/box/syringes, 300),
+		new /datum/data/mining_equipment("gauze",/obj/item/stack/medical/gauze , 100),
+		new /datum/data/mining_equipment("multiver", /obj/item/storage/pill_bottle/multiver, 100),
+		new /datum/data/mining_equipment("antibirth",/obj/item/storage/pill_bottle/antibirth , 100),
 	)
 
 /obj/machinery/mineral/equipment_vendor/fastfood/hospital // we should probably swap from a vendor system and work on a sort of gameplay loop - tzula

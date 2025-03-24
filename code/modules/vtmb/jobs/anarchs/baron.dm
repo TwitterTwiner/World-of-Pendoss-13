@@ -17,21 +17,23 @@
 	display_order = JOB_DISPLAY_ORDER_BARKEEPER
 	bounty_types = CIV_JOB_DRINK
 
-//	minimal_generation = 11	//Uncomment when players get exp enough
-
 	my_contact_is_important = TRUE
 	known_contacts = list(
 		"Prince",
-		"Dealer"
+		"Dealer",
+		"Bouncer",
+		"Emissary",
+		"Sweeper"
 	)
 
 	v_duty = "You lead the Anarchs in the City. A Camarilla faction that values freedom and individuality. While not a fan of the traditions, you still respect the Masquerade."
 	minimal_masquerade = 3
 	minimal_generation = 11
-	max_generation = 7
+	max_generation = 9
 	allowed_species = list("Vampire")
 	allowed_bloodlines = list("Daughters of Cacophony", "True Brujah", "Brujah", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Ventrue", "Lasombra", "Gargoyle", "Followers of Set")
 	experience_addition = 0
+
 
 /datum/outfit/job/barkeeper
 	name = "Baron"

@@ -59,69 +59,98 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/effect/decal/lamplight
-	alpha = 0
+	icon = 'icons/effects/light_overlays/light_96.dmi'
+	icon_state = "light"
+	pixel_x = -32
+	pixel_y = -32
+	layer = O_LIGHTING_VISUAL_LAYER
+	plane = O_LIGHTING_VISUAL_PLANE
+	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	vis_flags = VIS_INHERIT_ID
+	alpha = 190
+	color = "#fff0d2"
+	appearance_flags = KEEP_APART
 
 /obj/effect/decal/lamplight/Initialize()
 	. = ..()
-	set_light(4, 3, "#ffde9b")
+//	set_light(4, 3, "#ffde9b")
+	var/matrix/M = matrix()
+	M.Scale(3, 2.25)
+	transform = M
 
 /obj/structure/lamppost/Initialize()
 	. = ..()
+	var/flickering = prob(5)
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
 			if(V.upper)
 				icon_state = "[initial(icon_state)]-snow"
+	if(number_of_lamps < 5)
+		var/mutable_appearance/light_overlay = mutable_appearance(icon, "[icon_state]-light")
+		if(flickering)
+			light_overlay = mutable_appearance(icon, "[icon_state]-light-flick")
+		light_overlay.color = "#fff0d2"
+		light_overlay.alpha = 72
+		light_overlay.plane = ABOVE_LIGHTING_PLANE
+		light_overlay.layer = ABOVE_LIGHTING_LAYER
+		add_overlay(light_overlay)
+	var/mutable_appearance/bulb_overlay = mutable_appearance(icon, "[icon_state]-bulb")
+	if(flickering)
+		bulb_overlay = mutable_appearance(icon, "[icon_state]-bulb-flick")
+	bulb_overlay.plane = ABOVE_LIGHTING_PLANE
+	bulb_overlay.layer = ABOVE_LIGHTING_LAYER
+	add_overlay(bulb_overlay)
 	switch(number_of_lamps)
 		if(1)
-			switch(dir)
-				if(NORTH)
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-				if(SOUTH)
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-				if(EAST)
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-				if(WEST)
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			L1.pixel_w += sin(dir2angle(dir))*96
+			L1.pixel_z += cos(dir2angle(dir))*96
+			if(flickering)
+				L1.icon_state = "light-flick"
 		if(2)
-			switch(dir)
-				if(NORTH)
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-				if(SOUTH)
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-				if(EAST)
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
-				if(WEST)
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			L1.pixel_w += sin(dir2angle(dir))*96
+			L1.pixel_z += cos(dir2angle(dir))*96
+			var/obj/effect/decal/lamplight/L2 = new (loc)
+			L2.pixel_w += sin(dir2angle(turn(dir, 180)))*96
+			L2.pixel_z += cos(dir2angle(turn(dir, 180)))*96
+			if(flickering)
+				L1.icon_state = "light-flick"
+				L2.icon_state = "light-flick"
 		if(3)
-			switch(dir)
-				if(NORTH)
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
-				if(SOUTH)
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
-				if(EAST)
-					new /obj/effect/decal/lamplight(get_step(loc, EAST))
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-				if(WEST)
-					new /obj/effect/decal/lamplight(get_step(loc, WEST))
-					new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-					new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			L1.pixel_w += sin(dir2angle(dir))*96
+			L1.pixel_z += cos(dir2angle(dir))*96
+			var/obj/effect/decal/lamplight/L2 = new (loc)
+			L2.pixel_w += sin(dir2angle(turn(dir, 90)))*96
+			L2.pixel_z += cos(dir2angle(turn(dir, 90)))*96
+			var/obj/effect/decal/lamplight/L3 = new (loc)
+			L3.pixel_w += sin(dir2angle(turn(dir, 270)))*96
+			L3.pixel_z += cos(dir2angle(turn(dir, 270)))*96
+			if(flickering)
+				L1.icon_state = "light-flick"
+				L2.icon_state = "light-flick"
+				L3.icon_state = "light-flick"
 		if(4)
-			new /obj/effect/decal/lamplight(get_step(loc, NORTH))
-			new /obj/effect/decal/lamplight(get_step(loc, SOUTH))
-			new /obj/effect/decal/lamplight(get_step(loc, EAST))
-			new /obj/effect/decal/lamplight(get_step(loc, WEST))
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			L1.pixel_w += 96
+			var/obj/effect/decal/lamplight/L2 = new (loc)
+			L2.pixel_w -= 96
+			var/obj/effect/decal/lamplight/L3 = new (loc)
+			L3.pixel_z += 96
+			var/obj/effect/decal/lamplight/L4 = new (loc)
+			L4.pixel_z -= 96
+			if(flickering)
+				L1.icon_state = "light-flick"
+				L2.icon_state = "light-flick"
+				L3.icon_state = "light-flick"
+				L4.icon_state = "light-flick"
 		else
-			new /obj/effect/decal/lamplight(loc)
+			var/obj/effect/decal/lamplight/L1 = new (loc)
+			if(flickering)
+				L1.icon_state = "light-flick"
 
 /obj/structure/lamppost/one
 	icon_state = "one"
@@ -488,6 +517,8 @@
 
 /obj/machinery/light/prince
 	icon = 'code/modules/wod13/icons.dmi'
+	icon_state = "prince"
+	base_state = "prince"
 
 /obj/machinery/light/prince/ghost
 
@@ -537,7 +568,7 @@
 	icon = 'code/modules/wod13/32x48.dmi'
 	icon_state = "stop"
 	plane = GAME_PLANE
-	layer = ABOVE_ALL_MOB_LAYER
+	layer = SPACEVINE_LAYER+0.1
 	anchored = TRUE
 
 /obj/structure/roadsign/stop
@@ -1388,40 +1419,53 @@
 /obj/structure/vamptree
 	name = "tree"
 	desc = "Cute and tall flora."
-	icon = 'code/modules/wod13/trees.dmi'
+	icon = 'code/modules/wod13/trees_animated.dmi'
 	icon_state = "tree1"
 	plane = GAME_PLANE
 	layer = SPACEVINE_LAYER
 	anchored = TRUE
 	density = TRUE
 	pixel_w = -32
+	pixel_z = -96
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/burned = FALSE
 
 /obj/structure/vamptree/Initialize()
 	. = ..()
+	var/matrix/M1 = matrix()
+	M1.Turn(4)
+	var/matrix/M2 = matrix()
+	M2.Turn(-4)
 	icon_state = "tree[rand(1, 11)]"
-	if(GLOB.winter)
-		if(istype(get_area(src), /area/vtm))
-			var/area/vtm/V = get_area(src)
-			if(V.upper)
+	if(istype(get_area(src), /area/vtm))
+		var/area/vtm/V = get_area(src)
+		if(V.upper)
+			if(GLOB.winter)
 				icon_state = "[initial(icon_state)][rand(1, 11)]-snow"
+			if(prob(50))
+				animate(src, transform = M1, time = 4 SECONDS, loop = -1, easing = SINE_EASING, delay = rand(1, 15))
+				animate(transform = M2, time = 4 SECONDS)
+			else
+				animate(src, transform = M2, time = 4 SECONDS, loop = -1, easing = SINE_EASING, delay = rand(1, 15))
+				animate(transform = M1, time = 4 SECONDS)
 
 /obj/structure/vamptree/proc/burnshit()
 	if(!burned)
 		burned = TRUE
 		icon_state = "dead[rand(1, 3)]"
+		animate(src, transform = null, time = 1 SECONDS, loop = 1)
 
 /obj/structure/vamptree/pine
 	name = "pine"
 	desc = "Cute and tall flora."
-	icon = 'code/modules/wod13/pines.dmi'
+	icon = 'code/modules/wod13/pines_animated.dmi'
 	icon_state = "pine1"
 	plane = GAME_PLANE
 	layer = SPACEVINE_LAYER
 	anchored = TRUE
 	density = TRUE
 	pixel_w = -24
+	pixel_z = -256
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/structure/vamptree/pine/Initialize()
@@ -1435,11 +1479,23 @@
 	if(prob(2))
 		burned = TRUE
 		icon_state = "dead[rand(1, 5)]"
+	if(!burned)
+		var/matrix/M1 = matrix()
+		M1.Turn(4)
+		var/matrix/M2 = matrix()
+		M2.Turn(-4)
+		if(prob(50))
+			animate(src, transform = M1, time = 6 SECONDS, loop = -1, easing = SINE_EASING, delay = rand(1, 15))
+			animate(transform = M2, time = 6 SECONDS)
+		else
+			animate(src, transform = M2, time = 6 SECONDS, loop = -1, easing = SINE_EASING, delay = rand(1, 15))
+			animate(transform = M1, time = 6 SECONDS)
 
 /obj/structure/vamptree/pine/burnshit()
 	if(!burned)
 		burned = TRUE
 		icon_state = "dead[rand(1, 5)]"
+		animate(src, transform = null, time = 1 SECONDS, loop = 1)
 
 /obj/structure/vampstatue
 	name = "statue"

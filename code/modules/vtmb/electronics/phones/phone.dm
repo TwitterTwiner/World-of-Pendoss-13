@@ -780,6 +780,7 @@
 	anchored = TRUE
 	number = "1447"
 	can_fold = 0
+	onflooricon = null
 
 	/// Phone icon states
 	open_state = "payphone"

@@ -51,8 +51,8 @@
 		var/mob/living/carbon/human/H = src
 		if(is_species(H, /datum/species/human))
 			if(H.client)
-				var/loadout_type = input(H, "Choose what makes you special:", "Loadout") as anything in loadouts
 				remove_verb(H, /datum/job/vampire/priest/verb/choose_special)
+				var/loadout_type = input(H, "Choose what makes you special:", "Loadout") as anything in loadouts
 				switch(loadout_type)
 					if("Numina")
 						to_chat(H, "<span class='alertsyndie'>You have been blessed with psychic powers. They make you extraordinary among mortals, yet you still fear the horrors lurking unknown.</span>")

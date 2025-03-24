@@ -24,9 +24,10 @@
 	name = "Dominate"
 	desc = "Dominate over other living or un-living beings."
 	button_icon_state = "dominate"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
-	var/cool_down = 0
+	var/cool_down = 10
+	var/list/mob/living/carbon/human/fail_list = list()
 
 /datum/action/dominate/Trigger()
 	. = ..()
@@ -39,6 +40,8 @@
 	var/list/mob/living/carbon/human/victims_list = list()
 	for (var/mob/living/carbon/human/adding_victim in oviewers(5, owner))
 		victims_list += adding_victim
+	for(var/mob/living/carbon/human/fail in fail_list)
+		victims_list -= fail
 	if(!length(victims_list))
 		to_chat(owner, "<span class='warning'>There's no one to <b>DOMINATE</b> around...</span>")
 		return
@@ -49,16 +52,21 @@
 		if(victim.clane?.name == "Gargoyle")
 			dominate_me = 1
 		if(secret_vampireroll(max(get_a_manipulation(owner), get_a_strength(owner))+get_a_intimidation(owner), dominate_me, owner) < 3)
-			to_chat(owner, "<span class='warning'>You fail to <b>DOMINATE</b>...</span>")
+			fail_list += victim
+			to_chat(owner, "<span class='warning'>You fail to <b>DOMINATE</b>... [fail_list]</span>")
 			return
 		var/new_say = input(owner, "What are you trying to say?", "Say") as null|text
 		new_say = sanitize_text(new_say)
 		if(new_say)
 			owner.say(new_say)
+			victim.intro_Sperma(new_say, 5)
 			victim.cure_trauma_type(/datum/brain_trauma/hypnosis/dominate, TRAUMA_RESILIENCE_MAGIC)
 			victim.gain_trauma(new /datum/brain_trauma/hypnosis/dominate(new_say), TRAUMA_RESILIENCE_MAGIC)
 
 			spawn(60 SECONDS)
 				if(victim)
 					victim.cure_trauma_type(/datum/brain_trauma/hypnosis/dominate, TRAUMA_RESILIENCE_MAGIC)
+			spawn(20 MINUTES)
+				fail_list = new(list())
+
 

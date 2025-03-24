@@ -74,6 +74,14 @@
 */
 /datum/hud/ghost/New(mob/owner)
 	..()
+	static_noise = new /atom/movable/screen()
+	static_noise.mouse_opacity = 0
+	static_noise.icon = 'icons/hud/screen_gen.dmi'
+	static_noise.screen_loc = "WEST,SOUTH to EAST,NORTH"
+	static_noise.icon_state = "static_base"
+	static_noise.alpha = 6
+	static_inventory += static_noise
+
 	var/atom/movable/screen/using
 	using = new /atom/movable/screen/ghost/jumptomob()
 	using.screen_loc = ui_ghost_jumptomob

@@ -175,6 +175,9 @@ var/mob/living/carbon/human/H
 		return
 	switch(action)
 		if("login")
+			if(current_card == null)
+				to_chat(usr, "<span class='notice'>Экран тускло мигает. Видимо чего-то не хватает, возможно, кредитной карточки.</span>")
+				return
 			if(params["code"] == current_card.account.code)
 				logged_in = TRUE
 				return TRUE
@@ -188,7 +191,7 @@ var/mob/living/carbon/human/H
 		if("withdraw")
 			var/amount = text2num(params["withdraw_amount"])
 			if(amount != round(amount))
-				to_chat(usr, "<span class='notice'>Withdraw amount must be a round number.")
+				to_chat(usr, "<span class='notice'>Withdraw amount must be a round number.</span>")
 			else if(current_card.account.balance < amount)
 				to_chat(usr, "<span class='notice'>Insufficient funds.</span>")
 			else

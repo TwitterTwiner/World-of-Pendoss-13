@@ -193,6 +193,19 @@
 /obj/structure/flora/ausbushes/Initialize()
 	if(icon_state == "firstbush_1")
 		icon_state = "firstbush_[rand(1, 4)]"
+	var/matrix/M1 = matrix()
+	M1.Turn(4)
+	var/matrix/M2 = matrix()
+	M2.Turn(-4)
+	if(istype(get_area(src), /area/vtm))
+		var/area/vtm/V = get_area(src)
+		if(V.upper)
+			if(prob(50))
+				animate(src, transform = M1, time = 2 SECONDS, loop = -1, easing = SINE_EASING, delay = rand(1, 15))
+				animate(transform = M2, time = 2 SECONDS)
+			else
+				animate(src, transform = M2, time = 2 SECONDS, loop = -1, easing = SINE_EASING, delay = rand(1, 15))
+				animate(transform = M1, time = 2 SECONDS)
 	. = ..()
 
 /obj/structure/flora/ausbushes/reedbush

@@ -14,6 +14,14 @@
 	combo_display = new /atom/movable/screen/combo()
 	infodisplay += combo_display
 
+	static_noise = new /atom/movable/screen()
+	static_noise.mouse_opacity = 0
+	static_noise.icon = 'icons/hud/screen_gen.dmi'
+	static_noise.screen_loc = "WEST,SOUTH to EAST,NORTH"
+	static_noise.icon_state = "static_base"
+	static_noise.alpha = 6
+	static_inventory += static_noise
+
 	//mob health doll! assumes whatever sprite the mob is
 //	healthdoll = new /atom/movable/screen/healthdoll/living()
 //	healthdoll.hud = src

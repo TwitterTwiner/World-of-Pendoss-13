@@ -92,6 +92,13 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	..()
 	if(!CanBuildHere())
 		return
+	if(istype(C, /obj/item/stack/sheet/mineral/wood))
+		var/obj/item/stack/sheet/mineral/wood/W = C
+		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+		if(L)
+			if(W.use(1))
+				PlaceOnTop(/turf/open/floor/plating/vampwood)
+
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)

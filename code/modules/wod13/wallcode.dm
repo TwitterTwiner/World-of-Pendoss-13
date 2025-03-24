@@ -509,7 +509,7 @@
 	gender = PLURAL
 	name = "sidewalk"
 	icon = 'code/modules/wod13/tiles.dmi'
-	icon_state = "sidewalk_alt"
+	icon_state = "sidewalk_alt1"
 	flags_1 = NONE
 	attachment_holes = FALSE
 	bullet_bounce_sound = null
@@ -520,6 +520,8 @@
 
 /turf/open/floor/plating/sidewalkalt/Initialize()
 	. = ..()
+	icon_state = "sidewalk_alt[rand(1, 4)]"
+	set_light(1, 0.5, "#a4b7ff")
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -544,10 +546,14 @@
 	barefootstep = FOOTSTEP_TROTUAR
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	var/brokenwalk = TRUE
 
 /turf/open/floor/plating/sidewalk/Initialize()
 	. = ..()
 	icon_state = "[based_icon_state][rand(1, number_of_variations)]"
+	if(brokenwalk)
+		if(prob(5))
+			icon_state = "brokenwalk[rand(1, 3)]"
 	set_light(1, 0.5, "#a4b7ff")
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
@@ -562,16 +568,19 @@
 /turf/open/floor/plating/sidewalk/poor
 	icon_state = "sidewalk_poor1"
 	based_icon_state = "sidewalk_poor"
+	brokenwalk = FALSE
 
 /turf/open/floor/plating/sidewalk/rich
 	icon_state = "sidewalk_rich1"
 	number_of_variations = 6
 	based_icon_state = "sidewalk_rich"
+	brokenwalk = FALSE
 
 /turf/open/floor/plating/sidewalk/old
 	icon_state = "sidewalk_old1"
 	number_of_variations = 4
 	based_icon_state = "sidewalk_old"
+	brokenwalk = FALSE
 
 /turf/open/floor/plating/roofwalk
 	gender = PLURAL
