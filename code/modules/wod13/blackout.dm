@@ -173,6 +173,9 @@ SUBSYSTEM_DEF(witness_pool)
 
 	if(iskindred(src))
 
+		if(stat == SOFT_CRIT)
+			if(MyPath)
+				MyPath.trigger_morality("pretorpor")
 
 		if(clane?.name == "Baali")
 			if(istype(get_area(src), /area/vtm/church))
@@ -191,15 +194,18 @@ SUBSYSTEM_DEF(witness_pool)
 				if(U.on_fire)
 					fearstack += 1
 
-			fearstack = min(fearstack, 10)
+			fearstack = min(fearstack, 21)
 
 			if(fearstack)
+				if(MyPath)
+					MyPath.trigger_morality("rotshreck")
 				if(prob(fearstack*5))
 					do_jitter_animation(10)
 					if(fearstack > 20)
 						if(prob(fearstack))
 							if(!in_frenzy)
-								rollfrenzy()
+								rollrotshreck()
+//								rollfrenzy()
 				if(!has_status_effect(STATUS_EFFECT_FEAR))
 					apply_status_effect(STATUS_EFFECT_FEAR)
 			else
@@ -267,6 +273,8 @@ SUBSYSTEM_DEF(witness_pool)
 			if(bloodpool <= 1 && !in_frenzy)
 				if((last_frenzy_check + 40 SECONDS) <= world.time)
 					last_frenzy_check = world.time
+					if(MyPath)
+						MyPath.trigger_morality("bloodhunger")
 					rollfrenzy()
 					if(clane?.enlightenment && humanity > 2)
 						if(!CheckFrenzyMove())

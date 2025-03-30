@@ -29,7 +29,7 @@
 	if(target.generation < caster.generation)
 		to_chat(caster, "<span class='warning'>[target]'s blood is too potence to dominate!</span>")
 		return
-	var/difficulties_dominating = get_a_wits(target)+2
+	var/difficulties_dominating = get_a_willpower(target)
 	if(dominate_me)
 		difficulties_dominating = 1
 	var/mypower = secret_vampireroll(max(get_a_strength(caster), get_a_manipulation(caster))+get_a_intimidation(caster), difficulties_dominating, caster)

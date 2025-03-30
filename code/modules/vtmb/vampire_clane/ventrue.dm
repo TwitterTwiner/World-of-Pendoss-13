@@ -48,7 +48,7 @@
 
 	var/mob/living/carbon/human/victim = input(owner, "Choose the target to Dominate over", "Dominate") as null|anything in victims_list
 	if(victim)
-		var/dominate_me = get_a_wits(victim)+2
+		var/dominate_me = get_a_willpower(victim)
 		if(victim.clane?.name == "Gargoyle")
 			dominate_me = 1
 		if(secret_vampireroll(max(get_a_manipulation(owner), get_a_strength(owner))+get_a_intimidation(owner), dominate_me, owner) < 3)

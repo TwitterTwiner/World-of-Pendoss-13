@@ -230,80 +230,33 @@
 /datum/warform
 	var/mob/living/carbon/human/humanform
 	var/mob/living/simple_animal/hostile/warform
-
-/mob/living/simple_animal/hostile/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(warform)
-		return warform.humanform.adjustBruteLoss(amount, updating_health, forced)
-	else
-		..()
-
-/mob/living/simple_animal/hostile/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(warform)
-		return warform.humanform.adjustFireLoss(amount, updating_health, forced)
-	else
-		..()
-
-/mob/living/simple_animal/hostile/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(warform)
-		return warform.humanform.adjustOxyLoss(amount, updating_health, forced)
-	else
-		..()
-
-/mob/living/simple_animal/hostile/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(warform)
-		return warform.humanform.adjustToxLoss(amount, updating_health, forced)
-	else
-		..()
-
-/mob/living/simple_animal/hostile/adjustCloneLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(warform)
-		return warform.humanform.adjustCloneLoss(amount, updating_health, forced)
-	else
-		..()
-
-/mob/living/simple_animal/hostile/adjustStaminaLoss(amount, updating_health = FALSE, forced = FALSE)
-	if(warform)
-		return warform.humanform.adjustStaminaLoss(amount, updating_health, forced)
-	else
-		..()
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/Shapeshift
 
 /datum/warform/proc/transform(var/animal_atom, var/mob/living/carbon/human/owner, var/masquerady = TRUE)
 	owner.drop_all_held_items()
 	humanform = owner
-	owner.invisibility = INVISIBILITY_MAXIMUM
-	warform = new animal_atom(get_turf(owner))
-	warform.attributes = owner.attributes
-	warform.bloodpool = humanform.bloodpool
-	warform.maxbloodpool = humanform.maxbloodpool
+	Shapeshift = new (owner)
+	Shapeshift.invocation_type = "none"
+	Shapeshift.shapeshift_type = animal_atom
+	var/mob/living/simple_animal/hostile/H = Shapeshift.Shapeshift(humanform)
+	warform = H
 	if(animal_atom == /mob/living/simple_animal/hostile/tzimisce_beast)
 		warform.attributes.strength_bonus = 3
 		warform.attributes.dexterity_bonus = 3
 		warform.attributes.stamina_bonus = 3
-	warform.stop_automated_movement = TRUE
-	warform.wander = FALSE
-	humanform.dna.species.brutemod = initial(humanform.dna.species.brutemod)*(initial(humanform.maxHealth)/initial(warform.maxHealth))
-	humanform.dna.species.burnmod = initial(humanform.dna.species.burnmod)*(initial(humanform.maxHealth)/initial(warform.maxHealth))
 	warform.warform = src
-	warform.anchored = TRUE
-	warform.AIStatus = AI_OFF
 	if(masquerady)
 		warform.my_creator = owner
 	owner.warform = src
 	var/datum/action/end_warform/R = new
-	R.Grant(owner)
-	owner.forceMove(warform)
+	R.Grant(H)
 
 /datum/warform/proc/end()
-	humanform.bloodpool = warform.bloodpool
-	humanform.forceMove(get_turf(warform))
-	qdel(warform)
-	humanform.dna.species.brutemod = initial(humanform.dna.species.brutemod)
-	humanform.dna.species.burnmod = initial(humanform.dna.species.burnmod)
-	humanform.invisibility = initial(humanform.invisibility)
-	humanform.warform = null
+	Shapeshift.Restore(Shapeshift.myshape)
 	for(var/datum/action/end_warform/W in humanform.actions)
 		if(W)
 			W.Remove(humanform)
+	qdel(Shapeshift)
 	qdel(src)
 
 /datum/action/end_warform
@@ -314,9 +267,10 @@
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/BZ
 
 /datum/action/end_warform/Trigger()
-	if(istype(owner, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = owner
-		H.warform.end()
-		H.attributes.strength_bonus = 0
-		H.attributes.dexterity_bonus = 0
-		H.attributes.stamina_bonus = 0
+	. = ..()
+	if(ishostile(owner))
+		var/mob/living/simple_animal/hostile/Lviv = owner
+		Lviv.warform.warform.attributes.strength_bonus = 0
+		Lviv.warform.warform.attributes.dexterity_bonus = 0
+		Lviv.warform.warform.attributes.stamina_bonus = 0
+		Lviv.warform.warform.warform.end()

@@ -353,6 +353,18 @@ SUBSYSTEM_DEF(woddices)
 	else
 		return 3
 
+/proc/get_a_willpower(mob/living/Living)
+	if(ishuman(Living))
+		var/mob/living/carbon/human/ohvampire = Living
+		if(ohvampire.MyPath)
+			return ohvampire.MyPath.willpower
+		else if(ohvampire.mind?.dharma)
+			return ohvampire.mind.dharma.willpower
+		else
+			return ceil(ohvampire.humanity/2)
+	else
+		return 2
+
 /proc/get_dice_image(input, diff)
 	var/dat = ""
 	var/span_end = ""
@@ -396,8 +408,11 @@ SUBSYSTEM_DEF(woddices)
 			to_chat(rollperformer, "<b>No dicepool!</b>")
 		return 0
 	var/clan_difficulty = 0
+	var/autosuccesses = 0
 	if(ishuman(rollperformer))
 		var/mob/living/carbon/human/Roller = rollperformer
+		if(Roller.willpower_auto)
+			autosuccesses = 3
 		if(Roller.clane?.name == "Followers of Set")
 			var/datum/vampireclane/setite/Setite = Roller.clane
 			var/turf/T = get_turf(Roller)
@@ -410,19 +425,24 @@ SUBSYSTEM_DEF(woddices)
 					clan_difficulty = 1
 	hardness = clamp(hardness+rollperformer.attributes.diff_curse+clan_difficulty, 1, 10)
 	var/dices_decap = 0
-	if(decap_rolls)
+	if(decap_rolls && !autosuccesses)
 		dices_decap = rollperformer.get_health_difficulty()
 	dices_num = max(1, dices_num-dices_decap)
 	var/wins = 0
 	var/brokes = 0
 	var/result = ""
 	for(var/i in 1 to dices_num)
-		var/roll = rand(1, 10)
-		if(roll == 1)
-			brokes += 1
-		else if(roll >= hardness || roll == 10)
+		if(autosuccesses)
 			wins += 1
-		result += get_dice_image(roll, hardness)
+			result += "<span class='medradio'>⓿</span>"
+			autosuccesses = autosuccesses-1
+		else
+			var/roll = rand(1, 10)
+			if(roll == 1)
+				brokes += 1
+			else if(roll >= hardness || roll == 10)
+				wins += 1
+			result += get_dice_image(roll, hardness)
 	wins = wins-brokes
 	if(!stealthy)
 		to_chat(rollperformer, result)
@@ -701,6 +721,7 @@ SUBSYSTEM_DEF(woddices)
 
 /mob/living/carbon/human
 	var/datum/morality_path/MyPath
+	var/willpower_auto = FALSE
 
 /datum/morality_path
 	var/mob/living/carbon/human/owner
@@ -713,13 +734,14 @@ SUBSYSTEM_DEF(woddices)
 	var/courage = 1
 
 	var/list/ready_events = list()
+	var/list/bad_events = list()
 	var/murder_victms = 0	//So when it hits 5 it's confirmed mass murder
 
 
 /datum/morality_path/proc/trigger_morality(var/trig_event)
-	if(trig_event in ready_events)
+	if(ready_events[trig_event] == 1)
 		return
-	ready_events += trig_event
+	ready_events[trig_event] = 1
 //	switch(trig_event)
 //		if("trigger_default")
 //			to_chat(owner, "[icon2html('icons/beast.png', owner)] <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Доверься своему телу. Запугивай людей.</span>")
@@ -727,31 +749,499 @@ SUBSYSTEM_DEF(woddices)
 /datum/morality_path/humanity
 	name = "Humanity"
 	desc = "The Humanity score represents how close a Kindred remains to their human nature, to specific people vital to them, and how easily they slip away from human concerns and instead towards the whims of the Beast."
+	ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0, "massmurder" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0, "baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0, "deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0, "corpseitems" = 0, "friendmeet" = 0, "lovermeet" = 0)
+	bad_events = list("attackfirst", "steal", "robbery", "drugdealing", "organtrade", "drying", "kill", "massmurder")
 
 /datum/morality_path/humanity/trigger_morality(var/trig_event)
-	. = ..()
-	/*
+	if(bad_events.Find(trig_event))
+		for(var/mob/living/carbon/human/H in viewers(7, owner))
+			if(H != owner && H.mind?.dharma)
+				if("judgement" in H.mind.dharma.tenets)
+					to_chat(H, "<span class='warning'>[owner] is doing something bad, I need to punish them!")
+					H.mind.dharma.judgement |= owner.real_name
+
+	var/special_role_name
+	if(owner.mind)
+		if(owner.mind.special_role)
+			var/datum/antagonist/A = owner.mind.special_role
+			special_role_name = A.name
+
+	if(is_special_character(owner) && special_role_name != "Ambitious")
+		return
+
+	if(ready_events[trig_event] == 1)
+		return FALSE
+	ready_events[trig_event] = 1
+
 	switch(trig_event)
 		//humanity lowers
-		("slur")
-		("attackfirst")
-		("steal")
-		("robbery")
-		("drying")
-			to_chat(owner, "[icon2html('icons/beast.png', owner)] <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Тебе не занимать голода... Мне это нравится. Этот вкус, этот запах. Теперь это пустой сосуд, обёртка от сладкой конфеты, мусор. А что? Смертные тоже мусорят, чем мы с тобой хуже, а?</span>")
-		("drugdealing")
-		("killparticipation")
-		("killcommit")
-		("sadism")
-		("murder")
-		("massmurder")
-*/
+		if ("slur")
+			if(dot > 9)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events["slur"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Я не сомневаюсь в вашем словарном запасе, [owner.gender == FEMALE ? "мэм" : "сэр"], но это кажется скоро пересечёт границы. Слово не воробей, вылетит - не поймаешь, но в будущем это может встать на пути к нашим взглядам.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Стоит задуматься о покупке словаря. Это совсем никуда не годится! Как можно выражаться таким языком? Чему тебя учили родители?</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Можно было подобрать и более красивую речь. Серьёзно.</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Я подвёл вас. Простите, язык был моей прерогативой.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Искренне извиняюсь, но я сам не знаю таких слов.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Не стоило доверять языку, я его давно подозревал. Так и запишем.</span>")
+					adjust(min(0, 9-dot))
+			else
+				ready_events["slur"] = 0
+		if ("attackfirst")
+			if(dot > 8)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events["attackfirst"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Это была атака? Нанесение вреда живому, разумному существу? Как такое вообще допустимо?!</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — А если твой оппонент погибнет, то кто к нему прийдёт на похороны? А КТО ПРИЙДЁТ НА ПОХОРОНЫ К ТЕБЕ?!</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Это должно быть о-о-очень больно... А если бы напали на тебя?</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Это был хороший ход, но, плохая идея.</span>")
+						if(2)
+							var/who_to_beat = "жены"
+							if(owner.gender == FEMALE)
+								if(!HAS_TRAIT(owner, TRAIT_HOMOSEXUAL))
+									who_to_beat = "мужа"
+							else
+								if(HAS_TRAIT(owner, TRAIT_HOMOSEXUAL))
+									who_to_beat = "мужа"
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Чёрт подери, чёрт подери... я совсем потерял контроль над руками! А что дальше, перейдём к избиению [who_to_beat]?</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Ай-ай-ай-ай, за такое сдача прилетит вдвойне больше. Прилетит же?</span>")
+					adjust(min(0, 8-dot))
+			else
+				ready_events["attackfirst"] = 0
+		/*
+		if ("failing")
+			if(dot > 8)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events -= "failing"
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — За попытку спасения зачтётся конечно, хоть и не за самую успешную.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Да, не получилось, бывает. Ничего страшного, это ведь лучше, чем платная медицина, не так-ли?</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — По крайней мере эта смерть была в добрых, заботливых руках.</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — О нет! Клиническая смерть! Доктор, звоните в ритуальные услуги.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Какими руками спасали, такими прийдётся и закапывать...</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Кажется, стоило позвонить более опытному специалисту, а не решать всё самостоятельно...</span>")
+					adjust(min(0, 8-dot))
+			else
+				ready_events -= "failing"
+		*/
+		if ("steal")
+			if(dot > 7)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events["steal"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Это не взлом, а просто небольшое взаимствование у потенциального друга. Наверное стоит записать номер владельца и вернуть, как-нибудь потом...</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Перед любопытством все двери открыты. Ты ведь просто посмотришь, что внутри, и закроешь обратно?</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Да, это проникновение. Проникновение с целью... Хмм... А какая у этого может быть цель?</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Хозяин этой собственности явно не будет доволен гостями.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Плохой поступок, взлом и кража - почти одно и то же. Только ствол добавь - и будет разбой.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Эй, слышишь? Подбирай ключи к сердцам, а не к дверям.</span>")
+					adjust(min(0, 7-dot))
+			else
+				ready_events["steal"] = 0
+		if ("robbery")
+			if(dot > 6)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events["robbery"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — До чего докатился этот мир... Нуждающиеся воруют у нуждающихся. Порочный круг бомже-краж.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Нам нужнее, мы ведь вернём то что взяли.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Не переживай, ты не [owner.gender == FEMALE ? "воровка" : "вор"], это всё жестокий фашистский режим капитализма.</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Такое... подлое действие. А что если это было нужнее хозяину? А мы просто взяли что хотели, как животное.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Ворам в древности отрубали руки. Как-то не хочется их терять, они ведь такие ловкие...</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — На что только не пойдёшь, чтобы подзаработать. И что, теперь ты [owner.gender == FEMALE ? "довольна" : "доволен"] собой?</span>")
+					adjust(min(0, 6-dot))
+			else
+				ready_events["robbery"] = 0
+		if ("drugdealing")
+			if(dot > 5)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events["drugdealing"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Употреблять психоактивные вещества - это выбор каждого.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Ты ведь не продаёшь эту дрянь подросткам или беременным мамочкам. Не стоит волноваться.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Когда-нибудь этот картель всё равно накроют, и мир станет лучше. Ты просто дров в костёр подкидываешь.</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Сколько же людей ломают свои жизни от этого дерьма...</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Один пакетик, и тысяча страданий.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Сколько ещё можно продавать яд народу? Этим должны заниматься политики, фармацевтические компании и фургоны хиппи. Зачем ты это делаешь?</span>")
+					adjust(min(0, 5-dot))
+			else
+				ready_events["drugdealing"] = 0
+		if ("organtrade")
+			if(dot > 5)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events["organtrade"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Ты ведь не живых людей продаёшь. По крайней мере, не целиком.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Кому-то эти органы явно нужнее, чем прошлому владельцу.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Интересная мысль: Почему график героизма стремится от нуля до бесконечности за каждую проданную почку, но уходит ниже нуля к заинтересованности полицией, когда проданных почек оказывается три и более?</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Как тебе вообще могла прийти в голову идея продавать чужие части тела на чёрном рынке?!</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Что ты делаешь? Это не просто не законно, или не этично. Это бесчеловечно!</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Только не говори, что продаёшь органы нуждающимся больным детям. Нет, в этот раз эта отмазка не прокатит. Ты прекрасно понимаешь, что творишь...</span>")
+					adjust(min(0, 5-dot))
+			else
+				ready_events["organtrade"] = 0
+		if ("drying")
+			if(dot > 4)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events["drying"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Ах! Ничего страшного. Кажется, тело ещё шевелится. Небольшое переливание крови и будет в норме.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Это было необходимо вкусно. Вкусно и точка.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Да, прийдётся поработать над умением контроллировать себя.</span>")
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='discosay'> — Не надо надо мной работать!</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — О-ох... Какой бред, это всё сон. Нет, нет, нельзя сосать до потери пульса!</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Боже мой. Труп.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Чёртов голод. Я тут бессилен, это всё вина чёртового голода. Мне что, глистов тоже учиться контролировать?</span>")
+					adjust(min(0, 4-dot))
+			else
+				ready_events["drying"] = 0
+			var/replic2 = rand(1, 3)
+			switch(replic2)
+				if(1)
+					to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Тебе не занимать голода... Мне это нравится. Этот вкус, этот запах. Теперь это пустой сосуд, обёртка от сладкой конфеты, мусор. А что? Смертные тоже мусорят, чем мы с тобой хуже, а?</span>")
+				if(2)
+					to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — КРОВЬ. СОСАТЬ. КРОВЬ. СОСАТЬ. КРОВЬ. СОСАТЬ.</span>")
+				if(3)
+					to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — О да! Допивай всё до последней капли!</span>")
+		if ("kill")
+			if(murder_victms >= 5)
+				trigger_morality("massmurder")
+			else
+				if(dot > 3)
+					var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+					if(rolls > 2)
+						var/replic = rand(1, 3)
+						ready_events["kill"] = 0
+						switch(replic)
+							if(1)
+								to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Все, рано или поздно, умирают...</span>")
+							if(2)
+								to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Да, человек смертен, но это было бы еще полбеды. Плохо то, что он иногда внезапно смертен, вот в чем фокус! И вообще не может сказать, что он будет делать в сегодняшний вечер.</span>")
+							if(3)
+								to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Выбор только на бумаге. В реальности же его просто нет. Что сделано - то сделано. Кто-то по итогу должен был умереть.</span>")
+					else
+						murder_victms = murder_victms+1
+						var/replic = rand(1, 3)
+						switch(replic)
+							if(1)
+								to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Это было самое настоящее, хладнокровное убийство!</span>")
+							if(2)
+								to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Психопатия! У нас труп, возможно криминал, по коням.</span>")
+							if(3)
+								to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Посмотри... Посмотри! Твои руки по локоть в крови и ты даже не акушер в роддоме. Как до такого вообще можно было докатиться?</span>")
+						adjust(min(0, 3-dot))
+				else
+					murder_victms = murder_victms+1
+					ready_events["kill"] = 0
+				var/replic2 = rand(1, 3)
+				switch(replic2)
+					if(1)
+						to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Одним смертным больше, другим меньше. Какая разница?</span>")
+					if(2)
+						to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Ха-ха-ха-ха-ха... Кажется, мы находим общий язык.</span>")
+					if(3)
+						to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Подумаешь, раздавил[owner.gender == FEMALE ? "а" : ""] муравья, сломал[owner.gender == FEMALE ? "а" : ""] ветку, убил[owner.gender == FEMALE ? "а" : ""] человека? В чём проблема?</span>")
+//		if ("sadism")
+		if ("massmurder")
+			if(dot > 0)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					ready_events["massmurder"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Нет. Из всех, кого ты убил[owner.gender == FEMALE ? "а" : ""], этот точно заслужил. Без вариантов.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Не знаю, какое ещё оправдание придумать...</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Серийный убийца? Нет, просто работа такая.</span>")
+				else
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Одним смертным больше, другим меньше. Какая разница?</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Ха-ха-ха-ха-ха... Кажется, мы находим общий язык.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Подумаешь, раздавил[owner.gender == FEMALE ? "а" : ""] муравья, сломал[owner.gender == FEMALE ? "а" : ""] ветку, убил[owner.gender == FEMALE ? "а" : ""] человека? В чём проблема?</span>")
+					adjust(min(0, 0-dot))
+			else
+				ready_events["massmurder"] = 0
+
+		//RESTORING
+		if ("cpr")
+			if(dot < 8)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Вот так, вдох-выдох, вдох-выдох. ТЫ БУДЕШЬ ЖИТЬ!</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Делай не эротический массаж и без интимного подтекста вдувай воздух в губы, это так просто!</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Рано ещё похоронное бюро вызывать... А вот врача - пригодилось бы.</span>")
+					adjust(1)
+				else
+					var/replic = rand(1, 3)
+					ready_events["cpr"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — И что ты делаешь? Ты и так не спасёшь эту жизнь...</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Всё напрасно. Здесь летальный исход очевиден.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Стоит ли вообще бороться за эту жизнь?</span>")
+			else
+				ready_events["cpr"] = 0
+		if ("shockpaddles")
+			if(dot < 9)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Разряд! Тебе \"туда\" ещё рано!</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Нет времени на смерть, нужно жить дальше!</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Отлично! Ещё пара Ватт, и будет как новенький.</span>")
+					adjust(1)
+				else
+					var/replic = rand(1, 3)
+					ready_events["shockpaddles"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Хочешь и так страдавшее тело мучать ударами током? Пф-ф...</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Не трать электроэнергию в пустую.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Сотни людей умирают в эту же минуту. А стоит ли этот альтруизм того?</span>")
+			else
+				ready_events["shockpaddles"] = 0
+		if ("donate")
+			if(dot < 7)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Драться с супер-злодеями? Ерунда! Денежные пожертвования - вот что делает тебя настоящим героем.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Всего пара зелёных портретов президентов и кому-то станет лучше.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Щедрость - хорошее качество хорошего человека.</span>")
+					adjust(1)
+				else
+					var/replic = rand(1, 3)
+					ready_events["donate"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Зачем давать бомжам деньги? Они же тратят их на алкоголь и наркотики.</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Деньги на ветер...</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — И? Ты уже закончил[owner.gender == FEMALE ? "а" : ""]? Доказал[owner.gender == FEMALE ? "а" : ""] себе что ты не кусок дерьма?</span>")
+			else
+				ready_events["donate"] = 0
+
+		if ("dance")
+			if(dot < 10)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic = rand(1, 3)
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Левой, правой, левой, правой. Так держать, суперзвезда!</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Танцевать так приятно, что хочется петь...</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'> — Зажги танцпол, детка!</span>")
+					adjust(1)
+				else
+					var/replic = rand(1, 3)
+					ready_events["dance"] = 0
+					switch(replic)
+						if(1)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Хватит двигаться, это выглядит убого! Прекрати! Прошу!</span>")
+						if(2)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Это вряд-ли можно назвать танцем. Скорее, предсмертной судорогой.</span>")
+						if(3)
+							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Убери чёртову улыбку с лица и прекрати танцевать, тебе уже не десять лет!</span>")
+			else
+				ready_events["dance"] = 0
+
+		//BEAST
+		if ("animaldrink")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Фу, ну и дрянь. Найди что-то поаппетитнее. Может ещё и крысами начнёшь питаться?</span>")
+		if ("ratdrink")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — КРЫСОСОС[owner.gender == FEMALE ? "КА" : ""].</span>")
+		if ("packetdrink")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Из пакетика? А почему без слюнявчика и трубочки, [owner.gender == FEMALE ? "мадмуазель" : "миссье"]?</span>")
+		if ("baddrink")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Меня сейчас вырвет от этого дерьма...</span>")
+		if ("gooddrink")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — ВКУСНЯТИНА. ХОЧУ ЕЩЁ.</span>")
+		if ("firstfeed")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — М-м-м... С этого и стоило начинать.</span>")
+		if ("suncoming")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — ПРЯЧЬСЯ ОТ СОЛНЦА, ТУПИЦА!</span>")
+		if ("rotshreck")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — А-А-А! ОГОНЬ! ОГОНЬ! ГОРЯЧО! ПОЖАР!</span>")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'> — Самое время сменить приоритеты в жизни и стать пожарным. Фортуна любит отважных!</span>")
+		if ("bloodhunger")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — НАСТАЛО ВРЕМЯ ПОДКРЕПИТЬСЯ. Я ГОЛОДЕН.</span>")
+		if ("pretorpor")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Смерть? Нет, это блюдо в мой рацион не входит... А ну давай, вставай!</span>")
+
+		//COURAGE
+		if ("jumpfail")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Failure</span> <span class='discosay'> — А тут высоковато, не находишь? Наверное, не стоит даже пробовать.</span>")
+		if ("jumpsuccess")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Success</span> <span class='discosay'> — Ты летишь! Летишь! Столько метров над землёй! Столько кинетического ускорения!</span>")
+		if ("deadexamine")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'> — Спокойно. Это просто самый обычный мёртвый человек. Не зомби...</span>")
+		if ("onfire")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'> — Это ерунда, ты ведь не сгоришь за секунды как стог сухого сена. Не обращай внимание, пока сильно печь не начнёт.</span>")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — ПОЛУНДРА! ОГОНЬ НА БОРТУ!!</span>")
+		if ("highspeed")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'> — Больше оборотов, выше скорость, сильнее ветер, и чтобы вдавливаться в столб было не так больно и мучительно!</span>")
+		if ("attacked")
+			ready_events["attackedfail"] = 1
+			var/replic = rand(1, 3)
+			switch(replic)
+				if(1)
+					to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Success</span> <span class='discosay'> — На тебя напали! Защищайся, как герой! Честь и отвага!</span>")
+				if(2)
+					to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Success</span> <span class='discosay'> — Драка! Перестрелка! Поножовщина! Порно!</span>")
+				if(3)
+					to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Success</span> <span class='discosay'> — Это твой звёздный час, чтобы показать свои боевые навыки.</span>")
+		if ("attackedfail")
+			ready_events["attacked"] = 1
+			var/replic = rand(1, 3)
+			switch(replic)
+				if(1)
+					to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Я, пожалуй, отойду. Ты тоже, пожалуй, отойди...</span>")
+				if(2)
+					to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Пережить развод, взять кредит, жить без родителей - это я могу... А это мне не под силу.</span>")
+				if(3)
+					to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Знаешь, что я тебе посоветую? Беги, сука, беги!</span>")
+
+		//SELF-CONTROL
+		if ("gettingdrunk")
+			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'> — Какое интересное ощущение... Хочется подружиться со всеми и спорить о политике до драки. Ты сейчас в розовых очках юности.</span>")
+		if ("talkenough")
+			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'> — Болтаешь половину ночи, язык скоро отвалится. Но, дикторские навыки нам не помешают, верно?</span>")
+		if ("cleanenough")
+			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'> — Одни только кровь, ошмётки и моющее средство! Скажи, как давно швабра стала твоей новой конечностью?</span>")
+
+		//CONSIENCE
+		if ("gettinghigh")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span><span class='discosay'> — Это состояние изменённого сознания, или сознательного изменения?...</span>")
+		if ("corpseitems")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span><span class='discosay'> — Вещи с трупа. Шикарно, но может не стоит грабить мёртвых?</span>")
+		if ("friendmeet")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span><span class='discosay'> — В друзьях есть что-то, что позволяет заземлиться, сбросить якорь, зацепиться за бревно в реке постоянных событий...</span>")
+		if ("lovermeet")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span><span class='discosay'> — Любовь... Бабочки в животе... Бабочки?... В ЖИВОТЕ?!</span>")
+
+	return TRUE
 //"slur" = 10, "attackfirst" = 9, "failing" = 8 "steal" = 7, "robbery" = 6, "drying" = 5, "drugdealing" = 4, "killparticipation" = 3, "killcommit" = 2, "sadism" = 1, "burningalive" = 1, "massmurder" = 0
 
-//BEAST "animaldrink", "baddrink", "gooddrink", "firstfeed", "suncoming", "rotshreck", "bloodhunger"
-//SELF-CONTROL "hunger", "bloodhunger"
-//COURAGE "flying", "attacked", "deadexamine", "crinos", "rotshreck"
-//CONSIENCE "corpseitems", "elysiumfight", "animaldrink", "gettingdrunk", "gettinghigh"
+//BEAST
+//SELF-CONTROL "hunger", "bloodhunger", "gettingdrunk"
+//COURAGE "crinos", "screamelysium"
+//CONSIENCE "corpseitems", "gettinghigh"
 
 //	var/analyze_virtue = /datum/virtue
 //	var/control_virtue = /datum/virtue
@@ -760,16 +1250,36 @@ SUBSYSTEM_DEF(woddices)
 //	var/list/virtues = list(/datum/virtue)
 
 /datum/morality_path/proc/adjust(var/point)
+	if(!iskindred(owner))
+		return
+
+	if(point == 0)
+		return
+
+	if(!GLOB.canon_event)
+		return
+
+	var/special_role_name
+	if(owner.mind)
+		if(owner.mind.special_role)
+			var/datum/antagonist/A = owner.mind.special_role
+			special_role_name = A.name
+
+	if(is_special_character(owner) && special_role_name != "Ambitious")
+		return
+
 	if(point < 1 && dot > 0)
 		dot = dot+point
 		SEND_SOUND(owner, sound('code/modules/wod13/sounds/humanity_loss.ogg', 0, 0, 75))
 		to_chat(owner, "<span class='userdanger'><b>[name] decreased!</b></span>")
 	if(point > 1 && dot < 10)
 		dot = dot+point
+		willpower = willpower+1
 		SEND_SOUND(owner, sound('code/modules/wod13/sounds/humanity_gain.ogg', 0, 0, 75))
 		to_chat(owner, "<span class='userhelp'><b>[name] increased!</b></span>")
 
 	willpower = min(dot, willpower)
+	owner.humanity = dot
 	var/datum/preferences/P = GLOB.preferences_datums[ckey(owner.key)]
 	if(P)
 		if(P.humanity != owner.humanity)

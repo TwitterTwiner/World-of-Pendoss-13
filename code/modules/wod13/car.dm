@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(carpool)
 			if(!repairing)
 				repairing = TRUE
 				if(do_mob(user, src, 20 SECONDS))
-					var/roll = secret_vampireroll(get_a_dexterity(user)+get_a_security(user), 6, user)
+					var/roll = secret_vampireroll(max(get_a_wits(user), get_a_dexterity(user))+get_a_security(user), 6, user)
 					//(<= 1, break lockpick) (2-9, trigger car alarm), (>= 10, unlock car)
 					if (roll == -1)
 						to_chat(user, "<span class='warning'>Your lockpick broke!</span>")
@@ -229,7 +229,10 @@ SUBSYSTEM_DEF(carpool)
 					if(initial(access) == "none") //Stealing a car with no keys assigned to it is basically robbing a random person and not an organization
 						if(ishuman(user))
 							var/mob/living/carbon/human/H = user
-							H.AdjustHumanity(-1, 6)
+							if(H.MyPath)
+								H.MyPath.trigger_morality("steal")
+							else
+								H.AdjustHumanity(-1, 6)
 							call_dharma("steal", H)
 						return
 				else
@@ -341,7 +344,7 @@ SUBSYSTEM_DEF(carpool)
 			. += "<span class='notice'>* [rider]</span>"
 
 /obj/vampire_car/proc/get_damage(var/cost, var/mob/living/bumped_into, var/onbump_force)
-	if(cost < 0)
+	if(cost > 0)
 		var/dam_multiplicator = 1
 		if(driver)
 			dam_multiplicator = secret_vampireroll(get_a_dexterity(driver)+get_a_drive(driver), 6, driver)
@@ -352,7 +355,7 @@ SUBSYSTEM_DEF(carpool)
 		if(onbump_force)
 			for(var/mob/living/L in src)
 				if(L)
-					var/dam = round((onbump_force*10)/dam_multiplicator)
+					var/dam = round((onbump_force*3)/dam_multiplicator)
 					if(driver)
 						if(HAS_TRAIT(driver, TRAIT_EXP_DRIVER))
 							dam = round(dam/2)
@@ -360,20 +363,20 @@ SUBSYSTEM_DEF(carpool)
 					dam = dam-((dam/100)*armah)
 					L.apply_damage(dam, BRUTE, BODY_ZONE_CHEST)
 
-		if(bumped_into)
-			var/dam2 = onbump_force
-			if(!HAS_TRAIT(bumped_into, TRAIT_TOUGH_FLESH))
-				bumped_into.Knockdown(10)
-				dam2 = dam2*2
-			var/armah = bumped_into.run_armor_check(BODY_ZONE_CHEST, LETHAL)
-			dam2 = (dam2*dam_multiplicator)-(((dam2*dam_multiplicator)/100)*armah)
-			bumped_into.apply_damage(dam2, BRUTE, BODY_ZONE_CHEST)
+//		if(bumped_into)
+//			var/dam2 = onbump_force
+//			if(!HAS_TRAIT(bumped_into, TRAIT_TOUGH_FLESH))
+//				bumped_into.Knockdown(10)
+//				dam2 = dam2*2
+//			var/armah = bumped_into.run_armor_check(BODY_ZONE_CHEST, LETHAL)
+//			dam2 = (dam2*dam_multiplicator)-(((dam2*dam_multiplicator)/100)*armah)
+//			bumped_into.apply_damage(dam2, BRUTE, BODY_ZONE_CHEST)
 
 		cost = cost*(10-min(9, dam_multiplicator))
 
-	if(cost > 0)
-		health = max(0, health-cost)
 	if(cost < 0)
+		health = max(0, health-cost)
+	if(cost > 0)
 		health = min(maxhealth, health-cost)
 
 	if(health == 0)
@@ -453,6 +456,11 @@ SUBSYSTEM_DEF(carpool)
 		var/obj/vampire_car/V = owner.loc
 		if(V.stage < 3)
 			V.stage = V.stage+1
+			if(V.stage == 3)
+				if(ishuman(owner))
+					var/mob/living/carbon/human/ohvampire = owner
+					if(ohvampire.MyPath)
+						ohvampire.MyPath.trigger_morality("highspeed")
 		else
 			V.stage = 1
 		to_chat(owner, "<span class='notice'>You enable [V]'s transmission at [V.stage].</span>")
@@ -588,11 +596,13 @@ SUBSYSTEM_DEF(carpool)
 /obj/vampire_car/Bump(atom/A)
 	if(!A)
 		return
-	var/prev_speed = round(abs(speed_in_pixels)/8)
+	var/prev_speed = round(abs(speed_in_pixels))
 	if(!prev_speed)
 		return
 	if(istype(A, /mob/living))
 		var/mob/living/hit_mob = A
+		var/impact_protection = hit_mob.run_armor_check(BODY_ZONE_CHEST, LETHAL)
+		hit_mob.adjustBruteLoss(round((prev_speed/100)*(100-impact_protection)), TRUE, TRUE)
 		switch(hit_mob.mob_size)
 			if(MOB_SIZE_HUGE) 	//gangrel warforms, werewolves, bears, ppl with fortitude
 				playsound(src, 'code/modules/wod13/sounds/bump.ogg', 75, TRUE)
@@ -618,6 +628,10 @@ SUBSYSTEM_DEF(carpool)
 	if(driver && istype(A, /mob/living/carbon/human/npc))
 		var/mob/living/carbon/human/npc/NPC = A
 		NPC.Aggro(driver, TRUE)
+		if(ishuman(driver))
+			var/mob/living/carbon/human/ryangosling = driver
+			if(ryangosling.MyPath)
+				ryangosling.MyPath.trigger_morality("attackfirst")
 	last_pos["x_pix"] = 0
 	last_pos["y_pix"] = 0
 	for(var/mob/living/L in src)

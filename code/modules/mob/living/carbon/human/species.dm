@@ -1370,6 +1370,25 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
 
+	if(user.MyPath && user != target)
+		user.MyPath.trigger_morality("attackfirst")
+
+	if(target.MyPath && user != target && !target.warform)
+		if(target.MyPath.ready_events["attacked"] == 0 && target.MyPath.ready_events["attackedfail"] == 0)
+			if(secret_vampireroll(target.MyPath.courage, get_a_intimidation(user)+2, target, TRUE, FALSE) > 2)
+				target.MyPath.trigger_morality("attacked")
+			else
+				target.MyPath.trigger_morality("attackedfail")
+				target.caster = user
+				var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+				for(var/i in 1 to 20)
+					addtimer(cb, (i - 1)*target.total_multiplicative_slowdown())
+//				target.emote("scream")
+				target.do_jitter_animation(30)
+			spawn(10 MINUTES)
+				target.MyPath.ready_events["attacked"] = 0
+				target.MyPath.ready_events["attackedfail"] = 0
+
 	var/add_hard = 0
 	if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 		add_hard = 1
@@ -1378,7 +1397,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		add_hard = 3
 
-	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6+add_hard, user)
+	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 4+add_hard, user)
 	var/atk_verb = user.dna.species.attack_verb
 	if(modifikator == -1)
 		target = user
@@ -1429,8 +1448,8 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			miss_chance = 0
 
 		var/my_dodge_chances = get_a_dexterity(target)+get_a_alertness(target)-target.getarmor(user.zone_selected, LETHAL)
-		if(my_dodge_chances && target.stat == 0)
-			if(secret_vampireroll(my_dodge_chances, 6+target.get_health_difficulty(), target, TRUE) >= 2)
+		if(my_dodge_chances && target.stat == 0 && target.body_position == STANDING_UP && user.dir != target.dir)
+			if(secret_vampireroll(my_dodge_chances, 6+target.get_health_difficulty(), target, TRUE) >= 3)
 				var/matrix/initial_transform = matrix(target.transform)
 				var/matrix/rotated_transform = target.transform.Turn(pick(-15, 15))
 				animate(target, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
@@ -1555,6 +1574,27 @@ GLOBAL_LIST_EMPTY(selectable_races)
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	// Allows you to put in item-specific reactions based on species
+	if(ishuman(user))
+		var/mob/living/carbon/human/ohvampire = user
+		if(ohvampire.MyPath && user != H && I.force > 5)
+			ohvampire.MyPath.trigger_morality("attackfirst")
+
+	if(H.MyPath && user != H && !H.warform)
+		if(H.MyPath.ready_events["attacked"] == 0 && H.MyPath.ready_events["attackedfail"] == 0)
+			if(secret_vampireroll(H.MyPath.courage, get_a_intimidation(user)+2, H, TRUE, FALSE) > 2)
+				H.MyPath.trigger_morality("attacked")
+			else
+				H.MyPath.trigger_morality("attackedfail")
+				H.caster = user
+				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+				for(var/i in 1 to 20)
+					addtimer(cb, (i - 1)*H.total_multiplicative_slowdown())
+//				H.emote("scream")
+				H.do_jitter_animation(30)
+			spawn(10 MINUTES)
+				H.MyPath.ready_events["attacked"] = 0
+				H.MyPath.ready_events["attackedfail"] = 0
+
 	var/add_hard = 0
 	if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 		add_hard = 1
@@ -1566,7 +1606,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 	if(I.attack_diff_override > 0)
 		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user), I.attack_diff_override, user)
 	else
-		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user), 6+add_hard, user)
+		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user), 4+add_hard, user)
 	if(modifikator == -1)
 		user.visible_message("<span class='warning'>[user] slips, trying to swing [I]!</span>", \
 						"<span class='userdanger'>You slip, trying to swing [I]!</span>")
@@ -1598,8 +1638,8 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		damagtype = AGGRAVATED
 
 	var/my_dodge_chances = get_a_dexterity(H)+get_a_alertness(H)-H.getarmor(def_zone, LETHAL)
-	if(my_dodge_chances && H.stat == 0)
-		if(secret_vampireroll(my_dodge_chances, 7+H.get_health_difficulty(), H, TRUE) >= 2)
+	if(my_dodge_chances && H.stat == 0 && H.body_position == STANDING_UP && user.dir != H.dir)
+		if(secret_vampireroll(my_dodge_chances, 6+H.get_health_difficulty(), H, TRUE) >= 3)
 			var/matrix/initial_transform = matrix(H.transform)
 			var/matrix/rotated_transform = H.transform.Turn(pick(-15, 15))
 			animate(H, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
@@ -2080,6 +2120,8 @@ GLOBAL_LIST_EMPTY(selectable_races)
 	if(!CanIgniteMob(H))
 		return TRUE
 	if(H.on_fire)
+		if(H.MyPath)
+			H.MyPath.trigger_morality("onfire")
 		//the fire tries to damage the exposed clothes and items
 		var/list/burning_items = list()
 		var/obscured = H.check_obscured_slots(TRUE)

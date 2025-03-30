@@ -62,6 +62,8 @@
 						to_chat(src, "<span class='userhelp'><b>HUMANITY INCREASED!</b></span>")
 
 	var/datum/preferences/P = GLOB.preferences_datums[ckey(key)]
+	if(MyPath)
+		MyPath.dot = humanity
 	if(P)
 		if(P.humanity != humanity)
 			P.humanity = humanity

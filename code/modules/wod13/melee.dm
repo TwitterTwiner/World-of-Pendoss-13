@@ -17,7 +17,7 @@
 	name = "brass knuckles"
 	desc = "Lethaly efficient brawl weapon."
 	force = 20
-	attack_diff_override = 4
+	attack_diff_override = 2
 	lefthand_file = 'code/modules/wod13/righthand.dmi'
 	righthand_file = 'code/modules/wod13/lefthand.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
@@ -28,7 +28,7 @@
 	icon_state = "kastet_s"
 	name = "brass knuckles"
 	force = 35
-	attack_diff_override = 5
+	attack_diff_override = 3
 	sharpness = SHARP_EDGED
 
 /obj/item/melee/vampirearms/sledgehammer

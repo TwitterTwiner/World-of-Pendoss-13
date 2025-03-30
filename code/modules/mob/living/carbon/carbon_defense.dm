@@ -463,6 +463,13 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
+		if(ishuman(src))
+			var/mob/living/carbon/human/ohvampire = src
+			if(ohvampire.MyPath)
+				if(human.Myself?.Lover?.owner == src)
+					ohvampire.MyPath.trigger_morality("lovermeet")
+				if(human.Myself?.Friend?.owner == src)
+					ohvampire.MyPath.trigger_morality("friendmeet")
 		if(human.Myself?.Lover?.owner == src)
 			call_dharma("meet", M)
 			if(!human.Myself.got_lovero)
@@ -470,7 +477,7 @@
 				if(M.key)
 					var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
 					if(P)
-						P.add_experience(3)
+						P.add_experience(2)
 		if(human.Myself?.Friend?.owner == src)
 			call_dharma("meet", M)
 			if(!human.Myself.got_friendo)
@@ -478,7 +485,7 @@
 				if(M.key)
 					var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
 					if(P)
-						P.add_experience(3)
+						P.add_experience(2)
 
 	if(body_position == LYING_DOWN)
 		if(buckled)

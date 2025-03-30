@@ -151,7 +151,7 @@
 				continue
 			if(L.resistant_to_disciplines)
 				continue
-			if(secret_vampireroll(max(get_a_charisma(user), get_a_manipulation(user), get_a_appearance(user))+get_a_empathy(user), get_a_wits(L)+2, L) >= 3)
+			if(secret_vampireroll(max(get_a_charisma(user), get_a_manipulation(user), get_a_appearance(user))+get_a_empathy(user), get_a_willpower(L), L) >= 3)
 				continue
 			listeners += L
 

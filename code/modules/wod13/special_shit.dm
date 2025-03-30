@@ -112,6 +112,10 @@
 			return
 	feeding = TRUE
 	if(do_mob(user, src, 3 SECONDS))
+		if(ishuman(M))
+			var/mob/living/carbon/human/ohvampire = M
+			if(ohvampire.MyPath)
+				ohvampire.MyPath.trigger_morality("packetdrink")
 		feeding = FALSE
 		var/obj/item/drinkable_bloodpack/empty/R = new /obj/item/drinkable_bloodpack/empty(user.loc)
 		src.Destroy()

@@ -1141,17 +1141,12 @@
 
 /datum/chi_discipline/hellweaving/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
-	var/mypower = secret_vampireroll(max(get_a_strength(caster), get_a_manipulation(caster))+get_a_intimidation(caster), 6, caster)
+	var/mypower = secret_vampireroll(max(get_a_strength(caster), get_a_manipulation(caster))+get_a_intimidation(caster), get_a_willpower(target), caster)
 	if(mypower < 1)
 		to_chat(caster, "<span class='warning'>You fail at hellweaving!</span>")
 		if(mypower == -1)
 			caster.Stun(3 SECONDS)
 			caster.do_jitter_animation(10)
-		return
-	var/difficulty = 4+mypower
-	var/theirpower = secret_vampireroll(get_a_wits(target)+get_a_alertness(target), difficulty, target)
-	if(theirpower >= 2)
-		to_chat(caster, "<span class='warning'>[target]'s mind is too powerful to hellweave!</span>")
 		return
 	switch(level_casting)
 		if(1)
@@ -1244,17 +1239,12 @@
 			sound_gender = 'code/modules/wod13/sounds/kiai_female.ogg'
 	caster.emote("scream")
 	playsound(caster.loc, sound_gender, 100, FALSE)
-	var/mypower = secret_vampireroll(max(get_a_strength(caster), get_a_manipulation(caster))+get_a_intimidation(caster), 6, caster)
+	var/mypower = secret_vampireroll(max(get_a_strength(caster), get_a_manipulation(caster))+get_a_intimidation(caster), get_a_willpower(target), caster)
 	if(mypower < 1)
 		to_chat(caster, "<span class='warning'>You fail at screaming!</span>")
 		if(mypower == -1)
 			caster.Stun(3 SECONDS)
 			caster.do_jitter_animation(10)
-		return
-	var/difficulty = 4+mypower
-	var/theirpower = secret_vampireroll(get_a_wits(target)+get_a_alertness(target), difficulty, target)
-	if(theirpower >= 2)
-		to_chat(caster, "<span class='warning'>[target]'s mind is too powerful to battlescream!</span>")
 		return
 	switch(level_casting)
 		if(1)

@@ -60,6 +60,24 @@
 		if(CheckEyewitness(src, src, 7, FALSE))
 			AdjustMasquerade(-1)
 	if(do_after(src, 30, target = mob, timed_action_flags = NONE, progress = FALSE))
+		if(!iscarbon(mob))
+			if(istype(mob, /mob/living/simple_animal/pet/rat))
+				if(MyPath)
+					MyPath.trigger_morality("ratdrink")
+			else
+				if(MyPath)
+					MyPath.trigger_morality("animaldrink")
+		else
+			switch(mob.bloodquality)
+				if(BLOOD_QUALITY_HIGH)
+					if(MyPath)
+						MyPath.trigger_morality("gooddrink")
+				if(BLOOD_QUALITY_LOW)
+					if(MyPath)
+						MyPath.trigger_morality("baddrink")
+				if(BLOOD_QUALITY_NORMAL)
+					if(MyPath)
+						MyPath.trigger_morality("firstfeed")
 		mob.bloodpool = max(0, mob.bloodpool-1)
 		suckbar.icon_state = "[round(14*(mob.bloodpool/mob.maxbloodpool))]"
 		if(ishuman(mob))
@@ -131,6 +149,7 @@
 							trauma.friend.key = K.key
 						mob.death()
 						if(P2)
+							P2.reset_character()
 							P2.reason_of_death =  "Diablerized by [true_real_name ? true_real_name : real_name] ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 						adjustBruteLoss(-50, TRUE)
 						adjustFireLoss(-50, TRUE)
@@ -144,7 +163,7 @@
 							log_attack("[key_name(src)] tried to Diablerize [key_name(mob)] and was overtaken.")
 							death()
 							if(P)
-//								P.reset_character()
+								P.reset_character()
 								P.reason_of_death = "Failed the Diablerie ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 //							ghostize(FALSE)
 //							key = K.key
@@ -159,15 +178,17 @@
 								P.diablerist = 1
 								P.generation_bonus = generation-mob.generation
 								generation = mob.generation
+//								P.generation = mob.generation
 							diablerist = 1
 //							if(P2)
 //								P2.reset_character()
-							maxHealth = initial(maxHealth)+max(0, 50*(13-generation))
-							health = initial(health)+max(0, 50*(13-generation))
+//							maxHealth = initial(maxHealth)+max(0, 50*(13-generation))
+//							health = initial(health)+max(0, 50*(13-generation))
 							var/datum/brain_trauma/special/imaginary_friend/trauma = gain_trauma(/datum/brain_trauma/special/imaginary_friend)
 							trauma.friend.key = K.key
 							mob.death()
 							if(P2)
+								P2.reset_character()
 								P2.reason_of_death = "Diablerized by [true_real_name ? true_real_name : real_name] ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 					if(client)
 						client.images -= suckbar
@@ -188,7 +209,10 @@
 					SEND_SOUND(src, sound('code/modules/wod13/sounds/feed_failed.ogg', 0, 0, 75))
 					to_chat(src, "<span class='warning'>This sad sacrifice for your own pleasure affects something deep in your mind.</span>")
 					AdjustMasquerade(-1)
-					AdjustHumanity(-1, 0)
+					if(MyPath)
+						MyPath.trigger_morality("drying")
+					else
+						AdjustHumanity(-1, 0)
 					mob.death()
 			if(!ishuman(mob))
 				if(mob.stat != DEAD)

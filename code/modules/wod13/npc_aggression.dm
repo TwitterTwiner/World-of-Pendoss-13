@@ -12,7 +12,7 @@
 	if(CheckMove(hardlock = TRUE))
 		return
 	if(danger_source != M)
-		var/theirpower = secret_vampireroll(max(get_a_manipulation(M), get_a_strength(M))+get_a_intimidation(M), get_a_wits(src)+2, M, TRUE)
+		var/theirpower = secret_vampireroll(max(get_a_manipulation(M), get_a_strength(M))+get_a_intimidation(M), get_a_willpower(src), M, TRUE)
 		if(theirpower == -1)
 			fights_anyway = TRUE
 			if(!my_weapon)

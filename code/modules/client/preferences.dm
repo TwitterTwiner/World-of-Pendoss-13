@@ -257,6 +257,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/Linguistics = 0
 	var/Occult = 0
 
+	var/consience = 4
+	var/selfcontrol = 3
+	var/courage = 3
+
 	var/old_enough_to_get_exp = FALSE
 
 /datum/preferences/proc/add_experience(amount)
@@ -500,13 +504,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<b>Species:</b><BR><a href='?_src_=prefs;preference=species;task=input'>[pref_species.name]</a><BR>"
 			if(pref_species.name == "Vampire")
-				dat += "<b>Path of [enlightenment ? "Enlightenment" : "Humanity"]:</b> [humanity]/10"
+//				dat += "<b>Path of [enlightenment ? "Enlightenment" : "Humanity"]:</b> [humanity]/10"
+				dat += "<b>Humanity:</b> [humanity]/10"
 				//if(SSwhitelists.is_whitelisted(parent.ckey, "enlightenment") && !slotlocked)
 				if ((true_experience >= (humanity * 2)) && (humanity < 10))
-					dat += " <a href='?_src_=prefs;preference=path;task=input'>Increase [enlightenment ? "Enlightenment" : "Humanity"] ([humanity * 2])</a>"
+					dat += " <a href='?_src_=prefs;preference=path;task=input'>Restore Humanity ([humanity * 2])</a>"
 				dat += "<br>"
-				if(!slotlocked)
-					dat += "<a href='?_src_=prefs;preference=pathof;task=input'>Switch Path</a><BR>"
+				dat += "Consience: [consience]/5 <a href='?_src_=prefs;preference=consience;task=input'>Adjust</a><br>"
+				dat += "Self-Control: [selfcontrol]/5 <a href='?_src_=prefs;preference=selfcontrol;task=input'>Adjust</a><br>"
+				dat += "Courage: [courage]/5 <a href='?_src_=prefs;preference=courage;task=input'>Adjust</a><br>"
+//				if(!slotlocked)
+//					dat += "<a href='?_src_=prefs;preference=pathof;task=input'>Switch Path</a><BR>"
 			if(pref_species.name == "Kuei-Jin")
 				var/datum/dharma/D = new dharma_type()
 				dat += "<b>Dharma:</b> [D.name] [dharma_level]/6 <a href='?_src_=prefs;preference=dharmatype;task=input'>Switch</a><BR>"
@@ -2557,6 +2565,30 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(result)
 						languages += result
 
+				if("consience")
+					if (alert("Are you sure you want to change your Virtues? This will reset your Humanity.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/result = input(user, "Adjust Consience (1 to [min(5, 9-(selfcontrol+courage))])", "Consience") as null|num
+					result = clamp(result, 1, min(5, 10-(selfcontrol+courage)))
+					consience = result
+					humanity = consience+selfcontrol
+
+				if("selfcontrol")
+					if (alert("Are you sure you want to change your Virtues? This will reset your Humanity.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/result = input(user, "Adjust Self-Control (1 to [min(5, 9-(consience+courage))])", "Self-Control") as null|num
+					result = clamp(result, 1, min(5, 10-(consience+courage)))
+					selfcontrol = result
+					humanity = consience+selfcontrol
+
+				if("courage")
+					if (alert("Are you sure you want to change your Virtues? This will reset your Humanity.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/result = input(user, "Adjust Courage (1 to [min(5, 9-(consience+selfcontrol))])", "Courage") as null|num
+					result = clamp(result, 1, min(5, 10-(consience+selfcontrol)))
+					courage = result
+					humanity = consience+selfcontrol
+
 				if("dharmarise")
 					if ((true_experience < 20) || (dharma_level >= 6) || !(pref_species.id == "kuei-jin"))
 						return
@@ -3330,7 +3362,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.generation = generation-generation_bonus
 		character.max_yin_chi = character.maxbloodpool
 		character.yin_chi = character.max_yin_chi
-		character.clane.enlightenment = enlightenment
+		character.clane.enlightenment = FALSE
+		character.MyPath = new /datum/morality_path/humanity()
+		character.MyPath.dot = humanity
+		character.MyPath.willpower = humanity
+		character.MyPath.owner = character
+		character.MyPath.consience = consience
+		character.MyPath.selfcontrol = selfcontrol
+		character.MyPath.courage = courage
 	else
 		character.clane = null
 		character.generation = 13

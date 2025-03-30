@@ -85,7 +85,7 @@
 			if (LAZYLEN(buckled_mobs))
 				if (user.a_intent == INTENT_HARM)
 					user.visible_message("<span class='warning'>[user] begins to pull the lever!</span>",
-						                 "<span class='warning'>You begin to the pull the lever.</span>")
+										"<span class='warning'>You begin to the pull the lever.</span>")
 					current_action = GUILLOTINE_ACTION_INUSE
 
 					if (do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)
@@ -136,12 +136,12 @@
 						else
 							to_chat(M, "<span class='userhelp'><b>Violator was punished</b></span>")
 							if(P1)
-								P1.add_experience(3)
+								P1.add_experience(5)
 					if(H.diablerist)
 						if(M.vampire_faction == "Camarilla")
 							to_chat(M, "<span class='userhelp'><b>Diablerist was punished</b></span>")
 							if(P1)
-								P1.add_experience(3)
+								P1.add_experience(5)
 						else if(M.vampire_faction)
 							loved = FALSE
 							to_chat(M, "<span class='userdanger'><b>You feel your interests being ignored</b></span>")
@@ -149,7 +149,7 @@
 						if(M.vampire_faction == "Camarilla")
 							to_chat(M, "<span class='userhelp'><b>Blood Hunt after [H] is over</b></span>")
 							if(P1)
-								P1.add_experience(3)
+								P1.add_experience(5)
 						else if(M.vampire_faction)
 							loved = FALSE
 							to_chat(M, "<span class='userdanger'><b>You feel your interests being ignored</b></span>")
@@ -158,7 +158,7 @@
 							to_chat(M, "<span class='userhelp'><b>Authority increased</b></span>")
 							loved = TRUE
 							if(P1)
-								P1.add_experience(3)
+								P1.add_experience(5)
 					if(loved)
 						M.emote("clap")
 			var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]
@@ -203,7 +203,7 @@
 				if(do_after(user, 7, target = src))
 					blade_status = GUILLOTINE_BLADE_RAISED
 					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
-						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
+											"<span class='notice'>You sharpen the large blade of the guillotine.</span>")
 					blade_sharpness += 1
 					playsound(src, 'sound/items/unsheath.ogg', 100, TRUE)
 					return

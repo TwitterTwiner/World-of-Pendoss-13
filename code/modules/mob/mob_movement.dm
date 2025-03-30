@@ -68,8 +68,6 @@
  * (if you ask me, this should be at the top of the move so you don't dance around)
  *
  */
-/mob/living/simple_animal/hostile
-	var/last_warform_move = 0
 
 /client/Move(n, direct)
 	if(world.time < move_delay) //do not move anything ahead of this check please
@@ -96,19 +94,6 @@
 		var/mob/living/carbon/human/H = mob
 		if(H.in_frenzy)
 			return FALSE
-		if(H.warform)
-			if(H.warform.warform.last_warform_move > world.time)
-				return FALSE
-			H.warform.warform.last_warform_move = world.time+H.total_multiplicative_slowdown()
-			H.warform.warform.set_glide_size(DELAY_TO_GLIDE_SIZE(H.total_multiplicative_slowdown()))
-			H.warform.warform.Move(get_step(H.warform.warform, direct), direct)
-			H.warform.warform.dir = direct
-			H.dir = direct
-			H.warform.warform.handle_gravity()
-			if(H.warform.warform.lying_angle != H.lying_angle)
-				var/matrix/Matrix = matrix()
-				Matrix.Turn(H.lying_angle)
-				animate(H.warform.warform, transform = Matrix, time = 5)
 	if(mob.force_moving)
 		return FALSE
 
@@ -524,11 +509,6 @@
 		to_chat(src, "<span class='notice'>You are not Superman.<span>")
 		return
 
-	if(ishuman(src))
-		var/mob/living/carbon/human/humane = src
-		if(humane.warform?.warform)
-			return
-
 	if(zMove(UP, TRUE))
 		to_chat(src, "<span class='notice'>You move upwards.</span>")
 
@@ -536,11 +516,6 @@
 /mob/verb/down()
 	set name = "Move Down"
 	set category = "IC"
-
-	if(ishuman(src))
-		var/mob/living/carbon/human/humane = src
-		if(humane.warform?.warform)
-			return
 
 	if(zMove(DOWN, TRUE))
 		to_chat(src, "<span class='notice'>You move down.</span>")

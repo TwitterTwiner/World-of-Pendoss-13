@@ -373,7 +373,7 @@
 	if(!H.is_holding_item_of_type(/obj/item/vamp/keys/hack))
 		return
 	var/message //So the code isn't flooded with . +=, it's just a visual thing
-	var/difference = get_a_dexterity(user)+get_a_security(user) - lockpick_difficulty //Lower number = higher difficulty
+	var/difference = max(get_a_wits(user), get_a_dexterity(user))+get_a_security(user) - lockpick_difficulty //Lower number = higher difficulty
 	switch(difference) //Because rand(1,20) always adds a minimum of 1 we take that into consideration for our theoretical roll ranges, which really makes it a random range of 19.
 		if(-INFINITY to -1) //Roll can never go above 10 (-11 + 20 = 9), impossible to lockpick.
 			message = "<span class='warning'>You don't have any chance of lockpicking this with your current skills!</span>"
@@ -498,7 +498,7 @@
 				if(P)
 					P.Aggro(user)
 			if(do_after(user, lockpick_timer, src))
-				var/roll = secret_vampireroll(get_a_dexterity(user)+get_a_security(user), lockpick_difficulty, user)
+				var/roll = secret_vampireroll(max(get_a_wits(user), get_a_dexterity(user))+get_a_security(user), lockpick_difficulty, user)
 				if(roll == -1)
 					to_chat(user, "<span class='warning'>Your lockpick broke!</span>")
 					qdel(W)
@@ -520,7 +520,7 @@
 		else
 			if (closed) //yes, this is a thing you can extremely easily do in real life
 				if(do_mob(user, src, lockpick_timer))
-					var/roll = secret_vampireroll(get_a_dexterity(user)+get_a_security(user), 5, user)
+					var/roll = secret_vampireroll(max(get_a_wits(user), get_a_dexterity(user))+get_a_security(user), 5, user)
 					if(roll == -1)
 						to_chat(user, "<span class='warning'>Your lockpick broke!</span>")
 						qdel(W)

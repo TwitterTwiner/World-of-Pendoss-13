@@ -616,7 +616,10 @@
 					SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK)
 					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "saved_life", /datum/mood_event/saved_life)
 					var/mob/living/carbon/human/HM = user
-					HM.AdjustHumanity(1, 10)
+					if(HM.MyPath)
+						HM.MyPath.trigger_morality("shockpaddles")
+					else
+						HM.AdjustHumanity(1, 10)
 					call_dharma("savelife", HM)
 					for(var/mob/living/carbon/human/hun in oviewers(7, user))
 						if(hun != H)

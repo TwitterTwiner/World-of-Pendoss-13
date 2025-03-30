@@ -448,7 +448,7 @@
 	if(client)
 		for(var/mob/living/L in newloc)
 			if(L)
-				if(CanAttack(L) && !warform)
+				if(CanAttack(L))
 					ClickOn(L)
 					return
 	if(dodging && approaching_target && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc))

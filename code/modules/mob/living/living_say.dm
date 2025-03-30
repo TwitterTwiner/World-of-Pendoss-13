@@ -301,6 +301,9 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 //					var/datum/preferences/P = GLOB.preferences_datums[ckey(EX.key)]
 //					if(P)
 					EX.total_erp += length_char(message)
+					if(EX.total_erp > 4500)
+						if(EX.MyPath)
+							EX.MyPath.trigger_morality("talkenough")
 //						P.exper = min(calculate_mob_max_exper(EX), P.exper+kal)
 //						P.save_preferences()
 //						P.save_character()

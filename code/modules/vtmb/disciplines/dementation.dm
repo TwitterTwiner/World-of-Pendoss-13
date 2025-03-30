@@ -20,7 +20,7 @@
 	//5 - victim starts to attack themself
 	if(target.spell_immunity)
 		return
-	var/mypower = secret_vampireroll(max(get_a_manipulation(caster), get_a_intelligence(caster))+max(get_a_empathy(caster), get_a_intimidation(caster)), get_a_wits(target)+2, caster)
+	var/mypower = secret_vampireroll(get_a_wits(caster)+max(get_a_empathy(caster), get_a_intimidation(caster)), get_a_willpower(target), caster)
 	if(mypower < 3)
 		to_chat(caster, "<span class='warning'>You fail at corrupting!</span>")
 		caster.emote("stare")

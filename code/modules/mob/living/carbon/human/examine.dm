@@ -408,22 +408,23 @@
 
 		//examine text for unusual appearances
 		if (iskindred(src) && is_face_visible())
-			switch(clane.alt_sprite)
-				if ("nosferatu")
-					msg += "<span class='danger'><b>[p_they(TRUE)] look[p_s()] utterly deformed and inhuman!</b></span><br>"
-				if ("gargoyle")
-					msg += "<span class='danger'><b>[p_they(TRUE)] seem[p_s()] to be made out of stone!</b></span><br>"
-				if ("kiasyd")
-					if (!is_eyes_covered())
-						msg += "<span class='danger'><b>[p_they(TRUE)] [p_have()] no whites in [p_their()] eyes!<b></span><br>"
-				if ("rotten1")
-					msg += "[p_they(TRUE)] seem[p_s()] oddly gaunt.<br>"
-				if ("rotten2")
-					msg += "[p_they(TRUE)] [p_have()] a corpselike complexion.<br>"
-				if ("rotten3")
-					msg += "<span class='danger'><b>[p_they(TRUE)] [p_are()] a decayed corpse!</b></span><br>"
-				if ("rotten4")
-					msg += "<span class='danger'><b>[p_they(TRUE)] [p_are()] a skeletonised corpse!</b></span><br>"
+			if(clane)
+				switch(clane.alt_sprite)
+					if ("nosferatu")
+						msg += "<span class='danger'><b>[p_they(TRUE)] look[p_s()] utterly deformed and inhuman!</b></span><br>"
+					if ("gargoyle")
+						msg += "<span class='danger'><b>[p_they(TRUE)] seem[p_s()] to be made out of stone!</b></span><br>"
+					if ("kiasyd")
+						if (!is_eyes_covered())
+							msg += "<span class='danger'><b>[p_they(TRUE)] [p_have()] no whites in [p_their()] eyes!<b></span><br>"
+					if ("rotten1")
+						msg += "[p_they(TRUE)] seem[p_s()] oddly gaunt.<br>"
+					if ("rotten2")
+						msg += "[p_they(TRUE)] [p_have()] a corpselike complexion.<br>"
+					if ("rotten3")
+						msg += "<span class='danger'><b>[p_they(TRUE)] [p_are()] a decayed corpse!</b></span><br>"
+					if ("rotten4")
+						msg += "<span class='danger'><b>[p_they(TRUE)] [p_are()] a skeletonised corpse!</b></span><br>"
 
 		if(getorgan(/obj/item/organ/brain))
 			if(ai_controller?.ai_status == AI_STATUS_ON)
@@ -512,6 +513,10 @@
 
 	if(ishuman(user))
 		. += "<a href='?src=[REF(src)];masquerade=1'>Spot a Masquerade violation</a>"
+		var/mob/living/carbon/human/ohvampire = user
+		if(ohvampire.MyPath)
+			if(stat == DEAD)
+				ohvampire.MyPath.trigger_morality("deadexamine")
 	if(isobserver(user) || ishuman(user))
 		. += "<a href='?src=[REF(src)];headshot=1'>View headshot</a>"
 

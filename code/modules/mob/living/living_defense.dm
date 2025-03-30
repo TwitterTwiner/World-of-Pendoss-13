@@ -30,7 +30,7 @@
 				to_chat(src, "<span class='userdanger'>Your armor was penetrated!</span>")
 			return 0
 		else
-			var/armah = final_block*20
+			var/armah = final_block*15
 			if(armour_penetration)
 				if(penetrated_text)
 					to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")

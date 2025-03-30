@@ -374,7 +374,14 @@
 				call_dharma("desire", target)
 			if(istype(i, /datum/reagent/drug))
 				call_dharma("desire", target)
-
+	if(ishuman(target))
+		var/mob/living/carbon/human/ohvampire = target
+		if(ohvampire.MyPath)
+			for(var/i in reagent_list)
+				if(istype(i, /datum/reagent/consumable/ethanol))
+					ohvampire.MyPath.trigger_morality("gettingdrunk")
+				if(istype(i, /datum/reagent/drug))
+					ohvampire.MyPath.trigger_morality("gettinghigh")
 
 	var/atom/target_atom
 	var/datum/reagents/R

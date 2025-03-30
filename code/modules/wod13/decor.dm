@@ -684,7 +684,10 @@
 			if(starter)
 				if(ishuman(starter))
 					var/mob/living/carbon/human/H = starter
-					H.AdjustHumanity(-1, 0)
+					if(H.MyPath)
+						H.MyPath.trigger_morality("kill")
+					else
+						H.AdjustHumanity(-1, 0)
 		L.gib()
 	..()
 

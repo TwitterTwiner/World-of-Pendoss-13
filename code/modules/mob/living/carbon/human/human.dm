@@ -761,7 +761,10 @@
 			if(isnpc(target))
 				var/mob/living/carbon/human/npc/N = target
 				if(N.last_damager != src)
-					AdjustHumanity(1, 10)
+					if(MyPath)
+						MyPath.trigger_morality("cpr")
+					else
+						AdjustHumanity(1, 9)
 					call_dharma("savelife", src)
 					for(var/mob/living/carbon/human/hun in oviewers(7, src))
 						if(hun != target)

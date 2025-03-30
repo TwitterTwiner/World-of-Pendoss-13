@@ -23,6 +23,11 @@
 			really = TRUE
 	if(really)
 		user.total_cleaned += 1
+		if(user.total_cleaned > 25)
+			if(ishuman(user))
+				var/mob/living/carbon/human/ohvampire = user
+				if(ohvampire.MyPath)
+					ohvampire.MyPath.trigger_morality("cleanenough")
 //	if(ishuman(user))
 //		if(user.key)
 //			var/mob/living/carbon/human/H = user

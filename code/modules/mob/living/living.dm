@@ -1025,12 +1025,22 @@
 	if(do_mob(src, who, min(strip_delayed, what.strip_delay), interaction_key = what))
 		if(what && (Adjacent(who) || (enhanced_strip && (get_dist(src, who) <= 3))))
 			enhanced_strip = FALSE
+			if(ishuman(src) && ishuman(who))
+				var/mob/living/carbon/human/novampire = who
+				var/mob/living/carbon/human/ohvampire = src
+				if(novampire.stat == DEAD)
+					if(ohvampire.MyPath)
+						ohvampire.MyPath.trigger_morality("corpseitems")
 			if(ishuman(src) && isnpc(who))
 				var/mob/living/carbon/human/H = src
 				var/mob/living/carbon/human/NPC = who
-				if(NPC.stat < SOFT_CRIT)
+				var/area/A = get_area(src)
+				if(NPC.stat >= SOFT_CRIT || A.name != "Clinic")
 					if(istype(what, /obj/item/clothing) || istype(what, /obj/item/vamp/keys) || istype(what, /obj/item/stack/dollar))
-						H.AdjustHumanity(-1, 6)
+						if(H.MyPath)
+							H.MyPath.trigger_morality("robbery")
+						else
+							H.AdjustHumanity(-1, 6)
 						call_dharma("steal", H)
 			if(islist(where))
 				var/list/L = where

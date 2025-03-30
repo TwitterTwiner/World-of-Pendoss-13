@@ -34,6 +34,8 @@
 //Lower left, persistent menu
 #define ui_inventory "WEST:6,SOUTH:5"
 
+#define ui_announce "WEST+7:16,SOUTH+7:16"
+
 #define ui_full_inventory "WEST-4,SOUTH"
 
 //Middle left indicators
@@ -63,6 +65,7 @@
 #define ui_rest "WEST-4:15,SOUTH+3:24"
 #define ui_block "WEST-2:11,SOUTH+4:2"
 #define ui_movi "WEST-3:15,SOUTH+2:26"
+#define ui_will "WEST-3:15,SOUTH+3:24"
 #define ui_acti "WEST-3:16,SOUTH+1:16"
 #define ui_zonesel "WEST-4:16,SOUTH+1:16"
 #define ui_acti_alt "WEST-3:16,SOUTH+1:16"	//alternative intent switcher for when the interface is hidden (F12)

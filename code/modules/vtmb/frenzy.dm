@@ -26,29 +26,108 @@
 			to_chat(src, "I'm too <span class='danger'><b>AFRAID</b></span> to continue doing this. Rolling...")
 		SEND_SOUND(src, sound('code/modules/wod13/sounds/bloodneed.ogg', 0, 0, 50))
 		var/check
-		if(iscathayan(src))
-			check = vampireroll(max(1, mind.dharma.Hun), min(10, (mind.dharma.level*2)-max_demon_chi), src)
+		if(H.MyPath)
+			check = secret_vampireroll(H.MyPath.consience+H.MyPath.selfcontrol, 10-H.humanity, H, TRUE, FALSE)
+			switch(check)
+				if(-1)
+					enter_frenzymod()
+					if(iskindred(src))
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200*H.clane.frenzymod)
+					else
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200)
+					frenzy_hardness = 1
+					to_chat(src, "<span class='comradio'><b>CONSIENCE</b></span>+<span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Botch</span>")
+				if(0 to 2)
+					enter_frenzymod()
+					if(iskindred(src))
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100*H.clane.frenzymod)
+					else
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100)
+					frenzy_hardness = 1
+					to_chat(src, "<span class='comradio'><b>CONSIENCE</b></span>+<span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span>")
+				if(3 to INFINITY)
+					frenzy_hardness = min(10, frenzy_hardness+1)
+					to_chat(src, "<span class='comradio'><b>CONSIENCE</b></span>+<span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>[check] Successes</span>")
+		else
+			if(iscathayan(src))
+				check = vampireroll(max(1, mind.dharma.Hun), min(10, (mind.dharma.level*2)-max_demon_chi), src)
+			else
+				check = vampireroll(max(1, round(humanity/2)), min(frenzy_chance_boost, frenzy_hardness), src)
+			switch(check)
+				if(DICE_FAILURE)
+					enter_frenzymod()
+					if(iskindred(src))
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100*H.clane.frenzymod)
+					else
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100)
+					frenzy_hardness = 1
+				if(DICE_CRIT_FAILURE)
+					enter_frenzymod()
+					if(iskindred(src))
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200*H.clane.frenzymod)
+					else
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200)
+					frenzy_hardness = 1
+				if(DICE_CRIT_WIN)
+					frenzy_hardness = max(1, frenzy_hardness-1)
+				else
+					frenzy_hardness = min(10, frenzy_hardness+1)
+
+/mob/living/carbon/proc/rollrotshreck()
+	if(!iskindred(src))
+		return
+	if(client)
+		var/mob/living/carbon/human/H
+		if(ishuman(src))
+			H = src
+
+		to_chat(src, "There is <span class='danger'><b>FIRE</b></span> around me. The <span class='danger'><b>BEAST</b></span> is calling. Rolling...")
+
+		SEND_SOUND(src, sound('code/modules/wod13/sounds/bloodneed.ogg', 0, 0, 50))
+		var/check
+		if(H.MyPath)
+			check = secret_vampireroll(H.MyPath.courage+H.MyPath.selfcontrol, 10-H.humanity, H, TRUE, FALSE)
+			switch(check)
+				if(-1)
+					enter_frenzymod()
+					if(iskindred(src))
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200*H.clane.frenzymod)
+					else
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200)
+					frenzy_hardness = 1
+					to_chat(src, "<span class='sciradio'><b>COURAGE</b></span>+<span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Botch</span>")
+				if(0 to 2)
+					enter_frenzymod()
+					if(iskindred(src))
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100*H.clane.frenzymod)
+					else
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100)
+					frenzy_hardness = 1
+					to_chat(src, "<span class='sciradio'><b>COURAGE</b></span>+<span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span>")
+				if(3 to INFINITY)
+					frenzy_hardness = min(10, frenzy_hardness+1)
+					to_chat(src, "<span class='sciradio'><b>COURAGE</b></span>+<span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>[check] Successes</span>")
 		else
 			check = vampireroll(max(1, round(humanity/2)), min(frenzy_chance_boost, frenzy_hardness), src)
-		switch(check)
-			if(DICE_FAILURE)
-				enter_frenzymod()
-				if(iskindred(src))
-					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100*H.clane.frenzymod)
+			switch(check)
+				if(DICE_FAILURE)
+					enter_frenzymod()
+					if(iskindred(src))
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100*H.clane.frenzymod)
+					else
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100)
+					frenzy_hardness = 1
+				if(DICE_CRIT_FAILURE)
+					enter_frenzymod()
+					if(iskindred(src))
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200*H.clane.frenzymod)
+					else
+						addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200)
+					frenzy_hardness = 1
+				if(DICE_CRIT_WIN)
+					frenzy_hardness = max(1, frenzy_hardness-1)
 				else
-					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100)
-				frenzy_hardness = 1
-			if(DICE_CRIT_FAILURE)
-				enter_frenzymod()
-				if(iskindred(src))
-					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200*H.clane.frenzymod)
-				else
-					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200)
-				frenzy_hardness = 1
-			if(DICE_CRIT_WIN)
-				frenzy_hardness = max(1, frenzy_hardness-1)
-			else
-				frenzy_hardness = min(10, frenzy_hardness+1)
+					frenzy_hardness = min(10, frenzy_hardness+1)
 
 /mob/living/carbon/proc/enter_frenzymod()
 	if(in_frenzy)

@@ -387,6 +387,41 @@
 		return
 	user.toggle_move_intent(user)
 
+/atom/movable/screen/will_power
+	name = "Use Willpower"
+	icon = 'icons/hud/screen_midnight.dmi'
+	icon_state = "will0"
+
+/atom/movable/screen/will_power/Click()
+	if(ishuman(usr))
+		var/mob/living/carbon/human/ohvampire = usr
+		if(ohvampire.MyPath)
+			if(icon_state != "will1")
+				if(!ohvampire.MyPath.willpower)
+					to_chat(usr, "<span class='warning'>You don't have any willpower.</span>")
+					return
+				ohvampire.MyPath.willpower = max(0, ohvampire.MyPath.willpower-1)
+				to_chat(usr, "<span class='notice'>You spend 1 dot of your willpower, and now will get best roll results for 1 minute. [ohvampire.MyPath.willpower] willpower dots remain.</span>")
+				icon_state = "will1"
+				ohvampire.willpower_auto = TRUE
+				spawn(1 MINUTES)
+					to_chat(usr, "<span class='warning'>You no longer feel the willpower inside. [ohvampire.MyPath.willpower] willpower dots remain.</span>")
+					icon_state = "will0"
+					ohvampire.willpower_auto = FALSE
+		else if(ohvampire.mind?.dharma)
+			if(icon_state != "will1")
+				if(!ohvampire.mind.dharma.willpower)
+					to_chat(usr, "<span class='warning'>You don't have any willpower.</span>")
+					return
+				ohvampire.mind.dharma.willpower = max(0, ohvampire.mind.dharma.willpower-1)
+				to_chat(usr, "<span class='notice'>You spend 1 dot of your willpower, and now will get best roll results for 1 minute. [ohvampire.mind.dharma.willpower] willpower dots remain.</span>")
+				icon_state = "will1"
+				ohvampire.willpower_auto = TRUE
+				spawn(1 MINUTES)
+					to_chat(usr, "<span class='warning'>You no longer feel the willpower inside. [ohvampire.mind.dharma.willpower] willpower dots remain.</span>")
+					icon_state = "will0"
+					ohvampire.willpower_auto = FALSE
+
 /atom/movable/screen/pull
 	name = "stop pulling"
 	icon = 'icons/hud/screen_midnight.dmi'

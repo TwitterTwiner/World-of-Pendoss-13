@@ -14,7 +14,7 @@
 	if(iscathayan(target))
 		if(target.mind.dharma?.Po == "Legalist")
 			target.mind.dharma?.roll_po(caster, target)
-	var/mypower = secret_vampireroll(max(get_a_charisma(caster), get_a_appearance(caster))+get_a_empathy(caster), get_a_wits(target)+2, caster)
+	var/mypower = secret_vampireroll(max(get_a_charisma(caster), get_a_appearance(caster))+get_a_empathy(caster), get_a_willpower(target), caster)
 	if(mypower < 3)
 		to_chat(caster, "<span class='warning'>You fail at sway!</span>")
 		caster.emote("stare")

@@ -73,6 +73,12 @@
 	static_noise.alpha = 6
 	static_inventory += static_noise
 
+	ui_announcement = new /atom/movable/screen()
+	ui_announcement.mouse_opacity = 0
+	ui_announcement.screen_loc = ui_announce
+//	static_noise.color = 255
+	static_inventory += ui_announcement
+
 	if(isgarou(owner))
 		transform_werewolf = new /atom/movable/screen/transform_lupus()
 		transform_werewolf.screen_loc = ui_werewolf_lupus
@@ -148,6 +154,13 @@
 	using.screen_loc = ui_movi
 	using.hud = src
 	static_inventory += using
+
+	if(iskindred(owner) || iscathayan(owner))
+		using = new /atom/movable/screen/will_power
+		using.icon = 'code/modules/wod13/UI/buttons32.dmi'
+		using.screen_loc = ui_will
+		using.hud = src
+		static_inventory += using
 
 	using = new /atom/movable/screen/drop()
 	using.icon = 'code/modules/wod13/UI/buttons_wide.dmi'
@@ -416,6 +429,11 @@
 	zone_icon.screen_loc = ui_vtm_zone
 	zone_icon.hud = src
 	static_inventory += zone_icon
+
+	secret_zone_icon = new /atom/movable/screen()
+	secret_zone_icon.screen_loc = ui_vtm_zone
+	secret_zone_icon.hud = src
+	static_inventory += secret_zone_icon
 
 	pull_icon = new /atom/movable/screen/pull()
 	pull_icon.icon = 'code/modules/wod13/UI/buttons_wide.dmi'

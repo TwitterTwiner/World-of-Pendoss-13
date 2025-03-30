@@ -54,6 +54,25 @@
 
 
 /mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
+	if(ishuman(P.firer))
+		var/mob/living/carbon/human/ohvampire = P.firer
+		if(ohvampire.MyPath && P.firer != src)
+			ohvampire.MyPath.trigger_morality("attackfirst")
+	if(MyPath && src != P.firer && !warform)
+		if(MyPath.ready_events["attacked"] == 0 && MyPath.ready_events["attackedfail"] == 0)
+			if(secret_vampireroll(MyPath.courage, 3, src, TRUE, FALSE) > 2)
+				MyPath.trigger_morality("attacked")
+			else
+				if(MyPath.trigger_morality("attackedfail"))
+					caster = P.firer
+					var/datum/cb = CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+					for(var/i in 1 to 20)
+						addtimer(cb, (i - 1)*total_multiplicative_slowdown())
+//					emote("scream")
+					do_jitter_animation(30)
+			spawn(10 MINUTES)
+				MyPath.ready_events["attacked"] = 0
+				MyPath.ready_events["attackedfail"] = 0
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCK_PROJECTILES) && !HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		if(prob(75))
 			src.visible_message("<span class='danger'>[src] effortlessly swats the projectile aside! [p_they(TRUE)] can block bullets with [p_their()] bare hands!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
@@ -63,8 +82,8 @@
 			emote("flip")
 			return BULLET_ACT_FORCE_PIERCE
 	var/my_dodge_chances = get_a_dexterity(src)+get_a_alertness(src)-getarmor(def_zone, LETHAL)
-	if(my_dodge_chances && stat == 0)
-		if(secret_vampireroll(my_dodge_chances, 7+get_health_difficulty()+1-body_position, src, TRUE) >= 2)
+	if(my_dodge_chances && stat == 0 && body_position == STANDING_UP && get_dist(src, P.firer) >= 3 && angle2dir_cardinal(P.original_angle) != dir)
+		if(secret_vampireroll(my_dodge_chances, 6+get_health_difficulty(), src, TRUE) >= 3)
 			var/matrix/initial_transform = matrix(transform)
 			var/matrix/rotated_transform = transform.Turn(pick(-15, 15))
 			animate(src, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
@@ -359,7 +378,7 @@
 	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 	if(!affecting)
 		affecting = get_bodypart(BODY_ZONE_CHEST)
-	var/modifikator = secret_vampireroll(get_a_strength(M)+get_a_brawl(M), 6, M)
+	var/modifikator = secret_vampireroll(get_a_strength(M)+get_a_brawl(M), 4, M)
 	if(modifikator <= 0)
 		M.visible_message("<span class='warning'>[M] fails to attack [src]!</span>", \
 						"<span class='userdanger'>You fail to attack [src]!</span>")

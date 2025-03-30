@@ -245,6 +245,20 @@
 	if(thrown_thing)
 		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 		var/turf/end_T = get_turf(target)
+		var/list/turfline = get_line(start_T, end_T)
+		var/turf/open/openspace/O = locate() in turfline
+		if(O)
+			if(ishuman(src))
+				var/mob/living/carbon/human/ohvampire = src
+				if(ohvampire.MyPath)
+					var/courage_rolls = secret_vampireroll(ohvampire.MyPath.courage, 6, ohvampire, TRUE, FALSE)
+					if(courage_rolls < 2)
+						ohvampire.MyPath.trigger_morality("jumpfail")
+						Stun(20, TRUE)
+						to_chat(src, "<span class='notice'>You hesitate to jump.")
+						return
+					else
+						ohvampire.MyPath.trigger_morality("jumpsuccess")
 		if(start_T && end_T)
 			log_combat(src, thrown_thing, "jumped", addition="from tile in [AREACOORD(start_T)] towards tile at [AREACOORD(end_T)]")
 		var/power_throw = 0

@@ -483,7 +483,7 @@
 		update_icon()
 	if(prob(25))
 		new /obj/effect/decal/asphalt(src)
-	set_light(1, 0.5, "#a4b7ff")
+	set_light(1, 0.2, "#a4b7ff")
 
 /turf/open/floor/plating/asphalt/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -521,7 +521,7 @@
 /turf/open/floor/plating/sidewalkalt/Initialize()
 	. = ..()
 	icon_state = "sidewalk_alt[rand(1, 4)]"
-	set_light(1, 0.5, "#a4b7ff")
+	set_light(1, 0.2, "#a4b7ff")
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -554,7 +554,7 @@
 	if(brokenwalk)
 		if(prob(5))
 			icon_state = "brokenwalk[rand(1, 3)]"
-	set_light(1, 0.5, "#a4b7ff")
+	set_light(1, 0.2, "#a4b7ff")
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -740,7 +740,7 @@
 
 /turf/open/floor/plating/vampgrass/Initialize()
 	..()
-	set_light(1, 0.5, "#a4b7ff")
+	set_light(1, 0.2, "#a4b7ff")
 	icon_state = "grass[rand(1, 3)]"
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
@@ -818,7 +818,7 @@
 
 /turf/open/floor/plating/vampdirt/Initialize()
 	. = ..()
-	set_light(1, 0.5, "#a4b7ff")
+	set_light(1, 0.2, "#a4b7ff")
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -1082,7 +1082,7 @@
 
 /turf/open/floor/plating/vampwood/Initialize()
 	..()
-	set_light(1, 0.5, "#a4b7ff")
+	set_light(1, 0.2, "#a4b7ff")
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -1147,7 +1147,7 @@
 /turf/open/floor/plating/vampbeach/Initialize()
 	..()
 	icon_state = "sand[rand(1, 4)]"
-	set_light(1, 0.5, "#a4b7ff")
+	set_light(1, 0.2, "#a4b7ff")
 	if(GLOB.winter)
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -1183,7 +1183,7 @@
 //	var/myy = 0
 	color = "#414141"
 	icon_state = "[(x - 1) % 5],[(y - 1) % 2]"
-	set_light(1, 0.5, "#a4b7ff")
+	set_light(1, 0.2, "#a4b7ff")
 
 /turf/open/floor/plating/vampacid
 	gender = PLURAL

@@ -389,7 +389,10 @@ Dancer
 				if(J.active)
 					if(ishuman(owner))
 						var/mob/living/carbon/human/human = owner
-						human.AdjustHumanity(1, 8)
+						if(human.MyPath)
+							human.MyPath.trigger_morality("dance")
+						else
+							human.AdjustHumanity(1, 8)
 						last_added_humanity = world.time
 
 /datum/quirk/dwarf
