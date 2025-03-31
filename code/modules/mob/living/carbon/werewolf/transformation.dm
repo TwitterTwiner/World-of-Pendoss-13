@@ -254,8 +254,8 @@
 		warform.attributes.dexterity_bonus = 3
 		warform.attributes.stamina_bonus = 3
 	warform.warform = src
-	warform.mind?.language_holder = new ()
-	warform.mind?.language_holder.copy_languages(lange)
+//	warform.mind?.language_holder = new ()
+//	warform.mind?.language_holder.copy_languages(lange)
 	if(masquerady)
 		warform.my_creator = owner
 	owner.warform = src
