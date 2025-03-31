@@ -673,7 +673,6 @@
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "numb", /datum/mood_event/narcotic_medium, name)
 			M.attributes.stamina_reagent = 1
 			MeoMoor += 2
-			to_chat(M, "Nigger [MeoMoor]")
 
 		switch(current_cycle)
 
