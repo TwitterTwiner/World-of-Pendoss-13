@@ -477,7 +477,8 @@
 	color = "#D2FFFA"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
-	addiction_threshold = 25
+	addiction_threshold = 5 // В ПРОЦЕНТАХ
+//	addiction_threshold = 25 В ЮНИТАХ
 
 /datum/reagent/medicine/ephedrine/on_mob_metabolize(mob/living/L)
 	..()
@@ -586,7 +587,8 @@
 	color = "#A9FBFB"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
-	addiction_threshold = 25
+	addiction_threshold = 10 // В ПРОЦЕНТАХ
+//	addiction_threshold = 25 В ЮНИТАХ
 
 /datum/reagent/medicine/morphine/on_mob_metabolize(mob/living/L)
 	..()
@@ -673,7 +675,6 @@
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "numb", /datum/mood_event/narcotic_medium, name)
 			M.attributes.stamina_reagent = 1
 			MeoMoor += 2
-
 		switch(current_cycle)
 
 			if(25)
@@ -1581,7 +1582,7 @@
 	description = "Хорек вайб."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 20
-	addiction_threshold = 20 //В ПРОЦЕНТАХ
+	addiction_threshold = 15 //В ПРОЦЕНТАХ
 //	addiction_threshold = 35 //В ЮНИТАХ
 	on_mob_life(mob/living/carbon/M)
 		if(current_cycle >= 5)
@@ -1627,7 +1628,8 @@
 	name = "Фенотропилн"
 	description = "Ноотроп восстанавливающий работу мозга."
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	addiction_threshold = 20 //В ПРОЦЕНТАХ
+	overdose_threshold = 40
+	addiction_threshold = 1 //В ПРОЦЕНТАХ
 //	addiction_threshold = 35 //В ЮНИТАХ
 
 	on_mob_life(mob/living/carbon/M)
