@@ -219,6 +219,8 @@
 
 
 /mob/living/carbon/human/npc/proc/route_optimisation()
+	if(CheckMove())
+		return FALSE
 	var/sosat = FALSE
 	for(var/mob/living/M in oviewers(5, src))
 		if(M.client)
@@ -274,9 +276,9 @@
 			var/turf/T = get_step(src, pick(NORTH, SOUTH, WEST, EAST))
 			face_atom(T)
 			step_to(src,T,0)
-//			if(walktarget && !old_movement)
-//			if(route_optimisation())
-//					forceMove(get_turf(walktarget))
+			if(walktarget && !old_movement)
+				if(route_optimisation())
+					forceMove(get_turf(walktarget))
 	if(isturf(loc))
 		if(danger_source)
 			a_intent = INTENT_HARM
@@ -422,6 +424,6 @@
 			var/turf/T = get_step(src, pick(NORTH, SOUTH, WEST, EAST))
 			face_atom(T)
 			step_to(src,T,0)
-//			if(walktarget && !old_movement)
-//				if(route_optimisation())
-//					forceMove(get_turf(walktarget))
+			if(walktarget && !old_movement)
+				if(route_optimisation())
+					forceMove(get_turf(walktarget))
