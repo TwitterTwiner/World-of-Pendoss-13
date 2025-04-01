@@ -263,5 +263,5 @@
 			client.images -= suckbar
 		qdel(suckbar)
 		stop_sound_channel(CHANNEL_BLOOD)
-		if(!iskindred(target) && !iscathayan(target))
+		if(!iskindred(target) || !iscathayan(target))
 			target.SetSleeping(50)
