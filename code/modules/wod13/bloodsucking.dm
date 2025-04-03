@@ -43,6 +43,8 @@
 			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
 			log_combat(user, carbon, "attempted to kiss")
 			last_drinkblood_use += 50
+			if(carbon.pulledby)
+				carbon.pulledby.stop_pulling()
 			if(carbon.IsStun())
 				carbon.SetStun(0)
 			return
@@ -52,6 +54,8 @@
 			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
 			log_combat(user, carbon, "attempted to kiss")
 			last_drinkblood_use += 10
+			if(carbon.pulledby)
+				carbon.pulledby.stop_pulling()
 			if(carbon.IsStun())
 				carbon.SetStun(0)
 			return
