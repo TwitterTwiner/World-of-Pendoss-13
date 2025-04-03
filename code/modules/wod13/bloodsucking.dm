@@ -35,7 +35,7 @@
 		if(carbon.MyPath)
 			selfcontrol = carbon.MyPath.selfcontrol
 
-		var/modifikator = secret_vampireroll(selfcontrol, 8, carbon)
+		var/modifikator = secret_vampireroll(selfcontrol, 8, carbon, TRUE)
 
 		if(modifikator == -1)
 			target.visible_message("<span class='danger'>[user]'s misses [carbon]!</span>", \
