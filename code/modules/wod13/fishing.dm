@@ -69,7 +69,7 @@
 		return /obj/item/food/fish/catfish
 	else if(diceroll <= 5)
 		return /obj/item/food/fish/crab
-	else if (diceroll >= 7)
+	else if (diceroll >= 6)
 		return /obj/item/food/fish/shark
 
 /obj/item/fishing_rod/proc/catch_fish_sewer(var/diceroll)
