@@ -40,26 +40,12 @@
 
 		var/modifikator = secret_vampireroll(selfcontrol, 8, carbon, TRUE)
 
-		if(modifikator == -1)
+		if(modifikator >= 4)
 			target.visible_message("<span class='danger'>[user]'s misses [carbon]!</span>", \
 				"<span class='danger'>You avoid [user]'s kiss!</span>", "<span class='hear'>You hear a slurp!</span>", COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
 			log_combat(user, carbon, "attempted to kiss")
 			last_drinkblood_use += 50
-			if(client)
-				client.images -= suckbar
-				qdel(suckbar)
-			if(carbon.pulledby)
-				carbon.pulledby.stop_pulling()
-			if(carbon.IsStun())
-				carbon.SetStun(0)
-			return
-		else if(modifikator == 0)
-			target.visible_message("<span class='danger'>[user]'s misses [carbon]!</span>", \
-				"<span class='danger'>You avoid [user]'s kiss!</span>", "<span class='hear'>You hear a slurp!</span>", COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
-			log_combat(user, carbon, "attempted to kiss")
-			last_drinkblood_use += 10
 			if(client)
 				client.images -= suckbar
 				qdel(suckbar)
