@@ -27,8 +27,7 @@
 	suckbar.plane = ABOVE_HUD_PLANE
 	suckbar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	if(iskindred(target) || iscathayan(target) || isgarou(target) || iswerewolf(target))
-
+	if(!iskindred(target) || !iscathayan(target) || !isgarou(target) || !iswerewolf(target))
 		var/mob/living/carbon/human/carbon = target
 
 		var/selfcontrol = 3
@@ -36,7 +35,7 @@
 		if(carbon.MyPath)
 			selfcontrol = carbon.MyPath.selfcontrol
 
-		var/modifikator = secret_vampireroll(selfcontrol, 8, user)
+		var/modifikator = secret_vampireroll(selfcontrol, 8, carbon)
 
 		if(modifikator == -1)
 			target.visible_message("<span class='danger'>[user]'s misses [carbon]!</span>", \
@@ -44,6 +43,8 @@
 			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
 			log_combat(user, carbon, "attempted to kiss")
 			last_drinkblood_use += 50
+			if(carbon.IsStun())
+				carbon.SetStun(0)
 			return
 		else if(modifikator == 0)
 			target.visible_message("<span class='danger'>[user]'s misses [carbon]!</span>", \
@@ -51,6 +52,8 @@
 			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
 			log_combat(user, carbon, "attempted to kiss")
 			last_drinkblood_use += 10
+			if(carbon.IsStun())
+				carbon.SetStun(0)
 			return
 
 	if(client)
@@ -65,10 +68,7 @@
 		NPC.danger_source = null
 //		NPC.last_attacker = src
 
-	var/successes = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user) SECONDS
-	if(isnpc(target))
-		successes = 6
-	target.Stun(successes*5)
+	target.Stun(3 SECONDS)
 
 	if(target.bloodpool <= 1 && target.maxbloodpool > 1)
 		to_chat(src, "<span class='warning'>You feel small amount of <b>BLOOD</b> in your victim.</span>")
