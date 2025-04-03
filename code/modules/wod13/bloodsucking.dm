@@ -27,7 +27,10 @@
 	suckbar.plane = ABOVE_HUD_PLANE
 	suckbar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	if(!iskindred(target) || !iscathayan(target) || !isgarou(target) || !iswerewolf(target))
+	if(client)
+		client.images += suckbar
+
+	if(iskindred(target) || iscathayan(target) || isgarou(target) || iswerewolf(target))
 		var/mob/living/carbon/human/carbon = target
 
 		var/selfcontrol = 3
@@ -66,8 +69,6 @@
 				carbon.SetStun(0)
 			return
 
-	if(client)
-		client.images += suckbar
 	var/sound/heartbeat = sound('code/modules/wod13/sounds/drinkblood2.ogg', repeat = TRUE)
 	if(HAS_TRAIT(src, TRAIT_BLOODY_SUCKER))
 		src.emote("moan")
