@@ -90,7 +90,7 @@
 		BD.update_blood_hud()
 		if(world.time < BD.last_drinkblood_use+30)
 			return
-		if(world.time < BD.last_drinkblood_click+10)
+		if(world.time < BD.last_drinkblood_click+30)
 			return
 		BD.last_drinkblood_click = world.time
 //		if(BD.bloodpool >= BD.maxbloodpool)
@@ -160,5 +160,38 @@
 						if(HV.stakeimmune)
 							to_chat(BD, "<span class='warning'>There is no <b>HEART</b> in this creature.</span>")
 							return
-					BD.drinksomeblood(LV)
+					if(ishuman(LV))
+
+						var/mob/living/carbon/human/target = BD.pulling
+
+						var/add_hard = 0
+
+						var/mob/living/carbon/human/carbon = target
+						var/obj/item/bodypart/affecting = carbon.get_bodypart(BD.zone_selected)
+						var/list/items = carbon.clothingonpart(affecting)
+						if(items.len > 0)
+							add_hard = 1
+						if(carbon.checkarmor(affecting, LETHAL) || carbon.checkarmor(affecting, BASHING) || carbon.checkarmor(affecting, AGGRAVATED))
+							add_hard = 2
+
+						var/modifikator = secret_vampireroll(get_a_strength(BD)+get_a_brawl(BD), 6+add_hard, BD)
+
+						if(modifikator == -1)
+							target.visible_message("<span class='danger'>[BD]'s misses [target]!</span>", \
+								"<span class='danger'>You avoid [BD]'s bite!</span>", "<span class='hear'>You hear a crunch!</span>", COMBAT_MESSAGE_RANGE, user)
+							to_chat(BD, "<span class='warning'>Your fangs miss [target]!</span>")
+							log_combat(BD, target, "attempted to bite")
+							BD.last_drinkblood_use += 50
+							return
+						else if(modifikator == 0)
+							target.visible_message("<span class='danger'>[BD]'s misses [target]!</span>", \
+								"<span class='danger'>You avoid [BD]'s bite!</span>", "<span class='hear'>You hear a crunch!</span>", COMBAT_MESSAGE_RANGE, user)
+							to_chat(BD, "<span class='warning'>Your fangs miss [target]!</span>")
+							log_combat(BD, target, "attempted to bite")
+							BD.last_drinkblood_use += 10
+							return
+
+						BD.drinksomeblood(BD, LV)
+					else
+						BD.drinksomeblood(BD, LV)
 	return TRUE
