@@ -79,7 +79,9 @@
 		NPC.danger_source = null
 //		NPC.last_attacker = src
 
+
 	target.Stun(3 SECONDS)
+
 
 	if(target.bloodpool <= 1 && target.maxbloodpool > 1)
 		to_chat(src, "<span class='warning'>You feel small amount of <b>BLOOD</b> in your victim.</span>")

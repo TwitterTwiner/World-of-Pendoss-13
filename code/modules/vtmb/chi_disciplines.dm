@@ -221,7 +221,7 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "floor1"
 	icon_living = "floor1"
-	speed = 5
+	speed = 3
 	maxHealth = 100
 	health = 100
 	melee_damage_lower = 1
@@ -1309,7 +1309,7 @@
 	icon_living = "beast_crinos"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	speak_chance = 0
-	speed = 1
+	speed = -1
 	maxHealth = 575
 	health = 575
 	butcher_results = list(/obj/item/stack/human_flesh = 10)
@@ -1430,7 +1430,7 @@
 
 /mob/living/simple_animal/hostile/smokecrawler/hidden
 	alpha = 10
-	speed = 5
+	speed = 3
 
 /datum/chi_discipline/smoke_shintai/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
