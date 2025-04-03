@@ -43,6 +43,9 @@
 			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
 			log_combat(user, carbon, "attempted to kiss")
 			last_drinkblood_use += 50
+			if(client)
+				client.images -= suckbar
+				qdel(suckbar)
 			if(carbon.pulledby)
 				carbon.pulledby.stop_pulling()
 			if(carbon.IsStun())
@@ -54,6 +57,9 @@
 			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
 			log_combat(user, carbon, "attempted to kiss")
 			last_drinkblood_use += 10
+			if(client)
+				client.images -= suckbar
+				qdel(suckbar)
 			if(carbon.pulledby)
 				carbon.pulledby.stop_pulling()
 			if(carbon.IsStun())
