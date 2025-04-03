@@ -122,6 +122,16 @@
 	layer = CURSE_LAYER
 	plane = FULLSCREEN_PLANE
 
+/atom/movable/screen/fullscreen/psychedelic
+	icon = 'code/modules/wod13/umbral.dmi'
+	icon_state = "psych"
+//	layer = CURSE_LAYER
+//	plane = FULLSCREEN_PLANE
+	layer = O_LIGHTING_VISUAL_LAYER
+	plane = O_LIGHTING_VISUAL_PLANE
+	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+//	alpha = 96
+
 /atom/movable/screen/fullscreen/impaired
 	icon_state = "impairedoverlay"
 

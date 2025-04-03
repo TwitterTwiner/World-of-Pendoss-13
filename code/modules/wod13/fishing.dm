@@ -37,6 +37,8 @@
 	lefthand_file = 'code/modules/wod13/righthand.dmi'
 	righthand_file = 'code/modules/wod13/lefthand.dmi'
 	var/catching = FALSE
+	var/fishing_speed_base = 15
+	var/fishing_dificulty = 6
 
 /obj/item/fishing_rod/attack_self(mob/user)
 	. = ..()
@@ -57,9 +59,56 @@
 					onflooricon = initial(onflooricon)
 					icon = onflooricon
 
+
+/obj/item/fishing_rod/proc/catch_fish_ocean(var/diceroll)
+	if(diceroll == -1)
+		return /obj/item/trash/can/food
+	else if(diceroll <= 2)
+		return /obj/item/food/fish/tune
+	else if(diceroll <= 3)
+		return /obj/item/food/fish/catfish
+	else if(diceroll <= 5)
+		return /obj/item/food/fish/crab
+	else if (diceroll >= 6)
+		return /obj/item/food/fish/shark
+
+/obj/item/fishing_rod/proc/catch_fish_sewer(var/diceroll)
+	if(diceroll == -1)
+		return /obj/item/trash/can/food
+	else if(diceroll <= 2)
+		return /mob/living/simple_animal/hostile/regalrat
+	else if(diceroll <= 3)
+		return /mob/living/simple_animal/pet/rat
+	else if(diceroll <= 5)
+		return /obj/item/clothing/under/vampire/gangrel
+	else if(diceroll <= 7)
+		return /obj/item/storage/pill_bottle/antibirth
+	else if(diceroll <= 8)
+		return /obj/item/reagent_containers/food/drinks/beer/vampire
+	else if(diceroll <= 9)
+		return /obj/item/food/fish/catfish
+	else if(diceroll >= 10)
+		return /obj/item/reagent_containers/food/drinks/meth/cocaine
+	else
+		return /obj/item/flashlight
+
+/obj/item/fishing_rod/proc/calc_fishing_speed(var/diceroll)
+	if(diceroll == -1)
+		return fishing_speed_base + 5
+	else
+		return fishing_speed_base - diceroll
+
+/obj/item/fishing_rod/proc/catch_fish(var/fishing_roll)
+	if(istype(get_step(src, dir), /turf/open/floor/plating/vampocean))
+		return catch_fish_ocean(fishing_roll)
+	else
+		return catch_fish_sewer(fishing_roll)
+
 /obj/item/fishing_rod/attack_hand(mob/living/user)
 	if(anchored)
-		if(!istype(get_step(src, dir), /turf/open/floor/plating/vampocean))
+		var/is_ocean =  istype(get_step(src, dir), /turf/open/floor/plating/vampocean)
+		var/is_shit = istype(get_step(src, dir), /turf/open/floor/plating/shit)
+		if(!is_ocean && !is_shit)
 			return
 		if(user.isfishing)
 			return
@@ -67,33 +116,15 @@
 			catching = TRUE
 			user.isfishing = TRUE
 			playsound(loc, 'code/modules/wod13/sounds/catching.ogg', 50, FALSE)
-			if(do_mob(user, src, 15 SECONDS))
+			var speed_roll = secret_vampireroll(get_a_crafts(user), fishing_dificulty, user)
+			var speed = calc_fishing_speed(speed_roll)
+			if(do_mob(user, src, speed SECONDS))
 				catching = FALSE
 				user.isfishing = FALSE
-				var/diceroll = rand(1, 20)
-				var/IT
-				if(diceroll <= 5)
-					IT = /obj/item/food/fish/tune
-				else if(diceroll <= 10)
-					IT = /obj/item/food/fish/catfish
-				else if(diceroll <= 15)
-					IT = /obj/item/food/fish/crab
-				else
-					IT = /obj/item/food/fish/shark
-				new IT(user.loc)
+				var fishing_roll = secret_vampireroll(get_a_dexterity(user) + get_a_crafts(user), fishing_dificulty, user)
+				var/catched_object = catch_fish(fishing_roll)
+				new catched_object(user.loc)
 				playsound(loc, 'code/modules/wod13/sounds/catched.ogg', 50, FALSE)
-//					var/IT = pick(/obj/item/food/fish/shark,
-//									/obj/item/food/fish/tune,
-//									/obj/item/food/fish/catfish,
-//									/obj/item/food/fish/crab)
-//				var/i = rand(1, 1000)
-//				if(i == 1000)
-//					IT = /obj/item/vtm_artifact/rand
-
-//					if(user.key)
-//						var/datum/preferences/P = GLOB.preferences_datums[ckey(user.key)]
-//						if(P)
-//							P.exper = min(calculate_mob_max_exper(user), P.exper+10)
 			else
 				catching = FALSE
 				user.isfishing = FALSE

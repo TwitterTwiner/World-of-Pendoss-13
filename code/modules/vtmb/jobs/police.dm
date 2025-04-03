@@ -98,7 +98,7 @@
 	display_order = JOB_DISPLAY_ORDER_POLICE_CHIEF
 	exp_type_department = EXP_TYPE_POLICE
 
-	allowed_species = list("Human")
+	allowed_species = list("Ghoul", "Human")
 
 	duty = "Underpaid, overworked, and understrength. Do your best to keep the order in San Francisco. Keep the officers in line."
 	minimal_masquerade = 0

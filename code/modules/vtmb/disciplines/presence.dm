@@ -192,6 +192,10 @@
 		if(following)
 			H.say("Follow me")
 			to_chat(H, "You call your thralls to follow you.")
+			for(var/mob/living/carbon/human/npc/HPC in H.puppets)
+				if(HPC)
+					if(HPC.stat == 0 && !HPC.key && !HPC.IsSleeping() && !HPC.IsUnconscious() && !HPC.IsParalyzed() && !HPC.IsKnockdown() && !HPC.IsStun() && !HAS_TRAIT(HPC, TRAIT_RESTRAINED) && !HPC.pulledby)
+						HPC.forceMove(get_turf(H))
 		else
 			H.say("Stay here")
 			to_chat(H, "You command your thralls to remain here.")

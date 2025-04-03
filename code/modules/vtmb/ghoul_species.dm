@@ -108,6 +108,29 @@
 	. = ..()
 
 /datum/action/blood_heal/Trigger()
+	if(istype(owner, /mob/living/simple_animal/hostile))
+		if (HAS_TRAIT(owner, TRAIT_TORPOR))
+			return
+		var/mob/living/simple_animal/hostile/H = owner
+		if(H.bloodpool < 1)
+			to_chat(owner, "<span class='warning'>You don't have enough <b>BLOOD</b> to do that!</span>")
+			SEND_SOUND(H, sound('code/modules/wod13/sounds/need_blood.ogg', 0, 0, 75))
+			return
+		if((last_heal + 30) >= world.time)
+			return
+		last_heal = world.time
+		H.bloodpool = max(0, H.bloodpool-1)
+		SEND_SOUND(H, sound('code/modules/wod13/sounds/bloodhealing.ogg', 0, 0, 50))
+		H.adjustBruteLoss(-20, TRUE)
+		H.adjustFireLoss(-20, TRUE)
+		H.adjustOxyLoss(-30, TRUE)
+		H.adjustToxLoss(-30, TRUE)
+		H.adjustCloneLoss(-5, TRUE)
+		H.blood_volume = min(H.blood_volume + 56, 560)
+		button.color = "#970000"
+		animate(button, color = "#ffffff", time = 20, loop = 1)
+		H.update_blood_hud()
+		H.visible_message("<span class='warning'>Some of [H]'s visible injuries disappear!</span>", "<span class='warning'>Some of your injuries disappear!</span>")
 	if(istype(owner, /mob/living/carbon/human))
 		if (HAS_TRAIT(owner, TRAIT_TORPOR))
 			return

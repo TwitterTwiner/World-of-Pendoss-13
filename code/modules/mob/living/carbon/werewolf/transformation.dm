@@ -231,20 +231,31 @@
 	var/mob/living/carbon/human/humanform
 	var/mob/living/simple_animal/hostile/warform
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/Shapeshift
+	var/datum/language_holder/lange
 
 /datum/warform/proc/transform(var/animal_atom, var/mob/living/carbon/human/owner, var/masquerady = TRUE)
 	owner.drop_all_held_items()
 	humanform = owner
+	lange = new ()
+	lange.owner = humanform
+	lange.copy_languages(humanform.mind?.language_holder)
 	Shapeshift = new (owner)
 	Shapeshift.invocation_type = "none"
 	Shapeshift.shapeshift_type = animal_atom
 	var/mob/living/simple_animal/hostile/H = Shapeshift.Shapeshift(humanform)
 	warform = H
+	var/datum/action/blood_heal/BH = locate() in humanform.actions
+	if(BH)
+		var/datum/action/blood_heal/BH2 = new ()
+		BH2.Grant(warform)
+	warform.attributes = humanform.attributes
 	if(animal_atom == /mob/living/simple_animal/hostile/tzimisce_beast)
 		warform.attributes.strength_bonus = 3
 		warform.attributes.dexterity_bonus = 3
 		warform.attributes.stamina_bonus = 3
 	warform.warform = src
+//	warform.mind?.language_holder = new ()
+//	warform.mind?.language_holder.copy_languages(lange)
 	if(masquerady)
 		warform.my_creator = owner
 	owner.warform = src
@@ -256,6 +267,7 @@
 	for(var/datum/action/end_warform/W in humanform.actions)
 		if(W)
 			W.Remove(humanform)
+	humanform.mind?.language_holder = lange
 	qdel(Shapeshift)
 	qdel(src)
 

@@ -612,7 +612,7 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_size = MOB_SIZE_HUGE
 	speak_chance = 0
-	speed = -0.4
+	speed = -1
 	maxHealth = 400
 	health = 400
 	butcher_results = list(/obj/item/stack/human_flesh = 10)
@@ -645,7 +645,7 @@
 	health = 600
 	melee_damage_lower = 50
 	melee_damage_upper = 50
-	speed = -0.8
+	speed = -1
 
 /mob/living/simple_animal/hostile/gargoyle
 	name = "Gargoyle"
@@ -719,7 +719,7 @@
 	mob_size = MOB_SIZE_HUGE
 	AIStatus = AI_OFF
 	speak_chance = 0
-	speed = -0.55
+	speed = -1
 	maxHealth = 575
 	health = 575
 	butcher_results = list(/obj/item/stack/human_flesh = 10)
