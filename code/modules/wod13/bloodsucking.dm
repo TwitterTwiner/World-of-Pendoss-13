@@ -40,7 +40,7 @@
 
 		var/modifikator = secret_vampireroll(selfcontrol, 8, carbon, TRUE)
 
-		if(modifikator >= 4)
+		if(modifikator >= 3)
 			target.visible_message("<span class='danger'>[user]'s misses [carbon]!</span>", \
 				"<span class='danger'>You avoid [user]'s kiss!</span>", "<span class='hear'>You hear a slurp!</span>", COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, "<span class='warning'>[carbon] shakes you off!</span>")
