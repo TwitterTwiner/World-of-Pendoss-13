@@ -65,7 +65,9 @@
 		NPC.danger_source = null
 //		NPC.last_attacker = src
 
-	var/successes = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user)
+	var/successes = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user) 
+	if(isnpc(target))
+		successes = 6
 	target.Stun(successes*5)
 
 	if(target.bloodpool <= 1 && target.maxbloodpool > 1)
