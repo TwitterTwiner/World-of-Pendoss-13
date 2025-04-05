@@ -587,7 +587,7 @@
 	color = "#A9FBFB"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
-	addiction_threshold = 10 // В ПРОЦЕНТАХ
+	addiction_threshold = 5 // В ПРОЦЕНТАХ
 //	addiction_threshold = 25 В ЮНИТАХ
 
 /datum/reagent/medicine/morphine/on_mob_metabolize(mob/living/L)
@@ -707,7 +707,6 @@
 		L.AdjustAllImmobility(50)
 		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/slabost)
 		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-	//	to_chat(L, "FINAL O4KA [MeoMoor] ")
 		if(!iskindred(L) && !iscathayan(L))
 			if(MeoMoor)
 				L.add_movespeed_modifier(/datum/movespeed_modifier/slabost)
