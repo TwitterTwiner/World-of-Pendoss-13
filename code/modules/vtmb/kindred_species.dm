@@ -575,8 +575,8 @@
 	if (student.stat >= SOFT_CRIT)
 		to_chat(teacher, "<span class='warning'>Your student needs to be conscious!</span>")
 		return
-	if (teacher_prefs.true_experience < 125)
-		to_chat(teacher, "<span class='warning'>You don't have enough experience (125) to teach them this Discipline!</span>")
+	if (teacher_prefs.true_experience < 75)
+		to_chat(teacher, "<span class='warning'>You don't have enough experience (75) to teach them this Discipline!</span>")
 		return
 	//checks that the teacher has blood bonded the student, this is something that needs to be reworked when blood bonds are made better
 	if (student.mind.enslaved_to != teacher)
