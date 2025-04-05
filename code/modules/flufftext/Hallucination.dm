@@ -2,6 +2,7 @@
 
 GLOBAL_LIST_INIT(hallucination_list, list(
 	/datum/hallucination/chat = 100,
+	/datum/hallucination/demention_negra = 75,
 	/datum/hallucination/message = 60,
 	/datum/hallucination/sounds = 50,
 	/datum/hallucination/battle = 20,
@@ -1554,3 +1555,35 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	H.preparePixelProjectile(target, start)
 	H.fire()
 	qdel(src)
+
+/datum/hallucination/demention_negra
+	var/image/izmvenchivoe_body
+
+/datum/hallucination/demention_negra/New(mob/living/carbon/C, forced = TRUE)
+	set waitfor = FALSE
+	..()
+	var/list/possible_points = list()
+	for(var/turf/open/floor/F in view(target,world.view))
+		possible_points += F
+	if(possible_points.len)
+		var/turf/open/floor/husk_point = pick(possible_points)
+		switch(rand(1,4))
+			if(1)
+				var/image/body = image('icons/mob/human.dmi',husk_point,"husk",TURF_LAYER)
+				apply_wibbly_filters(body)
+				izmvenchivoe_body = body
+			if(2,3)
+				izmvenchivoe_body = image('icons/mob/human.dmi',husk_point,"husk",TURF_LAYER)
+				apply_wibbly_filters(izmvenchivoe_body)
+			if(4)
+				izmvenchivoe_body = image('icons/mob/alien.dmi',husk_point,"alienother",TURF_LAYER)
+				apply_wibbly_filters(izmvenchivoe_body)
+
+		if(target.client)
+			target.client.images += izmvenchivoe_body
+		QDEL_IN(src, rand(30,50)) //Only seen for a brief moment.
+
+/datum/hallucination/demention_negra/Destroy()
+	target?.client?.images -= izmvenchivoe_body
+	QDEL_NULL(izmvenchivoe_body)
+	return ..()
