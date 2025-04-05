@@ -202,6 +202,37 @@
 					if(L.bloodpool && L.stat != DEAD && last_drinkblood_use+95 <= world.time)
 						L.grabbedby(src)
 						if(ishuman(L))
+
+							var/mob/living/carbon/human/user = H
+							var/mob/living/carbon/human/target = L
+
+							var/add_hard = 0
+
+							var/mob/living/carbon/human/carbon = target
+							var/obj/item/bodypart/affecting = carbon.get_bodypart(user.zone_selected)
+							var/list/items = carbon.clothingonpart(affecting)
+							if(items.len > 0)
+								add_hard = 1
+							if(carbon.checkarmor(affecting, LETHAL) || carbon.checkarmor(affecting, BASHING) || carbon.checkarmor(affecting, AGGRAVATED))
+								add_hard = 2
+
+							var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6+add_hard, user)
+
+							if(modifikator == -1)
+								target.visible_message("<span class='danger'>[user]'s misses [target]!</span>", \
+									"<span class='danger'>You avoid [user]'s bite!</span>", "<span class='hear'>You hear a crunch!</span>", COMBAT_MESSAGE_RANGE, user)
+								to_chat(user, "<span class='warning'>Your fangs miss [target]!</span>")
+								log_combat(user, target, "attempted to bite")
+								last_drinkblood_use += 50
+								return
+							else if(modifikator == 0)
+								target.visible_message("<span class='danger'>[user]'s misses [target]!</span>", \
+									"<span class='danger'>You avoid [user]'s bite!</span>", "<span class='hear'>You hear a crunch!</span>", COMBAT_MESSAGE_RANGE, user)
+								to_chat(user, "<span class='warning'>Your fangs miss [target]!</span>")
+								log_combat(user, target, "attempted to bite")
+								last_drinkblood_use += 10
+								return
+
 							L.emote("scream")
 							var/mob/living/carbon/human/BT = L
 							BT.add_bite_animation()
@@ -210,7 +241,7 @@
 						playsound(src, 'code/modules/wod13/sounds/drinkblood1.ogg', 50, TRUE)
 						L.visible_message("<span class='warning'><b>[src] bites [L]'s neck!</b></span>", "<span class='warning'><b>[src] bites your neck!</b></span>")
 						face_atom(L)
-						H.drinksomeblood(L)
+						H.drinksomeblood(H, L)
 			else
 				step_to(src,frenzy_target,0)
 				face_atom(frenzy_target)
