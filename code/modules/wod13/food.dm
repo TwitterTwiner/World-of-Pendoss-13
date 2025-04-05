@@ -536,7 +536,7 @@
 
 /obj/machinery/mineral/equipment_vendor/fastfood/illegal
 	prize_list = list(
-		new /datum/data/mining_equipment("morphine syringe",	/obj/item/reagent_containers/syringe/contraband/morphine,	100),
+		new /datum/data/mining_equipment("heroin syringe",	/obj/item/reagent_containers/syringe/contraband/heroin,	100),
 		new	/datum/data/mining_equipment("meth package",	/obj/item/reagent_containers/food/drinks/meth,	300),
 		new	/datum/data/mining_equipment("cocaine package",	/obj/item/reagent_containers/food/drinks/meth/cocaine,	700),
 		new /datum/data/mining_equipment("LSD pill bottle",		/obj/item/storage/pill_bottle/lsd,	50),
