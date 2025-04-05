@@ -315,3 +315,6 @@
 
 /obj/item/reagent_containers/syringe/contraband/morphine
 	list_reagents = list(/datum/reagent/medicine/morphine = 15)
+
+/obj/item/reagent_containers/syringe/contraband/heroin
+	list_reagents = list(/datum/reagent/drug/heroin = 15)
