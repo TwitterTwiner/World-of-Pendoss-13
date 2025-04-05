@@ -541,6 +541,8 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	icon = 'code/modules/wod13/items.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	list_reagents = list(/datum/reagent/drug/methamphetamine = 30)
+	var/open = FALSE
+	var/meth = 1
 	spillable = FALSE
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
@@ -551,8 +553,40 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 /obj/item/reagent_containers/food/drinks/meth/cocaine
 	name = "white package"
 	icon_state = "package_cocaine"
-	list_reagents = list(/datum/reagent/drug/methamphetamine/cocaine = 30)
+	list_reagents = list(/datum/reagent/drug/cocaine = 30)
 	cost = 500
+	meth = 0
+
+/obj/item/reagent_containers/food/drinks/meth/attack(mob/living/M, mob/living/user)
+	. = ..()
+	if(!open)
+		to_chat(user, "<span class='warning'>Чтобы употребить нужно сначала открыть!</span>")
+		return
+/obj/item/reagent_containers/food/drinks/meth/attack_self(mob/living/user)
+	. = ..()
+	if(!open)
+		open = TRUE
+		to_chat(user, "<span class='warning'>Ты открыл пакетик!</span>")
+		return
+	if(open)
+		open = FALSE
+		to_chat(user, "<span class='warning'>Ты закрыл пакетик!</span>")
+		return
+
+/obj/item/reagent_containers/food/drinks/empty
+	name = "empty package"
+	desc = "Average zip-package."
+	icon_state = "package_empty"
+	icon = 'code/modules/wod13/items.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	var/open = FALSE
+	var/meth = 1
+	spillable = FALSE
+	resistance_flags = FREEZE_PROOF
+	isGlass = FALSE
+	foodtype = BREAKFAST
+	illegal = FALSE
+	cost = 10
 
 /obj/item/reagent_containers/drug/methpack
 	name = "\improper elite blood pack (full)"
@@ -663,7 +697,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	lefthand_file = 'code/modules/wod13/lefthand.dmi'
 	righthand_file = 'code/modules/wod13/righthand.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	list_reagents = list(/datum/reagent/drug/methamphetamine/cocaine = 15) //some of the source chemicals are lost in the process
+	list_reagents = list(/datum/reagent/drug/cocaine = 15) //some of the source chemicals are lost in the process
 	resistance_flags = FREEZE_PROOF
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
@@ -703,3 +737,151 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	else
 		feeding = FALSE
 		return
+
+//////////////////////////////////////ДОРОЖКА || DOROZHKA //////////////////////////////////////////////////////////
+/*
+/obj/structure/table/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/reagent_containers/food/drinks/meth))
+		var/obj/item/reagent_containers/food/drinks/meth/MT = I
+		if(MT.open)
+			to_chat(user, "Ты начинаешь высыпать содержимое пакетика...")
+			if(do_mob(user, I, 1 SECONDS))
+				var/obj/effect/gorka/G = new(loc)
+				var/obj/item/reagent_containers/food/drinks/empty/E = new()
+				MT.Destroy()
+				user.put_in_active_hand(E)
+				if(MT.meth)
+					G.icon_state = "gorka_meth"
+					G.meth = 1
+
+
+/obj/effect/gorka
+	name = "gorka"
+	desc = "some narkotki"
+	icon = 'code/modules/wod13/items.dmi'
+	icon_state = "gorka"
+	var/meth = 0
+
+/obj/effect/gorka/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/vamp/creditcard))
+		var/obj/item/reagent_containers/dorozhka/D = new(src.loc)
+		qdel(src)
+		if(src.meth)
+			D.icon_state = "meth_0"
+		//	D.negr = "meth"
+		//	D.suka = 1
+
+/obj/item/reagent_containers/dorozhka  //////////////{T.WINER} - Да, я сделал это ебанным костылем || Yes, I did this like... reagent container
+	name = "dorozka"
+	desc = "some narkotki"
+	icon = 'code/modules/wod13/items.dmi'
+	item_flags = ABSTRACT
+	list_reagents = list(/datum/reagent/drug/cocaine = 15)
+	icon_state = "cock_0"
+	var/negr = "cock"
+//	var/suka = 0
+	var/zanuhnut = 0
+
+/obj/item/reagent_containers/dorozhka/Initialize()
+	. = ..()
+	if(!suka)
+		list_reagents = list(/datum/reagent/drug/cocaine = 15)
+	else
+		list_reagents = list(/datum/reagent/drug/methamphetamine = 15)
+
+	for(var/reagent in list_reagents)
+		reagents.add_reagent(reagent, 15)
+
+/obj/item/reagent_containers/dorozhka/attack_hand(mob/user)
+	return
+
+/obj/item/reagent_containers/dorozhka/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/dollar) || istype(I, /obj/item/paper))
+		to_chat(user, "Ты внюхиваешь дорожку!")
+		zanuhnut += 1...
+		icon_state = "[negr]_[zanuhnut]"
+		update_icon()
+		var/obj/item/reagent_containers/dorozhka/D = new(src)
+		D.reagents.trans_to(user, 10, transfered_by = D, methods = INJECT)
+
+	if(zanuhnut >= 3)
+		src.Destroy()
+*/
+//////////////////////////////////ПИЛЮЛИ ВЕЩЕСТВ || PILLS//////////////////////////////////////////////
+/obj/item/reagent_containers/pill/nzp
+	name = "Some pill"
+	desc = "Strange pill..."
+	icon_state = "pill5"
+	list_reagents = list(/datum/reagent/drug/Nzp = 10)
+	rename_with_volume = TRUE
+
+/obj/item/reagent_containers/pill/phenazepam
+	name = "Some pill"
+	desc = ""
+	icon_state = "pill3"
+	list_reagents = list(/datum/reagent/medicine/mozgi/phenazepam = 10)
+	rename_with_volume = TRUE
+
+/obj/item/reagent_containers/pill/phenotropil
+	name = "Some pill"
+	desc = ""
+	icon_state = "pill1"
+	list_reagents = list(/datum/reagent/medicine/mozgi/phenotropil = 15)
+	rename_with_volume = TRUE
+
+/obj/item/reagent_containers/pill/tramadolum
+	name = "Some pill"
+	desc = ""
+	icon_state = "pill12"
+	list_reagents = list(/datum/reagent/medicine/tramadolum = 20)
+//////////////////////////////////УПАКОВКИ|| //////////////////////////////////////////////
+
+/obj/item/storage/pill_bottle/phenazepam
+	name = "Phenazepam"
+	desc = "Some RUSSIAN shit for mind-illnes people... Help you with depression and brain damage. Average pill contains 10 units."
+	icon_state = "tabletos"
+
+/obj/item/storage/pill_bottle/phenazepam/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/phenazepam(src)
+
+/obj/item/storage/pill_bottle/nootrop
+	name = "Phenotropil"
+	desc = "A nootropic that helps in concentration... Nootrop pills...Average pill contains 15 units."
+	icon_state = "tabletos_nootrop"
+
+/obj/item/storage/pill_bottle/nootrop/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/phenotropil(src)
+
+
+/obj/item/storage/pill_bottle/tramadolum
+	name = "Ultramm"
+	desc = "A painkiller that allows the patient live  without pain. Average pill contains 20 units"
+	icon_state = "tabletos"
+
+/obj/item/storage/pill_bottle/tramadolum/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/tramadolum(src)
+/*
+/obj/item/storage/fancy/upakovka
+	name = "Phenazepam"
+	desc = "Some RUSSIAN shit for mind-illnes people..."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "tabletos"
+	inhand_icon_state = "cigpacket"
+	worn_icon_state = "cigpack"
+	w_class = WEIGHT_CLASS_TINY
+	throwforce = 0
+	slot_flags = ITEM_SLOT_BELT
+	icon_type = "cigarette"
+	spawn_type = /obj/item/reagent_containers/pill/phenazepam
+
+/obj/item/storage/fancy/upakovka/nootrop
+	name = "Phenotropil"
+	desc = "A nootropic that helps in concentration..."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "tabletos_nootrop"
+	spawn_type = /obj/item/reagent_containers/pill/phenotropil
+*/
