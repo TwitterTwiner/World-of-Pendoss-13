@@ -541,6 +541,12 @@
 		new	/datum/data/mining_equipment("cocaine package",	/obj/item/reagent_containers/food/drinks/meth/cocaine,	700),
 		new /datum/data/mining_equipment("LSD pill bottle",		/obj/item/storage/pill_bottle/lsd,	50),
 		new /datum/data/mining_equipment("LSD pill",		/obj/item/reagent_containers/pill/lsd,	10),
+		new /datum/data/mining_equipment("mushrooms package",	/obj/item/reagent_containers/food/drinks/meth/mushroom,	250),
+		new /datum/data/mining_equipment("muhomoor package",	/obj/item/food/vampire/grib/muhomoor,	210),
+		new /datum/data/mining_equipment("mushrooms package",	/obj/item/reagent_containers/food/drinks/meth/mushroom/cecnya,	220),
+		new /datum/data/mining_equipment("DMT pill",	/obj/item/reagent_containers/pill/dmt,	150),
+		new /datum/data/mining_equipment("Phenazepam",	/obj/item/storage/pill_bottle/phenazepam,	200),
+		new /datum/data/mining_equipment("Ultram",	/obj/item/storage/pill_bottle/tramadolum,	300),
 		new /datum/data/mining_equipment("cannabis puff",		/obj/item/clothing/mask/cigarette/rollie/cannabis,	40),
 		new /datum/data/mining_equipment("cannabis package",		/obj/item/weedpack,	175),
 		new /datum/data/mining_equipment("cannabis seed",	/obj/item/weedseed,		10),
@@ -554,6 +560,7 @@
 		new /datum/data/mining_equipment("silver .44 ammo",	/obj/item/ammo_box/vampire/c44/silver,	3000),
 		new /datum/data/mining_equipment("silver 5.56 ammo",	/obj/item/ammo_box/vampire/c556/silver,	6000),
 		new /datum/data/mining_equipment("stake",	/obj/item/vampire_stake,	100),
+		new /datum/data/mining_equipment("stake",	/obj/item/vampire_stake/metal,	150),
 		new /datum/data/mining_equipment("lockpick",	/obj/item/vamp/keys/hack, 50),
 		new /datum/data/mining_equipment("zippo lighter",	/obj/item/lighter,	20),
 		new /datum/data/mining_equipment("Surgery dufflebag", /obj/item/storage/backpack/duffelbag/med/surgery, 100),
@@ -573,7 +580,7 @@
 		new /datum/data/mining_equipment("box of syringes", /obj/item/storage/box/syringes, 300),
 		new /datum/data/mining_equipment("gauze",/obj/item/stack/medical/gauze , 100),
 		new /datum/data/mining_equipment("multiver", /obj/item/storage/pill_bottle/multiver, 100),
-		new /datum/data/mining_equipment("antibirth",/obj/item/storage/pill_bottle/antibirth , 100),
+		new /datum/data/mining_equipment("antibirth",/obj/item/storage/pill_bottle/antibirth , 100)
 	)
 
 /obj/machinery/mineral/equipment_vendor/fastfood/hospital // we should probably swap from a vendor system and work on a sort of gameplay loop - tzula

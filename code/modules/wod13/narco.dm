@@ -808,7 +808,96 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	if(zanuhnut >= 3)
 		src.Destroy()
 */
-//////////////////////////////////ПИЛЮЛИ ВЕЩЕСТВ || PILLS//////////////////////////////////////////////
+
+
+////////////////////////////////// ГРИБЫ || MUSHROOMS //////////////////////////////////////////
+/obj/item/reagent_containers/food/drinks/meth/mushroom
+	name = "Museroom package"
+	desc = "Careful, the beverage you're about to enjoy is extremely hot."
+	icon_state = "package_grib"
+	list_reagents = list(/datum/reagent/drug/mushroomhallucinogen/Dmt = 15, /datum/reagent/drug/mushroomhallucinogen/special = 1,  /datum/reagent/toxin/amanitin = 2)
+	spillable = FALSE
+	resistance_flags = FREEZE_PROOF
+	isGlass = FALSE
+	foodtype = BREAKFAST
+	illegal = TRUE
+	cost = 250
+
+/obj/item/reagent_containers/food/drinks/meth/mushroom/muhomor
+	name = "Museroom package"
+	icon_state = "package_muhomoor"
+	list_reagents = list(/datum/reagent/drug/mushroomhallucinogen/Dmt = 10, /datum/reagent/drug/mushroomhallucinogen/special = 3,/datum/reagent/toxin/amanitin = 3)
+	cost = 280
+
+/obj/item/reagent_containers/food/drinks/meth/mushroom/cecnya
+	name = "Museroom package"
+	icon_state = "package_grib2"
+	list_reagents = list(/datum/reagent/drug/mushroomhallucinogen/Dmt = 6, /datum/reagent/drug/mushroomhallucinogen/special = 2, /datum/reagent/toxin/amanitin = 1)
+	cost = 300
+
+////////////////////////
+
+/obj/item/food/vampire/grib
+	name = "Some mushrooms"
+	desc = ""
+	icon_state = "grib"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/protein = 3,
+	/datum/reagent/drug/mushroomhallucinogen/Dmt = 15, /datum/reagent/drug/mushroomhallucinogen/special = 3, /datum/reagent/toxin/amanitin = 10)
+
+
+/obj/item/food/vampire/grib/muhomoor
+	name = "Some red mushroom"
+	icon_state = "muhomoor"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/protein = 3,
+	/datum/reagent/drug/mushroomhallucinogen/Dmt = 5, /datum/reagent/drug/mushroomhallucinogen/special = 2, /datum/reagent/toxin/amanitin = 15)
+
+/obj/item/food/vampire/grib/cecnya
+	name = "Some mushrooms"
+	icon_state = "cechnya"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/protein = 3,
+	/datum/reagent/drug/mushroomhallucinogen/Dmt = 10, /datum/reagent/drug/mushroomhallucinogen/special = 4, /datum/reagent/toxin/amanitin = 8)
+
+////////////////////////
+
+/obj/structure/grib
+	name = "Some mushrooms"
+	desc = "Few mushrooms, intresting..."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "grib"
+
+	var/tipe = 1
+
+/obj/structure/grib/muhomor
+	name = "Big Red Mushroom"
+	desc = "One big mushroom..."
+	icon_state = "muhomoor"
+	tipe = 2
+
+/obj/structure/grib/cecnya
+	name = "Few little mushrooms"
+	desc = "Some little mushrooms.."
+	icon_state = "cecnya"
+	tipe = 3
+
+/obj/structure/grib/attack_hand(mob/user)
+	to_chat(user, "Ты начинаешь срывать грибы...")
+	if(do_mob(user, src, 5 SECONDS))
+		src.Destroy()
+		if(tipe == 1)
+			new /obj/item/food/vampire/grib(user.loc)
+			new /obj/item/food/vampire/grib(user.loc)
+			var/obj/item/food/vampire/grib/G = new(user.loc)
+			user.put_in_active_hand(G)
+		if(tipe == 2)
+			var/obj/item/food/vampire/grib/muhomoor/M = new(user.loc)
+			user.put_in_active_hand(M)
+		if(tipe == 3)
+			new /obj/item/food/vampire/grib/cecnya(user.loc)
+			new /obj/item/food/vampire/grib/cecnya(user.loc)
+			var/obj/item/food/vampire/grib/cecnya/C = new(user.loc)
+			user.put_in_active_hand(C)
+
+////////////////////////////////// ПИЛЮЛИ ВЕЩЕСТВ || PILLS//////////////////////////////////////////////
 /obj/item/reagent_containers/pill/nzp
 	name = "Some pill"
 	desc = "Strange pill..."
@@ -835,7 +924,14 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	desc = ""
 	icon_state = "pill12"
 	list_reagents = list(/datum/reagent/medicine/tramadolum = 20)
-//////////////////////////////////УПАКОВКИ|| //////////////////////////////////////////////
+
+/obj/item/reagent_containers/pill/dmt
+	name = "Some pill"
+	desc = "Go to Nirvana..."
+	icon_state = "pill15"
+	list_reagents = list(/datum/reagent/drug/mushroomhallucinogen/Dmt = 20)
+
+//////////////////////////////////УПАКОВКИ || //////////////////////////////////////////////
 
 /obj/item/storage/pill_bottle/phenazepam
 	name = "Phenazepam"
