@@ -574,13 +574,14 @@
 		new /datum/data/mining_equipment("ephedrine pill bottle", /obj/item/storage/pill_bottle/ephedrine, 200),
 		new /datum/data/mining_equipment("iron pill bottle", /obj/item/storage/pill_bottle/iron, 150),
 		new /datum/data/mining_equipment("potassium iodide pill bottle", /obj/item/storage/pill_bottle/potassiodide, 100),
-		new /datum/data/mining_equipment("bruise pack", /obj/item/stack/medical/bruise_pack, 100),
-		new /datum/data/mining_equipment("burn ointment", /obj/item/stack/medical/ointment, 100),
+		new /datum/data/mining_equipment("bruise pack", /obj/item/stack/medical/bruise_pack, 50),
+		new /datum/data/mining_equipment("burn ointment", /obj/item/stack/medical/ointment, 30),
 		new /datum/data/mining_equipment("latex gloves", /obj/item/clothing/gloves/vampire/latex, 150),
 		new /datum/data/mining_equipment("box of syringes", /obj/item/storage/box/syringes, 300),
-		new /datum/data/mining_equipment("gauze",/obj/item/stack/medical/gauze , 100),
-		new /datum/data/mining_equipment("multiver", /obj/item/storage/pill_bottle/multiver, 100),
-		new /datum/data/mining_equipment("antibirth",/obj/item/storage/pill_bottle/antibirth , 100)
+		new /datum/data/mining_equipment("gauze",/obj/item/stack/medical/gauze , 20),
+		new /datum/data/mining_equipment("multiver", /obj/item/storage/pill_bottle/multiver, 50),
+		new /datum/data/mining_equipment("Phenotropil", /obj/item/storage/pill_bottle/nootrop, 100),
+		new /datum/data/mining_equipment("antibirth",/obj/item/storage/pill_bottle/antibirth , 20)
 	)
 
 /obj/machinery/mineral/equipment_vendor/fastfood/hospital // we should probably swap from a vendor system and work on a sort of gameplay loop - tzula
