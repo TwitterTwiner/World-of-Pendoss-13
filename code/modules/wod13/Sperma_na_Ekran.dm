@@ -44,8 +44,6 @@
 	alpha = 0
 	var/reading
 
-/////////////////////На будущее///////////////////////
-/*
 /mob/proc/into_fisheye()
 	var/obj/screen/fullscreen/fisheye/F = new()
 	client.screen += F
@@ -64,7 +62,7 @@
 
 /obj/screen/fullscreen/fisheye/Initialize()
 	. = ..()
-	apply_wibbly_filters(src)
+	apply_wibbly_filters(src, 20)
 
 	warp = new(src)
 	vis_contents += warp
@@ -81,7 +79,6 @@
 	icon_state = "light"
 	pixel_x = -176
 	pixel_y = -176
-*/
 
 /atom/movable/screen/fullscreen/badtrip
 	icon = 'icons/hud/fullscreen.dmi'
@@ -117,7 +114,7 @@
 		animate(whole_screen, transform = matrix(rotation, MATRIX_ROTATE), time = 1.0 SECONDS, easing = QUAD_EASING, loop = -1)
 		animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 1.0 SECONDS, easing = QUAD_EASING)
 		for(var/i in 1 to 7)
-			whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 400, y = 200, size =30, offset = rand()))
+			whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 350, y = 200, size =25, offset = rand()))
 //	addtimer(CALLBACK(src, .proc/polnii_GOI, F), 35)
 
 /*

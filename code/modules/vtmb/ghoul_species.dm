@@ -178,7 +178,6 @@
 			var/datum/wound/W = pick(H.all_wounds)
 			W.remove_wound()
 		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
-		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
 		if(eyes)
 			H.adjust_blindness(-2)
 			H.adjust_blurriness(-2)
