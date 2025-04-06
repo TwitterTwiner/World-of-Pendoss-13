@@ -15,6 +15,7 @@
 	var/prev_z
 	var/umbra_z
 	var/obj/penumbra_ghost/ghost
+	var/filter
 
 /datum/reagent/drug/on_mob_end_metabolize(mob/living/M)
 	if(trippy)
@@ -1243,8 +1244,11 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"], M.hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"],  M.hud_used.plane_masters["[GAME_PLANE]"])
 		var/rot = 10
 		switch(current_cycle)
-			if(1 to 96)
+			if(10 to 96)
 				rot += 5
+				for(var/atom/whole_screen in screens)
+					for(var/i in 1 to 7)
+						whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 5, y = 10, size =5, offset = rand()))
 			if(97 to 192)
 				rot +=20
 				M.overlay_fullscreen("RADUGA",/atom/movable/screen/fullscreen/psychedelic)
@@ -1288,6 +1292,12 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
 		gribi_hud.remove_hud_from(L)
 		L.see_invisible = initial(L.see_invisible)
+		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
+		for(var/atom/whole_screen in screens)
+			for(var/i in 1 to 7)
+				filter = whole_screen.get_filter("wibbly-[i]")
+				animate(filter)
+				whole_screen.remove_filter("wibbly-[i]")
 
 //////////////////////DMT/////////////////////
 /datum/reagent/drug/mushroomhallucinogen/Dmt
@@ -1306,10 +1316,14 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 
 	on_mob_life(mob/living/carbon/human/M)
 		..()
+		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
 		if(current_cycle >= 35)
 			M.kislota_trip()
 			M << music
 		if(current_cycle >= 50)
+			for(var/atom/whole_screen in screens)
+				for(var/i in 1 to 7)
+					whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 40, y = 70, size =10, offset = rand()))
 			M.hallucination += 40
 			M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip) // Lurkmore on Sperma_na_Ekran
 			M.clear_fullscreen("ONI_IDUT", 8)
@@ -1317,6 +1331,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 				var/DMTmessage2 = pick("Я ДОЛЖЕН ЕГО ПОКИНУТЬ!!!", "И Я ЗНАЮ СПОСОБ ЕЁ ПОКИНУТЬ!!!", "СМЕРТЬ", "ТОРМОЗ", "ХОЛОКОСТ", "ГЕНОЦИД", "формальность", "любовь", "НАД ЖРАТ ТАБЛТК", "ИДЕМ С НАМИ", "МЫ ЗНАЕМ ВЫХОД")
 				var/DMTmessage1 = pick("Этот мир нереален", "НИГЕРНИГЕРНИГЕРНИГЕР", "МЫ ЖИВЕМ В ИЛЛЮЗИИ", "ВЫХОД ИЗ МАТРИЦЫ", "ХОХЛЫ", "ЕВРЕЙ", "НЕГРЫ", "ПЕНДОСЫ", "свобода", "ненависть", "А ТО Я ЗСТРЛС", "ВЫХОД ПРЯМО ТУТ", "МЫ ТЕБЯ СПАСЕМ")
 				to_chat(M, list("<span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>"))
+				M.intro_Sperma(DMTmessage1, 10)
 				if(do_mob(M, M, 6 SECONDS))
 					M.suicide()
 
@@ -1326,6 +1341,12 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
 		gribi_hud.remove_hud_from(L)
 		L.see_invisible = initial(L.see_invisible)
+		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
+		for(var/atom/whole_screen in screens)
+			for(var/i in 1 to 7)
+				filter = whole_screen.get_filter("wibbly-[i]")
+				animate(filter)
+				whole_screen.remove_filter("wibbly-[i]")
 
 /datum/reagent/drug/Nzp
 	name = "NZP"
@@ -1334,7 +1355,6 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 	var/atom/movable/screen/fullscreen/warp_effect/warp
-	var/filter
 
 	on_mob_life(mob/living/carbon/M)
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.25)
@@ -1353,7 +1373,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		for(var/atom/whole_screen in screens)
 			animate(L.client, color = nzp, time = 5, easing = QUAD_EASING)
 			for(var/i in 1 to 7)
-				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 40, y = 70, size =10, offset = rand()))
+				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 10, y = 15, size =10, offset = rand()))
 
 	on_mob_end_metabolize(mob/living/L)
 		L.attributes.wits_reagent = 0
