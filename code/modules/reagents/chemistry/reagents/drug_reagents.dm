@@ -1148,6 +1148,9 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	on_mob_metabolize(mob/living/L)
 		..()
 		L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+		L.attributes.stamina_reagent = 2
+		L.attributes.dexterity_reagent = -1
+		L.attributes.strength_reagent = -1
 	on_mob_end_metabolize(mob/living/L)
 		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 		L.attributes.stamina_reagent = 0
@@ -1238,7 +1241,6 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		var/raznitsa = rand(1,4)
 		if((L.humanity <= 7) && (L.humanity <= (L.humanity-raznitsa)))
 			badtrip = 1
-			to_chat(L, "DEBUG")
 	on_mob_life(mob/living/carbon/M)
 		..()
 		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"], M.hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"],  M.hud_used.plane_masters["[GAME_PLANE]"])
@@ -1294,6 +1296,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		L.see_invisible = initial(L.see_invisible)
 		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 		for(var/atom/whole_screen in screens)
+			animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
 			for(var/i in 1 to 7)
 				filter = whole_screen.get_filter("wibbly-[i]")
 				animate(filter)
