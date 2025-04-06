@@ -100,7 +100,8 @@
 //			H.clane.violating_appearance = TRUE
 		if(used)
 			return
-		used = TRUE
+		if(H.generation >= 7)
+			used = TRUE
 		ADD_TRAIT(H, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 		switch(upgrade)
 			if("Skin armor")
@@ -253,6 +254,7 @@
 	var/last_headshot
 	var/last_age
 	var/last_body_mode
+	var/last_phonevoicetag
 
 	var/original_hair
 	var/original_facehair
@@ -267,6 +269,7 @@
 	var/original_realname
 	var/original_age
 	var/original_body_mode
+	var/original_phonevoicetag
 	var/furry_changed = FALSE
 
 /datum/movespeed_modifier/centipede
@@ -319,6 +322,7 @@
 				original_realname = H.real_name
 				original_headshot = H.headshot_link
 				original_age = H.age
+				original_phonevoicetag = H.phonevoicetag
 				original_body_mode = H.base_body_mod
 				playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 				H.Stun(10)
@@ -336,6 +340,7 @@
 				H.headshot_link = last_headshot
 				H.name = H.real_name
 				H.age = last_age
+				H.phonevoicetag = last_phonevoicetag
 				H.base_body_mod = last_body_mode
 				H.update_body()
 				H.update_hair()
@@ -358,6 +363,7 @@
 				original_realname = H.real_name
 				original_headshot = H.headshot_link
 				original_age = H.age
+				original_phonevoicetag = H.phonevoicetag
 				original_body_mode = H.base_body_mod
 				playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 				H.Stun(10)
@@ -376,6 +382,7 @@
 				H.headshot_link = ZV.headshot_link
 				H.name = H.real_name
 				H.age = ZV.age
+				H.phonevoicetag = ZV.phonevoicetag
 				H.base_body_mod = ZV.base_body_mod
 				H.update_body()
 				H.update_hair()
@@ -392,6 +399,7 @@
 				last_realname = H.real_name
 				last_headshot = H.headshot_link
 				last_age = H.age
+				last_phonevoicetag = H.phonevoicetag
 				last_body_mode = H.base_body_mod
 				furry_changed = TRUE
 			else
@@ -420,6 +428,7 @@
 		H.name = H.real_name
 		H.headshot_link = original_headshot
 		H.age = original_age
+		H.phonevoicetag = original_phonevoicetag
 		H.base_body_mod = original_body_mode
 		H.update_body()
 		H.update_hair()

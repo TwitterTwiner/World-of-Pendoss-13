@@ -179,7 +179,7 @@
 	button_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	background_icon_state = "discipline"
 	icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	var/cooldown = 10 SECONDS
 	COOLDOWN_DECLARE(use)
 
@@ -262,7 +262,7 @@
 	button_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	background_icon_state = "discipline"
 	icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	var/cooldown = 30 SECONDS
 	COOLDOWN_DECLARE(use)
 
@@ -296,7 +296,6 @@
 	button_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	background_icon_state = "discipline"
 	icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
 	var/cooldown = 3 SECONDS
 
@@ -338,7 +337,7 @@
 
 	kueijin.heal_ordered_damage(20, list(OXY, STAMINA, BRUTE, TOX))
 	kueijin.heal_ordered_damage(10, BURN)
-	kueijin.heal_ordered_damage(5, CLONE)
+	kueijin.adjustCloneLoss(-5, TRUE) // {T.WINER} Не знаю почему, но какого-то хуя эта прока не работала должным образом, пока что временная замена
 	kueijin.blood_volume = min(kueijin.blood_volume + 56, 560)
 	kueijin.yin_chi = max(0, kueijin.yin_chi - 1)
 
@@ -352,7 +351,6 @@
 	button_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	background_icon_state = "discipline"
 	icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
 	var/cooldown = 3 SECONDS
 
@@ -394,7 +392,7 @@
 
 	kueijin.heal_ordered_damage(20, list(OXY, STAMINA, BRUTE, TOX))
 	kueijin.heal_ordered_damage(10, BURN)
-	kueijin.heal_ordered_damage(5, CLONE)
+	kueijin.adjustCloneLoss(-5, TRUE) // {T.WINER} Не знаю почему, но какого-то хуя эта прока не работала должным образом, пока что временная замена
 	kueijin.blood_volume = min(kueijin.blood_volume + 28, 560)
 	kueijin.yang_chi = max(0, kueijin.yang_chi - 1)
 
@@ -408,7 +406,6 @@
 	button_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	background_icon_state = "discipline"
 	icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 
 /datum/action/rebalance/Trigger()
 	if(!istype(owner, /mob/living/carbon/human))

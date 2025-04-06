@@ -249,6 +249,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 
 //#define TRAIT_ACROBATIC			"acrobatic"
+#define TRAIT_LETHALNIGGA		"Lethal_absorb"
 #define TRAIT_DANCER			"dancer"
 #define TRAIT_EXP_DRIVER		"experienced_driver"
 #define TRAIT_BONE_KEY			"bone_key"
