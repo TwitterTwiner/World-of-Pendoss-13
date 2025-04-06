@@ -43,11 +43,15 @@
 				target.add_splatter_floor(get_turf(target))
 				target.add_splatter_floor(get_turf(get_step(target, target.dir)))
 			else
-				caster.bloodpool = min(caster.maxbloodpool, caster.bloodpool + target.bloodpool)
-				if(!istype(target, /mob/living/simple_animal/hostile/megafauna))
+				if(istype(target, /mob/living/simple_animal/hostile/megafauna) || istype(target, /mob/living/simple_animal/hostile/tzimisce_beast))
+					target.visible_message("<span class='danger'[target] blood fly to [caster]!</span>", "<span class='danger'>Your blood slashes you and fly to [caster]!</span>")
+					target.bloodpool = min(target.maxbloodpool, target.bloodpool -2)
+					caster.bloodpool = min(caster.maxbloodpool, caster.bloodpool + 2)
+				else
+					caster.bloodpool = min(caster.maxbloodpool, caster.bloodpool + target.bloodpool)
+					target.tremere_gib()
 //				if(isnpc(target))
 //					AdjustHumanity(caster, -1, 0)
-					target.tremere_gib()
 
 /obj/effect/projectile/tracer/thaumaturgy
 	name = "blood beam"
