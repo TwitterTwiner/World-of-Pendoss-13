@@ -901,7 +901,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 /obj/item/reagent_containers/pill/nzp
 	name = "Some pill"
 	desc = "Strange pill..."
-	icon_state = "pill5"
+	icon_state = "nzp_pill"
 	list_reagents = list(/datum/reagent/drug/Nzp = 10)
 	rename_with_volume = TRUE
 
