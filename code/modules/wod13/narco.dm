@@ -936,6 +936,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 /obj/item/storage/pill_bottle/phenazepam
 	name = "Phenazepam"
 	desc = "Some RUSSIAN shit for mind-illnes people... Help you with depression and brain damage. Average pill contains 10 units."
+	icon = 'icon/obj/chemical.dmi'
 	icon_state = "tabletos"
 
 /obj/item/storage/pill_bottle/phenazepam/PopulateContents()
@@ -945,6 +946,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 /obj/item/storage/pill_bottle/nootrop
 	name = "Phenotropil"
 	desc = "A nootropic that helps in concentration... Nootrop pills...Average pill contains 15 units."
+	icon = 'icon/obj/chemical.dmi'
 	icon_state = "tabletos_nootrop"
 
 /obj/item/storage/pill_bottle/nootrop/PopulateContents()
@@ -955,6 +957,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 /obj/item/storage/pill_bottle/tramadolum
 	name = "Ultramm"
 	desc = "A painkiller that allows the patient live  without pain. Average pill contains 20 units"
+	icon = 'icon/obj/chemical.dmi'
 	icon_state = "tabletos"
 
 /obj/item/storage/pill_bottle/tramadolum/PopulateContents()
