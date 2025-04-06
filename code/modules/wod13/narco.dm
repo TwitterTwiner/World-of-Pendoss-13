@@ -843,6 +843,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	icon_state = "grib"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/protein = 3,
 	/datum/reagent/drug/mushroomhallucinogen/Dmt = 15, /datum/reagent/drug/mushroomhallucinogen/special = 3, /datum/reagent/toxin/amanitin = 10)
+	w_class = WEIGHT_CLASS_TINY
 
 
 /obj/item/food/vampire/grib/muhomoor
