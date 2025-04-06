@@ -542,7 +542,7 @@
 		new /datum/data/mining_equipment("LSD pill bottle",		/obj/item/storage/pill_bottle/lsd,	50),
 		new /datum/data/mining_equipment("LSD pill",		/obj/item/reagent_containers/pill/lsd,	10),
 		new /datum/data/mining_equipment("mushrooms package",	/obj/item/reagent_containers/food/drinks/meth/mushroom,	250),
-		new /datum/data/mining_equipment("muhomoor package",	/obj/item/food/vampire/grib/muhomoor,	210),
+		new /datum/data/mining_equipment("muhomoor package",	/obj/item/reagent_containers/food/drinks/meth/mushroom/muhomor,	210),
 		new /datum/data/mining_equipment("mushrooms package",	/obj/item/reagent_containers/food/drinks/meth/mushroom/cecnya,	220),
 		new /datum/data/mining_equipment("DMT pill",	/obj/item/reagent_containers/pill/dmt,	150),
 		new /datum/data/mining_equipment("Phenazepam",	/obj/item/storage/pill_bottle/phenazepam,	200),
