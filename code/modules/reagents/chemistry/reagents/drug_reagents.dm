@@ -1379,13 +1379,3 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		M.polnii_pizdec()
 		if(prob(20))
 			M.AdjustUnconscious(10)
-
-	//	M.hud_color_filter()
-		/*
-		var/rotation = 180
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/atom/whole_screen in screens)
-			animate(whole_screen, transform = warp, time=5, easing = QUAD_EASING )
-			animate(whole_screen, transform = matrix(rotation, MATRIX_ROTATE), time = 1.0 SECONDS, easing = QUAD_EASING, loop = -1)
-			animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 1.0 SECONDS, easing = QUAD_EASING)
-*/
