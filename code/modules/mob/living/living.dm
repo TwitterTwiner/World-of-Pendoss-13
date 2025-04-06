@@ -685,6 +685,8 @@
 		set_suicide(FALSE)
 		set_stat(UNCONSCIOUS) //the mob starts unconscious,
 		updatehealth() //then we check if the mob should wake up.
+		for(var/atom/whole_screen in screens)
+			remove_wibbly_filters(whole_screen)
 		if(admin_revive)
 			get_up(TRUE)
 		update_sight()

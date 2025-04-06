@@ -90,7 +90,6 @@
 	button_icon = 'code/modules/wod13/UI/actions.dmi'
 	background_icon_state = "discipline"
 	icon_icon = 'code/modules/wod13/UI/actions.dmi'
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
 	var/last_heal = 0
 	var/level = 1
@@ -179,6 +178,7 @@
 			var/datum/wound/W = pick(H.all_wounds)
 			W.remove_wound()
 		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
 		if(eyes)
 			H.adjust_blindness(-2)
 			H.adjust_blurriness(-2)
@@ -186,6 +186,21 @@
 		var/obj/item/organ/brain/brain = H.getorganslot(ORGAN_SLOT_BRAIN)
 		if(brain)
 			brain.applyOrganDamage(-100)
+		var/obj/item/organ/stomach/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		if(stomach)
+			stomach.applyOrganDamage(-5)
+		var/obj/item/organ/heart/heart = H.getorganslot(ORGAN_SLOT_HEART)
+		if(heart)
+			heart.applyOrganDamage(-8)
+		var/obj/item/organ/liver/liver = H.getorganslot(ORGAN_SLOT_LIVER)
+		if(liver)
+			liver.applyOrganDamage(-10)
+		var/obj/item/organ/ears/ears = H.getorganslot(ORGAN_SLOT_EARS)
+		if(ears)
+			ears.applyOrganDamage(-5)
+		var/obj/item/organ/lungs/lung = H.getorganslot(ORGAN_SLOT_LUNGS)
+		if(lung)
+			lung.applyOrganDamage(-10)
 		H.update_damage_overlays()
 		H.update_health_hud()
 		H.update_blood_hud()

@@ -17,7 +17,8 @@
 	display_order = JOB_DISPLAY_ORDER_FBI
 	exp_type_department = EXP_TYPE_NATIONAL_SECURITY
 
-	allowed_species = list("Human")
+	allowed_species = list("Human", "Ghoul")
+	species_slots = list("Ghoul" = 1)
 	minimal_generation = 13
 
 	duty = "Enforce the Law."

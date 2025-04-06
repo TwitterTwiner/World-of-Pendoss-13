@@ -76,6 +76,8 @@
 						/obj/item/storage/pill_bottle/potassiodide,
 						/obj/item/vampire_stake,
 						/obj/item/vampire_stake/metal,
+						/obj/item/reagent_containers/pill/nzp,
+						/obj/item/storage/pill_bottle/phenazepam,
 						/obj/item/stack/dollar/rand,
 						/obj/item/melee/vampirearms/knife,
 						/obj/item/melee/vampirearms/tire,

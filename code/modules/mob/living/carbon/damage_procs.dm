@@ -128,7 +128,7 @@
  */
 /mob/living/carbon/adjustOrganLoss(slot, amount, maximum)
 	var/obj/item/organ/O = getorganslot(slot)
-	if(O && !(status_flags & GODMODE))
+	if(O && !(status_flags & GODMODE) && !(iskindred(src) || iscathayan(src)))
 		O.applyOrganDamage(amount, maximum)
 
 /**
