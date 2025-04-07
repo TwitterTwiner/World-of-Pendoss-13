@@ -738,6 +738,12 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 		feeding = FALSE
 		return
 
+/obj/item/reagent_containers/drug/cokepack/heroinpack
+	name = "\improper elite blood pack (full)"
+	desc = "Fast way to feed your inner beast."
+	icon = 'code/modules/wod13/items.dmi'
+	list_reagents = list(/datum/reagent/drug/heroin = 15)
+
 //////////////////////////////////////ДОРОЖКА || DOROZHKA //////////////////////////////////////////////////////////
 /*
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
@@ -841,6 +847,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	name = "Some mushrooms"
 	desc = ""
 	icon_state = "grib"
+	biten = TRUE
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/protein = 3,
 	/datum/reagent/drug/mushroomhallucinogen/Dmt = 15, /datum/reagent/drug/mushroomhallucinogen/special = 3, /datum/reagent/toxin/amanitin = 10)
 	w_class = WEIGHT_CLASS_TINY
@@ -937,7 +944,6 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 /obj/item/storage/pill_bottle/phenazepam
 	name = "Phenazepam"
 	desc = "Some RUSSIAN shit for mind-illnes people... Help you with depression and brain damage. Average pill contains 10 units."
-	icon = 'icon/obj/chemical.dmi'
 	icon_state = "tabletos"
 
 /obj/item/storage/pill_bottle/phenazepam/PopulateContents()
@@ -947,7 +953,6 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 /obj/item/storage/pill_bottle/nootrop
 	name = "Phenotropil"
 	desc = "A nootropic that helps in concentration... Nootrop pills...Average pill contains 15 units."
-	icon = 'icon/obj/chemical.dmi'
 	icon_state = "tabletos_nootrop"
 
 /obj/item/storage/pill_bottle/nootrop/PopulateContents()
@@ -958,7 +963,6 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 /obj/item/storage/pill_bottle/tramadolum
 	name = "Ultramm"
 	desc = "A painkiller that allows the patient live  without pain. Average pill contains 20 units"
-	icon = 'icon/obj/chemical.dmi'
 	icon_state = "tabletos"
 
 /obj/item/storage/pill_bottle/tramadolum/PopulateContents()
