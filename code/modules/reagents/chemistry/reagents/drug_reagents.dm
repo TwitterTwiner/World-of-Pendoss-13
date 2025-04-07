@@ -1346,6 +1346,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		L.see_invisible = initial(L.see_invisible)
 		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 		for(var/atom/whole_screen in screens)
+			animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
 			for(var/i in 1 to 7)
 				filter = whole_screen.get_filter("wibbly-[i]")
 				animate(filter)
