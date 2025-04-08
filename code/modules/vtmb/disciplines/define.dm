@@ -163,10 +163,10 @@
 	if((check_flags & DISC_CHECK_SEE) && HAS_TRAIT(caster, TRAIT_BLIND))
 		return FALSE
 
-	if (target_type == NONE)
-		return TRUE
+//	if (target_type == NONE)
+//		return TRUE
 
-	if (target == caster)
+//	if (target == caster)
 		if (target_type & TARGET_SELF)
 			return TRUE
 		else
@@ -223,11 +223,10 @@
 	if (HAS_TRAIT(caster, TRAIT_PACIFISM))
 	//	if (alert)
 		to_chat(caster, span_warning("You cannot cast [src] as a pacifist!"))
-	//	return FALSE
+		return FALSE
 	//target doesn't match any targeted types, so can't activate on them
 //	if (alert)
 //	to_chat(caster, span_warning("You cannot cast [src] on [target]!"))
-	return FALSE
 
 
 	var/plus = 0
@@ -245,8 +244,6 @@
 	if(ranged)
 		if(get_dist(caster, target) > range_sh)
 			return FALSE
-	if(HAS_TRAIT(caster, TRAIT_PACIFISM))
-		return FALSE
 	caster.bloodpool = max(0, caster.bloodpool-(cost+plus))
 	caster.update_blood_hud()
 	if(ranged)
