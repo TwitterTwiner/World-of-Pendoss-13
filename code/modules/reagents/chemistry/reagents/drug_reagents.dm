@@ -1151,13 +1151,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		L.attributes.stamina_reagent = 2
 		L.attributes.dexterity_reagent = -1
 		L.attributes.strength_reagent = -1
-	on_mob_end_metabolize(mob/living/L)
-		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-		L.attributes.stamina_reagent = 0
-		L.attributes.dexterity_reagent = 0
-		L.attributes.strength_reagent = 0
-		animate(L.client, color = null, time = 20)
-		..()
+
 
 	overdose_process(mob/living/carbon/human/M)
 		M.drop_all_held_items()
@@ -1167,8 +1161,15 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		M.Jitter(5)
 		..()
 
-	on_mob_life(mob/living/carbon/M)
+	on_mob_end_metabolize(mob/living/L)
+		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+		L.attributes.stamina_reagent = 0
+		L.attributes.dexterity_reagent = 0
+		L.attributes.strength_reagent = 0
+		animate(L.client, color = null, time = 20)
 		..()
+	on_mob_life(mob/living/carbon/M)
+
 		if(prob(40))
 			M.reagents.add_reagent(/datum/reagent/medicine/morphine, 0.3)
 		if(prob(5))
@@ -1192,7 +1193,6 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 				M.Sleeping(40)
 				. = 1
 		..()
-
 
 	addiction_act_stage1(mob/living/M)
 		if(prob(33))
@@ -1245,12 +1245,15 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		..()
 		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"], M.hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"],  M.hud_used.plane_masters["[GAME_PLANE]"])
 		var/rot = 10
+		for(var/atom/whole_screen in screens)
+			for(var/i in 1 to 7)
+				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 5, y = 10, size =5, offset = rand()))
 		switch(current_cycle)
-			if(10 to 96)
-				rot += 5
-				for(var/atom/whole_screen in screens)
-					for(var/i in 1 to 7)
-						whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 5, y = 10, size =5, offset = rand()))
+		//	if(10 to 96)
+		//		rot += 5
+		//		for(var/atom/whole_screen in screens)
+		//			for(var/i in 1 to 7)
+		//				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 5, y = 10, size =5, offset = rand()))
 			if(97 to 192)
 				rot +=20
 				M.overlay_fullscreen("RADUGA",/atom/movable/screen/fullscreen/psychedelic)
@@ -1288,19 +1291,21 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 
 	on_mob_end_metabolize(mob/living/L)
 		..()
+		animate(L.client, color = null, time = 20)
 		L.clear_fullscreen("RADUGA")
 		REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
 		L.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
 		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
 		gribi_hud.remove_hud_from(L)
 		L.see_invisible = initial(L.see_invisible)
+		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.5)
 		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/atom/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
+		for(var/atom/negr_screen in screens)
+			animate(negr_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
 			for(var/i in 1 to 7)
-				filter = whole_screen.get_filter("wibbly-[i]")
+				filter = negr_screen.get_filter("wibbly-[i]")
 				animate(filter)
-				whole_screen.remove_filter("wibbly-[i]")
+				negr_screen.remove_filter("wibbly-[i]")
 
 //////////////////////DMT/////////////////////
 /datum/reagent/drug/mushroomhallucinogen/Dmt
@@ -1321,8 +1326,9 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		..()
 		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
 		if(current_cycle >= 35)
-			M.kislota_trip()
-			M << music
+			if(M.client)
+				M.kislota_trip()
+				M << music
 		if(current_cycle >= 50)
 			for(var/atom/whole_screen in screens)
 				for(var/i in 1 to 7)
@@ -1331,26 +1337,42 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 			M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip) // Lurkmore on Sperma_na_Ekran
 			M.clear_fullscreen("ONI_IDUT", 8)
 			if(prob(20))
+			//	var/kto = rand(1, 2)
 				var/DMTmessage2 = pick("Я ДОЛЖЕН ЕГО ПОКИНУТЬ!!!", "И Я ЗНАЮ СПОСОБ ЕЁ ПОКИНУТЬ!!!", "СМЕРТЬ", "ТОРМОЗ", "ХОЛОКОСТ", "ГЕНОЦИД", "формальность", "любовь", "НАД ЖРАТ ТАБЛТК", "ИДЕМ С НАМИ", "МЫ ЗНАЕМ ВЫХОД")
 				var/DMTmessage1 = pick("Этот мир нереален", "НИГЕРНИГЕРНИГЕРНИГЕР", "МЫ ЖИВЕМ В ИЛЛЮЗИИ", "ВЫХОД ИЗ МАТРИЦЫ", "ХОХЛЫ", "ЕВРЕЙ", "НЕГРЫ", "ПЕНДОСЫ", "свобода", "ненависть", "А ТО Я ЗСТРЛС", "ВЫХОД ПРЯМО ТУТ", "МЫ ТЕБЯ СПАСЕМ")
-				to_chat(M, list("<span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>"))
+				to_chat(M, "<span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
+				/*
+				switch(kto)
+					if(1)
+						to_chat(M, "<font size=12>[icon2html('icons/xorek_DMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
+					if(2)
+						to_chat(M, "<font size=12>[icon2html('icons/meomoorDMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
+						*/
 				M.intro_Sperma(DMTmessage1, 10)
-				if(do_mob(M, M, 6 SECONDS))
-					M.suicide()
+			if(do_mob(M, M, 6 SECONDS))
+				M.suicide()
 
 	on_mob_end_metabolize(mob/living/L)
-		..()
-		L.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
+
+		animate(L.client, color = null, time = 20)
+		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.5)
+		if(L.client && music)
+			music.file = null
+			L.client << music
+		if(music)
+			qdel(music)
+			music = null
 		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
 		gribi_hud.remove_hud_from(L)
 		L.see_invisible = initial(L.see_invisible)
 		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 		for(var/atom/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
 			for(var/i in 1 to 7)
 				filter = whole_screen.get_filter("wibbly-[i]")
 				animate(filter)
 				whole_screen.remove_filter("wibbly-[i]")
+			animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
+		..()
 
 /datum/reagent/drug/Nzp
 	name = "NZP"
@@ -1377,7 +1399,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		for(var/atom/whole_screen in screens)
 			animate(L.client, color = nzp, time = 5, easing = QUAD_EASING)
 			for(var/i in 1 to 7)
-				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 10, y = 15, size =10, offset = rand()))
+				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 100, y = 100, size =5, offset = rand()))
 
 	on_mob_end_metabolize(mob/living/L)
 		L.attributes.wits_reagent = 0
