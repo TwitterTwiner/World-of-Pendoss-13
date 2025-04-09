@@ -1298,7 +1298,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
 		gribi_hud.remove_hud_from(L)
 		L.see_invisible = initial(L.see_invisible)
-		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.5)
+		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.04)
 		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 		for(var/atom/negr_screen in screens)
 			animate(negr_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
@@ -1355,7 +1355,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	on_mob_end_metabolize(mob/living/L)
 
 		animate(L.client, color = null, time = 20)
-		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.5)
+		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.04)
 		if(L.client && music)
 			music.file = null
 			L.client << music
@@ -1378,7 +1378,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	name = "NZP"
 	description = "Наркотик разгонящий твои мысли и интеллект. Помогает в построении новых нейронных связей"
 	color = "#E700E7"
-	metabolization_rate = 1 * REAGENTS_METABOLISM
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 	var/atom/movable/screen/fullscreen/warp_effect/warp
 

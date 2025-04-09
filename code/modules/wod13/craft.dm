@@ -102,6 +102,14 @@
 	always_available = FALSE
 	category = CAT_TZIMISCE
 
+/datum/crafting_recipe/tzi_unicorn
+	name = "Unicorn (Decoration)"
+	time = 50
+	reqs = list(/obj/item/organ/penis = 1)
+	result = /obj/item/organ/penicorn
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
 //////////////////////////////// BLOODPACKS || ПАКЕТИКИ ////////////////////////////////////////
 
 /datum/crafting_recipe/methpack
