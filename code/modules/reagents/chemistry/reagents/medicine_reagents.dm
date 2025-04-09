@@ -691,7 +691,7 @@
 					if(!iskindred(M) && !iscathayan(M))
 						to_chat(M,"<span class='notice'>[moskal]</span>")
 			if(50 to INFINITY)
-				M.Sleeping(4)
+				M.Sleeping(15)
 				. = 1
 		..()
 	on_mob_metabolize(mob/living/L)
