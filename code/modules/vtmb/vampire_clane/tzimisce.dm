@@ -202,6 +202,7 @@
 		if(level >= 1)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_wall)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_stool)
+			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_unicorn)
 		if(level >= 2)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_floor)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_biter)

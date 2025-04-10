@@ -91,7 +91,8 @@
 	if(isorgan(tool))
 		current_type = "insert"
 		I = tool
-		if(target_zone != I.zone || target.getorganslot(I.slot))
+		var/obj/item/organ/penis/P = tool
+		if(target_zone != I.zone || target.getorganslot(I.slot) || (target.gender == FEMALE && I == P))
 			to_chat(user, "<span class='warning'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 		var/obj/item/organ/meatslab = tool

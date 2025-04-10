@@ -56,6 +56,9 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/proc/update_mutant_bodyparts()
 	dna.species.handle_mutant_bodyparts(src)
 
+/mob/living/carbon/human
+	var/given_penis = FALSE
+
 /mob/living/carbon/human/update_body()
 	if(dna.species.id == "mannequin")
 		base_body_mod = ""
@@ -95,19 +98,20 @@ There are several things that need to be remembered:
 //	update_body_parts_head_only()
 	remove_overlay(BODY_LAYER)
 	dna.species.handle_body(src)
-	/*
+
 	if(gender == MALE)
 		if(!given_penis)
 			var/obj/item/organ/replacement = new /obj/item/organ/penis()
 			replacement.Insert(src, TRUE, FALSE)
 			given_penis = TRUE
-	else
+	if(gender == FEMALE)
 		given_penis = FALSE
 		var/obj/item/organ/I = getorgan(/obj/item/organ/penis)
 		if(I)
 			I.Remove(src)
 			QDEL_NULL(I)
-	*/
+	//	var/obj/item/organ/uterus/replacement = new /obj/item/organ/uterus()
+	//	replacement.Insert(src, TRUE, FALSE)
 	..()
 
 /mob/living/carbon/human/update_fire()
