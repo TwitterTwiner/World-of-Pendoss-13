@@ -139,7 +139,7 @@
 /datum/crafting_recipe/heroinpack
 	name = "Сделать героиновый пакетик"
 	time = 25
-	reqs = list(/datum/reagent/medicine/morphine = 15, /obj/item/drinkable_bloodpack/full = 1)
+	reqs = list(/datum/reagent/drug/heroin = 15, /obj/item/drinkable_bloodpack/full = 1)
 	result = /obj/item/reagent_containers/drug/cokepack/heroinpack
 	always_available = TRUE
 	category = CAT_DRUGS
