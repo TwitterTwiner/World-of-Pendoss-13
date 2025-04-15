@@ -348,7 +348,7 @@
 				parts += "[FOURSPACES]First Death: <b>[ded["name"]], [ded["role"]], at [ded["area"]]. Damage taken: [ded["damage"]].[ded["last_words"] ? " Their last words were: \"[ded["last_words"]]\"" : ""]</b>"
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
-				parts += "[FOURSPACES]<i>Nobody died this shift!</i>"
+				parts += "[FOURSPACES]<i>Nobody died this night!</i>"
 	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		parts += "[FOURSPACES]Threat level: [mode.threat_level]"
@@ -427,7 +427,7 @@
 
 		else
 			parts += "<div class='panel redborder'>"
-			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
+			parts += "<span class='redtext'>You did not survive the events of [station_name()]...</span>"
 	else
 		parts += "<div class='panel stationborder'>"
 	parts += "<br>"
@@ -507,7 +507,7 @@
 			station_vault += account.balance
 			if(mr_moneybags.balance < account.balance)
 				mr_moneybags = account
-	parts += "<div class='panel stationborder'>There were [station_vault] dollars collected by people this night.<br>"
+	parts += "<div class='panel stationborder'>There were [station_vault] dollars collected by people this shift.<br>"
 	if(total_players > 0)
 		parts += "An average of [station_vault/total_players] dollars were collected.<br>"
 		log_econ("Roundend credit total: [station_vault] dollars. Average cash amount: [station_vault/total_players]")
@@ -516,7 +516,6 @@
 	else
 		parts += "Somehow, nobody made any money this shift! This'll result in some budget cuts...</div>"
 	return parts
-
 
 /datum/controller/subsystem/ticker/proc/medal_report()
 	if(GLOB.commendations.len)

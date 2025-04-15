@@ -1298,14 +1298,8 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
 		gribi_hud.remove_hud_from(L)
 		L.see_invisible = initial(L.see_invisible)
-		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.04)
-		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/atom/negr_screen in screens)
-			animate(negr_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
-			for(var/i in 1 to 7)
-				filter = negr_screen.get_filter("wibbly-[i]")
-				animate(filter)
-				negr_screen.remove_filter("wibbly-[i]")
+		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
+		to_chat(L, "<span class='notice'>Ты чувствуешь некое... просветвление.</span>")
 
 //////////////////////DMT/////////////////////
 /datum/reagent/drug/mushroomhallucinogen/Dmt
@@ -1355,7 +1349,6 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	on_mob_end_metabolize(mob/living/L)
 
 		animate(L.client, color = null, time = 20)
-		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.04)
 		if(L.client && music)
 			music.file = null
 			L.client << music
@@ -1365,13 +1358,9 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
 		gribi_hud.remove_hud_from(L)
 		L.see_invisible = initial(L.see_invisible)
-		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/atom/whole_screen in screens)
-			for(var/i in 1 to 7)
-				filter = whole_screen.get_filter("wibbly-[i]")
-				animate(filter)
-				whole_screen.remove_filter("wibbly-[i]")
-			animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
+//		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
+		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
+		to_chat(L, "<span class='notice'>Ты чувствуешь, что ОНИ дали тебе... Просветвление.</span>")
 		..()
 
 /datum/reagent/drug/Nzp

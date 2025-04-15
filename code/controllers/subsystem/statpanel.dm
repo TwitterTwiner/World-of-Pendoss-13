@@ -223,3 +223,46 @@ SUBSYSTEM_DEF(statpanels)
 
 	statbrowser_ready = TRUE
 	init_verbs()
+
+///immediately update the active statpanel tab of the target client
+/datum/controller/subsystem/statpanels/proc/immediate_send_stat_data(client/target)
+	if(!target.stat_panel.is_ready())
+		return FALSE
+
+	if(target.stat_tab == "Status")
+//		set_status_tab(target)
+		return TRUE
+
+	var/mob/target_mob = target.mob
+	if((target.stat_tab in target.spell_tabs) || !length(target.spell_tabs) && (length(target_mob.mob_spell_list) || length(target_mob.mind?.spell_list)))
+//		set_spells_tab(target, target_mob)
+		return TRUE
+
+	if(target_mob?.listed_turf)
+		if(!target_mob.TurfAdjacent(target_mob.listed_turf))
+			target.stat_panel.send_message("removed_listedturf")
+			target_mob.listed_turf = null
+
+		else if(target.stat_tab == target_mob?.listed_turf.name || !(target_mob?.listed_turf.name in target.panel_tabs))
+//			set_turf_examine_tab(target, target_mob)
+			return TRUE
+
+	if(!target.holder)
+		return FALSE
+
+	if(target.stat_tab == "MC")
+//		set_MC_tab(target)
+		return TRUE
+
+	if(target.stat_tab == "Tickets")
+//		set_tickets_tab(target)
+		return TRUE
+
+	if(!length(GLOB.sdql2_queries) && ("SDQL2" in target.panel_tabs))
+		target.stat_panel.send_message("remove_sdql2")
+
+//	else if(length(GLOB.sdql2_queries) && target.stat_tab == "SDQL2")
+//		set_SDQL2_tab(target)
+
+/// Stat panel window declaration
+/client/var/datum/tgui_window/stat_panel

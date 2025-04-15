@@ -639,11 +639,11 @@ this may seem bad, but you're atleast as close to the center of the atom as poss
 Checks if that loc and dir has an item on the wall
 */
 GLOBAL_LIST_INIT(WALLITEMS, typecacheof(list(
-	/obj/machinery/power/apc, /obj/machinery/airalarm, /obj/item/radio/intercom,
+	/obj/machinery/power/apc, /obj/item/radio/intercom,
 	/obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/button,
-	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/simple_vent_controller,
+	/obj/machinery/computer/security/telescreen,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
 	/obj/structure/sign/picture_frame, /obj/machinery/bounty_board
@@ -1207,8 +1207,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				return FALSE
 	return TRUE
 
-#define UNTIL(X) while(!(X)) stoplag()
-
 /proc/pass(...)
 	return
 
@@ -1253,20 +1251,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/time_clock = num2hex(TICK_DELTA_TO_MS(world.tick_usage), 3)
 
 	return "{[time_high]-[time_mid]-[GUID_VERSION][time_low]-[GUID_VARIANT][time_clock]-[node_id]}"
-
-// \ref behaviour got changed in 512 so this is necesary to replicate old behaviour.
-// If it ever becomes necesary to get a more performant REF(), this lies here in wait
-// #define REF(thing) (thing && istype(thing, /datum) && (thing:datum_flags & DF_USE_TAG) && thing:tag ? "[thing:tag]" : "\ref[thing]")
-/proc/REF(input)
-	if(istype(input, /datum))
-		var/datum/thing = input
-		if(thing.datum_flags & DF_USE_TAG)
-			if(!thing.tag)
-				stack_trace("A ref was requested of an object with DF_USE_TAG set but no tag: [thing]")
-				thing.datum_flags &= ~DF_USE_TAG
-			else
-				return "\[[url_encode(thing.tag)]\]"
-	return "\ref[input]"
 
 // Makes a call in the context of a different usr
 // Use sparingly
