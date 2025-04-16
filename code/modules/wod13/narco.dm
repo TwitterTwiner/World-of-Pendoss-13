@@ -845,7 +845,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 
 /obj/item/food/vampire/grib
 	name = "Some mushrooms"
-	desc = ""
+	desc = "Mushroom... just grib... ((DANGER FOR EPILEPTICS))"
 	icon_state = "grib"
 	biten = TRUE
 	bite_consumption = 3
@@ -936,7 +936,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 
 /obj/item/reagent_containers/pill/dmt
 	name = "Some pill"
-	desc = "Go to Nirvana..."
+	desc = "Go to Nirvana... ((DANGER FOR EPILEPTICS))"
 	icon_state = "pill15"
 	list_reagents = list(/datum/reagent/drug/mushroomhallucinogen/Dmt = 20)
 
