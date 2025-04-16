@@ -21,7 +21,7 @@ export const telemetryMiddleware = (store) => {
   let wasRequestedWithPayload;
   return (next) => (action) => {
     const { type, payload } = action;
-    // Handle telemetry requests
+    // Handle telemetry requestsф
     if (type === 'telemetry/request') {
       // Defer telemetry request until we have the actual telemetry
       if (!telemetry) {

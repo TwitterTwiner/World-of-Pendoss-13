@@ -56,6 +56,7 @@ export const Panel = (props) => {
                   tooltip={
                     settings.visible ? 'Close settings' : 'Open settings'
                   }
+                  color="bad"
                   tooltipPosition="bottom-start"
                   onClick={() => settings.toggle()}
                 />

@@ -8,10 +8,10 @@ export const THEMES = ['light', 'dark'];
 
 const COLORS = {
   DARK: {
-    BG_BASE: '#212020',
-    BG_SECOND: '#161515',
-    BUTTON: '#414040',
-    TEXT: '#A6A6A6',
+    BG_BASE: '#1b0101',
+    BG_SECOND: '#080808',
+    BUTTON: '#c9b53f ',
+    TEXT: '#660c0c',
   },
   LIGHT: {
     BG_BASE: '#EFEEEE',

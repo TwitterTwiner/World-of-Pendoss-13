@@ -10,8 +10,8 @@
 
 @use '~tgui/styles/colors.scss';
 @use '~tgui/styles/base.scss' with (
-  $color-bg: hsl(0, 0%, 12.5%),
-  $color-bg-section: color.adjust(hsl(0, 0%, 12.5%), $lightness: -5%),
+  $color-bg: #300303,
+  $color-bg-section: color.adjust(#300303, $lightness: -5%),
   $color-bg-grad-spread: 0%
 );
 

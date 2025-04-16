@@ -192,7 +192,7 @@ img {
 }
 
 /**
- * MARK: Dark theme colors
+ * MARK: DВark theme colors
  */
 .dark:root {
 	--scrollbar-base: #151515;
@@ -200,19 +200,19 @@ img {
 }
 
 body.dark {
-	background-color: #151515;
-	color: #b2c4dd;
-	scrollbar-base-color: #1c1c1c;
-	scrollbar-face-color: #3b3b3b;
-	scrollbar-3dlight-color: #252525;
-	scrollbar-highlight-color: #252525;
-	scrollbar-track-color: #1c1c1c;
-	scrollbar-arrow-color: #929292;
-	scrollbar-shadow-color: #3b3b3b;
+	background-color: #1b0101;
+	color: #c9b53f;
+	scrollbar-base-color: #1b0101;
+	scrollbar-face-color: #5b0d0d;
+	scrollbar-3dlight-color: #3a0808;
+	scrollbar-highlight-color: #3a0808;
+	scrollbar-track-color: #340505;
+	scrollbar-arrow-color: #851414;
+	scrollbar-shadow-color: #5b0d0d;
 }
 
 .dark a {
-	color: #6699ff;
+	color: #e2d6bc;
 }
 
 .dark a:hover,
@@ -222,7 +222,7 @@ body.dark {
 }
 
 .dark #menu {
-	background-color: #151515;
+	background-color: #1b0101;
 }
 
 .dark #menu.tabs-classic .button.active {
@@ -230,17 +230,21 @@ body.dark {
 }
 
 .dark .button {
-	color: rgba(255, 255, 255, 0.5);
+	background-color: #660c0c;
+	border-color: #080808;
 }
 
 .dark .button:hover {
-	background-color: #252525;
+	background-color:  #1b0101;
 }
 
 .dark .button.active  {
-	background-color: #313131;
+	background-color: #1b0101;
 	color: #d4dfec;
-	border-bottom-color: #d4dfec;
+	border-top-color: #080808;
+	border-left-color: #080808;
+	border-right-color: #080808;
+	border-bottom-color: #1b0101;
 }
 
 .dark #under-menu,
@@ -249,7 +253,7 @@ body.dark {
 }
 
 .dark .grid-item{
-	color: #b2c4dd;
+	background-color: #1b0101;
 }
 
 .dark .grid-item:hover .grid-item-text {
