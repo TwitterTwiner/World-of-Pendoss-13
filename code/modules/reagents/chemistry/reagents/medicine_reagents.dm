@@ -668,7 +668,8 @@
 	color = "#A9FBFB"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 40
-	addiction_threshold = 30
+	addiction_threshold = 5
+//	addiction_threshold = 30  В ЮНИТАХ
 	var/MeoMoor = 0
 	on_mob_life(mob/living/carbon/M)
 		if(current_cycle >= 8)
