@@ -287,7 +287,7 @@
 	if(identified)
 		return
 	if(do_mob(H, src, 15 SECONDS))
-		var/result1 = secret_vampireroll(get_a_occult(H)+get_a_investigation(H), 7, H)
+		var/result1 = secret_vampireroll(get_a_occult(H)+get_a_investigation(H), 7, H, TRUE)
 		switch(result1)
 			if(-1)
 				to_chat(H, "<span class='warning'>[src] внезапно обратился в прах!</span>")

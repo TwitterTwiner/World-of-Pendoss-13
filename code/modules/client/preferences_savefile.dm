@@ -382,6 +382,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Character
 	READ_FILE(S["slotlocked"], slotlocked)
 	READ_FILE(S["diablerist"], diablerist)
+	READ_FILE(S["know_diablerie"], know_diablerie)
 	READ_FILE(S["auspice_level"], auspice_level)
 	READ_FILE(S["humanity"], humanity)
 	READ_FILE(S["enlightement"], enlightenment)
@@ -586,6 +587,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	socks			= sanitize_inlist(socks, GLOB.socks_list)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	diablerist				= sanitize_integer(diablerist, 0, 1, initial(diablerist))
+	know_diablerie			= sanitize_integer(know_diablerie, 0, 1, initial(know_diablerie))
 	friend_text		= sanitize_text(friend_text)
 	enemy_text		= sanitize_text(enemy_text)
 	lover_text		= sanitize_text(lover_text)
@@ -750,6 +752,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Character
 	WRITE_FILE(S["slotlocked"]			, slotlocked)
 	WRITE_FILE(S["diablerist"]			, diablerist)
+	WRITE_FILE(S["know_diablerie"]		, know_diablerie)
 	WRITE_FILE(S["humanity"]			, humanity)
 	WRITE_FILE(S["enlightement"]			, enlightenment)
 	WRITE_FILE(S["consience"]			, consience)
