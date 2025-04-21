@@ -41523,7 +41523,9 @@
 /area/vtm/interior)
 "kEm" = (
 /obj/structure/table,
-/obj/item/implant/radio,
+/obj/machinery/p25transceiver/clinic{
+	pixel_y = 10
+	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/clinic)
 "kEq" = (
@@ -46358,13 +46360,6 @@
 	},
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm)
-"nuU" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 100000
-	},
-/turf/open/floor/plating/asphalt,
-/area/vtm/ghetto)
 "nvb" = (
 /obj/item/reagent_containers/food/drinks/beer/vampire{
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer=0)
@@ -170109,7 +170104,7 @@ aiI
 atK
 aiI
 aiI
-nuU
+aiI
 atK
 aiI
 aiI
