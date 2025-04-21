@@ -516,8 +516,8 @@
 
 /obj/machinery/light/prince
 	icon = 'code/modules/wod13/icons.dmi'
-	icon_state = "prince"
-	base_state = "prince"
+	icon_state = "tube"
+	base_state = "tube"
 
 /obj/machinery/light/prince/ghost
 
