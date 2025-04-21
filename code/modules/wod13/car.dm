@@ -762,6 +762,18 @@ SUBSYSTEM_DEF(carpool)
 	access = "clinic"
 	baggage_limit = 60
 
+/obj/vampire_car/limuzini_bombini
+	icon_state = "limo"
+	lighticon = "lights5"
+	access = "camarilla"
+	max_passengers = 6
+
+
+/obj/vampire_car/limuzini_bombini/giovanie
+	icon_state = "giolimo"
+	lighticon = "lights4"
+	access = "giovanni"
+
 /proc/get_dist_in_pixels(var/pixel_starts_x, var/pixel_starts_y, var/pixel_ends_x, var/pixel_ends_y)
 	var/total_x = abs(pixel_starts_x-pixel_ends_x)
 	var/total_y = abs(pixel_starts_y-pixel_ends_y)
