@@ -71,7 +71,7 @@
 
 	if(target.bloodpool <= 1 && target.maxbloodpool > 1)
 		to_chat(src, "<span class='warning'>You feel small amount of <b>BLOOD</b> in your victim.</span>")
-		if(iskindred(target) && (iskindred(src) & user.know_diablerie) && !src.in_frenzy)
+		if(iskindred(target) && (iskindred(src) && user.know_diablerie) && !src.in_frenzy)
 
 			if(!target.client)
 				to_chat(src, "<span class='warning'>Тебе нужна душа в твоей жертве для этого...</span>")
