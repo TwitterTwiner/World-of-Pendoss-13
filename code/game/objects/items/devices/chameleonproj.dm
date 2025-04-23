@@ -91,7 +91,7 @@
 	if(target.invisibility != 0)
 		return
 	playsound(get_turf(src), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
-	to_chat(user, "<span class='notice'>Scanned [target].</span>")
+	to_chat(user, "<span class='notice'>You remember [target]'s apperience.</span>")
 	saved_appearance = target.appearance
 
 /obj/item/chameleon/proc/toggle(mob/user)
@@ -172,9 +172,9 @@
 	if(isspaceturf(loc) || !direction)
 		return //No magical space movement!
 
-	if(can_move < world.time)
-		can_move = world.time + 10
-		step(src, direction)
+//	if(can_move < world.time)
+//		can_move = world.time + 10
+//		step(src, direction)
 	return
 
 /obj/effect/dummy/chameleon/Destroy()

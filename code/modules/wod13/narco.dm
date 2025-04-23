@@ -552,9 +552,18 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 
 /obj/item/reagent_containers/food/drinks/meth/cocaine
 	name = "white package"
+	desc = "Flour for rich."
 	icon_state = "package_cocaine"
 	list_reagents = list(/datum/reagent/drug/cocaine = 30)
 	cost = 500
+	meth = 0
+
+/obj/item/reagent_containers/food/drinks/meth/mephedrone
+	name = "white package"
+	desc = "Meow!"
+	icon_state = "package_cocaine"
+	list_reagents = list(/datum/reagent/drug/mephedrone = 30)
+	cost = 200
 	meth = 0
 
 /obj/item/reagent_containers/food/drinks/meth/attack(mob/living/M, mob/living/user)
@@ -744,7 +753,14 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	icon = 'code/modules/wod13/items.dmi'
 	list_reagents = list(/datum/reagent/drug/heroin = 15)
 
+/obj/item/reagent_containers/drug/cokepack/mephedronepack
+	name = "\improper elite blood pack (full)"
+	desc = "Fast way to feed your inner beast."
+	icon = 'code/modules/wod13/items.dmi'
+	list_reagents = list(/datum/reagent/drug/mephedrone = 15)
+
 //////////////////////////////////////ДОРОЖКА || DOROZHKA //////////////////////////////////////////////////////////
+
 /*
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -768,6 +784,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	icon = 'code/modules/wod13/items.dmi'
 	icon_state = "gorka"
 	var/meth = 0
+	var/meph = 0
 
 /obj/effect/gorka/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/vamp/creditcard))
