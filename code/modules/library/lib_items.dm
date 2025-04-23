@@ -53,9 +53,6 @@
 	. = ..()
 	if(!mapload)
 		return
-	var/matrix/ntransform = matrix(transform)
-	ntransform.Scale(0.5, 0.5)
-	animate(src, transform = ntransform, time = 1)
 	set_anchored(TRUE)
 	state = BOOKCASE_FINISHED
 	for(var/obj/item/I in loc)
