@@ -538,7 +538,8 @@
 	prize_list = list(
 		new /datum/data/mining_equipment("heroin syringe",	/obj/item/reagent_containers/syringe/contraband/heroin,	100),
 		new	/datum/data/mining_equipment("meth package",	/obj/item/reagent_containers/food/drinks/meth,	300),
-		new	/datum/data/mining_equipment("cocaine package",	/obj/item/reagent_containers/food/drinks/meth/cocaine,	700),
+		new	/datum/data/mining_equipment("cocaine package",	/obj/item/reagent_containers/food/drinks/meth/cocaine,	550),
+		new	/datum/data/mining_equipment("mephedrone",	/obj/item/reagent_containers/food/drinks/meth/mephedrone,	250),
 		new /datum/data/mining_equipment("LSD pill bottle",		/obj/item/storage/pill_bottle/lsd,	50),
 		new /datum/data/mining_equipment("LSD pill",		/obj/item/reagent_containers/pill/lsd,	10),
 		new /datum/data/mining_equipment("mushrooms package",	/obj/item/reagent_containers/food/drinks/meth/mushroom,	250),

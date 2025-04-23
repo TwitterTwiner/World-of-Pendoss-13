@@ -71,21 +71,27 @@
 
 	if(target.bloodpool <= 1 && target.maxbloodpool > 1)
 		to_chat(src, "<span class='warning'>You feel small amount of <b>BLOOD</b> in your victim.</span>")
-		if(iskindred(target) && iskindred(src) && !src.in_frenzy)
+		if(iskindred(target) && (iskindred(src) && user.know_diablerie) && !src.in_frenzy)
+
 			if(!target.client)
-				to_chat(src, "<span class='warning'>You need [target]'s attention to do that...</span>")
+				to_chat(src, "<span class='warning'>Тебе нужна душа в твоей жертве для этого...</span>")
 				return
 			message_admins("[ADMIN_LOOKUPFLW(src)] is attempting to Diablerize [ADMIN_LOOKUPFLW(target)]")
 			log_attack("[key_name(src)] is attempting to Diablerize [key_name(target)].")
 			if(target.key)
 				if(!GLOB.canon_event)
-					to_chat(src, "<span class='warning'>It's not a canon event!</span>")
+					to_chat(src, "<span class='warning'>Не каноничное событие!</span>")
 					return
-
-				to_chat(src, "<span class='userdanger'><b>YOU TRY TO COMMIT DIABLERIE OVER [target].</b></span>")
+				to_chat(src, "<span class='userdanger'><b>ТЫ ПЫТАЕШЬСЯ ДИАБЛЕРИЗИРОВАТЬ СВОЮ ЖЕРТВУ!!!</b></span>")
 			else
-				to_chat(src, "<span class='warning'>You need [target]'s attention to do that...</span>")
+				to_chat(src, "<span class='warning'>Тебе нужна душа в твоей жертвеs для этого...</span>")
 				return
+		else
+			to_chat(src, "Высосан... досуха.")
+			if(client)
+				client.images -= suckbar
+			qdel(suckbar)
+			return
 
 	if(!HAS_TRAIT(src, TRAIT_BLOODY_LOVER))
 		if(CheckEyewitness(src, src, 7, FALSE))
@@ -162,65 +168,84 @@
 		if(target.bloodpool <= 0)
 			if(ishuman(target))
 				var/mob/living/carbon/human/K = target
-				if(iskindred(target) && iskindred(src))
+				if(grab_state >= GRAB_KILL && (iskindred(target) && iskindred(src)))
 					var/datum/preferences/P = GLOB.preferences_datums[ckey(key)]
 					var/datum/preferences/P2 = GLOB.preferences_datums[ckey(target.key)]
-					AdjustHumanity(-1, 0)
-					AdjustMasquerade(-1)
-					if(K.generation >= generation)
-						message_admins("[ADMIN_LOOKUPFLW(src)] successfully Diablerized [ADMIN_LOOKUPFLW(target)]")
-						log_attack("[key_name(src)] successfully Diablerized [key_name(target)].")
-						if(key)
-							if(P)
-								P.diablerist = 1
-							diablerist = 1
-						if(K.client)
-//							P2.reset_character()
-							var/datum/brain_trauma/special/imaginary_friend/trauma = gain_trauma(/datum/brain_trauma/special/imaginary_friend)
-							trauma.friend.key = K.key
-						target.death()
-						if(P2)
-							P2.reset_character()
-							P2.reason_of_death =  "Diablerized by [true_real_name ? true_real_name : real_name] ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
-						adjustBruteLoss(-50, TRUE)
-						adjustFireLoss(-50, TRUE)
-					else
-						var/start_prob = 10
-						if(HAS_TRAIT(src, TRAIT_DIABLERIE))
-							start_prob = 30
-						if(prob(min(99, start_prob+((generation-K.generation)*10))))
-							to_chat(src, "<span class='userdanger'><b>[K]'s SOUL OVERCOMES YOURS AND GAIN CONTROL OF YOUR BODY.</b></span>")
-							message_admins("[ADMIN_LOOKUPFLW(src)] tried to Diablerize [ADMIN_LOOKUPFLW(target)] and was overtaken.")
-							log_attack("[key_name(src)] tried to Diablerize [key_name(target)] and was overtaken.")
-							death()
-							if(P)
-								P.reset_character()
-								P.reason_of_death = "Failed the Diablerie ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
-//							ghostize(FALSE)
-//							key = K.key
-//							generation = K.generation
-//							maxHealth = initial(maxHealth)+100*(13-generation)
-//							health = initial(health)+100*(13-generation)
-//							mob.death()
-						else
-							message_admins("[ADMIN_LOOKUPFLW(src)] successfully Diablerized [ADMIN_LOOKUPFLW(target)]")
-							log_attack("[key_name(src)] successfully Diablerized [key_name(target)].")
-							if(P)
-								P.diablerist = 1
-								P.generation_bonus = generation-target.generation
-								generation = target.generation
-//								P.generation = mob.generation
-							diablerist = 1
-//							if(P2)
-//								P2.reset_character()
-//							maxHealth = initial(maxHealth)+max(0, 50*(13-generation))
-//							health = initial(health)+max(0, 50*(13-generation))
-							var/datum/brain_trauma/special/imaginary_friend/trauma = gain_trauma(/datum/brain_trauma/special/imaginary_friend)
-							trauma.friend.key = K.key
-							target.death()
-							if(P2)
-								P2.reset_character()
-								P2.reason_of_death = "Diablerized by [true_real_name ? true_real_name : real_name] ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
+					var/uspeh = 0
+					var/modifikator_diab = 0
+					var/L
+					if(alert("Ты ДЕЙСТВИТЕЛЬНО хочешь высосать душу?",,"Да","Нет")=="Да")
+						user.Immobilize(80 SECONDS, TRUE)
+						attributes.stamina_bonus = -2
+				//	if(diablerist || P.generation > P2.generation+2)
+						if(diablerist)
+							modifikator_diab = 1
+						for(L = 0, L<7, L++)
+							if(do_mob(src, src, 10 SECONDS))
+								var/diablerie = secret_vampireroll(get_a_strength(user), 9+modifikator_diab, user)
+								MyPath.trigger_morality("diablerie")
+								K.MyPath.trigger_morality("diablerie_jertva")
+								if(diablerie <= 0)
+									uspeh -= 1
+									to_chat(user, "<span class='warning'>Душа [target] сопротивляется с новой силой, ты чувствуешь, как слабеешь...</span>")
+								else
+									uspeh += diablerie
+									to_chat(user, "<span class='warning'>Ты чувствуешь, как душа [target] слабеет...</span>")
+							else
+								to_chat(user, "<span class='warning'><b> ДУША УСКОЛЬЗНУЛА С ТВОИХ УСТ!!! </b></span>")
+								return
+						if(L == 7)
+							switch(uspeh)
+								if(-INFINITY to 6)
+									K.MyPath.trigger_morality("diablerie_jertva_uspeh")
+									to_chat(src, "<span class='userdanger'><b>ДУША [K] ПЕРЕХВАТИЛА ТВОЁ ТЕЛО.</b></span>")
+									message_admins("[ADMIN_LOOKUPFLW(src)] tried to Diablerize [ADMIN_LOOKUPFLW(target)] and was overtaken.")
+									log_attack("[key_name(src)] tried to Diablerize [key_name(target)] and was overtaken.")
+									death()
+									P2.add_experience(50)
+									if(P)
+										P.reset_character()
+										P.reason_of_death = "Failed the Diablerie ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
+
+								/*	if(P2)
+										var/list/discplinesP = P.discipline_types - P2.discipline_types
+										P2.discipline_types += discplinesP
+										var/ZV1 = length(discplinesP)
+											for(ZV1, ZV1>0, ZV1--)
+												P.discipline_levels += 0
+												*/
+								if(7 to INFINITY)
+									MyPath.trigger_morality("diablerie_success")
+									user.attributes.stamina_bonus = 0
+									AdjustMasquerade(-1)
+									message_admins("[ADMIN_LOOKUPFLW(src)] successfully Diablerized [ADMIN_LOOKUPFLW(target)]")
+									log_attack("[key_name(src)] successfully Diablerized [key_name(target)].")
+									adjustBruteLoss(-80, TRUE)
+									adjustFireLoss(-80, TRUE)
+									K.death()
+									rollfrenzy()
+									var/modifikator_disc = 0
+									if(length(P.discipline_types) > 3)
+										modifikator_disc = 8
+									if(key)
+										diablerist = 1
+										if(P)
+											P.diablerist = 1
+											P.generation_bonus = generation-target.generation
+											generation = target.generation
+											P.add_experience(75)
+											var/list/disciplinesPP = P2.discipline_types - P.discipline_types
+											var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in disciplinesPP
+											if(prob(15-modifikator_disc))
+												if(new_discipline)
+													P.discipline_types += new_discipline
+													P.discipline_levels += 0
+									if(K.client)
+										var/datum/brain_trauma/special/imaginary_friend/trauma = gain_trauma(/datum/brain_trauma/special/imaginary_friend)
+										trauma.friend.key = K.key
+									if(P2)
+										P2.reset_character()
+										P2.reason_of_death =  "Diablerized by [true_real_name ? true_real_name : real_name] ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 					if(client)
 						client.images -= suckbar
 					qdel(suckbar)

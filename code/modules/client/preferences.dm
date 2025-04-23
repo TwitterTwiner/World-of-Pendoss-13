@@ -148,6 +148,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/generation = 13
 	var/generation_bonus = 0
 
+	// Diablerie
+	var/know_diablerie = 0
+
 	//Masquerade
 	var/masquerade = 5
 
@@ -296,6 +299,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/reset_character()
 	slotlocked = 0
 	diablerist = 0
+	know_diablerie = 0
 	torpor_count = 0
 	generation_bonus = 0
 	reset_stats()
@@ -3314,6 +3318,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.true_real_name = real_name
 	character.name = character.real_name
 	character.diablerist = diablerist
+	character.know_diablerie = know_diablerie
 
 	var/genlimited = get_gen_attribute_limit(generation-generation_bonus)
 
