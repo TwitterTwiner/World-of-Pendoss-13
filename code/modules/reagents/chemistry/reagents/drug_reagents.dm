@@ -1236,6 +1236,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	color = "#E700E7" // rgb: 231, 0, 231
 	metabolization_rate = 0.025 * REAGENTS_METABOLISM
 	taste_description = "mushroom"
+	music = sound('code/modules/wod13/sounds/daughters.ogg', TRUE, wait=1, volume = 100, channel = 31)
 	var/badtrip = 0
 	on_mob_add(mob/living/L)
 		var/raznitsa = rand(1,4)
@@ -1243,6 +1244,9 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 			badtrip = 1
 	on_mob_life(mob/living/carbon/M)
 		..()
+		if(M.client)
+			M.kislota_trip()
+			M << music
 		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"], M.hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"],  M.hud_used.plane_masters["[GAME_PLANE]"])
 		var/rot = 10
 		for(var/atom/whole_screen in screens)
@@ -1291,6 +1295,9 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 
 	on_mob_end_metabolize(mob/living/L)
 		..()
+		if(L.client && music)
+			music.file = null
+			L.client << music
 		animate(L.client, color = null, time = 20)
 		L.clear_fullscreen("RADUGA")
 		REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
