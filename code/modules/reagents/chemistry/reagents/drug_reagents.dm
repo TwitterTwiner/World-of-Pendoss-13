@@ -1236,6 +1236,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	color = "#E700E7" // rgb: 231, 0, 231
 	metabolization_rate = 0.025 * REAGENTS_METABOLISM
 	taste_description = "mushroom"
+	music = sound('code/modules/wod13/sounds/daughters.ogg', TRUE, wait=1, volume = 100, channel = 31)
 	var/badtrip = 0
 	music = sound('code/modules/wod13/sounds/daughters.ogg', TRUE, wait=1, volume = 100, channel = 31)
 	on_mob_add(mob/living/L)
