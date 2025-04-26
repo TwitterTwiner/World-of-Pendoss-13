@@ -1238,6 +1238,7 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	taste_description = "mushroom"
 	music = sound('code/modules/wod13/sounds/daughters.ogg', TRUE, wait=1, volume = 100, channel = 31)
 	var/badtrip = 0
+	music = sound('code/modules/wod13/sounds/daughters.ogg', TRUE, wait=1, volume = 100, channel = 31)
 	on_mob_add(mob/living/L)
 		var/raznitsa = rand(1,4)
 		if((L.humanity <= 7) && (L.humanity <= (L.humanity-raznitsa)))
@@ -1365,7 +1366,6 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
 		gribi_hud.remove_hud_from(L)
 		L.see_invisible = initial(L.see_invisible)
-		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
 		to_chat(L, "<span class='notice'>Ты чувствуешь, что ОНИ дали тебе... Просветвление.</span>")
 		..()
