@@ -539,6 +539,8 @@
 /// from /obj/item/toy/crayon/spraycan/afterattack: (color_is_dark)
 #define COMSIG_OBJ_PAINTED "obj_painted"
 
+#define COMSIG_OBJ_ZAKLADEN "obj_zakladen"
+
 // /obj/machinery signals
 
 ///from /obj/machinery/obj_break(damage_flag): (damage_flag)
@@ -984,6 +986,8 @@
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_ATTACK_QDELETED "item_attack_qdeleted"
+///from base of /mob/proc/melee_swing()
+#define COMSIG_MOB_MELEE_SWING "mob_melee_swing"
 ///from base of atom/attack_hand(): (mob/user)
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
 ///from base of /obj/item/attack(): (mob/M, mob/user)
