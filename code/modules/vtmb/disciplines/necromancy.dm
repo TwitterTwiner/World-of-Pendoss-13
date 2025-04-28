@@ -18,6 +18,11 @@
 		var/mob/living/simple_animal/hostile/beastmaster/B = pick(caster.beastmaster)
 		B.death()
 	if(target.stat == DEAD)
+		if(istype(target, /mob/living/simple_animal))
+			if(istype(target,/mob/living/simple_animal/rat))
+				to_chat(caster, "[caster], ты че, долбаеб?") // {T.WINER} ВРЕМЕННАЯ ЗАТЫЧКА
+			to_chat(caster, "Это тело уже не поднять...")
+			return
 		switch(level_casting)
 			if(1)
 				if(!length(caster.beastmaster))
