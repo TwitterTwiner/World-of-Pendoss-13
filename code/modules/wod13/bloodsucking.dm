@@ -71,8 +71,13 @@
 
 	if(target.bloodpool <= 1 && target.maxbloodpool > 1)
 		to_chat(src, "<span class='warning'>You feel small amount of <b>BLOOD</b> in your victim.</span>")
-		if(iskindred(target) && (iskindred(src) && user.know_diablerie) && !src.in_frenzy)
-
+		if(iskindred(target) && iskindred(src) && !src.in_frenzy)
+			if(!user.know_diablerie)
+				to_chat(src, "Высосан... досуха.")
+				if(client)
+					client.images -= suckbar
+				qdel(suckbar)
+				return
 			if(!target.client)
 				to_chat(src, "<span class='warning'>Тебе нужна душа в твоей жертве для этого...</span>")
 				return
@@ -86,12 +91,6 @@
 			else
 				to_chat(src, "<span class='warning'>Тебе нужна душа в твоей жертвеs для этого...</span>")
 				return
-		else
-			to_chat(src, "Высосан... досуха.")
-			if(client)
-				client.images -= suckbar
-			qdel(suckbar)
-			return
 
 	if(!HAS_TRAIT(src, TRAIT_BLOODY_LOVER))
 		if(CheckEyewitness(src, src, 7, FALSE))
