@@ -88,7 +88,7 @@
 		if(prob(10))
 			emote("gasp")
 		if(istype(loc, /obj/))
-			var/obj/loc_as_obj = get_turf()
+			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src,0)
 
 	check_breath()
