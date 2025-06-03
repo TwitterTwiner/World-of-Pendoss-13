@@ -36,7 +36,7 @@
 	icon_state = "seed-poppy"
 	species = "poppy"
 	plantname = "Poppy Plants"
-	product = /obj/item/food/grown/poppy
+	product = /obj/item/food/grown/flower/poppy
 	endurance = 10
 	maturation = 8
 	yield = 6
