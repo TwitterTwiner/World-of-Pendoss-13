@@ -215,8 +215,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		fcopy(S, bacpath) //byond helpfully lets you use a savefile for the first arg.
 		update_preferences(needs_update, S)		//needs_update = savefile_version if we need an update (positive integer)
 
-
-
 	//Sanitize
 	asaycolor		= sanitize_ooccolor(sanitize_hexcolor(asaycolor, 6, 1, initial(asaycolor)))
 	ooccolor		= sanitize_ooccolor(sanitize_hexcolor(ooccolor, 6, 1, initial(ooccolor)))
@@ -324,6 +322,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["key_bindings"], key_bindings)
+	WRITE_FILE(S["equipped_gear"], equipped_gear)
 	WRITE_FILE(S["hearted_until"], (hearted_until > world.realtime ? hearted_until : null))
 	return TRUE
 
@@ -498,6 +497,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["yin"], yin)
 	READ_FILE(S["chi_types"], chi_types)
 	READ_FILE(S["chi_levels"], chi_levels)
+	READ_FILE(S["equipped_gear"], equipped_gear)
+	if(!equipped_gear)
+		equipped_gear = list()
+	else if(config && (length(equipped_gear) > CONFIG_GET(number/max_loadout_items)))
+		to_chat(parent, span_userdanger("Loadout maximum items exceeded in loaded slot, Your loadout has been cleared! You had [length(equipped_gear)]/[CONFIG_GET(number/max_loadout_items)] equipped items!"))
+		equipped_gear = list()
+	else
+		equipped_gear = sanitize_each_inlist(equipped_gear, SSloadout.gear_datums)
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
 		features["ears"] = "none"
