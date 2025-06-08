@@ -28220,16 +28220,6 @@
 "dJf" = (
 /turf/closed/wall/vampwall/rich/old,
 /area/vtm/interior/glasswalker)
-"dJD" = (
-/obj/effect/decal/bordur{
-	dir = 1
-	},
-/obj/effect/decal/bordur{
-	dir = 4
-	},
-/obj/matrix,
-/turf/open/floor/plating/roofwalk,
-/area/vtm)
 "dJH" = (
 /obj/structure/chair/sofa/corp/corner{
 	alpha = 125;
@@ -223030,7 +223020,7 @@ aiA
 aiA
 aiA
 aiA
-dJD
+eIc
 oPI
 oPI
 oPI
