@@ -322,7 +322,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["key_bindings"], key_bindings)
-	WRITE_FILE(S["equipped_gear"], equipped_gear)
 	WRITE_FILE(S["hearted_until"], (hearted_until > world.realtime ? hearted_until : null))
 	return TRUE
 
@@ -505,6 +504,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		equipped_gear = list()
 	else
 		equipped_gear = sanitize_each_inlist(equipped_gear, SSloadout.gear_datums)
+
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
 		features["ears"] = "none"
@@ -879,6 +879,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["yin"], yin)
 	WRITE_FILE(S["chi_types"], chi_types)
 	WRITE_FILE(S["chi_levels"], chi_levels)
+	WRITE_FILE(S["equipped_gear"], equipped_gear)
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
