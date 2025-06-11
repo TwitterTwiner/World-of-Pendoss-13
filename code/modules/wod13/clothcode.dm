@@ -141,6 +141,11 @@
 	desc = "A white turtleneck for hansome man."
 	icon_state = "turtleneck_white"
 
+
+/obj/item/clothing/under/vampire/kon4atel
+	name = "Black T-short"
+	desc = "I hate crimes..."
+	icon_state = "kon4atel"
 //FOR NPC
 
 //GANGSTERS AND BANDITS
@@ -683,9 +688,14 @@
 
 /obj/item/clothing/suit/vampire/trench/archive
 	name = "rich trenchcoat"
-	desc = "Best choise for pleasant life... or not."
+	desc = "Best choise for pleasant life... or not. This trench smeels like blood."
 	icon_state = "trench3"
-	armor = list(BASHING = 2, LETHAL = 1, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
+	armor = list(BASHING = 2, LETHAL = 1, AGGRAVATED = 1, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
+
+/obj/item/clothing/suit/vampire/trench/archive/pidors
+	desc = "Best choise for pleasant life... or not."
+	armor = list(BASHING = 1, LETHAL = 1, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
+
 
 /obj/item/clothing/suit/vampire/trench/tzi
 	name = "fleshcoat"
@@ -716,6 +726,12 @@
 	desc = "Probably spanish. Provides good protection."
 	icon_state = "medieval"
 	armor = list(BASHING = 4, LETHAL = 4, AGGRAVATED = 2, MELEE = 55, BULLET = 55, LASER = 10, ENERGY = 10, BOMB = 55, BIO = 0, RAD = 0, FIRE = 45, ACID = 10, WOUND = 25)
+
+/obj/item/clothing/suit/vampire/vest/kon4atel
+	name = "Black trench"
+	desc = "Ya nenaviju prestupnost."
+	icon_state = "coat_kon4atel"
+
 
 //Police + Army
 /obj/item/clothing/suit/vampire/vest/police
