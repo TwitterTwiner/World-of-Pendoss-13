@@ -417,7 +417,7 @@
 
 /datum/gear/suit/trenchcoat/burgundy
 	display_name = "trenchcoat, burgundy"
-	path = /obj/item/clothing/suit/vampire/trench/archive
+	path = /obj/item/clothing/suit/vampire/trench/archive/pidors
 	cost = 3
 
 // Misc
