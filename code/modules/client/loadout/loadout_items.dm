@@ -203,6 +203,10 @@
 	sort_category = "Headwear"
 	cost = 1
 
+/datum/gear/hat/svadba
+	subtype_path = /datum/gear/hat/svadba
+	display_name = "wedding veil"
+	path = /obj/item/clothing/head/weddingveil
 
 // Bandana
 /datum/gear/hat/bandana
@@ -414,6 +418,7 @@
 /datum/gear/suit/trenchcoat/burgundy
 	display_name = "trenchcoat, burgundy"
 	path = /obj/item/clothing/suit/vampire/trench/archive
+	cost = 3
 
 // Misc
 
@@ -454,6 +459,11 @@
 	sort_category = "Uniforms and Casual Dress"
 	cost = 2
 
+/datum/gear/uniform/svadba
+	subtype_path = /datum/gear/uniform/svadba
+	display_name = "weddin dress"
+	path = /obj/item/clothing/under/dress/wedding_dress
+
 // Suits (and suitskirts)
 /datum/gear/uniform/suit
 	subtype_path = /datum/gear/uniform/suit
@@ -462,6 +472,11 @@
 /datum/gear/uniform/suit/fancy_gray
 	display_name = "fancy suit, gray"
 	path = /obj/item/clothing/under/vampire/fancy_gray
+
+/datum/gear/uniform/suit/kon4atel
+	display_name = "black T-shirt."
+	description = "I hate crimes..."
+	path = /obj/item/clothing/under/vampire/kon4atel
 
 /datum/gear/uniform/suit/fancy_red
 	display_name = "fancy suit, red"
@@ -498,10 +513,12 @@
 /datum/gear/uniform/suit/plain_red
 	display_name = "plain suit, red"
 	path = /obj/item/clothing/under/vampire/sheriff
+	allowed_roles = ("Sheriff")
 
 /datum/gear/uniform/suit/plain_red_skirt
 	display_name = "plain suitskirt, red"
 	path = /obj/item/clothing/under/vampire/sheriff/female
+	allowed_roles = ("Sheriff")
 
 /datum/gear/uniform/suit/plain_blue
 	display_name = "plain suit, blue"
