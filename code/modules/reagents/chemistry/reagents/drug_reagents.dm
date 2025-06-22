@@ -1009,70 +1009,73 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	addiction_threshold = 15
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 
-	on_mob_end_metabolize(mob/living/L)
-		L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
-		L.attributes.wits_reagent = 0
-		L.attributes.strength_reagent = 0
-		holder.add_reagent(/datum/reagent/consumable/ethanol/postmephedrone, rand(3, 10))
-		..()
+/datum/reagent/drug/mephedrone/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
+	L.attributes.wits_reagent = 0
+	L.attributes.strength_reagent = 0
+	holder.add_reagent(/datum/reagent/consumable/ethanol/postmephedrone, rand(3, 10))
+	..()
 
-	on_mob_life(mob/living/carbon/M)
-		high_message = pick("Ты чувствуешь себя энергичнее!", "Ты ощущаешь, что тебе нужно идти быстрее!", "А у меня во дворе...")
-		if(prob(5))
-			to_chat(M, "<span class='notice'>[high_message]</span>")
-			M.emote(pick("twitch", "shiver"))
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "tweaking", /datum/mood_event/stimulant_medium, name)
-		M.AdjustUnconscious(-50)
-		M.attributes.wits_reagent = 2
-		M.attributes.strength_reagent = 1
-		M.AdjustAllImmobility(-35)
-		M.adjustStaminaLoss(-2, 0)
-		for(var/datum/reagent/consumable/ethanol/postmephedrone/R in M.reagents.reagent_list)
-			M.reagents.remove_reagent(R.type,10)
-		..()
-		. = 1
+/datum/reagent/drug/mephedrone/on_mob_life(mob/living/carbon/M)
+	high_message = pick("Ты чувствуешь себя энергичнее!", "Ты ощущаешь, что тебе нужно идти быстрее!", "А у меня во дворе...")
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+		M.emote(pick("twitch", "shiver"))
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "tweaking", /datum/mood_event/stimulant_medium, name)
+	M.AdjustUnconscious(-50)
+	M.attributes.wits_reagent = 2
+	M.attributes.strength_reagent = 1
+	M.AdjustAllImmobility(-35)
+	M.adjustStaminaLoss(-2, 0)
+	for(var/datum/reagent/consumable/ethanol/postmephedrone/R in M.reagents.reagent_list)
+		M.reagents.remove_reagent(R.type,10)
+	..()
+	. = 1
 
-	overdose_process(mob/living/M)
-		if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
-			for(var/i in 1 to 4)
-				step(M, pick(GLOB.cardinals))
-		if(prob(20))
-			M.emote("laugh")
-			holder.add_reagent(/datum/reagent/consumable/ethanol/postmephedrone, rand(6, 15))
-			M.hallucination += 15
-		if(prob(33))
-			M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
-			M.drop_all_held_items()
-		..()
-		M.adjustToxLoss(1, 0)
-		. = 1
+/datum/reagent/drug/mephedrone/overdose_process(mob/living/M)
+	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
+		for(var/i in 1 to 4)
+			step(M, pick(GLOB.cardinals))
+	if(prob(20))
+		M.emote("laugh")
+		holder.add_reagent(/datum/reagent/consumable/ethanol/postmephedrone, rand(6, 15))
+		M.hallucination += 15
+	if(prob(33))
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.drop_all_held_items()
+	..()
+	M.adjustToxLoss(1, 0)
+	. = 1
 
-	addiction_act_stage1(mob/living/M)
-		if(prob(20))
-			M.emote(pick("twitch","drool","moan"))
-			M.playsound_local(M, 'sound/hallucinations/LOBOTOMIA.ogg', 70, FALSE)
-		..()
-	addiction_act_stage2(mob/living/M)
-		M.Dizzy(10)
-		if(prob(20))
-			M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip)
-			M.clear_fullscreen("ONI_IDUT", 2)
-	addiction_act_stage3(mob/living/M)
-		M.Dizzy(15)
-		if(prob(40))
-			M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip)
-			M.clear_fullscreen("ONI_IDUT", 4)
-	addiction_act_stage4(mob/living/M)
-		if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
-			for(var/i = 0, i < 4, i++)
-				step(M, pick(GLOB.cardinals))
-		M.Dizzy(15)
+/datum/reagent/drug/mephedrone/addiction_act_stage1(mob/living/M)
+	if(prob(20))
+		M.emote(pick("twitch","drool","moan"))
+		M.playsound_local(M, 'sound/hallucinations/LOBOTOMIA.ogg', 70, FALSE)
+	..()
+
+/datum/reagent/drug/mephedrone/addiction_act_stage2(mob/living/M)
+	M.Dizzy(10)
+	if(prob(20))
 		M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip)
-		M.clear_fullscreen("ONI_IDUT", 6)
-		if(prob(40))
-			M.emote(pick("twitch","drool","moan"))
-			M.playsound_local(M, 'sound/hallucinations/LOBOTOMIA.ogg', 100, TRUE)
-		..()
+		M.clear_fullscreen("ONI_IDUT", 2)
+
+/datum/reagent/drug/mephedrone/addiction_act_stage3(mob/living/M)
+	M.Dizzy(15)
+	if(prob(40))
+		M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip)
+		M.clear_fullscreen("ONI_IDUT", 4)
+
+/datum/reagent/drug/mephedrone/addiction_act_stage4(mob/living/M)
+	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
+		for(var/i = 0, i < 4, i++)
+			step(M, pick(GLOB.cardinals))
+	M.Dizzy(15)
+	M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip)
+	M.clear_fullscreen("ONI_IDUT", 6)
+	if(prob(40))
+		M.emote(pick("twitch","drool","moan"))
+		M.playsound_local(M, 'sound/hallucinations/LOBOTOMIA.ogg', 100, TRUE)
+	..()
 
 /datum/reagent/consumable/ethanol/postmephedrone
 	name = "Post-Mephedrone"
@@ -1082,59 +1085,63 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	overdose_threshold = 30
 	boozepwr = 40
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	on_mob_add(mob/living/L)
-		spawn(10)
-			L.playsound_local(L, 'sound/hallucinations/TRIPNIGGA.ogg', 70, TRUE)
-	on_mob_life(mob/living/carbon/M)
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.1, 0.2, 0.3, 0.4, 0.5))
-		M.emote(pick("twitch","drool","moan"))
-		M.drowsyness += 1
-		spawn(30)
-			M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip)
-			M.clear_fullscreen("ONI_IDUT", 6)
-			var/mob/living/carbon/human/H = M
-			H.hallucination += 20
-		if(prob(20))
-			M.blind_eyes(5)
-			switch(rand(1, 2))
-				if(1)
-					M.playsound_local(M, 'code/modules/wod13/sounds/CURSE.ogg', 70, TRUE)
-				if(2)
-					M.playsound_local(M, 'sound/hallucinations/LOBOTOMIA.ogg', 70, TRUE)
-		..()
-	on_mob_metabolize(mob/living/L)
-		..()
-		L.attributes.wits_reagent = -1
-		L.attributes.stamina_reagent = -1
-	on_mob_end_metabolize(mob/living/L)
-		L.attributes.wits_reagent = 0
-		L.attributes.stamina_reagent = 0
-		..()
 
-	on_mob_life(mob/living/carbon/M)
-		var/high_message = pick("Ты чувствуешь себя хуево.", "Все хуже и хуже..", "Девочка с каре....", "Пиздос", "Ебать мой хуй", "Я ебу собак", "Как же хочеца...")
-		if(prob(5))
-			to_chat(M, "<span class='notice'>[high_message]</span>")
-			M.emote(pick("twitch", "shiver", "cry"))
-			M.set_drugginess(35)
-		..()
-		. = 1
+/datum/reagent/consumable/ethanol/postmephedrone/on_mob_add(mob/living/L)
+	spawn(10)
+		L.playsound_local(L, 'sound/hallucinations/TRIPNIGGA.ogg', 70, TRUE)
 
-	overdose_process(mob/living/M)
-		if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
-			for(var/i in 1 to 4)
-				step(M, pick(GLOB.cardinals))
-		if(prob(20))
-			M.emote("cry")
-			M.hallucination += 30
-			M.playsound_local(M, 'sound/hallucinations/TRIPNIGGA.ogg', 40, TRUE)
-		if(prob(33))
-			M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
-			M.drop_all_held_items()
-			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
-		..()
-		M.adjustToxLoss(1, 0)
-		. = 1
+/datum/reagent/consumable/ethanol/postmephedrone/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.1, 0.2, 0.3, 0.4, 0.5))
+	M.emote(pick("twitch","drool","moan"))
+	M.drowsyness += 1
+	spawn(30)
+		M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip)
+		M.clear_fullscreen("ONI_IDUT", 6)
+		var/mob/living/carbon/human/H = M
+		H.hallucination += 20
+	if(prob(20))
+		M.blind_eyes(5)
+		switch(rand(1, 2))
+			if(1)
+				M.playsound_local(M, 'code/modules/wod13/sounds/CURSE.ogg', 70, TRUE)
+			if(2)
+				M.playsound_local(M, 'sound/hallucinations/LOBOTOMIA.ogg', 70, TRUE)
+	..()
+
+/datum/reagent/consumable/ethanol/postmephedrone/on_mob_metabolize(mob/living/L)
+	..()
+	L.attributes.wits_reagent = -1
+	L.attributes.stamina_reagent = -1
+
+/datum/reagent/consumable/ethanol/postmephedrone/on_mob_end_metabolize(mob/living/L)
+	L.attributes.wits_reagent = 0
+	L.attributes.stamina_reagent = 0
+	..()
+
+/datum/reagent/consumable/ethanol/postmephedrone/on_mob_life(mob/living/carbon/M)
+	var/high_message = pick("Ты чувствуешь себя хуево.", "Все хуже и хуже..", "Девочка с каре....", "Пиздос", "Ебать мой хуй", "Я ебу собак", "Как же хочеца...")
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+		M.emote(pick("twitch", "shiver", "cry"))
+		M.set_drugginess(35)
+	..()
+	. = 1
+
+/datum/reagent/consumable/ethanol/postmephedrone/overdose_process(mob/living/M)
+	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
+		for(var/i in 1 to 4)
+			step(M, pick(GLOB.cardinals))
+	if(prob(20))
+		M.emote("cry")
+		M.hallucination += 30
+		M.playsound_local(M, 'sound/hallucinations/TRIPNIGGA.ogg', 40, TRUE)
+	if(prob(33))
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.drop_all_held_items()
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
+	..()
+	M.adjustToxLoss(1, 0)
+	. = 1
 
 
 /datum/reagent/drug/heroin
@@ -1145,89 +1152,89 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	overdose_threshold = 30
 	addiction_threshold = 30
 
-	on_mob_metabolize(mob/living/L)
-		..()
-		L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-		L.attributes.stamina_reagent = 2
-		L.attributes.dexterity_reagent = -1
-		L.attributes.strength_reagent = -1
+/datum/reagent/drug/heroin/on_mob_metabolize(mob/living/L)
+	..()
+	L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	L.attributes.stamina_reagent = 2
+	L.attributes.dexterity_reagent = -1
+	L.attributes.strength_reagent = -1
 
 
-	overdose_process(mob/living/carbon/human/M)
+/datum/reagent/drug/heroin/overdose_process(mob/living/carbon/human/M)
+	M.drop_all_held_items()
+	M.adjustToxLoss(3*REM, 0)
+	. = 1
+	M.Dizzy(5)
+	M.Jitter(5)
+	..()
+
+/datum/reagent/drug/heroin/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	L.attributes.stamina_reagent = 0
+	L.attributes.dexterity_reagent = 0
+	L.attributes.strength_reagent = 0
+	animate(L.client, color = null, time = 20)
+	..()
+
+/datum/reagent/drug/heroin/on_mob_life(mob/living/carbon/M)
+	if(prob(40))
+		M.reagents.add_reagent(/datum/reagent/medicine/morphine, 0.3)
+	if(prob(5))
+		var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
+		if(heart)
+			M.losebreath += rand(2,4)
+			M.adjustOxyLoss(rand(1,3))
+			heart.applyOrganDamage(-5)
+	switch(current_cycle)
+		if(11)
+			var/nigguh = pick("Ты ЧуВсТвУеШь СиБя УсТаВшиМ...", "В иголке содержится космос...", "Ты ОщУщАеШь НеВеРоЯтНуЮ УсТаЛоСтЬ...")
+			to_chat(M, "<span class='reallybig hypnophrase'>[nigguh]</span>" )
+			M.attributes.dexterity_reagent = -1
+			M.attributes.strength_reagent = -1
+		if(22 to 49)
+			high_message = pick("ВСЕ ПЛЫВАЕТ, МУЛЬТИКИ НАЧАЛИСЬ!!!", "МУЛЬТ-МЫЛ-БАБАХ!!!", "РЕЛАКСИВНЫЙ УЛЬТ!")
+			to_chat(M, "<span class='reallybig hypnophrase'>[high_message]</span>")
+			M.kislota_trip()
+			M.drowsyness += 1
+		if(50 to INFINITY)
+			M.Sleeping(40)
+			. = 1
+	..()
+
+/datum/reagent/drug/heroin/addiction_act_stage1(mob/living/M)
+	if(prob(33))
+		M.drop_all_held_items()
+		M.Jitter(2)
+	animate(M.client, color = dpr, time = 50)
+	..()
+
+/datum/reagent/drug/heroin/addiction_act_stage2(mob/living/M)
+	if(prob(33))
+		M.drop_all_held_items()
+		M.adjustToxLoss(1*REM, 0)
+		. = 1
+		M.Dizzy(3)
+		M.Jitter(3)
+	..()
+
+/datum/reagent/drug/heroin/addiction_act_stage3(mob/living/M)
+	if(prob(33))
+		M.drop_all_held_items()
+		M.adjustToxLoss(2*REM, 0)
+		. = 1
+		M.Dizzy(4)
+		M.Jitter(4)
+	..()
+
+/datum/reagent/drug/heroin/addiction_act_stage4(mob/living/M)
+	animate(M.client, color = null, time = 50)
+	if(prob(33))
 		M.drop_all_held_items()
 		M.adjustToxLoss(3*REM, 0)
 		. = 1
 		M.Dizzy(5)
 		M.Jitter(5)
-		..()
-
-	on_mob_end_metabolize(mob/living/L)
-		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-		L.attributes.stamina_reagent = 0
-		L.attributes.dexterity_reagent = 0
-		L.attributes.strength_reagent = 0
-		animate(L.client, color = null, time = 20)
-		..()
-	on_mob_life(mob/living/carbon/M)
-
-		if(prob(40))
-			M.reagents.add_reagent(/datum/reagent/medicine/morphine, 0.3)
-		if(prob(5))
-			var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
-			if(heart)
-				M.losebreath += rand(2,4)
-				M.adjustOxyLoss(rand(1,3))
-				heart.applyOrganDamage(-5)
-		switch(current_cycle)
-			if(11)
-				var/nigguh = pick("Ты ЧуВсТвУеШь СиБя УсТаВшиМ...", "В иголке содержится космос...", "Ты ОщУщАеШь НеВеРоЯтНуЮ УсТаЛоСтЬ...")
-				to_chat(M, "<span class='reallybig hypnophrase'>[nigguh]</span>" )
-				M.attributes.dexterity_reagent = -1
-				M.attributes.strength_reagent = -1
-			if(22 to 49)
-				high_message = pick("ВСЕ ПЛЫВАЕТ, МУЛЬТИКИ НАЧАЛИСЬ!!!", "МУЛЬТ-МЫЛ-БАБАХ!!!", "РЕЛАКСИВНЫЙ УЛЬТ!")
-				to_chat(M, "<span class='reallybig hypnophrase'>[high_message]</span>")
-				M.kislota_trip()
-				M.drowsyness += 1
-			if(50 to INFINITY)
-				M.Sleeping(40)
-				. = 1
-		..()
-
-	addiction_act_stage1(mob/living/M)
-		if(prob(33))
-			M.drop_all_held_items()
-			M.Jitter(2)
-		animate(M.client, color = dpr, time = 50)
-		..()
-
-	addiction_act_stage2(mob/living/M)
-		if(prob(33))
-			M.drop_all_held_items()
-			M.adjustToxLoss(1*REM, 0)
-			. = 1
-			M.Dizzy(3)
-			M.Jitter(3)
-		..()
-
-	addiction_act_stage3(mob/living/M)
-		if(prob(33))
-			M.drop_all_held_items()
-			M.adjustToxLoss(2*REM, 0)
-			. = 1
-			M.Dizzy(4)
-			M.Jitter(4)
-		..()
-
-	addiction_act_stage4(mob/living/M)
-		animate(M.client, color = null, time = 50)
-		if(prob(33))
-			M.drop_all_held_items()
-			M.adjustToxLoss(3*REM, 0)
-			. = 1
-			M.Dizzy(5)
-			M.Jitter(5)
-		..()
+	..()
 
 /////////MUSHROOM/////////////////////////////
 /datum/reagent/drug/mushroomhallucinogen/special
@@ -1238,76 +1245,78 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	taste_description = "mushroom"
 	music = sound('code/modules/wod13/sounds/daughters.ogg', TRUE, wait=1, volume = 100, channel = 31)
 	var/badtrip = 0
-	music = sound('code/modules/wod13/sounds/daughters.ogg', TRUE, wait=1, volume = 100, channel = 31)
-	on_mob_add(mob/living/L)
-		var/raznitsa = rand(1,4)
-		if((L.humanity <= 7) && (L.humanity <= (L.humanity-raznitsa)))
-			badtrip = 1
-	on_mob_life(mob/living/carbon/M)
-		..()
-		if(M.client)
+
+/datum/reagent/drug/mushroomhallucinogen/special/on_mob_add(mob/living/L)
+	var/raznitsa = rand(1,4)
+	if((L.humanity <= 7) && (L.humanity <= (L.humanity-raznitsa)))
+		badtrip = 1
+
+/datum/reagent/drug/mushroomhallucinogen/special/on_mob_life(mob/living/carbon/M)
+	..()
+	if(M.client)
+		M.kislota_trip()
+		M << music
+	var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"], M.hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"],  M.hud_used.plane_masters["[GAME_PLANE]"])
+	var/rot = 10
+	for(var/atom/whole_screen in screens)
+		for(var/i in 1 to 7)
+			whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 5, y = 10, size =5, offset = rand()))
+	switch(current_cycle)
+	//	if(10 to 96)
+	//		rot += 5
+	//		for(var/atom/whole_screen in screens)
+	//			for(var/i in 1 to 7)
+	//				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 5, y = 10, size =5, offset = rand()))
+		if(97 to 192)
+			rot +=20
+			M.overlay_fullscreen("RADUGA",/atom/movable/screen/fullscreen/psychedelic)
 			M.kislota_trip()
-			M << music
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"], M.hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"],  M.hud_used.plane_masters["[GAME_PLANE]"])
-		var/rot = 10
-		for(var/atom/whole_screen in screens)
-			for(var/i in 1 to 7)
-				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 5, y = 10, size =5, offset = rand()))
-		switch(current_cycle)
-		//	if(10 to 96)
-		//		rot += 5
-		//		for(var/atom/whole_screen in screens)
-		//			for(var/i in 1 to 7)
-		//				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 5, y = 10, size =5, offset = rand()))
-			if(97 to 192)
-				rot +=20
-				M.overlay_fullscreen("RADUGA",/atom/movable/screen/fullscreen/psychedelic)
-				M.kislota_trip()
-				var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
-				gribi_hud.add_hud_to(M)
-			if(193 to 288)
-				rot +=40
-				M.hallucination += 40
-			//	rot /= 3
-				M.see_invisible = SEE_INVISIBLE_OBSERVER
-			if(289 to 384)
-				var/mob/living/carbon/human/C = M
-				if(C.client && prob(85))
-					C.ghostize(TRUE, FALSE, TRUE)
-					C.soul_state = SOUL_PROJECTING
-				spawn(50 SECONDS)
-					M.grab_ghost()
-		//	if(475)
-		//		if(badtrip)
-		//			proriv(M, time = 30)
+			var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
+			gribi_hud.add_hud_to(M)
+		if(193 to 288)
+			rot +=40
+			M.hallucination += 40
+		//	rot /= 3
+			M.see_invisible = SEE_INVISIBLE_OBSERVER
+		if(289 to 384)
+			var/mob/living/carbon/human/C = M
+			if(C.client && prob(85))
+				C.ghostize(TRUE, FALSE, TRUE)
+				C.soul_state = SOUL_PROJECTING
+			spawn(50 SECONDS)
+				M.grab_ghost()
+	//	if(475)
+	//		if(badtrip)
+	//			proriv(M, time = 30)
 
 
-		for(var/atom/negr_screen in screens)
-			animate(negr_screen, transform = matrix(rot, MATRIX_ROTATE), time = 2.0 SECONDS, easing = QUAD_EASING, loop = -1)
-			animate(transform = matrix(-rot, MATRIX_ROTATE), time = 1.0 SECONDS, easing = QUAD_EASING)
-		if(badtrip)
-			M.overlay_fullscreen("BADTRIP", /atom/movable/screen/fullscreen/badtrip)
-			M.clear_fullscreen("BADTRIP", 8)
-	on_mob_metabolize(mob/living/L)
-		ADD_TRAIT(L, TRAIT_PACIFISM, type)
-		if(L.a_intent != INTENT_HELP)
-			L.a_intent_change(INTENT_HELP)
-		L.possible_a_intents = INTENT_HELP
+	for(var/atom/negr_screen in screens)
+		animate(negr_screen, transform = matrix(rot, MATRIX_ROTATE), time = 2.0 SECONDS, easing = QUAD_EASING, loop = -1)
+		animate(transform = matrix(-rot, MATRIX_ROTATE), time = 1.0 SECONDS, easing = QUAD_EASING)
+	if(badtrip)
+		M.overlay_fullscreen("BADTRIP", /atom/movable/screen/fullscreen/badtrip)
+		M.clear_fullscreen("BADTRIP", 8)
 
-	on_mob_end_metabolize(mob/living/L)
-		..()
-		if(L.client && music)
-			music.file = null
-			L.client << music
-		animate(L.client, color = null, time = 20)
-		L.clear_fullscreen("RADUGA")
-		REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
-		L.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
-		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
-		gribi_hud.remove_hud_from(L)
-		L.see_invisible = initial(L.see_invisible)
-		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
-		to_chat(L, "<span class='notice'>Ты чувствуешь некое... просветвление.</span>")
+/datum/reagent/drug/mushroomhallucinogen/special/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_PACIFISM, type)
+	if(L.a_intent != INTENT_HELP)
+		L.a_intent_change(INTENT_HELP)
+	L.possible_a_intents = INTENT_HELP
+
+/datum/reagent/drug/mushroomhallucinogen/special/on_mob_end_metabolize(mob/living/L)
+	..()
+	if(L.client && music)
+		music.file = null
+		L.client << music
+	animate(L.client, color = null, time = 20)
+	L.clear_fullscreen("RADUGA")
+	REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
+	L.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
+	var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
+	gribi_hud.remove_hud_from(L)
+	L.see_invisible = initial(L.see_invisible)
+	L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
+	to_chat(L, "<span class='notice'>Ты чувствуешь некое... просветвление.</span>")
 
 //////////////////////DMT/////////////////////
 /datum/reagent/drug/mushroomhallucinogen/Dmt
@@ -1317,58 +1326,57 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	music = sound('code/modules/wod13/sounds/Skrillex_-_Make_It_Bun_Dem_b64f0d213.ogg', TRUE, wait=1, volume = 80, channel = 30)
 
-	on_mob_metabolize(mob/living/L)
-		L.see_invisible = SEE_INVISIBLE_OBSERVER
-		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
-		gribi_hud.add_hud_to(L)
-		L.attributes.wits_reagent = 3
-		L.attributes.perception_reagent = 2
+/datum/reagent/drug/mushroomhallucinogen/Dmt/on_mob_metabolize(mob/living/L)
+	L.see_invisible = SEE_INVISIBLE_OBSERVER
+	var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
+	gribi_hud.add_hud_to(L)
+	L.attributes.wits_reagent = 3
+	L.attributes.perception_reagent = 2
 
-	on_mob_life(mob/living/carbon/human/M)
-		..()
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		if(current_cycle >= 35)
-			if(M.client)
-				M.kislota_trip()
-				M << music
-		if(current_cycle >= 50)
-			for(var/atom/whole_screen in screens)
-				for(var/i in 1 to 7)
-					whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 40, y = 70, size =10, offset = rand()))
-			M.hallucination += 40
-			M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip) // Lurkmore on Sperma_na_Ekran
-			M.clear_fullscreen("ONI_IDUT", 8)
-			if(prob(20))
-			//	var/kto = rand(1, 2)
-				var/DMTmessage2 = pick("Я ДОЛЖЕН ЕГО ПОКИНУТЬ!!!", "И Я ЗНАЮ СПОСОБ ЕЁ ПОКИНУТЬ!!!", "СМЕРТЬ", "ТОРМОЗ", "ХОЛОКОСТ", "ГЕНОЦИД", "формальность", "любовь", "НАД ЖРАТ ТАБЛТК", "ИДЕМ С НАМИ", "МЫ ЗНАЕМ ВЫХОД")
-				var/DMTmessage1 = pick("Этот мир нереален", "НИГЕРНИГЕРНИГЕРНИГЕР", "МЫ ЖИВЕМ В ИЛЛЮЗИИ", "ВЫХОД ИЗ МАТРИЦЫ", "ХОХЛЫ", "ЕВРЕЙ", "НЕГРЫ", "ПЕНДОСЫ", "свобода", "ненависть", "А ТО Я ЗСТРЛС", "ВЫХОД ПРЯМО ТУТ", "МЫ ТЕБЯ СПАСЕМ")
-				to_chat(M, "<span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
-				/*
-				switch(kto)
-					if(1)
-						to_chat(M, "<font size=12>[icon2html('icons/xorek_DMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
-					if(2)
-						to_chat(M, "<font size=12>[icon2html('icons/meomoorDMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
-						*/
-				M.intro_Sperma(DMTmessage1, 10)
-			if(do_mob(M, M, 6 SECONDS))
-				M.suicide()
+/datum/reagent/drug/mushroomhallucinogen/Dmt/on_mob_life(mob/living/carbon/human/M)
+	..()
+	var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
+	if(current_cycle >= 35)
+		if(M.client)
+			M.kislota_trip()
+			M << music
+	if(current_cycle >= 50)
+		for(var/atom/whole_screen in screens)
+			for(var/i in 1 to 7)
+				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 40, y = 70, size =10, offset = rand()))
+		M.hallucination += 40
+		M.overlay_fullscreen("ONI_IDUT", /atom/movable/screen/fullscreen/niggatrip) // Lurkmore on Sperma_na_Ekran
+		M.clear_fullscreen("ONI_IDUT", 8)
+		if(prob(20))
+		//	var/kto = rand(1, 2)
+			var/DMTmessage2 = pick("Я ДОЛЖЕН ЕГО ПОКИНУТЬ!!!", "И Я ЗНАЮ СПОСОБ ЕЁ ПОКИНУТЬ!!!", "СМЕРТЬ", "ТОРМОЗ", "ХОЛОКОСТ", "ГЕНОЦИД", "формальность", "любовь", "НАД ЖРАТ ТАБЛТК", "ИДЕМ С НАМИ", "МЫ ЗНАЕМ ВЫХОД")
+			var/DMTmessage1 = pick("Этот мир нереален", "НИГЕРНИГЕРНИГЕРНИГЕР", "МЫ ЖИВЕМ В ИЛЛЮЗИИ", "ВЫХОД ИЗ МАТРИЦЫ", "ХОХЛЫ", "ЕВРЕЙ", "НЕГРЫ", "ПЕНДОСЫ", "свобода", "ненависть", "А ТО Я ЗСТРЛС", "ВЫХОД ПРЯМО ТУТ", "МЫ ТЕБЯ СПАСЕМ")
+			to_chat(M, "<span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
+			/*
+			switch(kto)
+				if(1)
+					to_chat(M, "<font size=12>[icon2html('icons/xorek_DMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
+				if(2)
+					to_chat(M, "<font size=12>[icon2html('icons/meomoorDMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
+					*/
+			M.intro_Sperma(DMTmessage1, 10)
+		if(do_mob(M, M, 6 SECONDS))
+			M.suicide()
 
-	on_mob_end_metabolize(mob/living/L)
-
-		animate(L.client, color = null, time = 20)
-		if(L.client && music)
-			music.file = null
-			L.client << music
-		if(music)
-			qdel(music)
-			music = null
-		var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
-		gribi_hud.remove_hud_from(L)
-		L.see_invisible = initial(L.see_invisible)
-		L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
-		to_chat(L, "<span class='notice'>Ты чувствуешь, что ОНИ дали тебе... Просветвление.</span>")
-		..()
+/datum/reagent/drug/mushroomhallucinogen/Dmt/on_mob_end_metabolize(mob/living/L)
+	animate(L.client, color = null, time = 20)
+	if(L.client && music)
+		music.file = null
+		L.client << music
+	if(music)
+		qdel(music)
+		music = null
+	var/datum/atom_hud/gribi_hud = GLOB.huds[DATA_HUD_AI_DETECT]
+	gribi_hud.remove_hud_from(L)
+	L.see_invisible = initial(L.see_invisible)
+	L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
+	to_chat(L, "<span class='notice'>Ты чувствуешь, что ОНИ дали тебе... Просветвление.</span>")
+	..()
 
 /datum/reagent/drug/Nzp
 	name = "NZP"
@@ -1378,46 +1386,46 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	overdose_threshold = 15
 	var/atom/movable/screen/fullscreen/warp_effect/warp
 
-	on_mob_life(mob/living/carbon/M)
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.25)
-		var/NZTmessage = pick("E=mc²",  "e = 2,7182818284 5904523536 028747...", "π = 3,1415926535 8979323846 2643383279...", "R=U/I", "S=πr²", "844636272616*263621517/3726261 =5,976×10¹³",
-		"Площадь многоугольника с целочисленными вершинами равна B+(Г/2)-1, где В — количество целочисленных точек внутри многоугольника, а Г — количество целочисленных точек на границе многоугольника", "Бизнес — это не место для слабаков. Это место для тех, кто верит в свои идеи и готов трудиться над ними",
-		"Истинный признак интеллекта — не знания, а воображение.")
-		to_chat(M, "<span class='notice'>[NZTmessage]</span>")
+/datum/reagent/drug/Nzp/on_mob_life(mob/living/carbon/M)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.25)
+	var/NZTmessage = pick("E=mc²",  "e = 2,7182818284 5904523536 028747...", "π = 3,1415926535 8979323846 2643383279...", "R=U/I", "S=πr²", "844636272616*263621517/3726261 =5,976×10¹³",
+	"Площадь многоугольника с целочисленными вершинами равна B+(Г/2)-1, где В — количество целочисленных точек внутри многоугольника, а Г — количество целочисленных точек на границе многоугольника", "Бизнес — это не место для слабаков. Это место для тех, кто верит в свои идеи и готов трудиться над ними",
+	"Истинный признак интеллекта — не знания, а воображение.")
+	to_chat(M, "<span class='notice'>[NZTmessage]</span>")
+	..()
 
-		..()
-	on_mob_metabolize(mob/living/L)
-		L.attributes.wits_reagent = 3
-		L.attributes.intelligence_reagent = 3
-		L.attributes.perception_reagent = 2
-		animate(L.client, color = nzp, time = 50)
-		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/atom/whole_screen in screens)
-			animate(L.client, color = nzp, time = 5, easing = QUAD_EASING)
-			for(var/i in 1 to 7)
-				whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 100, y = 100, size =5, offset = rand()))
+/datum/reagent/drug/Nzp/on_mob_metabolize(mob/living/L)
+	L.attributes.wits_reagent = 3
+	L.attributes.intelligence_reagent = 3
+	L.attributes.perception_reagent = 2
+	animate(L.client, color = nzp, time = 50)
+	var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
+	for(var/atom/whole_screen in screens)
+		animate(L.client, color = nzp, time = 5, easing = QUAD_EASING)
+		for(var/i in 1 to 7)
+			whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 100, y = 100, size =5, offset = rand()))
 
-	on_mob_end_metabolize(mob/living/L)
-		L.attributes.wits_reagent = 0
-		L.attributes.intelligence_reagent = 0
-		L.attributes.perception_reagent = 0
-		animate(L.client, color = null, time = 20)
-		var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/atom/whole_screen in screens)
-		//	remove_wibbly_filters(whole_screen)
-			for(var/i in 1 to 7)
-				filter = whole_screen.get_filter("wibbly-[i]")
-				animate(filter)
-				whole_screen.remove_filter("wibbly-[i]")
+/datum/reagent/drug/Nzp/on_mob_end_metabolize(mob/living/L)
+	L.attributes.wits_reagent = 0
+	L.attributes.intelligence_reagent = 0
+	L.attributes.perception_reagent = 0
+	animate(L.client, color = null, time = 20)
+	var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
+	for(var/atom/whole_screen in screens)
+	//	remove_wibbly_filters(whole_screen)
+		for(var/i in 1 to 7)
+			filter = whole_screen.get_filter("wibbly-[i]")
+			animate(filter)
+			whole_screen.remove_filter("wibbly-[i]")
 
-			animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
+		animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)
 
-	overdose_process(mob/living/M)
-		M.AdjustAllImmobility(30)
-		M.Jitter(3)
-		M.adjustToxLoss(1, 0)
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
-		M.hallucination += 50
-		M.polnii_pizdec()
-		if(prob(20))
-			M.AdjustUnconscious(10)
+/datum/reagent/drug/Nzp/overdose_process(mob/living/M)
+	M.AdjustAllImmobility(30)
+	M.Jitter(3)
+	M.adjustToxLoss(1, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
+	M.hallucination += 50
+	M.polnii_pizdec()
+	if(prob(20))
+		M.AdjustUnconscious(10)
