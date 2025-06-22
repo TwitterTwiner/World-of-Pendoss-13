@@ -163,24 +163,23 @@
 	if((check_flags & DISC_CHECK_SEE) && HAS_TRAIT(caster, TRAIT_BLIND))
 		return FALSE
 
-//	if (target_type == NONE)
+//	if(target_type == NONE)
 //		return TRUE
 
-//	if (target == caster)
-		if (target_type & TARGET_SELF)
+	if(target == caster)
+		if(target_type & TARGET_SELF)
 			return TRUE
 		else
-		//	if (alert)
 			to_chat(caster, span_warning("You can't use this power on yourself!"))
 			return FALSE
 
 	//check target type
 	// mob/living with a bunch of extra conditions
-	if ((target_type & MOB_LIVING_TARGETING) && isliving(target))
+	if((target_type & MOB_LIVING_TARGETING) && isliving(target))
 		//make sure our LIVING target isn't DEAD
 		var/mob/living/living_target = target
-		if ((target_type & TARGET_LIVING) && (living_target.stat == DEAD))
-		//	if (alert)
+		if((target_type & TARGET_LIVING) && (living_target.stat == DEAD))
+		//	if(alert)
 			to_chat(caster, span_warning("You cannot cast [src] on dead things!"))
 			return FALSE
 
@@ -189,43 +188,43 @@
 	//		to_chat(caster, span_warning("You can only cast [src] on other players!"))
 	//		return FALSE
 
-		if ((target_type & TARGET_VAMPIRE) && !iskindred(target))
-		//	if (alert)
+		if((target_type & TARGET_VAMPIRE) && !iskindred(target))
+		//	if(alert)
 			to_chat(caster, span_warning("You can only cast [src] on Kindred!"))
 			return FALSE
 
 
-		if (ishuman(target))
+		if(ishuman(target))
 			var/mob/living/carbon/human/target_ZV = living_target
 			if(target_ZV.resistant_to_disciplines || target_ZV.spell_immunity)
 				to_chat(caster, "<span class='danger'>[target_ZV] resists your powers!</span>")
 				return FALSE
 
-			if (target_type & TARGET_HUMAN)
+			if(target_type & TARGET_HUMAN)
 				return TRUE
 
-		if (target_type & TARGET_HUMAN)
-		//	if (alert)
+		if(target_type & TARGET_HUMAN)
+		//	if(alert)
 			to_chat(caster, span_warning("You can only cast [src] on humans!"))
 			return FALSE
 
 	//	return TRUE
 
-	if ((target_type & TARGET_OBJ) && istype(target, /obj))
+	if((target_type & TARGET_OBJ) && istype(target, /obj))
 		return FALSE
 
-	if ((target_type & TARGET_GHOST) && istype(target, /mob/dead))
+	if((target_type & TARGET_GHOST) && istype(target, /mob/dead))
 		return FALSE
 
-	if ((target_type & TARGET_TURF) && istype(target, /turf))
+	if((target_type & TARGET_TURF) && istype(target, /turf))
 		return FALSE
 
-	if (HAS_TRAIT(caster, TRAIT_PACIFISM))
-	//	if (alert)
+	if(HAS_TRAIT(caster, TRAIT_PACIFISM))
+	//	if(alert)
 		to_chat(caster, span_warning("You cannot cast [src] as a pacifist!"))
 		return FALSE
 	//target doesn't match any targeted types, so can't activate on them
-//	if (alert)
+//	if(alert)
 //	to_chat(caster, span_warning("You cannot cast [src] on [target]!"))
 
 
