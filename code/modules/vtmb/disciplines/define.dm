@@ -163,15 +163,15 @@
 	if((check_flags & DISC_CHECK_SEE) && HAS_TRAIT(caster, TRAIT_BLIND))
 		return FALSE
 
-//	if(target_type == NONE)
-//		return TRUE
+	if(target_type == NONE)
+		return TRUE
 
-	if(target == caster)
+	/* if(target == caster)
 		if(target_type & TARGET_SELF)
 			return TRUE
 		else
 			to_chat(caster, span_warning("You can't use this power on yourself!"))
-			return FALSE
+			return FALSE */
 
 	//check target type
 	// mob/living with a bunch of extra conditions
