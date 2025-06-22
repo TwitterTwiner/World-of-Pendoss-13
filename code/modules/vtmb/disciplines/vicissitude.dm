@@ -9,6 +9,8 @@
 	violates_masquerade = TRUE
 	clane_restricted = TRUE
 	dead_restricted = FALSE
+	check_flags = DISC_CHECK_FREE_HAND
+
 	var/last_hair
 	var/last_facehair
 	var/last_skintone
@@ -22,6 +24,7 @@
 	var/last_headshot
 	var/last_age
 	var/last_body_mode
+	var/last_phonevoicetag
 
 	var/original_hair
 	var/original_facehair
@@ -36,6 +39,7 @@
 	var/original_realname
 	var/original_age
 	var/original_body_mode
+	var/original_phonevoicetag
 	var/furry_changed = FALSE
 
 /obj/item/melee/touch_attack/vicissitude_touch
@@ -124,6 +128,7 @@
 						original_realname = H.real_name
 						original_headshot = H.headshot_link
 						original_age = H.age
+						original_phonevoicetag = H.phonevoicetag
 						original_body_mode = H.base_body_mod
 						playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 						H.Stun(10)
@@ -141,6 +146,7 @@
 						H.headshot_link = last_headshot
 						H.name = H.real_name
 						H.age = last_age
+						H.phonevoicetag = last_phonevoicetag
 						H.base_body_mod = last_body_mode
 						H.update_body()
 						H.update_hair()
@@ -163,6 +169,7 @@
 						original_realname = H.real_name
 						original_headshot = H.headshot_link
 						original_age = H.age
+						original_phonevoicetag = H.phonevoicetag
 						original_body_mode = H.base_body_mod
 						playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 						H.Stun(10)
@@ -181,6 +188,7 @@
 						H.headshot_link = ZV.headshot_link
 						H.name = H.real_name
 						H.age = ZV.age
+						H.phonevoicetag = ZV.phonevoicetag
 						H.base_body_mod = ZV.base_body_mod
 						H.update_body()
 						H.update_hair()
@@ -197,6 +205,7 @@
 						last_realname = H.real_name
 						last_headshot = H.headshot_link
 						last_age = H.age
+						last_phonevoicetag = H.phonevoicetag
 						last_body_mode = H.base_body_mod
 						furry_changed = TRUE
 					else
@@ -225,6 +234,7 @@
 				H.name = H.real_name
 				H.headshot_link = original_headshot
 				H.age = original_age
+				H.age = original_phonevoicetag
 				H.base_body_mod = original_body_mode
 				H.update_body()
 				H.update_hair()
@@ -248,3 +258,71 @@
 			Warform.transform(/mob/living/simple_animal/hostile/tzimisce_beast, caster, TRUE)
 	//else
 		//target.death() - Removed until a better solution is found to not have insta-kills on player mobs, unsure of side effects for normal vicissitude use but call death above already so should be fine?
+
+/obj/item/organ/cyberimp/arm/surgery/vicissitude
+	icon_state = "toolkit_implant_vic"
+	contents = newlist(/obj/item/retractor/augment/vicissitude, /obj/item/hemostat/augment/vicissitude, /obj/item/cautery/augment/vicissitude, /obj/item/surgicaldrill/augment/vicissitude, /obj/item/scalpel/augment/vicissitude, /obj/item/circular_saw/augment/vicissitude, /obj/item/surgical_drapes/vicissitude)
+
+/obj/item/retractor/augment/vicissitude
+	name = "retracting appendage"
+	desc = "A pair of prehensile pincers."
+	icon_state = "retractor_vic"
+	inhand_icon_state = "clamps_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/hemostat/augment/vicissitude
+	name = "hemostatic pincers"
+	desc = "A pair of thin appendages that were once fingers, secreting a hemostatic fluid from the tips."
+	icon_state = "hemostat_vic"
+	inhand_icon_state = "clamps_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/cautery/augment/vicissitude
+	name = "chemical cautery"
+	desc = "A specialized organ drooling a chemical package that releases an extreme amount of heat, very quickly."
+	icon_state = "cautery_vic"
+	inhand_icon_state = "cautery_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/surgicaldrill/augment/vicissitude
+	name = "surgical fang"
+	desc = "A spiral fang that bores into the flesh with reckless glee."
+	icon_state = "drill_vic"
+	hitsound = 'sound/effects/wounds/blood2.ogg'
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/scalpel/augment/vicissitude
+	name = "scalpel claw"
+	desc = "An altered nail, adjusted to make fine incisions."
+	icon_state = "scalpel_vic"
+	inhand_icon_state = "scalpel_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/circular_saw/augment/vicissitude
+	name = "circular jaw"
+	desc = "A spinning disc of teeth, screaming, as it bites through the flesh."
+	icon_state = "saw_vic"
+	inhand_icon_state = "saw_vic"
+	hitsound = 'sound/effects/wounds/blood2.ogg'
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/surgical_drapes/vicissitude
+	name = "skin drape"
+	desc = "A stretch of skin, sweating out antibiotics and disinfectants, to provide a sterile-ish environment to work in."
+	icon_state = "surgical_drapes_vic"
+	inhand_icon_state = "drapes_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE

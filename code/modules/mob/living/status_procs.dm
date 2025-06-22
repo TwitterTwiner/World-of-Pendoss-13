@@ -530,6 +530,14 @@
 			var/torpor_length = 1 MINUTES * max_yin_chi
 			COOLDOWN_START(dharma, torpor_timer, torpor_length)
 
+/mob/living/proc/give_lethalnigga(source)
+	if(!HAS_TRAIT(src, TRAIT_LETHALNIGGA))
+		ADD_TRAIT(src, TRAIT_LETHALNIGGA, source)
+
+/mob/living/proc/pick_lethalnigga(source)
+	if(HAS_TRAIT(src, TRAIT_LETHALNIGGA))
+		REMOVE_TRAIT(src, TRAIT_LETHALNIGGA, source)
+
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/unignore_slowdown(source)
 	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)

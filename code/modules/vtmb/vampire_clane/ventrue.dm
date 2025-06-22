@@ -48,12 +48,12 @@
 
 	var/mob/living/carbon/human/victim = input(owner, "Choose the target to Dominate over", "Dominate") as null|anything in victims_list
 	if(victim)
-		var/dominate_me = get_a_willpower(victim)
+		var/dominate_me = get_a_wits(victim)+2
 		if(victim.clane?.name == "Gargoyle")
 			dominate_me = 1
 		if(secret_vampireroll(max(get_a_manipulation(owner), get_a_strength(owner))+get_a_intimidation(owner), dominate_me, owner) < 3)
 			fail_list += victim
-			to_chat(owner, "<span class='warning'>You fail to <b>DOMINATE</b>... [fail_list]</span>")
+			to_chat(owner, "<span class='warning'>You fail to <b>DOMINATE</b>... </span>")
 			return
 		var/new_say = input(owner, "What are you trying to say?", "Say") as null|text
 		new_say = sanitize_text(new_say)

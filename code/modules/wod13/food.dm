@@ -536,11 +536,18 @@
 
 /obj/machinery/mineral/equipment_vendor/fastfood/illegal
 	prize_list = list(
-		new /datum/data/mining_equipment("morphine syringe",	/obj/item/reagent_containers/syringe/contraband/morphine,	100),
+		new /datum/data/mining_equipment("heroin syringe",	/obj/item/reagent_containers/syringe/contraband/heroin,	100),
 		new	/datum/data/mining_equipment("meth package",	/obj/item/reagent_containers/food/drinks/meth,	300),
-		new	/datum/data/mining_equipment("cocaine package",	/obj/item/reagent_containers/food/drinks/meth/cocaine,	700),
+		new	/datum/data/mining_equipment("cocaine package",	/obj/item/reagent_containers/food/drinks/meth/cocaine,	550),
+		new	/datum/data/mining_equipment("mephedrone",	/obj/item/reagent_containers/food/drinks/meth/mephedrone,	250),
 		new /datum/data/mining_equipment("LSD pill bottle",		/obj/item/storage/pill_bottle/lsd,	50),
 		new /datum/data/mining_equipment("LSD pill",		/obj/item/reagent_containers/pill/lsd,	10),
+		new /datum/data/mining_equipment("mushrooms package",	/obj/item/reagent_containers/food/drinks/meth/mushroom,	250),
+		new /datum/data/mining_equipment("muhomoor package",	/obj/item/reagent_containers/food/drinks/meth/mushroom/muhomor,	210),
+		new /datum/data/mining_equipment("mushrooms package",	/obj/item/reagent_containers/food/drinks/meth/mushroom/cecnya,	220),
+		new /datum/data/mining_equipment("DMT pill",	/obj/item/reagent_containers/pill/dmt,	150),
+		new /datum/data/mining_equipment("Phenazepam",	/obj/item/storage/pill_bottle/phenazepam,	200),
+		new /datum/data/mining_equipment("Ultram",	/obj/item/storage/pill_bottle/tramadolum,	300),
 		new /datum/data/mining_equipment("cannabis puff",		/obj/item/clothing/mask/cigarette/rollie/cannabis,	40),
 		new /datum/data/mining_equipment("cannabis package",		/obj/item/weedpack,	175),
 		new /datum/data/mining_equipment("cannabis seed",	/obj/item/weedseed,		10),
@@ -554,6 +561,7 @@
 		new /datum/data/mining_equipment("silver .44 ammo",	/obj/item/ammo_box/vampire/c44/silver,	3000),
 		new /datum/data/mining_equipment("silver 5.56 ammo",	/obj/item/ammo_box/vampire/c556/silver,	6000),
 		new /datum/data/mining_equipment("stake",	/obj/item/vampire_stake,	100),
+		new /datum/data/mining_equipment("stake",	/obj/item/vampire_stake/metal,	150),
 		new /datum/data/mining_equipment("lockpick",	/obj/item/vamp/keys/hack, 50),
 		new /datum/data/mining_equipment("zippo lighter",	/obj/item/lighter,	20),
 		new /datum/data/mining_equipment("Surgery dufflebag", /obj/item/storage/backpack/duffelbag/med/surgery, 100),
@@ -567,13 +575,14 @@
 		new /datum/data/mining_equipment("ephedrine pill bottle", /obj/item/storage/pill_bottle/ephedrine, 200),
 		new /datum/data/mining_equipment("iron pill bottle", /obj/item/storage/pill_bottle/iron, 150),
 		new /datum/data/mining_equipment("potassium iodide pill bottle", /obj/item/storage/pill_bottle/potassiodide, 100),
-		new /datum/data/mining_equipment("bruise pack", /obj/item/stack/medical/bruise_pack, 100),
-		new /datum/data/mining_equipment("burn ointment", /obj/item/stack/medical/ointment, 100),
+		new /datum/data/mining_equipment("bruise pack", /obj/item/stack/medical/bruise_pack, 50),
+		new /datum/data/mining_equipment("burn ointment", /obj/item/stack/medical/ointment, 30),
 		new /datum/data/mining_equipment("latex gloves", /obj/item/clothing/gloves/vampire/latex, 150),
 		new /datum/data/mining_equipment("box of syringes", /obj/item/storage/box/syringes, 300),
-		new /datum/data/mining_equipment("gauze",/obj/item/stack/medical/gauze , 100),
-		new /datum/data/mining_equipment("multiver", /obj/item/storage/pill_bottle/multiver, 100),
-		new /datum/data/mining_equipment("antibirth",/obj/item/storage/pill_bottle/antibirth , 100),
+		new /datum/data/mining_equipment("gauze",/obj/item/stack/medical/gauze , 20),
+		new /datum/data/mining_equipment("multiver", /obj/item/storage/pill_bottle/multiver, 50),
+		new /datum/data/mining_equipment("Phenotropil", /obj/item/storage/pill_bottle/nootrop, 100),
+		new /datum/data/mining_equipment("antibirth",/obj/item/storage/pill_bottle/antibirth , 20)
 	)
 
 /obj/machinery/mineral/equipment_vendor/fastfood/hospital // we should probably swap from a vendor system and work on a sort of gameplay loop - tzula
@@ -635,3 +644,40 @@
 		new /datum/data/mining_equipment("fountain pen",	/obj/item/pen/fountain,  15),
 		new /datum/data/mining_equipment("folder",	/obj/item/folder,  5)
 	)
+
+/obj/machinery/mineral/equipment_vendor/fastfood/flowershop
+	name = "Community Garden"
+	desc = "The only 24hr flower shop in SanFran."
+	prize_list = list(
+		new /datum/data/mining_equipment("Gardening Gloves",	/obj/item/clothing/gloves/botanic_leather,	45),
+		new /datum/data/mining_equipment("Respirator",	/obj/item/clothing/mask/vampire,	35),
+		new /datum/data/mining_equipment("Plant Bag",	/obj/item/storage/bag/plants,	45),
+		new /datum/data/mining_equipment("Basic Fertilizer",	/obj/item/reagent_containers/glass/bottle/nutrient/ez,	100),
+		new /datum/data/mining_equipment("Herbicide",	/obj/item/reagent_containers/spray/weedspray,	25),
+		new /datum/data/mining_equipment("Pesticide",	/obj/item/reagent_containers/spray/pestspray,	25),
+		new /datum/data/mining_equipment("Spade", /obj/item/shovel/spade,	100),
+		new /datum/data/mining_equipment("Wooden Bucket",	/obj/item/reagent_containers/glass/bucket/wooden,	100),
+		new /datum/data/mining_equipment("Secateurs",	 /obj/item/secateurs,	100),
+		new /datum/data/mining_equipment("Garden Rake",	 /obj/item/cultivator/rake,	100),
+		new /datum/data/mining_equipment("Cultivator",	/obj/item/cultivator,	100),
+		new /datum/data/mining_equipment("Poppy seeds", /obj/item/seeds/poppy, 50),
+		new /datum/data/mining_equipment("Sunflower seeds", /obj/item/seeds/sunflower, 50),
+		new /datum/data/mining_equipment("Geranium seeds", /obj/item/seeds/poppy/geranium, 50),
+		new /datum/data/mining_equipment("Lily seeds", /obj/item/seeds/poppy/lily, 50),
+		new /datum/data/mining_equipment("Forget me not seeds", /obj/item/seeds/forgetmenot, 50),
+		new /datum/data/mining_equipment("Aloe seeds", /obj/item/seeds/aloe, 50),
+		new /datum/data/mining_equipment("Apple seeds", /obj/item/seeds/apple, 50),
+		new /datum/data/mining_equipment("Cabbage seeds", /obj/item/seeds/cabbage, 50),
+		new /datum/data/mining_equipment("Carrot seeds", /obj/item/seeds/carrot, 50),
+		new /datum/data/mining_equipment("Corn seeds", /obj/item/seeds/corn, 50),
+		new /datum/data/mining_equipment("Oat seeds", /obj/item/seeds/wheat/oat, 50),
+		new /datum/data/mining_equipment("Onion seeds", /obj/item/seeds/onion, 50),
+		new /datum/data/mining_equipment("Parsnip seeds", /obj/item/seeds/carrot/parsnip, 50),
+		new /datum/data/mining_equipment("Peas seeds", /obj/item/seeds/peas, 50),
+		new /datum/data/mining_equipment("Potato seeds", /obj/item/seeds/potato, 50),
+		new /datum/data/mining_equipment("Pumpkin seeds", /obj/item/seeds/pumpkin, 50),
+		new /datum/data/mining_equipment("Rice seeds", /obj/item/seeds/wheat/rice, 50),
+		new /datum/data/mining_equipment("Soy seeds", /obj/item/seeds/soya, 50),
+		new /datum/data/mining_equipment("Tomato seeds", /obj/item/seeds/tomato, 50),
+		new /datum/data/mining_equipment("Fermentation Barrel",	 /obj/structure/fermenting_barrel,	230),
+		)

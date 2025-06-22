@@ -90,7 +90,6 @@
 	button_icon = 'code/modules/wod13/UI/actions.dmi'
 	background_icon_state = "discipline"
 	icon_icon = 'code/modules/wod13/UI/actions.dmi'
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
 	var/last_heal = 0
 	var/level = 1
@@ -108,6 +107,29 @@
 	. = ..()
 
 /datum/action/blood_heal/Trigger()
+	if(istype(owner, /mob/living/simple_animal/hostile))
+		if (HAS_TRAIT(owner, TRAIT_TORPOR))
+			return
+		var/mob/living/simple_animal/hostile/H = owner
+		if(H.bloodpool < 1)
+			to_chat(owner, "<span class='warning'>You don't have enough <b>BLOOD</b> to do that!</span>")
+			SEND_SOUND(H, sound('code/modules/wod13/sounds/need_blood.ogg', 0, 0, 75))
+			return
+		if((last_heal + 30) >= world.time)
+			return
+		last_heal = world.time
+		H.bloodpool = max(0, H.bloodpool-1)
+		SEND_SOUND(H, sound('code/modules/wod13/sounds/bloodhealing.ogg', 0, 0, 50))
+		H.adjustBruteLoss(-20, TRUE)
+		H.adjustFireLoss(-20, TRUE)
+		H.adjustOxyLoss(-30, TRUE)
+		H.adjustToxLoss(-30, TRUE)
+		H.adjustCloneLoss(-5, TRUE)
+		H.blood_volume = min(H.blood_volume + 56, 560)
+		button.color = "#970000"
+		animate(button, color = "#ffffff", time = 20, loop = 1)
+		H.update_blood_hud()
+		H.visible_message("<span class='warning'>Some of [H]'s visible injuries disappear!</span>", "<span class='warning'>Some of your injuries disappear!</span>")
 	if(istype(owner, /mob/living/carbon/human))
 		if (HAS_TRAIT(owner, TRAIT_TORPOR))
 			return
@@ -163,6 +185,21 @@
 		var/obj/item/organ/brain/brain = H.getorganslot(ORGAN_SLOT_BRAIN)
 		if(brain)
 			brain.applyOrganDamage(-100)
+		var/obj/item/organ/stomach/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		if(stomach)
+			stomach.applyOrganDamage(-5)
+		var/obj/item/organ/heart/heart = H.getorganslot(ORGAN_SLOT_HEART)
+		if(heart)
+			heart.applyOrganDamage(-8)
+		var/obj/item/organ/liver/liver = H.getorganslot(ORGAN_SLOT_LIVER)
+		if(liver)
+			liver.applyOrganDamage(-10)
+		var/obj/item/organ/ears/ears = H.getorganslot(ORGAN_SLOT_EARS)
+		if(ears)
+			ears.applyOrganDamage(-5)
+		var/obj/item/organ/lungs/lung = H.getorganslot(ORGAN_SLOT_LUNGS)
+		if(lung)
+			lung.applyOrganDamage(-10)
 		H.update_damage_overlays()
 		H.update_health_hud()
 		H.update_blood_hud()

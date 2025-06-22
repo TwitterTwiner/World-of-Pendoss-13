@@ -39,6 +39,8 @@
 	name = "morphine bottle"
 	desc = "A small bottle of morphine."
 	icon = 'icons/obj/chemical.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	icon_state = "bottlo"
 	list_reagents = list(/datum/reagent/medicine/morphine = 30)
 
 /obj/item/reagent_containers/glass/bottle/chloralhydrate

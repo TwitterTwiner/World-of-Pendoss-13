@@ -225,7 +225,31 @@
 	M.update_blood_hud()
 	playsound(M.loc,'sound/items/drink.ogg', 50, TRUE)
 	return
+/*
+/obj/item/vtm_artifact/fake
+	name = "unidentified occult fetish"
 
+/obj/item/vtm_artifact/fake/Initialize()
+	var/george_floid = rand(1, 5)
+	switch(george_floid)
+		if(1)
+			icon_state = "o_chalice"
+		if(2)
+			icon_state = "h_eliza"
+		if(3)
+			icon_state = "daimonori"
+		if(4)
+			icon_state = "bloodstar"
+		if(5)
+			icon_state = "k_alamut"
+
+/obj/item/vtm_artifact/fake/attack_self(mob/living/user)
+	if(do_mob(user, src, 15 SECONDS))
+		var/result = secret_vampireroll(get_a_occult(user)+get_a_investigation(user), 7, user)
+		switch(result)
+			if(-1 to INFINITY)
+				to_chat(user, "<span class='warning'>Просто безделушка, не стоит тратить своё время...</span>")
+*/
 /obj/item/vtm_artifact/rand
 	icon_state = "art_rand"
 
@@ -260,8 +284,10 @@
 	if(H.attributes.Occult < 2)
 		to_chat(H, "<span class='warning'>Просто безделушка, не стоит тратить своё время...</span>")
 		return
+	if(identified)
+		return
 	if(do_mob(H, src, 15 SECONDS))
-		var/result1 = secret_vampireroll(get_a_occult(H)+get_a_investigation(H), 7, H)
+		var/result1 = secret_vampireroll(get_a_occult(H)+get_a_investigation(H), 7, H, TRUE)
 		switch(result1)
 			if(-1)
 				to_chat(H, "<span class='warning'>[src] внезапно обратился в прах!</span>")
@@ -319,5 +345,3 @@
 							if(!identified)
 								src.identificate()
 								to_chat(H, "<span class='warning'>Ты раскрыл тайну и мощь этого таинственного талисмана</span>")
-
-

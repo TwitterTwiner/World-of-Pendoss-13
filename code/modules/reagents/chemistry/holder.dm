@@ -611,7 +611,8 @@
 							need_mob_update += R.overdose_start(C)
 							log_game("[key_name(C)] has started overdosing on [R.name] at [R.volume] units.")
 					var/is_addicted_to = addiction_list && is_type_in_list(R, addiction_list)
-					if(R.addiction_threshold)
+					if((prob(R.addiction_threshold) || prob(0.05)) && !is_addicted_to)  ///{T.WINER} - В теории теперь у нас зависит все не от количества вещества, а от процента в тик
+					//	if(R.volume >= R.addiction_threshold && !is_addicted_to)
 						if(R.volume >= R.addiction_threshold && !is_addicted_to)
 							var/datum/reagent/new_reagent = new R.addiction_type()
 							LAZYADD(addiction_list, new_reagent)

@@ -4,6 +4,46 @@
 *	- Started in 25.02.25 | Completed in
 */
 
+/// {T.WINER} ПЕРЕНОС ПЕНДОС КОДА
+
+//targeting bitflags, NONE or 0 if targeting self exclusively
+///Allows for self to also be selected in ranged targeting, SET TO 0 IF NOT TARGETED OR RANGED
+#define TARGET_SELF (1<<0)
+///Targets anything of type /obj and its children
+#define TARGET_OBJ (1<<1)
+///Targets anything of type /turf and its children
+#define TARGET_TURF (1<<2)
+///Targets anything of type /mob/living and its children only if it is not dead
+#define TARGET_LIVING (1<<3)
+///Targets anything of type /mob/dead and its children, ie targets ghosts
+#define TARGET_GHOST (1<<4)
+///Targets anything of type /mob/living and its children, dead or not
+#define TARGET_MOB (1<<5)
+///Targets anything of type /mob/living/carbon/human and its children
+#define TARGET_HUMAN (1<<6)
+///Targets anything of type /mob/living and its children only if it has a client attached to it
+// #define TARGET_PLAYER (1<<7)
+///Targets mobs only if they are vampires/Kindred
+#define TARGET_VAMPIRE (1<<7)
+
+#define MOB_LIVING_TARGETING (TARGET_MOB | TARGET_LIVING | TARGET_HUMAN | TARGET_VAMPIRE)
+
+#define DISC_CHECK_TORPORED (1<<0)
+///Caster must be conscious
+#define DISC_CHECK_CONSCIOUS (1<<1)
+///Caster must be capable of taking actions (not stunned)
+#define DISC_CHECK_CAPABLE (1<<2)
+///Caster must be standing up (not knocked down)
+#define DISC_CHECK_LYING (1<<3)
+///Caster must be capable of moving
+#define DISC_CHECK_IMMOBILE (1<<4)
+///Caster must have usable hands
+#define DISC_CHECK_FREE_HAND (1<<5)
+///Caster must be able to speak
+#define DISC_CHECK_SPEAK (1<<6)
+///Caster must be able to see
+#define DISC_CHECK_SEE (1<<7)
+
 /datum/discipline
 	var/name = "Vampiric Discipline" ///Name of this Discipline.
 	var/desc = "Discipline with powers such as..." ///Text description of this Discipline.
@@ -18,15 +58,18 @@
 	var/activate_sound = 'code/modules/wod13/sounds/bloodhealing.ogg' ///The sound that plays when any power of this Discipline is activated.
 	var/leveldelay = FALSE ///Whether this Discipline's cooldowns are multipled by the level it's being casted at.
 	var/fearless = FALSE ///Whether this Discipline aggroes NPC targets.
+	var/target_type = NONE
+	var/hostile = FALSE
 
 	var/level_casting = 1 ///What rank of this Discipline is currently being casted.
 	var/clane_restricted = FALSE ///Whether this Discipline is exclusive to one Clan.
 	var/dead_restricted = TRUE ///Whether this Discipline is restricted from affecting dead people.
-
+	var/check_flags = NONE
 	var/next_fire_after = 0
 
 /datum/action/discipline
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
+//	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
+//	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE
 	button_icon = 'code/modules/wod13/UI/actions.dmi' //This is the file for the BACKGROUND icon
 	background_icon_state = "discipline" //And this is the state for the background icon
 
@@ -98,9 +141,94 @@
 			current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 			current_button.button_icon_state = button_icon_state
 
-/datum/discipline/proc/check_activated(var/mob/living/target, var/mob/living/carbon/human/caster)
-	if(caster.stat >= HARD_CRIT || caster.IsSleeping() || caster.IsUnconscious() || caster.IsParalyzed() || caster.IsStun() || HAS_TRAIT(caster, TRAIT_RESTRAINED) || !isturf(caster.loc))
+/datum/discipline/proc/check_activated(atom/target, var/mob/living/carbon/human/caster)
+// HAS_TRAIT(caster, TRAIT_RESTRAINED)
+//	if(caster.stat >= HARD_CRIT || caster.IsSleeping() || caster.IsUnconscious() || caster.IsParalyzed() || !isturf(caster.loc))
+//		return FALSE
+
+//////{T.WINER} Не спиздили, а адаптировали.
+
+	if((check_flags & DISC_CHECK_FREE_HAND) && HAS_TRAIT(caster, TRAIT_HANDS_BLOCKED))
 		return FALSE
+	if((check_flags & DISC_CHECK_TORPORED) && HAS_TRAIT(caster, TRAIT_TORPOR))
+		return FALSE
+	if((check_flags & DISC_CHECK_CAPABLE) && HAS_TRAIT(caster, TRAIT_INCAPACITATED))
+		return FALSE
+	if((check_flags & DISC_CHECK_LYING) && HAS_TRAIT(caster, DISC_CHECK_LYING))
+		return FALSE
+	if((check_flags & DISC_CHECK_IMMOBILE) && HAS_TRAIT(caster, TRAIT_IMMOBILIZED))
+		return FALSE
+	if((check_flags & DISC_CHECK_SPEAK) && HAS_TRAIT(caster, TRAIT_MUTE))
+		return FALSE
+	if((check_flags & DISC_CHECK_SEE) && HAS_TRAIT(caster, TRAIT_BLIND))
+		return FALSE
+
+//	if (target_type == NONE)
+//		return TRUE
+
+//	if (target == caster)
+		if (target_type & TARGET_SELF)
+			return TRUE
+		else
+		//	if (alert)
+			to_chat(caster, span_warning("You can't use this power on yourself!"))
+			return FALSE
+
+	//check target type
+	// mob/living with a bunch of extra conditions
+	if ((target_type & MOB_LIVING_TARGETING) && isliving(target))
+		//make sure our LIVING target isn't DEAD
+		var/mob/living/living_target = target
+		if ((target_type & TARGET_LIVING) && (living_target.stat == DEAD))
+		//	if (alert)
+			to_chat(caster, span_warning("You cannot cast [src] on dead things!"))
+			return FALSE
+
+	//	if ((target_type & TARGET_PLAYER) && !living_target.client)
+	//	//	if (alert)
+	//		to_chat(caster, span_warning("You can only cast [src] on other players!"))
+	//		return FALSE
+
+		if ((target_type & TARGET_VAMPIRE) && !iskindred(target))
+		//	if (alert)
+			to_chat(caster, span_warning("You can only cast [src] on Kindred!"))
+			return FALSE
+
+
+		if (ishuman(target))
+			var/mob/living/carbon/human/target_ZV = living_target
+			if(target_ZV.resistant_to_disciplines || target_ZV.spell_immunity)
+				to_chat(caster, "<span class='danger'>[target_ZV] resists your powers!</span>")
+				return FALSE
+
+			if (target_type & TARGET_HUMAN)
+				return TRUE
+
+		if (target_type & TARGET_HUMAN)
+		//	if (alert)
+			to_chat(caster, span_warning("You can only cast [src] on humans!"))
+			return FALSE
+
+	//	return TRUE
+
+	if ((target_type & TARGET_OBJ) && istype(target, /obj))
+		return FALSE
+
+	if ((target_type & TARGET_GHOST) && istype(target, /mob/dead))
+		return FALSE
+
+	if ((target_type & TARGET_TURF) && istype(target, /turf))
+		return FALSE
+
+	if (HAS_TRAIT(caster, TRAIT_PACIFISM))
+	//	if (alert)
+		to_chat(caster, span_warning("You cannot cast [src] as a pacifist!"))
+		return FALSE
+	//target doesn't match any targeted types, so can't activate on them
+//	if (alert)
+//	to_chat(caster, span_warning("You cannot cast [src] on [target]!"))
+
+
 	var/plus = 0
 	if(HAS_TRAIT(caster, TRAIT_HUNGRY))
 		plus = 1
@@ -111,16 +239,11 @@
 	if(world.time < next_fire_after)
 		to_chat(caster, "<span class='warning'>It's too soon to use this discipline again!</span>")
 		return FALSE
-	if(target.stat == DEAD && dead_restricted)
-		return FALSE
+//	if(target.stat == DEAD && dead_restricted) // {T.WINER} - 180-ая строчка
+//		return FALSE
 	if(ranged)
 		if(get_dist(caster, target) > range_sh)
 			return FALSE
-	if(HAS_TRAIT(caster, TRAIT_PACIFISM))
-		return FALSE
-	if(target.resistant_to_disciplines || target.spell_immunity)
-		to_chat(caster, "<span class='danger'>[target] resists your powers!</span>")
-		return FALSE
 	caster.bloodpool = max(0, caster.bloodpool-(cost+plus))
 	caster.update_blood_hud()
 	if(ranged)

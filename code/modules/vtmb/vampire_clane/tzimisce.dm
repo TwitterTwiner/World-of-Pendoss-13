@@ -100,7 +100,8 @@
 //			H.clane.violating_appearance = TRUE
 		if(used)
 			return
-		used = TRUE
+		if(H.generation >= 7)
+			used = TRUE
 		ADD_TRAIT(H, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 		switch(upgrade)
 			if("Skin armor")
@@ -186,8 +187,8 @@
 	if (level >= 1)
 		var/datum/action/vicissitude/U = new()
 		U.Grant(H)
-		var/obj/item/organ/cyberimp/arm/surgery/S = new()
-		S.Insert(H)
+		var/obj/item/organ/cyberimp/arm/surgery/vicissitude/V = new()
+		V.Insert(H)
 	if(level >= 3)
 		var/datum/action/basic_vicissitude/BV = new()
 		BV.Grant(H)
@@ -201,6 +202,7 @@
 		if(level >= 1)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_wall)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_stool)
+			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_unicorn)
 		if(level >= 2)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_floor)
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_biter)
@@ -253,6 +255,7 @@
 	var/last_headshot
 	var/last_age
 	var/last_body_mode
+	var/last_phonevoicetag
 
 	var/original_hair
 	var/original_facehair
@@ -267,6 +270,7 @@
 	var/original_realname
 	var/original_age
 	var/original_body_mode
+	var/original_phonevoicetag
 	var/furry_changed = FALSE
 
 /datum/movespeed_modifier/centipede
@@ -319,6 +323,7 @@
 				original_realname = H.real_name
 				original_headshot = H.headshot_link
 				original_age = H.age
+				original_phonevoicetag = H.phonevoicetag
 				original_body_mode = H.base_body_mod
 				playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 				H.Stun(10)
@@ -336,6 +341,7 @@
 				H.headshot_link = last_headshot
 				H.name = H.real_name
 				H.age = last_age
+				H.phonevoicetag = last_phonevoicetag
 				H.base_body_mod = last_body_mode
 				H.update_body()
 				H.update_hair()
@@ -358,6 +364,7 @@
 				original_realname = H.real_name
 				original_headshot = H.headshot_link
 				original_age = H.age
+				original_phonevoicetag = H.phonevoicetag
 				original_body_mode = H.base_body_mod
 				playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 				H.Stun(10)
@@ -376,6 +383,7 @@
 				H.headshot_link = ZV.headshot_link
 				H.name = H.real_name
 				H.age = ZV.age
+				H.phonevoicetag = ZV.phonevoicetag
 				H.base_body_mod = ZV.base_body_mod
 				H.update_body()
 				H.update_hair()
@@ -392,6 +400,7 @@
 				last_realname = H.real_name
 				last_headshot = H.headshot_link
 				last_age = H.age
+				last_phonevoicetag = H.phonevoicetag
 				last_body_mode = H.base_body_mod
 				furry_changed = TRUE
 			else
@@ -420,6 +429,7 @@
 		H.name = H.real_name
 		H.headshot_link = original_headshot
 		H.age = original_age
+		H.phonevoicetag = original_phonevoicetag
 		H.base_body_mod = original_body_mode
 		H.update_body()
 		H.update_hair()
@@ -612,7 +622,7 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_size = MOB_SIZE_HUGE
 	speak_chance = 0
-	speed = -0.4
+	speed = -1
 	maxHealth = 400
 	health = 400
 	butcher_results = list(/obj/item/stack/human_flesh = 10)
@@ -645,7 +655,7 @@
 	health = 600
 	melee_damage_lower = 50
 	melee_damage_upper = 50
-	speed = -0.8
+	speed = -1
 
 /mob/living/simple_animal/hostile/gargoyle
 	name = "Gargoyle"
@@ -719,7 +729,7 @@
 	mob_size = MOB_SIZE_HUGE
 	AIStatus = AI_OFF
 	speak_chance = 0
-	speed = -0.55
+	speed = -1
 	maxHealth = 575
 	health = 575
 	butcher_results = list(/obj/item/stack/human_flesh = 10)
