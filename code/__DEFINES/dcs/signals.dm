@@ -986,8 +986,6 @@
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_ATTACK_QDELETED "item_attack_qdeleted"
-///from base of /mob/proc/melee_swing()
-#define COMSIG_MOB_MELEE_SWING "mob_melee_swing"
 ///from base of atom/attack_hand(): (mob/user)
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
 ///from base of /obj/item/attack(): (mob/M, mob/user)
@@ -1004,7 +1002,21 @@
 #define COMSIG_HUMAN_EARLY_UNARMED_ATTACK "human_early_unarmed_attack"
 ///from mob/living/carbon/human/UnarmedAttack(): (atom/target, proximity)
 #define COMSIG_HUMAN_MELEE_UNARMED_ATTACK "human_melee_unarmed_attack"
-
+///	SEND_SIGNAL(src, COMSIG_MOB_ATTACKED_BY_MELEE, /*attacker =*/user, /*item =*/I, /*params =*/params)
+#define COMSIG_MOB_ATTACKED_BY_MELEE "mob_attacked_by_melee"
+///	SEND_SIGNAL(user, COMSIG_MOB_ATTACKING_MELEE, /*target =*/src, /*item =*/I, params)
+#define COMSIG_MOB_ATTACKING_MELEE "mob_attacking_melee"
+///from base of atom/attack_hand(): (mob/user)
+#define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
+///from base of /mob/living/attack_hand(mob/living/carbon/human/user)
+///SEND_SIGNAL(user, COMSIG_MOB_LIVING_ATTACK_HAND, /*target =*/src)
+#define COMSIG_MOB_LIVING_ATTACK_HAND "mob_living_attack_hand"
+///SEND_SIGNAL(src, COMSIG_MOB_ATTACKED_HAND, /*attacker =*/user)
+#define COMSIG_MOB_ATTACKED_HAND "mob_attacked_hand"
+///from base of /mob/proc/melee_swing()
+#define COMSIG_MOB_MELEE_SWING "mob_melee_swing"
+//SEND_SIGNAL(thrower, COMSIG_MOB_THREW_MOVABLE, target, TT)
+#define COMSIG_MOB_THREW_MOVABLE "mob_threw_movable"
 
 // Aquarium related signals
 #define COMSIG_AQUARIUM_BEFORE_INSERT_CHECK "aquarium_about_to_be_inserted"
