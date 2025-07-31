@@ -10,11 +10,11 @@
 	male_clothes = /obj/item/clothing/under/vampire/slickback
 	female_clothes = /obj/item/clothing/under/vampire/burlesque
 	var/last_setite_warning = 0
-
+/*
 /datum/vampireclane/setite/on_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.add_quirk(/datum/quirk/lightophobia)
-
+*/
 /datum/vampireclane/setite/post_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/obj/item/organ/eyes/night_vision/NV = new()
