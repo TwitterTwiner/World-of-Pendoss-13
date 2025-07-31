@@ -113,8 +113,8 @@
 	. = ..()
 	owner.drop_all_held_items()
 	var/datum/warform/Warform = new
-	if (!Warform)
-		Warform.transform(/mob/living/simple_animal/hostile/gangrel, owner, TRUE)
+	var/datum/warform/Warform = new
+	Warform.transform(/mob/living/simple_animal/hostile/gangrel, owner, TRUE)
 /*
 /datum/discipline_power/protean/earth_meld/deactivate()
 	. = ..()
