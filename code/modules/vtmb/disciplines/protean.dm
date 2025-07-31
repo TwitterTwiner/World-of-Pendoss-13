@@ -153,8 +153,7 @@
 	. = ..()
 	owner.drop_all_held_items()
 	var/datum/warform/Warform = new
-	if (!Warform)
-		Warform.transform(/mob/living/simple_animal/hostile/gangrel/best, owner, TRUE)
+	Warform.transform(/mob/living/simple_animal/hostile/gangrel/best, owner, TRUE)
 /*
 /datum/discipline_power/protean/shape_of_the_beast/deactivate()
 	. = ..()
@@ -190,8 +189,7 @@
 	. = ..()
 	owner.drop_all_held_items()
 	var/datum/warform/Warform = new
-	if (!Warform)
-		Warform.transform(/mob/living/simple_animal/hostile/crinos_beast, owner, TRUE)
+	Warform.transform(/mob/living/simple_animal/hostile/crinos_beast, owner, TRUE)
 /*
 /datum/discipline_power/protean/mist_form/deactivate()
 	. = ..()
