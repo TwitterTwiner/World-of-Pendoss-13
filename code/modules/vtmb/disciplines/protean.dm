@@ -2,130 +2,200 @@
 	name = "Protean"
 	desc = "Lets your beast out, making you stronger and faster. Violates Masquerade."
 	icon_state = "protean"
-	cost = 1
-	ranged = FALSE
-	delay = 20 SECONDS
-	violates_masquerade = TRUE
+	clan_restricted = TRUE
+	power_type = /datum/discipline_power/protean
+
+/datum/discipline_power/protean
+	name = "Protean power name"
+	desc = "Protean power description"
+
 	activate_sound = 'code/modules/wod13/sounds/protean_activate.ogg'
-	clane_restricted = TRUE
+	deactivate_sound = 'code/modules/wod13/sounds/protean_deactivate.ogg'
 
-/datum/discipline/protean/activate(mob/living/target, mob/living/carbon/human/caster)
+//EYES OF THE BEAST
+/datum/discipline_power/protean/eyes_of_the_beast
+	name = "Eyes of the Beast"
+	desc = "Let your eyes be a gateway to your Beast. Gain its eyes."
+
+	level = 1
+
+	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
+
+	violates_masquerade = TRUE
+
+	cancelable = TRUE
+	duration_length = 20 SECONDS
+	cooldown_length = 20 SECONDS
+
+	grouped_powers = list(
+		/datum/discipline_power/protean/feral_claws,
+		/datum/discipline_power/protean/earth_meld,
+		/datum/discipline_power/protean/shape_of_the_beast,
+		/datum/discipline_power/protean/mist_form
+	)
+
+/datum/discipline_power/protean/eyes_of_the_beast/activate()
 	. = ..()
-	var/mod = min(4, level_casting)
-//	var/mutable_appearance/protean_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "protean[mod]", -PROTEAN_LAYER)
-	switch(mod)
-		if(1)
-			caster.drop_all_held_items()
-			caster.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(caster))
-			caster.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(caster))
-			caster.add_client_colour(/datum/client_colour/glass_colour/red)
-//			caster.dna.species.attack_verb = "slash"
-//			caster.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-//			caster.dna.species.punchdamagelow = caster.dna.species.punchdamagelow+10
-//			caster.dna.species.punchdamagehigh = caster.dna.species.punchdamagehigh+10
-//			caster.remove_overlay(PROTEAN_LAYER)
-//			caster.overlays_standing[PROTEAN_LAYER] = protean_overlay
-//			caster.apply_overlay(PROTEAN_LAYER)
-			spawn(delay+caster.discipline_time_plus)
-				if(caster)
-					for(var/obj/item/melee/vampirearms/knife/gangrel/G in caster.contents)
-						if(G)
-							qdel(G)
-					caster.remove_client_colour(/datum/client_colour/glass_colour/red)
-//					if(caster.dna)
-					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/protean_deactivate.ogg', 50, FALSE)
-//						caster.dna.species.attack_verb = initial(caster.dna.species.attack_verb)
-//						caster.dna.species.attack_sound = initial(caster.dna.species.attack_sound)
-//						caster.dna.species.punchdamagelow = caster.dna.species.punchdamagelow-10
-//						caster.dna.species.punchdamagehigh = caster.dna.species.punchdamagehigh-10
-//						caster.remove_overlay(PROTEAN_LAYER)
-		if(2)
-			caster.drop_all_held_items()
-			caster.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(caster))
-			caster.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(caster))
-			caster.add_client_colour(/datum/client_colour/glass_colour/red)
-//			caster.dna.species.attack_verb = "slash"
-//			caster.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-//			caster.dna.species.punchdamagelow = caster.dna.species.punchdamagelow+15
-//			caster.dna.species.punchdamagehigh = caster.dna.species.punchdamagehigh+15
-			caster.add_movespeed_modifier(/datum/movespeed_modifier/protean2)
-//			caster.remove_overlay(PROTEAN_LAYER)
-//			caster.overlays_standing[PROTEAN_LAYER] = protean_overlay
-//			caster.apply_overlay(PROTEAN_LAYER)
-			spawn(delay+caster.discipline_time_plus)
-				if(caster)
-					for(var/obj/item/melee/vampirearms/knife/gangrel/G in caster.contents)
-						if(G)
-							qdel(G)
-					caster.remove_client_colour(/datum/client_colour/glass_colour/red)
-//					if(caster.dna)
-					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/protean_deactivate.ogg', 50, FALSE)
-//						caster.dna.species.attack_verb = initial(caster.dna.species.attack_verb)
-//						caster.dna.species.attack_sound = initial(caster.dna.species.attack_sound)
-//						caster.dna.species.punchdamagelow = caster.dna.species.punchdamagelow-15
-//						caster.dna.species.punchdamagehigh = caster.dna.species.punchdamagehigh-15
-					caster.remove_movespeed_modifier(/datum/movespeed_modifier/protean2)
-//						caster.remove_overlay(PROTEAN_LAYER)
-		if(3)
-			caster.drop_all_held_items()
-			var/datum/warform/Warform = new
-			Warform.transform(/mob/living/simple_animal/hostile/gangrel, caster, TRUE)
-//			caster.dna.species.attack_verb = "slash"
-//			caster.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-//			caster.dna.species.punchdamagelow = caster.dna.species.punchdamagelow+20
-//			caster.dna.species.punchdamagehigh = caster.dna.species.punchdamagehigh+20
-//			caster.add_movespeed_modifier(/datum/movespeed_modifier/protean3)
-//			caster.remove_overlay(PROTEAN_LAYER)
-//			caster.overlays_standing[PROTEAN_LAYER] = protean_overlay
-//			caster.apply_overlay(PROTEAN_LAYER)
-//			spawn(delay+caster.discipline_time_plus)
-//				if(caster && caster.stat != DEAD)
-//					GA.Restore(GA.myshape)
-//					caster.Stun(15)
-//					caster.do_jitter_animation(30)
-//					if(caster.dna)
-//					caster.playsound_local(caster, 'code/modules/wod13/sounds/protean_deactivate.ogg', 50, FALSE)
-//						caster.dna.species.attack_verb = initial(caster.dna.species.attack_verb)
-//						caster.dna.species.attack_sound = initial(caster.dna.species.attack_sound)
-//						caster.dna.species.punchdamagelow = caster.dna.species.punchdamagelow-20
-//						caster.dna.species.punchdamagehigh = caster.dna.species.punchdamagehigh-20
-//						caster.remove_movespeed_modifier(/datum/movespeed_modifier/protean3)
-//						caster.remove_overlay(PROTEAN_LAYER)
-		if(4 to 5)
-			caster.drop_all_held_items()
-			if(level_casting == 4)
-				var/datum/warform/Warform = new
-				Warform.transform(/mob/living/simple_animal/hostile/gangrel/best, caster, TRUE)
-			if(level_casting == 5)
-				var/datum/warform/Warform = new
-				Warform.transform(/mob/living/simple_animal/hostile/crinos_beast, caster, TRUE)
-//			caster.dna.species.attack_verb = "slash"
-//			caster.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-//			caster.dna.species.punchdamagelow = caster.dna.species.punchdamagelow+25
-//			caster.dna.species.punchdamagehigh = caster.dna.species.punchdamagelow+25
-//			if(level_casting == 5)
-//				caster.add_movespeed_modifier(/datum/movespeed_modifier/protean5)
-//			else
-//				caster.add_movespeed_modifier(/datum/movespeed_modifier/protean4)
-//			caster.remove_overlay(PROTEAN_LAYER)
-//			caster.overlays_standing[PROTEAN_LAYER] = protean_overlay
-//			caster.apply_overlay(PROTEAN_LAYER)
-//			spawn(delay+caster.discipline_time_plus)
-//				if(caster && caster.stat != DEAD)
-//					GA.Restore(GA.myshape)
-//					caster.Stun(1 SECONDS)
-//					caster.do_jitter_animation(1.5 SECONDS)
-//					if(caster.dna)
-//					caster.playsound_local(caster, 'code/modules/wod13/sounds/protean_deactivate.ogg', 50, FALSE)
-//						caster.dna.species.attack_verb = initial(caster.dna.species.attack_verb)
-//						caster.dna.species.attack_sound = initial(caster.dna.species.attack_sound)
-//						caster.dna.species.punchdamagelow = caster.dna.species.punchdamagelow-25
-//						caster.dna.species.punchdamagehigh = caster.dna.species.punchdamagehigh-25
-//						if(level_casting == 5)
-//							caster.remove_movespeed_modifier(/datum/movespeed_modifier/protean5)
-//						else
-//							caster.remove_movespeed_modifier(/datum/movespeed_modifier/protean4)
-//						caster.remove_overlay(PROTEAN_LAYER)
+	owner.drop_all_held_items()
+	owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
+	owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
+	owner.add_client_colour(/datum/client_colour/glass_colour/red)
 
+/datum/discipline_power/protean/eyes_of_the_beast/deactivate()
+	. = ..()
+	for(var/obj/item/melee/vampirearms/knife/gangrel/G in owner.contents)
+		qdel(G)
+	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
+
+//FERAL CLAWS
 /datum/movespeed_modifier/protean2
 	multiplicative_slowdown = -0.15
+
+/datum/discipline_power/protean/feral_claws
+	name = "Feral Claws"
+	desc = "Become a predator and grow hideous talons."
+
+	level = 2
+
+	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
+
+	violates_masquerade = TRUE
+
+	cancelable = TRUE
+	duration_length = 20 SECONDS
+	cooldown_length = 20 SECONDS
+
+	grouped_powers = list(
+		/datum/discipline_power/protean/eyes_of_the_beast,
+		/datum/discipline_power/protean/earth_meld,
+		/datum/discipline_power/protean/shape_of_the_beast,
+		/datum/discipline_power/protean/mist_form
+	)
+
+/datum/discipline_power/protean/feral_claws/activate()
+	. = ..()
+	owner.drop_all_held_items()
+	owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
+	owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
+	owner.add_client_colour(/datum/client_colour/glass_colour/red)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/protean2)
+
+/datum/discipline_power/protean/feral_claws/deactivate()
+	. = ..()
+	for(var/obj/item/melee/vampirearms/knife/gangrel/G in owner.contents)
+		qdel(G)
+	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/protean2)
+
+//EARTH MELD
+/datum/discipline_power/protean/earth_meld
+	name = "Earth Meld"
+	desc = "Hide yourself in the earth itself."
+
+	level = 3
+
+	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
+
+	violates_masquerade = TRUE
+
+	cancelable = TRUE
+	duration_length = 20 SECONDS
+	cooldown_length = 20 SECONDS
+
+	grouped_powers = list(
+		/datum/discipline_power/protean/eyes_of_the_beast,
+		/datum/discipline_power/protean/feral_claws,
+		/datum/discipline_power/protean/shape_of_the_beast,
+		/datum/discipline_power/protean/mist_form
+	)
+
+/datum/discipline_power/protean/earth_meld/activate()
+	. = ..()
+	owner.drop_all_held_items()
+	var/datum/warform/Warform = new
+	if (!Warform)
+		Warform.transform(/mob/living/simple_animal/hostile/gangrel, owner, TRUE)
+/*
+/datum/discipline_power/protean/earth_meld/deactivate()
+	. = ..()
+	GA.Restore(GA.myshape)
+	owner.Stun(1.5 SECONDS)
+	owner.do_jitter_animation(30)
+*/
+//SHAPE OF THE BEAST
+/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/better
+	shapeshift_type = /mob/living/simple_animal/hostile/gangrel/better
+
+/datum/discipline_power/protean/shape_of_the_beast
+	name = "Shape of the Beast"
+	desc = "Assume the form of an animal and retain your power."
+
+	level = 4
+
+	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
+
+	violates_masquerade = TRUE
+
+	cancelable = TRUE
+	duration_length = 20 SECONDS
+	cooldown_length = 20 SECONDS
+
+	grouped_powers = list(
+		/datum/discipline_power/protean/eyes_of_the_beast,
+		/datum/discipline_power/protean/feral_claws,
+		/datum/discipline_power/protean/earth_meld,
+		/datum/discipline_power/protean/mist_form
+	)
+
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/better/GA
+
+/datum/discipline_power/protean/shape_of_the_beast/activate()
+	. = ..()
+	owner.drop_all_held_items()
+	var/datum/warform/Warform = new
+	if (!Warform)
+		Warform.transform(/mob/living/simple_animal/hostile/gangrel/best, owner, TRUE)
+/*
+/datum/discipline_power/protean/shape_of_the_beast/deactivate()
+	. = ..()
+	GA.Restore(GA.myshape)
+	owner.Stun(1 SECONDS)
+	owner.do_jitter_animation(15)
+*/
+//MIST FORM
+/datum/discipline_power/protean/mist_form
+	name = "Mist Form"
+	desc = "Dissipate your body and move as mist."
+
+	level = 5
+
+	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
+
+	violates_masquerade = TRUE
+
+	cancelable = TRUE
+	duration_length = 20 SECONDS
+	cooldown_length = 20 SECONDS
+
+	grouped_powers = list(
+		/datum/discipline_power/protean/eyes_of_the_beast,
+		/datum/discipline_power/protean/feral_claws,
+		/datum/discipline_power/protean/earth_meld,
+		/datum/discipline_power/protean/shape_of_the_beast
+	)
+
+	var/obj/effect/proc_holder/spell/targeted/shapeshift/gangrel/best/GA
+
+/datum/discipline_power/protean/mist_form/activate()
+	. = ..()
+	owner.drop_all_held_items()
+	var/datum/warform/Warform = new
+	if (!Warform)
+		Warform.transform(/mob/living/simple_animal/hostile/crinos_beast, owner, TRUE)
+/*
+/datum/discipline_power/protean/mist_form/deactivate()
+	. = ..()
+	GA.Restore(GA.myshape)
+	owner.Stun(1 SECONDS)
+	owner.do_jitter_animation(15)
+*/

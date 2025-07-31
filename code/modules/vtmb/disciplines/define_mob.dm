@@ -1,3 +1,4 @@
+/*
 /mob/living
 	var/datum/action/discipline/discipline_ranged
 
@@ -12,7 +13,7 @@
 				L.discipline_ranged.discipline.activate(src, usr)
 			L.discipline_ranged = null
 	. = ..()
-
+*/
 /mob/living/proc/tremere_gib()
 	Stun(5 SECONDS)
 	new /obj/effect/temp_visual/tremere(loc, "gib")
@@ -30,3 +31,4 @@
 		spawn_gibs()
 		spawn_gibs()
 		qdel(src)
+
