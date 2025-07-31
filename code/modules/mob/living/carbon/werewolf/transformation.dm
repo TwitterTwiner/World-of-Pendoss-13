@@ -25,13 +25,7 @@
 
 /obj/werewolf_holder/transformation/proc/trans_gender(mob/living/carbon/trans, form)
 	if(!given_quirks)
-		given_quirks = TRUE/*
-		if(HAS_TRAIT(trans, TRAIT_ACROBATIC))
-			var/datum/action/acrobate/DA = new()
-			DA.Grant(lupus_form)
-			var/datum/action/acrobate/NE = new()
-			NE.Grant(crinos_form)
-			*/
+		given_quirks = TRUE
 		if(HAS_TRAIT(trans, TRAIT_DANCER))
 			var/datum/action/dance/DA = new()
 			DA.Grant(lupus_form)
@@ -244,10 +238,9 @@
 	Shapeshift.shapeshift_type = animal_atom
 	var/mob/living/simple_animal/hostile/H = Shapeshift.Shapeshift(humanform)
 	warform = H
-	var/datum/action/blood_heal/BH = locate() in humanform.actions
-	if(BH)
-		var/datum/action/blood_heal/BH2 = new ()
-		BH2.Grant(warform)
+	warform.bloodpool = humanform.bloodpool
+	warform.maxbloodpool = humanform.maxbloodpool
+
 	warform.attributes = humanform.attributes
 	if(animal_atom == /mob/living/simple_animal/hostile/tzimisce_beast)
 		warform.attributes.strength_bonus = 3
