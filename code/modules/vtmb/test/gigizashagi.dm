@@ -4,7 +4,8 @@
 
 /mob/living/Life()
 	. = ..()
-	gigizashagi = gigizashagi+1
+	if(humanity > 5)
+		gigizashagi = gigizashagi+1
 	if(gigizashagi >= 8)
 		gigizashagi = 0
 
