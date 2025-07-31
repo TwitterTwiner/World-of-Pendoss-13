@@ -7,8 +7,8 @@
 /datum/discipline/dominate/post_gain()
 	. = ..()
 	if(level >= 1)
-		var/obj/effect/proc_holder/spell/voice_of_god/voice_of_domination = new(owner)
-		owner.mind.AddSpell(voice_of_domination)
+		var/datum/action/dominate/DOMINATE = new()
+		DOMINATE.Grant(owner)
 
 /datum/discipline_power/dominate
 	name = "Dominate power name"
