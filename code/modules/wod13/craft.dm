@@ -110,6 +110,30 @@
 	always_available = FALSE
 	category = CAT_TZIMISCE
 
+/datum/crafting_recipe/tzi_biter
+	name = "Biting Abomination"
+	time = 100
+	reqs = list(/obj/item/stack/human_flesh = 2, /obj/item/bodypart/r_arm = 2, /obj/item/bodypart/l_arm = 2, /obj/item/spine = 1)
+	result = /mob/living/simple_animal/hostile/biter
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
+/datum/crafting_recipe/tzi_fister
+	name = "Punching Abomination"
+	time = 100
+	reqs = list(/obj/item/stack/human_flesh = 5, /obj/item/bodypart/r_arm = 1, /obj/item/bodypart/l_arm = 1, /obj/item/spine = 1, /obj/item/guts = 1)
+	result = /mob/living/simple_animal/hostile/fister
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
+/datum/crafting_recipe/tzi_tanker
+	name = "Fat Abomination"
+	time = 100
+	reqs = list(/obj/item/stack/human_flesh = 10, /obj/item/bodypart/r_arm = 1, /obj/item/bodypart/l_arm = 1, /obj/item/bodypart/r_leg = 1, /obj/item/bodypart/l_leg = 1, /obj/item/spine = 1, /obj/item/guts = 2)
+	result = /mob/living/simple_animal/hostile/tanker
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
 //////////////////////////////// BLOODPACKS || ПАКЕТИКИ ////////////////////////////////////////
 
 /datum/crafting_recipe/methpack
