@@ -62,8 +62,8 @@
 				return
 			owner.say(new_say)
 			victim.intro_Sperma(new_say, 5)
-			to_chat(owner, "<font size=12>[icon2html('icons/Rxorek_DMT.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'>ЧУШПАНН</span>")
-			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>ЧУРКА</span>","<span class='reallybig hypnophrase'>ЧУРРКА</span>")
+	//		to_chat(owner, "<font size=12>[icon2html('icons/Rxorek_DMT.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'>ЧУШПАНН</span>")
+	//		to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>ЧУРКА</span>","<span class='reallybig hypnophrase'>ЧУРРКА</span>")
 			victim.cure_trauma_type(/datum/brain_trauma/hypnosis/dominate, TRAUMA_RESILIENCE_MAGIC)
 			victim.gain_trauma(new /datum/brain_trauma/hypnosis/dominate(new_say), TRAUMA_RESILIENCE_MAGIC)
 
