@@ -274,7 +274,7 @@
 			var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types
 			for (var/discipline_type in possible_new_disciplines)
 				var/datum/discipline/discipline = new discipline_type
-				if (discipline.clane_restricted)
+				if (discipline.clan_restricted)
 					possible_new_disciplines -= discipline_type
 					qdel(discipline)
 			if (possible_new_disciplines.len && (true_experience >= 10))
