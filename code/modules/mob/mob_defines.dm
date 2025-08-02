@@ -241,3 +241,6 @@
 
 	//imported variables from all around the code
 	var/taxist = FALSE
+
+	///If the blood cell cursor is currently active due to a Discipline being targeted
+	var/discipline_targeting = FALSE

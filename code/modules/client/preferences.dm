@@ -1243,10 +1243,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((true_experience < 10) || !(pref_species.id == "kindred") || !(clane.name == "Caitiff"))
 						return
 
-					var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types
+					var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types - /datum/discipline/bloodheal
 					for (var/discipline_type in possible_new_disciplines)
 						var/datum/discipline/discipline = new discipline_type
-						if (discipline.clane_restricted)
+						if (discipline.clan_restricted)
 							possible_new_disciplines -= discipline_type
 						qdel(discipline)
 					var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
@@ -1260,7 +1260,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						return
 
 					 // [ChillRaccoon] - hot-patched shit for specify which disces should be able to be taken
-					var/list/possible_new_disciplines = list(/datum/discipline/obfuscate, /datum/discipline/auspex, /datum/discipline/celerity, /datum/discipline/fortitude, /datum/discipline/potence, /datum/discipline/dementation) - discipline_types //subtypesof(/datum/discipline) - discipline_types
+					var/list/possible_new_disciplines = list(/datum/discipline/obfuscate, /datum/discipline/auspex, /datum/discipline/celerity, /datum/discipline/fortitude, /datum/discipline/potence, /datum/discipline/dementation) - discipline_types - /datum/discipline/bloodheal //subtypesof(/datum/discipline) - discipline_types
 
 					var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
 					if(new_discipline)
@@ -1407,10 +1407,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							for (var/i = clane.clane_disciplines.len; i < 3; i++)
 								if (slotlocked)
 									break
-								var/list/possible_new_disciplines = subtypesof(/datum/discipline) - clane.clane_disciplines
+								var/list/possible_new_disciplines = subtypesof(/datum/discipline) - clane.clane_disciplines - /datum/discipline/bloodheal
 								for (var/discipline_type in possible_new_disciplines)
 									var/datum/discipline/discipline = new discipline_type
-									if (discipline.clane_restricted)
+									if (discipline.clan_restricted)
 										possible_new_disciplines -= discipline_type
 									qdel(discipline)
 								var/new_discipline = input(user, "Select a Discipline", "Discipline Selection") as null|anything in possible_new_disciplines

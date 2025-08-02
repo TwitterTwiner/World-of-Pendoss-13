@@ -430,24 +430,6 @@
 	icon_state = "lasombra"
 	masquerade_violating = TRUE
 
-/obj/item/melee/touch_attack/quietus
-	name = "\improper poison touch"
-	desc = "This is kind of like when you rub your feet on a shag rug so you can zap your friends, only a lot less safe."
-	catchphrase = null
-	on_use_sound = 'sound/magic/disintegrate.ogg'
-	icon = 'code/modules/wod13/weapons.dmi'
-	icon_state = "quietus"
-	inhand_icon_state = "mansus"
-
-/obj/item/melee/touch_attack/quietus/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity)
-		return
-	if(isliving(target))
-		var/mob/living/L = target
-		L.AdjustKnockdown(3 SECONDS)
-		L.adjustStaminaLoss(25)
-	return ..()
-
 /obj/item/melee/touch_attack/werewolf
 	name = "\improper falling touch"
 	desc = "This is kind of like when you rub your feet on a shag rug so you can zap your friends, only a lot less safe."

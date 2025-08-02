@@ -2,71 +2,129 @@
 	name = "Dementation"
 	desc = "Makes all humans in radius mentally ill for a moment, supressing their defending ability."
 	icon_state = "dementation"
-	cost = 2
-	ranged = TRUE
-	delay = 10 SECONDS
-	activate_sound = 'code/modules/wod13/sounds/insanity.ogg'
-	clane_restricted = TRUE
+	clan_restricted = TRUE
+	power_type = /datum/discipline_power/dementation
 
-/datum/discipline/dementation/activate(mob/living/target, mob/living/carbon/human/caster)
+/datum/discipline/dementation/post_gain()
 	. = ..()
-	if(iscathayan(target))
-		if(target.mind.dharma?.Po == "Legalist")
-			target.mind.dharma?.roll_po(caster, target)
-	//1 - instant laugh
-	//2 - hallucinations and less damage
-	//3 - victim dances
-	//4 - victim fake dies
-	//5 - victim starts to attack themself
-	if(target.spell_immunity)
-		return
-	var/mypower = secret_vampireroll(get_a_wits(caster)+max(get_a_empathy(caster), get_a_intimidation(caster)), get_a_willpower(target), caster)
+	owner.add_quirk(/datum/quirk/insanity)
+
+/datum/discipline_power/dementation
+	name = "Dementation power name"
+	desc = "Dementation power description"
+
+	activate_sound = 'code/modules/wod13/sounds/insanity.ogg'
+
+/datum/discipline_power/dementation/pre_activation_checks(mob/living/target)
+	var/mypower = secret_vampireroll(get_a_wits(owner)+max(get_a_empathy(owner), get_a_intimidation(owner)), get_a_willpower(target), owner)
 	if(mypower < 3)
-		to_chat(caster, "<span class='warning'>You fail at corrupting!</span>")
-		caster.emote("stare")
+		to_chat(owner, "<span class='warning'>You fail at corrupting!</span>")
+		owner.emote("stare")
 		if(mypower == -1)
-			caster.Stun(3 SECONDS)
-			caster.do_jitter_animation(10)
-		return
-	if(!ishuman(target))
-		to_chat(caster, "<span class='warning'>[target] doesn't have enough mind to get affected by this discipline!</span>")
-		return
-	var/mob/living/carbon/human/H = target
-	H.remove_overlay(MUTATIONS_LAYER)
+			owner.Stun(3 SECONDS)
+			owner.do_jitter_animation(10)
+		return FALSE
+	return TRUE
+//PASSION
+/datum/discipline_power/dementation/passion
+	name = "Passion"
+	desc = "Stir the deepest parts of your target to manipulate their psyche."
+
+	level = 1
+
+	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_SPEAK
+	target_type = TARGET_HUMAN
+	range = 7
+
+	multi_activate = TRUE
+	cooldown_length = 10 SECONDS
+	duration_length = 3 SECONDS
+
+/datum/discipline_power/dementation/passion/activate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
 	var/mutable_appearance/dementation_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
 	dementation_overlay.pixel_z = 1
-	H.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
-	H.apply_overlay(MUTATIONS_LAYER)
-	switch(level_casting)
-		if(1)
-			H.Stun(5)
-			H.emote("laugh")
-			to_chat(target, "<span class='userdanger'><b>HAHAHAHAHAHAHAHAHAHAHAHA!!</b></span>")
-			caster.playsound_local(get_turf(H), pick('sound/items/SitcomLaugh1.ogg', 'sound/items/SitcomLaugh2.ogg', 'sound/items/SitcomLaugh3.ogg'), 100, FALSE)
-			if(target.body_position == STANDING_UP)
-				target.toggle_resting()
-		if(2)
-//			H.Immobilize(10)
-			H.hallucination += 50
-			new /datum/hallucination/oh_yeah(H, TRUE)
-		if(3)
-			H.Immobilize(20)
-			if(H.stat <= HARD_CRIT && !H.IsSleeping() && !H.IsUnconscious() && !H.IsParalyzed() && !H.IsKnockdown() && !HAS_TRAIT(H, TRAIT_RESTRAINED))
-				if(prob(50))
-					dancefirst(H)
-				else
-					dancesecond(H)
-		if(4)
-//			H.Immobilize(20)
-			new /datum/hallucination/death(H, TRUE)
-		if(5)
-			var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, attack_myself_command))
-			for(var/i in 1 to 20)
-				addtimer(cb, (i - 1)*15)
-	spawn(delay+caster.discipline_time_plus)
-		if(H)
-			H.remove_overlay(MUTATIONS_LAYER)
+	//what the fuck
+	target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
+	target.apply_overlay(MUTATIONS_LAYER)
 
+	target.Stun(0.5 SECONDS)
+	target.emote("laugh")
+	to_chat(target, "<span class='userdanger'><b>HAHAHAHAHAHAHAHAHAHAHAHA!!</b></span>")
+	owner.playsound_local(get_turf(H), pick('sound/items/SitcomLaugh1.ogg', 'sound/items/SitcomLaugh2.ogg', 'sound/items/SitcomLaugh3.ogg'), 100, FALSE)
+	if(target.body_position == STANDING_UP)
+		target.toggle_resting()
+
+/datum/discipline_power/dementation/passion/deactivate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
+
+//THE HAUNTING
+/datum/discipline_power/dementation/the_haunting
+	name = "The Haunting"
+	desc = "Manipulate your target's senses, making them perceive what isn't there."
+
+	level = 2
+
+	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_SPEAK
+	target_type = TARGET_HUMAN
+	range = 7
+
+	multi_activate = TRUE
+	cooldown_length = 10 SECONDS
+	duration_length = 3 SECONDS
+
+/datum/discipline_power/dementation/the_haunting/activate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
+	var/mutable_appearance/dementation_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
+	dementation_overlay.pixel_z = 1
+	//what the fuck
+	target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
+	target.apply_overlay(MUTATIONS_LAYER)
+
+	target.hallucination += 50
+	new /datum/hallucination/oh_yeah(target, TRUE)
+
+/datum/discipline_power/dementation/the_haunting/deactivate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
+
+//EYES OF CHAOS
+/datum/discipline_power/dementation/eyes_of_chaos
+	name = "Eyes of Chaos"
+	desc = "See the hidden patterns in the world and uncover people's true selves."
+
+	level = 3
+
+	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_SPEAK
+	target_type = TARGET_HUMAN
+	range = 7
+
+	multi_activate = TRUE
+	cooldown_length = 10 SECONDS
+	duration_length = 3 SECONDS
+
+/datum/discipline_power/dementation/eyes_of_chaos/activate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
+	var/mutable_appearance/dementation_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
+	dementation_overlay.pixel_z = 1
+	//what the fuck
+	target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
+	target.apply_overlay(MUTATIONS_LAYER)
+
+	target.Immobilize(2 SECONDS)
+	if(!HAS_TRAIT(target, TRAIT_KNOCKEDOUT) && !HAS_TRAIT(target, TRAIT_IMMOBILIZED) && !HAS_TRAIT(target, TRAIT_RESTRAINED))
+		if(prob(50))
+			dancefirst(target)
+		else
+			dancesecond(target)
+
+/datum/discipline_power/dementation/eyes_of_chaos/deactivate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
 
 /proc/dancefirst(mob/living/M)
 	if(M.dancing)
@@ -157,3 +215,66 @@
 		sleep(0.1 SECONDS)
 	M.lying_fix()
 	M.dancing = FALSE
+
+//VOICE OF MADNESS
+/datum/discipline_power/dementation/voice_of_madness
+	name = "Voice of Madness"
+	desc = "Your voice becomes a source of utter insanity, affecting you and all those around you."
+
+	level = 4
+
+	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_SPEAK
+	target_type = TARGET_HUMAN
+	range = 7
+
+	multi_activate = TRUE
+	cooldown_length = 10 SECONDS
+	duration_length = 3 SECONDS
+
+/datum/discipline_power/dementation/voice_of_madness/activate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
+	var/mutable_appearance/dementation_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
+	dementation_overlay.pixel_z = 1
+	//what the fuck
+	target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
+	target.apply_overlay(MUTATIONS_LAYER)
+
+	//change this to something better than an 8 second instastun
+	new /datum/hallucination/death(target, TRUE)
+
+/datum/discipline_power/dementation/voice_of_madness/deactivate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
+
+//TOTAL INSANITY
+/datum/discipline_power/dementation/total_insanity
+	name = "Total Insanity"
+	desc = "Bring out the darkest parts of a person's psyche, bringing them to utter insanity."
+
+	level = 5
+
+	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_SPEAK
+	target_type = TARGET_HUMAN
+	range = 7
+
+	multi_activate = TRUE
+	cooldown_length = 10 SECONDS
+	duration_length = 3 SECONDS
+
+/datum/discipline_power/dementation/total_insanity/activate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)
+	var/mutable_appearance/dementation_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
+	dementation_overlay.pixel_z = 1
+	//what the fuck
+	target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
+	target.apply_overlay(MUTATIONS_LAYER)
+
+	var/datum/cb = CALLBACK(target, /mob/living/carbon/human/proc/attack_myself_command)
+	for(var/i in 1 to 20)
+		addtimer(cb, (i - 1) * 1.5 SECONDS)
+
+/datum/discipline_power/dementation/total_insanity/deactivate(mob/living/carbon/human/target)
+	. = ..()
+	target.remove_overlay(MUTATIONS_LAYER)

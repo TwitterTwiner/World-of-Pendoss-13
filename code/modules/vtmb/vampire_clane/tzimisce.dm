@@ -39,186 +39,6 @@
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/bloodcrawler
 
-/datum/action/vicissitude_blood
-	name = "Vicissitude Blood Form"
-	desc = "Suck blood from the floor."
-	button_icon_state = "bloodcrawler"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
-	vampiric = TRUE
-
-/datum/action/vicissitude_blood/Trigger()
-	. = ..()
-	var/mob/living/carbon/human/NG = owner
-	if(NG.stat > 1 || NG.IsSleeping() || NG.IsUnconscious() || NG.IsParalyzed() || NG.IsKnockdown() || NG.IsStun() || HAS_TRAIT(NG, TRAIT_RESTRAINED) || !isturf(NG.loc))
-		return
-	var/mob/living/carbon/human/H = owner
-	if(H.bloodpool < 2)
-		to_chat(owner, "<span class='warning'>You don't have enough <b>BLOOD</b> to do that!</span>")
-		return
-	H.bloodpool = max(0, H.bloodpool-2)
-	var/datum/warform/Warform = new
-	Warform.transform(/mob/living/simple_animal/hostile/bloodcrawler, NG, TRUE)
-
-/datum/action/vicissitude_form
-	name = "Vicissitude Beast Form"
-	desc = "Become a WereTzimisce!"
-	button_icon_state = "tzimisce"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
-	vampiric = TRUE
-
-/datum/action/vicissitude_form/Trigger()
-	. = ..()
-	var/mob/living/carbon/human/NG = owner
-	if(NG.stat > 1 || NG.IsSleeping() || NG.IsUnconscious() || NG.IsParalyzed() || NG.IsKnockdown() || NG.IsStun() || HAS_TRAIT(NG, TRAIT_RESTRAINED) || !isturf(NG.loc))
-		return
-	var/mob/living/carbon/human/H = owner
-	if(H.bloodpool < 3)
-		to_chat(owner, "<span class='warning'>You don't have enough <b>BLOOD</b> to do that!</span>")
-		return
-	H.bloodpool = max(0, H.bloodpool-3)
-	var/datum/warform/Warform = new
-	Warform.transform(/mob/living/simple_animal/hostile/tzimisce_beast, NG, TRUE)
-
-/datum/action/basic_vicissitude
-	name = "Vicissitude Upgrades"
-	desc = "Upgrade your body..."
-	button_icon_state = "basic"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
-	vampiric = TRUE
-	var/used = FALSE
-
-/datum/action/basic_vicissitude/Trigger()
-	. = ..()
-	var/mob/living/carbon/human/H = owner
-	if(H.hided)
-		return
-	if(used)
-		return
-	var/upgrade = input(owner, "Choose basic upgrade:", "Vicissitude Upgrades") as null|anything in list("Skin armor", "Centipede legs", "Second pair of arms", "Leather wings")
-	if(upgrade)
-//		if(H.clane)
-//			H.clane.violating_appearance = TRUE
-		if(used)
-			return
-		if(H.generation >= 7)
-			used = TRUE
-		ADD_TRAIT(H, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
-		switch(upgrade)
-			if("Skin armor")
-				H.additional_armor = TRUE
-				H.unique_body_sprite = "tziarmor"
-				H.skin_tone = "albino"
-				H.hairstyle = "Bald"
-				H.base_body_mod = ""
-				H.attributes.tzimisce_bonus = 2
-				H.update_body()
-				H.update_body_parts()
-				H.update_hair()
-			if("Centipede legs")
-				H.additional_centipede = TRUE
-				H.remove_overlay(PROTEAN_LAYER)
-				var/mutable_appearance/centipede_overlay = mutable_appearance('code/modules/wod13/64x64.dmi', "centipede", -PROTEAN_LAYER)
-				centipede_overlay.pixel_z = -16
-				centipede_overlay.pixel_w = -16
-				H.overlays_standing[PROTEAN_LAYER] = centipede_overlay
-				H.apply_overlay(PROTEAN_LAYER)
-				H.add_movespeed_modifier(/datum/movespeed_modifier/centipede)
-			if("Second pair of arms")
-				H.additional_hands = TRUE
-				var/limbs = H.held_items.len
-				H.change_number_of_hands(limbs+2)
-				H.remove_overlay(PROTEAN_LAYER)
-				var/mutable_appearance/hands2_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "2hands", -PROTEAN_LAYER)
-				hands2_overlay.color = "#[skintone2hex(H.skin_tone)]"
-				H.overlays_standing[PROTEAN_LAYER] = hands2_overlay
-				H.apply_overlay(PROTEAN_LAYER)
-			if("Leather wings")
-				H.additional_wings = TRUE
-				H.dna.species.GiveSpeciesFlight(H)
-
-/mob/living/carbon/human/proc/switch_masquerade(var/mob/living/carbon/human/H)
-	if(!additional_hands && !additional_wings && !additional_centipede && !additional_armor)
-		return
-	if(!hided)
-		hided = TRUE
-//		violating_appearance = FALSE
-		REMOVE_TRAIT(H, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
-		if(additional_hands)
-			H.remove_overlay(PROTEAN_LAYER)
-		if(additional_wings)
-			H.dna.species.RemoveSpeciesFlight(H)
-			H.pixel_z = 0
-		if(additional_centipede)
-			H.remove_overlay(PROTEAN_LAYER)
-			H.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
-		if(additional_armor)
-			H.unique_body_sprite = FALSE
-			H.update_body()
-	else
-		hided = FALSE
-//		violating_appearance = TRUE
-		if(additional_hands || additional_wings || additional_centipede || additional_armor)
-			ADD_TRAIT(H, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
-//			violating_appearance = FALSE
-//		if(violating_appearance)
-
-		if(additional_hands)
-			H.remove_overlay(PROTEAN_LAYER)
-			var/mutable_appearance/hands2_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "2hands", -PROTEAN_LAYER)
-			hands2_overlay.color = "#[skintone2hex(H.skin_tone)]"
-			H.overlays_standing[PROTEAN_LAYER] = hands2_overlay
-			H.apply_overlay(PROTEAN_LAYER)
-		if(additional_wings)
-			H.dna.species.GiveSpeciesFlight(H)
-		if(additional_centipede)
-			H.remove_overlay(PROTEAN_LAYER)
-			var/mutable_appearance/centipede_overlay = mutable_appearance('code/modules/wod13/64x64.dmi', "centipede", -PROTEAN_LAYER)
-			centipede_overlay.pixel_z = -16
-			centipede_overlay.pixel_w = -16
-			H.overlays_standing[PROTEAN_LAYER] = centipede_overlay
-			H.apply_overlay(PROTEAN_LAYER)
-			H.add_movespeed_modifier(/datum/movespeed_modifier/centipede)
-		if(additional_armor)
-			H.unique_body_sprite = "tziarmor"
-			H.update_body()
-
-/datum/discipline/vicissitude/post_gain(mob/living/carbon/human/H)
-	H.faction |= "Tzimisce"
-	if (level >= 1)
-		var/datum/action/vicissitude/U = new()
-		U.Grant(H)
-		var/obj/item/organ/cyberimp/arm/surgery/vicissitude/V = new()
-		V.Insert(H)
-	if(level >= 3)
-		var/datum/action/basic_vicissitude/BV = new()
-		BV.Grant(H)
-//	if(level >= 4)
-//		var/datum/action/vicissitude_blood/VB = new()
-//		VB.Grant(H)
-//	if(level >= 5)
-//		var/datum/action/vicissitude_form/VF = new()
-//		VF.Grant(H)
-	if(H.mind)
-		if(level >= 1)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_wall)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_stool)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_unicorn)
-		if(level >= 2)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_floor)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_biter)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_med)
-		if(level >= 3)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_eyes)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_fister)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_implant)
-		if(level >= 4)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_tanker)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_heart)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_koldun)
-		if(level >= 5)
-//			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_stealth)
-			H.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_trench)
-
 /datum/vampireclane/tzimisce/post_gain(mob/living/carbon/human/H)
 	..()
 	var/obj/item/ground_heir/heirloom = new(get_turf(H))
@@ -235,6 +55,7 @@
 	name = "gut floor"
 	icon = 'code/modules/wod13/tiles.dmi'
 	icon_state = "tzimisce_floor"
+
 
 /datum/action/vicissitude
 	name = "Vicissitude Appearance"
@@ -310,7 +131,7 @@
 	if(!furry_changed)
 		if(last_hair)
 			if(alert("Continue with last saved appearance?",,"Yes","No")=="Yes")
-				H.switch_masquerade(H)
+		//		H.switch_masquerade(H)
 				original_hair = H.hairstyle
 				original_facehair = H.facial_hairstyle
 				original_skintone = H.skin_tone
@@ -351,7 +172,7 @@
 		if(length(nibbers) >= 1)
 			var/victim = input(owner, "Choose victim to copy:", "Vicissitude Appearance") as null|mob in nibbers
 			if(victim)
-				H.switch_masquerade(H)
+			//	H.switch_masquerade(H)
 				original_hair = H.hairstyle
 				original_facehair = H.facial_hairstyle
 				original_skintone = H.skin_tone
@@ -410,7 +231,7 @@
 			return
 		return
 	else
-		H.switch_masquerade(H)
+	//	H.switch_masquerade(H)
 		playsound(get_turf(H), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 		H.Stun(10)
 		H.do_jitter_animation(10)
@@ -477,30 +298,6 @@
 	icon = 'code/modules/wod13/items.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-
-/datum/crafting_recipe/tzi_biter
-	name = "Biting Abomination"
-	time = 100
-	reqs = list(/obj/item/stack/human_flesh = 2, /obj/item/bodypart/r_arm = 2, /obj/item/bodypart/l_arm = 2, /obj/item/spine = 1)
-	result = /mob/living/simple_animal/hostile/biter
-	always_available = FALSE
-	category = CAT_TZIMISCE
-
-/datum/crafting_recipe/tzi_fister
-	name = "Punching Abomination"
-	time = 100
-	reqs = list(/obj/item/stack/human_flesh = 5, /obj/item/bodypart/r_arm = 1, /obj/item/bodypart/l_arm = 1, /obj/item/spine = 1, /obj/item/guts = 1)
-	result = /mob/living/simple_animal/hostile/fister
-	always_available = FALSE
-	category = CAT_TZIMISCE
-
-/datum/crafting_recipe/tzi_tanker
-	name = "Fat Abomination"
-	time = 100
-	reqs = list(/obj/item/stack/human_flesh = 10, /obj/item/bodypart/r_arm = 1, /obj/item/bodypart/l_arm = 1, /obj/item/bodypart/r_leg = 1, /obj/item/bodypart/l_leg = 1, /obj/item/spine = 1, /obj/item/guts = 2)
-	result = /mob/living/simple_animal/hostile/tanker
-	always_available = FALSE
-	category = CAT_TZIMISCE
 
 /mob/living/simple_animal/hostile/biter
 	name = "biter"

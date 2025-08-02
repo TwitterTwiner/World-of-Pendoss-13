@@ -10,7 +10,7 @@
 	male_clothes = /obj/item/clothing/under/vampire/ventrue
 	female_clothes = /obj/item/clothing/under/vampire/ventrue/female
 	clan_keys = /obj/item/vamp/keys/ventrue
-
+/*
 /datum/discipline/presence/post_gain(mob/living/carbon/human/H)
 	if(level >= 5)
 		var/obj/effect/proc_holder/spell/voice_of_god/S = new(H)
@@ -19,7 +19,7 @@
 /datum/discipline/dominate/post_gain(mob/living/carbon/human/H)
 	var/datum/action/dominate/DOMINATE = new()
 	DOMINATE.Grant(H)
-
+*/
 /datum/action/dominate
 	name = "Dominate"
 	desc = "Dominate over other living or un-living beings."
@@ -58,8 +58,12 @@
 		var/new_say = input(owner, "What are you trying to say?", "Say") as null|text
 		new_say = sanitize_text(new_say)
 		if(new_say)
+			if(A.generation > victim.generation)
+				return
 			owner.say(new_say)
 			victim.intro_Sperma(new_say, 5)
+	//		to_chat(owner, "<font size=12>[icon2html('icons/Rxorek_DMT.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'>ЧУШПАНН</span>")
+	//		to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>ЧУРКА</span>","<span class='reallybig hypnophrase'>ЧУРРКА</span>")
 			victim.cure_trauma_type(/datum/brain_trauma/hypnosis/dominate, TRAUMA_RESILIENCE_MAGIC)
 			victim.gain_trauma(new /datum/brain_trauma/hypnosis/dominate(new_say), TRAUMA_RESILIENCE_MAGIC)
 
@@ -68,5 +72,3 @@
 					victim.cure_trauma_type(/datum/brain_trauma/hypnosis/dominate, TRAUMA_RESILIENCE_MAGIC)
 			spawn(20 MINUTES)
 				fail_list = new(list())
-
-
