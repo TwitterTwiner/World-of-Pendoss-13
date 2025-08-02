@@ -35,8 +35,8 @@ Difficulty: Hard
 	attack_verb_continuous = "rends"
 	attack_verb_simple = "rend"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
-	icon_state = "bubblegum"
-	icon_living = "bubblegum"
+	icon_state = "bubblegum-2"
+	icon_living = "bubblegum-2"
 	icon_dead = ""
 	health_doll_icon = "bubblegum"
 	friendly_verb_continuous = "stares down"
