@@ -28462,17 +28462,6 @@
 /obj/item/kirbyplants,
 /turf/open/floor/plating/gummaguts,
 /area/vtm/interior/glasswalker)
-"eqh" = (
-/obj/effect/decal/wallpaper/low,
-/obj/machinery/door/poddoor/shutters{
-	damage_deflection = 60;
-	id = "millenium_delivery";
-	max_integrity = 300;
-	name = "Parking Shutter"
-	},
-/obj/effect/landmark/npcwall,
-/turf/closed/wall/vampwall/rich/low/window/reinforced,
-/area/vtm/interior/delivery_garage/mt_office)
 "eql" = (
 /obj/structure/vampdoor/simple{
 	dir = 8
@@ -58729,7 +58718,6 @@
 /turf/open/floor/plating/vampwood,
 /area/vtm/interior/giovanni)
 "vAz" = (
-/obj/effect/decal/wallpaper,
 /obj/machinery/door/poddoor/shutters{
 	damage_deflection = 60;
 	id = "millenium_delivery";
@@ -58737,7 +58725,7 @@
 	name = "Parking Shutter"
 	},
 /obj/effect/landmark/npcwall,
-/turf/closed/wall/vampwall/rich,
+/turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/delivery_garage/mt_office)
 "vAA" = (
 /obj/machinery/door/airlock{
@@ -159395,7 +159383,7 @@ aHw
 aGv
 aGr
 aGM
-eqh
+vAz
 bcG
 bcG
 bcG
@@ -159652,7 +159640,7 @@ aHw
 aGv
 aGr
 aGM
-eqh
+vAz
 bcG
 aNh
 aNh
@@ -159909,7 +159897,7 @@ aHw
 aGv
 aGr
 aGM
-eqh
+vAz
 bcG
 aNh
 aNh
