@@ -280,6 +280,7 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_wall)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_stool)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_floor)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_unicorn)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_eyes)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_implant)
 
