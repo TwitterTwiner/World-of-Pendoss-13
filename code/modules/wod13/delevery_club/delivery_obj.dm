@@ -688,9 +688,9 @@
 	component_type = null
 	baggage_limit = 10
 	baggage_max = null
-	var/delivery_capacity = 20
-	var/datum/delivery_datum/delivery
-	var/datum/delivery_storage/delivery_trunk
+	delivery_capacity = 24
+//	var/datum/delivery_datum/delivery
+//	var/datum/delivery_storage/delivery_trunk
 
 /obj/vampire_car/delivery_truck/Destroy()
 	if(delivery)
@@ -699,7 +699,7 @@
 	qdel(delivery_trunk)
 	. = ..()
 
-
+/*
 /obj/vampire_car/delivery_truck/Initialize()
 	. = ..()
 	delivery_trunk = new(src,delivery_capacity)
@@ -710,11 +710,11 @@
 /obj/vampire_car/delivery_truck/attack_hand(mob/user)
 	. = ..()
 	if(locked == TRUE)
-		to_chat(user,span_warning("The truck is locked!"))
+		to_chat(user,span_warning("The [src.name] is locked!"))
 		return
 	if(user.pulling == null)
 		if(delivery_trunk.storage.len == 0)
-			to_chat(user, span_notice("There is nothing in the back of the truck."))
+			to_chat(user, span_notice("There is nothing in the back of the [src.name]."))
 			return
 		var/turf/user_turf = get_turf(user)
 		for(var/obj/structure/delivery_crate/potential_crate in user_turf.contents)
@@ -732,6 +732,7 @@
 			if(do_after(user, 2 SECONDS, pulled_crate))
 				playsound(src,'code/modules/wod13/delevery_club/cargocrate_load.ogg',50,10)
 				delivery_trunk.add_to_storage(user,pulled_crate)
+*/
 
 /obj/effect/landmark/delivery_truck_beacon
 	name = "delivery truck spawner"
