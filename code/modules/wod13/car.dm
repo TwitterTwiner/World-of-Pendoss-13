@@ -94,6 +94,29 @@ SUBSYSTEM_DEF(carpool)
 			playsound(get_turf(src), 'code/modules/wod13/sounds/bump.ogg', 100, FALSE)
 			get_damage(10)
 			throw_at(throw_target, rand(4, 6), 4, user)
+	if(locked == TRUE)
+		to_chat(user,span_warning("The [src.name] is locked!"))
+		return
+	if(user.pulling == null)
+		if(delivery_trunk.storage.len == 0)
+			to_chat(user, span_notice("There is nothing in the back of the [src.name]."))
+			return
+		var/turf/user_turf = get_turf(user)
+		for(var/obj/structure/delivery_crate/potential_crate in user_turf.contents)
+			if(potential_crate)
+				to_chat(user, span_warning("There is already a crate on the ground here!"))
+				return
+		delivery_trunk.retrieval_menu(user)
+	else
+		var/obj/structure/delivery_crate/pulled_crate = user.pulling
+		if(!pulled_crate)
+			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
+			return
+		else
+			playsound(src,'code/modules/wod13/delevery_club/cargocrate_move.ogg',50,10)
+			if(do_after(user, 2 SECONDS, pulled_crate))
+				playsound(src,'code/modules/wod13/delevery_club/cargocrate_load.ogg',50,10)
+				delivery_trunk.add_to_storage(user,pulled_crate)
 
 /obj/vampire_car
 	name = "car"
@@ -124,6 +147,10 @@ SUBSYSTEM_DEF(carpool)
 	var/on = FALSE
 	var/locked = TRUE
 	var/access = "none"
+	
+	var/delivery_capacity = 0
+	var/datum/delivery_datum/delivery
+	var/datum/delivery_storage/delivery_trunk
 
 	var/health = 100
 	var/maxhealth = 100
@@ -744,6 +771,7 @@ SUBSYSTEM_DEF(carpool)
 	access = "none"
 	baggage_limit = 100
 	baggage_max = WEIGHT_CLASS_BULKY
+	delivery_capacity = 15
 	component_type = /datum/component/storage/concrete/vtm/car/track
 
 /obj/vampire_car/track/Initialize()
@@ -761,6 +789,7 @@ SUBSYSTEM_DEF(carpool)
 	lighticon = "lights2"
 	access = "clinic"
 	baggage_limit = 60
+	delivery_capacity = 5
 
 /obj/vampire_car/limuzini_bombini
 	icon_state = "limo"
@@ -805,8 +834,7 @@ SUBSYSTEM_DEF(carpool)
 	CarImage = image(icon = src.icon, icon_state = src.icon_state, pixel_x = -32, pixel_y = -32)
 	CarImage.appearance_flags = KEEP_TOGETHER
 	Fari = mutable_appearance('icons/effects/light_overlays/light_cone_cars.dmi', "light")
-//	Fari.icon = 'icons/effects/light_overlays/light_cone_cars.dmi'
-//	Fari.icon_state = "light"
+
 	Fari.pixel_x = -144
 	Fari.pixel_y = -128
 	Fari.layer = O_LIGHTING_VISUAL_LAYER
@@ -821,17 +849,12 @@ SUBSYSTEM_DEF(carpool)
 	CarLights = mutable_appearance(icon, lighticon)
 	CarLights.plane = ABOVE_LIGHTING_PLANE
 	CarLights.layer = ABOVE_LIGHTING_LAYER
-//	lights_overlay.pixel_x = 112
-//	lights_overlay.pixel_y = 96
-//	Fari.add_overlay(lights_overlay)
-//	Fari.vis_flags = NONE
+	delivery_trunk = new(src,delivery_capacity)
 	Fari.alpha = 110
 	gas = rand(100, 1000)
 	GLOB.car_list += src
 	last_pos["x"] = x
 	last_pos["y"] = y
-//	last_pos["x_pix"] = 32
-//	last_pos["y_pix"] = 32
 	switch(dir)
 		if(SOUTH)
 			movement_vector = 180
