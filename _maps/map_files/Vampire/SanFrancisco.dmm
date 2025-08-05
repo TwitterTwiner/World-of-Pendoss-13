@@ -47593,10 +47593,6 @@
 /area/vtm/interior)
 "pac" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/secure_data/laptop{
-	req_one_access = null;
-	desc = "A computer with police database."
-	},
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
