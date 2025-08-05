@@ -22095,10 +22095,6 @@
 /area/vtm/clinic)
 "bDB" = (
 /obj/structure/table,
-/obj/machinery/computer/med_data/laptop{
-	req_one_access = null;
-	desc = "A computer with medical database."
-	},
 /turf/open/floor/plating/parquetry,
 /area/vtm/clinic)
 "bDD" = (
