@@ -272,7 +272,7 @@
 
 /datum/discipline_power/vicissitude/fleshcrafting/post_gain()
 	. = ..()
-	var/obj/item/organ/cyberimp/arm/surgery/surgery_implant = new()
+	var/obj/item/organ/cyberimp/arm/surgery/vicissitude/surgery_implant = new()
 	surgery_implant.Insert(owner)
 
 	if (!owner.mind)
@@ -353,6 +353,14 @@
 
 /datum/action/basic_vicissitude/Trigger()
 	. = ..()
+	var/stareishii = input((owner, "Что ты хочешь сделать?", "Изменчивость") as null|anything in list("Убрать", "Нарастатить"))
+	if(generation <= 7)
+		switch(stareishii)
+			if("Нарастатить")
+				give_upgrade()
+			if("Убрать")
+				remove_upgrade()
+				
 	if (selected_upgrade)
 		remove_upgrade()
 	else
@@ -460,7 +468,7 @@
 	if (!owner.mind)
 		return
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_heart)
-
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_heart)
 //BLOODFORM
 /datum/discipline_power/vicissitude/bloodform
 	name = "Bloodform"
