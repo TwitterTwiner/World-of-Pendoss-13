@@ -199,6 +199,7 @@
 /datum/discipline_power/daimonion
 	name = "Daimonion power name"
 	desc = "Daimonion power description"
+	range = 20
 
 	activate_sound = 'code/modules/wod13/sounds/protean_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/protean_deactivate.ogg'
