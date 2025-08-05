@@ -244,10 +244,9 @@
 	Shapeshift.shapeshift_type = animal_atom
 	var/mob/living/simple_animal/hostile/H = Shapeshift.Shapeshift(humanform)
 	warform = H
-	var/datum/action/blood_heal/BH = locate() in humanform.actions
-	if(BH)
-		var/datum/action/blood_heal/BH2 = new ()
-		BH2.Grant(warform)
+	warform.bloodpool = humanform.bloodpool
+	warform.maxbloodpool = humanform.maxbloodpool
+
 	warform.attributes = humanform.attributes
 	if(animal_atom == /mob/living/simple_animal/hostile/tzimisce_beast)
 		warform.attributes.strength_bonus = 3
