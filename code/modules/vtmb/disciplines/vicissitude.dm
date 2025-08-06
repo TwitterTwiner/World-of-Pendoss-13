@@ -469,7 +469,7 @@
 	if (!owner.mind)
 		return
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_heart)
-	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_heart)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_med)
 //BLOODFORM
 /datum/discipline_power/vicissitude/bloodform
 	name = "Bloodform"
