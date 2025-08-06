@@ -354,14 +354,14 @@
 /datum/action/basic_vicissitude/Trigger()
 	. = ..()
 	var/mob/living/carbon/human/H = owner
-	var/stareishii = input((H, "Что ты хочешь сделать?", "Изменчивость") as null|anything in list("Убрать", "Нарастатить"))
+	var/stareishii = input(owner, "Что ты хочешь сделать?", "Изменчивость") as null|anything in list("Убрать", "Нарастатить")
 	if(H.generation <= 7)
 		switch(stareishii)
 			if("Нарастатить")
 				give_upgrade()
 			if("Убрать")
 				remove_upgrade()
-				
+
 	if (selected_upgrade)
 		remove_upgrade()
 	else
