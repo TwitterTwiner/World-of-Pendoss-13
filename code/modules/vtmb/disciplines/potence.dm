@@ -40,7 +40,7 @@
 	check_flags = DISC_CHECK_CAPABLE
 
 	toggled = TRUE
-	duration_length = 3 TRUNS
+	duration_length = 3 TURNS
 
 
 
@@ -61,7 +61,7 @@
 	check_flags = DISC_CHECK_CAPABLE
 
 	toggled = TRUE
-	duration_length = 3 TRUNS
+	duration_length = 3 TURNS
 
 	grouped_powers = list(
 		/datum/discipline_power/potence/one,
@@ -80,7 +80,7 @@
 	check_flags = DISC_CHECK_CAPABLE
 
 	toggled = TRUE
-	duration_length = 3 TRUNS
+	duration_length = 3 TURNS
 
 	grouped_powers = list(
 		/datum/discipline_power/potence/one,
@@ -99,7 +99,7 @@
 	check_flags = DISC_CHECK_CAPABLE
 
 	toggled = TRUE
-	duration_length = 3 TRUNS
+	duration_length = 3 TURNS
 
 	grouped_powers = list(
 		/datum/discipline_power/potence/one,
@@ -118,7 +118,7 @@
 	check_flags = DISC_CHECK_CAPABLE
 
 	toggled = TRUE
-	duration_length = 3 TRUNS
+	duration_length = 3 TURNS
 
 	grouped_powers = list(
 		/datum/discipline_power/potence/one,
