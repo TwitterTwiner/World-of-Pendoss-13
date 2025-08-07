@@ -25,7 +25,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	toggled = TRUE
-	duration_length = 2 TURNS
+	duration_length = 3 TURNS
 //	owner.attributes.passive_fortitude = level
 
 	grouped_powers = list(
@@ -53,7 +53,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	toggled = TRUE
-	duration_length = 2 TURNS
+	duration_length = 3 TURNS
 //	owner.attributes.passive_fortitude = level
 
 	grouped_powers = list(
@@ -81,7 +81,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	toggled = TRUE
-	duration_length = 2 TURNS
+	duration_length = 3 TURNS
 //	owner.attributes.passive_fortitude = level
 
 	grouped_powers = list(
@@ -109,7 +109,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	toggled = TRUE
-	duration_length = 2 TURNS
+	duration_length = 3 TURNS
 //	owner.attributes.passive_fortitude = level
 
 	grouped_powers = list(
@@ -137,7 +137,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	toggled = TRUE
-	duration_length = 2 TURNS
+	duration_length = 3 TURNS
 //	owner.attributes.passive_fortitude = level
 
 	grouped_powers = list(
