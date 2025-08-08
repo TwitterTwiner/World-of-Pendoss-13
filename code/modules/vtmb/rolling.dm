@@ -1003,20 +1003,15 @@ SUBSYSTEM_DEF(woddices)
 			if(dot < 9)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
-					var/replic_shockpaddles = pick(" — Разряд! Тебе \"туда\" ещё рано!", " — Нет времени на смерть, нужно жить дальше!", " — Отлично! Ещё пара Ватт, и будет как новенький."
+					var/replic_shockpaddles = pick(" — Разряд! Тебе \"туда\" ещё рано!", " — Нет времени на смерть, нужно жить дальше!", " — Отлично! Ещё пара Ватт, и будет как новенький.",
 					"", "")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_shockpaddles]</span>")
 					adjust(1)
 				else
-					var/replic = rand(1, 3)
+					var/replic_shockpaddles_soft = pick(" — Хочешь и так страдавшее тело мучать ударами током? Пф-ф...", " — Не трать электроэнергию в пустую.", " — Сотни людей умирают в эту же минуту. А стоит ли этот альтруизм того?",
+					"", "")
 					ready_events["shockpaddles"] = 0
-					switch(replic)
-						if(1)
-							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Хочешь и так страдавшее тело мучать ударами током? Пф-ф...</span>")
-						if(2)
-							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Не трать электроэнергию в пустую.</span>")
-						if(3)
-							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'> — Сотни людей умирают в эту же минуту. А стоит ли этот альтруизм того?</span>")
+					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_shockpaddles_soft]</span>")
 			else
 				ready_events["shockpaddles"] = 0
 		if ("donate")
