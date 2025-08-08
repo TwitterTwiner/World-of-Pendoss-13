@@ -907,12 +907,12 @@ SUBSYSTEM_DEF(woddices)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
 					var/replic_organtrade = pick(" — Ты ведь не живых людей продаёшь. По крайней мере, не целиком.", " — Кому-то эти органы явно нужнее, чем прошлому владельцу.", " — Интересная мысль: Почему график героизма стремится от нуля до бесконечности за каждую проданную почку, но уходит ниже нуля к заинтересованности полицией, когда проданных почек оказывается три и более?",
-					"", "")
+					" — Ты даешь людям надежду на новую жизнь. Даже если у этих людей пару миллионов за плечами.")
 					ready_events["organtrade"] = 0
 					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_organtrade]</span>")
 				else
 					var/replic_organtrade_soft = pick(" — Как тебе вообще могла прийти в голову идея продавать чужие части тела на чёрном рынке?!", " — Что ты делаешь? Это не просто не законно, или не этично. Это бесчеловечно!", " — Только не говори, что продаёшь органы нуждающимся больным детям. Нет, в этот раз эта отмазка не прокатит. Ты прекрасно понимаешь, что творишь...",
-					"", "")
+					" — Спрос рождает предложение. Ничего личного, просто бизнес.", " — Что не сделает капитал ради 300% прибыли, не так ли?")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_organtrade_soft]</span>")
 
 					adjust(min(0, 5-dot))
@@ -922,8 +922,8 @@ SUBSYSTEM_DEF(woddices)
 			if(dot > 4)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
-					var/replic_drying = pick(" — Ах! Ничего страшного. Кажется, тело ещё шевелится. Небольшое переливание крови и будет в норме.", " — Это было необходимо вкусно. Вкусно и точка.", "",
-					"", "")
+					var/replic_drying = pick(" — Ах! Что же я натворил?! Ох, подожди, тело ещё шевелится. Небольшое переливание крови и будет в норме.", " — Монстрами не рождаются, монстрами становятся...", " — Мои руки, нет, клыки в крови невинных... ",
+					" — Должно быть он в лучшем... В лучшем месте, чем это...", " — Должно быть смерть проходила в экстазе. В каком-то смысле счастливчик...")
 					var/replic = rand(1, 2)
 					ready_events["drying"] = 0
 					switch(replic)
@@ -933,14 +933,14 @@ SUBSYSTEM_DEF(woddices)
 							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Да, прийдётся поработать над умением контроллировать себя.</span>")
 							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='discosay'> — Не надо надо мной работать!</span>")
 				else
-					var/replic_drying_soft = pick(" — О-ох... Какой бред, это всё сон. Нет, нет, нельзя сосать до потери пульса!", " — Боже мой. Труп.", "— Чёртов голод. Я тут бессилен, это всё вина чёртового голода. Мне что, глистов тоже учиться контролировать?",
-					"", "")
+					var/replic_drying_soft = pick(" — О-ох... Какой бред, это всё сон. Нет, нет, нельзя сосать до потери пульса! Но было так.... Так вкусно!", " — Боже мой. Труп.", "— Чёртов голод. Я тут бессилен, это всё вина чёртового голода. Мне что, глистов тоже учиться контролировать?",
+					" — Это было необходимо вкусно. Вкусно и точка.", " — ")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_drying_soft]</span>")
 					adjust(min(0, 4-dot))
 			else
 				ready_events["drying"] = 0
 				var/replic_drying_beast = pick(" — Тебе не занимать голода... Мне это нравится. Этот вкус, этот запах. Теперь это пустой сосуд, обёртка от сладкой конфеты, мусор. А что? Смертные тоже мусорят, чем мы с тобой хуже, а?", " — КРОВЬ. СОСАТЬ. КРОВЬ. СОСАТЬ. КРОВЬ. СОСАТЬ.", " — О да! Допивай всё до последней капли!",
-				"", "")
+				" — Вот и сказочке конец, а кто всосал - молодец!", " — Даже в плохом человеке можно найти нечто съедобное.")
 				to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_drying_beast]</span>")
 		if ("kill")
 			if(murder_victms >= 5)
@@ -989,12 +989,12 @@ SUBSYSTEM_DEF(woddices)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
 					var/replic_cpr = pick(" — Вот так, вдох-выдох, вдох-выдох. ТЫ БУДЕШЬ ЖИТЬ!", " — Делай не эротический массаж и без интимного подтекста вдувай воздух в губы, это так просто!", " — Рано ещё похоронное бюро вызывать... А вот врача - пригодилось бы.",
-					"Дыхания нет. Пульса нет. 30 нажатий на грудь, по 2 в секунду. Два спасательных вдоха. Повторить.", "")
+					" — Дыхания нет. Пульса нет. 30 нажатий на грудь, по 2 в секунду. Два спасательных вдоха. Повторить.", " — Раз-два, раз-два, вдыхаем воздух, массируем грудь, вдыхаем воздух, массируем грудь!")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_cpr]</span>")
 					adjust(1)
 				else
 					var/replic_cpr_soft = pick(" — И что ты делаешь? Ты и так не спасёшь эту жизнь...", " — Всё напрасно. Здесь летальный исход очевиден.", " — Стоит ли вообще бороться за эту жизнь?",
-					"", "")
+					" — Прекрати, ничего не выйдет. Ты ему чуть грудь не сломал этим своим \"массажем\".", " — Это не твоя жизнь. Не стоит за неё пытаеться бороться.")
 					ready_events["cpr"] = 0
 					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_cpr_soft]</span>")
 			else
@@ -1003,13 +1003,13 @@ SUBSYSTEM_DEF(woddices)
 			if(dot < 9)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
-					var/replic_shockpaddles = pick(" — Разряд! Тебе \"туда\" ещё рано!", " — Нет времени на смерть, нужно жить дальше!", " — Отлично! Ещё пара Ватт, и будет как новенький.",
-					"", "")
+					var/replic_shockpaddles = pick(" — Разряд! Тебе \"туда\" ещё рано!", " — Нет времени на смерть, нужно жить дальше!", " — Отлично! Ещё пара Ватт, и будет как новенький."
+					" — Разряд, ещё разряд!", " — Слышишь? Этот стук... Сердце заработало!")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_shockpaddles]</span>")
 					adjust(1)
 				else
-					var/replic_shockpaddles_soft = pick(" — Хочешь и так страдавшее тело мучать ударами током? Пф-ф...", " — Не трать электроэнергию в пустую.", " — Сотни людей умирают в эту же минуту. А стоит ли этот альтруизм того?",
-					"", "")
+					var/replic_shockpaddles_soft = pick(" — Хочешь и так страдавшее тело мучать ударами током? Ну ты и садист...", " — Не трать электроэнергию в пустую.", " — Сотни людей умирают в эту же минуту. А стоит ли этот альтруизм того?",
+					" — Какие тщетные попытки... Ну спасешь ты его сейчас и что с того? Ты лишь отсрочил неизбежное.", " — Хватит тратить время попусту, ты его не спасешь.")
 					ready_events["shockpaddles"] = 0
 					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_shockpaddles_soft]</span>")
 			else
@@ -1019,12 +1019,12 @@ SUBSYSTEM_DEF(woddices)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
 					var/replic_donat = pick(" — Драться с супер-злодеями? Ерунда! Денежные пожертвования - вот что делает тебя настоящим героем.", " — Всего пара зелёных портретов президентов и кому-то станет лучше.", " — Щедрость - хорошее качество хорошего человека.",
-					"", "")
+					" — Есть нечто дороже денег - человеческая жизнь.", " — Настоящее богатство человека измеряется тем, что он отдаёт, а не тем, что он оставляет себе", " — Благотворительность — это единственное сокровище, которое не убудет, сколько бы ты ни делился им")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_donat]</span>")
 					adjust(1)
 				else
 					var/replic_donat_soft = pick(" — Зачем давать бомжам деньги? Они же тратят их на алкоголь и наркотики.", " — Деньги на ветер...", " — И? Ты уже закончил[owner.gender == FEMALE ? "а" : ""]? Доказал[owner.gender == FEMALE ? "а" : ""] себе что ты не кусок дерьма?",
-					"", "")
+					" — Думаешь сделал хорошее дело? Вскоре его найдут в подворотне с передозом герыча купленного на ТВОИ деньги.", " — Молодец, ещё один спонсор черной экономики.")
 					ready_events["donate"] = 0
 					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_donat_soft]</span>")
 			else
@@ -1035,12 +1035,12 @@ SUBSYSTEM_DEF(woddices)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
 					var/replic_dance = pick(" — Левой, правой, левой, правой. Так держать, суперзвезда", " — Танцевать так приятно, что хочется петь...", " — Зажги танцпол, детка!",
-					"", "")
+					" — Давай, покажи этим зевакам, что такое Страсть, что такое Настоящий Танец!", " — ТАНЦУЙ! ПОЙ! ЛЮБИ! ЖИВИ!")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_dance]]!</span>")
 					adjust(1)
 				else
 					var/replic_dance_soft = pick(" — Хватит двигаться, это выглядит убого! Прекрати! Прошу!", " — Это вряд-ли можно назвать танцем. Скорее, предсмертной судорогой.", " — Убери чёртову улыбку с лица и прекрати танцевать, тебе уже не десять лет!",
-					"", "")
+					" — Это был эпилептический препадок или мне показалось?", " — Так, хорошо, интересные конечно движения... А танец то где?")
 					ready_events["dance"] = 0
 					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_dance_soft]</span>")
 			else
