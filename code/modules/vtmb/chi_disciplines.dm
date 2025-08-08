@@ -707,7 +707,7 @@
 	desc = "Manipulate own flesh and flexibility."
 	icon_state = "flesh"
 	ranged = FALSE
-	cost_yin = 1
+	cost_yang = 1
 	delay = 12 SECONDS
 	activate_sound = 'code/modules/wod13/sounds/fleshshintai_activate.ogg'
 	var/datum/component/tackler
