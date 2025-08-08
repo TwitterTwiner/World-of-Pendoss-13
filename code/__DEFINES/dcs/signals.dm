@@ -1006,8 +1006,6 @@
 #define COMSIG_MOB_ATTACKED_BY_MELEE "mob_attacked_by_melee"
 ///	SEND_SIGNAL(user, COMSIG_MOB_ATTACKING_MELEE, /*target =*/src, /*item =*/I, params)
 #define COMSIG_MOB_ATTACKING_MELEE "mob_attacking_melee"
-///from base of atom/attack_hand(): (mob/user)
-#define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
 ///from base of /mob/living/attack_hand(mob/living/carbon/human/user)
 ///SEND_SIGNAL(user, COMSIG_MOB_LIVING_ATTACK_HAND, /*target =*/src)
 #define COMSIG_MOB_LIVING_ATTACK_HAND "mob_living_attack_hand"

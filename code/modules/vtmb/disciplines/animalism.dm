@@ -181,6 +181,7 @@
 
 
 /datum/discipline_power/animalism/rat_shapeshift/activate()
+	. = ..()
 	var/datum/warform/Warform = new
 	Warform.transform(/mob/living/simple_animal/hostile/rat_beastform, owner, FALSE)
 

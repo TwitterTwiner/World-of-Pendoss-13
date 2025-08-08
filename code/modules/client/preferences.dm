@@ -378,7 +378,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
 #define MAX_MUTANT_ROWS 4
-#define ATTRIBUTE_BASE_LIMIT 5 //Highest level that a base attribute can be upgraded to. Bonus attributes can increase the actual amount past the limit.
 
 /proc/make_font_cool(text)
 	if(text)
