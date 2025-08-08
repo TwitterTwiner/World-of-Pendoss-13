@@ -1011,7 +1011,7 @@ SUBSYSTEM_DEF(woddices)
 					var/replic_shockpaddles_soft = pick(" — Хочешь и так страдавшее тело мучать ударами током? Пф-ф...", " — Не трать электроэнергию в пустую.", " — Сотни людей умирают в эту же минуту. А стоит ли этот альтруизм того?",
 					"", "")
 					ready_events["shockpaddles"] = 0
-					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_shockpaddles_fail]</span>")
+					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_shockpaddles_soft]</span>")
 			else
 				ready_events["shockpaddles"] = 0
 		if ("donate")
