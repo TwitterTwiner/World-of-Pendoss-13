@@ -1003,7 +1003,7 @@ SUBSYSTEM_DEF(woddices)
 			if(dot < 9)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
-					var/replic_shockpaddles = pick(" — Разряд! Тебе \"туда\" ещё рано!", " — Нет времени на смерть, нужно жить дальше!", " — Отлично! Ещё пара Ватт, и будет как новенький."
+					var/replic_shockpaddles = pick(" — Разряд! Тебе \"туда\" ещё рано!", " — Нет времени на смерть, нужно жить дальше!", " — Отлично! Ещё пара Ватт, и будет как новенький.",
 					" — Разряд, ещё разряд!", " — Слышишь? Этот стук... Сердце заработало!")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_shockpaddles]</span>")
 					adjust(1)
