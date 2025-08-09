@@ -154,6 +154,14 @@
 					client.images -= suckbar
 				qdel(suckbar)
 				return
+			if(clane.name == "Salubri Warrior" && (ishumanbasic(src) || isghoul(src))) //passes by if it's not a supernatural
+				if((!HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA)) && src.stat < SOFT_CRIT) //Needs to be KO'd to feed on
+					to_chat(src, span_warning("I HAVE NOT BESTED THIS ONE IN COMBAT!! I FEED ON WARRIORS, NOT CATTLE!!"))
+					stop_sound_channel(CHANNEL_BLOOD)
+					if(client)
+						client.images -= suckbar
+					qdel(suckbar)
+					return
 		if(iskindred(target))
 			to_chat(src, "<span class='userlove'>[target]'s blood tastes HEAVENLY...</span>")
 			adjustBruteLoss(-25, TRUE)

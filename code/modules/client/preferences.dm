@@ -1254,6 +1254,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_levels += 1
 						true_experience -= 10
 
+				if("newvaleren")
+					if((true_experience < 10) || !(pref_species.id == "kindred") || !((clane.name == "Salubri") || (clane.name == "Salubri Warrior")))
+						return
+
+					var/list/possible_new_valerens = list(/datum/discipline/valeren, /datum/discipline/valeren_warrior)
+					possible_new_valerens -= discipline_types
+
+					var/new_discipline = tgui_input_list(user, "Select your new Valeren Path", "Discipline Selection", sort_list(possible_new_valerens))
+					if(new_discipline)
+						discipline_types += new_discipline
+						discipline_levels += 1
+						true_experience -= 10
+
 				if("newghouldiscipline")
 					if((true_experience < 10) || !(pref_species.id == "ghoul"))
 						return
@@ -1603,6 +1616,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 						else if (clane.name == "Caitiff")
+							cost = discipline_level * 6
+						else if (clane.common_disciplines.Find(discipline_types[i]))
 							cost = discipline_level * 6
 						else if (clane.clane_disciplines.Find(discipline_types[i]))
 							cost = discipline_level * 5

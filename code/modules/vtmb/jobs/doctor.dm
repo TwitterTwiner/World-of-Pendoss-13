@@ -27,7 +27,7 @@
 	duty = "Collect blood by helping mortals at the Clinic."
 	experience_addition = 0
 	max_generation = 11
-	allowed_bloodlines = list("Daughters of Cacophony", "Salubri", "Baali", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Followers of Set", "Tzimisce", "Lasombra", "Caitiff", "Kiasyd")
+	allowed_bloodlines = list("Daughters of Cacophony", "Salubri", "Baali", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Followers of Set", "Tzimisce", "Lasombra", "Caitiff", "Kiasyd", "Salubri Warrior")
 
 /datum/outfit/job/vdoctor
 	name = "Doctor"
@@ -83,7 +83,7 @@
 	duty = "Collect blood by helping mortals at the Clinic."
 	experience_addition = 0
 	max_generation = 7
-	allowed_bloodlines = list("Salubri", "Tremere", "Malkavian", "Tzimisce", "Kiasyd", "Caitiff")
+	allowed_bloodlines = list("Salubri", "Tremere", "Malkavian", "Tzimisce", "Kiasyd", "Caitiff", "Salubri Warrior")
 	known_contacts = list("Prince","Seneschal","Dealer")
 
 /datum/outfit/job/cdoctor

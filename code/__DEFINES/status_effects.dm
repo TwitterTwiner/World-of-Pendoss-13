@@ -121,6 +121,13 @@
 #define STATUS_EFFECT_RAINBOWPROTECTION /datum/status_effect/rainbow_protection //Invulnerable and pacifistic
 #define STATUS_EFFECT_SLIMESKIN /datum/status_effect/slimeskin //Increased armor
 
+/////////////
+//  VAMP   //
+//  STUFF  //
+/////////////
+
+#define STATUS_EFFECT_BURNING_TOUCH /datum/status_effect/burning_touch
+
 // Grouped effect sources, see also code/__DEFINES/traits.dm
 
 #define STASIS_MACHINE_EFFECT "stasis_machine"
