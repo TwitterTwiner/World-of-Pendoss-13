@@ -35,6 +35,73 @@
 			else
 				to_chat(user, "[R.thaumlevel] [R.name] - [R.desc]")
 
+/datum/crafting_recipe/arctome
+	name = "Arcane Tome"
+	time = 10 SECONDS
+	reqs = list(/obj/item/paper = 3, /obj/item/reagent_containers/blood = 2)
+	result = /obj/item/arcane_tome
+	always_available = FALSE
+	category = CAT_MISC
+
+
+//RUNE DRAWING
+/datum/action/thaumaturgy
+	name = "Thaumaturgy"
+	desc = "Blood magic rune drawing."
+	button_icon_state = "thaumaturgy"
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
+	vampiric = TRUE
+	var/drawing = FALSE
+	var/level = 1
+
+/datum/action/thaumaturgy/Trigger(trigger_flags)
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(H.bloodpool < 2)
+		to_chat(H, span_warning("You need more <b>BLOOD</b> to do that!"))
+		return
+	if(drawing)
+		return
+
+	if(istype(H.get_active_held_item(), /obj/item/arcane_tome))
+		var/list/rune_names = list()
+		for(var/i in subtypesof(/obj/ritualrune))
+			var/obj/ritualrune/R = new i(owner)
+			if(R.thaumlevel <= level)
+				rune_names[R.name] = i
+			qdel(R)
+		var/ritual = tgui_input_list(owner, "Choose rune to draw:", "Thaumaturgy", rune_names)
+		if(ritual)
+			drawing = TRUE
+			if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
+				drawing = FALSE
+				var/ritual_type = rune_names[ritual]
+				new ritual_type(H.loc)
+				H.bloodpool = max(H.bloodpool - 2, 0)
+				if(H.CheckEyewitness(H, H, 7, FALSE))
+					H.AdjustMasquerade(-1)
+			else
+				drawing = FALSE
+	else
+		var/list/shit = list()
+		for(var/i in subtypesof(/obj/ritualrune))
+			var/obj/ritualrune/R = new i(owner)
+			if(R.thaumlevel <= level)
+				shit += i
+			qdel(R)
+		var/ritual = tgui_input_list(owner, "Choose rune to draw (You need an Arcane Tome to reduce random):", "Thaumaturgy", list("???"))
+		if(ritual)
+			drawing = TRUE
+			if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
+				drawing = FALSE
+				var/rune = pick(shit)
+				new rune(H.loc)
+				H.bloodpool = max(H.bloodpool - 2, 0)
+				if(H.CheckEyewitness(H, H, 7, FALSE))
+					H.AdjustMasquerade(-1)
+			else
+				drawing = FALSE
+
 /obj/ritualrune
 	name = "Tremere Rune"
 	desc = "Learn the secrets of blood, neonate..."
@@ -55,7 +122,7 @@
 /obj/ritualrune/attack_hand(mob/user)
 	if(!activated)
 		var/mob/living/L = user
-		if(L.thaumaturgy_knowledge)
+		if(HAS_TRAIT(L, TRAIT_THAUMATURGY_KNOWLEDGE))
 			L.say("[word]")
 			L.Immobilize(30)
 			last_activator = user

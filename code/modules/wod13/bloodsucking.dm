@@ -96,6 +96,8 @@
 		if(CheckEyewitness(src, src, 7, FALSE))
 			AdjustMasquerade(-1)
 	if(do_after(src, 30, target = target, timed_action_flags = NONE, progress = FALSE))
+		if(user.has_status_effect(/datum/status_effect/blood_of_potency))
+			user.remove_status_effect(/datum/status_effect/blood_of_potency)
 		if(!iscarbon(target))
 			if(istype(target, /mob/living/simple_animal/pet/rat))
 				if(MyPath)

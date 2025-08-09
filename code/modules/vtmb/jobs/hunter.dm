@@ -42,7 +42,7 @@
 	for(var/datum/action/A in H.actions)
 		if(A.vampiric)
 			A.Remove(H)
-	H.thaumaturgy_knowledge = FALSE
+	REMOVE_TRAIT(H, TRAIT_THAUMATURGY_KNOWLEDGE, DISCIPLINE_TRAIT)
 	QDEL_NULL(H.clane)
 	var/obj/item/organ/eyes/NV = new()
 	NV.Insert(H, TRUE, FALSE)

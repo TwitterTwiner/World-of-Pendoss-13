@@ -150,6 +150,8 @@
 #include "code\__DEFINES\dcs\power_signals.dm"
 #include "code\__DEFINES\dcs\signals.dm"
 #include "code\__DEFINES\research\anomalies.dm"
+#include "code\__DEFINES\traits\vtm\declarations.dm"
+#include "code\__DEFINES\traits\vtm\sources.dm"
 #include "code\__HELPERS\_lists.dm"
 #include "code\__HELPERS\_logging.dm"
 #include "code\__HELPERS\_string_lists.dm"

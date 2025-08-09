@@ -172,7 +172,7 @@
 			if(QDELETED(src))	//Decay can end us
 				return
 			var/obj/structure/glowshroom/child = new type(newLoc, myseed, TRUE, TRUE)
-			child.generation = generation + 1
+			child.generation = initial(generation) + 1
 			shrooms_planted++
 
 	if(!shrooms_planted)
