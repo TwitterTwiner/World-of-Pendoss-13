@@ -107,7 +107,8 @@
 	else
 		if(istype(L, /obj/item/organ/lungs))
 			var/obj/item/organ/lungs/lun = L
-			lun.check_breath(src)
+			if(src)
+				lun.check_breath(src)
 			..()
 
 /**
