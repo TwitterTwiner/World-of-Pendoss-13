@@ -79,7 +79,7 @@
 	var/crit_stabilizing_reagent = /datum/reagent/medicine/epinephrine
 
 
-/obj/item/organ/lungs/proc/check_breath(mob/living/carbon/human/H)
+/obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if(!H)
 		return
 	if(H.status_flags & GODMODE)
