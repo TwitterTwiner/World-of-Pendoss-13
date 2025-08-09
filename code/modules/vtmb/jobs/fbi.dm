@@ -23,7 +23,6 @@
 
 	duty = "Enforce the Law."
 	minimal_masquerade = 0
-	my_contact_is_important = FALSE
 	known_contacts = list("Police Chief")
 
 /datum/outfit/job/fbi
@@ -46,4 +45,3 @@
 /datum/outfit/job/fbi/post_equip(mob/living/carbon/human/H)
 	..()
 	H.ignores_warrant = TRUE
-
