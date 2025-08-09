@@ -121,6 +121,9 @@
 #define span_subtler(str) ("<span class='subtler'>" + str + "</span>")
 #define span_emote(str) ("<span class='emote'>" + str + "</span>")
 
+/// Adds a generic box around whatever message you're sending in chat. Really makes things stand out.
+#define boxed_message(str) ("<div class='boxed_message'>" + str + "</div>")
+
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically
