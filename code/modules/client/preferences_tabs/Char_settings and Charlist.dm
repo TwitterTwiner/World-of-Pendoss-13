@@ -280,6 +280,24 @@
 			if (possible_new_disciplines.len && (true_experience >= 10))
 				dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline (10)</a><BR>"
 
+		switch(clane.name)
+
+			if("Salubri")
+
+				var/list/possible_new_valerens = list(/datum/discipline/valeren, /datum/discipline/valeren_warrior)
+				possible_new_valerens -= discipline_types
+
+				if (possible_new_valerens.len && (true_experience >= 10))
+					dat += "<a href='byond://?_src_=prefs;preference=newvaleren;task=input'>Learn a new Valeren Path (10)</a><BR>"
+
+			if("Salubri Warrior")
+
+				var/list/possible_new_valerens = list(/datum/discipline/valeren, /datum/discipline/valeren_warrior)
+				possible_new_valerens -= discipline_types
+
+				if (possible_new_valerens.len && (true_experience >= 10))
+					dat += "<a href='byond://?_src_=prefs;preference=newvaleren;task=input'>Learn a new Valeren Path (10)</a><BR>"
+
 	if(pref_species.name == "Ghoul")
 		for (var/i in 1 to discipline_types.len)
 			var/discipline_type = discipline_types[i]
