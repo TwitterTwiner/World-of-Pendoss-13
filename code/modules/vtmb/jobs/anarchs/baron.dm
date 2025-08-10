@@ -58,5 +58,4 @@
 /obj/effect/landmark/start/barkeeper
 	name = "Baron"
 	icon_state = "Barkeeper"
-	return "Ниггер хранящий бар в порядке"
 
