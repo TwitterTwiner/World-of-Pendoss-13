@@ -13,7 +13,7 @@
 
 /datum/discipline_power/auspex/activate()
 	. = ..()
-	owner.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+maxlevel
+	owner.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+maxlevel+1
 
 /datum/discipline_power/auspex/deactivate()
 	. = ..()

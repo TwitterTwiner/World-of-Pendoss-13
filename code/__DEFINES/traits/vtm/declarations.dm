@@ -22,3 +22,6 @@
 #define TRAIT_MASQUERADE_VIOLATING_FACE "masquerade_violating_face"
 /// If the trait owner knows thaumaturgical rituals.
 #define TRAIT_THAUMATURGY_KNOWLEDGE "thaumaturgy_knowledge"
+
+#define TRAIT_SALUBRI_EYE_OPEN	"eye_open" //This is for Salubri Stuff in regards to oepning and closing it
+#define TRAIT_SALUBRI_EYE		"salubri_eye" //This is for whhen you want to like actually know if you have the eye or not
