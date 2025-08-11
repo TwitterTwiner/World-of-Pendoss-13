@@ -100,9 +100,7 @@
 
 /obj/item/weldingtool/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		flamethrower_screwdriver(I, user)
-	else if(istype(I, /obj/item/stack/rods))
-		flamethrower_rods(I, user)
+	//	flamethrower_screwdriver(I, user)
 	else
 		. = ..()
 	update_icon()
@@ -176,8 +174,6 @@
 // Ah fuck, I can't believe you've done this
 /obj/item/weldingtool/proc/handle_fuel_and_temps(used = 0, mob/living/user)
 	use(used)
-	var/turf/location = get_turf(user)
-	location.hotspot_expose(700, 50, 1)
 
 // Returns the amount of fuel in the welder
 /obj/item/weldingtool/proc/get_fuel()
@@ -274,7 +270,7 @@
 		to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
 		return FALSE
 
-
+/*
 /obj/item/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
 	if(welding)
 		to_chat(user, "<span class='warning'>Turn it off first!</span>")
@@ -287,6 +283,7 @@
 		to_chat(user, "<span class='notice'>[src] can now be attached, modified, and refuelled.</span>")
 		reagents.flags |= OPENCONTAINER
 	add_fingerprint(user)
+*/
 
 /obj/item/weldingtool/proc/flamethrower_rods(obj/item/I, mob/user)
 	if(!status)
@@ -314,10 +311,10 @@
 	icon_state = "indwelder"
 	max_fuel = 40
 	custom_materials = list(/datum/material/glass=60)
-
+/*
 /obj/item/weldingtool/largetank/flamethrower_screwdriver()
 	return
-
+*/
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
 	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
@@ -339,10 +336,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron=30, /datum/material/glass=10)
 	change_icons = FALSE
-
+/*
 /obj/item/weldingtool/mini/flamethrower_screwdriver()
 	return
-
+*/
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."

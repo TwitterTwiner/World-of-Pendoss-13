@@ -272,7 +272,7 @@
 
 /datum/discipline_power/vicissitude/fleshcrafting/post_gain()
 	. = ..()
-	var/obj/item/organ/cyberimp/arm/surgery/surgery_implant = new()
+	var/obj/item/organ/cyberimp/arm/surgery/vicissitude/surgery_implant = new()
 	surgery_implant.Insert(owner)
 
 	if (!owner.mind)
@@ -280,6 +280,7 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_wall)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_stool)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_floor)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_unicorn)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_eyes)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_implant)
 
@@ -344,7 +345,7 @@
 	button_icon_state = "basic"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
-	var/selected_upgrade
+	var/list/selected_upgrade = list()
 	var/mutable_appearance/upgrade_overlay
 	var/original_skin_tone
 	var/original_hairstyle
@@ -352,10 +353,19 @@
 
 /datum/action/basic_vicissitude/Trigger()
 	. = ..()
-	if (selected_upgrade)
-		remove_upgrade()
+	var/mob/living/carbon/human/H = owner
+	var/stareishii = input(owner, "Что ты хочешь сделать?", "Изменчивость") as null|anything in list("Убрать", "Нарастатить")
+	if(H.generation <= 7)
+		switch(stareishii)
+			if("Нарастатить")
+				give_upgrade()
+			if("Убрать")
+				remove_upgrade()
 	else
-		give_upgrade()
+		if (selected_upgrade)
+			remove_upgrade()
+		else
+			give_upgrade()
 
 	owner.update_body()
 
@@ -368,9 +378,9 @@
 	if (!do_after(user, 10 SECONDS))
 		return
 //	if(selected_upgrade && owner.generation > 7)
-	if(selected_upgrade)
-		return
-	selected_upgrade = upgrade
+//	if(selected_upgrade)
+//		return
+	selected_upgrade += upgrade
 	ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 	switch (upgrade)
 		if ("Skin armor")
@@ -436,7 +446,7 @@
 	user.do_jitter_animation(10)
 	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 
-	selected_upgrade = null
+	selected_upgrade = list()
 
 //HORRID FORM
 /datum/discipline_power/vicissitude/horrid_form
@@ -459,7 +469,7 @@
 	if (!owner.mind)
 		return
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_heart)
-
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_med)
 //BLOODFORM
 /datum/discipline_power/vicissitude/bloodform
 	name = "Bloodform"

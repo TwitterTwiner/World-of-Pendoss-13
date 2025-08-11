@@ -1046,6 +1046,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	message_admins("Mass polymorph started by [who_did_it] is complete.")
 
+
 /client/proc/show_tip()
 	set category = "Admin"
 	set name = "Show Tip"

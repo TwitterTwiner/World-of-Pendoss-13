@@ -20,6 +20,7 @@
 /obj/effect/proc_holder/spell/targeted/shadowwalk/cast(list/targets,mob/living/user = usr)
 	var/L = user.loc
 
+/*
 	//If used in front of a mirror, allows you to teleport through it to other non-broken mirrors
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -39,6 +40,8 @@
 						playsound(L, 'code/modules/wod13/sounds/necromancy.ogg', 50, FALSE)
 					return
 			//Proceed to normal activation if they didn't select a mirror
+
+*/
 
 	if(istype(user.loc, /obj/effect/dummy/phased_mob/shadow))
 		var/obj/effect/dummy/phased_mob/shadow/S = L

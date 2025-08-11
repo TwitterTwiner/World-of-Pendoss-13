@@ -99,7 +99,6 @@
 	var/turf/T = get_step(src, dir)
 	var/turf/T1 = get_step(T, turn(dir, -90))
 	var/turf/T2 = get_step(T, turn(dir, 90))
-	SEND_SIGNAL(src, COMSIG_MOB_MELEE_SWING, M, T, T1, T2)
 	for(var/mob/living/MB in T)
 		if(MB)
 			M = MB
@@ -131,6 +130,12 @@
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
 		return
+
+	if((isobj(A) || ismob(A) || isturf(A)) && A.loc != src)
+		if(invisibility <= INVISIBILITY_LEVEL_OBFUSCATE+5 && invisibility != initial(invisibility))
+			invisibility = initial(invisibility)
+			alpha = 255
+			playsound_local(loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["middle"])
@@ -288,8 +293,7 @@
 		else
 			if(istype(W, /obj/item/melee))
 				var/atom/B = melee_swing()
-				if(B)
-					W.melee_attack_chain(src, B, params)
+				W.melee_attack_chain(src, B, params)
 			else if(CanReach(A,W))
 				W.melee_attack_chain(src, A, params)
 
@@ -506,7 +510,7 @@
 	if(istype(ML))
 		ML.pulled(src)
 
-/mob/living/CtrlClick(mob/user)
+/mob/living/carbon/human/CtrlClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
 		if(world.time < user.next_move)
 			return FALSE
@@ -530,14 +534,14 @@
 	var/turf/T = get_turf(src)
 	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))
 		user.listed_turf = T
-		user.client.stat_panel.send_message("create_listedturf", T.name)
+		user.client << output("[url_encode(json_encode(T.name))];", "statbrowser:create_listedturf")
 
 /// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
 /atom/proc/AltClickNoInteract(mob/user, atom/A)
 	var/turf/T = get_turf(A)
 	if(T && user.TurfAdjacent(T))
 		user.listed_turf = T
-		user.client.stat_panel.send_message("create_listedturf", T.name)
+		user.client << output("[url_encode(json_encode(T.name))];", "statbrowser:create_listedturf")
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)

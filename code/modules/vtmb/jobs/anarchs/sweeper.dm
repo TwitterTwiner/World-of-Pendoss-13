@@ -19,7 +19,7 @@
 	liver_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_SWEEPER
-	known_contacts = list("Baron")
+	known_contacts = list("Baron","Bouncer","Emissary","Sweeper")
 	allowed_bloodlines = list("Daughters of Cacophony", "True Brujah", "Brujah", "Nosferatu", "Gangrel", "Tremere", "Toreador", "Malkavian", "Banu Haqim", "Tzimisce", "Caitiff", "Ventrue", "Lasombra", "Gargoyle", "Kiasyd", "Cappadocian", "Followers of Set")
 
 	v_duty = "You are the observer of the anarchs. You watch out for any new kindred, suspicious individuals, and any new rumors near the anarch turf, and then report it to your anarchs."
@@ -37,7 +37,7 @@
 	suit = /obj/item/clothing/suit/vampire/jacket
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
 	r_pocket = /obj/item/vamp/keys/anarch
-	l_pocket = /obj/item/vamp/phone/anarch
+	l_pocket = /obj/item/vamp/phone/sweeper
 	backpack_contents = list(/obj/item/passport=1, /obj/item/cockclock=1, /obj/item/flashlight=1, /obj/item/vamp/keys/hack=1, /obj/item/vamp/creditcard=1, /obj/item/binoculars = 1)
 
 /datum/outfit/job/sweeper/pre_equip(mob/living/carbon/human/H)

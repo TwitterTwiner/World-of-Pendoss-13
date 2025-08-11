@@ -715,3 +715,11 @@
 
 	deltimer(duration_timers[to_clear])
 	duration_timers.Cut(to_clear, to_clear + 1)
+
+
+/datum/discipline_power/proc/check_menu(mob/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated())
+		return FALSE
+	return TRUE

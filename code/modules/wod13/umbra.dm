@@ -184,3 +184,19 @@
 			interacting_mob.forceMove(T)
 			playsound(loc, 'code/modules/wod13/sounds/portal_enter.ogg', 75, FALSE)
 			playsound(T, 'code/modules/wod13/sounds/portal_enter.ogg', 75, FALSE)
+
+
+/obj/effect/landmark/umbra
+	name = "Umbra"
+	icon = 'icons/mob/landmarks.dmi'
+	icon_state = "x"
+	Initialize()
+		. = ..()
+
+
+/obj/effect/landmark/backrooms
+	name = "Backrooms"
+	icon = 'icons/mob/landmarks.dmi'
+	icon_state = "x"
+	Initialize()
+		. = ..()

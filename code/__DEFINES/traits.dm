@@ -531,3 +531,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait from [/datum/antagonist/nukeop/clownop]
 #define CLOWNOP_TRAIT "clownop"
+
+
+//// Rolling traits
+#define Gluho_slep

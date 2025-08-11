@@ -378,7 +378,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
 #define MAX_MUTANT_ROWS 4
-#define ATTRIBUTE_BASE_LIMIT 5 //Highest level that a base attribute can be upgraded to. Bonus attributes can increase the actual amount past the limit.
 
 /proc/make_font_cool(text)
 	if(text)
@@ -1416,6 +1415,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								var/new_discipline = input(user, "Select a Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
 								if (new_discipline)
 									clane.clane_disciplines += new_discipline
+									discipline_types += new_discipline
+									discipline_levels += 1
 						else //Separate this fucking shit, otherwise we can encounter with some trouble. This is a bug. [ChillRaccoon]
 							for (var/i in 1 to clane.clane_disciplines.len)
 								discipline_types += clane.clane_disciplines[i]

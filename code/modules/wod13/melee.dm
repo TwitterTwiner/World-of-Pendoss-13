@@ -451,24 +451,6 @@
 			L.toggle_resting()
 	return ..()
 
-/obj/item/quietus_upgrade
-	name = "poison for weapons"
-	desc = "Upgrade your melee weapons with it."
-	icon_state = "quietus"
-	icon = 'code/modules/wod13/items.dmi'
-	w_class = WEIGHT_CLASS_SMALL
-	item_flags = DROPDEL
-
-/obj/item/melee/vampirearms/attackby(obj/item/I, mob/living/user, params)
-	. = ..()
-	if(istype(I, /obj/item/quietus_upgrade))
-		if(!quieted)
-			quieted = TRUE
-//			armour_penetration = min(100, armour_penetration+30)
-			force += 20
-			color = "#72b27c"
-			qdel(I)
-
 /obj/item/melee/vampirearms/knife/gangrel/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)

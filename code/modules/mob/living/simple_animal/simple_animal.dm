@@ -7,7 +7,6 @@
 	gender = PLURAL //placeholder
 	living_flags = MOVES_ON_ITS_OWN
 	status_flags = CANPUSH
-
 	var/icon_living = ""
 	///Icon when the animal is dead. Don't use animated icons for this.
 	var/icon_dead = ""

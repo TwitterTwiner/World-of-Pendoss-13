@@ -689,6 +689,7 @@
 			remove_wibbly_filters(whole_screen)
 		if(admin_revive)
 			get_up(TRUE)
+			remove_wibbly_filters(src.client)
 		update_sight()
 		clear_alert("not_enough_oxy")
 		reload_fullscreen()

@@ -184,3 +184,12 @@ GLOBAL_PROTECT(exp_specialmap)
 	job = chef_expand.Replace(job, "cook")
 	job = borg_expand.Replace(job, "cyborg")
 	return job
+
+/datum/job/proc/get_description_blurb()
+	return ""
+	/*		var/description = job.get_description_blurb()
+			if(description)
+				HTML += html_encode(description)
+				"<a href='byond://?src=[REF(src)];headshot=1'>View headshot</a>"
+				*/
+

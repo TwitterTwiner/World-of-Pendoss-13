@@ -43,7 +43,6 @@
 	max_generation = 9
 	minimal_masquerade = 5
 
-	my_contact_is_important = TRUE
 	known_contacts = list("Prince","Sheriff","Tremere Regent","Dealer","Primogens")
 
 	v_duty = "You are the right hand man or woman of the most powerful vampire in the city. The Camarilla trusts you to run the city, even in their stead."
@@ -59,8 +58,7 @@
 	id = /obj/item/card/id/clerk
 	uniform = /obj/item/clothing/under/vampire/clerk
 	shoes = /obj/item/clothing/shoes/vampire/brown
-//	head = /obj/item/clothing/head/hopcap
-	l_pocket = /obj/item/vamp/phone/clerk
+	l_pocket = /obj/item/vamp/phone/seneschal
 	r_pocket = /obj/item/vamp/keys/clerk
 	backpack_contents = list(/obj/item/passport=1, /obj/item/phone_book=1, /obj/item/cockclock=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/seneschal=1)
 

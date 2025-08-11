@@ -596,7 +596,6 @@
 		if(mutant_category >= MAX_MUTANT_ROWS)
 			dat += "</td>"
 			mutant_category = 0
-// ТАБУЛЯЦИИ УДАЛЯТЬ ВЫШЕ
 	if(pref_species.mutant_bodyparts["tail_human"])
 		if(pref_species.id != "kindred" && pref_species.id != "ghoul")
 			if(!mutant_category)

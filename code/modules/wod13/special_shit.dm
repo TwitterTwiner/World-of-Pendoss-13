@@ -88,7 +88,7 @@
 */
 /obj/item/drinkable_bloodpack
 	name = "\improper drinkable blood pack (full)"
-	desc = "Fast way to feed your inner beast."
+	desc = "Быстрый путь насытить твоего зверя."
 	icon = 'code/modules/wod13/items.dmi'
 	icon_state = "blood4"
 	inhand_icon_state = "blood4"
@@ -146,7 +146,11 @@
 	name = "\improper vampire vitae pack (full)"
 	amount_of_bloodpoints = 4
 	vitae = TRUE
-
+	/*
+	attack(mob/living/M, mob/living/user)
+		if(isghoul(user) || iskindred(user))
+			return ..()
+*/
 /obj/item/drinkable_bloodpack/empty
 	name = "\improper drinkable blood pack (empty)"
 	desc = "Пустой пакетик с кровью"

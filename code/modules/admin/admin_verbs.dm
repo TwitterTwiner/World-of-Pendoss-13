@@ -90,12 +90,11 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/resetasaycolor,
 	/client/proc/toggleadminhelpsound,
 	/client/proc/respawn_character,
-	/datum/admins/proc/open_borgopanel,
-	// /client/proc/modify_savefile
+	/datum/admins/proc/open_borgopanel
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
-GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_direct_mob_sound, /client/proc/play_sound, /client/proc/play_web_sound, /client/proc/set_round_end_sound))
+GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_direct_mob_sound, /client/proc/play_sound, /client/proc/set_round_end_sound))
 GLOBAL_PROTECT(admin_verbs_sounds)
 GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/cmd_admin_dress,
@@ -179,6 +178,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/map_template_upload,
 	/client/proc/jump_to_ruin,
 	/client/proc/clear_dynamic_transit,
+	/client/proc/run_empty_query,
 	/client/proc/toggle_medal_disable,
 	/client/proc/view_runtimes,
 	/client/proc/pump_random_event,
@@ -235,7 +235,6 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/cmd_admin_local_narrate,
 	/client/proc/play_local_sound,
 	/client/proc/play_sound,
-	/client/proc/play_web_sound,
 	/client/proc/set_round_end_sound,
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
@@ -372,7 +371,6 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 					message_admins("[key_name_admin(usr)] re-entered corpse")
 				ghost.can_reenter_corpse = TRUE //force re-entering even when otherwise not possible
 				ghost.client.show_popup_menus = 0
-//				ghost.client.color = CMNoir
 				ghost.reenter_corpse()
 
 				SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin Reenter") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -632,8 +630,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 					preferences.discipline_levels += giving_discipline_level
 					preferences.save_character()
 
-					var/datum/discipline/discipline = new giving_discipline
-					discipline.level = giving_discipline_level
+					var/datum/discipline/discipline = new giving_discipline(giving_discipline_level)
 
 					message_admins("[ADMIN_LOOKUPFLW(usr)] gave [ADMIN_LOOKUPFLW(player)] the Discipline [discipline.name] at rank [discipline.level]. Reason: [reason]")
 					log_admin("[key_name(usr)] gave [key_name(player)] the Discipline [discipline.name] at rank [discipline.level]. Reason: [reason]")
@@ -969,7 +966,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Set Late Party"
 	set category = "Admin.Game"
 
-	var/setting = input(usr, "Choose the bad guys party setting:", "Set Late Party") in list("caitiff", "sabbat", "hunter", "kuei-jin", "noddist", "random")
+	var/setting = input(usr, "Choose the bad guys party setting:", "Set Late Party") in list("caitiff", "sabbat", "hunter", "random")
 	if(setting == "random")
 		SSbad_guys_party.setting = null
 		SSbad_guys_party.get_badguys()
@@ -1083,4 +1080,4 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Debug Stat Panel"
 	set category = "Debug"
 
-	src << output("", "statbrowser:create_debug")
+	src.stat_panel.send_message("create_debug")

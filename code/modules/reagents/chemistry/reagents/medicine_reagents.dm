@@ -671,103 +671,98 @@
 	addiction_threshold = 5
 //	addiction_threshold = 30  В ЮНИТАХ
 	var/MeoMoor = 0
+	on_mob_life(mob/living/carbon/M)
+		if(current_cycle >= 8)
+			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "numb", /datum/mood_event/narcotic_medium, name)
+			M.attributes.stamina_reagent = 1
+			MeoMoor += 2
+		switch(current_cycle)
 
-/datum/reagent/medicine/tramadolum/on_mob_life(mob/living/carbon/M)
-	if(current_cycle >= 8)
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "numb", /datum/mood_event/narcotic_medium, name)
-		M.attributes.stamina_reagent = 1
-		MeoMoor += 2
-	switch(current_cycle)
-
-		if(25)
-			M.blur_eyes(5)
-			if(prob(25))
-				var/namaz = pick("Ты чувствуешь легкую усталость...", "Ты начинаешь хуже чувствовать происходящее вокруг...", "Ты чувствуешь себя намного спокойнее...", "Ты чувствуешь себя спокойно, хорошо...")
-				if(!iskindred(M) && !iscathayan(M))
-					to_chat(M, "<span class='notice'>[namaz]</span>" )
-				M.attributes.perception_reagent = -1
-		if(30 to 50)
-			M.drowsyness += 1
-			if(prob(25))
-				var/moskal = pick("Ты чувствуешь, как тебя начинает клонить в сон...", "Твои веки тяжелеют, а тело слабеет...", "Секунда кажется минутой, а минута часом...", "Тебя начинает жестко кумарить...", "Твои глаза начинаются слипаться, а ты понемногу засыпать...")
-				if(!iskindred(M) && !iscathayan(M))
-					to_chat(M,"<span class='notice'>[moskal]</span>")
-		if(50 to INFINITY)
-			M.Sleeping(15)
+			if(25)
+				M.blur_eyes(5)
+				if(prob(25))
+					var/namaz = pick("Ты чувствуешь легкую усталость...", "Ты начинаешь хуже чувствовать происходящее вокруг...", "Ты чувствуешь себя намного спокойнее...", "Ты чувствуешь себя спокойно, хорошо...")
+					if(!iskindred(M) && !iscathayan(M))
+						to_chat(M, "<span class='notice'>[namaz]</span>" )
+					M.attributes.perception_reagent = -1
+			if(30 to 50)
+				M.drowsyness += 1
+				if(prob(25))
+					var/moskal = pick("Ты чувствуешь, как тебя начинает клонить в сон...", "Твои веки тяжелеют, а тело слабеет...", "Секунда кажется минутой, а минута часом...", "Тебя начинает жестко кумарить...", "Твои глаза начинаются слипаться, а ты понемногу засыпать...")
+					if(!iskindred(M) && !iscathayan(M))
+						to_chat(M,"<span class='notice'>[moskal]</span>")
+			if(50 to INFINITY)
+				M.Sleeping(15)
+				. = 1
+		..()
+	on_mob_metabolize(mob/living/L)
+		..()
+		L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+		L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/slabost)
+		L.give_lethalnigga()
+	on_mob_end_metabolize(mob/living/L)
+		..()
+		L.attributes.perception_reagent = 0
+		L.attributes.stamina_reagent = 0
+		L.pick_lethalnigga()
+		L.AdjustAllImmobility(50)
+		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/slabost)
+		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+		if(!iskindred(L) && !iscathayan(L))
+			if(MeoMoor)
+				L.add_movespeed_modifier(/datum/movespeed_modifier/slabost)
+				if(L.getOrganLoss(ORGAN_SLOT_BRAIN) >= 20)
+					to_chat(L, "<span class='reallybig hypnophrase'>Ужасная, пульсирующая сковывает твоё тело!</span>")
+					L.blur_eyes(10)
+					L.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
+					L.Jitter(2)
+					L.drop_all_held_items()
+					L.playsound_local(L, 'sound/hallucinations/LOBOTOMIA.ogg', 70, FALSE)
+				spawn(120 + MeoMoor/2)
+					L.remove_movespeed_modifier(/datum/movespeed_modifier/slabost)
+					var/obj/item/organ/heart/our_heart = L.getorganslot(ORGAN_SLOT_HEART)
+					our_heart.applyOrganDamage(2)
+					to_chat(L, "<span class='notice'>Ты чувствуешь боль в груди...</span>")
+	overdose_process(mob/living/M)
+		if(prob(33))
+			M.drop_all_held_items()
+			M.adjustToxLoss(2*REM, 0)
 			. = 1
-	..()
+			M.Dizzy(2)
+			M.Jitter(2)
+		..()
+	addiction_act_stage1(mob/living/M)
+		if(prob(33))
+			M.drop_all_held_items()
+			M.Jitter(2)
+		..()
 
-/datum/reagent/medicine/tramadolum/on_mob_metabolize(mob/living/L)
-	..()
-	L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-	L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/slabost)
-	L.give_lethalnigga()
+	addiction_act_stage2(mob/living/M)
+		if(prob(33))
+			M.drop_all_held_items()
+			M.adjustToxLoss(1*REM, 0)
+			. = 1
+			M.Dizzy(3)
+			M.Jitter(3)
+		..()
 
-/datum/reagent/medicine/tramadolum/on_mob_end_metabolize(mob/living/L)
-	..()
-	L.attributes.perception_reagent = 0
-	L.attributes.stamina_reagent = 0
-	L.pick_lethalnigga()
-	L.AdjustAllImmobility(50)
-	L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/slabost)
-	L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-	if(!iskindred(L) && !iscathayan(L))
-		if(MeoMoor)
-			L.add_movespeed_modifier(/datum/movespeed_modifier/slabost)
-			if(L.getOrganLoss(ORGAN_SLOT_BRAIN) >= 20)
-				to_chat(L, "<span class='reallybig hypnophrase'>Ужасная, пульсирующая сковывает твоё тело!</span>")
-				L.blur_eyes(10)
-				L.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
-				L.Jitter(2)
-				L.drop_all_held_items()
-				L.playsound_local(L, 'sound/hallucinations/LOBOTOMIA.ogg', 70, FALSE)
-			spawn(120 + MeoMoor/2)
-				L.remove_movespeed_modifier(/datum/movespeed_modifier/slabost)
-				var/obj/item/organ/heart/our_heart = L.getorganslot(ORGAN_SLOT_HEART)
-				our_heart.applyOrganDamage(2)
-				to_chat(L, "<span class='notice'>Ты чувствуешь боль в груди...</span>")
+	addiction_act_stage3(mob/living/M)
+		if(prob(33))
+			M.drop_all_held_items()
+			M.adjustToxLoss(2*REM, 0)
+			. = 1
+			M.Dizzy(4)
+			M.Jitter(4)
+		..()
 
-/datum/reagent/medicine/tramadolum/overdose_process(mob/living/M)
-	if(prob(33))
-		M.drop_all_held_items()
-		M.adjustToxLoss(2*REM, 0)
-		. = 1
-		M.Dizzy(2)
-		M.Jitter(2)
-	..()
-
-/datum/reagent/medicine/tramadolum/addiction_act_stage1(mob/living/M)
-	if(prob(33))
-		M.drop_all_held_items()
-		M.Jitter(2)
-	..()
-
-/datum/reagent/medicine/tramadolum/addiction_act_stage2(mob/living/M)
-	if(prob(33))
-		M.drop_all_held_items()
-		M.adjustToxLoss(1*REM, 0)
-		. = 1
-		M.Dizzy(3)
-		M.Jitter(3)
-	..()
-
-/datum/reagent/medicine/tramadolum/addiction_act_stage3(mob/living/M)
-	if(prob(33))
-		M.drop_all_held_items()
-		M.adjustToxLoss(2*REM, 0)
-		. = 1
-		M.Dizzy(4)
-		M.Jitter(4)
-	..()
-
-/datum/reagent/medicine/tramadolum/addiction_act_stage4(mob/living/M)
-	if(prob(33))
-		M.drop_all_held_items()
-		M.adjustToxLoss(3*REM, 0)
-		. = 1
-		M.Dizzy(5)
-		M.Jitter(5)
-	..()
+	addiction_act_stage4(mob/living/M)
+		if(prob(33))
+			M.drop_all_held_items()
+			M.adjustToxLoss(3*REM, 0)
+			. = 1
+			M.Dizzy(5)
+			M.Jitter(5)
+		..()
 
 /datum/reagent/medicine/oculine
 	name = "Oculine"
@@ -1572,14 +1567,14 @@
 	color = "#A0A0A0"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
-/datum/reagent/medicine/mozgi/overdose_process(mob/living/M)
-	M.AdjustAllImmobility(40)
-	M.AdjustUnconscious(50)
-	M.Jitter(5)
-	M.adjustToxLoss(2, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
-	if(prob(10))
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(1, 2, 3, 4))
+	overdose_process(mob/living/M)
+		M.AdjustAllImmobility(40)
+		M.AdjustUnconscious(50)
+		M.Jitter(5)
+		M.adjustToxLoss(2, 0)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
+		if(prob(10))
+			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(1, 2, 3, 4))
 
 
 /datum/reagent/medicine/mozgi/phenazepam
@@ -1589,46 +1584,45 @@
 	overdose_threshold = 20
 	addiction_threshold = 15 //В ПРОЦЕНТАХ
 //	addiction_threshold = 35 //В ЮНИТАХ
+	on_mob_life(mob/living/carbon/M)
+		if(current_cycle >= 5)
+			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "numb", /datum/mood_event/narcotic_medium, name)
+		if(prob(40))
+			M.AdjustAllImmobility(5)
+			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(-1, -0.5, -0.2))
+		if(prob(10))
+			M.AdjustAllImmobility(20)
+			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(-4, -3, -2, -1))
+			M.vomit()
+		M.attributes.dexterity_reagent = -2
+		M.attributes.strength_reagent = -2
+		M.attributes.stamina_reagent = 2
+		M.attributes.wits_reagent = -2
+		M.attributes.intelligence_reagent = -3
+		M.attributes.perception_reagent = -2
+		if(current_cycle == 20)
+			M.Sleeping(40)
 
-/datum/reagent/medicine/mozgi/phenazepam/on_mob_life(mob/living/carbon/M)
-	if(current_cycle >= 5)
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "numb", /datum/mood_event/narcotic_medium, name)
-	if(prob(40))
-		M.AdjustAllImmobility(5)
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(-1, -0.5, -0.2))
-	if(prob(10))
-		M.AdjustAllImmobility(20)
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(-4, -3, -2, -1))
-		M.vomit()
-	M.attributes.dexterity_reagent = -2
-	M.attributes.strength_reagent = -2
-	M.attributes.stamina_reagent = 2
-	M.attributes.wits_reagent = -2
-	M.attributes.intelligence_reagent = -3
-	M.attributes.perception_reagent = -2
-	if(current_cycle == 20)
-		M.Sleeping(40)
-	..()
+		..()
+	on_mob_metabolize(mob/living/L)
+		..()
+		L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 
-/datum/reagent/medicine/mozgi/phenazepam/on_mob_metabolize(mob/living/L)
-	..()
-	L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	on_mob_end_metabolize(mob/living/L)
+		..()
+		L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+		L.attributes.dexterity_reagent = 0
+		L.attributes.strength_reagent = 0
+		L.attributes.stamina_reagent = 0
+		L.attributes.wits_reagent = 0
+		L.attributes.intelligence_reagent = 0
+		L.attributes.perception_reagent = 0
 
-/datum/reagent/medicine/mozgi/phenazepam/on_mob_end_metabolize(mob/living/L)
-	..()
-	L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-	L.attributes.dexterity_reagent = 0
-	L.attributes.strength_reagent = 0
-	L.attributes.stamina_reagent = 0
-	L.attributes.wits_reagent = 0
-	L.attributes.intelligence_reagent = 0
-	L.attributes.perception_reagent = 0
-
-/datum/reagent/medicine/mozgi/phenazepam/overdose_process(mob/living/carbon/M)
-	..()
-	M.Sleeping(50)
-	if(prob(40))
-		M.vomit()
+	overdose_process(mob/living/carbon/M)
+		..()
+		M.Sleeping(50)
+		if(prob(40))
+			M.vomit()
 
 /datum/reagent/medicine/mozgi/phenotropil
 	name = "Фенотропилн"
@@ -1638,28 +1632,26 @@
 	addiction_threshold = 1 //В ПРОЦЕНТАХ
 //	addiction_threshold = 35 //В ЮНИТАХ
 
-/datum/reagent/medicine/mozgi/phenotropil/on_mob_life(mob/living/carbon/M)
-	M.attributes.wits_reagent = 1
-	M.attributes.intelligence_reagent = 1
-	M.attributes.perception_reagent = 1
-	if(prob(40))
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(-1, -0.5, -0.2))
-	..()
+	on_mob_life(mob/living/carbon/M)
+		M.attributes.wits_reagent = 1
+		M.attributes.intelligence_reagent = 1
+		M.attributes.perception_reagent = 1
+		if(prob(40))
+			M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(-1, -0.5, -0.2))
+		..()
+	on_mob_metabolize(mob/living/carbon/C)
+		. = ..()
+		ADD_TRAIT(C, TRAIT_TUMOR_SUPPRESSED, TRAIT_GENERIC)
 
-/datum/reagent/medicine/mozgi/phenotropil/on_mob_metabolize(mob/living/carbon/C)
-	. = ..()
-	ADD_TRAIT(C, TRAIT_TUMOR_SUPPRESSED, TRAIT_GENERIC)
-
-/datum/reagent/medicine/mozgi/phenotropil/on_mob_end_metabolize(mob/living/carbon/L)
-	L.attributes.wits_reagent = 0
-	L.attributes.intelligence_reagent = 0
-	L.attributes.perception_reagent = 0
-	L.attributes.strength_reagent = 0
-	L.attributes.dexterity_reagent = 0
-	REMOVE_TRAIT(L, TRAIT_TUMOR_SUPPRESSED, TRAIT_GENERIC)
-	. = ..()
-
-/datum/reagent/medicine/mozgi/phenotropil/overdose_process(mob/living/M)
-	..()
-	M.attributes.strength_reagent = -1
-	M.attributes.dexterity_reagent = -1
+	on_mob_end_metabolize(mob/living/carbon/L)
+		L.attributes.wits_reagent = 0
+		L.attributes.intelligence_reagent = 0
+		L.attributes.perception_reagent = 0
+		L.attributes.strength_reagent = 0
+		L.attributes.dexterity_reagent = 0
+		REMOVE_TRAIT(L, TRAIT_TUMOR_SUPPRESSED, TRAIT_GENERIC)
+		. = ..()
+	overdose_process(mob/living/M)
+		..()
+		M.attributes.strength_reagent = -1
+		M.attributes.dexterity_reagent = -1

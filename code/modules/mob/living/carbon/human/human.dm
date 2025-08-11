@@ -318,6 +318,7 @@
 					masquerade_voters = list()
 					last_masquerade_violation = 0
 					AdjustMasquerade(-1)
+
 //////CUMSHOT/////
 	if(href_list["headshot"])
 		var/mob/living/carbon/human/HS = src
@@ -337,6 +338,7 @@
 				return
 			else
 				user << browse(niggercumshot, "window=Headshot;border=1;can_resize=0;can_minimize=0")
+		return
 
 ///////HUDs///////
 	if(href_list["hud"])
@@ -497,7 +499,7 @@
 					if (c.crimeDetails)
 						to_chat(usr, "<b>Details:</b> [c.crimeDetails]")
 					else
-						to_chat(usr, "<b>Details:</b> <A href='?src=[REF(src)];hud=s;add_details=1;cdataid=[c.dataId]'>\[Add details]</A>")
+						to_chat(usr, "<b>Details:</b> <a href='byond://?src=[REF(src)];hud=s;add_details=1;cdataid=[c.dataId]'>\[Add details]</A>")
 					to_chat(usr, "Added by [c.author] at [c.time]")
 					to_chat(usr, "----------")
 				to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")

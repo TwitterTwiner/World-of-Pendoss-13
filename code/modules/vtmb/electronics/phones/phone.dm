@@ -1,4 +1,12 @@
-/proc/create_unique_phone_number(var/exchange = 513)
+/// Index to a define to point at a runtime-global list at compile-time.
+#define NETWORK_ID "network_id"
+/// Index to a string, for the contact title.
+#define OUR_ROLE "our_role"
+/// Index to a boolean, on whether to replace role with job title (or alt-title).
+#define USE_JOB_TITLE "use_job_title"
+
+
+/proc/create_unique_phone_number(exchange = 513)
 	if(length(GLOB.subscribers_numbers_list) < 1)
 		create_subscribers_numbers()
 	var/subscriber_code = pick(GLOB.subscribers_numbers_list)
@@ -40,6 +48,7 @@
 	var/list/blocked_contacts = list()
 	var/closed = TRUE
 	var/owner = ""
+	var/datum/weakref/owner_ref = null
 	var/number
 	var/obj/item/vamp/phone/online
 	var/talking = FALSE
@@ -58,26 +67,51 @@
 	var/closed_state = "phone1"
 	var/folded_state = "phone0"
 
+	/// A list of associative lists with three indeces: NETWORK_ID, OUR_ROLE and USE_JOB_TITLE. So that contact_networks is populated on init.
+	var/list/contact_networks_pre_init = null
+	/// A list of contact networks to be added in. Order matters, as if members overlap they will only get the first contact.
+	var/list/datum/contact_network/contact_networks = null
+	var/important_contact_of = null
+
 /obj/item/vamp/phone/Initialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
+	var/mob/living/carbon/human/owner = ishuman(loc) ? loc : !isnull(loc) && ishuman(loc.loc) ? loc.loc : null
 	if(!number || number == "")
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H_O = loc
-			owner = H_O.real_name
+		if(!isnull(owner))
+			src.owner = owner.real_name
 		number = create_unique_phone_number(exchange_num)
 		GLOB.phone_numbers_list += number
 		GLOB.phones_list += src
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			if(H.Myself)
-				H.Myself.phone_number = number
+		if(!isnull(owner) && owner.Myself)
+			owner.Myself.phone_number = number
+
+	if(LAZYLEN(contact_networks_pre_init))
+		LAZYINITLIST(contact_networks)
+		for(var/list/contact_network_info  as anything in contact_networks_pre_init)
+			var/list/network_contacts = contact_network_from_define(contact_network_info[NETWORK_ID])
+
+			var/our_role = contact_network_info[OUR_ROLE]
+			if(contact_network_info[USE_JOB_TITLE] && !isnull(owner) && owner?.job)
+				var/datum/job/job = SSjob.GetJob(owner.job)
+				our_role = job.title
+
+			var/datum/contact_network/contact_network = new(network_contacts, our_role = our_role)
+
+			update_global_contacts(contact_network)
+			contact_networks += contact_network
+		contact_networks_pre_init = null
+
+	if(important_contact_of && src.owner && number)
+		GLOB.important_contacts[important_contact_of] = new /datum/phonecontact(src.owner, number)
 
 /obj/item/vamp/phone/Destroy()
 	GLOB.phone_numbers_list -= number
 	GLOB.phones_list -= src
 	UnregisterSignal(src, COMSIG_MOVABLE_HEAR)
-	..()
+	for (var/datum/contact_network/network as anything in contact_networks)
+		remove_from_phone_lists(network)
+	return ..()
 
 /obj/item/vamp/phone/attack_hand(mob/user)
 	. = ..()
@@ -89,11 +123,6 @@
 
 /obj/item/vamp/phone/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
-//	if(iskindred(user))
-//		var/mob/living/carbon/human/H = user
-//		if(H.clane)
-//			if(H.clane.name == "Lasombra")
-//				return
 	if(closed)
 		closed = FALSE
 		icon_state = open_state
@@ -101,30 +130,6 @@
 	if(!ui)
 		ui = new(user, src, interface, interface)
 		ui.open()
-/*
-	else
-		closed = TRUE
-		icon_state = "phone0"
-		talking = FALSE
-		if(online)
-			online.online = null
-			online.talking = FALSE
-			online = null
-			ui.close()
-
-
-/obj/item/vamp/phone/attack_self(mob/user)
-	if(!closed)
-		closed = TRUE
-		icon_state = "phone0"
-		talking = FALSE
-		if(online)
-			online.online = null
-			online.talking = FALSE
-			online = null
-	else
-		return ..()
-*/
 
 /obj/item/vamp/phone/AltClick(mob/user)
 	if(can_fold && !closed)
@@ -153,51 +158,11 @@
 				data["calling_user"] = P.name
 
 	return data
-/*
-/obj/item/vamp/phone/proc/OpenMenu(var/mob/mobila)
-	var/dat = "<body><center><h2>Phone</h2><BR>"
-	if(last_call+100 > world.time && !talking)
-		dat += "Calling...<BR>"
-		dat += "<a href='byond://?src=[REF(src)];choice=hang'><b>Hang up</b></a><BR>"
-	else
-		if(online)
-			var/who_talking_with = "(+1 707) [online.number]"
-			for(var/datum/phonecontact/P in contacts)
-				if(P.number == online.number)
-					who_talking_with = P.name
-			if(talking)
-				dat += "Current call: [who_talking_with]<BR>"
-				dat += "<a href='byond://?src=[REF(src)];choice=hang'><b>Hang up</b></a><BR>"
-			else
-				dat += "[who_talking_with] is calling!<BR>"
-				dat += "<a href='byond://?src=[REF(src)];choice=accept'><b>Accept</b></a><BR>"
-				dat += "<a href='byond://?src=[REF(src)];choice=decline'><b>Decline</b></a><BR>"
-		else
-			if(number)
-				dat += "My number is (+1 707) [number]<BR>"
-			dat += "Typed number: [choosed_number]_<BR>"
-			dat += "<a href='byond://?src=[REF(src)];choice=1'>1</a>||<a href='byond://?src=[REF(src)];choice=2'>2</a>||<a href='byond://?src=[REF(src)];choice=3'>3</a><BR>"
-			dat += "<a href='byond://?src=[REF(src)];choice=4'>4</a>||<a href='byond://?src=[REF(src)];choice=5'>5</a>||<a href='byond://?src=[REF(src)];choice=6'>6</a><BR>"
-			dat += "<a href='byond://?src=[REF(src)];choice=7'>7</a>||<a href='byond://?src=[REF(src)];choice=8'>8</a>||<a href='byond://?src=[REF(src)];choice=9'>9</a><BR>"
-			dat += "<a href='byond://?src=[REF(src)];choice=space'>_</a>||<a href='byond://?src=[REF(src)];choice=0'>0</a>||<a href='byond://?src=[REF(src)];choice=cage'>#</a><BR>"
-			dat += "<a href='byond://?src=[REF(src)];choice=reset'>*</a><BR>"
-			dat += "<a href='byond://?src=[REF(src)];choice=call'><b>Call</b></a><BR>"
-			dat += "<a href='byond://?src=[REF(src)];choice=contacts'><b>Contacts</b></a><BR>"
-			dat += "<a href='byond://?src=[REF(src)];choice=add'><b>Add contact</b></a><BR>"
-	dat += "</center>"
-	dat += "Ambulance number is: 911<BR>"
-	dat += "Cleaning services number is: 700 4424<BR>"
-	dat += "</body>"
-	mobila << browse(dat, "window=phone;size=250x350;border=1;can_resize=0;can_minimize=0")
-	onclose(mobila, "phone", src)
-*/
 
 /obj/item/vamp/phone/ui_act(action, params)
 	. = ..()
 	if(.)
 		return
-//	var/mob/living/carbon/human/V = usr
-
 
 	switch(action)
 		if("hang")
@@ -286,9 +251,6 @@
 
 			.= TRUE
 		if("call")
-//			if((iskindred(V) && V.clane.name == "Lasombra"))
-//				return
-//			else
 			choosed_number = replacetext(choosed_number, " ", "")
 			for(var/obj/item/vamp/phone/PHN in GLOB.phones_list)
 			//Loop through the Phone Global List
@@ -403,8 +365,6 @@
 												break
 										if(!GOT_CONTACT)
 											PHN.contacts += NEWC
-       					//to_chat(usr, "<span class='notice'>Published numbers: [GLOB.published_numbers]</span>")
-       					//to_chat(usr, "<span class='notice'>Published names: [GLOB.published_number_names]</span>")
 					else
 						to_chat(usr, "<span class='notice'>You must input a name to publish your number.</span>")
 
@@ -420,13 +380,11 @@
 				if("Add")
 					var/new_contact = input(usr, "Input phone number", "Add Contact")  as null|text
 					if(new_contact)
-						new_contact = trim(copytext_char(sanitize(new_contact), 1, MAX_MESSAGE_LEN))
 						var/datum/phonecontact/NEWC = new()
 						new_contact = replacetext(new_contact, " ", "") //Removes spaces
 						NEWC.number = "[new_contact]"
 						contacts += NEWC
 						var/new_contact_name = input(usr, "Input name", "Add Contact")  as null|text
-						new_contact_name = trim(copytext_char(sanitize(new_contact_name), 1, MAX_MESSAGE_LEN))
 						if(new_contact_name)
 							NEWC.name = "[new_contact_name]"
 						else
@@ -444,19 +402,17 @@
 								if(CNT_REMOVE.name == result)
 									contacts -= CNT_REMOVE
 				if("Choose")
-					var/list/shit = list()
+					var/list/personal_contacts = list()
 					for(var/datum/phonecontact/CNTCT in contacts)
 						if(CNTCT)
-							shit += CNTCT.name
-					if(length(shit) >= 1)
-						result = input(usr, "Select a contact", "Contact Selection") as null|anything in shit
+							personal_contacts += CNTCT.name
+					if(length(personal_contacts) >= 1)
+						result = input(usr, "Select a contact", "Contact Selection") as null|anything in personal_contacts
 						if(result)
 							for(var/datum/phonecontact/CNTCT in contacts)
 								if(CNTCT.name == result)
 									if(CNTCT.number == "")
-										CNTCT.check_global_contacts()
-										if(CNTCT.number == "")
-											to_chat(usr, "<span class='notice'>Sorry, [CNTCT.name] does not have a number.</span>")
+										to_chat(usr, "<span class='notice'>Sorry, [CNTCT.name] does not have a number.</span>")
 									choosed_number = CNTCT.number
 				if("Block")
 					var/block_number = input(usr, "Input phone number", "Block Number")  as text|null
@@ -491,7 +447,7 @@
 							var/split_number = display_number_first + " " + display_number_second
 							to_chat(usr, "# [PH.call_type]: [PH.name] , [split_number] at [PH.time]")
 					else
-						to_chat(usr, "Your don't got a call history")
+						to_chat(usr, "You have no call history.") //PSEUDO_M return to fix all this
 				if("Delete Call History")
 					if(phone_history_list.len > 0)
 						to_chat(usr, "Your total amount of history saved is: [phone_history_list.len]")
@@ -508,7 +464,7 @@
 						to_chat(usr, "[number_of_deletions] call history entries were deleted. Remaining: [phone_history_list.len]")
 
 					else
-						to_chat(usr, "Your don't got a call history to delete")
+						to_chat(usr, "You have no call history to delete it.")
 				if("My Number")
 					var/number_first_part = copytext(number, 1, 4)
 					var/number_second_part = copytext(number, 4, 8)
@@ -517,7 +473,7 @@
 		if("settings")
 			//Wrench Icon, more focused on toggles or later more complex options.
 			var/list/options = list("Notifications and Sounds Toggle", "Published Numbers as Contacts Toggle")
-			var/option =  input(usr, "Select a setting", "Settings Selection") as null|anything in options
+			var/option =  tgui_input_list(usr, "Select a setting", "Settings Selection", options)
 			switch(option)
 				if("Notifications and Sounds Toggle")
 					if(!silence)
@@ -584,27 +540,7 @@
 	return FALSE
 
 
-/obj/item/vamp/phone/proc/add_important_contacts()
-	var/mob/living/L
-	if(isliving(loc))
-		L = loc
-	for(var/datum/phonecontact/PHNCNTCT in contacts)
-		if(PHNCNTCT)
-			if(PHNCNTCT.check_global_contacts())
-				if(L)
-					to_chat(L, "<span class='notice'>Some important contacts in your phone work again.</span>")
-
-/*obj/item/vamp/phone/proc/publish_number(var/name)
-	var/list/entry = list("number" = src.number, "name" = name)
-	published_numbers |= entry
-
-/obj/item/vamp/phone/proc/view_published_numbers()
-	var/list/display = list()
-	for(var/list/entry in published_numbers)
-		display |= "[entry["name"]]: [entry["number"]]
-	return display"*/
-
-/obj/item/vamp/phone/proc/Recall(var/obj/item/vamp/phone/abonent, var/mob/usar)
+/obj/item/vamp/phone/proc/Recall(obj/item/vamp/phone/abonent, mob/usar)
 	if(last_call+100 <= world.time && !talking)
 		last_call = 0
 		if(online)
@@ -617,128 +553,6 @@
 			playsound(src, 'code/modules/wod13/sounds/phone.ogg', 10, FALSE)
 			playsound(online, online.call_sound, 25, FALSE)
 		addtimer(CALLBACK(src, PROC_REF(Recall), online, usar), 20)
-//	usar << browse(null, "window=phone")
-//	OpenMenu(usar)
-/*
-/obj/item/vamp/phone/Topic(href, href_list)
-	..()
-	var/mob/living/U = usr
-	if(usr.canUseTopic(src, FALSE, FALSE, NO_TK) && !href_list["close"] && !closed)
-		switch(href_list["choice"])
-			if("hang")
-				last_call = 0
-				if(talking)
-					talking = FALSE
-					if(online)
-						online.talking = FALSE
-				if(online)
-					playsound(online, 'code/modules/wod13/sounds/phonestop.ogg', 25, FALSE)
-					online.online = null
-					online = null
-			if("accept")
-				if(online)
-					talking = TRUE
-					online.online = src
-					online.talking = TRUE
-					for(var/mob/living/L in oviewers(online))
-						L << browse(null, "window=phone")
-						online.OpenMenu(L)
-			if("decline")
-				talking = FALSE
-				if(online)
-					playsound(online, 'code/modules/wod13/sounds/phonestop.ogg', 25, FALSE)
-					online.online = null
-					online.talking = FALSE
-					online = null
-			if("call")
-				for(var/obj/item/vamp/phone/PHN in GLOB.phones_list)
-					if(PHN.number == choosed_number)
-						if(!PHN.online && !PHN.talking)
-							last_call = world.time
-							online = PHN
-							PHN.online = src
-							Recall(online, usr)
-						else
-							to_chat(usr, "<span class='notice'>Abonent is busy.</span>")
-				if(online)
-					for(var/mob/living/L in oviewers(online))
-						L << browse(null, "window=phone")
-						online.OpenMenu(L)
-				else
-					if(choosed_number == "#111")
-						call_sound = 'code/modules/wod13/sounds/call.ogg'
-						to_chat(usr, "<span class='notice'>Settings are now reset to default.</span>")
-					else if(choosed_number == "#228")
-						call_sound = 'code/modules/wod13/sounds/nokia.ogg'
-						to_chat(usr, "<span class='notice'>Code activated.</span>")
-					else if(choosed_number == "#666")
-						call_sound = 'sound/voice/human/malescream_6.ogg'
-						to_chat(usr, "<span class='notice'>Code activated.</span>")
-					else if(choosed_number == "#34")
-						usr << link("https://rule34.xxx/index.php?page=post&s=list&tags=werewolf")
-						to_chat(usr, "<span class='notice'>Code activated.</span>")
-					else
-						to_chat(usr, "<span class='notice'>Invalid number.</span>")
-			if("contacts")
-				var/list/shit = list()
-				for(var/datum/phonecontact/CNTCT in contacts)
-					if(CNTCT)
-						shit += CNTCT.name
-				if(length(shit) >= 1)
-					var/result = input(usr, "Select a contact", "Contact Selection") as null|anything in shit
-					if(result)
-						for(var/datum/phonecontact/CNTCT in contacts)
-							if(CNTCT.name == result)
-								if(CNTCT.number == "")
-									CNTCT.check_global_contacts()
-									if(CNTCT.number == "")
-										to_chat(usr, "<span class='notice'>Sorry, [CNTCT.name] still got no actual number.</span>")
-								choosed_number = CNTCT.number
-			if("add")
-				var/new_contact = input(usr, "Input phone number", "Add Contact")  as text|null
-				if(new_contact)
-					var/datum/phonecontact/NEWC = new()
-					NEWC.number = "[new_contact]"
-					contacts += NEWC
-					var/new_contact_name = input(usr, "Input name", "Add Contact")  as text|null
-					if(new_contact_name)
-						NEWC.name = "[new_contact_name]"
-					else
-						var/numbrr = length(contacts)+1
-						NEWC.name = "Contact [numbrr]"
-			if("1")
-				choosed_number += "1"
-			if("2")
-				choosed_number += "2"
-			if("3")
-				choosed_number += "3"
-			if("4")
-				choosed_number += "4"
-			if("5")
-				choosed_number += "5"
-			if("6")
-				choosed_number += "6"
-			if("7")
-				choosed_number += "7"
-			if("8")
-				choosed_number += "8"
-			if("9")
-				choosed_number += "9"
-			if("0")
-				choosed_number += "0"
-			if("space")
-				choosed_number += " "
-			if("cage")
-				choosed_number += "#"
-			if("reset")
-				choosed_number = ""
-		U << browse(null, "window=phone")
-		OpenMenu(usr)
-		playsound(loc, 'sound/machines/terminal_select.ogg', 15, TRUE)
-	else
-		U << browse(null, "window=phone")
-*/
-
 
 /obj/item/vamp/phone/proc/handle_hearing(datum/source, list/hearing_args)
 	var/message = hearing_args[HEARING_RAW_MESSAGE]
@@ -758,29 +572,27 @@
 					var/mob/living/carbon/human/SPK = hearing_args[HEARING_SPEAKER]
 					voice_saying = "[age2agedescription(SPK.age)] [SPK.gender] voice ([SPK.phonevoicetag])"
 
+					// Speech will be scrambled if the speaker doesn't work well with technology
 					if(SPK.clane && SPK.clane.name == "Lasombra")
 						message = scramble_lasombra_message(message)
 						playsound(online, 'code/modules/wod13/sounds/lasombra_whisper.ogg', 50, FALSE)
 					else
 						playsound(online, 'code/modules/wod13/sounds/phonetalk.ogg', 50, FALSE)
-//					if(SPK.clane)
-//						if(SPK.clane.name == "Lasombra")
-//							return
+
 				var/obj/phonevoice/VOIC = new(online)
 				VOIC.name = voice_saying
 				VOIC.speech_span = spchspn
 				VOIC.say("[message]")
-//				playsound(online, 'code/modules/wod13/sounds/phonetalk.ogg', 50, FALSE)
 				qdel(VOIC)
 
 /obj/item/vamp/phone/street
 	desc = "An ordinary street payphone"
 	icon = 'code/modules/wod13/props.dmi'
+	onflooricon = 'code/modules/wod13/props.dmi'
 	icon_state = "payphone"
 	anchored = TRUE
 	number = "1447"
 	can_fold = 0
-	onflooricon = null
 
 	/// Phone icon states
 	open_state = "payphone"
@@ -799,6 +611,24 @@
 	closed_state = "redphone"
 	folded_state = "redphone"
 
+/obj/item/vamp/phone/emergency
+	desc = "The 911 dispatch phone"
+	icon = 'code/modules/wod13/onfloor.dmi'
+	icon_state = "redphone"
+	anchored = TRUE
+	number = "911"
+	can_fold = 0
+	open_state = "redphone"
+	closed_state = "redphone"
+	folded_state = "redphone"
+	var/obj/machinery/p25transceiver/clinic_transceiver
+	var/obj/machinery/p25transceiver/police_transceiver
+
+/obj/item/vamp/phone/emergency/Initialize()
+	. = ..()
+	GLOB.phone_numbers_list += number
+	GLOB.phones_list += src
+
 /obj/item/vamp/phone/clean/Initialize()
 	. = ..()
 	GLOB.phone_numbers_list += number
@@ -806,232 +636,310 @@
 
 /// Phone Types
 
+// CAMARILLA
+
 /obj/item/vamp/phone/prince
 	exchange_num = 267
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "C.E.O.")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group C.E.O.")
+		)
 
-/obj/item/vamp/phone/prince/Initialize()
-	..()
-	GLOB.princenumber = number
-	GLOB.princename = owner
-	var/datum/phonecontact/sheriff/SHERIFF = new()
-	contacts += SHERIFF
-	var/datum/phonecontact/clerk/CLERK = new()
-	contacts += CLERK
-	var/datum/phonecontact/barkeeper/BARKEEPER = new()
-	contacts += BARKEEPER
-	var/datum/phonecontact/tremere/REGENT = new()
-	contacts += REGENT
-	var/datum/phonecontact/dealer/DEALER = new()
-	contacts += DEALER
-	var/datum/phonecontact/malkavian/M = new()
-	contacts += M
-	var/datum/phonecontact/nosferatu/N = new()
-	contacts += N
-	var/datum/phonecontact/toreador/T = new()
-	contacts += T
-	var/datum/phonecontact/ventrue/V = new()
-	contacts += V
-	var/datum/phonecontact/brujah/B = new()
-	contacts += B
+/obj/item/vamp/phone/seneschal
+	exchange_num = 267
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Vice President")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Vice President")
+		)
 
 /obj/item/vamp/phone/sheriff
 	exchange_num = 267
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Head of Security")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Head of Security")
+		)
 
-/obj/item/vamp/phone/sheriff/Initialize()
-	..()
-	GLOB.sheriffnumber = number
-	GLOB.sheriffname = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/clerk/CLERK = new()
-	contacts += CLERK
-	var/datum/phonecontact/dealer/DEALER = new()
-	contacts += DEALER
-
-/obj/item/vamp/phone/clerk
+/obj/item/vamp/phone/harpy
 	exchange_num = 267
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Public Relations")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Public Relations")
+		)
 
-/obj/item/vamp/phone/clerk/Initialize()
-	..()
-	GLOB.clerknumber = number
-	GLOB.clerkname = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/sheriff/SHERIFF = new()
-	contacts += SHERIFF
-	var/datum/phonecontact/tremere/REGENT = new()
-	contacts += REGENT
-	var/datum/phonecontact/dealer/DEALER = new()
-	contacts += DEALER
-	var/datum/phonecontact/malkavian/M = new()
-	contacts += M
-	var/datum/phonecontact/nosferatu/N = new()
-	contacts += N
-	var/datum/phonecontact/toreador/T = new()
-	contacts += T
-	var/datum/phonecontact/ventrue/V = new()
-	contacts += V
-	var/datum/phonecontact/brujah/B = new()
-	contacts += B
+/obj/item/vamp/phone/hound
+	exchange_num = 267
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Tower Security")
+		)
 
-/obj/item/vamp/phone/barkeeper
+/obj/item/vamp/phone/tower_employee
+	exchange_num = 267
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Tower Employee", USE_JOB_TITLE = TRUE)
+		)
+
+// VENTRUE
+
+/obj/item/vamp/phone/ventrue_primo
+	important_contact_of = "Ventue"
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "The Wolf of Wall Street")
+		)
+
+// TOREADOR
+
+/obj/item/vamp/phone/toreador_primo
+	important_contact_of = "Toreador"
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Rosebud Night Club Owner")
+		)
+
+// NOSFERATU
+
+/obj/item/vamp/phone/nosferatu_primo
+	important_contact_of = "Nosferatu"
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Utility Administrator")
+		)
+
+// MALKAVIAN
+
+/obj/item/vamp/phone/malkavian_primo
+	important_contact_of = "Malkavian"
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Hospital Administrator")
+		)
+
+//// BRUJAH
+/obj/item/vamp/phone/brujah_primo
+	important_contact_of = "Brujah"
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Weapon store owner")
+		)
+
+
+/*
+// LASOMBRA
+
+/obj/item/vamp/phone/lasombra_primo
+	important_contact_of = CLAN_LASOMBRA
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = LASOMBRA_NETWORK, OUR_ROLE = "Church Administrator")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Church Administrator")
+		)
+
+/obj/item/vamp/phone/lasombra_caretaker
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = LASOMBRA_NETWORK, OUR_ROLE = "Church Caretaker")
+		)
+
+// BANU HAQIM
+
+/obj/item/vamp/phone/banu_primo
+	important_contact_of = CLAN_BANU_HAQIM
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "SFPD Civilian Consultant")
+		)
+*/
+// TREMERE
+
+/obj/item/vamp/phone/tremere_regent
+	important_contact_of = "Tremere"
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Manager")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Library Manager")
+		)
+
+/obj/item/vamp/phone/archivist
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Archivist")
+		)
+
+/obj/item/vamp/phone/gargoyle
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Maintenance")
+		)
+
+// GIOVANNI
+
+/obj/item/vamp/phone/giovanni_capo
+	important_contact_of = "Giovanni"
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Manager")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Bank Manager")
+		)
+
+/obj/item/vamp/phone/giovanni_squadra
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Security")
+		)
+
+/obj/item/vamp/phone/giovanni_famiglia
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Employee")
+		)
+
+// TZMISCE
+
+/obj/item/vamp/phone/voivode
+	important_contact_of = "Tzimisce"
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Lord of the Manor")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Lord of the Manor")
+		)
+
+/obj/item/vamp/phone/bogatyr
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Resident of the Manor")
+		)
+
+/obj/item/vamp/phone/zadruga
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Servant of the Manor")
+		)
+
+// ANARCHS
+
+/obj/item/vamp/phone/baron
 	exchange_num = 485
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Manager")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Anarchy Rose Club Manager")
+		)
 
-/obj/item/vamp/phone/barkeeper/Initialize()
-	..()
-	GLOB.barkeepernumber = number
-	GLOB.barkeepername = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/dealer/DEALER = new()
-	contacts += DEALER
+/obj/item/vamp/phone/emissary
+	exchange_num = 485
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Representative")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Anarchy Rose Club Representative")
+		)
+
+/obj/item/vamp/phone/bruiser
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Bouncer")
+		)
+
+/obj/item/vamp/phone/sweeper
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Bartender")
+		)
+
+// WAREHOUSE
 
 /obj/item/vamp/phone/dealer
 	exchange_num = 485
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = WAREHOUSE_NETWORK, OUR_ROLE = "Dealer")
+		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Dealer")
+		)
 
-/obj/item/vamp/phone/dealer/Initialize()
-	..()
-	GLOB.dealernumber = number
-	GLOB.dealername = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/sheriff/SHERIFF = new()
-	contacts += SHERIFF
-	var/datum/phonecontact/clerk/CLERK = new()
-	contacts += CLERK
-	var/datum/phonecontact/barkeeper/BARKEEPER = new()
-	contacts += BARKEEPER
+/obj/item/vamp/phone/supply_tech
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = WAREHOUSE_NETWORK, OUR_ROLE = "Supply Technician")
+		)
 
-/obj/item/vamp/phone/supply_tech/Initialize()
-	..()
-	var/datum/phonecontact/dealer/DEALER = new()
-	contacts += DEALER
+// TRIADS
 
-/obj/item/vamp/phone/camarilla
-	exchange_num = 267
+/obj/item/vamp/phone/triads_soldier
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = TRIADS_NETWORK, OUR_ROLE = "Chinatown Associate")
+		)
 
-/obj/item/vamp/phone/camarilla/Initialize()
-	..()
-//	GLOB.dealernumber = number
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/clerk/CLERK = new()
-	contacts += CLERK
+// ENDRON
 
-/obj/item/vamp/phone/anarch
+/obj/item/vamp/phone/endron_lead
 	exchange_num = 485
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Branch Lead")
+		)
 
-/obj/item/vamp/phone/anarch/Initialize()
-	..()
-//	GLOB.dealernumber = number
-	var/datum/phonecontact/barkeeper/BARKEEPER = new()
-	contacts += BARKEEPER
+/obj/item/vamp/phone/endron_exec
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Executive")
+		)
 
-/obj/item/vamp/phone/malkavian/Initialize()
-	..()
-	GLOB.malkaviannumber = number
-	GLOB.malkavianname = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/tremere/REGENT = new()
-	contacts += REGENT
-	var/datum/phonecontact/nosferatu/N = new()
-	contacts += N
-	var/datum/phonecontact/toreador/T = new()
-	contacts += T
-	var/datum/phonecontact/ventrue/V = new()
-	contacts += V
-	var/datum/phonecontact/brujah/B = new()
-	contacts += B
+/obj/item/vamp/phone/endron_affairs
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Internal Affairs Agent")
+		)
 
-/obj/item/vamp/phone/nosferatu/Initialize()
-	..()
-	GLOB.nosferatunumber = number
-	GLOB.nosferatuname = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/tremere/REGENT = new()
-	contacts += REGENT
-	var/datum/phonecontact/malkavian/M = new()
-	contacts += M
-	var/datum/phonecontact/toreador/T = new()
-	contacts += T
-	var/datum/phonecontact/ventrue/V = new()
-	contacts += V
-	var/datum/phonecontact/brujah/B = new()
-	contacts += B
+/obj/item/vamp/phone/endron_sec_chief
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Chief of Security")
+		)
 
-/obj/item/vamp/phone/toreador/Initialize()
-	..()
-	GLOB.toreadornumber = number
-	GLOB.toreadorname = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/tremere/REGENT = new()
-	contacts += REGENT
-	var/datum/phonecontact/malkavian/M = new()
-	contacts += M
-	var/datum/phonecontact/nosferatu/N = new()
-	contacts += N
-	var/datum/phonecontact/ventrue/V = new()
-	contacts += V
-	var/datum/phonecontact/brujah/B = new()
-	contacts += B
+/obj/item/vamp/phone/endron_security
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Security Agent")
+		)
 
-/obj/item/vamp/phone/brujah/Initialize()
-	..()
-	GLOB.brujahnumber = number
-	GLOB.brujahname = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/tremere/REGENT = new()
-	contacts += REGENT
-	var/datum/phonecontact/malkavian/M = new()
-	contacts += M
-	var/datum/phonecontact/nosferatu/N = new()
-	contacts += N
-	var/datum/phonecontact/toreador/T = new()
-	contacts += T
-	var/datum/phonecontact/ventrue/V = new()
-	contacts += V
+/obj/item/vamp/phone/endron_employee
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Employee", USE_JOB_TITLE = TRUE)
+		)
 
-/obj/item/vamp/phone/ventrue/Initialize()
-	..()
-	GLOB.ventruenumber = number
-	GLOB.ventruename = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/tremere/REGENT = new()
-	contacts += REGENT
-	var/datum/phonecontact/malkavian/M = new()
-	contacts += M
-	var/datum/phonecontact/nosferatu/N = new()
-	contacts += N
-	var/datum/phonecontact/toreador/T = new()
-	contacts += T
-	var/datum/phonecontact/brujah/B = new()
-	contacts += B
+// MISC PROCS
 
-/obj/item/vamp/phone/tremere/Initialize()
-	..()
-	GLOB.tremerenumber = number
-	GLOB.tremerename = owner
-	var/datum/phonecontact/prince/PRINCE = new()
-	contacts += PRINCE
-	var/datum/phonecontact/malkavian/M = new()
-	contacts += M
-	var/datum/phonecontact/nosferatu/N = new()
-	contacts += N
-	var/datum/phonecontact/toreador/T = new()
-	contacts += T
-	var/datum/phonecontact/ventrue/V = new()
-	contacts += V
-	var/datum/phonecontact/brujah/B = new()
-	contacts += B
+/obj/item/vamp/phone/proc/update_global_contacts(datum/contact_network/network)
+	var/datum/contact/our_contact = new(owner, number, network.our_role, WEAKREF(src))
 
-/obj/item/vamp/phone/archivist/Initialize()
-	..()
-	var/datum/phonecontact/tremere/REGENT = new()
-	contacts += REGENT
+	var/our_name = isnull(network.our_role) ? owner : "[owner] - [network.our_role]"
+	for (var/their_name in network.contacts)
+		if (their_name == owner)
+			continue
+		var/datum/contact/their_contact = network.contacts[their_name]
+
+		var/obj/item/vamp/phone/their_phone = their_contact.phone_ref.resolve()
+		if (isnull(their_phone)) // Physical phone item was destroyed.
+			continue
+
+		var/we_already_have_their_contact = FALSE
+		for (var/datum/phonecontact/phone_contact as anything in contacts)
+			if (phone_contact.number == their_phone.number)
+				we_already_have_their_contact = TRUE
+				break
+		if (!we_already_have_their_contact)
+			// We add their contact to our phone.
+			var/their_contact_name = isnull(their_contact.role) ? their_contact.name : "[their_contact.name] - [their_contact.role]"
+			contacts += new /datum/phonecontact(their_contact_name, their_contact.number)
+
+		var/they_already_have_our_contact = FALSE
+		for (var/datum/phonecontact/phone_contact as anything in their_phone.contacts)
+			if (phone_contact.number == number)
+				they_already_have_our_contact = TRUE
+				break
+		if (!they_already_have_our_contact)
+			//We also add our contact to their phone.
+			their_phone.contacts += new /datum/phonecontact(our_name, our_contact.number)
+			if(isliving(their_phone.loc))
+				to_chat(their_phone.loc, span_notice("A phone contact works again: that of [our_name]."))
+
+	network.contacts[owner] = our_contact
 
 
+/obj/item/vamp/phone/proc/remove_from_phone_lists(datum/contact_network/network)
+	for (var/their_name in network.contacts)
+		var/datum/contact/their_contact = network.contacts[their_name]
+
+		var/obj/item/vamp/phone/their_phone = their_contact.phone_ref.resolve()
+		if (isnull(their_phone)) // Physical phone item was destroyed.
+			continue
+
+		for (var/datum/phonecontact/phone_contact as anything in their_phone.contacts)
+			if (phone_contact.number != number)
+				continue
+			their_phone.contacts -= phone_contact
+
+	var/datum/contact/our_contact = network.contacts[owner]
+	if (!isnull(our_contact) && our_contact.number == number)
+		our_contact.number = null
+		our_contact.phone_ref = null
+
+	if (important_contact_of)
+		our_contact = GLOB.important_contacts[important_contact_of]
+		if (!isnull(our_contact) && our_contact.number == number)
+			our_contact.number = null
+
+#undef NETWORK_ID
+#undef OUR_ROLE
+#undef USE_JOB_TITLE

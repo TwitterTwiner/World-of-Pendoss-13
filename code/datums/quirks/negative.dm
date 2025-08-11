@@ -843,3 +843,22 @@
 #undef LOCATION_RPOCKET
 #undef LOCATION_BACKPACK
 #undef LOCATION_HANDS
+
+
+/datum/quirk/gluho_zrenit
+	name = "Сверхъчувствительность"
+	desc = "Sosal? Auspex."
+	hardcore_value = 1
+//	gain_text = "<span class='danger'>Твои чувства обрели более чуткий характер. Будь осторожен!</span>"
+//	lose_text = ""
+/*
+/datum/quirk/gluho_zrenit/add()
+	var/mob/living/quirk_nahu = quirk_holder
+	quirk_nahu.auspex_buff = 1
+
+/datum/quirk/gluho_zrenit/remove()
+	var/mob/living/quirk_nahu = quirk_holder
+	quirk_nahu.auspex_buff = 0
+
+/datum/quirk/gluho_zrenit/on_process()
+*/

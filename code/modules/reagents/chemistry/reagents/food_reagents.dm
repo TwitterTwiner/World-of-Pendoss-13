@@ -46,7 +46,7 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
-
+	addiction_threshold = -1
 	var/brute_heal = 1
 	var/burn_heal = 0
 

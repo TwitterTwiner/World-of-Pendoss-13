@@ -199,6 +199,7 @@
 /datum/discipline_power/daimonion
 	name = "Daimonion power name"
 	desc = "Daimonion power description"
+	range = 20
 
 	activate_sound = 'code/modules/wod13/sounds/protean_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/protean_deactivate.ogg'
@@ -212,7 +213,7 @@
 
 	target_type = TARGET_HUMAN
 	cancelable = TRUE
-	duration_length = 20 SECONDS
+//	duration_length = 20 SECONDS
 	cooldown_length = 10 SECONDS
 
 /datum/discipline_power/daimonion/sense_the_sin/pre_activation_checks(mob/living/target)

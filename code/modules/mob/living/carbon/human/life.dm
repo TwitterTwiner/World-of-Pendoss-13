@@ -78,7 +78,7 @@
 	if(!dna.species.breathe(src))
 		..()
 
-/mob/living/carbon/human/check_breath()
+/mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return
 
@@ -107,8 +107,15 @@
 	else
 		if(istype(L, /obj/item/organ/lungs))
 			var/obj/item/organ/lungs/lun = L
-			lun.check_breath(src)
-			..()
+			lun.check_breath(breath,src)
+
+/// Environment handlers for species
+/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
+	// If we are in a cryo bed do not process life functions
+	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+		return
+
+	dna.species.handle_environment(environment, src)
 
 /**
  * Adjust the core temperature of a mob

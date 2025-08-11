@@ -38,7 +38,7 @@
 		return ACTION_HEADSHOT_LINK_REMOVE
 	var/nigga = "]"
 
-	var/static/link_regex = regex("^(https://i\\.gyazo\\.com|https://static1\\.e621\\.net|https://i\\.ibb\\.co/||https://cdn\\.discordapp\\.com)")
+	var/static/link_regex = regex("^(https://i\\.gyazo\\.com|https://static1\\.e621\\.net|https://i\\.ibb\\.co/|https://imgur\\.com|https://cdn\\.discordapp\\.com)")
 	var/static/end_regex = regex("(\\.jpg|\\.png|\\.jpeg)$")
 
 	if (length(usr_input) > HEADSHOT_LINK_MAX_LENGTH)
@@ -64,3 +64,4 @@
 
 #undef ACTION_HEADSHOT_LINK_NOOP
 #undef ACTION_HEADSHOT_LINK_REMOVE
+

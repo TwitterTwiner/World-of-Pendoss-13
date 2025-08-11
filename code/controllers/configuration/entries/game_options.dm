@@ -401,7 +401,6 @@
 
 /datum/config_entry/flag/dynamic_config_enabled
 
-
 /datum/config_entry/number/max_loadout_items	//maximum number of items that can be in a player's loadout
 	config_entry_value = 10
 	min_val = 0

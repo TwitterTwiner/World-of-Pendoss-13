@@ -181,14 +181,7 @@
 
 
 /datum/discipline_power/animalism/rat_shapeshift/activate()
+	. = ..()
 	var/datum/warform/Warform = new
 	Warform.transform(/mob/living/simple_animal/hostile/rat_beastform, owner, FALSE)
 
-/*
-/datum/discipline_power/animalism/rat_shapeshift/deactivate()
-	. = ..()
-
-	if(owner.stat != DEAD)
-		shapeshift.Restore(shapeshift.myshape)
-		owner.Stun(1.5 SECONDS)
-*/

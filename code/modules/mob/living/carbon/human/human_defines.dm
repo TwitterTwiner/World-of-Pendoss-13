@@ -136,4 +136,3 @@
 	max_yang_chi = 4
 	yin_chi = 2
 	max_yin_chi = 2
-

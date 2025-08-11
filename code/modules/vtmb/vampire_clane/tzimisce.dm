@@ -524,7 +524,7 @@
 	pixel_w = -16
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_size = MOB_SIZE_HUGE
-	AIStatus = AI_OFF
+//	AIStatus = AI_OFF
 	speak_chance = 0
 	speed = -1
 	maxHealth = 575
@@ -563,6 +563,7 @@
 	attack_sound = 'sound/weapons/slash.ogg'
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	damage_coeff = list(BRUTE = 0, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	minbodytemp = 0
 	bloodpool = 20
 	maxbloodpool = 20

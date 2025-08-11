@@ -745,6 +745,7 @@
 			H.update_body()
 
 		. = use_charges(user, 10, FALSE)
+	//	if(!iskindred(C) && !iscathayan(C))
 		var/fraction = min(1, . / reagents.maximum_volume)
 		reagents.expose(C, VAPOR, fraction * volume_multiplier)
 

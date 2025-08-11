@@ -26,7 +26,6 @@
 			else
 				GLOB.news_network.SubmitArticle(title + "<br><br>" + text, "San Francisco City Council", "City Announcements", null)
 
-
 	announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
 	announcement += "<br>"
 
