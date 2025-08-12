@@ -94,29 +94,6 @@ SUBSYSTEM_DEF(carpool)
 			playsound(get_turf(src), 'code/modules/wod13/sounds/bump.ogg', 100, FALSE)
 			get_damage(10)
 			throw_at(throw_target, rand(4, 6), 4, user)
-	if(locked == TRUE)
-		to_chat(user,span_warning("The [src.name] is locked!"))
-		return
-	if(user.pulling == null)
-		if(delivery_trunk.storage.len == 0)
-			to_chat(user, span_notice("There is nothing in the back of the [src.name]."))
-			return
-		var/turf/user_turf = get_turf(user)
-		for(var/obj/structure/delivery_crate/potential_crate in user_turf.contents)
-			if(potential_crate)
-				to_chat(user, span_warning("There is already a crate on the ground here!"))
-				return
-		delivery_trunk.retrieval_menu(user)
-	else
-		var/obj/structure/delivery_crate/pulled_crate = user.pulling
-		if(!pulled_crate)
-			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
-			return
-		else
-			playsound(src,'code/modules/wod13/delevery_club/cargocrate_move.ogg',50,10)
-			if(do_after(user, 2 SECONDS, pulled_crate))
-				playsound(src,'code/modules/wod13/delevery_club/cargocrate_load.ogg',50,10)
-				delivery_trunk.add_to_storage(user,pulled_crate)
 
 /obj/vampire_car
 	name = "car"
@@ -147,7 +124,7 @@ SUBSYSTEM_DEF(carpool)
 	var/on = FALSE
 	var/locked = TRUE
 	var/access = "none"
-	
+
 	var/delivery_capacity = 0
 	var/datum/delivery_datum/delivery
 	var/datum/delivery_storage/delivery_trunk
@@ -668,6 +645,8 @@ SUBSYSTEM_DEF(carpool)
 				L.client.pixel_y = 0
 	if(istype(A, /mob/living))
 		var/dam = prev_speed
+		if(istype(A, /mob/living/simple_animal/pet/cat))
+			return
 		get_damage(dam, A, dam)
 		if(abs(prev_speed) >= 32)
 			var/mob/living/Livedyoung = A
@@ -779,6 +758,7 @@ SUBSYSTEM_DEF(carpool)
 		access = "npc[rand(1, 20)]"
 	..()
 
+
 /obj/vampire_car/track/volkswagen
 	icon_state = "volkswagen"
 	lighticon = "lights3"
@@ -790,6 +770,32 @@ SUBSYSTEM_DEF(carpool)
 	access = "clinic"
 	baggage_limit = 60
 	delivery_capacity = 5
+
+/obj/vampire_car/track/attack_hand(mob/user)
+	. = ..()
+	if(locked == TRUE)
+		to_chat(user,span_warning("The [src.name] is locked!"))
+		return
+	if(user.pulling == null)
+		if(delivery_trunk.storage.len == 0)
+			to_chat(user, span_notice("There is nothing in the back of the [src.name]."))
+			return
+		var/turf/user_turf = get_turf(user)
+		for(var/obj/structure/delivery_crate/potential_crate in user_turf.contents)
+			if(potential_crate)
+				to_chat(user, span_warning("There is already a crate on the ground here!"))
+				return
+		delivery_trunk.retrieval_menu(user)
+	else
+		var/obj/structure/delivery_crate/pulled_crate = user.pulling
+		if(!pulled_crate)
+			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
+			return
+		else
+			playsound(src,'code/modules/wod13/delevery_club/cargocrate_move.ogg',50,10)
+			if(do_after(user, 2 SECONDS, pulled_crate))
+				playsound(src,'code/modules/wod13/delevery_club/cargocrate_load.ogg',50,10)
+				delivery_trunk.add_to_storage(user,pulled_crate)
 
 /obj/vampire_car/limuzini_bombini
 	icon_state = "limo"
