@@ -788,6 +788,9 @@ SUBSYSTEM_DEF(carpool)
 		delivery_trunk.retrieval_menu(user)
 	else
 		var/obj/structure/delivery_crate/pulled_crate = user.pulling
+		var/mob/living/L = user.pulling
+		if(L)
+			return
 		if(!pulled_crate)
 			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
 			return
