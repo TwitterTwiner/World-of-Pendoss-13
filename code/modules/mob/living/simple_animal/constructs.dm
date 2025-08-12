@@ -500,6 +500,8 @@
 
 
 /mob/living/proc/get_health_difficulty()
+	if(HAS_TRAIT(src, TRAIT_PAIN_NUMBING))
+		return 0
 	if(health > maxHealth*0.6)
 		return 0
 	else if(health > maxHealth*0.4)

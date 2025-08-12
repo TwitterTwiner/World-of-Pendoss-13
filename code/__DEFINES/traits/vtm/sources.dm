@@ -6,3 +6,6 @@
 #define OBFUSCATE_TRAIT "obfuscate_trait"
 /// Trait given by a discipline
 #define DISCIPLINE_TRAIT "discipline"
+
+/// Trait given by path of pain discipline
+#define PAIN_TRAIT "pain_trait"

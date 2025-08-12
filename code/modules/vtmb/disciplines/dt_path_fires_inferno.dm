@@ -3,6 +3,7 @@
 	desc = "This path of Dark Thaumaturgy allows the thaumaturge to control supernatural flames summoned from the depths of Hades."
 	icon_state = "thaumaturgy"
 	power_type = /datum/discipline_power/dt_path_fires_of_inferno
+	allowed_clans = list(/datum/vampireclane/baali)
 
 /datum/discipline/dt_path_fires_of_inferno/post_gain()
 	. = ..()
@@ -53,31 +54,31 @@
 	created_fireball.preparePixelProjectile(owner, start)
 	created_fireball.fire(direct_target = owner)
 
-/datum/discipline_power/dt_path_fires_of_inferno/one
+/datum/discipline_power/dt_path_fires_of_inferno/lighter
 	name = "Lighter"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 25
 	fortitude_hardness = 3
 
-/datum/discipline_power/dt_path_fires_of_inferno/two
+/datum/discipline_power/dt_path_fires_of_inferno/stovetop
 	name = "Stovetop"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 50
 	fortitude_hardness = 4
 
-/datum/discipline_power/dt_path_fires_of_inferno/three
+/datum/discipline_power/dt_path_fires_of_inferno/blowtorch
 	name = "Blowtorch"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 75
 	fortitude_hardness = 5
 
-/datum/discipline_power/dt_path_fires_of_inferno/four
+/datum/discipline_power/dt_path_fires_of_inferno/flamethrower
 	name = "Flame-thrower"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 100
 	fortitude_hardness = 7
 
-/datum/discipline_power/dt_path_fires_of_inferno/five
+/datum/discipline_power/dt_path_fires_of_inferno/conflagration
 	name = "Conflagration"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 125
