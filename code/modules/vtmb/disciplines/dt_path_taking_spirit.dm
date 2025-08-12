@@ -3,6 +3,7 @@
 	desc = "This path allows a vampire to drain his victims of Willpower, leaving them with a nearly soulless automaton willing to serve the Cainite without question."
 	icon_state = "thaumaturgy"
 	power_type = /datum/discipline_power/dt_path_taking_spirit
+	allowed_clans = list(/datum/vampireclane/baali)
 
 /datum/discipline/dt_path_taking_spirit/post_gain()
 	. = ..()
@@ -40,10 +41,12 @@
 	if(success_roll_defender > success_roll_attacker)
 		taking_spirit_botch_effect()
 		ADD_TRAIT(target, TRAIT_TAKING_SPIRIT_RESISTED, DISCIPLINE_TRAIT)
+		return FALSE
 	return TRUE
 
 /datum/discipline_power/dt_path_taking_spirit/proc/taking_spirit_botch_effect()
 	owner.MyPath.willpower = max(owner.MyPath.willpower - willpower_loss, 0)
+	to_chat(owner, span_danger("You feel your Willpower being drained!"))
 
 /datum/discipline_power/dt_path_taking_spirit/one
 	name = "Dark Thaumaturgy: The Taking of the Spirit One"
@@ -73,13 +76,14 @@
 
 /datum/discipline_power/dt_path_taking_spirit/activate(atom/target)
 	. = ..()
-	if(ishuman(target) && (H.MyPath || H.mind?.dharma))
-		var/mob/living/carbon/human/H = target
+	var/mob/living/carbon/human/H = target
+	if(H?.MyPath?.willpower || H?.mind?.dharma?.willpower)
 		owner.visible_message(span_danger("[owner] reaches out towards [H]'s head, chanting a demonic incantation."), \
 					span_notice("You begin to chant a demonic incantation on [H]'s mind..."))
 		if(do_after(owner, 15 SECONDS, target = H))
 			owner.visible_message(span_danger("[owner] successfully performs a vile chant on [H]'s head."), \
 				span_notice("You successfully perform a vile chant on [H]'s mind."))
+			to_chat(target, span_danger("You feel your Willpower being drained!"))
 			if(H.MyPath)
 				H.MyPath.willpower = max(H.MyPath.willpower - willpower_loss, 0)
 			else if(H.mind?.dharma)

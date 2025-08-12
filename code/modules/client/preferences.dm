@@ -1247,6 +1247,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/datum/discipline/discipline = new discipline_type
 						if (discipline.clan_restricted)
 							possible_new_disciplines -= discipline_type
+						if (discipline.allowed_clans && discipline.allowed_clans.len)
+							if (!(clane.type in discipline.allowed_clans))
+								possible_new_disciplines -= discipline_type
 						qdel(discipline)
 					var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
 					if(new_discipline)
@@ -1271,11 +1274,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((true_experience < 10) || !(pref_species.id == "kindred") || !((clane.name == "Baali")))
 						return
 
-					var/list/possible_new_dt_paths = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno)
+					var/list/possible_new_dt_paths = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno, /datum/discipline/dt_path_pain)
 					possible_new_dt_paths -= discipline_types
 
-					var/new_discipline = tgui_input_list(user, "Select your new Dark Thaumaturgy Path", "Discipline Selection", sort_list(possible_new_dt_paths))
+					var/list/path_names = list()
+
+					for(var/path_type in possible_new_dt_paths)
+						var/datum/discipline/D = new path_type()
+						path_names[D.name] = path_type
+						qdel(D)
+
+					var/new_discipline = tgui_input_list(user, "Select your new Dark Thaumaturgy Path", "Discipline Selection", sort_list(path_names))
 					if(new_discipline)
+						new_discipline = path_names[new_discipline]
 						discipline_types += new_discipline
 						discipline_levels += 1
 						true_experience -= 10
@@ -1437,6 +1448,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 									var/datum/discipline/discipline = new discipline_type
 									if (discipline.clan_restricted)
 										possible_new_disciplines -= discipline_type
+									if (discipline.allowed_clans && discipline.allowed_clans.len)
+										if(!(clane.type in discipline.allowed_clans))
+											possible_new_disciplines -= discipline_type
 									qdel(discipline)
 								var/new_discipline = input(user, "Select a Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
 								if (new_discipline)

@@ -277,6 +277,9 @@
 				if (discipline.clan_restricted)
 					possible_new_disciplines -= discipline_type
 					qdel(discipline)
+				if (discipline.allowed_clans && discipline.allowed_clans.len)
+					if (!(clane.type in discipline.allowed_clans))
+						possible_new_disciplines -= discipline_type
 			if (possible_new_disciplines.len && (true_experience >= 10))
 				dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline (10)</a><BR>"
 
@@ -300,7 +303,7 @@
 
 			if("Baali")
 
-				var/list/possible_new_dt_paths = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno)
+				var/list/possible_new_dt_paths = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno, /datum/discipline/dt_path_pain)
 				possible_new_dt_paths -= discipline_types
 
 				if (possible_new_dt_paths.len && (true_experience >= 10))

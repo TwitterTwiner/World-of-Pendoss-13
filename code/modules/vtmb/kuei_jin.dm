@@ -303,6 +303,9 @@
 	if(!istype(owner, /mob/living/carbon/human))
 		return
 	var/mob/living/carbon/human/kueijin = usr
+	if(HAS_TRAIT(owner, TRAIT_PAIN_CANT_HEAL))
+		to_chat(owner, span_boldwarning("You try to mend your wounds but fail!"))
+		return
 	if(HAS_TRAIT(owner, TRAIT_TORPOR))
 		return
 	if (!kueijin.yin_chi > 0)
@@ -358,6 +361,9 @@
 	if(!istype(owner, /mob/living/carbon/human))
 		return
 	var/mob/living/carbon/human/kueijin = usr
+	if(HAS_TRAIT(owner, TRAIT_PAIN_CANT_HEAL))
+		to_chat(owner, span_boldwarning("You try to mend your wounds but fail!"))
+		return
 	if(HAS_TRAIT(owner, TRAIT_TORPOR))
 		return
 	if (!kueijin.yin_chi > 0)

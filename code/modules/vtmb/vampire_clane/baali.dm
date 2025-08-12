@@ -7,7 +7,7 @@
 		/datum/discipline/presence,
 		/datum/discipline/daimonion
 	)
-	common_disciplines = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno)
+	common_disciplines = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno, /datum/discipline/dt_path_pain)
 	male_clothes = /obj/item/clothing/under/vampire/baali
 	female_clothes = /obj/item/clothing/under/vampire/baali/female
 	enlightenment = TRUE

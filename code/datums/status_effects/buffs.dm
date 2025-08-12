@@ -496,6 +496,34 @@
 	if(C)
 		C.frenzy_hardness = initial(C.frenzy_hardness)
 
+/datum/status_effect/hundred_deaths
+	id = "hundred_deaths"
+	duration = 1 SCENES
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/hundred_deaths
+
+/datum/status_effect/hundred_deaths/on_creation(mob/living/carbon/new_owner)
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_PAIN_CANT_HEAL, PAIN_TRAIT)
+
+/datum/status_effect/hundred_deaths/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_PAIN_CANT_HEAL, PAIN_TRAIT)
+
+/datum/status_effect/pain_botch
+	id = "pain_botch"
+	duration = -1
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/pain_botch
+
+/datum/status_effect/pain_botch/on_creation(mob/living/carbon/new_owner)
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_PAIN_BOTCH, DISCIPLINE_TRAIT)
+
+/datum/status_effect/pain_botch/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_PAIN_BOTCH, DISCIPLINE_TRAIT)
+
 /atom/movable/screen/alert/status_effect/blood_of_potency
 	name = "Blood of Potency"
 	desc = "You can feel your blood being stronger!"
@@ -504,6 +532,16 @@
 /atom/movable/screen/alert/status_effect/blood_rage
 	name = "Blood Rage"
 	desc = "You feel like you're going to lose it at any moment!"
+	icon_state = "blooddrunk"
+
+/atom/movable/screen/alert/status_effect/hundred_deaths
+	name = "Hundred Deaths"
+	desc = "You can't seem to heal your wounds without using Willpower!"
+	icon_state = "blooddrunk"
+
+/atom/movable/screen/alert/status_effect/pain_botch
+	name = "Thirst for Pain"
+	desc = "You can't seem to use your pain path abilities without harming yourself first!"
 	icon_state = "blooddrunk"
 
 /atom/movable/screen/alert/status_effect/crucible_soul
