@@ -1267,6 +1267,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_levels += 1
 						true_experience -= 10
 
+				if("newdtpath")
+					if((true_experience < 10) || !(pref_species.id == "kindred") || !((clane.name == "Baali")))
+						return
+
+					var/list/possible_new_dt_paths = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno)
+					possible_new_dt_paths -= discipline_types
+
+					var/new_discipline = tgui_input_list(user, "Select your new Dark Thaumaturgy Path", "Discipline Selection", sort_list(possible_new_dt_paths))
+					if(new_discipline)
+						discipline_types += new_discipline
+						discipline_levels += 1
+						true_experience -= 10
+
 				if("newghouldiscipline")
 					if((true_experience < 10) || !(pref_species.id == "ghoul"))
 						return
