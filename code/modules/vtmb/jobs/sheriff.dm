@@ -39,7 +39,6 @@
 	allowed_species = list("Vampire")
 	allowed_bloodlines = list("True Brujah", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Followers of Set", "Lasombra")
 
-	my_contact_is_important = TRUE
 	known_contacts = list("Prince","Seneschal","Dealer")
 
 	v_duty = "Protect the Prince and the Masquerade. You are their sword."

@@ -207,7 +207,7 @@
 
 	var/last_bloodpool_restore = 0
 
-	var/list/knowscontacts = list()
+	var/list/knowscontacts = null
 
 	var/mysticism_knowledge = FALSE
 

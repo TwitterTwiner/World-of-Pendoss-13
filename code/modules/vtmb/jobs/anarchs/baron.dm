@@ -17,7 +17,6 @@
 	display_order = JOB_DISPLAY_ORDER_BARKEEPER
 	bounty_types = CIV_JOB_DRINK
 
-	my_contact_is_important = TRUE
 	known_contacts = list(
 		"Prince",
 		"Dealer",
@@ -45,7 +44,7 @@
 	suit = /obj/item/clothing/suit/vampire/jacket/better
 	shoes = /obj/item/clothing/shoes/vampire
 	gloves = /obj/item/clothing/gloves/vampire/work
-	l_pocket = /obj/item/vamp/phone/barkeeper
+	l_pocket = /obj/item/vamp/phone/baron
 	r_pocket = /obj/item/vamp/keys/bar
 	backpack_contents = list(/obj/item/passport=1, /obj/item/phone_book=1, /obj/item/cockclock=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard=1)
 
@@ -59,3 +58,4 @@
 /obj/effect/landmark/start/barkeeper
 	name = "Baron"
 	icon_state = "Barkeeper"
+

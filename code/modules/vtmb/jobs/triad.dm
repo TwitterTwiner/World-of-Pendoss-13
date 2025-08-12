@@ -23,7 +23,6 @@
 	duty = "Make money, do drugs, fight law. Your hideout is the laundromat in Chinatown."
 	experience_addition = 0
 	minimal_masquerade = 0
-	my_contact_is_important = FALSE
 
 /datum/outfit/job/triad_soldier/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -43,7 +42,7 @@
 	id = /obj/item/cockclock
 //	gloves = /obj/item/cockclock
 //	id = /obj/item/card/id/police
-	l_pocket = /obj/item/vamp/phone
+	l_pocket = /obj/item/vamp/phone/triads_soldier
 	r_pocket = /obj/item/flashlight
 	l_hand = /obj/item/vamp/keys/triads
 //	r_hand = /obj/item/police_radio

@@ -23,7 +23,6 @@
 	v_duty = "Offer your infinite knowledge to Prince of the City."
 	experience_addition = 0
 	minimal_masquerade = 5
-	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
 
 /datum/outfit/job/malkav
@@ -37,7 +36,7 @@
 	suit = /obj/item/clothing/suit/vampire/trench/malkav
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
 	head = /obj/item/clothing/head/vampire/malkav
-	l_pocket = /obj/item/vamp/phone/malkavian
+	l_pocket = /obj/item/vamp/phone/malkavian_primo
 	r_pocket = /obj/item/cockclock
 	backpack_contents = list(/obj/item/vamp/keys/malkav/primogen=1, /obj/item/vamp/keys/clinic, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/elder=1)
 
@@ -74,7 +73,6 @@
 	v_duty = "Offer your infinite knowledge to Prince of the City."
 	experience_addition = 0
 	minimal_masquerade = 5
-	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
 
 /datum/outfit/job/nosferatu
@@ -87,7 +85,7 @@
 	uniform = /obj/item/clothing/under/vampire/suit
 	suit = /obj/item/clothing/suit/vampire/trench
 	shoes = /obj/item/clothing/shoes/vampire
-	l_pocket = /obj/item/vamp/phone/nosferatu
+	l_pocket = /obj/item/vamp/phone/nosferatu_primo
 	r_pocket = /obj/item/cockclock
 	backpack_contents = list(/obj/item/vamp/keys/nosferatu/primogen=1, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/elder=1)
 
@@ -121,7 +119,6 @@
 	v_duty = "Offer your infinite knowledge to Prince of the City."
 	experience_addition = 0
 	minimal_masquerade = 5
-	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
 
 /datum/outfit/job/ventrue
@@ -133,7 +130,7 @@
 	uniform = /obj/item/clothing/under/vampire/suit
 	suit = /obj/item/clothing/suit/vampire/trench
 	shoes = /obj/item/clothing/shoes/vampire
-	l_pocket = /obj/item/vamp/phone/ventrue
+	l_pocket = /obj/item/vamp/phone/ventrue_primo
 	r_pocket = /obj/item/cockclock
 	backpack_contents = list(/obj/item/vamp/keys/ventrue/primogen=1, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/elder=1)
 
@@ -167,7 +164,6 @@
 	v_duty = "Offer your infinite knowledge to Prince of the City."
 	experience_addition = 0
 	minimal_masquerade = 5
-	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
 
 /datum/outfit/job/toreador
@@ -179,7 +175,7 @@
 	uniform = /obj/item/clothing/under/vampire/primogen_toreador
 	suit = /obj/item/clothing/suit/vampire/trench/alt
 	shoes = /obj/item/clothing/shoes/vampire
-	l_pocket = /obj/item/vamp/phone/toreador
+	l_pocket = /obj/item/vamp/phone/toreador_primo
 	r_pocket = /obj/item/cockclock
 	backpack_contents = list(/obj/item/vamp/keys/toreador/primogen=1, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/elder=1, /obj/item/gun/ballistic/automatic/vampire/beretta/toreador=1, /obj/item/ammo_box/magazine/semi9mm/toreador=1)
 
@@ -215,7 +211,6 @@
 	v_duty = "Offer your infinite knowledge to Prince of the City."
 	experience_addition = 0
 	minimal_masquerade = 5
-	my_contact_is_important = TRUE
 	known_contacts = list("Prince")
 
 /datum/outfit/job/brujah
@@ -227,6 +222,6 @@
 	uniform = /obj/item/clothing/under/vampire/punk
 	suit = /obj/item/clothing/suit/vampire/jacket/punk
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
-	l_pocket = /obj/item/vamp/phone/brujah
+	l_pocket = /obj/item/vamp/phone/brujah_primo
 	r_pocket = /obj/item/cockclock
 	backpack_contents = list(/obj/item/vamp/keys/brujah/primogen=1, /obj/item/melee/vampirearms/eguitar=1, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/elder=1)
