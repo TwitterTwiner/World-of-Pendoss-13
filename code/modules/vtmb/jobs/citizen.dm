@@ -78,8 +78,8 @@
 /datum/job/vamp/elder
 	title = "Elder"
 	faction = "Vampire"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = -1
+	spawn_positions = -1
 	supervisors = "the Traditions"
 	selection_color = "#df7058"
 	access = list()			//See /datum/job/assistant/get_access()
