@@ -605,9 +605,9 @@ SUBSYSTEM_DEF(carpool)
 	if(!prev_speed)
 		return
 	if(istype(A, /mob/living))
-		if(istype(A, /mob/living/simple_animal/pet/cat))
-			cat = TRUE
 		var/mob/living/hit_mob = A
+		if(istype(hit_mob, /mob/living/simple_animal/pet/cat))
+			cat = TRUE
 		var/impact_protection = hit_mob.run_armor_check(BODY_ZONE_CHEST, LETHAL)
 		hit_mob.adjustBruteLoss(round((prev_speed/100)*(100-impact_protection)), TRUE, TRUE)
 		switch(hit_mob.mob_size)
