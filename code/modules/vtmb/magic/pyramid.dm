@@ -38,7 +38,7 @@
 /datum/crafting_recipe/arctome
 	name = "Arcane Tome"
 	time = 10 SECONDS
-	reqs = list(/obj/item/paper = 3, /obj/item/reagent_containers/blood = 2)
+	reqs = list(/obj/item/paper = 3, /obj/item/drinkable_bloodpack/full = 2)
 	result = /obj/item/arcane_tome
 	always_available = FALSE
 	category = CAT_MISC
@@ -573,12 +573,14 @@
 		message += "The blood is filled with the power of magic. The owner must be a thaumaturge."
 	else if(clan == "Baali")
 		message += "Tainted and corrupt. Vile and filthy. You see your reflection in the blood, but something else stares back."
-	else if(clan == "Assamite")
+	else if(clan == "Banu Haqim")
 		message += "Potent... Deadly... And cursed. You know well the curse laid by Tremere on the assassins."
 	else if(clan == "True Brujah")
 		message += "The blood is cold and static... It's hard to feel any emotion within it."
 	else if(clan == "Salubri")
 		message += "The cursed blood of the Salubri! The owner of this blood must be slain."
+	else if(clan == "Salubri Warrior")
+		message += "The avatar of Samiel's vengeance stands before you, do you dare return their bitter hatred?"
 	else if(clan == "Giovanni" || clan == "Cappadocian")
 		message += "The blood is very cold and filled with death. The owner must be a necromancer."
 	else if(clan == "Kiasyd")

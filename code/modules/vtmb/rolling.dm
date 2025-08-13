@@ -601,26 +601,10 @@ SUBSYSTEM_DEF(woddices)
 			dat += "[humanity]<BR>"
 
 		if(iskindred(host))
-			if(host.clane.name == "Brujah")
-				if(GLOB.brujahname != "")
-					if(host.real_name != GLOB.brujahname)
-						dat += " My primogen is: [GLOB.brujahname].<BR>"
-			if(host.clane.name == "Malkavian")
-				if(GLOB.malkavianname != "")
-					if(host.real_name != GLOB.malkavianname)
-						dat += " My primogen is: [GLOB.malkavianname].<BR>"
-			if(host.clane.name == "Nosferatu")
-				if(GLOB.nosferatuname != "")
-					if(host.real_name != GLOB.nosferatuname)
-						dat += " My primogen is: [GLOB.nosferatuname].<BR>"
-			if(host.clane.name == "Toreador")
-				if(GLOB.toreadorname != "")
-					if(host.real_name != GLOB.toreadorname)
-						dat += " My primogen is: [GLOB.toreadorname].<BR>"
-			if(host.clane.name == "Ventrue")
-				if(GLOB.ventruename != "")
-					if(host.real_name != GLOB.ventruename)
-						dat += " My primogen is: [GLOB.ventruename].<BR>"
+			var/datum/phonecontact/clane_leader_contact = GLOB.important_contacts[host.clane.name]
+			if (!isnull(clane_leader_contact) && host.real_name != clane_leader_contact.name)
+				var/clane_leader_number = isnull(clane_leader_contact.number) ? "unknown" : clane_leader_contact.number
+				dat += " My clane leader is [clane_leader_contact.name]. Their phone number is [clane_leader_number].<BR>"
 		if(iscathayan(host))
 			var/masquerade_level = " is clueless about my presence."
 			switch(host.masquerade)

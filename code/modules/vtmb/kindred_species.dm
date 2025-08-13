@@ -434,6 +434,11 @@
 						qdel(discipline)
 						continue
 
+				if (discipline.allowed_clans && discipline.allowed_clans.len)
+					if (!can_access_discipline(src, type_to_create))
+						qdel(discipline)
+						continue
+
 				adding_disciplines += discipline
 		else if (disciplines.len) //initialise given disciplines
 			for (var/i in 1 to disciplines.len)
@@ -594,7 +599,13 @@
 		//if a Discipline is clan-restricted, it must be checked if the student has access to at least one Clan with that Discipline
 		if (giving_discipline.clan_restricted)
 			if (!can_access_discipline(student, teaching_discipline))
-				to_chat(teacher, "<span class='warning'>Your student is not whitelisted for any Clans with this Discipline, so they cannot learn it.</span>")
+				to_chat(teacher, span_warning("Your student is not whitelisted for any Clans with this Discipline, so they cannot learn it."))
+				qdel(giving_discipline)
+				return
+
+		if (giving_discipline.allowed_clans && giving_discipline.allowed_clans.len)
+			if(!can_access_discipline(student, teaching_discipline))
+				to_chat(teacher, span_warning("Your student is not whitelisted for any Clans which allows this Discipline, so they cannot learn it."))
 				qdel(giving_discipline)
 				return
 
@@ -680,9 +691,16 @@
 
 	//make sure it's actually restricted and this check is necessary
 	var/datum/discipline/discipline_object_checking = new discipline_checking
-	if (!discipline_object_checking.clan_restricted)
+
+	if (!discipline_object_checking.clan_restricted && (!discipline_object_checking.allowed_clans || !discipline_object_checking.allowed_clans.len))
 		qdel(discipline_object_checking)
 		return TRUE
+
+	if (discipline_object_checking.allowed_clans && discipline_object_checking.allowed_clans.len)
+		for (var/allowed_clan in discipline_object_checking.allowed_clans)
+			if (vampire_checking.clane.type == allowed_clan)
+				qdel(discipline_object_checking)
+				return TRUE
 	qdel(discipline_object_checking)
 
 	//first, check their Clan Disciplines to see if that gives them access

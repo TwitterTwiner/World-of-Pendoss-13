@@ -54,7 +54,7 @@
 	name = "Thrashing Dragon (Yang)"
 	desc = "This path encourages to live with the light part of Circle, Yang. Live, love and laugh, save lives, meet your friends and lovers, clean the nature and grow it like a garden. However, killing, griefing and stealing leads you to the opposite."
 	tenets = list("meet", "cleangrow", "watchdie")
-	tenets_done = list("watchsave" = 0, "meet" = 0, "cleangrow" = 0)
+	tenets_done = list("watchdie" = 0, "meet" = 0, "cleangrow" = 0)
 	fails = list("extinguish", "savelife")
 
 /datum/dharma/flame_of_rising_phoenix

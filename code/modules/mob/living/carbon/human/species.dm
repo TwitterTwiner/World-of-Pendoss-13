@@ -1365,7 +1365,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		return TRUE
 
 ///This proc handles punching damage. IMPORTANT: Our owner is the TARGET and not the USER in this proc. For whatever reason...
-/datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+/datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style, var/guaranteed_hit = FALSE)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
@@ -1399,16 +1399,17 @@ GLOBAL_LIST_EMPTY(selectable_races)
 
 	var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 4+add_hard, user)
 	var/atk_verb = user.dna.species.attack_verb
-	if(modifikator == -1)
-		target = user
-		modifikator = 3
-	else if(modifikator == 0)
-		playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
-		target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>", \
-			"<span class='danger'>You avoid [user]'s [atk_verb]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, "<span class='warning'>Your [atk_verb] misses [target]!</span>")
-		log_combat(user, target, "attempted to punch")
-		return FALSE
+	if(!guaranteed_hit)
+		if(modifikator == -1)
+			target = user
+			modifikator = 3
+		else if(modifikator == 0)
+			playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
+			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>", \
+				"<span class='danger'>You avoid [user]'s [atk_verb]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, "<span class='warning'>Your [atk_verb] misses [target]!</span>")
+			log_combat(user, target, "attempted to punch")
+			return FALSE
 
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>", \
@@ -1448,13 +1449,14 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			miss_chance = 0
 
 		var/my_dodge_chances = get_a_dexterity(target)+get_a_alertness(target)-target.getarmor(user.zone_selected, LETHAL)
-		if(my_dodge_chances && target.stat == 0 && target.body_position == STANDING_UP && user.dir != target.dir)
-			if(secret_vampireroll(my_dodge_chances, 6+target.get_health_difficulty(), target, TRUE) >= 3)
-				var/matrix/initial_transform = matrix(target.transform)
-				var/matrix/rotated_transform = target.transform.Turn(pick(-15, 15))
-				animate(target, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
-				animate(transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
-				miss_chance = 100
+		if(!guaranteed_hit)
+			if(my_dodge_chances && target.stat == 0 && target.body_position == STANDING_UP && user.dir != target.dir)
+				if(secret_vampireroll(my_dodge_chances, 6+target.get_health_difficulty(), target, TRUE) >= 3)
+					var/matrix/initial_transform = matrix(target.transform)
+					var/matrix/rotated_transform = target.transform.Turn(pick(-15, 15))
+					animate(target, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
+					animate(transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
+					miss_chance = 100
 
 		if(!damage || !affecting || prob(miss_chance))//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
@@ -1572,7 +1574,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		if("disarm")
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, var/guaranteed_hit = FALSE)
 	// Allows you to put in item-specific reactions based on species
 	if(ishuman(user))
 		var/mob/living/carbon/human/ohvampire = user
@@ -1607,22 +1609,23 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user), I.attack_diff_override, user)
 	else
 		modifikator = secret_vampireroll(get_a_strength(user)+get_a_melee(user), 4+add_hard, user)
-	if(modifikator == -1)
-		user.visible_message("<span class='warning'>[user] slips, trying to swing [I]!</span>", \
-						"<span class='userdanger'>You slip, trying to swing [I]!</span>")
-		user.AdjustKnockdown(30, TRUE)
-		return
-	else if(modifikator == 0)
-		user.visible_message("<span class='warning'>[user] fails to attack with [I]!</span>", \
-						"<span class='userdanger'>You fail to attack with [I]!</span>")
-		return
-	if(user != H)
-		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
+	if(!guaranteed_hit)
+		if(modifikator == -1)
+			user.visible_message("<span class='warning'>[user] slips, trying to swing [I]!</span>", \
+							"<span class='userdanger'>You slip, trying to swing [I]!</span>")
+			user.AdjustKnockdown(30, TRUE)
+			return
+		else if(modifikator == 0)
+			user.visible_message("<span class='warning'>[user] fails to attack with [I]!</span>", \
+							"<span class='userdanger'>You fail to attack with [I]!</span>")
+			return
+		if(user != H)
+			if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
+				return FALSE
+		if(H.check_block())
+			H.visible_message("<span class='warning'>[H] blocks [I]!</span>", \
+							"<span class='userdanger'>You block [I]!</span>")
 			return FALSE
-	if(H.check_block())
-		H.visible_message("<span class='warning'>[H] blocks [I]!</span>", \
-						"<span class='userdanger'>You block [I]!</span>")
-		return FALSE
 
 	var/hit_area
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
@@ -1638,15 +1641,16 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		damagtype = AGGRAVATED
 
 	var/my_dodge_chances = get_a_dexterity(H)+get_a_alertness(H)-H.getarmor(def_zone, LETHAL)
-	if(my_dodge_chances && H.stat == 0 && H.body_position == STANDING_UP && user.dir != H.dir)
-		if(secret_vampireroll(my_dodge_chances, 6+H.get_health_difficulty(), H, TRUE) >= 3)
-			var/matrix/initial_transform = matrix(H.transform)
-			var/matrix/rotated_transform = H.transform.Turn(pick(-15, 15))
-			animate(H, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
-			animate(transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
-			H.visible_message("<span class='warning'>[H] dodges [I]!</span>", \
-						"<span class='userdanger'>You dodge [I]!</span>")
-			return FALSE
+	if(!guaranteed_hit)
+		if(my_dodge_chances && H.stat == 0 && H.body_position == STANDING_UP && user.dir != H.dir)
+			if(secret_vampireroll(my_dodge_chances, 6+H.get_health_difficulty(), H, TRUE) >= 3)
+				var/matrix/initial_transform = matrix(H.transform)
+				var/matrix/rotated_transform = H.transform.Turn(pick(-15, 15))
+				animate(H, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
+				animate(transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
+				H.visible_message("<span class='warning'>[H] dodges [I]!</span>", \
+							"<span class='userdanger'>You dodge [I]!</span>")
+				return FALSE
 
 	var/armor_block = H.run_armor_check(affecting, damagtype, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 //	armor_block = min(90,armor_block) //cap damage reduction at 90%

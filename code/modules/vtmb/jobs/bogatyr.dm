@@ -46,7 +46,7 @@
 	head = /obj/item/clothing/head/vampire/bogatyr
 	suit = /obj/item/clothing/suit/vampire/bogatyr
 	belt = /obj/item/storage/belt/vampire/sheathe/longsword
-	l_pocket = /obj/item/vamp/phone
+	l_pocket = /obj/item/vamp/phone/bogatyr
 	//r_pocket = /obj/item/cockclock
 	backpack_contents = list(/obj/item/vamp/keys/old_clan_tzimisce=1, /obj/item/melee/vampirearms/fireaxe=1, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard=1)
 

@@ -35,10 +35,17 @@
 		/datum/discipline_power/bloodheal/ten
 	)
 
+/datum/discipline_power/bloodheal/pre_activation_checks()
+	if(HAS_TRAIT(owner, TRAIT_PAIN_CANT_HEAL))
+		to_chat(owner, span_boldwarning("You try to mend your wounds but fail!"))
+		return FALSE
+	return TRUE
+
 /datum/discipline_power/bloodheal/activate()
 	adjust_vitae_cost()
 
 	. = ..()
+
 
 	//normal bashing/lethal damage
 	owner.heal_ordered_damage(HEAL_BASHING_LETHAL * vitae_cost, list(BRUTE, TOX, OXY, STAMINA))

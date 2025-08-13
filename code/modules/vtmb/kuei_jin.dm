@@ -55,7 +55,7 @@
 	disliked_food = GROSS | RAW
 	liked_food = JUNKFOOD | FRIED
 	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS, HAS_FLESH, HAS_BONE)
-	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_VIRUSIMMUNE, TRAIT_PERFECT_ATTACKER, TRAIT_NOBREATH)
+	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_VIRUSIMMUNE, TRAIT_PERFECT_ATTACKER, TRAIT_NOBREATH, TRAIT_ALCOHOL_TOLERANCE)
 	use_skintones = TRUE
 	limbs_id = "human"
 	wings_icon = "None"
@@ -303,6 +303,9 @@
 	if(!istype(owner, /mob/living/carbon/human))
 		return
 	var/mob/living/carbon/human/kueijin = usr
+	if(HAS_TRAIT(owner, TRAIT_PAIN_CANT_HEAL))
+		to_chat(owner, span_boldwarning("You try to mend your wounds but fail!"))
+		return
 	if(HAS_TRAIT(owner, TRAIT_TORPOR))
 		return
 	if (!kueijin.yin_chi > 0)
@@ -358,6 +361,9 @@
 	if(!istype(owner, /mob/living/carbon/human))
 		return
 	var/mob/living/carbon/human/kueijin = usr
+	if(HAS_TRAIT(owner, TRAIT_PAIN_CANT_HEAL))
+		to_chat(owner, span_boldwarning("You try to mend your wounds but fail!"))
+		return
 	if(HAS_TRAIT(owner, TRAIT_TORPOR))
 		return
 	if (!kueijin.yin_chi > 0)

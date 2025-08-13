@@ -404,6 +404,10 @@
 				to_chat(usr, "<span class='notice'>You spend 1 dot of your willpower, and now will get best roll results for 1 minute. [ohvampire.MyPath.willpower] willpower dots remain.</span>")
 				icon_state = "will1"
 				ohvampire.willpower_auto = TRUE
+				if(HAS_TRAIT(ohvampire, TRAIT_PAIN_BOTCH))
+					ohvampire.remove_status_effect(/datum/status_effect/pain_botch)
+				if(HAS_TRAIT(ohvampire, TRAIT_PAIN_CANT_HEAL))
+					ohvampire.remove_status_effect(/datum/status_effect/hundred_deaths)
 				spawn(1 MINUTES)
 					to_chat(usr, "<span class='warning'>You no longer feel the willpower inside. [ohvampire.MyPath.willpower] willpower dots remain.</span>")
 					icon_state = "will0"
@@ -417,6 +421,8 @@
 				to_chat(usr, "<span class='notice'>You spend 1 dot of your willpower, and now will get best roll results for 1 minute. [ohvampire.mind.dharma.willpower] willpower dots remain.</span>")
 				icon_state = "will1"
 				ohvampire.willpower_auto = TRUE
+				if(HAS_TRAIT(ohvampire, TRAIT_PAIN_CANT_HEAL))
+					ohvampire.remove_status_effect(/datum/status_effect/hundred_deaths)
 				spawn(1 MINUTES)
 					to_chat(usr, "<span class='warning'>You no longer feel the willpower inside. [ohvampire.mind.dharma.willpower] willpower dots remain.</span>")
 					icon_state = "will0"

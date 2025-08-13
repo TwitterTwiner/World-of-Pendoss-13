@@ -22,3 +22,14 @@
 #define TRAIT_MASQUERADE_VIOLATING_FACE "masquerade_violating_face"
 /// If the trait owner knows thaumaturgical rituals.
 #define TRAIT_THAUMATURGY_KNOWLEDGE "thaumaturgy_knowledge"
+
+#define TRAIT_SALUBRI_EYE_OPEN	"eye_open" //This is for Salubri Stuff in regards to oepning and closing it
+#define TRAIT_SALUBRI_EYE		"salubri_eye" //This is for whhen you want to like actually know if you have the eye or not
+
+#define TRAIT_DARK_THAUMATURGY_KNOWLEDGE "dark_thaumaturgy_knowledge" // If the trait owner supposed to know dark thaumaturgical rituals.
+#define TRAIT_TAKING_SPIRIT_USED "taking_spirit_used" // If the trait owner was under effect of The Taking of the Spirit.
+#define TRAIT_TAKING_SPIRIT_RESISTED "taking_spirit_resisted" // If the trait owner won against taking spirit roll.
+
+#define TRAIT_PAIN_BOTCH "pain_botch" // If the trait owner failed path of pain roll.
+#define TRAIT_PAIN_NUMBING "pain_numbing" // Trait owner is able to ignore difficulty increase while at low health
+#define TRAIT_PAIN_CANT_HEAL "pain_cant_heal" // Trait owner can't heal their wounds without using Willpower

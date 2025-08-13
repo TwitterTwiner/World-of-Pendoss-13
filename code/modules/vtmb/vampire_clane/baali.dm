@@ -3,10 +3,11 @@
 	desc = "The Baali are a bloodline of vampires associated with demon worship. Because of their affinity with the unholy, the Baali are particularly vulnerable to holy iconography, holy ground and holy water. They are highly vulnerable to True Faith."
 	curse = "Fear of the Religion."
 	clane_disciplines = list(
-		/datum/discipline/obtenebration,
-		/datum/discipline/thaumaturgy,
+		/datum/discipline/obfuscate,
+		/datum/discipline/presence,
 		/datum/discipline/daimonion
 	)
+	common_disciplines = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno, /datum/discipline/dt_path_pain)
 	male_clothes = /obj/item/clothing/under/vampire/baali
 	female_clothes = /obj/item/clothing/under/vampire/baali/female
 	enlightenment = TRUE
@@ -62,3 +63,20 @@
 		return TRUE
 	visible_message("<span class='warning'>[src] remains unsouled...</span>")
 	return FALSE
+
+/datum/crafting_recipe/dttome
+	name = "Horrifying Arcane Tome"
+	time = 60 SECONDS
+	reqs = list(/obj/item/organ/heart = 3, /obj/item/reagent_containers/blood = 5, /obj/item/drinkable_bloodpack/full/elite = 3, /obj/item/drinkable_bloodpack/full/vitae = 1)
+	result = /obj/item/dt_tome
+	always_available = FALSE
+	category = CAT_MISC
+
+/obj/item/dt_tome
+	name = "horrifying arcane tome"
+	desc = "The secrets of Demon Magic..."
+	icon_state = "dttome"
+	icon = 'code/modules/wod13/items.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	w_class = WEIGHT_CLASS_SMALL
+	is_magic = TRUE

@@ -31,7 +31,7 @@
 /datum/discipline_power/thaumaturgy/activate(atom/target)
 	. = ..()
 	//Thaumaturgy powers have different effects based off the amount of successes. I dont want to copy paste the code, so this is being put here.
-	success_count = secret_vampireroll(max(get_a_manipulation(owner), get_a_charisma(owner))+get_a_occult(owner), 6, owner)
+	success_count = secret_vampireroll(get_a_willpower(owner)+get_a_occult(owner), level+3, owner)
 	if(success_count < 0)
 		thaumaturgy_botch_effect()
 		return TRUE
@@ -281,11 +281,11 @@
 /datum/discipline_power/thaumaturgy/cauldron_of_blood/activate(mob/living/target)
 	if(..())
 		return
-
+	var/zashita = get_fortitude_dices(target)
 	target.visible_message(span_danger("As [owner] touches [target], their body seems to boil!"), span_userdanger("As [owner] touches you, your body feels like it's boiling in a pool of lava!"))
 	playsound(target, pick('sound/effects/wounds/sizzle1.ogg', 'sound/effects/wounds/sizzle2.ogg'), 50, TRUE)
 	target.bloodpool = max(target.bloodpool - success_count, 0)
 	if(isnpc(target))
 		target.apply_damage(success_count * 200 + owner.thaum_damage_plus, CLONE) //A single success kills any mortal
 	else
-		target.apply_damage(success_count * 40 + owner.thaum_damage_plus, CLONE) //8 successes = 320 aggravated damage, however this is diffulty 8 so more than 2 successes is rare.
+		target.apply_damage((success_count - zashita) * 40 + owner.thaum_damage_plus, CLONE) //8 successes = 320 aggravated damage, however this is diffulty 8 so more than 2 successes is rare.

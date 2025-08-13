@@ -23,7 +23,6 @@
 	v_duty = "You are a Childe of the Voivode-in-Waiting, the ancient Tzimisce Elder who has rested beneath the Earth for an age longer than the city that now rests on their bones. Honor them in all your actions, and remember that you walk with their favor."
 	experience_addition = 0
 	minimal_masquerade = 2
-	my_contact_is_important = TRUE
 	known_contacts = list("Prince", "Baron", "Sheriff")
 
 
@@ -37,7 +36,7 @@
 	suit = /obj/item/clothing/suit/vampire/trench/voivode
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
 	belt = /obj/item/storage/belt/vampire/sheathe/longsword
-	l_pocket = /obj/item/vamp/phone
+	l_pocket = /obj/item/vamp/phone/voivode
 	//r_pocket =
 	backpack_contents = list(/obj/item/vamp/keys/old_clan_tzimisce=1, /obj/item/melee/vampirearms/eguitar=1, /obj/item/passport=1, /obj/item/flashlight=1, /obj/item/vamp/creditcard/elder=1)
 

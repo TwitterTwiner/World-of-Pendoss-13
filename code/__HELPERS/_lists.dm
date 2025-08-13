@@ -579,6 +579,10 @@
 
 	return TRUE
 
+//any value in a list
+/proc/sort_list(list/L, cmp= GLOBAL_PROC_REF(cmp_text_asc))
+	return sortTim(L.Copy(), cmp)
+
 /proc/move_element(list/inserted_list, from_index, to_index)
 	if(from_index == to_index || from_index + 1 == to_index) //no need to move
 		return
