@@ -27,12 +27,6 @@
 	duration_length = 20 SECONDS
 	cooldown_length = 20 SECONDS
 
-	grouped_powers = list(
-		/datum/discipline_power/protean/feral_claws,
-		/datum/discipline_power/protean/earth_meld,
-		/datum/discipline_power/protean/shape_of_the_beast,
-		/datum/discipline_power/protean/mist_form
-	)
 
 /datum/discipline_power/protean/eyes_of_the_beast/activate()
 	. = ..()
@@ -65,12 +59,6 @@
 	duration_length = 20 SECONDS
 	cooldown_length = 20 SECONDS
 
-	grouped_powers = list(
-		/datum/discipline_power/protean/eyes_of_the_beast,
-		/datum/discipline_power/protean/earth_meld,
-		/datum/discipline_power/protean/shape_of_the_beast,
-		/datum/discipline_power/protean/mist_form
-	)
 
 /datum/discipline_power/protean/feral_claws/activate()
 	. = ..()
@@ -130,7 +118,6 @@
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift, \
 		/mob/living/simple_animal/hostile/beastmaster/cat/vampire, \
-		/mob/living/simple_animal/hostile/beastmaster/rat/vampire, \
 		/mob/living/simple_animal/pet/horse/vampire, \
 		/mob/living/simple_animal/pet/crow/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
@@ -251,11 +238,18 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
 /mob/living/simple_animal/hostile/beastmaster/cat/vampire
+	name = "Big cat"
 	bloodquality = BLOOD_QUALITY_HIGH
 	melee_damage_type = CLONE
 	maxHealth = 300
 	health = 300
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
+
+/mob/living/simple_animal/hostile/beastmaster/cat/vampire/Initialize()
+	. = ..()
+	var/matrix/ntransform = matrix()
+	ntransform.Scale(1.25, 1.5)
+	animate(src, transform = ntransform, time = 0,5)
 
 /mob/living/simple_animal/hostile/beastmaster/rat/vampire
 	bloodquality = BLOOD_QUALITY_HIGH
@@ -264,6 +258,11 @@
 	health = 300
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
+/mob/living/simple_animal/hostile/beastmaster/rat/vampire/Initialize()
+	. = ..()
+	var/matrix/ntransform = matrix()
+	ntransform.Scale(1.25, 1.5)
+	animate(src, transform = ntransform, time = 0,5)
 
 /mob/living/simple_animal/pet/horse/vampire
 	bloodquality = BLOOD_QUALITY_HIGH
