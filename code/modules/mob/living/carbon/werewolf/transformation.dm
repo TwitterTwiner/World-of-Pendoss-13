@@ -218,44 +218,56 @@
 /mob/living/carbon/human
 	var/datum/warform/warform
 
-/mob/living/simple_animal/hostile
+/mob/living/simple_animal
 	var/datum/warform/warform
+	var/mob/living/carbon/human/my_creator
 
 /datum/warform
 	var/mob/living/carbon/human/humanform
-	var/mob/living/simple_animal/hostile/warform
+	var/mob/living/simple_animal/warform
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/Shapeshift
 	var/datum/language_holder/lange
 
-/datum/warform/proc/transform(var/animal_atom, var/mob/living/carbon/human/owner, var/masquerady = TRUE)
-	owner.drop_all_held_items()
-	humanform = owner
-	lange = new ()
-	lange.owner = humanform
-	lange.copy_languages(humanform.mind?.language_holder)
-	Shapeshift = new (owner)
-	Shapeshift.invocation_type = "none"
-	Shapeshift.shapeshift_type = animal_atom
-	var/mob/living/simple_animal/hostile/H = Shapeshift.Shapeshift(humanform)
-	warform = H
-	warform.bloodpool = humanform.bloodpool
-	warform.maxbloodpool = humanform.maxbloodpool
+/datum/warform/proc/transform(var/animal_atom, var/mob/living/carbon/human/owner, var/masquerady = TRUE, var/time)
+//	var/matrix/ntransform = matrix()
+//	if(animal_atom.mob_size == )
+//		ntransform.Scale(1.25, 1.5)
+//	animate(owner, transform = ntransform, color = "#9d0e0eff", time = 10)
+	to_chat(owner, "Ты начинаешь превращаться...")
+	spawn(10)
+		owner.drop_all_held_items()
+		humanform = owner
+		lange = new ()
+		lange.owner = humanform
+		lange.copy_languages(humanform.mind?.language_holder)
+		Shapeshift = new (owner)
+		Shapeshift.invocation_type = "none"
+		Shapeshift.shapeshift_type = animal_atom
+		var/mob/living/simple_animal/H = Shapeshift.Shapeshift(humanform)
+		warform = H
+		warform.bloodpool = humanform.bloodpool
+		warform.maxbloodpool = humanform.maxbloodpool
+		warform.generation = humanform.generation
 
-	warform.attributes = humanform.attributes
-	if(animal_atom == /mob/living/simple_animal/hostile/tzimisce_beast)
-		warform.attributes.strength_bonus = 3
-		warform.attributes.dexterity_bonus = 3
-		warform.attributes.stamina_bonus = 3
-	warform.warform = src
+		var/datum/action/end_warform/R = new
+		R.Grant(H)
+		owner.warform = src
+		warform.warform = src
+
+//	warform.attributes = humanform.attributes
+		if(animal_atom == /mob/living/simple_animal/hostile/tzimisce_beast)
+			warform.attributes.strength_bonus = 3
+			warform.attributes.dexterity_bonus = 3
+			warform.attributes.stamina_bonus = 3
+
 //	warform.mind?.language_holder = new ()
 //	warform.mind?.language_holder.copy_languages(lange)
-	if(masquerady)
-		warform.my_creator = owner
-	owner.warform = src
-	var/datum/action/end_warform/R = new
-	R.Grant(H)
+		if(masquerady)
+			warform.my_creator = owner
 
 /datum/warform/proc/end()
+//	var/matrix/ntransform = matrix()
+//	ntransform.Scale(0.75, 0.5)
 	Shapeshift.Restore(Shapeshift.myshape)
 	for(var/datum/action/end_warform/W in humanform.actions)
 		if(W)
@@ -269,12 +281,12 @@
 	desc = "Exit your current warform."
 	button_icon_state = "bloodcrawler"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
-	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/BZ
+
 
 /datum/action/end_warform/Trigger()
 	. = ..()
-	if(ishostile(owner))
-		var/mob/living/simple_animal/hostile/Lviv = owner
+	if(isanimal(owner))
+		var/mob/living/simple_animal/Lviv = owner
 		Lviv.warform.warform.attributes.strength_bonus = 0
 		Lviv.warform.warform.attributes.dexterity_bonus = 0
 		Lviv.warform.warform.attributes.stamina_bonus = 0
