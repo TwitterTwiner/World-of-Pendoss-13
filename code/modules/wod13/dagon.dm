@@ -100,7 +100,7 @@
 	response_disarm_simple = "gently push"
 	response_harm_continuous = "punches"
 	response_harm_simple = "punch"
-	speed = -2.25
+	speed = -1.75
 	maxHealth = 250
 	health = 250
 	can_buckle = TRUE
