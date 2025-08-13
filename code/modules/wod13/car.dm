@@ -601,9 +601,12 @@ SUBSYSTEM_DEF(carpool)
 	if(!A)
 		return
 	var/prev_speed = round(abs(speed_in_pixels))
+	var/cat = FALSE
 	if(!prev_speed)
 		return
 	if(istype(A, /mob/living))
+		if(istype(A, /mob/living/simple_animal/pet/cat))
+			cat = TRUE
 		var/mob/living/hit_mob = A
 		var/impact_protection = hit_mob.run_armor_check(BODY_ZONE_CHEST, LETHAL)
 		hit_mob.adjustBruteLoss(round((prev_speed/100)*(100-impact_protection)), TRUE, TRUE)
@@ -645,9 +648,10 @@ SUBSYSTEM_DEF(carpool)
 				L.client.pixel_y = 0
 	if(istype(A, /mob/living))
 		var/dam = prev_speed
-		if(istype(A, /mob/living/simple_animal/pet/cat))
+		if(cat)
 			return
-		get_damage(dam, A, dam)
+		else
+			get_damage(dam, A, dam)
 		if(abs(prev_speed) >= 32)
 			var/mob/living/Livedyoung = A
 			var/atom/throw_target = get_edge_target_turf(src, dir)
