@@ -53,7 +53,7 @@
 		var/mob/living/carbon/human/player = user
 		if(!player.clane || !istype(player.clane, /datum/vampireclane/baali))
 			to_chat(user, "You have no clues about this rune!")
-			//return
+			return
 		ui = SStgui.try_update_ui(user, src, ui)
 		if(!ui)
 			ui = new(user, src, "BaaliRune", "Satanic Rune")
