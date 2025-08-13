@@ -607,12 +607,7 @@
 	if(world.time < client.crew_manifest_delay)
 		return
 	client.crew_manifest_delay = world.time + (1 SECONDS)
-
-	var/dat = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><body>"
-	dat += "<h4>City population</h4>"
-	dat += GLOB.data_core.get_manifest_html()
-
-	src << browse(dat, "window=manifest;size=387x420;can_close=1")
+	GLOB.manifest.ui_interact(src)
 
 /mob/dead/new_player/Move()
 	return 0
