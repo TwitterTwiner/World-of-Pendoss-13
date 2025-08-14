@@ -209,7 +209,7 @@
 	///If this Discipline is unique to a certain Clan.
 	var/clan_restricted = FALSE
 	///If this Discipline is restricted to certain Clans.
-	var/list/allowed_clans = list()
+	var/list/learnable_by_clans = list()
 	///The root type of the powers this Discipline uses.
 	var/power_type = /datum/discipline_power
 	///If this Discipline can be selected at all, or has special handling.

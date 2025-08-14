@@ -1239,55 +1239,37 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						eye_color = sanitize_hexcolor(new_eyes)
 
 				if("newdiscipline")
-					if((true_experience < 10) || !(pref_species.id == "kindred") || !(clane.name == "Caitiff"))
+					if((true_experience < 10) || !(pref_species.id == "kindred"))
 						return
 
 					var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types - /datum/discipline/bloodheal
+					var/list/discipline_names = list()
+
 					for (var/discipline_type in possible_new_disciplines)
 						var/datum/discipline/discipline = new discipline_type
-						if (discipline.clan_restricted)
-							possible_new_disciplines -= discipline_type
-						if (discipline.allowed_clans && discipline.allowed_clans.len)
-							if (!(clane.type in discipline.allowed_clans))
-								possible_new_disciplines -= discipline_type
+
+						if (discipline.clan_restricted && !(discipline.learnable_by_clans.len))
+							qdel(discipline)
+							continue
+
+						if (discipline.learnable_by_clans.len && !(clane.type in discipline.learnable_by_clans))
+							qdel(discipline)
+							continue
+
+						if (!discipline.clan_restricted && !discipline.learnable_by_clans.len && clane.name != "Caitiff")
+							qdel(discipline)
+							continue
+
+						discipline_names[discipline.name] = discipline_type
 						qdel(discipline)
-					var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
-					if(new_discipline)
-						discipline_types += new_discipline
-						discipline_levels += 1
-						true_experience -= 10
 
-				if("newvaleren")
-					if((true_experience < 10) || !(pref_species.id == "kindred") || !((clane.name == "Salubri") || (clane.name == "Salubri Warrior")))
+					if(!discipline_names.len)
 						return
 
-					var/list/possible_new_valerens = list(/datum/discipline/valeren, /datum/discipline/valeren_warrior)
-					possible_new_valerens -= discipline_types
-
-					var/new_discipline = tgui_input_list(user, "Select your new Valeren Path", "Discipline Selection", sort_list(possible_new_valerens))
+					var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in discipline_names
 					if(new_discipline)
-						discipline_types += new_discipline
-						discipline_levels += 1
-						true_experience -= 10
-
-				if("newdtpath")
-					if((true_experience < 10) || !(pref_species.id == "kindred") || !((clane.name == "Baali")))
-						return
-
-					var/list/possible_new_dt_paths = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno, /datum/discipline/dt_path_pain)
-					possible_new_dt_paths -= discipline_types
-
-					var/list/path_names = list()
-
-					for(var/path_type in possible_new_dt_paths)
-						var/datum/discipline/D = new path_type()
-						path_names[D.name] = path_type
-						qdel(D)
-
-					var/new_discipline = tgui_input_list(user, "Select your new Dark Thaumaturgy Path", "Discipline Selection", sort_list(path_names))
-					if(new_discipline)
-						new_discipline = path_names[new_discipline]
-						discipline_types += new_discipline
+						var/selected_discipline = discipline_names[new_discipline]
+						discipline_types += selected_discipline
 						discipline_levels += 1
 						true_experience -= 10
 
@@ -1448,13 +1430,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 									var/datum/discipline/discipline = new discipline_type
 									if (discipline.clan_restricted)
 										possible_new_disciplines -= discipline_type
-									if (discipline.allowed_clans && discipline.allowed_clans.len)
-										if(!(clane.type in discipline.allowed_clans))
-											possible_new_disciplines -= discipline_type
+									if (discipline.learnable_by_clans.len && !(clane.type in discipline.learnable_by_clans))
+										possible_new_disciplines -= discipline_type
 									qdel(discipline)
 								var/new_discipline = input(user, "Select a Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
 								if (new_discipline)
 									clane.clane_disciplines += new_discipline
+									discipline_types += new_discipline
+									discipline_levels += 1
+									true_experience -= 10
 						else //Separate this fucking shit, otherwise we can encounter with some trouble. This is a bug. [ChillRaccoon]
 							for (var/i in 1 to clane.clane_disciplines.len)
 								discipline_types += clane.clane_disciplines[i]
@@ -1639,15 +1623,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/i = text2num(href_list["upgradediscipline"])
 
 						var/discipline_level = discipline_levels[i]
+						var/datum/discipline/discipline = new discipline_types[i]
 						var/cost = discipline_level * 7
 						if (discipline_level <= 0)
 							cost = 10
 						else if (clane.name == "Caitiff")
 							cost = discipline_level * 6
-						else if (clane.common_disciplines.Find(discipline_types[i]))
+						else if (discipline.learnable_by_clans.Find(clane.type))
 							cost = discipline_level * 6
 						else if (clane.clane_disciplines.Find(discipline_types[i]))
 							cost = discipline_level * 5
+
+						qdel(discipline)
 
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return

@@ -3,6 +3,7 @@
 	desc = "Use your third eye in healing or protecting needs."
 	icon_state = "healer"
 	clan_restricted = TRUE
+	learnable_by_clans = list(/datum/vampireclane/salubri, /datum/vampireclane/salubri_warrior)
 	power_type = /datum/discipline_power/valeren
 
 /datum/discipline_power/valeren

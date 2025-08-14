@@ -2,8 +2,8 @@
 	name = "Dark Thaumaturgy: Path of Pain"
 	desc = "This Path feeds on physical discomfort - with experience in its use, the Path of Pain can tear flesh from bones, crush bones, and rip internal organs with a single glance or word."
 	icon_state = "thaumaturgy"
+	learnable_by_clans = list(/datum/vampireclane/baali)
 	power_type = /datum/discipline_power/dt_path_pain
-	allowed_clans = list(/datum/vampireclane/baali)
 
 /datum/discipline/dt_path_pain/post_gain()
 	. = ..()

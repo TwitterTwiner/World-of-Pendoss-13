@@ -7,7 +7,6 @@
 		/datum/discipline/fortitude,
 		/datum/discipline/valeren
 	)
-	common_disciplines = list(/datum/discipline/valeren_warrior)
 	male_clothes = /obj/item/clothing/under/vampire/salubri
 	female_clothes = /obj/item/clothing/under/vampire/salubri/female
 	enlightenment = FALSE

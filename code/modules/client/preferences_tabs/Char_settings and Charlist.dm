@@ -257,6 +257,8 @@
 				cost = 10
 			else if (clane.name == "Caitiff")
 				cost = discipline_level * 6
+			else if (discipline.learnable_by_clans.Find(clane.type))
+				cost = discipline_level * 6
 			else if (clane.clane_disciplines.Find(discipline_type))
 				cost = discipline_level * 5
 			else
@@ -270,44 +272,24 @@
 			dat += "-[discipline.desc]<BR>"
 			qdel(discipline)
 
-		if (clane.name == "Caitiff")
-			var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types
-			for (var/discipline_type in possible_new_disciplines)
-				var/datum/discipline/discipline = new discipline_type
-				if (discipline.clan_restricted)
-					possible_new_disciplines -= discipline_type
-					qdel(discipline)
-				if (discipline.allowed_clans && discipline.allowed_clans.len)
-					if (!(clane.type in discipline.allowed_clans))
-						possible_new_disciplines -= discipline_type
-			if (possible_new_disciplines.len && (true_experience >= 10))
-				dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline (10)</a><BR>"
+		var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types - /datum/discipline/bloodheal
 
-		switch(clane.name)
+		for (var/discipline_type in possible_new_disciplines)
+			var/datum/discipline/discipline = new discipline_type
 
-			if("Salubri")
+			if (discipline.clan_restricted && !(discipline.learnable_by_clans.len))
+				possible_new_disciplines -= discipline_type
 
-				var/list/possible_new_valerens = list(/datum/discipline/valeren, /datum/discipline/valeren_warrior)
-				possible_new_valerens -= discipline_types
+			if (discipline.learnable_by_clans.len && !(clane.type in discipline.learnable_by_clans))
+				possible_new_disciplines -= discipline_type
 
-				if (possible_new_valerens.len && (true_experience >= 10))
-					dat += "<a href='byond://?_src_=prefs;preference=newvaleren;task=input'>Learn a new Valeren Path (10)</a><BR>"
+			if (!discipline.clan_restricted && !discipline.learnable_by_clans.len && clane.name != "Caitiff")
+				possible_new_disciplines -= discipline_type
 
-			if("Salubri Warrior")
+			qdel(discipline)
 
-				var/list/possible_new_valerens = list(/datum/discipline/valeren, /datum/discipline/valeren_warrior)
-				possible_new_valerens -= discipline_types
-
-				if (possible_new_valerens.len && (true_experience >= 10))
-					dat += "<a href='byond://?_src_=prefs;preference=newvaleren;task=input'>Learn a new Valeren Path (10)</a><BR>"
-
-			if("Baali")
-
-				var/list/possible_new_dt_paths = list(/datum/discipline/dt_path_taking_spirit, /datum/discipline/dt_path_fires_of_inferno, /datum/discipline/dt_path_pain)
-				possible_new_dt_paths -= discipline_types
-
-				if (possible_new_dt_paths.len && (true_experience >= 10))
-					dat += "<a href='byond://?_src_=prefs;preference=newdtpath;task=input'>Learn a new Dark Thaumaturgy Path (10)</a><BR>"
+		if (possible_new_disciplines.len && (true_experience >= 10))
+			dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline (10)</a><BR>"
 
 	if(pref_species.name == "Ghoul")
 		for (var/i in 1 to discipline_types.len)
