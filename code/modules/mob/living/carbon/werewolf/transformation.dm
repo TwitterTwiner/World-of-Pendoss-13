@@ -233,8 +233,10 @@
 //	if(animal_atom.mob_size == )
 //		ntransform.Scale(1.25, 1.5)
 //	animate(owner, transform = ntransform, color = "#9d0e0eff", time = 10)
+	if(time == null)
+		time = 10 SECONDS
 	to_chat(owner, "Ты начинаешь превращаться...")
-	spawn(10)
+	spawn(time)
 		owner.drop_all_held_items()
 		humanform = owner
 		lange = new ()
