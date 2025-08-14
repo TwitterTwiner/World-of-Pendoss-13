@@ -168,3 +168,4 @@
 		REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ELEMENT_TRAIT)
 		C.movement_type = prejnii
 		C.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
+		owner.down()
