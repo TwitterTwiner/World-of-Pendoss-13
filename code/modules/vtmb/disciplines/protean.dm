@@ -177,6 +177,13 @@
 	alpha = 20
 	color = "#0920eeff"
 	damage_coeff = list(BRUTE = 0, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+	a_intent = INTENT_HELP
+//	density = FALSE
+	is_flying_animal = 1
+
+/mob/living/simple_animal/hostile/smokecrawler/mist/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_MOVE_FLYING, ELEMENT_TRAIT)
 
 /mob/living/simple_animal/hostile/smokecrawler/mist/Move(NewLoc, direct)
 	. = ..()
