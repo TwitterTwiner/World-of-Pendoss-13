@@ -16,7 +16,7 @@ export function LatejoinMenu(props) {
   const { round_duration } = data;
 
   return (
-    <Window width={1012} height={710}>
+    <Window width={1012} height={725}>
       <Window.Content>
         <Section
           fill
@@ -54,7 +54,7 @@ function DepartmentEntry(props) {
                 whiteSpace: 'nowrap',
                 position: 'absolute',
                 right: '1em',
-                color: Color.fromHex(department.color).darken(60).toString(),
+                color: Color.fromHex(department.color).toString(),
               }}
             >
               {department.open_slots +
@@ -64,17 +64,17 @@ function DepartmentEntry(props) {
           </>
         }
         style={{
-          backgroundColor: department.color,
+          border: `2px solid ${department.color}`,
+          borderRadius: '0.16em',
           marginBottom: '1em',
           breakInside: 'avoid-column',
         }}
         titleStyle={{
           'border-bottom-color': Color.fromHex(department.color)
-            .darken(50)
             .toString(),
         }}
         textStyle={{
-          color: Color.fromHex(department.color).darken(80).toString(),
+          color: Color.fromHex(department.color).toString(),
         }}
       >
         <Stack vertical>

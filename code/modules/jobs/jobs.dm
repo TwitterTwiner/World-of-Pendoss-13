@@ -106,12 +106,12 @@ GLOBAL_LIST_INIT(position_categories, list(
     EXP_TYPE_OTHER_CITIZEN = list("jobs" = citizen_positions, "color" = "#d9d9d9"),
     EXP_TYPE_ANARCH = list("jobs" = anarch_positions, "color" = "#c2c2c2"),
     EXP_TYPE_WAREHOUSE = list("jobs" = warehouse_positions, "color" = "#fff2b3"),
-    EXP_TYPE_SERVICES = list("jobs" = services_positions, "color" = "#f7f7f7"),
+    EXP_TYPE_SERVICES = list("jobs" = services_positions, "color" = "#c8f1b5"),
     EXP_TYPE_CHURCH = list("jobs" = church_positions, "color" = "#ffffb3"),
     EXP_TYPE_POLICE = list("jobs" = police_positions, "color" = "#b3c6ff"),
     EXP_TYPE_NATIONAL_SECURITY = list("jobs" = national_security_positions, "color" = "#b3b8ff"),
     EXP_TYPE_GANG = list("jobs" = gang_positions, "color" = "#e6d9b3"),
-    EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#ffb3b8")
+    EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#98493d")
 ))
 
 
