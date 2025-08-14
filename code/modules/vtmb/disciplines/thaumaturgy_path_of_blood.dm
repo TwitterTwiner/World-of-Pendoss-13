@@ -1,11 +1,11 @@
-/datum/discipline/thaumaturgy
-	name = "Thaumaturgy"
+/datum/discipline/thaumaturgy_path_of_blood
+	name = "Thaumaturgy: Path of Blood"
 	desc = "Opens the secrets of blood magic and how you use it, allows to steal other's blood. Violates Masquerade."
 	icon_state = "thaumaturgy"
 	clan_restricted = TRUE
-	power_type = /datum/discipline_power/thaumaturgy
+	power_type = /datum/discipline_power/thaumaturgy_path_of_blood
 
-/datum/discipline/thaumaturgy/post_gain()
+/datum/discipline/thaumaturgy_path_of_blood/post_gain()
 	. = ..()
 	owner.faction |= "Tremere"
 	var/datum/action/thaumaturgy/thaumaturgy = new()
@@ -14,9 +14,9 @@
 	ADD_TRAIT(owner, TRAIT_THAUMATURGY_KNOWLEDGE, DISCIPLINE_TRAIT)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/arctome)
 
-/datum/discipline_power/thaumaturgy
-	name = "Thaumaturgy power name"
-	desc = "Thaumaturgy power description"
+/datum/discipline_power/thaumaturgy_path_of_blood
+	name = "Thaumaturgy: Path of Blood power name"
+	desc = "Thaumaturgy: Path of Blood power description"
 
 	activate_sound = 'code/modules/wod13/sounds/thaum.ogg'
 
@@ -28,7 +28,7 @@
 	cooldown_length = 1 TURNS
 	var/success_count
 
-/datum/discipline_power/thaumaturgy/activate(atom/target)
+/datum/discipline_power/thaumaturgy_path_of_blood/activate(atom/target)
 	. = ..()
 	//Thaumaturgy powers have different effects based off the amount of successes. I dont want to copy paste the code, so this is being put here.
 	success_count = secret_vampireroll(get_a_willpower(owner)+get_a_occult(owner), level+3, owner)
@@ -40,7 +40,7 @@
 		return TRUE
 	return FALSE
 
-/datum/discipline_power/thaumaturgy/proc/thaumaturgy_botch_effect()
+/datum/discipline_power/thaumaturgy_path_of_blood/proc/thaumaturgy_botch_effect()
 	var/random_effect = rand(1, 3)
 	switch(random_effect)
 		if(1)
@@ -58,7 +58,7 @@
 
 //------------------------------------------------------------------------------------------------
 
-/datum/discipline_power/thaumaturgy/a_taste_for_blood
+/datum/discipline_power/thaumaturgy_path_of_blood/a_taste_for_blood
 	name = "A Taste for Blood"
 	desc = "Touch the blood of a subject and gain information about the subject."
 
@@ -71,13 +71,13 @@
 	violates_masquerade = FALSE
 
 	grouped_powers = list(
-		/datum/discipline_power/thaumaturgy/blood_rage,
-		/datum/discipline_power/thaumaturgy/theft_of_vitae,
-		/datum/discipline_power/thaumaturgy/cauldron_of_blood
+		/datum/discipline_power/thaumaturgy_path_of_blood/blood_rage,
+		/datum/discipline_power/thaumaturgy_path_of_blood/theft_of_vitae,
+		/datum/discipline_power/thaumaturgy_path_of_blood/cauldron_of_blood
 	)
 
 // This'd also should show the last time the blood owner's person last fed, but we dont track that and I frankly dont want to.
-/datum/discipline_power/thaumaturgy/a_taste_for_blood/activate(atom/target)
+/datum/discipline_power/thaumaturgy_path_of_blood/a_taste_for_blood/activate(atom/target)
 	if(..())
 		return
 	var/datum/reagent/blood/blood = target.reagents.has_reagent(/datum/reagent/blood)
@@ -127,7 +127,7 @@
 
 //------------------------------------------------------------------------------------------------
 
-/datum/discipline_power/thaumaturgy/blood_rage
+/datum/discipline_power/thaumaturgy_path_of_blood/blood_rage
 	name = "Blood Rage"
 	desc = "Impose your will on another Kindred's vitae and force them to spend it as you wish."
 
@@ -142,13 +142,13 @@
 	violates_masquerade = FALSE
 
 	grouped_powers = list(
-		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
-		/datum/discipline_power/thaumaturgy/theft_of_vitae,
-		/datum/discipline_power/thaumaturgy/cauldron_of_blood
+		/datum/discipline_power/thaumaturgy_path_of_blood/a_taste_for_blood,
+		/datum/discipline_power/thaumaturgy_path_of_blood/theft_of_vitae,
+		/datum/discipline_power/thaumaturgy_path_of_blood/cauldron_of_blood
 	)
 
 // "Each success forces the subject to spend one blood point immediately in the way the caster desires" -v20 Core Rulebook
-/datum/discipline_power/thaumaturgy/blood_rage/activate(mob/living/carbon/human/target)
+/datum/discipline_power/thaumaturgy_path_of_blood/blood_rage/activate(mob/living/carbon/human/target)
 	if(..())
 		return
 	var/datum/species/kindred/kindred_species = target.dna.species // Get the vampire's species
@@ -161,7 +161,7 @@
 
 //------------------------------------------------------------------------------------------------
 
-/datum/discipline_power/thaumaturgy/blood_of_potency
+/datum/discipline_power/thaumaturgy_path_of_blood/blood_of_potency
 	name = "Blood of Potency"
 	desc = "Supernaturally thicken your vitae as if you were of a lower Generation."
 
@@ -179,7 +179,7 @@
 	grouped_powers = list()
 	var/activated = FALSE
 
-/datum/discipline_power/thaumaturgy/blood_of_potency/can_activate(atom/target, alert = FALSE)
+/datum/discipline_power/thaumaturgy_path_of_blood/blood_of_potency/can_activate(atom/target, alert = FALSE)
 	. = ..()
 	if(activated)
 		if(alert)
@@ -187,7 +187,7 @@
 		return FALSE
 	return TRUE
 
-/datum/discipline_power/thaumaturgy/blood_of_potency/activate()
+/datum/discipline_power/thaumaturgy_path_of_blood/blood_of_potency/activate()
 	if(..())
 		return
 	if(owner.generation == 7)
@@ -218,13 +218,13 @@
 	owner.apply_status_effect(/datum/status_effect/blood_of_potency, chosen_generation, set_time)
 	activated = TRUE
 
-/datum/discipline_power/thaumaturgy/blood_of_potency/deactivate()
+/datum/discipline_power/thaumaturgy_path_of_blood/blood_of_potency/deactivate()
 	. = ..()
 	owner.remove_status_effect(/datum/status_effect/blood_of_potency)
 
 //------------------------------------------------------------------------------------------------
 
-/datum/discipline_power/thaumaturgy/theft_of_vitae
+/datum/discipline_power/thaumaturgy_path_of_blood/theft_of_vitae
 	name = "Theft of Vitae"
 	desc = "Draw your target's blood to you, supernaturally absorbing it as it flies."
 
@@ -240,12 +240,12 @@
 	violates_masquerade = TRUE
 
 	grouped_powers = list(
-		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
-		/datum/discipline_power/thaumaturgy/blood_rage,
-		/datum/discipline_power/thaumaturgy/cauldron_of_blood
+		/datum/discipline_power/thaumaturgy_path_of_blood/a_taste_for_blood,
+		/datum/discipline_power/thaumaturgy_path_of_blood/blood_rage,
+		/datum/discipline_power/thaumaturgy_path_of_blood/cauldron_of_blood
 	)
 
-/datum/discipline_power/thaumaturgy/theft_of_vitae/activate(mob/living/target)
+/datum/discipline_power/thaumaturgy_path_of_blood/theft_of_vitae/activate(mob/living/target)
 	if(..())
 		return
 
@@ -260,7 +260,7 @@
 //------------------------------------------------------------------------------------------------
 
 //CAULDRON OF BLOOD
-/datum/discipline_power/thaumaturgy/cauldron_of_blood
+/datum/discipline_power/thaumaturgy_path_of_blood/cauldron_of_blood
 	name = "Cauldron of Blood"
 	desc = "Boil your target's blood in their body, killing almost anyone."
 
@@ -273,12 +273,12 @@
 	violates_masquerade = TRUE
 
 	grouped_powers = list(
-		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
-		/datum/discipline_power/thaumaturgy/blood_rage,
-		/datum/discipline_power/thaumaturgy/theft_of_vitae
+		/datum/discipline_power/thaumaturgy_path_of_blood/a_taste_for_blood,
+		/datum/discipline_power/thaumaturgy_path_of_blood/blood_rage,
+		/datum/discipline_power/thaumaturgy_path_of_blood/theft_of_vitae
 	)
 
-/datum/discipline_power/thaumaturgy/cauldron_of_blood/activate(mob/living/target)
+/datum/discipline_power/thaumaturgy_path_of_blood/cauldron_of_blood/activate(mob/living/target)
 	if(..())
 		return
 	var/zashita = get_fortitude_dices(target)

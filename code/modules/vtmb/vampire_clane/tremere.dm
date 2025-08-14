@@ -5,7 +5,7 @@
 	clane_disciplines = list(
 		/datum/discipline/auspex,
 		/datum/discipline/dominate,
-		/datum/discipline/thaumaturgy
+		/datum/discipline/thaumaturgy_path_of_blood
 	)
 	male_clothes = /obj/item/clothing/under/vampire/tremere
 	female_clothes = /obj/item/clothing/under/vampire/tremere/female
