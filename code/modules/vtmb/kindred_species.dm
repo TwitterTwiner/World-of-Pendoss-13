@@ -434,7 +434,7 @@
 						qdel(discipline)
 						continue
 
-				if (discipline.allowed_clans && discipline.allowed_clans.len)
+				if (discipline.learnable_by_clans && discipline.learnable_by_clans.len)
 					if (!can_access_discipline(src, type_to_create))
 						qdel(discipline)
 						continue
@@ -603,7 +603,7 @@
 				qdel(giving_discipline)
 				return
 
-		if (giving_discipline.allowed_clans && giving_discipline.allowed_clans.len)
+		if (giving_discipline.learnable_by_clans && giving_discipline.learnable_by_clans.len)
 			if(!can_access_discipline(student, teaching_discipline))
 				to_chat(teacher, span_warning("Your student is not whitelisted for any Clans which allows this Discipline, so they cannot learn it."))
 				qdel(giving_discipline)
@@ -692,12 +692,12 @@
 	//make sure it's actually restricted and this check is necessary
 	var/datum/discipline/discipline_object_checking = new discipline_checking
 
-	if (!discipline_object_checking.clan_restricted && (!discipline_object_checking.allowed_clans || !discipline_object_checking.allowed_clans.len))
+	if (!discipline_object_checking.clan_restricted && (!discipline_object_checking.learnable_by_clans || !discipline_object_checking.learnable_by_clans.len))
 		qdel(discipline_object_checking)
 		return TRUE
 
-	if (discipline_object_checking.allowed_clans && discipline_object_checking.allowed_clans.len)
-		for (var/allowed_clan in discipline_object_checking.allowed_clans)
+	if (discipline_object_checking.learnable_by_clans && discipline_object_checking.learnable_by_clans.len)
+		for (var/allowed_clan in discipline_object_checking.learnable_by_clans)
 			if (vampire_checking.clane.type == allowed_clan)
 				qdel(discipline_object_checking)
 				return TRUE

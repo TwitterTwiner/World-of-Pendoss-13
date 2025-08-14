@@ -2,8 +2,8 @@
 	name = "Dark Thaumaturgy: The Fires of the Inferno"
 	desc = "This path of Dark Thaumaturgy allows the thaumaturge to control supernatural flames summoned from the depths of Hades."
 	icon_state = "thaumaturgy"
+	learnable_by_clans = list(/datum/vampireclane/baali)
 	power_type = /datum/discipline_power/dt_path_fires_of_inferno
-	allowed_clans = list(/datum/vampireclane/baali)
 
 /datum/discipline/dt_path_fires_of_inferno/post_gain()
 	. = ..()

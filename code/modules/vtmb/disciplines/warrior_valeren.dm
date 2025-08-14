@@ -3,6 +3,7 @@
 	desc = "Use your third eye in warding and delivering retribution."
 	icon_state = "valeren"
 	clan_restricted = TRUE
+	learnable_by_clans = list(/datum/vampireclane/salubri_warrior, /datum/vampireclane/salubri)
 	power_type = /datum/discipline_power/valeren_warrior
 
 

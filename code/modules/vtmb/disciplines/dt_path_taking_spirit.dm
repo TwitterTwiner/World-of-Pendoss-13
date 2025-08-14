@@ -2,8 +2,8 @@
 	name = "Dark Thaumaturgy: The Taking of the Spirit"
 	desc = "This path allows a vampire to drain his victims of Willpower, leaving them with a nearly soulless automaton willing to serve the Cainite without question."
 	icon_state = "thaumaturgy"
+	learnable_by_clans = list(/datum/vampireclane/baali)
 	power_type = /datum/discipline_power/dt_path_taking_spirit
-	allowed_clans = list(/datum/vampireclane/baali)
 
 /datum/discipline/dt_path_taking_spirit/post_gain()
 	. = ..()
