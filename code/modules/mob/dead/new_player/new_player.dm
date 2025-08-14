@@ -202,31 +202,6 @@
 	if(href_list["manifest"])
 		ViewManifest()
 
-	if(href_list["SelectedJob"])
-		if(!SSticker?.IsRoundInProgress())
-			to_chat(usr, "<span class='danger'>The round is either not ready, or has already finished...</span>")
-			return
-
-		var/name_wrong = FALSE
-		for(var/i in GLOB.fucking_joined)
-			if(i == client.prefs.real_name)
-				name_wrong = TRUE
-		if(name_wrong)
-			to_chat(usr, "<span class='danger'>You already used this character in round!</span>")
-			return
-
-		if(!GLOB.enter_allowed)
-			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
-			return
-
-		if(SSticker.queued_players.len && !(ckey(key) in GLOB.admin_datums))
-			if((living_player_count() >= relevant_cap) || (src != SSticker.queued_players[1]))
-				to_chat(usr, "<span class='warning'>Server is full.</span>")
-				return
-
-		AttemptLateSpawn(href_list["SelectedJob"])
-		return
-
 	else if(!href_list["late_join"])
 		new_player_panel()
 
@@ -282,28 +257,6 @@
 	qdel(src)
 	return TRUE
 
-/proc/get_job_unavailable_error_message(retval, jobtitle)
-	switch(retval)
-		if(JOB_AVAILABLE)
-			return "[jobtitle] is available."
-		if(JOB_UNAVAILABLE_GENERIC)
-			return "[jobtitle] is unavailable."
-		if(JOB_UNAVAILABLE_BANNED)
-			return "You are currently banned from [jobtitle]."
-		if(JOB_UNAVAILABLE_PLAYTIME)
-			return "You do not have enough relevant playtime for [jobtitle]."
-		if(JOB_UNAVAILABLE_ACCOUNTAGE)
-			return "Your account is not old enough for [jobtitle]."
-		if(JOB_UNAVAILABLE_SLOTFULL)
-			return "[jobtitle] is already filled to capacity."
-		if(JOB_UNAVAILABLE_GENERATION)
-			return "Your generation is too young for [jobtitle]."
-		if(JOB_UNAVAILABLE_SPECIES)
-			return "Your species cannot be [jobtitle]."
-		if(JOB_UNAVAILABLE_SPECIES_LIMITED)
-			return "Your species has a limit on how many can be [jobtitle]."
-	return "Error: Unknown job availability."
-
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/bypass = FALSE
 	if (check_rights_for(client, R_ADMIN))
@@ -348,7 +301,6 @@
 /mob/dead/new_player/proc/AttemptLateSpawn(rank)
 	var/error = IsJobUnavailable(rank)
 	if(error != JOB_AVAILABLE)
-		alert(src, get_job_unavailable_error_message(error, rank))
 		return FALSE
 
 	if(SSticker.late_join_disabled)
@@ -446,49 +398,7 @@
 
 
 /mob/dead/new_player/proc/LateChoices()
-	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
-	if(SSshuttle.emergency)
-		switch(SSshuttle.emergency.mode)
-			if(SHUTTLE_ESCAPE)
-				dat += "<div class='notice red'>The station has been evacuated.</div><br>"
-			if(SHUTTLE_CALL)
-				if(!SSshuttle.canRecall())
-					dat += "<div class='notice red'>The station is currently undergoing evacuation procedures.</div><br>"
-	for(var/datum/job/prioritized_job in SSjob.prioritized_jobs)
-		if(prioritized_job.current_positions >= prioritized_job.total_positions)
-			SSjob.prioritized_jobs -= prioritized_job
-	dat += "<table><tr><td valign='top'>"
-	var/column_counter = 0
-	// render each category's available jobs
-	for(var/category in GLOB.position_categories)
-		// position_categories contains category names mapped to available jobs and an appropriate color
-		var/cat_color = GLOB.position_categories[category]["color"]
-		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[category]</legend>"
-		var/list/dept_dat = list()
-		for(var/job in GLOB.position_categories[category]["jobs"])
-			var/datum/job/job_datum = SSjob.name_occupations[job]
-			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
-				var/command_bold = ""
-				if(job in GLOB.leader_positions)
-					command_bold = " command"
-				if(job_datum in SSjob.prioritized_jobs)
-					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><span class='priority'>[job_datum.title] ([job_datum.current_positions])</span></a>"
-				else
-					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
-		if(!dept_dat.len)
-			dept_dat += "<span class='nopositions'>No positions open.</span>"
-		dat += jointext(dept_dat, "")
-		dat += "</fieldset><br>"
-		column_counter++
-		if(column_counter > 0 && (column_counter % 4 == 0))
-			dat += "</td><td valign='top'>"
-	dat += "</td></tr></table></center>"
-	dat += "</div></div>"
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 650)
-	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
-	popup.set_content(jointext(dat, ""))
-	popup.open(FALSE) // 0 is passed to open so that it doesn't use the onclose() proc
+	GLOB.latejoin_menu.ui_interact(src)
 
 /mob/dead/new_player/proc/create_character(transfer_after)
 	spawning = 1

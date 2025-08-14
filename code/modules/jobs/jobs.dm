@@ -99,19 +99,19 @@ GLOBAL_LIST_INIT(nonhuman_positions, list())
 
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
-	EXP_TYPE_CAMARILLIA = list("jobs" = command_positions, "color" = "#9f1111"),
-    EXP_TYPE_COUNCIL = list("jobs" = camarilla_council_positions, "color" = "#4f0404"),
-    EXP_TYPE_TREMERE = list("jobs" = tremere_positions, "color" = "#b2442c"),
-    EXP_TYPE_GIOVANNI = list("jobs" = giovanni_positions, "color" = "#3e0c70"),
-    EXP_TYPE_OTHER_CITIZEN = list("jobs" = citizen_positions, "color" = "#7e7e7e"),
-    EXP_TYPE_ANARCH = list("jobs" = anarch_positions, "color" = "#313131"),
-    EXP_TYPE_WAREHOUSE = list("jobs" = warehouse_positions, "color" = "#edc009"),
-    EXP_TYPE_SERVICES = list("jobs" = services_positions, "color" = "#e8e6e6"),
-    EXP_TYPE_CHURCH = list("jobs" = church_positions, "color" = " #fff700"),
-    EXP_TYPE_POLICE = list("jobs" = police_positions, "color" = "#1d22cc"),
-    EXP_TYPE_NATIONAL_SECURITY = list("jobs" = national_security_positions, "color" = " #000491"),
-    EXP_TYPE_GANG = list("jobs" = gang_positions, "color" = "#837524"),
-    EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#fa0207")
+	EXP_TYPE_CAMARILLIA = list("jobs" = command_positions, "color" = "#ffb3b3"),
+    EXP_TYPE_COUNCIL = list("jobs" = camarilla_council_positions, "color" = "#e6b3b3"),
+    EXP_TYPE_TREMERE = list("jobs" = tremere_positions, "color" = "#f2c2a7"),
+    EXP_TYPE_GIOVANNI = list("jobs" = giovanni_positions, "color" = "#d4b3e6"),
+    EXP_TYPE_OTHER_CITIZEN = list("jobs" = citizen_positions, "color" = "#d9d9d9"),
+    EXP_TYPE_ANARCH = list("jobs" = anarch_positions, "color" = "#c2c2c2"),
+    EXP_TYPE_WAREHOUSE = list("jobs" = warehouse_positions, "color" = "#fff2b3"),
+    EXP_TYPE_SERVICES = list("jobs" = services_positions, "color" = "#f7f7f7"),
+    EXP_TYPE_CHURCH = list("jobs" = church_positions, "color" = "#ffffb3"),
+    EXP_TYPE_POLICE = list("jobs" = police_positions, "color" = "#b3c6ff"),
+    EXP_TYPE_NATIONAL_SECURITY = list("jobs" = national_security_positions, "color" = "#b3b8ff"),
+    EXP_TYPE_GANG = list("jobs" = gang_positions, "color" = "#e6d9b3"),
+    EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#ffb3b8")
 ))
 
 
