@@ -178,6 +178,16 @@
 	color = "#0920eeff"
 	damage_coeff = list(BRUTE = 0, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
+/mob/living/simple_animal/hostile/smokecrawler/mist/Move(NewLoc, direct)
+	. = ..()
+	var/obj/structure/vampdoor/V = locate() in NewLoc
+	var/obj/machinery/door/poddoor/shutters/S = locate() in NewLoc
+	if(V)
+		if(!V.magic_lock)
+			forceMove(get_turf(V))
+	if(S)
+		forceMove(get_turf(S))
+
 //MIST FORM
 /datum/discipline_power/protean/mist_form
 	name = "Mist Form"
