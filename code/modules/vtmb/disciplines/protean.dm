@@ -117,7 +117,7 @@
 		/mob/living/simple_animal/hostile/bear/wod13/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift, \
-		/mob/living/simple_animal/hostile/beastmaster/cat/vampire, \
+		/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire, \
 		/mob/living/simple_animal/pet/horse/vampire, \
 		/mob/living/simple_animal/pet/crow/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
@@ -233,19 +233,21 @@
 /mob/living/simple_animal/pet/cat/floppa/vampire
 	bloodquality = BLOOD_QUALITY_HIGH
 	melee_damage_type = CLONE
+	AIStatus = AI_OFF
 	maxHealth = 300
 	health = 300
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
-/mob/living/simple_animal/hostile/beastmaster/cat/vampire
+/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire
 	name = "Big cat"
 	bloodquality = BLOOD_QUALITY_HIGH
 	melee_damage_type = CLONE
+	AIStatus = AI_OFF
 	maxHealth = 300
 	health = 300
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
-/mob/living/simple_animal/hostile/beastmaster/cat/vampire/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire/Initialize()
 	. = ..()
 	var/matrix/ntransform = matrix()
 	ntransform.Scale(1.25, 1.5)
@@ -254,6 +256,7 @@
 /mob/living/simple_animal/hostile/beastmaster/rat/vampire
 	bloodquality = BLOOD_QUALITY_HIGH
 	melee_damage_type = CLONE
+	AIStatus = AI_OFF
 	maxHealth = 300
 	health = 300
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
@@ -267,6 +270,7 @@
 /mob/living/simple_animal/pet/horse/vampire
 	bloodquality = BLOOD_QUALITY_HIGH
 	vampiric = 1
+	AIStatus = AI_OFF
 	melee_damage_type = CLONE
 	maxHealth = 300
 	health = 300
@@ -276,6 +280,7 @@
 	bloodquality = BLOOD_QUALITY_HIGH
 	is_flying_animal = FALSE
 	melee_damage_type = CLONE
+	AIStatus = AI_OFF
 	maxHealth = 300
 	health = 300
 	icon_state = "crow"
