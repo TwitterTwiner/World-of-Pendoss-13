@@ -162,8 +162,10 @@
 	..()
 
 /datum/asset/simple/lobby
+	keep_local_name = TRUE
 	assets = list(
-		"playeroptions.css" = 'html/browser/playeroptions.css'
+		"playeroptions.css" = 'html/browser/playeroptions.css',
+		"nosferatu.png" = 'html/lobby/assets/nosferatu.png'
 	)
 
 /datum/asset/simple/namespaced/common

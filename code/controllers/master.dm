@@ -300,6 +300,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	current_runlevel = log(2, new_runlevel) + 1
 	if(current_runlevel < 1)
 		CRASH("Attempted to set invalid runlevel: [new_runlevel]")
+	GLOB.lobby_screen.update_to_all()
 
 // Starts the mc, and sticks around to restart it if the loop ever ends.
 /datum/controller/master/proc/StartProcessing(delay)
