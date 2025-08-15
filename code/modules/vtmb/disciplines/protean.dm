@@ -95,7 +95,7 @@
 
 /datum/discipline_power/protean/earth_meld/activate()
 	. = ..()
-	to_chat(owmer, "<span class='warning'>Земля, родная земля... Здесь прохладно и безопасно... Чтобы из неё выйти тебе придеться хорошенечко начать сопротивляться!</span>")
+	to_chat(owner, "<span class='warning'>Земля, родная земля... Здесь прохладно и безопасно... Чтобы из неё выйти тебе придеться хорошенечко начать сопротивляться!</span>")
 	var/obj/structure/bury_pit/burial_pit = new (get_turf(owner))
 	burial_pit.icon_state = "pit1"
 	burial_pit.alpha = 50
