@@ -1623,18 +1623,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/i = text2num(href_list["upgradediscipline"])
 
 						var/discipline_level = discipline_levels[i]
-						var/datum/discipline/discipline = new discipline_types[i]
 						var/cost = discipline_level * 7
+
 						if (discipline_level <= 0)
 							cost = 10
 						else if (clane.name == "Caitiff")
 							cost = discipline_level * 6
-						else if (discipline.learnable_by_clans.Find(clane.type))
-							cost = discipline_level * 6
 						else if (clane.clane_disciplines.Find(discipline_types[i]))
 							cost = discipline_level * 5
-
-						qdel(discipline)
 
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return

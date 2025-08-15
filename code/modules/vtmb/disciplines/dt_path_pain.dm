@@ -41,6 +41,7 @@
 		return
 	if(!owner.has_status_effect(/datum/status_effect/pain_botch) && owner.willpower_auto != TRUE)
 		owner.apply_status_effect(/datum/status_effect/pain_botch)
+		use_counter = 0
 	to_chat(owner, span_warning("You scratch your own skin, thirsting for pain."))
 	owner.Stun(1 SECONDS)
 	owner.do_jitter_animation(3 SECONDS)
@@ -60,6 +61,12 @@
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
 	toggled = TRUE
 	duration_length = 45 SECONDS
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_pain/anguish,
+		/datum/discipline_power/dt_path_pain/shattering,
+		/datum/discipline_power/dt_path_pain/agony_within,
+		/datum/discipline_power/dt_path_pain/hundred_deaths
+	)
 
 /datum/discipline_power/dt_path_pain/numbing/activate(atom/target)
 	. = ..()
@@ -79,6 +86,13 @@
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
 	range = 1
 	target_type = TARGET_MOB
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_pain/numbing,
+		/datum/discipline_power/dt_path_pain/shattering,
+		/datum/discipline_power/dt_path_pain/agony_within,
+		/datum/discipline_power/dt_path_pain/hundred_deaths
+	)
+
 
 /datum/discipline_power/dt_path_pain/anguish/activate(atom/target)
 	. = ..()
@@ -95,8 +109,16 @@
 	name = "Shattering"
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
 	target_type = TARGET_MOB
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_pain/anguish,
+		/datum/discipline_power/dt_path_pain/numbing,
+		/datum/discipline_power/dt_path_pain/agony_within,
+		/datum/discipline_power/dt_path_pain/hundred_deaths
+	)
+
 	var/brute_loss = 25
 	var/willpower_resist
+
 
 /datum/discipline_power/dt_path_pain/shattering/activate(atom/target)
 	. = ..()
@@ -117,6 +139,13 @@
 	name = "Agony Within"
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
 	target_type = TARGET_MOB
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_pain/anguish,
+		/datum/discipline_power/dt_path_pain/shattering,
+		/datum/discipline_power/dt_path_pain/numbing,
+		/datum/discipline_power/dt_path_pain/hundred_deaths
+	)
+
 	var/success_roll_buff = 0
 	var/success_roll_defender = 0
 	var/success_roll_total = 0
@@ -164,6 +193,13 @@
 	name = "Hundred Deaths"
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
 	target_type = TARGET_MOB
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_pain/anguish,
+		/datum/discipline_power/dt_path_pain/shattering,
+		/datum/discipline_power/dt_path_pain/agony_within,
+		/datum/discipline_power/dt_path_pain/numbing
+	)
+
 	var/success_needed = 0
 	var/total_brute = 0
 

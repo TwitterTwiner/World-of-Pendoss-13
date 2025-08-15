@@ -59,36 +59,67 @@
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 25
 	fortitude_hardness = 3
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_fires_of_inferno/stovetop,
+		/datum/discipline_power/dt_path_fires_of_inferno/blowtorch,
+		/datum/discipline_power/dt_path_fires_of_inferno/flamethrower,
+		/datum/discipline_power/dt_path_fires_of_inferno/conflagration
+	)
 
 /datum/discipline_power/dt_path_fires_of_inferno/stovetop
 	name = "Stovetop"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 50
 	fortitude_hardness = 4
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_fires_of_inferno/lighter,
+		/datum/discipline_power/dt_path_fires_of_inferno/blowtorch,
+		/datum/discipline_power/dt_path_fires_of_inferno/flamethrower,
+		/datum/discipline_power/dt_path_fires_of_inferno/conflagration
+	)
 
 /datum/discipline_power/dt_path_fires_of_inferno/blowtorch
 	name = "Blowtorch"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 75
 	fortitude_hardness = 5
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_fires_of_inferno/stovetop,
+		/datum/discipline_power/dt_path_fires_of_inferno/lighter,
+		/datum/discipline_power/dt_path_fires_of_inferno/flamethrower,
+		/datum/discipline_power/dt_path_fires_of_inferno/conflagration
+	)
 
 /datum/discipline_power/dt_path_fires_of_inferno/flamethrower
 	name = "Flame-thrower"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 100
 	fortitude_hardness = 7
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_fires_of_inferno/stovetop,
+		/datum/discipline_power/dt_path_fires_of_inferno/blowtorch,
+		/datum/discipline_power/dt_path_fires_of_inferno/lighter,
+		/datum/discipline_power/dt_path_fires_of_inferno/conflagration
+	)
 
 /datum/discipline_power/dt_path_fires_of_inferno/conflagration
 	name = "Conflagration"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	fire_damage = 125
 	fortitude_hardness = 9
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_fires_of_inferno/stovetop,
+		/datum/discipline_power/dt_path_fires_of_inferno/blowtorch,
+		/datum/discipline_power/dt_path_fires_of_inferno/flamethrower,
+		/datum/discipline_power/dt_path_fires_of_inferno/lighter
+	)
 
 
 /datum/discipline_power/dt_path_fires_of_inferno/activate(atom/target)
 	. = ..()
-	if(get_fortitude_dices(target))
-		fortitude_absorb = max(1, secret_vampireroll(get_fortitude_dices(target), fortitude_hardness, target))
+	if(istype(target, /mob/living))
+		if(get_fortitude_dices(target))
+			fortitude_absorb = max(1, secret_vampireroll(get_fortitude_dices(target), fortitude_hardness, target))
 	var/turf/start = get_turf(owner)
 	var/obj/projectile/magic/aoe/fireball/baali/created_fireball = new(start)
 	created_fireball.damage_type = CLONE
