@@ -1622,6 +1622,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(pref_species.id == "kindred")
 						var/i = text2num(href_list["upgradediscipline"])
 
+						var/discipline_type = discipline_types[i]
+						var/datum/discipline/discipline = new discipline_type
 						var/discipline_level = discipline_levels[i]
 						var/cost = discipline_level * 7
 
@@ -1631,6 +1633,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							cost = discipline_level * 6
 						else if (clane.clane_disciplines.Find(discipline_types[i]))
 							cost = discipline_level * 5
+						else if (discipline.learnable_by_clans.Find(clane.type))
+							cost = discipline_level * 6
 
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
