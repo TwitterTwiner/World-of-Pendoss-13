@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>World of Darkness</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Crimson Text', serif;
+			background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0f0610 100%);
+			color: #d4af37;
+			min-height: 100vh;
+			position: relative;
+			overflow-x: hidden;
+		}
+
+		body::before {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background:
+				radial-gradient(circle at 20% 80%, rgba(120, 20, 20, 0.1) 0%, transparent 50%),
+				radial-gradient(circle at 80% 20%, rgba(40, 20, 80, 0.1) 0%, transparent 50%);
+			pointer-events: none;
+			z-index: -1;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			padding: 20px;
+			position: relative;
+		}
+
+		.title {
+			font-family: 'Cinzel', serif;
+			font-size: 3.5rem;
+			font-weight: 600;
+			color: #d4af37;
+			text-shadow:
+				0 0 10px rgba(212, 175, 55, 0.5),
+				0 0 20px rgba(212, 175, 55, 0.3),
+				2px 2px 4px rgba(0, 0, 0, 0.8);
+			margin-bottom: 1rem;
+			text-align: center;
+			letter-spacing: 3px;
+		}
+
+		.subtitle {
+			font-style: italic;
+			font-size: 1.2rem;
+			color: #8B7355;
+			margin-bottom: 3rem;
+			text-align: center;
+			opacity: 0.9;
+		}
+
+		.menu-container {
+			background: linear-gradient(145deg, rgba(20, 10, 10, 0.9), rgba(40, 20, 20, 0.9));
+			border: 2px solid #d4af37;
+			border-radius: 15px;
+			padding: 2.5rem;
+			backdrop-filter: blur(10px);
+			box-shadow:
+				0 10px 30px rgba(0, 0, 0, 0.8),
+				inset 0 1px 0 rgba(212, 175, 55, 0.2);
+			min-width: 350px;
+			position: relative;
+		}
+
+		.menu-container::before {
+			content: '';
+			position: absolute;
+			top: -2px;
+			left: -2px;
+			right: -2px;
+			bottom: -2px;
+			background: linear-gradient(45deg, #d4af37, #8B7355, #d4af37);
+			border-radius: 15px;
+			z-index: -1;
+			opacity: 0.7;
+		}
+
+		.menu-item {
+			margin-bottom: 1.5rem;
+			position: relative;
+		}
+
+		.menu-button {
+			display: block;
+			width: 100%;
+			padding: 15px 25px;
+			background: linear-gradient(145deg, rgba(40, 20, 20, 0.8), rgba(20, 10, 10, 0.8));
+			border: 1px solid rgba(212, 175, 55, 0.5);
+			border-radius: 8px;
+			color: #d4af37;
+			text-decoration: none;
+			font-size: 1.1rem;
+			font-weight: 600;
+			text-align: center;
+			transition: all 0.3s ease;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.menu-button::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+			transition: left 0.5s ease;
+		}
+
+		.menu-button:hover {
+			background: linear-gradient(145deg, rgba(60, 30, 30, 0.9), rgba(40, 20, 20, 0.9));
+			border-color: #d4af37;
+			color: #fff;
+			box-shadow:
+				0 5px 15px rgba(212, 175, 55, 0.3),
+				inset 0 1px 0 rgba(212, 175, 55, 0.2);
+			transform: translateY(-2px);
+		}
+
+		.menu-button:hover::before {
+			left: 100%;
+		}
+
+		.toggle-button {
+			background: linear-gradient(145deg, rgba(60, 30, 60, 0.8), rgba(30, 15, 30, 0.8));
+			border-color: rgba(139, 115, 85, 0.5);
+		}
+
+		.toggle-button:hover {
+			background: linear-gradient(145deg, rgba(80, 40, 80, 0.9), rgba(50, 25, 50, 0.9));
+			border-color: #8B7355;
+		}
+
+		.status-display {
+			font-style: italic;
+			opacity: 0.8;
+		}
+
+		.hidden {
+			display: none !important;
+		}
+
+		.gothic-ornament {
+			position: absolute;
+			font-size: 1.5rem;
+			color: rgba(212, 175, 55, 0.3);
+		}
+
+		.ornament-top-left {
+			top: 10px;
+			left: 15px;
+		}
+
+		.ornament-top-right {
+			top: 10px;
+			right: 15px;
+		}
+
+		.ornament-bottom-left {
+			bottom: 10px;
+			left: 15px;
+		}
+
+		.ornament-bottom-right {
+			bottom: 10px;
+			right: 15px;
+		}
+
+		@media (max-width: 768px) {
+			.title {
+				font-size: 2.5rem;
+			}
+
+			.menu-container {
+				padding: 1.5rem;
+				min-width: 280px;
+			}
+
+			.menu-button {
+				padding: 12px 20px;
+				font-size: 1rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="gothic-ornament ornament-top-left">❦</div>
+		<div class="gothic-ornament ornament-top-right">❦</div>
+
+		<h1 class="title">WORLD OF DARKNESS</h1>
+
+		<div class="menu-container">
+			<div class="gothic-ornament ornament-top-left">⚜</div>
+			<div class="gothic-ornament ornament-top-right">⚜</div>
+			<div class="gothic-ornament ornament-bottom-left">⚜</div>
+			<div class="gothic-ornament ornament-bottom-right">⚜</div>
+
+			<div class="menu-item">
+				<a href='byond://?src=[player-ref];show_preferences=1' id="setup" class="menu-button">
+					Setup Character
+				</a>
+			</div>
+
+			<div class="menu-item">
+				<a href='byond://?src=[player-ref];late_party=1' id="late-party" class="menu-button toggle-button">
+					Late Party: <span id="late-party-text" class="status-display">Yes</span>
+				</a>
+			</div>
+
+			<div class="menu-item">
+				<a href='byond://?src=[player-ref];manifest=1' id="manifest" class="menu-button">
+					View Population
+				</a>
+			</div>
+
+			<div class="menu-item">
+				<a href='byond://?src=[player-ref];ready=1' id="ready" class="menu-button toggle-button">
+					<span id="ready-text" class="status-display">Ready</span>
+				</a>
+			</div>
+
+			<div class="menu-item">
+				<a href='byond://?src=[player-ref];late_join=1' id="join" class="menu-button">
+					Join!
+				</a>
+			</div>
+
+			<div class="menu-item">
+				<a href='byond://?src=[player-ref];observe=1' id="observe" class="menu-button">
+					Observe
+				</a>
+			</div>
+		</div>
+
+		<div class="gothic-ornament ornament-bottom-left">❦</div>
+		<div class="gothic-ornament ornament-bottom-right">❦</div>
+	</div>
+
+	<script type="text/javascript">
+		var latePartyBtn = document.getElementById("late-party");
+		var latePartyText = document.getElementById("late-party-text");
+
+		var readyBtn = document.getElementById("ready");
+		var readyText = document.getElementById("ready-text");
+
+		var joinBtn = document.getElementById("join");
+		var manifestBtn = document.getElementById("manifest");
+		var observeBtn = document.getElementById("observe");
+
+		var currentRunlevel = null;
+
+		var GAME_STATE_STARTUP = 0;
+		var GAME_STATE_PREGAME = 1;
+		var GAME_STATE_SETTING_UP = 2;
+		var GAME_STATE_PLAYING = 3;
+
+		function clamp(v, min, max) {
+			return Math.max(Math.min(v, max), min);
+		}
+
+		function hide(el) {
+			if (el) {
+				el.classList.add("hidden");
+			}
+		}
+
+		function show(el) {
+			if (el) {
+				el.classList.remove("hidden");
+			}
+		}
+
+		function setReadyStatus(ready) {
+			if (ready == "1") {
+				readyText.innerText = "Ready";
+				readyBtn.style.background = "linear-gradient(145deg, rgba(20, 80, 20, 0.8), rgba(10, 40, 10, 0.8))";
+			} else {
+				readyText.innerText = "Not Ready";
+				readyBtn.style.background = "linear-gradient(145deg, rgba(60, 30, 60, 0.8), rgba(30, 15, 30, 0.8))";
+			}
+		}
+
+		function setLatePartyStatus(lateParty) {
+			if (lateParty == "1") {
+				latePartyText.innerText = "Yes";
+				latePartyBtn.style.background = "linear-gradient(145deg, rgba(80, 60, 20, 0.8), rgba(40, 30, 10, 0.8))";
+			} else {
+				latePartyText.innerText = "No";
+				latePartyBtn.style.background = "linear-gradient(145deg, rgba(60, 30, 60, 0.8), rgba(30, 15, 30, 0.8))";
+			}
+		}
+
+		function setStatus(message) {
+			var contents = message.split("-");
+			var state = clamp(Number(contents[0]), GAME_STATE_STARTUP, GAME_STATE_PLAYING);
+			var ready = contents[1];
+			var lateParty = contents[2];
+
+			setReadyStatus(ready);
+			setLatePartyStatus(lateParty);
+			currentRunlevel = state;
+
+			document.querySelectorAll('.menu-item').forEach(item => {
+				item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+			});
+
+			switch (state) {
+				case GAME_STATE_STARTUP:
+				case GAME_STATE_PREGAME:
+					hide(joinBtn.parentElement);
+					show(readyBtn.parentElement);
+					hide(observeBtn.parentElement);
+					break;
+
+				case GAME_STATE_SETTING_UP:
+					hide(joinBtn.parentElement);
+					show(readyBtn.parentElement);
+					show(observeBtn.parentElement);
+					break;
+
+				case GAME_STATE_PLAYING:
+					show(joinBtn.parentElement);
+					hide(readyBtn.parentElement);
+					show(observeBtn.parentElement);
+					break;
+			}
+		}
+
+		function byondDecode(message) {
+			message = message.replace(/\+/g, "%20");
+			try {
+				if (decodeURIComponent) {
+					message = decodeURIComponent(message);
+				}
+			}
+			catch (err) {
+				message = unescape(message);
+			}
+			return message;
+		}
+
+		function addHoverEffects() {
+			document.querySelectorAll('.menu-button').forEach(button => {
+				button.addEventListener('mouseenter', function() {
+					this.style.transform = 'translateY(-3px) scale(1.02)';
+				});
+
+				button.addEventListener('mouseleave', function() {
+					this.style.transform = 'translateY(0) scale(1)';
+				});
+			});
+		}
+
+		setReadyStatus(0);
+		addHoverEffects();
+
+		window.location = "?src=[player-ref]&lobby_init=1";
+	</script>
+</body>
+
+</html>

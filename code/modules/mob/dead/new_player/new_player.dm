@@ -1,5 +1,3 @@
-#define LINKIFY_READY(string, value) "<a href='byond://?src=[REF(src)];ready=[value]'>[string]</a>"
-
 /mob/dead/new_player
 	var/ready = 0
 	var/late_ready = FALSE
@@ -17,6 +15,8 @@
 
 	//Used to make sure someone doesn't get spammed with messages if they're ineligible for roles
 	var/ineligible_for_roles = FALSE
+
+	var/client_ref
 
 /mob/dead/new_player/Initialize()
 	if(client && SSticker.state == GAME_STATE_STARTUP)
@@ -41,46 +41,6 @@
 /mob/dead/new_player/prepare_huds()
 	return
 
-/**
- * This proc generates the panel that opens to all newly joining players, allowing them to join, observe, view polls, view the current crew manifest, and open the character customization menu.
- */
-/mob/dead/new_player/proc/new_player_panel()
-	if (client?.interviewee)
-		return
-
-	var/datum/asset/asset_datum = get_asset_datum(/datum/asset/simple/lobby)
-	asset_datum.send(client)
-	var/list/output = list("<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p>")
-
-	if(late_ready)
-		output += "<p>Late Party: <a href='byond://?src=[REF(src)];late_party=1'>Yes</a></p>"
-	else
-		output += "<p>Late Party: <a href='byond://?src=[REF(src)];late_party=1'>No</a></p>"
-
-	if(SSticker.current_state <= GAME_STATE_PREGAME)
-		switch(ready)
-			if(PLAYER_NOT_READY)
-				output += "<p>\[ [LINKIFY_READY("Ready", PLAYER_READY_TO_PLAY)] | <b>Not Ready</b> | [LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)] \]</p>"
-			if(PLAYER_READY_TO_PLAY)
-				output += "<p>\[ <b>Ready</b> | [LINKIFY_READY("Not Ready", PLAYER_NOT_READY)] | [LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)] \]</p>"
-			if(PLAYER_READY_TO_OBSERVE)
-				output += "<p>\[ [LINKIFY_READY("Ready", PLAYER_READY_TO_PLAY)] | [LINKIFY_READY("Not Ready", PLAYER_NOT_READY)] | <b> Observe </b> \]</p>"
-	else
-		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>View Population</a></p>"
-		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Join Game!</a></p>"
-		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
-
-//	if(!IsGuestKey(src.key))
-//		output += playerpolls()
-
-	output += "</center>"
-
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>[make_font_cool("NEW PLAYER")]</div>", 250, 265)
-	popup.set_window_options("can_close=0")
-	popup.set_content(output.Join())
-	popup.open(FALSE)
-
-/mob/dead/new_player/proc/playerpolls()
 	var/list/output = list()
 	if (SSdbcore.Connect())
 		var/isadmin = FALSE
@@ -125,43 +85,22 @@
 	if(client.interviewee)
 		return FALSE
 
-	//Determines Relevent Population Cap
-	var/relevant_cap
-	var/hpc = CONFIG_GET(number/hard_popcap)
-	var/epc = CONFIG_GET(number/extreme_popcap)
-	if(hpc && epc)
-		relevant_cap = min(hpc, epc)
-	else
-		relevant_cap = max(hpc, epc)
-
+	if(href_list["lobby_init"])
+		GLOB.lobby_screen.update(client)
+		return TRUE
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
 		return TRUE
-
 	if(href_list["ready"])
 		SSbad_guys_party.candidates -= src
 		late_ready = FALSE
-		var/tready = text2num(href_list["ready"])
-		//Avoid updating ready if we're after PREGAME (they should use latejoin instead)
-		//This is likely not an actual issue but I don't have time to prove that this
-		//no longer is required
-		if(SSticker.current_state <= GAME_STATE_PREGAME)
-			ready = tready
-		//if it's post initialisation and they're trying to observe we do the needful
-		if(!SSticker.current_state < GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
-			ready = tready
-			make_me_an_observer()
-			return
-
-	if(href_list["refresh"])
-		src << browse(null, "window=playersetup") //closes the player setup window
-		new_player_panel()
-
+		ready = !ready
+		GLOB.lobby_screen.update(client)
+		return TRUE
 	if(href_list["late_party"])
 		if (!can_respawn())
 			to_chat(src, "<span class='boldwarning'>You cannot respawn yet.</span>")
 			return
-
 		ready = PLAYER_NOT_READY
 		if(late_ready)
 			late_ready = FALSE
@@ -169,21 +108,35 @@
 		else
 			late_ready = TRUE
 			SSbad_guys_party.candidates += src
-
+		GLOB.lobby_screen.update(client)
+		return TRUE
+	if(href_list["observe"])
+		if(SSticker.current_state != GAME_STATE_PLAYING)
+			return FALSE
+		make_me_an_observer()
+		return TRUE
 	if(href_list["late_join"])
 		if (!can_respawn())
 			to_chat(usr, "<span class='boldwarning'>You cannot respawn yet.</span>")
-			return
-
+			return FALSE
 		SSbad_guys_party.candidates -= src
 		late_ready = FALSE
 		if(!SSticker?.IsRoundInProgress())
 			to_chat(usr, "<span class='boldwarning'>The round is either not ready, or has already finished...</span>")
-			return
+			return FALSE
 
 		if(href_list["late_join"] == "override")
 			LateChoices()
-			return
+			return FALSE
+
+		//Determines Relevent Population Cap
+		var/relevant_cap
+		var/hpc = CONFIG_GET(number/hard_popcap)
+		var/epc = CONFIG_GET(number/extreme_popcap)
+		if(hpc && epc)
+			relevant_cap = min(hpc, epc)
+		else
+			relevant_cap = max(hpc, epc)
 
 		if(SSticker.queued_players.len || (relevant_cap && living_player_count() >= relevant_cap && !(ckey(key) in GLOB.admin_datums)))
 			to_chat(usr, "<span class='danger'>[CONFIG_GET(string/hard_popcap_message)]</span>")
@@ -196,26 +149,12 @@
 			else
 				SSticker.queued_players += usr
 				to_chat(usr, "<span class='notice'>You have been added to the queue to join the game. Your position in queue is [SSticker.queued_players.len].</span>")
-			return
+			return FALSE
 		LateChoices()
-
+		return TRUE
 	if(href_list["manifest"])
 		ViewManifest()
-
-	else if(!href_list["late_join"])
-		new_player_panel()
-
-	if(href_list["showpoll"])
-		handle_player_polling()
-		return
-
-	if(href_list["viewpoll"])
-		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.polls
-		poll_player(poll)
-
-	if(href_list["votepollref"])
-		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.polls
-		vote_on_poll_handler(poll, href_list)
+		return TRUE
 
 //When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
 /mob/dead/new_player/proc/make_me_an_observer()
@@ -227,8 +166,7 @@
 
 	if(QDELETED(src) || !src.client || this_is_like_playing_right != "Yes")
 		ready = PLAYER_NOT_READY
-		src << browse(null, "window=playersetup") //closes the player setup window
-		new_player_panel()
+		GLOB.lobby_screen.show(client)
 		return FALSE
 
 	var/mob/dead/observer/observer = new()

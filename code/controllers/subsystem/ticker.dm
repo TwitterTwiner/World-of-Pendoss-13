@@ -370,7 +370,7 @@ SUBSYSTEM_DEF(ticker)
 			GLOB.joined_player_list += player.ckey
 			player.create_character(FALSE)
 		else
-			player.new_player_panel()
+			GLOB.lobby_screen.update(player.client)
 		CHECK_TICK
 
 /datum/controller/subsystem/ticker/proc/collect_minds()
