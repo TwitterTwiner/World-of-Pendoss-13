@@ -1,18 +1,9 @@
-//Speech verbs.
-/mob/verb/input_say()
-	set name = "inputSay"
-	set category = null
-	var/message = input("What are you trying to say?") as text|null
-	say_verb(message)
 ///Say verb
-/mob/verb/say_verb(message as text|null)
+/mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
-	winset(src.client, "map", "focus=true")
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
-		return
-	if(!message)
 		return
 	say(message)
 

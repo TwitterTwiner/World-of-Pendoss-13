@@ -33,3 +33,6 @@
 #define TRAIT_PAIN_BOTCH "pain_botch" // If the trait owner failed path of pain roll.
 #define TRAIT_PAIN_NUMBING "pain_numbing" // Trait owner is able to ignore difficulty increase while at low health
 #define TRAIT_PAIN_CANT_HEAL "pain_cant_heal" // Trait owner can't heal their wounds without using Willpower
+
+/// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
+#define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"

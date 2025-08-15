@@ -9,3 +9,6 @@
 
 /// Trait given by path of pain discipline
 #define PAIN_TRAIT "pain_trait"
+
+/// This trait comes from when a mob is currently typing.
+#define CURRENTLY_TYPING_TRAIT "currently_typing"
