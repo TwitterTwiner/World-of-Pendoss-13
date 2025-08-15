@@ -27,7 +27,6 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	level = 1
-//	vitae_cost = 0
 
 	toggled = TRUE
 	duration_length = 30 SECONDS

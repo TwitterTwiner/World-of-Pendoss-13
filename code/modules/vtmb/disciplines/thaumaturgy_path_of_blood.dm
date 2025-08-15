@@ -1,7 +1,7 @@
 /datum/discipline/thaumaturgy_path_of_blood
 	name = "Thaumaturgy: Path of Blood"
 	desc = "Opens the secrets of blood magic and how you use it, allows to steal other's blood. Violates Masquerade."
-	icon_state = "thaumaturgy"
+	icon_state = "thaumaturgy_path_of_blood"
 	clan_restricted = TRUE
 	power_type = /datum/discipline_power/thaumaturgy_path_of_blood
 
@@ -25,7 +25,7 @@
 	hostile = TRUE
 	violates_masquerade = TRUE
 
-	cooldown_length = 1 TURNS
+	cooldown_length = 3 TURNS
 	var/success_count
 
 /datum/discipline_power/thaumaturgy_path_of_blood/activate(atom/target)
@@ -265,7 +265,7 @@
 	desc = "Boil your target's blood in their body, killing almost anyone."
 
 	level = 5
-	range = 1 //The Kindred must touch the subject
+	range = 1 // Kindred must touch the subject
 	check_flags = DISC_CHECK_FREE_HAND | DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED
 	target_type = TARGET_MOB | TARGET_SELF
 	aggravating = TRUE

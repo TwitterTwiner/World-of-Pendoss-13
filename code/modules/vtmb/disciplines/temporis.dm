@@ -93,8 +93,9 @@
 	violates_masquerade = TRUE
 
 	cancelable = TRUE
-	duration_length = 10 SECONDS
-	cooldown_length = 15 SECONDS
+	toggled = TRUE
+	duration_length = 30 SECONDS
+	cooldown_length = 30 SECONDS
 
 /datum/discipline_power/temporis/patience_of_the_norns/activate()
 	. = ..()
@@ -149,8 +150,9 @@
 	violates_masquerade = TRUE
 
 	cancelable = TRUE
-	duration_length = 10 SECONDS
-	cooldown_length = 15 SECONDS
+	toggled = TRUE
+	duration_length = 30 SECONDS
+	cooldown_length = 30 SECONDS
 
 /datum/discipline_power/temporis/clothos_gift/activate()
 	. = ..()

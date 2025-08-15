@@ -1,7 +1,7 @@
 /datum/discipline/thaumaturgy_path_of_flames
 	name = "Thaumaturgy: The Lure of Flames"
 	desc = "This ability grants the thaumaturge the ability to summon magical flames - initially a small flame, but experienced mages can create large flames. Violates Masquerade."
-	icon_state = "thaumaturgy"
+	icon_state = "thaumaturgy_path_of_flames"
 	learnable_by_clans = list(/datum/vampireclane/tremere)
 	power_type = /datum/discipline_power/thaumaturgy_path_of_flames
 
@@ -22,7 +22,7 @@
 	aggravating = TRUE
 	hostile = TRUE
 	violates_masquerade = TRUE
-	range = 20
+	range = 7
 
 	cooldown_length = 3 TURNS
 	var/success_roll
@@ -58,6 +58,7 @@
 /datum/discipline_power/thaumaturgy_path_of_flames/candle
 	name = "Candle"
 	desc = "Summon magical flames"
+	level = 1
 	fire_damage = 25
 	fortitude_hardness = 3
 	grouped_powers = list(
@@ -70,6 +71,7 @@
 /datum/discipline_power/thaumaturgy_path_of_flames/palm_of_flame
 	name = "Palm of flame"
 	desc = "Summon magical flames"
+	level = 2
 	fire_damage = 25
 	fortitude_hardness = 4
 	grouped_powers = list(
@@ -82,6 +84,7 @@
 /datum/discipline_power/thaumaturgy_path_of_flames/campfire
 	name = "Campfire"
 	desc = "Summon magical flames"
+	level = 3
 	fire_damage = 50
 	fortitude_hardness = 5
 	grouped_powers = list(
@@ -94,6 +97,7 @@
 /datum/discipline_power/thaumaturgy_path_of_flames/bonfire
 	name = "Bonfire"
 	desc = "Summon magical flames"
+	level = 4
 	fire_damage = 50
 	fortitude_hardness = 7
 	grouped_powers = list(
@@ -106,6 +110,7 @@
 /datum/discipline_power/thaumaturgy_path_of_flames/inferno
 	name = "Inferno"
 	desc = "Summon magical flames"
+	level = 5
 	fire_damage = 75
 	fortitude_hardness = 9
 	grouped_powers = list(
