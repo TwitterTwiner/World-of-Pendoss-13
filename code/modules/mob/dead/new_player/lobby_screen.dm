@@ -19,6 +19,7 @@ GLOBAL_DATUM_INIT(lobby_screen, /datum/lobby_screen, new)
 
 /datum/lobby_screen/proc/hide(client/user)
 	if(user.mob)
+		user.mob << browse(null, "window=lobbybrowser")
 		winset(user, "lobbybrowser", "is-disabled=true;is-visible=false")
 
 /datum/lobby_screen/proc/update_to_all()
