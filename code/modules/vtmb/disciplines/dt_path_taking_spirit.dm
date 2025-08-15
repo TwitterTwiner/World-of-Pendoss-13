@@ -52,26 +52,56 @@
 	name = "Dark Thaumaturgy: The Taking of the Spirit One"
 	desc = "Drain the victims of Willpower"
 	willpower_loss = 1
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_taking_spirit/two,
+		/datum/discipline_power/dt_path_taking_spirit/three,
+		/datum/discipline_power/dt_path_taking_spirit/four,
+		/datum/discipline_power/dt_path_taking_spirit/five
+	)
 
 /datum/discipline_power/dt_path_taking_spirit/two
 	name = "Dark Thaumaturgy: The Taking of the Spirit Two"
 	desc = "Drain the victims of Willpower"
 	willpower_loss = 2
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_taking_spirit/one,
+		/datum/discipline_power/dt_path_taking_spirit/three,
+		/datum/discipline_power/dt_path_taking_spirit/four,
+		/datum/discipline_power/dt_path_taking_spirit/five
+	)
 
 /datum/discipline_power/dt_path_taking_spirit/three
 	name = "Dark Thaumaturgy: The Taking of the Spirit Three"
 	desc = "Drain the victims of Willpower"
 	willpower_loss = 4
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_taking_spirit/two,
+		/datum/discipline_power/dt_path_taking_spirit/one,
+		/datum/discipline_power/dt_path_taking_spirit/four,
+		/datum/discipline_power/dt_path_taking_spirit/five
+	)
 
 /datum/discipline_power/dt_path_taking_spirit/four
 	name = "Dark Thaumaturgy: The Taking of the Spirit Four"
 	desc = "Drain the victims of Willpower"
 	willpower_loss = 6
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_taking_spirit/two,
+		/datum/discipline_power/dt_path_taking_spirit/three,
+		/datum/discipline_power/dt_path_taking_spirit/one,
+		/datum/discipline_power/dt_path_taking_spirit/five
+	)
 
 /datum/discipline_power/dt_path_taking_spirit/five
 	name = "Dark Thaumaturgy: The Taking of the Spirit Five"
 	desc = "Drain the victims of Willpower"
 	willpower_loss = 8
+	grouped_powers = list(
+		/datum/discipline_power/dt_path_taking_spirit/two,
+		/datum/discipline_power/dt_path_taking_spirit/three,
+		/datum/discipline_power/dt_path_taking_spirit/four,
+		/datum/discipline_power/dt_path_taking_spirit/one
+	)
 
 
 /datum/discipline_power/dt_path_taking_spirit/activate(atom/target)
