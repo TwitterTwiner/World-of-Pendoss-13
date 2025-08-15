@@ -27,12 +27,6 @@
 	if(length(buttons) > 3)
 		log_tgui(user, "Error: TGUI Alert initiated with too many buttons. Use a list.", "TguiAlert")
 		return tgui_input_list(user, message, title, buttons, timeout, autofocus)
-	// Client does NOT have tgui_input on: Returns regular input
-//	if(!user.client.prefs.tgui_input_mode)
-//		if(length(buttons) == 2)
-//			return alert(user, message, title, buttons[1], buttons[2])
-//		if(length(buttons) == 3)
-//			return alert(user, message, title, buttons[1], buttons[2], buttons[3])
 	var/datum/tgui_alert/alert = new(user, message, title, buttons, timeout, autofocus, ui_state)
 	alert.ui_interact(user)
 	alert.wait()
@@ -109,8 +103,8 @@
 	data["autofocus"] = autofocus
 	data["buttons"] = buttons
 	data["message"] = message
-//	data["large_buttons"] = user.client.prefs.tgui_large_buttons
-//	data["swapped_buttons"] = user.client.prefs.tgui_swapped_buttons
+	data["large_buttons"] = FALSE
+	data["swapped_buttons"] = FALSE
 	data["title"] = title
 	return data
 
