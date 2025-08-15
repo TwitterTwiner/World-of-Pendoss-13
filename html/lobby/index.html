@@ -6,7 +6,7 @@
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<title>World of Darkness</title>
 	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap');
 
 		* {
 			margin: 0;
@@ -15,250 +15,249 @@
 		}
 
 		body {
-			font-family: 'Crimson Text', serif;
-			background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0f0610 100%);
+			background: linear-gradient(135deg, #1a0000 0%, #330000 25%, #1a0000 50%, #660000 75%, #1a0000 100%);
+			background-size: 400% 400%;
+			animation: backgroundShift 8s ease-in-out infinite;
 			color: #d4af37;
-			min-height: 100vh;
+			font-family: 'Cinzel', serif;
+			height: 100vh;
+			overflow: hidden;
 			position: relative;
-			overflow-x: hidden;
 		}
 
-		body::before {
-			content: '';
-			position: fixed;
+		@keyframes backgroundShift {
+			0%, 100% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+		}
+
+		.background-overlay {
+			position: absolute;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background:
-				radial-gradient(circle at 20% 80%, rgba(120, 20, 20, 0.1) 0%, transparent 50%),
-				radial-gradient(circle at 80% 20%, rgba(40, 20, 80, 0.1) 0%, transparent 50%);
+			background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.7) 80%);
 			pointer-events: none;
-			z-index: -1;
-		}
-
-		.container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			min-height: 100vh;
-			padding: 20px;
-			position: relative;
 		}
 
 		.title {
-			font-family: 'Cinzel', serif;
-			font-size: 3.5rem;
-			font-weight: 600;
-			color: #d4af37;
-			text-shadow:
-				0 0 10px rgba(212, 175, 55, 0.5),
-				0 0 20px rgba(212, 175, 55, 0.3),
-				2px 2px 4px rgba(0, 0, 0, 0.8);
-			margin-bottom: 1rem;
+			position: absolute;
+			top: 8%;
+			left: 50%;
+			transform: translateX(-50%);
 			text-align: center;
-			letter-spacing: 3px;
+			z-index: 10;
 		}
 
-		.subtitle {
-			font-style: italic;
-			font-size: 1.2rem;
-			color: #8B7355;
-			margin-bottom: 3rem;
-			text-align: center;
-			opacity: 0.9;
+		.title h1 {
+			font-size: 4.5rem;
+			font-weight: 700;
+			color: #d4af37;
+			text-shadow:
+				0 0 10px rgba(212, 175, 55, 0.8),
+				0 0 20px rgba(212, 175, 55, 0.6),
+				0 0 30px rgba(212, 175, 55, 0.4),
+				2px 2px 4px rgba(0,0,0,0.8);
+			letter-spacing: 8px;
+			margin-bottom: 10px;
+		}
+
+		.title h2 {
+			font-size: 2rem;
+			font-weight: 400;
+			color: #b8860b;
+			text-shadow: 0 0 10px rgba(184, 134, 11, 0.6), 2px 2px 4px rgba(0,0,0,0.8);
+			letter-spacing: 4px;
 		}
 
 		.menu-container {
-			background: linear-gradient(145deg, rgba(20, 10, 10, 0.9), rgba(40, 20, 20, 0.9));
-			border: 2px solid #d4af37;
-			border-radius: 15px;
-			padding: 2.5rem;
-			backdrop-filter: blur(10px);
-			box-shadow:
-				0 10px 30px rgba(0, 0, 0, 0.8),
-				inset 0 1px 0 rgba(212, 175, 55, 0.2);
-			min-width: 350px;
-			position: relative;
-		}
-
-		.menu-container::before {
-			content: '';
 			position: absolute;
-			top: -2px;
-			left: -2px;
-			right: -2px;
-			bottom: -2px;
-			background: linear-gradient(45deg, #d4af37, #8B7355, #d4af37);
-			border-radius: 15px;
-			z-index: -1;
-			opacity: 0.7;
-		}
-
-		.menu-item {
-			margin-bottom: 1.5rem;
-			position: relative;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 15px;
+			z-index: 10;
 		}
 
 		.menu-button {
-			display: block;
-			width: 100%;
-			padding: 15px 25px;
-			background: linear-gradient(145deg, rgba(40, 20, 20, 0.8), rgba(20, 10, 10, 0.8));
-			border: 1px solid rgba(212, 175, 55, 0.5);
-			border-radius: 8px;
+			background: none;
+			border: none;
+			padding: 15px 40px;
+			font-family: 'Cinzel', serif;
+			font-size: 1.3rem;
+			font-weight: 600;
 			color: #d4af37;
 			text-decoration: none;
-			font-size: 1.1rem;
-			font-weight: 600;
 			text-align: center;
+			min-width: 250px;
 			transition: all 0.3s ease;
+			text-shadow:
+				0 0 10px rgba(212, 175, 55, 0.8),
+				0 0 20px rgba(212, 175, 55, 0.6),
+				2px 2px 4px rgba(0,0,0,0.8);
 			position: relative;
 			overflow: hidden;
 		}
 
-		.menu-button::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: -100%;
-			width: 100%;
-			height: 100%;
-			background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
-			transition: left 0.5s ease;
-		}
-
 		.menu-button:hover {
-			background: linear-gradient(145deg, rgba(60, 30, 30, 0.9), rgba(40, 20, 20, 0.9));
-			border-color: #d4af37;
-			color: #fff;
-			box-shadow:
-				0 5px 15px rgba(212, 175, 55, 0.3),
-				inset 0 1px 0 rgba(212, 175, 55, 0.2);
-			transform: translateY(-2px);
+			color: #ffdd44;
+			transform: translateY(-3px) scale(1.02);
+			text-shadow:
+				0 0 15px rgba(255, 221, 68, 0.9),
+				0 0 30px rgba(255, 221, 68, 0.7),
+				0 0 45px rgba(255, 221, 68, 0.5),
+				2px 2px 6px rgba(0,0,0,0.9);
 		}
 
-		.menu-button:hover::before {
-			left: 100%;
-		}
-
-		.toggle-button {
-			background: linear-gradient(145deg, rgba(60, 30, 60, 0.8), rgba(30, 15, 30, 0.8));
-			border-color: rgba(139, 115, 85, 0.5);
-		}
-
-		.toggle-button:hover {
-			background: linear-gradient(145deg, rgba(80, 40, 80, 0.9), rgba(50, 25, 50, 0.9));
-			border-color: #8B7355;
-		}
-
-		.status-display {
-			font-style: italic;
-			opacity: 0.8;
+		.menu-button:active {
+			transform: translateY(-1px) scale(1.01);
 		}
 
 		.hidden {
 			display: none !important;
 		}
 
-		.gothic-ornament {
+		.fire-container {
 			position: absolute;
-			font-size: 1.5rem;
-			color: rgba(212, 175, 55, 0.3);
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 300px;
+			overflow: hidden;
+			pointer-events: none;
 		}
 
-		.ornament-top-left {
-			top: 10px;
-			left: 15px;
+		.ember {
+			position: absolute;
+			border-radius: 50%;
+			animation: ember-rise linear infinite;
 		}
 
-		.ornament-top-right {
-			top: 10px;
-			right: 15px;
+		.ember.small {
+			width: 2px;
+			height: 2px;
+			background: radial-gradient(circle, #ff6500 0%, #ff4500 70%, transparent 100%);
+			box-shadow: 0 0 4px #ff6500;
 		}
 
-		.ornament-bottom-left {
-			bottom: 10px;
-			left: 15px;
+		.ember.medium {
+			width: 4px;
+			height: 4px;
+			background: radial-gradient(circle, #ff8500 0%, #ff6500 50%, #ff4500 80%, transparent 100%);
+			box-shadow: 0 0 6px #ff8500;
 		}
 
-		.ornament-bottom-right {
-			bottom: 10px;
-			right: 15px;
+		.ember.large {
+			width: 6px;
+			height: 6px;
+			background: radial-gradient(circle, #ffa500 0%, #ff8500 40%, #ff6500 70%, transparent 100%);
+			box-shadow: 0 0 8px #ffa500;
 		}
 
-		@media (max-width: 768px) {
-			.title {
-				font-size: 2.5rem;
+		.ember.spark {
+			width: 1px;
+			height: 8px;
+			background: linear-gradient(to top, #ffff00 0%, #ff8500 50%, transparent 100%);
+			border-radius: 50%;
+			box-shadow: 0 0 3px #ffff00;
+		}
+
+		@keyframes ember-rise {
+			0% {
+				transform: translateY(0) translateX(0) rotate(0deg);
+				opacity: 1;
 			}
-
-			.menu-container {
-				padding: 1.5rem;
-				min-width: 280px;
+			20% {
+				opacity: 0.9;
 			}
-
-			.menu-button {
-				padding: 12px 20px;
-				font-size: 1rem;
+			80% {
+				opacity: 0.3;
 			}
+			100% {
+				transform: translateY(var(--rise-height, -300px)) translateX(var(--drift, 0px)) rotate(var(--rotation, 0deg));
+				opacity: 0;
+			}
+		}
+
+		.decoration-left,
+		.decoration-right {
+			position: absolute;
+			top: 30%;
+			width: 200px;
+			height: 250px;
+			background-image: url('nosferatu.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			opacity: 0.7;
+			filter: sepia(100%) hue-rotate(320deg) saturate(300%) brightness(0.8);
+			transition: all 0.3s ease;
+		}
+
+		.decoration-left {
+			left: 5%;
+			transform: scaleX(-1) rotate(-5deg);
+		}
+
+		.decoration-right {
+			right: 5%;
+			transform: rotate(5deg);
+		}
+
+		.decoration-left:hover,
+		.decoration-right:hover {
+			opacity: 0.9;
+			filter: sepia(100%) hue-rotate(320deg) saturate(400%) brightness(1);
+			transform: scale(1.05) rotate(0deg);
+		}
+
+		.decoration-left:hover {
+			transform: scaleX(-1) scale(1.05) rotate(0deg);
 		}
 	</style>
 </head>
 
 <body>
-	<div class="container">
-		<div class="gothic-ornament ornament-top-left">❦</div>
-		<div class="gothic-ornament ornament-top-right">❦</div>
+	<div class="background-overlay"></div>
 
-		<h1 class="title">WORLD OF DARKNESS</h1>
+	<div class="decoration-left"></div>
+	<div class="decoration-right"></div>
 
-		<div class="menu-container">
-			<div class="gothic-ornament ornament-top-left">⚜</div>
-			<div class="gothic-ornament ornament-top-right">⚜</div>
-			<div class="gothic-ornament ornament-bottom-left">⚜</div>
-			<div class="gothic-ornament ornament-bottom-right">⚜</div>
-
-			<div class="menu-item">
-				<a href='byond://?src=[player-ref];show_preferences=1' id="setup" class="menu-button">
-					Setup Character
-				</a>
-			</div>
-
-			<div class="menu-item">
-				<a href='byond://?src=[player-ref];late_party=1' id="late-party" class="menu-button toggle-button">
-					Late Party: <span id="late-party-text" class="status-display">Yes</span>
-				</a>
-			</div>
-
-			<div class="menu-item">
-				<a href='byond://?src=[player-ref];manifest=1' id="manifest" class="menu-button">
-					View Population
-				</a>
-			</div>
-
-			<div class="menu-item">
-				<a href='byond://?src=[player-ref];ready=1' id="ready" class="menu-button toggle-button">
-					<span id="ready-text" class="status-display">Ready</span>
-				</a>
-			</div>
-
-			<div class="menu-item">
-				<a href='byond://?src=[player-ref];late_join=1' id="join" class="menu-button">
-					Join!
-				</a>
-			</div>
-
-			<div class="menu-item">
-				<a href='byond://?src=[player-ref];observe=1' id="observe" class="menu-button">
-					Observe
-				</a>
-			</div>
-		</div>
-
-		<div class="gothic-ornament ornament-bottom-left">❦</div>
-		<div class="gothic-ornament ornament-bottom-right">❦</div>
+	<div class="title">
+		<h1>DARKNESS:</h1>
+		<h2>The Collapse</h2>
 	</div>
+
+	<div class="menu-container">
+		<a href='byond://?src=[player-ref];show_preferences=1' id="setup" class="menu-button">
+			Setup Character
+		</a>
+
+		<a href='byond://?src=[player-ref];late_party=1' id="late-party" class="menu-button">
+			Late Party: <span id="late-party-text">Yes</span>
+		</a>
+
+		<a href='byond://?src=[player-ref];manifest=1' id="manifest" class="menu-button">
+			View Population
+		</a>
+
+		<a href='byond://?src=[player-ref];ready=1' id="ready" class="menu-button">
+			<span id="ready-text">Ready</span>
+		</a>
+
+		<a href='byond://?src=[player-ref];late_join=1' id="join" class="menu-button">
+			Join!
+		</a>
+
+		<a href='byond://?src=[player-ref];observe=1' id="observe" class="menu-button">
+			Observe
+		</a>
+	</div>
+
+	<div class="fire-container" id="fire-container"></div>
 
 	<script type="text/javascript">
 		var latePartyBtn = document.getElementById("late-party");
@@ -297,20 +296,24 @@
 		function setReadyStatus(ready) {
 			if (ready == "1") {
 				readyText.innerText = "Ready";
-				readyBtn.style.background = "linear-gradient(145deg, rgba(20, 80, 20, 0.8), rgba(10, 40, 10, 0.8))";
+				readyBtn.style.color = "#00ff44";
+				readyBtn.style.textShadow = "0 0 15px rgba(0, 255, 68, 0.9), 0 0 30px rgba(0, 255, 68, 0.7), 2px 2px 6px rgba(0,0,0,0.9)";
 			} else {
 				readyText.innerText = "Not Ready";
-				readyBtn.style.background = "linear-gradient(145deg, rgba(60, 30, 60, 0.8), rgba(30, 15, 30, 0.8))";
+				readyBtn.style.color = "#d4af37";
+				readyBtn.style.textShadow = "0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.6), 2px 2px 4px rgba(0,0,0,0.8)";
 			}
 		}
 
 		function setLatePartyStatus(lateParty) {
 			if (lateParty == "1") {
 				latePartyText.innerText = "Yes";
-				latePartyBtn.style.background = "linear-gradient(145deg, rgba(80, 60, 20, 0.8), rgba(40, 30, 10, 0.8))";
+				latePartyBtn.style.color = "#ffaa00";
+				latePartyBtn.style.textShadow = "0 0 15px rgba(255, 170, 0, 0.9), 0 0 30px rgba(255, 170, 0, 0.7), 2px 2px 6px rgba(0,0,0,0.9)";
 			} else {
 				latePartyText.innerText = "No";
-				latePartyBtn.style.background = "linear-gradient(145deg, rgba(60, 30, 60, 0.8), rgba(30, 15, 30, 0.8))";
+				latePartyBtn.style.color = "#d4af37";
+				latePartyBtn.style.textShadow = "0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.6), 2px 2px 4px rgba(0,0,0,0.8)";
 			}
 		}
 
@@ -324,28 +327,28 @@
 			setLatePartyStatus(lateParty);
 			currentRunlevel = state;
 
-			document.querySelectorAll('.menu-item').forEach(item => {
+			document.querySelectorAll('.menu-button').forEach(item => {
 				item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
 			});
 
 			switch (state) {
 				case GAME_STATE_STARTUP:
 				case GAME_STATE_PREGAME:
-					hide(joinBtn.parentElement);
-					show(readyBtn.parentElement);
-					hide(observeBtn.parentElement);
+					hide(joinBtn);
+					show(readyBtn);
+					hide(observeBtn);
 					break;
 
 				case GAME_STATE_SETTING_UP:
-					hide(joinBtn.parentElement);
-					show(readyBtn.parentElement);
-					show(observeBtn.parentElement);
+					hide(joinBtn);
+					show(readyBtn);
+					show(observeBtn);
 					break;
 
 				case GAME_STATE_PLAYING:
-					show(joinBtn.parentElement);
-					hide(readyBtn.parentElement);
-					show(observeBtn.parentElement);
+					show(joinBtn);
+					hide(readyBtn);
+					show(observeBtn);
 					break;
 			}
 		}
@@ -365,20 +368,66 @@
 
 		function addHoverEffects() {
 			document.querySelectorAll('.menu-button').forEach(button => {
-				button.addEventListener('mouseenter', function() {
+				button.addEventListener('mouseenter', function () {
 					this.style.transform = 'translateY(-3px) scale(1.02)';
 				});
 
-				button.addEventListener('mouseleave', function() {
+				button.addEventListener('mouseleave', function () {
 					this.style.transform = 'translateY(0) scale(1)';
 				});
 			});
+		}
+
+		function createFireEffect() {
+			const fireContainer = document.getElementById('fire-container');
+
+			function createEmber() {
+				const ember = document.createElement('div');
+				ember.className = 'ember';
+
+				const types = ['small', 'medium', 'large', 'spark'];
+				const type = types[Math.floor(Math.random() * types.length)];
+				ember.classList.add(type);
+
+				ember.style.left = Math.random() * 100 + '%';
+				ember.style.bottom = '0px';
+
+				const drift = (Math.random() * 100 - 50);
+				const riseHeight = -(200 + Math.random() * 200);
+				const rotation = Math.random() * 720 - 360;
+				const duration = 3 + Math.random() * 4;
+
+				ember.style.setProperty('--drift', drift + 'px');
+				ember.style.setProperty('--rise-height', riseHeight + 'px');
+				ember.style.setProperty('--rotation', rotation + 'deg');
+				ember.style.animationDuration = duration + 's';
+				ember.style.animationDelay = Math.random() * 0.5 + 's';
+
+				fireContainer.appendChild(ember);
+
+				setTimeout(() => {
+					if (ember.parentNode) {
+						ember.parentNode.removeChild(ember);
+					}
+				}, (duration + 0.5) * 1000);
+			}
+
+			function startEmberGeneration() {
+				for (let i = 0; i < 30; i++) {
+					setTimeout(createEmber, Math.random() * 2000);
+				}
+
+				setInterval(createEmber, 50);
+			}
+
+			startEmberGeneration();
 		}
 
 		setReadyStatus(0);
 		addHoverEffects();
 
 		window.location = "?src=[player-ref]&lobby_init=1";
+		createFireEffect();
 	</script>
 </body>
 
