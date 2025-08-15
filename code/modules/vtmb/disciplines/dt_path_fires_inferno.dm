@@ -1,7 +1,7 @@
 /datum/discipline/dt_path_fires_of_inferno
 	name = "Dark Thaumaturgy: The Fires of the Inferno"
 	desc = "This path of Dark Thaumaturgy allows the thaumaturge to control supernatural flames summoned from the depths of Hades."
-	icon_state = "thaumaturgy"
+	icon_state = "dt_path_fires_of_inferno"
 	learnable_by_clans = list(/datum/vampireclane/baali)
 	power_type = /datum/discipline_power/dt_path_fires_of_inferno
 
@@ -21,7 +21,7 @@
 	aggravating = TRUE
 	hostile = TRUE
 	violates_masquerade = TRUE
-	range = 20
+	range = 7
 
 	cooldown_length = 3 TURNS
 	var/success_roll
@@ -57,6 +57,7 @@
 /datum/discipline_power/dt_path_fires_of_inferno/lighter
 	name = "Lighter"
 	desc = "Control supernatural flames summoned from the depths of Hades"
+	level = 1
 	fire_damage = 25
 	fortitude_hardness = 3
 	grouped_powers = list(
@@ -69,6 +70,7 @@
 /datum/discipline_power/dt_path_fires_of_inferno/stovetop
 	name = "Stovetop"
 	desc = "Control supernatural flames summoned from the depths of Hades"
+	level = 2
 	fire_damage = 50
 	fortitude_hardness = 4
 	grouped_powers = list(
@@ -81,6 +83,7 @@
 /datum/discipline_power/dt_path_fires_of_inferno/blowtorch
 	name = "Blowtorch"
 	desc = "Control supernatural flames summoned from the depths of Hades"
+	level = 3
 	fire_damage = 75
 	fortitude_hardness = 5
 	grouped_powers = list(
@@ -93,6 +96,7 @@
 /datum/discipline_power/dt_path_fires_of_inferno/flamethrower
 	name = "Flame-thrower"
 	desc = "Control supernatural flames summoned from the depths of Hades"
+	level = 4
 	fire_damage = 100
 	fortitude_hardness = 7
 	grouped_powers = list(
@@ -105,6 +109,7 @@
 /datum/discipline_power/dt_path_fires_of_inferno/conflagration
 	name = "Conflagration"
 	desc = "Control supernatural flames summoned from the depths of Hades"
+	level = 5
 	fire_damage = 125
 	fortitude_hardness = 9
 	grouped_powers = list(

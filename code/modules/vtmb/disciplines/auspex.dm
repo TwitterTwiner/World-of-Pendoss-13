@@ -27,7 +27,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	level = 1
-//	vitae_cost = 0
+	vitae_cost = 0
 
 	toggled = TRUE
 	duration_length = 30 SECONDS
@@ -58,6 +58,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	level = 2
+	vitae_cost = 0
 
 	toggled = TRUE
 	duration_length = 30 SECONDS
@@ -88,6 +89,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	level = 3
+	vitae_cost = 0
 
 	toggled = TRUE
 	duration_length = 30 SECONDS
@@ -118,6 +120,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	level = 4
+	vitae_cost = 0
 
 	toggled = TRUE
 	duration_length = 30 SECONDS
@@ -146,6 +149,7 @@
 	check_flags = DISC_CHECK_CONSCIOUS
 
 	level = 5
+	vitae_cost = 0
 
 /datum/discipline_power/auspex/psychic_projection/activate()
 	. = ..()

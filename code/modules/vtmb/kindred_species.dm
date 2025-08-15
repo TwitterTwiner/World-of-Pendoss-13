@@ -44,6 +44,9 @@
 	infor.Grant(C)
 	var/datum/action/give_vitae/vitae = new()
 	vitae.Grant(C)
+	if(C.MyPath.dot >= 7)
+		var/datum/action/blush_of_life/blush = new()
+		blush.Grant(C)
 
 //this needs to be adjusted to be more accurate for blood spending rates
 	var/datum/discipline/bloodheal/giving_bloodheal = new(clamp(11 - C.generation, 1, 10))
@@ -400,6 +403,41 @@
 							BLOODBONDED_prefs_g.save_character()
 			else
 				giving = FALSE
+
+/datum/action/blush_of_life
+	name = "Blush of Life"
+	desc = "Mimic a living being."
+	button_icon_state = "blush_of_life"
+	check_flags = AB_CHECK_CONSCIOUS
+	vampiric = TRUE
+	var/active_blush = FALSE
+	var/cooldown = 3 SECONDS
+
+/datum/action/blush_of_life/Trigger()
+	if(!istype(owner, /mob/living/carbon/human))
+		return
+	var/mob/living/carbon/human/blusher = owner
+	if(HAS_TRAIT(owner, TRAIT_TORPOR))
+		return
+	if (!blusher.bloodpool > 0)
+		return
+	if (!blusher.MyPath?.dot)
+		return
+	if (!COOLDOWN_FINISHED(blusher, blush_timer))
+		to_chat(blusher, span_warning("You need to wait [DisplayTimeText(COOLDOWN_TIMELEFT(blusher, blush_timer))] before you can use blush of life again!"))
+		return
+	COOLDOWN_START(blusher, blush_timer, cooldown)
+	blusher.bloodpool = max(0, blusher.bloodpool-1)
+	if(!active_blush)
+		blusher.skin_tone = blusher.original_skin_tone
+		blusher.update_body()
+		active_blush = TRUE
+	else
+		blusher.skin_tone = get_vamp_skin_color(blusher.original_skin_tone)
+		blusher.update_body()
+		active_blush = FALSE
+
+
 
 /**
  * Initialises Disciplines for new vampire mobs, applying effects and creating action buttons.

@@ -1,7 +1,7 @@
 /datum/discipline/thaumaturgy_path_of_conjuring
 	name = "Thaumaturgy: Path of Conjuring"
 	desc = "This path of Thaumaturgy makes possible the creation of objects limited only by the mind of the thaumaturge. Violates Masquerade."
-	icon_state = "thaumaturgy"
+	icon_state = "thaumaturgy_path_of_conjuring"
 	learnable_by_clans = list(/datum/vampireclane/tremere)
 	power_type = /datum/discipline_power/thaumaturgy_path_of_conjuring
 
@@ -29,7 +29,6 @@
 	var/list/simple_items = list(
 		/obj/item/toy/crayon/spraycan,
 		/obj/item/storage/pill_bottle/dice,
-		/obj/item/drinkable_bloodpack/full,
 		/obj/item/melee/vampirearms/shovel,
 		/obj/item/melee/vampirearms/baseball,
 		/obj/item/melee/vampirearms/tire,
@@ -40,6 +39,7 @@
 	)
 
 	var/list/normal_items = list(
+		/obj/item/drinkable_bloodpack/full,
 		/obj/item/drinkable_bloodpack/full/elite,
 		/obj/item/melee/vampirearms/rapier,
 		/obj/item/melee/vampirearms/sabre,
@@ -56,7 +56,8 @@
 		/obj/item/ammo_box/vampire/c12g/buck,
 		/obj/item/gun/ballistic/shotgun/toy/crossbow/vampire,
 		/obj/item/ammo_box/vampire/arrows,
-		/obj/item/restraints/handcuffs
+		/obj/item/restraints/handcuffs,
+		/obj/item/masquerade_contract
 	)
 
 	var/list/hard_items = list(
@@ -77,9 +78,9 @@
 	)
 
 	var/list/living = list(
+		"Civilian" = /mob/living/carbon/human/npc/walkby,
 		"Hobo" = /mob/living/carbon/human/npc/hobo,
 		"Bandit" = /mob/living/carbon/human/npc/bandit,
-		"Businessman" = /mob/living/carbon/human/npc/business,
 		"Police" = /mob/living/carbon/human/npc/police,
 		"Guard" = /mob/living/carbon/human/npc/guard,
 		"Stripper" = /mob/living/carbon/human/npc/stripper
@@ -162,6 +163,7 @@
 /datum/discipline_power/thaumaturgy_path_of_conjuring/summon_the_simple_form
 	name = "Summon the Simple Form"
 	desc = "Creation of objects limited only by the mind of the thaumaturge"
+	level = 1
 	vitae_cost = 1
 
 	grouped_powers = list(
@@ -178,6 +180,7 @@
 /datum/discipline_power/thaumaturgy_path_of_conjuring/permanency
 	name = "Permanency"
 	desc = "Creation of objects limited only by the mind of the thaumaturge"
+	level = 2
 	vitae_cost = 3
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy_path_of_conjuring/summon_the_simple_form,
@@ -194,6 +197,7 @@
 /datum/discipline_power/thaumaturgy_path_of_conjuring/magic_of_the_smith
 	name = "Magic of the Smith"
 	desc = "Creation of objects limited only by the mind of the thaumaturge"
+	level = 3
 	vitae_cost = 5
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy_path_of_conjuring/summon_the_simple_form,
@@ -214,6 +218,7 @@
 /datum/discipline_power/thaumaturgy_path_of_conjuring/reverse_conjuration
 	name = "Reverse Conjuration"
 	desc = "Creation of objects limited only by the mind of the thaumaturge"
+	level = 4
 	target_type = TARGET_MOB | TARGET_OBJ
 	vitae_cost = 1
 	range = 1
@@ -248,6 +253,7 @@
 /datum/discipline_power/thaumaturgy_path_of_conjuring/power_over_life
 	name = "Power Over Life"
 	desc = "Creation of objects limited only by the mind of the thaumaturge"
+	level = 5
 	vitae_cost = 10
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy_path_of_conjuring/summon_the_simple_form,

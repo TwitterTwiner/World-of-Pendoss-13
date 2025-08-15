@@ -1,7 +1,7 @@
 /datum/discipline/dt_path_pain
 	name = "Dark Thaumaturgy: Path of Pain"
 	desc = "This Path feeds on physical discomfort - with experience in its use, the Path of Pain can tear flesh from bones, crush bones, and rip internal organs with a single glance or word."
-	icon_state = "thaumaturgy"
+	icon_state = "dt_path_pain"
 	learnable_by_clans = list(/datum/vampireclane/baali)
 	power_type = /datum/discipline_power/dt_path_pain
 
@@ -20,9 +20,9 @@
 	aggravating = TRUE
 	hostile = TRUE
 	violates_masquerade = FALSE
-	range = 20
+	range = 7
 
-	cooldown_length = 15 SECONDS
+	cooldown_length = 3 TURNS
 	var/success_roll
 	var/use_counter = 0
 
@@ -59,6 +59,7 @@
 /datum/discipline_power/dt_path_pain/numbing
 	name = "Numbing"
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
+	level = 1
 	toggled = TRUE
 	duration_length = 45 SECONDS
 	grouped_powers = list(
@@ -84,6 +85,7 @@
 /datum/discipline_power/dt_path_pain/anguish
 	name = "Anguish"
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
+	level = 2
 	range = 1
 	target_type = TARGET_MOB
 	grouped_powers = list(
@@ -108,6 +110,7 @@
 /datum/discipline_power/dt_path_pain/shattering
 	name = "Shattering"
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
+	level = 3
 	target_type = TARGET_MOB
 	grouped_powers = list(
 		/datum/discipline_power/dt_path_pain/anguish,
@@ -138,6 +141,7 @@
 /datum/discipline_power/dt_path_pain/agony_within
 	name = "Agony Within"
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
+	level = 4
 	target_type = TARGET_MOB
 	grouped_powers = list(
 		/datum/discipline_power/dt_path_pain/anguish,
@@ -157,6 +161,7 @@
 	total_health_loss = owner.get_health_difficulty()
 	if(total_health_loss < 1)
 		to_chat(owner, span_warning("You're not suffering from pain enough to use this ability!"))
+		owner.bloodpool += 1
 		return FALSE
 	return TRUE
 
@@ -192,6 +197,7 @@
 /datum/discipline_power/dt_path_pain/hundred_deaths
 	name = "Hundred Deaths"
 	desc = "Tear flesh from bones, crush bones, and rip internal organs with a single glance or word"
+	level = 5
 	target_type = TARGET_MOB
 	grouped_powers = list(
 		/datum/discipline_power/dt_path_pain/anguish,
