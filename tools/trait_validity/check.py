@@ -13,7 +13,7 @@ def red(text):
 # simple way to check if we're running on github actions, or on a local machine
 on_github = os.getenv("GITHUB_ACTIONS") == "true"
 
-defines_file = "code/__DEFINES/traits/declarations.dm"
+defines_file = "code/__DEFINES/traits/vtm/declarations.dm"
 globalvars_file = "code/_globalvars/traits/_traits.dm"
 
 how_to_fix_message = f"Please ensure that all traits in the {defines_file} file are added in the {globalvars_file} file."
