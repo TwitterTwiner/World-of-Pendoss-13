@@ -88,6 +88,7 @@ jobs:
           extract: true
       - name: Install Tools
         run: |
+          chmod +x tools/bootstrap/python
           pip3 install setuptools
           bash tools/ci/install_node.sh
           bash tools/ci/install_spaceman_dmm.sh dreamchecker
