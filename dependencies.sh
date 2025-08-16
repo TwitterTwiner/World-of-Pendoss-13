@@ -8,7 +8,7 @@ export BYOND_MAJOR=516
 export BYOND_MINOR=1667
 
 #rust_g git tag
-export RUST_G_VERSION=3.8.0
+export RUST_G_VERSION=4.0.0
 
 #node version
 export NODE_VERSION=22
@@ -34,4 +34,4 @@ export DREAMLUAU_VERSION=0.1.2
 export CUTTER_REPO=spacestation13/hypnagogic
 
 #hypnagogic git tag
-export CUTTER_VERSION=v4.0.0
+export CUTTER_VERSION=v5.0.0

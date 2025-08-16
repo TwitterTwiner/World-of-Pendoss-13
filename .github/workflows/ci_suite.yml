@@ -311,7 +311,7 @@ jobs:
       - name: Compile
         run: pwsh tools/ci/build.ps1
         env:
-          DM_EXE: "C:\\Program Files (x86)\\byond\\bin\\dm.exe"
+          DM_EXE: "C:\\byond\\bin\\dm.exe"
       - name: Check client Compatibility
         uses: tgstation/byond-client-compatibility-check@v3
         with:
