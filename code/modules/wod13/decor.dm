@@ -1679,3 +1679,104 @@
 			for(var/mob/living/L in src)
 				L.forceMove(get_turf(src))
 			qdel(src)
+
+/obj/structure/leas
+	name = "Building scaffolding"
+	desc = "Building scaffolding. Nothing else."
+	icon = 'code/modules/wod13/128x96.dmi'
+	icon_state = "lesa1"
+	plane = GAME_PLANE
+	layer = ABOVE_OPEN_TURF_LAYER
+	anchored = TRUE
+	density = FALSE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/structure/leas/Initialize()
+	. = ..()
+	icon_state = "lesa[rand(1, 2)]"
+
+
+/obj/structure/museum
+	name = "Some museum exhibits"
+	desc = "What else?"
+	icon = 'code/modules/wod13/museum.dmi'
+	icon_state = "lesa1"
+	plane = GAME_PLANE
+	layer = ABOVE_OPEN_TURF_LAYER
+	anchored = TRUE
+	density = FALSE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/structure/museum/dino
+	name = "Museum exhibits"
+	desc = "Museum exhibits of dinozaurus. Wow!"
+	icon_state = "t-rex"
+
+/obj/structure/museum/ptero
+	name = "Museum exhibits"
+	desc = "Museum exhibits of flying dinozaurus. Incredeble!"
+	icon_state = "requiem"
+
+/obj/structure/museum/requiem
+	name = "Museum exhibits"
+	desc = "Museum exhibits of pre-historical bug. Amazing!"
+	icon_state = "cyclope"
+
+/obj/structure/museum/cyclo
+	name = "Museum exhibits"
+	desc = "Museum exhibits of... What is it? Cyclope? No way..."
+	icon_state = "pterotacdel"
+
+/obj/structure/museum/kroko
+	name = "Museum exhibits"
+	desc = "Museum exhibits of crocodile! Awesome!"
+	icon = 'code/modules/wod13/128x96.dmi'
+	icon_state = "krokodil"
+
+///////////// BOXES ////////////////
+
+/obj/structure/boxes
+	name = "Box"
+	desc = "Storage some items."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "box1"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+	density = TRUE
+
+/obj/structure/boxes/two_down
+	name = "Box"
+	desc = "Storage some items."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "box2_1"
+
+/obj/structure/boxes/two_up
+	name = "Box"
+	desc = "Storage some items."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "box2_2"
+
+/obj/structure/boxes/three
+	name = "Box"
+	desc = "Storage some items."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "box3"
+
+/*
+/obj/structure/boxes/Initialize()
+	. = ..()
+	icon_state = "box[rand(1, 2)]"
+	*/
+
+////////////// VERSTAK /////////////////
+
+/obj/structure/verstak
+	name = "Craftable"
+	desc = "Table for something selfmade things."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "verstak"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+	density = TRUE
