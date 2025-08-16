@@ -92,7 +92,7 @@ jobs:
           bash tools/ci/install_node.sh
           bash tools/ci/install_spaceman_dmm.sh dreamchecker
           bash tools/ci/install_ripgrep.sh
-          tools/bootstrap/python.bat -c ''
+          tools/bootstrap/python -c ''
       - name: Give Linters A Go
         id: linter-setup
         run: ':'
@@ -102,14 +102,14 @@ jobs:
       - name: Ticked File Enforcement
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: |
-          tools/bootstrap/python.bat tools/ticked_file_enforcement/ticked_file_enforcement.py < tools/ticked_file_enforcement/schemas/tgstation_dme.json
-          tools/bootstrap/python.bat tools/ticked_file_enforcement/ticked_file_enforcement.py < tools/ticked_file_enforcement/schemas/unit_tests.json
+          tools/bootstrap/python tools/ticked_file_enforcement/ticked_file_enforcement.py < tools/ticked_file_enforcement/schemas/tgstation_dme.json
+          tools/bootstrap/python tools/ticked_file_enforcement/ticked_file_enforcement.py < tools/ticked_file_enforcement/schemas/unit_tests.json
       - name: Check Define Sanity
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tools/bootstrap/python.bat -m define_sanity.check
+        run: tools/bootstrap/python -m define_sanity.check
       - name: Check Trait Validity
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tools/bootstrap/python.bat -m trait_validity.check
+        run: tools/bootstrap/python -m trait_validity.check
       - name: Run DreamChecker
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         shell: bash
@@ -124,14 +124,14 @@ jobs:
       - name: Run Map Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: |
-          tools/bootstrap/python.bat -m mapmerge2.dmm_test
-          tools/bootstrap/python.bat -m tools.maplint.source
+          tools/bootstrap/python -m mapmerge2.dmm_test
+          tools/bootstrap/python -m tools.maplint.source
       - name: Check Cutter
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tools/bootstrap/python.bat -m tools.icon_cutter.check
+        run: tools/bootstrap/python -m tools.icon_cutter.check
       - name: Run DMI Tests
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tools/bootstrap/python.bat -m dmi.test
+        run: tools/bootstrap/python -m dmi.test
       - name: Check File Directories
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: bash tools/ci/check_filedirs.sh tgstation.dme
