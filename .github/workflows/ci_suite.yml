@@ -116,7 +116,7 @@ jobs:
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
       - name: Run TGUI Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tools/build/build.sh --ci lint tgui-test  # we build tgui here because asset_cache relies on its output
+        run: bash tools/build/build.sh --ci lint tgui-test  # we build tgui here because asset_cache relies on its output
       - name: Run OpenDream
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: |
