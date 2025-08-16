@@ -1732,3 +1732,51 @@
 	desc = "Museum exhibits of crocodile! Awesome!"
 	icon = 'code/modules/wod13/128x96.dmi'
 	icon_state = "krokodil"
+
+///////////// BOXES ////////////////
+
+/obj/structure/boxes
+	name = "Box"
+	desc = "Storage some items."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "box1"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+	density = TRUE
+
+/obj/structure/boxes/two_down
+	name = "Box"
+	desc = "Storage some items."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "box2_1"
+
+/obj/structure/boxes/two_up
+	name = "Box"
+	desc = "Storage some items."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "box2_2"
+
+/obj/structure/boxes/three
+	name = "Box"
+	desc = "Storage some items."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "box3"
+
+/*
+/obj/structure/boxes/Initialize()
+	. = ..()
+	icon_state = "box[rand(1, 2)]"
+	*/
+
+////////////// VERSTAK /////////////////
+
+/obj/structure/verstak
+	name = "Craftable"
+	desc = "Table for something selfmade things."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "verstak"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+	density = TRUE
