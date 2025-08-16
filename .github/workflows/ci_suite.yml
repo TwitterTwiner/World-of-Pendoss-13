@@ -116,7 +116,7 @@ jobs:
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
       - name: Run TGUI Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tools/build/build --ci lint tgui-test  # we build tgui here because asset_cache relies on its output
+        run: tools/build/build.sh --ci lint tgui-test  # we build tgui here because asset_cache relies on its output
       - name: Run OpenDream
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: |
@@ -181,9 +181,7 @@ jobs:
         run: |
           bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
-          chmod +x tools/build/build
-          chmod +x tools/bootstrap/node
-          tools/build/build --ci -DCIBUILDING -DCITESTING -DALL_MAPS
+          tools/build/build.sh --ci -DCIBUILDING -DCITESTING -DALL_MAPS
       - name: Check client Compatibility
         uses: tgstation/byond-client-compatibility-check@v3
         with:
