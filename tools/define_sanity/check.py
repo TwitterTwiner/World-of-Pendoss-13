@@ -67,7 +67,11 @@ located_error_tuples = []
 
 for applicable_file in files_to_scan:
     with open(applicable_file, encoding="utf8") as file:
-        file_contents = file.read()
+        try:
+            file_contents = file.read()
+        except Exception:
+            print(f"Error occured in the file {applicable_file}.")
+            continue
         for define in define_regex.finditer(file_contents):
             number_of_defines += 1
             define_name = define.group(2)
