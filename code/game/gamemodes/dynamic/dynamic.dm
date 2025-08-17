@@ -1,10 +1,3 @@
-#define ONLY_RULESET       1
-#define HIGHLANDER_RULESET 2
-#define TRAITOR_RULESET    4
-#define MINOR_RULESET      8
-
-#define RULESET_STOP_PROCESSING 1
-
 #define FAKE_REPORT_CHANCE 8
 #define REPORT_NEG_DIVERGENCE -15
 #define REPORT_POS_DIVERGENCE 15
@@ -736,13 +729,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			return RULE_OF_THREE(40, 20, x) + 50
 		if (20 to INFINITY)
 			return rand(90, 100)
-
-#undef ONLY_RULESET
-#undef HIGHLANDER_RULESET
-#undef TRAITOR_RULESET
-#undef MINOR_RULESET
-
-#undef RULESET_STOP_PROCESSING
 
 #undef FAKE_REPORT_CHANCE
 #undef REPORT_NEG_DIVERGENCE
