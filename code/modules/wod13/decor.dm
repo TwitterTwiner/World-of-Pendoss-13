@@ -1703,7 +1703,7 @@
 	icon = 'code/modules/wod13/museum.dmi'
 	icon_state = "lesa1"
 	plane = GAME_PLANE
-	layer = ABOVE_OPEN_TURF_LAYER
+	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
