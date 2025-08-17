@@ -39,6 +39,7 @@
 
 /obj/manholeup/alt
 	icon = 'code/modules/wod13/32x48.dmi'
+	layer = ABOVE_MOB_LAYER
 
 /obj/manholedown/Initialize()
 	. = ..()
