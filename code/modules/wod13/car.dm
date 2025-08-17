@@ -800,14 +800,17 @@ SUBSYSTEM_DEF(carpool)
 		delivery_trunk.retrieval_menu(user)
 	else
 		var/obj/structure/delivery_crate/pulled_crate = user.pulling
-		if(!istype(pulled_crate, /obj/structure/delivery_crate))
-			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
-			return
-		else
+		if(istype(pulled_crate, /obj/structure/delivery_crate))
 			playsound(src,'code/modules/wod13/delevery_club/cargocrate_move.ogg',50,10)
 			if(do_after(user, 2 SECONDS, pulled_crate))
 				playsound(src,'code/modules/wod13/delevery_club/cargocrate_load.ogg',50,10)
 				delivery_trunk.add_to_storage(user,pulled_crate)
+	
+			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
+			return
+		else
+			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
+			return
 
 /obj/vampire_car/limuzini_bombini
 	icon_state = "limo"
@@ -1094,13 +1097,14 @@ SUBSYSTEM_DEF(carpool)
 	var/drift = 1
 	var/drive = get_a_drive(driver)
 	var/ugl = 1
-	switch(drive)
+/*	switch(drive)
 		if(0)
 			ugl = rand(-5, 5)
 		if(1)
 			ugl = rand(3, 7)
 		if(2)
 			ugl = rand(2, 4)
+*/
 	if(driver)
 		if(HAS_TRAIT(driver, TRAIT_EXP_DRIVER))
 			drift = 2
