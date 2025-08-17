@@ -219,6 +219,10 @@
 
 
 /mob/living/carbon/human/npc/proc/route_optimisation()
+	if(istype(get_area(src), /area/vtm))
+		var/area/vtm/A = get_area(src)
+		if(!A.upper)
+			return FALSE
 	if(CheckMove())
 		return FALSE
 	var/sosat = FALSE
@@ -251,9 +255,12 @@
 		less_danger = null
 	if(!staying)
 		lifespan = lifespan+1
-/*	if(lifespan >= 1000)
+	if(SSmasquerade.last_level == "breach")
 		if(route_optimisation())
-			qdel(src)*/
+			qdel(src)
+	if(lifespan >= 2000)
+		if(route_optimisation())
+			qdel(src)
 	if(pulledby)
 		if(prob(25))
 			Aggro(pulledby, TRUE)

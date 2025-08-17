@@ -629,6 +629,25 @@
 //				clawfootstep = FOOTSTEP_SNOW
 //				heavyfootstep = FOOTSTEP_SNOW
 
+/obj/effect/decal/daroof
+	name = "roof"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "roof"
+	mouse_opacity = 0
+	anchored = TRUE
+	density = FALSE
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	turf_loc_check = FALSE
+
+/obj/effect/decal/daroof/red
+	icon_state = "roof_red"
+
+/obj/effect/decal/daroof/blue
+	icon_state = "roof_blue"
+
+/obj/effect/decal/daroof/gray
+	icon_state = "roof_gray"
+
 /obj/effect/decal/bordur/corner
 	icon_state = "border_corner"
 

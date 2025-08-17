@@ -32,6 +32,7 @@
 		var/prev_trans = matrix(transform)
 		animate(pixel_z = 0, transform = turn(transform, pick(-6, 0, 6)), time=2)
 		animate(pixel_z = 0, transform = prev_trans, time = 0)
+		alpha = 255
 		playsound(loc, 'code/modules/wod13/sounds/snake_move.ogg', 25, FALSE)
 		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), CONFIG_GET(number/movedelay/walk_delay) * move_speed_multiplier)
 	else
@@ -39,6 +40,23 @@
 
 /obj/structure/closet/cardboard/proc/ResetMoveDelay()
 	move_delay = FALSE
+
+/obj/structure/closet/cardboard/close(mob/living/user)
+	. = ..()
+	for(var/mob/living/carbon/human/H in src)
+		if(H)
+			if(H == user)
+				animate(src, alpha = 0, time = (6-get_a_security(H))*50)
+
+/obj/structure/closet/cardboard/Bump(atom/A)
+	. = ..()
+	if(isliving(A))
+		alpha = 255
+
+/obj/structure/closet/cardboard/Bumped(atom/movable/A)
+	. = ..()
+	if(isliving(A))
+		alpha = 255
 
 /obj/structure/closet/cardboard/open(mob/living/user, force = FALSE)
 	if(opened || !can_open(user, force))

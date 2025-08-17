@@ -45,9 +45,14 @@
 				S.recalc_corner(C)
 			C.active = TRUE
 
-// Used to get a scaled lumcount.
+// Used to get a scaled lumcount
+/turf
+	var/lumcount_override = FALSE
+
 /turf/proc/get_lumcount(minlum = 0, maxlum = 1)
 	if (!lighting_object)
+		return 1
+	if(lumcount_override)
 		return 1
 
 	var/totallums = 0

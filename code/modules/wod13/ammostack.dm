@@ -86,6 +86,17 @@
 	bare_wound_bonus = 5
 	wound_bonus = -5
 
+/obj/projectile/beam/beam_rifle/vampire/vamp545mm/holy
+	name = "5.45mm holy graved bullet"
+	damage = 60
+	var/fire_stacks = 4
+
+/obj/projectile/beam/beam_rifle/vampire/vamp545mm/holy/on_hit(atom/target, blocked = FALSE)
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		M.adjust_fire_stacks(fire_stacks)
+		M.IgniteMob()
+
 /obj/projectile/beam/beam_rifle/vampire/vamp12g
 	name = "12g shotgun slug"
 	damage = 70
@@ -190,6 +201,10 @@
 	projectile_type = /obj/projectile/beam/beam_rifle/vampire/vamp545mm
 	icon_state = "545"
 	base_iconstate = "545"
+
+/obj/item/ammo_casing/vampire/c545mm/holy
+	name = "5.45mm holy graved bullet casing"
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/vamp545mm/holy
 
 /obj/item/ammo_casing/vampire/c556mm/incendiary
 	projectile_type = /obj/projectile/beam/beam_rifle/vampire/vamp556mm/incendiary

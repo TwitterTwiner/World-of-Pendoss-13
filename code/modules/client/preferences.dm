@@ -2544,9 +2544,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.masquerade = masquerade
 	if(!character_setup)
 		if(character in GLOB.masquerade_breakers_list)
-			if(character.masquerade > 2)
+			if(character.masquerade > 4)
 				GLOB.masquerade_breakers_list -= character
-		else if(character.masquerade < 3)
+		else if(character.masquerade < 5)
 			GLOB.masquerade_breakers_list += character
 
 	character.flavor_text = sanitize_text(flavor_text)

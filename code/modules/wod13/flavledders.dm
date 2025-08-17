@@ -33,6 +33,14 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/climbing = FALSE
 
+/obj/manholedown/alt
+	name = "ladder"
+	icon = 'code/modules/wod13/32x48.dmi'
+
+/obj/manholeup/alt
+	icon = 'code/modules/wod13/32x48.dmi'
+	layer = ABOVE_MOB_LAYER
+
 /obj/manholedown/Initialize()
 	. = ..()
 	if(GLOB.winter)

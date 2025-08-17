@@ -280,6 +280,18 @@
 	display_name = "habit"
 	path = /obj/item/clothing/head/vampire/nun
 
+/datum/gear/hat/ushanka_modern
+	display_name = "modern ushanka"
+	path = /obj/item/clothing/head/uzanka/blue
+
+/datum/gear/hat/ushanka_red
+	display_name = "red ushanka"
+	path = /obj/item/clothing/head/uzanka/red
+
+/datum/gear/hat/ushanka_soviet
+	display_name = "soviet ushanka"
+	path = /obj/item/clothing/head/uzanka
+
 //////////////////////////////// NECK || ШЕЯ ////////////////////////////////
 
 /datum/gear/neck

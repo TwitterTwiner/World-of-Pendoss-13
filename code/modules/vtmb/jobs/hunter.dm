@@ -101,3 +101,28 @@
 /datum/antagonist/hunter/greet()
 	to_chat(owner.current, "<span class='alertsyndie'>You are the Hunter.</span>")
 	owner.announce_objectives()
+
+/datum/antagonist/small_hunter
+	name = "Hunter Enthusiast"
+	roundend_category = "hunters"
+	antagpanel_category = "Hunter"
+	job_rank = ROLE_OPERATIVE
+	antag_hud_type = ANTAG_HUD_OPS
+	antag_hud_name = "synd"
+	antag_moodlet = /datum/mood_event/focused
+	show_to_ghosts = TRUE
+
+/datum/antagonist/small_hunter/on_gain()
+	add_antag_hud(ANTAG_HUD_OPS, "synd", owner.current)
+	owner.special_role = src
+	owner.current.playsound_local(get_turf(owner.current), 'code/modules/wod13/sounds/orthodox_start.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	return ..()
+
+/datum/antagonist/small_hunter/on_removal()
+	..()
+	to_chat(owner.current,"<span class='userdanger'>You are no longer the Hunter Enthusiast!</span>")
+	owner.special_role = null
+
+/datum/antagonist/small_hunter/greet()
+	to_chat(owner.current, "<span class='alertsyndie'>You are the Hunter Enthusiast.</span>")
+	owner.announce_objectives()

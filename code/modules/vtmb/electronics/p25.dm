@@ -621,6 +621,13 @@ GLOBAL_LIST_EMPTY(p25_radios)
 	var/turf/T = get_turf(user)
 	if(T)
 		. += "<b>Location:</b> [T.x]:[T.y]"
+	. += "<b>List of warrants:</b>"
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(H)
+			if(H.warrant)
+				. += "[H.true_real_name], last seen at [get_area(H)]"
+			else if(H.masquerade <= 2)
+				. += "[H.true_real_name], last seen at [get_area(H)]"
 
 /obj/item/p25radio/police/register_callsign(callsign)
 	if(!callsign || !istext(callsign))
