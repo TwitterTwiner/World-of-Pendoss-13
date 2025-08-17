@@ -1468,34 +1468,22 @@
 	icon_state = "rabochii"
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
 	flags_inv = HIDEHAIR
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	icon = 'code/modules/wod13/clothing.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
 
 /obj/item/clothing/head/kaska/pro
 	name = "Orange orking helmet"
 	desc = "A helmet for workers and who leads they"
 	icon_state = "pro_rabochii"
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	icon = 'code/modules/wod13/clothing.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
 
 /obj/item/clothing/head/kaska/prorab
 	name = "White working helmet"
 	desc = "A helmet for prorabs"
 	icon_state = "prorab"
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	icon = 'code/modules/wod13/clothing.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
 
 
 /obj/item/clothing/suit/gastarbaiters
 	name = "Yellow working vest"
 	desc = "A vest for workers and uzbek gastarbaiters"
 	icon_state = "jeletka"
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	icon = 'code/modules/wod13/clothing.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
 
 
@@ -1504,26 +1492,23 @@
 /obj/item/clothing/head/uzanka
 	name = "Ushanka"
 	desc = "For cold winters!"
-	icon_state = "ushanka_1"
+	icon_state = "ushanka_rus"
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
 	flags_inv = HIDEHAIR
 	actions_types = list(/datum/action/item_action/toggle)
 	var/earflaps = TRUE
 	var/storona = 1
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	icon = 'code/modules/wod13/clothing.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
 
 /obj/item/clothing/head/uzanka/red
 	name = "Ushanka"
 	desc = "For cold winters!"
-	icon_state = "ushanka_2"
+	icon_state = "ushanka_red"
 	storona = 2
 
 /obj/item/clothing/head/uzanka/blue
 	name = "Ushanka"
 	desc = "For cold winters!"
-	icon_state = "ushanka_3"
+	icon_state = "ushanka_blue"
 	storona = 3
 
 /obj/item/clothing/head/uzanka/attack_self(mob/user)
