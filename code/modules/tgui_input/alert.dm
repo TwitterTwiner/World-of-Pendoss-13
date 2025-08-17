@@ -104,7 +104,7 @@
 	data["buttons"] = buttons
 	data["message"] = message
 	data["large_buttons"] = FALSE
-	data["swapped_buttons"] = FALSE
+	data["swapped_buttons"] = TRUE
 	data["title"] = title
 	return data
 
