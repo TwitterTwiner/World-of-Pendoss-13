@@ -1468,22 +1468,34 @@
 	icon_state = "rabochii"
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
 	flags_inv = HIDEHAIR
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	icon = 'code/modules/wod13/clothing.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
 
 /obj/item/clothing/head/kaska/pro
 	name = "Orange orking helmet"
 	desc = "A helmet for workers and who leads they"
 	icon_state = "pro_rabochii"
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	icon = 'code/modules/wod13/clothing.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
 
 /obj/item/clothing/head/kaska/prorab
 	name = "White working helmet"
 	desc = "A helmet for prorabs"
 	icon_state = "prorab"
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	icon = 'code/modules/wod13/clothing.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
 
 
 /obj/item/clothing/suit/gastarbaiters
 	name = "Yellow working vest"
 	desc = "A vest for workers and uzbek gastarbaiters"
 	icon_state = "jeletka"
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	icon = 'code/modules/wod13/clothing.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
 
 
