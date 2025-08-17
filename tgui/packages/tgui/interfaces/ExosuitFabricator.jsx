@@ -329,10 +329,7 @@ const PartLists = (props) => {
     getFirstValidPartSet(partSets),
   );
 
-  const [searchText, setSearchText] = useSharedState(
-    'search_text',
-    '',
-  );
+  const [searchText, setSearchText] = useSharedState('search_text', '');
 
   if (!selectedPartTab || !buildableParts[selectedPartTab]) {
     const validSet = getFirstValidPartSet(partSets);

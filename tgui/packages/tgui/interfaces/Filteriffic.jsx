@@ -282,14 +282,8 @@ export const Filteriffic = (props) => {
   const filters = data.target_filter_data || {};
   const hasFilters = filters !== {};
   const filterDefaults = data['filter_info'];
-  const [massApplyPath, setMassApplyPath] = useLocalState(
-    'massApplyPath',
-    '',
-  );
-  const [hiddenSecret, setHiddenSecret] = useLocalState(
-    'hidden',
-    false,
-  );
+  const [massApplyPath, setMassApplyPath] = useLocalState('massApplyPath', '');
+  const [hiddenSecret, setHiddenSecret] = useLocalState('hidden', false);
   return (
     <Window width={500} height={500} title="Filteriffic" resizable>
       <Window.Content scrollable>

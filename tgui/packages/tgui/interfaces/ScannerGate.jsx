@@ -1,5 +1,11 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from 'tgui-core/components';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 import { Window } from '../layouts';
 

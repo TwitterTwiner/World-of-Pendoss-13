@@ -13,10 +13,7 @@ import { Window } from '../layouts';
 
 export const ChemReactionChamber = (props) => {
   const { act, data } = useBackend();
-  const [reagentName, setReagentName] = useLocalState(
-    'reagentName',
-    '',
-  );
+  const [reagentName, setReagentName] = useLocalState('reagentName', '');
   const [reagentQuantity, setReagentQuantity] = useLocalState(
     'reagentQuantity',
     1,

@@ -12,10 +12,7 @@ export const FishCatalog = (props) => {
   const fish_by_name = flow([sortBy((fish) => fish.name)])(
     data.fish_info || [],
   );
-  const [currentFish, setCurrentFish] = useLocalState(
-    'currentFish',
-    null,
-  );
+  const [currentFish, setCurrentFish] = useLocalState('currentFish', null);
   return (
     <Window width={500} height={300} resizable>
       <Window.Content>

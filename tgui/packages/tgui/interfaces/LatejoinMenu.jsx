@@ -22,9 +22,9 @@ export function LatejoinMenu(props) {
           fill
           scrollable
           title={
-              <Box as="span" color="label">
-                It is currently {round_duration} into the night.
-              </Box>
+            <Box as="span" color="label">
+              It is currently {round_duration} into the night.
+            </Box>
           }
         >
           <Box style={{ columns: '20em' }}>
@@ -70,8 +70,7 @@ function DepartmentEntry(props) {
           breakInside: 'avoid-column',
         }}
         titleStyle={{
-          'border-bottom-color': Color.fromHex(department.color)
-            .toString(),
+          'border-bottom-color': Color.fromHex(department.color).toString(),
         }}
         textStyle={{
           color: Color.fromHex(department.color).toString(),

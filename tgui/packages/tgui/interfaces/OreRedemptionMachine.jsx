@@ -114,10 +114,7 @@ export const OreRedemptionMachine = (props) => {
 const MaterialRow = (props) => {
   const { material, onRelease } = props;
 
-  const [amount, setAmount] = useLocalState(
-    'amount' + material.name,
-    1,
-  );
+  const [amount, setAmount] = useLocalState('amount' + material.name, 1);
 
   const amountAvailable = Math.floor(material.amount);
   return (

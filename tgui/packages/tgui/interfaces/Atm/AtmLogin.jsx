@@ -5,10 +5,7 @@ import { Window } from '../../layouts';
 
 export const AtmLogin = (props) => {
   const { act, data } = useBackend();
-  const [entered_code, setEnteredCode] = useLocalState(
-    'login_code',
-    '',
-  );
+  const [entered_code, setEnteredCode] = useLocalState('login_code', '');
 
   const { account_owner, code } = data;
 

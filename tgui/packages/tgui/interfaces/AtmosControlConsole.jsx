@@ -1,7 +1,12 @@
 import { map } from 'common/collections';
 import { toFixed } from 'tgui-core/math';
 import { useBackend } from '../backend';
-import { Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const AtmosControlConsole = (props) => {

@@ -121,10 +121,7 @@ export const BiogeneratorContent = (props) => {
 
 const ItemList = (props) => {
   const { act } = useBackend();
-  const [hoveredItem, setHoveredItem] = useLocalState(
-    'hoveredItem',
-    {},
-  );
+  const [hoveredItem, setHoveredItem] = useLocalState('hoveredItem', {});
   const hoveredCost = hoveredItem.cost || 0;
   // Append extra hover data to items
   const items = props.items.map((item) => {

@@ -116,10 +116,7 @@ export const GenericUplink = (props) => {
 const ItemList = (props) => {
   const { compactMode, currencyAmount, currencySymbol } = props;
   const { act } = useBackend();
-  const [hoveredItem, setHoveredItem] = useLocalState(
-    'hoveredItem',
-    {},
-  );
+  const [hoveredItem, setHoveredItem] = useLocalState('hoveredItem', {});
   const hoveredCost = (hoveredItem && hoveredItem.cost) || 0;
   // Append extra hover data to items
   const items = props.items.map((item) => {

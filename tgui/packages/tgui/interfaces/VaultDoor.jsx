@@ -16,7 +16,7 @@ export class VaultDoor extends Component {
   }
 
   handleButtonClick(value) {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       inputCode: prevState.inputCode + value,
     }));
   }

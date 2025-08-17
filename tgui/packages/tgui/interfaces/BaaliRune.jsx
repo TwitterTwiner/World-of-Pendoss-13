@@ -1,4 +1,4 @@
-import { useBackend, useLocalState } from "../backend";
+import { useBackend, useLocalState } from '../backend';
 import {
   Button,
   Stack,
@@ -7,16 +7,16 @@ import {
   Tabs,
   Box,
   NoticeBox,
-} from "tgui-core/components";
-import { Window } from "../layouts";
+} from 'tgui-core/components';
+import { Window } from '../layouts';
 
 export const BaaliRune = (props) => {
   const { act, data } = useBackend();
   const { corpses, rituals, categories } = data;
-  const [searchText, setSearchText] = useLocalState("runeSearch", "");
+  const [searchText, setSearchText] = useLocalState('runeSearch', '');
   const [selectedCategory, setSelectedCategory] = useLocalState(
-    "runeCategory",
-    categories.length > 0 ? categories[0] : ""
+    'runeCategory',
+    categories.length > 0 ? categories[0] : '',
   );
   let findedRituals = rituals.filter((value) => {
     if (searchText.length === 0) {
@@ -36,12 +36,11 @@ export const BaaliRune = (props) => {
                   fluid
                   color="black"
                   lineHeight={2}
-
                   style={{
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                    textAlign: "center",
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    textAlign: 'center',
                   }}
                 >
                   {stringifyCorpsesCount(corpses)}
@@ -55,12 +54,12 @@ export const BaaliRune = (props) => {
                   lineHeight={2}
                   content="Sacrifice"
                   style={{
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                    textAlign: "center",
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    textAlign: 'center',
                   }}
-                  onClick={() => act("sacrifice")}
+                  onClick={() => act('sacrifice')}
                 />
               </Stack.Item>
               <Stack.Item>
@@ -91,12 +90,12 @@ export const BaaliRune = (props) => {
             </Stack>
           </Stack.Item>
           <Stack vertical width="100%">
-            <Box pl={1} style={{ overflowY: "auto" }}>
+            <Box pl={1} style={{ overflowY: 'auto' }}>
               {findedRituals.length === 0 && (
                 <NoticeBox>
                   {searchText.length === 0
-                    ? "No rituals in this category."
-                    : "No rituals found."}
+                    ? 'No rituals in this category.'
+                    : 'No rituals found.'}
                 </NoticeBox>
               )}
               {findedRituals.map((value) => (
@@ -120,7 +119,7 @@ const ItemBox = (props) => {
         <Button
           content={stringifyCorpsesCount(item.cost)}
           onClick={() =>
-            act("ritual", { category: item.category, name: item.name })
+            act('ritual', { category: item.category, name: item.name })
           }
         />,
       ]}
@@ -131,5 +130,5 @@ const ItemBox = (props) => {
 };
 
 function stringifyCorpsesCount(count) {
-  return count == 1 ? count + " corpse" : count + " corpses";
+  return count == 1 ? count + ' corpse' : count + ' corpses';
 }
