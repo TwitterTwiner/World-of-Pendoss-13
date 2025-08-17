@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			if(HAS_TRAIT(C, AUSPEX_TRAIT))
 				if(get_dist(C, src) > 7)
 					continue
-			listening |= C
+		//	listening |= C
 		//	the_dead[C] = TRUE
 
 	var/eavesdropping
