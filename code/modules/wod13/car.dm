@@ -1095,7 +1095,7 @@ SUBSYSTEM_DEF(carpool)
 
 /obj/vampire_car/proc/controlling(var/adjusting_speed, var/adjusting_turn)
 	var/drift = 1
-	var/drive = get_a_drive(driver)
+//	var/drive = get_a_drive(driver)
 	var/ugl = 1
 /*	switch(drive)
 		if(0)
