@@ -101,7 +101,7 @@
 	response_disarm_simple = "gently push"
 	response_harm_continuous = "punches"
 	response_harm_simple = "punch"
-	speed = -1.25
+	speed = -1.75
 	maxHealth = 250
 	health = 250
 	can_buckle = TRUE
@@ -146,6 +146,9 @@
 
 ///////// CROW FLY ANIMATION //////////
 
+/datum/movespeed_modifier/fly
+	multiplicative_slowdown = -1.2
+
 /datum/action/I_belive_I_can_Fly
 	name = "Fly Up"
 	desc = "Fly to the upper level."
@@ -159,7 +162,7 @@
 		C.is_flying_animal = TRUE
 		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ELEMENT_TRAIT)
 		C.movement_type = FLYING
-		C.add_movespeed_modifier(/datum/movespeed_modifier/centipede)
+		C.add_movespeed_modifier(/datum/movespeed_modifier/fly)
 		owner.up()
 
 	else if(C.icon_state == "crow_fly")
@@ -167,5 +170,5 @@
 		C.is_flying_animal = FALSE
 		REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ELEMENT_TRAIT)
 		C.movement_type = prejnii
-		C.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
+		C.remove_movespeed_modifier(/datum/movespeed_modifier/fly)
 		owner.down()
