@@ -2,6 +2,7 @@
 #define PCANNON_FIREALL 1
 #define PCANNON_FILO 2
 #define PCANNON_FIFO 3
+
 /obj/item/pneumatic_cannon
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
@@ -306,3 +307,8 @@
 	charge_type = /obj/item/food/pie/cream/nostun
 	maxWeightClass = 6		//2 pies
 	charge_ticks = 2		//4 second/pie
+
+
+#undef PCANNON_FIREALL
+#undef PCANNON_FILO
+#undef PCANNON_FIFO

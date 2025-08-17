@@ -338,3 +338,6 @@ GLOBAL_LIST_EMPTY(lifts)
 			return
 
 	add_fingerprint(user)
+
+#undef LOCKED
+#undef UNLOCKED

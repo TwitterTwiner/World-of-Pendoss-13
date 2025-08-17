@@ -2,6 +2,7 @@
 #define COOLDOWN_INTERACT 6 SECONDS
 #define COOLDOWN_SLOGAN 5 MINUTES
 #define COOLDOWN_SPEW 5 MINUTES
+
 /obj/machinery/pinpointer_dispenser
 	name = "wayfinding pinpointer synthesizer"
 	icon = 'icons/obj/machines/wayfinding.dmi'
@@ -427,3 +428,8 @@
 
 /obj/machinery/navbeacon/wayfinding/disposals
 	location = "Disposals"
+
+#undef COOLDOWN_SPAWN
+#undef COOLDOWN_INTERACT
+#undef COOLDOWN_SLOGAN
+#undef COOLDOWN_SPEW

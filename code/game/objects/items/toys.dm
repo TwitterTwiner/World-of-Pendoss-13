@@ -138,6 +138,8 @@
 		icon_state = "[icon_state]_[chosen_balloon_color]"
 		inhand_icon_state = icon_state
 
+#undef BALLOON_COLORS
+
 /obj/item/toy/balloon/corgi
 	name = "corgi balloon"
 	desc = "A balloon with a corgi face on it. For the all year good boys."
