@@ -1508,7 +1508,7 @@
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
 	flags_inv = HIDEHAIR
 	actions_types = list(/datum/action/item_action/toggle)
-	earflaps = TRUE
+	var/earflaps = TRUE
 	var/storona = 1
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon = 'code/modules/wod13/clothing.dmi'
