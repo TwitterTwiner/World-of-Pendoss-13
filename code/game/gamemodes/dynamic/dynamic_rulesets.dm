@@ -208,3 +208,9 @@
 /// Should ignore certain checks if forced is TRUE
 /datum/dynamic_ruleset/roundstart/ready(forced = FALSE)
 	return ..()
+
+#undef EXTRA_RULESET_PENALTY
+#undef POP_SCALING_PENALTY
+
+#undef REVOLUTION_VICTORY
+#undef STATION_VICTORY

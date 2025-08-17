@@ -1,0 +1,1 @@
+#define ACTION_BUTTON_DEFAULT_BACKGROUND "default"

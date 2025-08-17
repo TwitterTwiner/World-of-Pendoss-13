@@ -737,6 +737,13 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (20 to INFINITY)
 			return rand(90, 100)
 
+#undef ONLY_RULESET
+#undef HIGHLANDER_RULESET
+#undef TRAITOR_RULESET
+#undef MINOR_RULESET
+
+#undef RULESET_STOP_PROCESSING
+
 #undef FAKE_REPORT_CHANCE
 #undef REPORT_NEG_DIVERGENCE
 #undef REPORT_POS_DIVERGENCE

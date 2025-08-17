@@ -162,3 +162,7 @@
 	update_icon()
 	adjust_light()
 	desc = initial(desc)
+
+#undef LOG_BURN_TIMER
+#undef PAPER_BURN_TIMER
+#undef MAXIMUM_BURN_TIMER

@@ -356,3 +356,5 @@ GLOBAL_VAR(restart_counter)
 
 /world/proc/on_tickrate_change()
 	SStimer?.reset_buckets()
+
+#undef RESTART_COUNTER_PATH
