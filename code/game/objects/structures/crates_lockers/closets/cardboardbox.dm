@@ -46,7 +46,7 @@
 	for(var/mob/living/carbon/human/H in src)
 		if(H)
 			if(H == user)
-				animate(src, alpha = 0, time = (6-get_a_security(H))*30)
+				animate(src, alpha = 0, time = (6-get_a_security(H))*50)
 
 /obj/structure/closet/cardboard/Bump(atom/A)
 	. = ..()
