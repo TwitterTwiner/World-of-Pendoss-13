@@ -1468,6 +1468,9 @@
 	icon_state = "rabochii"
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
 	flags_inv = HIDEHAIR
+	icon = 'code/modules/wod13/clothing.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
 
 /obj/item/clothing/head/kaska/pro
 	name = "Orange orking helmet"
@@ -1485,6 +1488,9 @@
 	desc = "A vest for workers and uzbek gastarbaiters"
 	icon_state = "jeletka"
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
+	icon = 'code/modules/wod13/clothing.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
 
 
 /////////////// SHAKPKI-USHANKI ////////////////////
@@ -1496,6 +1502,10 @@
 	armor = list(BASHING = 1, LETHAL = 0, AGGRAVATED = 0, MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 10)
 	flags_inv = HIDEHAIR
 	actions_types = list(/datum/action/item_action/toggle)
+	icon = 'code/modules/wod13/clothing.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	
 	var/earflaps = TRUE
 	var/storona = 1
 
