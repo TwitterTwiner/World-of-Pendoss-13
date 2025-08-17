@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 
 
 /datum/discipline/auspex/post_gain()
+	. = ..()
 	GLOB.auspex_users += owner
 
 /datum/discipline_power/auspex
