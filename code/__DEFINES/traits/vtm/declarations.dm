@@ -1,4 +1,4 @@
-// START TRAIT DEFINES
+// BEGIN TRAIT DEFINES
 
 /// Vampire cannot drink from anyone who doesn't consent to it
 #define TRAIT_CONSENSUAL_FEEDING_ONLY "consensual_feeding_only"
