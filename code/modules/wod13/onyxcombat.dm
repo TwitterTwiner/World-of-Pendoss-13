@@ -7,10 +7,11 @@
 	if(warform)
 		warform.end()
 
-	if(istype(get_area(src), /area/vtm))
-		var/area/vtm/V = get_area(src)
-		if(V.zone_type == "masquerade")
-			SSmasquerade.dead_level = max(0, SSmasquerade.dead_level-50)
+	if(isnpc(src))
+		if(istype(get_area(src), /area/vtm))
+			var/area/vtm/V = get_area(src)
+			if(V.zone_type == "masquerade")
+				SSmasquerade.dead_level = max(0, SSmasquerade.dead_level-50)
 
 	if(masquerade <= 0 && !GLOB.canon_event)
 		var/datum/preferences/P = GLOB.preferences_datums[ckey(key)]
