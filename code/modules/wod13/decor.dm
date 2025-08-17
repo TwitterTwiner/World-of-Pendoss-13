@@ -78,6 +78,15 @@
 	var/matrix/M = matrix()
 	M.Scale(3, 2.25)
 	transform = M
+	for(var/turf/T in range(2, src))
+		if(T)
+			T.lumcount_override = TRUE
+
+/obj/effect/decal/lamplight/Destroy()
+	for(var/turf/T in range(2, src))
+		if(T)
+			T.lumcount_override = FALSE
+	. = ..()
 
 /obj/structure/lamppost/Initialize()
 	. = ..()
