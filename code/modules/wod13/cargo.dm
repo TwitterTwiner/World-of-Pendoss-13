@@ -327,6 +327,7 @@
 	contains = list(/obj/item/gun/ballistic/automatic/vampire/ak74)
 	crate_name = "weapon crate"
 
+
 /datum/supply_pack/vampire/thompson
 	name = "Weapon (Thompson)"
 	desc = "Contains a Thompson SMG."

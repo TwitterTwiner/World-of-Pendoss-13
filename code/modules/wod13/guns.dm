@@ -402,6 +402,12 @@
 	max_ammo = 30
 	multiple_sprites = AMMO_BOX_FULL_EMPTY
 
+/obj/item/ammo_box/magazine/vamp545/holy
+	ammo_type = /obj/item/ammo_casing/vampire/c545mm/holy
+
+/obj/item/gun/ballistic/automatic/vampire/ak74/hunter
+	mag_type = /obj/item/ammo_box/magazine/vamp545/holy
+
 /obj/item/gun/ballistic/automatic/vampire/ak74
 	name = "\improper Kalashnikov's Automatic Rifle 74"
 	desc = "Pretty old, but also easy fireable and cleanable by vodka.Uses 5.45 rounds."

@@ -24,9 +24,11 @@ SUBSYSTEM_DEF(masquerade)
 	var/masquerade_violators = 0
 	var/sabbat = 0
 	if(length(GLOB.masquerade_breakers_list))
-		masquerade_violators = (1000/length(GLOB.player_list))*length(GLOB.masquerade_breakers_list)
+		for(var/mob/living/L in GLOB.masquerade_breakers_list)
+			if(L)
+				masquerade_violators += (5-L.masquerade)*50
 	if(length(GLOB.sabbatites))
-		sabbat = (1000/length(GLOB.player_list))*length(GLOB.sabbatites)
+		sabbat = length(GLOB.sabbatites)*100
 
 	total_level = max(0, min(1000, 1000 + dead_level + manual_adjustment - masquerade_violators - sabbat))
 
@@ -55,6 +57,18 @@ SUBSYSTEM_DEF(masquerade)
 							to_chat(H, "People start noticing...")
 						if("breach")
 							to_chat(H, "The Masquerade is about to fall...")
+		if(last_level == "moderate")
+			for(var/mob/living/carbon/human/H in GLOB.player_list)
+				if(H)
+					playsound(H, 'code/modules/wod13/sounds/curfew.ogg', 0, 0, 100)
+					to_chat(world, "<span class='userdanger'><b>EMERGENCY ALERT – CITY OF SAN FRANCISCO</b></span>")
+					to_chat(world, "<b>Due to a sharp rise in violence and reports of unknown threats, a citywide curfew is now in effect from 9:00 PM until 6:00 AM daily until further notice. All residents are required to remain indoors during curfew hours. Essential travel only will be permitted. Public safety agencies are actively investigating the situation and working to restore security. Please remain vigilant, avoid large gatherings, and report suspicious activity to 911 immediately. Updates will be provided through official city channels, local news, and emergency alerts.</b>")
+		if(last_level == "breach")
+			for(var/mob/living/carbon/human/H in GLOB.player_list)
+				if(H)
+					playsound(H, 'code/modules/wod13/sounds/curfew2.ogg', 0, 0, 100)
+					to_chat(world, "<span class='userdanger'><b>EMERGENCY ALERT – CITY OF SAN FRANCISCO</b></span>")
+					to_chat(world, "<b>Due to extreme violence and unknown widespread threats, the City of San Francisco is now under a total lockdown until further notice. All residents must remain indoors at all times. Travel, gatherings, and outdoor activity are strictly prohibited. Public safety agencies are fully mobilized to contain the danger. Remain alert, secure your home, and report urgent threats to 911 only. Updates will be provided through official city channels, emergency alerts, and local news.</b>")
 
 	if(total_level <= 250)
 		for(var/mob/living/carbon/H in GLOB.player_list)

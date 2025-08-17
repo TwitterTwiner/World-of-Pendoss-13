@@ -131,6 +131,255 @@
 		"Мочите суку!"
 	)
 
+/datum/socialrole/churka
+	s_tones = list("caucasian3",
+								"latino",
+								"mediterranean",
+								"asian1",
+								"asian2",
+								"arab",
+								"indian",
+								"african1",
+								"african2")
+
+	min_age = 18
+	max_age = 45
+	preferedgender = MALE
+	male_names = null
+	surnames = null
+
+	hair_colors = list("040404",	//Black
+											"120b05",	//Dark Brown
+											"342414",	//Brown
+											"554433")	//Light Brown
+	male_hair = list("Balding Hair",
+										"Bedhead",
+										"Bedhead 2",
+										"Bedhead 3",
+										"Boddicker",
+										"Business Hair",
+										"Business Hair 2",
+										"Business Hair 3",
+										"Business Hair 4",
+										"Coffee House",
+										"Combover",
+										"Crewcut",
+										"Father",
+										"Flat Top",
+										"Gelled Back",
+										"Joestar",
+										"Keanu Hair",
+										"Oxton",
+										"Volaju")
+	male_facial = list("Beard (Abraham Lincoln)",
+											"Beard (Chinstrap)",
+											"Beard (Full)",
+											"Beard (Cropped Fullbeard)",
+											"Beard (Hipster)",
+											"Beard (Neckbeard)",
+											"Beard (Three o Clock Shadow)",
+											"Beard (Five o Clock Shadow)",
+											"Beard (Seven o Clock Shadow)",
+											"Moustache (Hulk Hogan)",
+											"Moustache (Watson)",
+											"Sideburns (Elvis)",
+											"Sideburns",
+											"Shaved")
+
+	shoes = list(
+		/obj/item/clothing/shoes/vampire/jackboots/work
+	)
+	uniforms = list(
+		/obj/item/clothing/under/vampire/larry,
+		/obj/item/clothing/under/vampire/bandit,
+		/obj/item/clothing/under/vampire/biker
+	)
+	hats = list(
+		/obj/item/clothing/head/kaska,
+		/obj/item/clothing/head/kaska/pro,
+		/obj/item/clothing/head/kaska/prorab)
+	suits = list(/obj/item/clothing/suit/gastarbaiters)
+	pockets = list(
+		/obj/item/stack/dollar/rand,
+		/obj/item/vamp/keys/hack
+	)
+	gloves = list(/obj/item/clothing/gloves/vampire/work)
+
+	//[Lucia] - this has been edited to have better English because it included slurs, but none of the others have yet
+	male_phrases = list(
+		"Чаво?",
+		"Перекур?",
+		"Чёта нада?",
+		"Моя работать стройка.",
+		"Насяника?",
+		"Ухади. Кирпич-башка - делать больно.",
+		"Салам алейкум.")
+	neutral_phrases = list(
+		"Чаво?",
+		"Перекур?",
+		"Чёта нада?",
+		"Моя работать стройка.",
+		"Насяника?",
+		"Ухади. Кирпич-башка - делать больно.",
+		"Салам алейкум.")
+	random_phrases = list(
+		"Я твой рот шатал бля.",
+		"Работа...",
+		"Чаво стряслось братанчик?",
+		"ШУХЕР, НАСЯНИКА!",
+		"Салам алейкум."
+	)
+	answer_phrases = list(
+		"Я твой рот шатал бля.",
+		"Работа...",
+		"Чаво стряслось братанчик?",
+		"ШУХЕР, НАСЯНИКА!",
+		"Салам алейкум."
+	)
+	help_phrases = list(
+		"Аллах!!",
+		"РОТ ШАТАЛ БАЛЯ!",
+		"Чаво чудишь!?",
+		"МАМА!",
+		"Памагити!",
+		"Братва спасити помогити!",
+		"Иншаллах!"
+	)
+
+/datum/socialrole/hunter
+	s_tones = list("caucasian3",
+								"latino",
+								"mediterranean",
+								"asian1",
+								"asian2",
+								"arab",
+								"indian",
+								"african1",
+								"african2")
+
+	min_age = 18
+	max_age = 45
+	preferedgender = MALE
+	male_names = null
+	surnames = null
+
+	hair_colors = list("040404",	//Black
+											"120b05",	//Dark Brown
+											"342414",	//Brown
+											"554433")	//Light Brown
+	male_hair = list("Balding Hair",
+										"Bedhead",
+										"Bedhead 2",
+										"Bedhead 3",
+										"Boddicker",
+										"Business Hair",
+										"Business Hair 2",
+										"Business Hair 3",
+										"Business Hair 4",
+										"Coffee House",
+										"Combover",
+										"Crewcut",
+										"Father",
+										"Flat Top",
+										"Gelled Back",
+										"Joestar",
+										"Keanu Hair",
+										"Oxton",
+										"Volaju")
+	male_facial = list("Beard (Abraham Lincoln)",
+											"Beard (Chinstrap)",
+											"Beard (Full)",
+											"Beard (Cropped Fullbeard)",
+											"Beard (Hipster)",
+											"Beard (Neckbeard)",
+											"Beard (Three o Clock Shadow)",
+											"Beard (Five o Clock Shadow)",
+											"Beard (Seven o Clock Shadow)",
+											"Moustache (Hulk Hogan)",
+											"Moustache (Watson)",
+											"Sideburns (Elvis)",
+											"Sideburns",
+											"Shaved")
+
+	shoes = list(
+		/obj/item/clothing/shoes/vampire/sneakers,
+		/obj/item/clothing/shoes/vampire/sneakers/red,
+		/obj/item/clothing/shoes/vampire/jackboots
+	)
+	uniforms = list(
+		/obj/item/clothing/under/vampire/larry,
+		/obj/item/clothing/under/vampire/bandit,
+		/obj/item/clothing/under/vampire/biker
+	)
+	hats = list(
+		/obj/item/clothing/head/vampire/bandana,
+		/obj/item/clothing/head/vampire/bandana/red,
+		/obj/item/clothing/head/vampire/bandana/black,
+		/obj/item/clothing/head/vampire/cowboy
+	)
+	pockets = list(
+		/obj/item/stack/dollar/rand,
+		/obj/item/vamp/keys/hack
+	)
+	suits = list(/obj/item/clothing/suit/vampire/trench, /obj/item/clothing/suit/vampire/trench/alt)
+	gloves = list(/obj/item/clothing/gloves/vampire/leather)
+
+	//[Lucia] - this has been edited to have better English because it included slurs, but none of the others have yet
+	male_phrases = list(
+		"На шо это ты смотришь?",
+		"Пытаешься напугать меня?",
+		"Те чето нужно?",
+		"Будь уверен, яйца то у меня есть.",
+		"Ты хоть знаешь на кого я работаю?",
+		"Пшел отсюда, пока моя банда не надрала тебе зад.",
+		"Чето нужно, фрик?",
+		"Уйди, либераха.",
+		"Уходи с нашего района.",
+		"Думаешь напугал меня? Знаешь на кого работаю?",
+		"Думаешь ты крепкий орешек?"
+	)
+	neutral_phrases = list(
+		"Че ты пялишься на меня?",
+		"Еще один идиот, пытающийся выглядеть угрожающе.",
+		"Скоро нужно будет возвращаться домой, семья ждет.",
+		"Ушел с пути, либераха.",
+		"Я думаю... скучаю по жене.",
+		"Че? Те надо чето?",
+		"Пшол с дороги.",
+		"Пшел нахуй, не в настроении.",
+		"Отъебись."
+	)
+	random_phrases = list(
+		"Гнида.",
+		"Я потерял мою девочку...",
+		"Что случилось братан?",
+		"ЕБАННЫЙ. ДОБРЫЙ. ВЕЧЕР.",
+		"Доброго.",
+		"Безумный город...",
+		"Мы всё потеряли, всё...",
+		"Эххх..."
+	)
+	answer_phrases = list(
+		"У меня все получилось...",
+		"Чертова дыра... весь этот город.",
+		"Чувак, это дерьмо.",
+		"Ты выглядишь так, будто я тебя знаю...",
+		"Хорошо.",
+		"Эмм... думаю... классно?",
+		"Поел я значит в забегаловке, так до сих пор мутит..."
+	)
+	help_phrases = list(
+		"Мочите нечисть!!",
+		"ГОСПОДЬ ВСЕВЫШНИЙ!",
+		"Оборзел, чертила!?",
+		"Это твоя последняя смерть!",
+		"Отправляйся в Ад!",
+		"Трупам не место среди людей!",
+		"Жгите сосунов!",
+		"ЗА ГРОБ ГОСПОДЕН!!",
+		"СМЕРТЬ ЕРЕТИКАМ!!"
+	)
+
 /datum/socialrole/usualmale
 	s_tones = list(
 		"albino",
@@ -774,6 +1023,15 @@
 			my_weapon = new /obj/item/melee/vampirearms/knife(src)
 	AssignSocialRole(/datum/socialrole/bandit)
 
+/mob/living/carbon/human/npc/churka
+	vampire_faction = "City"
+	max_stat = 2
+	staying = TRUE
+
+/mob/living/carbon/human/npc/churka/Initialize()
+	..()
+	AssignSocialRole(/datum/socialrole/churka)
+
 /mob/living/carbon/human/npc/walkby
 	vampire_faction = "City"
 
@@ -1173,6 +1431,95 @@
 											"Прекрати это сейчас же!!",
 											"Это полиция Сан-Франциско, лечь на землю!")
 
+/datum/socialrole/swat
+	s_tones = list("albino",
+								"caucasian1",
+								"caucasian2",
+								"caucasian3")
+
+	min_age = 18
+	max_age = 45
+	preferedgender = MALE
+	male_names = null
+	surnames = null
+
+	hair_colors = list("040404",	//Black
+										"120b05",	//Dark Brown
+										"342414",	//Brown
+										"554433",	//Light Brown
+										"695c3b",	//Dark Blond
+										"ad924e",	//Blond
+										"dac07f",	//Light Blond
+										"802400",	//Ginger
+										"a5380e",	//Ginger alt
+										"ffeace",	//Albino
+										"650b0b",	//Punk Red
+										"14350e",	//Punk Green
+										"080918")	//Punk Blue
+	male_hair = list("Balding Hair",
+										"Bedhead",
+										"Bedhead 2",
+										"Bedhead 3",
+										"Boddicker",
+										"Business Hair",
+										"Business Hair 2",
+										"Business Hair 3",
+										"Business Hair 4",
+										"Coffee House",
+										"Combover",
+										"Crewcut",
+										"Father",
+										"Flat Top",
+										"Gelled Back",
+										"Joestar",
+										"Keanu Hair",
+										"Oxton",
+										"Volaju")
+	male_facial = list("Beard (Abraham Lincoln)",
+											"Beard (Chinstrap)",
+											"Beard (Full)",
+											"Beard (Cropped Fullbeard)",
+											"Beard (Hipster)",
+											"Beard (Neckbeard)",
+											"Beard (Three o Clock Shadow)",
+											"Beard (Five o Clock Shadow)",
+											"Beard (Seven o Clock Shadow)",
+											"Moustache (Hulk Hogan)",
+											"Moustache (Watson)",
+											"Sideburns (Elvis)",
+											"Sideburns",
+											"Shaved")
+
+	shoes = list(/obj/item/clothing/shoes/vampire/jackboots)
+	uniforms = list(/obj/item/clothing/under/vampire/police)
+	hats = list(/obj/item/clothing/head/vampire/helmet)
+	suits = list(/obj/item/clothing/suit/vampire/vest/police)
+	pockets = list(/obj/item/stack/dollar/rand)
+	gloves = list(/obj/item/clothing/gloves/vampire/leather)
+
+	male_phrases = list("Я наблюдаю за тобой.",
+											"Выглядишь подозрительно...",
+											"Для тебя есть несколько пуль, если ты подашься в криминал.",
+											"Я - закон.",
+											"Вы видели мужика в черном плаще и черными волосами?")
+	neutral_phrases = list("Я наблюдаю за тобой.",
+											"Выглядишь странно...",
+											"Хороший бандит - мертвый бандит.",
+											"Я здесь закон.",
+											"Вы видели карлика в коричневом пальто и маске?")
+	random_phrases = list("Я наблюдаю за тобой.",
+											"Выглядишь опасно...",
+											"У меня есть несколько пуль для окончания твоей криминальной карьеры.",
+											"Закон - мое второе имя.",
+											"Не видели никого подозрительного?")
+	answer_phrases = list("Я здесь, чтобы защищать вас.")
+	help_phrases = list("ЛОЖИСЬ НА ЗЕМЛЮ!",
+											"Остановись!!",
+											"Ни шагу!",
+											"Брось своё оружие!",
+											"Прекрати это сейчас же!!",
+											"Это полиция Сан-Франциско, лечь на землю!")
+
 /mob/living/carbon/human/npc/police
 	vampire_faction = "City"
 	fights_anyway = TRUE
@@ -1182,12 +1529,58 @@
 	..()
 	if(prob(66))
 		base_body_mod = "f"
-	if(prob(66))
+	if(prob(66) && SSmasquerade.last_level != "breach")
 		my_weapon = new /obj/item/gun/ballistic/vampire/revolver(src)
 	else
 		my_weapon = new /obj/item/gun/ballistic/automatic/vampire/ar15(src)
 	ignores_warrant = TRUE
 	AssignSocialRole(/datum/socialrole/police)
+
+/mob/living/carbon/human/npc/swat
+	vampire_faction = "City"
+	fights_anyway = TRUE
+	max_stat = 5
+
+/mob/living/carbon/human/npc/swat/Initialize()
+	..()
+	my_weapon = new /obj/item/gun/ballistic/automatic/vampire/aug(src)
+	ignores_warrant = TRUE
+	AssignSocialRole(/datum/socialrole/swat)
+
+/mob/living/carbon/human/npc/hunter
+	vampire_faction = "City"
+	fights_anyway = TRUE
+	max_stat = 5
+
+/mob/living/carbon/human/npc/hunter/Initialize()
+	..()
+	my_weapon = new /obj/item/gun/ballistic/automatic/vampire/ak74/hunter(src)
+	ignores_warrant = TRUE
+	AssignSocialRole(/datum/socialrole/hunter)
+
+/mob/living/carbon/human/npc/swat/handle_automated_action()
+	. = ..()
+	if(stat < 1)
+		for(var/mob/living/carbon/human/H in oviewers(7, src))
+			if(H)
+				if(H.warrant)
+					Aggro(H, FALSE)
+				if(H.masquerade < 4)
+					Aggro(H, FALSE)
+		for(var/mob/living/carbon/werewolf/W in oviewers(7, src))
+			if(W)
+				Aggro(W, FALSE)
+
+/mob/living/carbon/human/npc/hunter/handle_automated_action()
+	. = ..()
+	if(stat < 1)
+		for(var/mob/living/carbon/human/H in oviewers(5, src))
+			if(H)
+				if(H.masquerade < 5)
+					Aggro(H, FALSE)
+		for(var/mob/living/carbon/werewolf/W in oviewers(7, src))
+			if(W)
+				Aggro(W, FALSE)
 
 /mob/living/carbon/human/npc/police/handle_automated_action()
 	. = ..()
@@ -1196,6 +1589,20 @@
 			if(H)
 				if(H.warrant)
 					Aggro(H, FALSE)
+				if(H.masquerade < 2)
+					Aggro(H, FALSE)
+		for(var/mob/living/carbon/werewolf/W in oviewers(7, src))
+			if(W)
+				Aggro(W, FALSE)
+
+/mob/living/carbon/human/npc/hunter/stale
+	staying = TRUE
+
+/mob/living/carbon/human/npc/police/stale
+	staying = TRUE
+
+/mob/living/carbon/human/npc/swat/stale
+	staying = TRUE
 
 /datum/socialrole/guard
 	s_tones = list(

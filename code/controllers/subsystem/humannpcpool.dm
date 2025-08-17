@@ -4,10 +4,10 @@ SUBSYSTEM_DEF(humannpcpool)
 	flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
 	priority = FIRE_PRIORITY_VERYLOW
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	wait = 4 SECONDS
+	wait = 3 SECONDS
 
 	var/list/currentrun = list()
-	var/npc_max = 30
+	var/npc_max = 50
 
 /datum/controller/subsystem/humannpcpool/stat_entry(msg)
 	var/list/activelist = GLOB.npc_list
@@ -46,6 +46,10 @@ SUBSYSTEM_DEF(humannpcpool)
 	while(length(GLOB.alive_npc_list) < npc_max)
 		var/atom/kal = pick(GLOB.npc_spawn_points)
 		var/NEPIS = pick(/mob/living/carbon/human/npc/police, /mob/living/carbon/human/npc/bandit, /mob/living/carbon/human/npc/hobo, /mob/living/carbon/human/npc/walkby, /mob/living/carbon/human/npc/business)
+		if(prob(3))
+			NEPIS = /mob/living/carbon/human/npc/hunter
+		if(SSmasquerade.last_level == "breach")
+			NEPIS = pick(/mob/living/carbon/human/npc/police, /mob/living/carbon/human/npc/swat, /mob/living/carbon/human/npc/hunter)
 		new NEPIS(get_turf(kal))
 
 SUBSYSTEM_DEF(actionnpcpool)

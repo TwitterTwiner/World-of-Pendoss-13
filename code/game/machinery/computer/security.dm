@@ -3,7 +3,7 @@
 	desc = "Used to view and edit personnel's security records."
 	icon_screen = "security"
 	icon_keyboard = "security_key"
-	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	req_one_access = list()
 	circuit = /obj/item/circuitboard/computer/secure_data
 	light_color = COLOR_SOFT_RED
 	var/rank = null
@@ -113,8 +113,6 @@
 <table id='maintable_data' style="text-align:center;" border="1" cellspacing="0" width="100%">
 <tr>
 <th><A href='byond://?src=[REF(src)];choice=Sorting;sort=name'>Name</A></th>
-<th><A href='byond://?src=[REF(src)];choice=Sorting;sort=id'>ID</A></th>
-<th><A href='byond://?src=[REF(src)];choice=Sorting;sort=rank'>Rank</A></th>
 <th><A href='byond://?src=[REF(src)];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
 <th>Criminal Status</th>
 </tr>"}
@@ -140,9 +138,7 @@
 									background = "''" //"'background-color:#FFFFFF;'"
 									crimstat = "No Record."
 							dat += "<tr style=[background]>"
-							dat += text("<td><input type='hidden' value='[] [] [] []'></input><A href='byond://?src=[REF(src)];choice=Browse Record;d_rec=[REF(R)]'>[]</a></td>", R.fields["name"], R.fields["id"], R.fields["rank"], R.fields["fingerprint"], R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
+							dat += text("<td><input type='hidden' value='[] []'></input><A href='byond://?src=[REF(src)];choice=Browse Record;d_rec=[REF(R)]'>[]</a></td>", R.fields["name"], R.fields["fingerprint"], R.fields["name"])
 							dat += text("<td>[]</td>", R.fields["fingerprint"])
 							dat += text("<td>[]</td></tr>", crimstat)
 						dat += {"
@@ -168,12 +164,9 @@
 							user << browse_rsc(P2.picture.picture_image, "photo_side")
 						dat += {"<table><tr><td><table>
 						<tr><td>Name:</td><td><A href='byond://?src=[REF(src)];choice=Edit Field;field=name'>&nbsp;[active1.fields["name"]]&nbsp;</A></td></tr>
-						<tr><td>ID:</td><td><A href='byond://?src=[REF(src)];choice=Edit Field;field=id'>&nbsp;[active1.fields["id"]]&nbsp;</A></td></tr>
 						<tr><td>Gender:</td><td><A href='byond://?src=[REF(src)];choice=Edit Field;field=gender'>&nbsp;[active1.fields["gender"]]&nbsp;</A></td></tr>
 						<tr><td>Age:</td><td><A href='byond://?src=[REF(src)];choice=Edit Field;field=age'>&nbsp;[active1.fields["age"]]&nbsp;</A></td></tr>"}
-						dat += "<tr><td>Species:</td><td><A href ='byond://?src=[REF(src)];choice=Edit Field;field=species'>&nbsp;[active1.fields["species"]]&nbsp;</A></td></tr>"
-						dat += {"<tr><td>Rank:</td><td><A href='byond://?src=[REF(src)];choice=Edit Field;field=rank'>&nbsp;[active1.fields["rank"]]&nbsp;</A></td></tr>
-						<tr><td>Fingerprint:</td><td><A href='byond://?src=[REF(src)];choice=Edit Field;field=fingerprint'>&nbsp;[active1.fields["fingerprint"]]&nbsp;</A></td></tr>
+						dat += {"<tr><td>Fingerprint:</td><td><A href='byond://?src=[REF(src)];choice=Edit Field;field=fingerprint'>&nbsp;[active1.fields["fingerprint"]]&nbsp;</A></td></tr>
 						<tr><td>Physical Status:</td><td>&nbsp;[active1.fields["p_stat"]]&nbsp;</td></tr>
 						<tr><td>Mental Status:</td><td>&nbsp;[active1.fields["m_stat"]]&nbsp;</td></tr>
 						</table></td>
