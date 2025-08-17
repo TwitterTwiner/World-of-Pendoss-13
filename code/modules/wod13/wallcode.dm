@@ -634,7 +634,10 @@
 	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "roof"
 	mouse_opacity = 0
-	obj_flags = BLOCK_Z_OUT_DOWN
+	anchored = TRUE
+	density = FALSE
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	turf_loc_check = FALSE
 
 /obj/effect/decal/daroof/red
 	icon_state = "roof_red"
