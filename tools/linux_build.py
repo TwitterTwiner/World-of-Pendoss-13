@@ -23,7 +23,7 @@ def play(soundfile):
     return p
 
 def stage1():
-    p = subprocess.Popen("(cd tgui; /bin/bash ./build.sh)", shell=True)
+    p = subprocess.Popen("(cd tgui; /bin/bash ./build)", shell=True)
     wait(p)
     play("sound/misc/compiler-stage1.ogg")
 
