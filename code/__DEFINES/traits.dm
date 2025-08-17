@@ -99,6 +99,8 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
+// BEGIN TRAIT DEFINES
+
 //mob traits
 /// Forces the user to stay unconscious.
 #define TRAIT_KNOCKEDOUT		"knockedout"
@@ -537,3 +539,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //// Rolling traits
 #define AUSPEX_TRAIT "auspex_trait"
+
+// END TRAIT DEFINES

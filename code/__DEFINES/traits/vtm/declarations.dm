@@ -1,4 +1,3 @@
-// BEGIN TRAIT DEFINES
 
 /// Vampire cannot drink from anyone who doesn't consent to it
 #define TRAIT_CONSENSUAL_FEEDING_ONLY "consensual_feeding_only"
@@ -38,5 +37,3 @@
 
 /// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
 #define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
-
-// END TRAIT DEFINES
