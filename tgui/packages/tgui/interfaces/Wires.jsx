@@ -1,11 +1,12 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
   LabeledList,
-  Section,
   NoticeBox,
+  Section,
 } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const Wires = (props) => {

@@ -1,5 +1,3 @@
-import { classes } from 'tgui-core/react';
-import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
@@ -9,6 +7,9 @@ import {
   Section,
   Tabs,
 } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
 const ROOT_CATEGORIES = ['Atmospherics', 'Disposals', 'Transit Tubes'];

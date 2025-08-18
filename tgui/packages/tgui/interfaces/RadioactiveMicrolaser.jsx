@@ -1,11 +1,12 @@
-import { useBackend } from '../backend';
 import {
-  Button,
   Box,
+  Button,
+  LabeledList,
   NumberInput,
   Section,
-  LabeledList,
 } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const RadioactiveMicrolaser = (props) => {

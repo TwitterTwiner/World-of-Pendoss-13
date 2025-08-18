@@ -1,5 +1,3 @@
-import { toFixed } from 'tgui-core/math';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -7,6 +5,9 @@ import {
   NumberInput,
   Section,
 } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+
+import { useBackend } from '../backend';
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 

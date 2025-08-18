@@ -1,5 +1,4 @@
 import { map } from 'common/collections';
-import { useBackend, useSharedState } from '../backend';
 import {
   Button,
   Flex,
@@ -8,6 +7,8 @@ import {
   Section,
   Tabs,
 } from 'tgui-core/components';
+
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 export const NaniteProgramHub = (props) => {

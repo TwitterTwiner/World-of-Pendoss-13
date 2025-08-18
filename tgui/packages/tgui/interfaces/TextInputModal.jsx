@@ -1,9 +1,10 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
-import { useBackend, useLocalState } from '../backend';
-import { KEY_ENTER, KEY_ESCAPE } from 'tgui-core/keycodes';
 import { Box, Section, Stack, TextArea } from 'tgui-core/components';
+import { KEY_ENTER, KEY_ESCAPE } from 'tgui-core/keycodes';
+
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 export const sanitizeMultiline = (toSanitize) => {
   return toSanitize.replace(/(\n|\r\n){3,}/, '\n\n');

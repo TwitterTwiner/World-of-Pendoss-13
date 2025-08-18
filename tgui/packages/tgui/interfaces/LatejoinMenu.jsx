@@ -2,12 +2,11 @@ import { Color } from 'tgui-core/color';
 import {
   Box,
   Button,
-  Icon,
-  NoticeBox,
   Section,
   Stack,
   StyleableSection,
 } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

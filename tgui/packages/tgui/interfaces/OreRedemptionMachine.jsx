@@ -1,5 +1,3 @@
-import { toTitleCase } from 'tgui-core/string';
-import { useBackend, useLocalState } from '../backend';
 import {
   BlockQuote,
   Box,
@@ -8,6 +6,9 @@ import {
   Section,
   Table,
 } from 'tgui-core/components';
+import { toTitleCase } from 'tgui-core/string';
+
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
 export const OreRedemptionMachine = (props) => {

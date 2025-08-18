@@ -1,6 +1,3 @@
-import { classes } from 'tgui-core/react';
-import { createSearch } from 'tgui-core/string';
-import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
@@ -15,6 +12,10 @@ import {
   Tabs,
 } from 'tgui-core/components';
 import { formatMoney } from 'tgui-core/format';
+import { classes } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
 const MAX_SEARCH_RESULTS = 25;

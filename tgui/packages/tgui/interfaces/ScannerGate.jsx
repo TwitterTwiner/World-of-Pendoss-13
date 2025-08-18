@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,8 +5,10 @@ import {
   NumberInput,
   Section,
 } from 'tgui-core/components';
-import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 const DISEASE_THEASHOLD_LIST = [
   'Positive',

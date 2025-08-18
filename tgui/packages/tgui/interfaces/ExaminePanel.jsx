@@ -1,9 +1,8 @@
 // THIS IS A SKYRAT UI FILE
 import { useState } from 'react';
+import { Section, Stack, Tabs } from 'tgui-core/components';
 
-import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { ByondUi, Section, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const formatURLs = (text) => {

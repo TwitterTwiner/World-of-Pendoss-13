@@ -1,11 +1,12 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Section,
   LabeledList,
   NumberInput,
+  Section,
 } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const MassDriverControl = (props) => {

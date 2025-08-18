@@ -1,11 +1,12 @@
 import {
-  ProgressBar,
-  NumberInput,
-  Button,
-  Section,
   Box,
+  Button,
   Flex,
+  NumberInput,
+  ProgressBar,
+  Section,
 } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

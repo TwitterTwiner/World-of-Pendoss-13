@@ -1,9 +1,5 @@
-import { toFixed } from 'tgui-core/math';
-import { classes } from 'tgui-core/react';
 import { storage } from 'common/storage';
-import { createUuid } from 'tgui-core/uuid';
 import { Component, Fragment } from 'react';
-import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
@@ -16,6 +12,11 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import { classes } from 'tgui-core/react';
+import { createUuid } from 'tgui-core/uuid';
+
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
 const pod_grey = {

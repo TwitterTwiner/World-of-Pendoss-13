@@ -1,12 +1,13 @@
-import { useBackend } from '../backend';
 import {
+  Box,
   Button,
+  Dimmer,
+  NoticeBox,
   Section,
   Table,
-  NoticeBox,
-  Dimmer,
-  Box,
 } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
 
 export const NtosJobManager = (props) => {

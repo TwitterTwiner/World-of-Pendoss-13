@@ -1,6 +1,6 @@
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { WinXP } from './WindowsXP/index';
-import { useBackend } from '../backend';
 
 export const WindowsXP = (props) => {
   const { act, data } = useBackend();
