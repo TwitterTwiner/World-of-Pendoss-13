@@ -1173,7 +1173,8 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	L.attributes.stamina_reagent = 0
 	L.attributes.dexterity_reagent = 0
 	L.attributes.strength_reagent = 0
-	animate(L.client, color = null, time = 20)
+	if(L.client)
+		animate(L.client, color = null, time = 20)
 	..()
 
 /datum/reagent/drug/heroin/on_mob_life(mob/living/carbon/M)
@@ -1205,7 +1206,8 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	if(prob(33))
 		M.drop_all_held_items()
 		M.Jitter(2)
-	animate(M.client, color = GLOB.dpr, time = 50)
+	if(M.client)
+		animate(M.client, color = GLOB.dpr, time = 50)
 	..()
 
 /datum/reagent/drug/heroin/addiction_act_stage2(mob/living/M)
@@ -1227,7 +1229,8 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	..()
 
 /datum/reagent/drug/heroin/addiction_act_stage4(mob/living/M)
-	animate(M.client, color = null, time = 50)
+	if(M.client)
+		animate(M.client, color = null, time = 50)
 	if(prob(33))
 		M.drop_all_held_items()
 		M.adjustToxLoss(3*REM, 0)
@@ -1308,7 +1311,8 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	if(L.client && music)
 		music.file = null
 		L.client << music
-	animate(L.client, color = null, time = 20)
+	if(L.client)
+		animate(L.client, color = null, time = 20)
 	L.clear_fullscreen("RADUGA")
 	REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
 	L.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
@@ -1364,7 +1368,8 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 			M.suicide()
 
 /datum/reagent/drug/mushroomhallucinogen/Dmt/on_mob_end_metabolize(mob/living/L)
-	animate(L.client, color = null, time = 20)
+	if(L.client)
+		animate(L.client, color = null, time = 20)
 	if(L.client && music)
 		music.file = null
 		L.client << music
@@ -1398,10 +1403,12 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	L.attributes.wits_reagent = 3
 	L.attributes.intelligence_reagent = 3
 	L.attributes.perception_reagent = 2
-	animate(L.client, color = GLOB.nzp, time = 50)
+	if(L.client)
+		animate(L.client, color = GLOB.nzp, time = 50)
 	var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 	for(var/atom/whole_screen in screens)
-		animate(L.client, color = GLOB.nzp, time = 5, easing = QUAD_EASING)
+		if(L.client)
+			animate(L.client, color = GLOB.nzp, time = 5, easing = QUAD_EASING)
 		for(var/i in 1 to 7)
 			whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 100, y = 100, size =5, offset = rand()))
 
@@ -1409,7 +1416,8 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	L.attributes.wits_reagent = 0
 	L.attributes.intelligence_reagent = 0
 	L.attributes.perception_reagent = 0
-	animate(L.client, color = null, time = 20)
+	if(L.client)
+		animate(L.client, color = null, time = 20)
 	var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 	for(var/atom/whole_screen in screens)
 	//	remove_wibbly_filters(whole_screen)
