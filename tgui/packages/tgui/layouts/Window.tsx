@@ -14,6 +14,7 @@ import {
 } from 'react';
 import { Box, Icon } from 'tgui-core/components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from 'tgui-core/constants';
+import { BooleanLike } from 'tgui-core/react';
 import { classes } from 'tgui-core/react';
 import { decodeHtmlEntities, toTitleCase } from 'tgui-core/string';
 
@@ -28,7 +29,6 @@ import {
 } from '../drag';
 import { createLogger } from '../logging';
 import { Layout } from './Layout';
-import { BooleanLike } from 'tgui-core/react';
 
 const logger = createLogger('Window');
 
