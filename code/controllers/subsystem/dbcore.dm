@@ -90,7 +90,7 @@ SUBSYSTEM_DEF(dbcore)
 		"db_name" = db,
 		"read_timeout" = timeout,
 		"write_timeout" = timeout,
-		"max_threads" = thread_limit,
+		"max_threads" = thread_limit
 	))))
 	. = (result["status"] == "ok")
 	if (.)
