@@ -1277,7 +1277,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((true_experience < 10) || !(pref_species.id == "ghoul"))
 						return
 
-					 // [ChillRaccoon] - hot-patched shit for specify which disces should be able to be taken
+					// [ChillRaccoon] - hot-patched shit for specify which disces should be able to be taken
 					var/list/possible_new_disciplines = list(/datum/discipline/obfuscate, /datum/discipline/auspex, /datum/discipline/celerity, /datum/discipline/fortitude, /datum/discipline/potence, /datum/discipline/dementation) - discipline_types - /datum/discipline/bloodheal //subtypesof(/datum/discipline) - discipline_types
 
 					var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in possible_new_disciplines

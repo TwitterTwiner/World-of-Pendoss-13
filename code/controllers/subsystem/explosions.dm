@@ -263,7 +263,7 @@ SUBSYSTEM_DEF(explosions)
 					if(HAS_TRAIT(M, AUSPEX_TRAIT))
 						far_volume = clamp(far_dist/1.2, FAR_LOWER, FAR_UPPER)
 
-						 // Volume is based on explosion size and dist
+						// Volume is based on explosion size and dist
 					if(creaking_explosion)
 						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
 					else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
