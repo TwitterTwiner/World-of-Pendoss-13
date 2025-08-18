@@ -64809,7 +64809,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/financialdistrict)
 "ych" = (
-/obj/structure/delivery_reciever/store8,
+/obj/structure/delivery_receiver/store8,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "ycj" = (
