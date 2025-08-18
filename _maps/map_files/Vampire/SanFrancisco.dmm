@@ -49268,7 +49268,7 @@
 /area/vtm/graveyard/interior)
 "pJt" = (
 /obj/structure/water_source/puddle{
-	dispensedreagent = /datum/reagent/unholywater;
+	dispensedreagent = /datum/reagent/fuel/unholywater;
 	name = "Well of Kupala";
 	desc = "A pool of unholy water blessed by the ancient demon."
 	},
