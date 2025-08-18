@@ -28,6 +28,7 @@ import {
 } from '../drag';
 import { createLogger } from '../logging';
 import { Layout } from './Layout';
+import { BooleanLike } from 'tgui-core/react';
 
 const logger = createLogger('Window');
 
@@ -191,7 +192,7 @@ const statusToColor = (status) => {
 type TitleBarProps = Partial<{
   canClose: boolean;
   className: string;
-  fancy: boolean;
+  fancy: BooleanLike;
   onClose: (e) => void;
   onDragStart: (e) => void;
   status: number;

@@ -61,7 +61,7 @@ export const CheckboxInput = (props) => {
     <Window title={title} width={425} height={300}>
       {!!timeout && <Loader value={timeout} />}
       <Window.Content>
-        <Stack fill vertical g={0}>
+        <Stack fill vertical>
           <Stack.Item>
             <NoticeBox info textAlign="center">
               {decodeHtmlEntities(message)}{' '}
@@ -99,7 +99,11 @@ export const CheckboxInput = (props) => {
               </Tooltip>
             </Stack.Item>
             <Stack.Item grow>
-              <Input fluid value={searchQuery} onChange={setSearchQuery} />
+              <Input
+                fluid
+                value={searchQuery}
+                onInput={(_, value) => setSearchQuery(value)}
+              />
             </Stack.Item>
           </Stack>
           <Stack.Item>
