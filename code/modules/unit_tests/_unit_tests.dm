@@ -47,6 +47,7 @@
 #include "confusion.dm"
 #include "designs.dm"
 #include "emoting.dm"
+#include "find_reference_sanity.dm"
 #include "heretic_knowledge.dm"
 #include "holidays.dm"
 #include "initialize_sanity.dm"
