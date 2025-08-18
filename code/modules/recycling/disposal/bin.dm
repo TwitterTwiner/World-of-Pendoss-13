@@ -497,3 +497,5 @@
 
 /obj/machinery/disposal/delivery_chute/newHolderDestination(obj/structure/disposalholder/H)
 	H.destinationTag = 1
+
+#undef SEND_PRESSURE

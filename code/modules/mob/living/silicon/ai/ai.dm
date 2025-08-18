@@ -1037,3 +1037,5 @@
 
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs have no hands
+
+#undef CALL_BOT_COOLDOWN

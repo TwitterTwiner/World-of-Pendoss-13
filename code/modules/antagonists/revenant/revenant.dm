@@ -488,3 +488,6 @@
 
 /datum/objective/revenant_fluff/check_completion()
 	return TRUE
+
+#undef INVISIBILITY_REVENANT
+#undef REVENANT_NAME_FILE

@@ -160,3 +160,6 @@
 			"response" = responses.len < i ? null : responses[i]
 		)
 		.["questions"] += list(data)
+
+#undef INTERVIEW_APPROVED
+#undef INTERVIEW_DENIED

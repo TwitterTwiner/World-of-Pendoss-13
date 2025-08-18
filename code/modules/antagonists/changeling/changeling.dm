@@ -572,3 +572,5 @@
 
 /datum/antagonist/changeling/xenobio/antag_listing_name()
 	return ..() + "(Xenobio)"
+
+#undef LING_DEAD_GENETICDAMAGE_HEAL_CAP

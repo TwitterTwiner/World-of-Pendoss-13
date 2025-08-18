@@ -128,3 +128,5 @@
 
 /obj/item/assembly/ui_state(mob/user)
 	return GLOB.hands_state
+
+#undef WIRE_PULSE_SPECIAL

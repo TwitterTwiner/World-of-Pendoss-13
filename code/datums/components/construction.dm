@@ -159,3 +159,5 @@
 
 /datum/component/construction/unordered/custom_action(obj/item/I, mob/living/user, typepath)
 	return TRUE
+
+#undef BACKWARD

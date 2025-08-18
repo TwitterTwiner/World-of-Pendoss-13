@@ -60,3 +60,5 @@ It has a punishment variable that is what happens to the parent when they leave 
 			if(!targetturf)
 				targetturf = locate(world.maxx/2,world.maxy/2,stuck_zlevel)
 			L.forceMove(targetturf)
+
+#undef PUNISHMENT_TELEPORT

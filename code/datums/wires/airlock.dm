@@ -195,3 +195,5 @@
 		return TRUE
 
 	return ..()
+
+#undef AI_WIRE_DISABLED_HACKED

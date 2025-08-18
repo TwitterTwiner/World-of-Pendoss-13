@@ -166,3 +166,6 @@
 		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_SYNTHETIC_EMP //Starts organ faliure - gonna need replacing soon.
+
+#undef LIVER_DEFAULT_TOX_LETHALITY
+#undef LIVER_DEFAULT_TOX_TOLERANCE

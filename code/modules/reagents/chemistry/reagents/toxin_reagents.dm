@@ -1022,3 +1022,5 @@
 		to_chat(M, "<span class='notice'>Ah, what was that? You thought you heard something...</span>")
 		M.add_confusion(5)
 	return ..()
+
+#undef LIQUID_PLASMA_BP

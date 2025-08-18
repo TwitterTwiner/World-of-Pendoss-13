@@ -721,3 +721,5 @@
 		dat += "<center><h2>[make_font_cool("QUIRK SETUP")]</h2>"
 		dat += "<a href='byond://?_src_=prefs;preference=trait;task=menu'>Configure Quirks</a><br></center>"
 		dat += "<center><b>Current Quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
+
+#undef ATTRIBUTE_BASE_LIMIT

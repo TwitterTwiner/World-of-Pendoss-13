@@ -682,3 +682,5 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		return
 
 	heart.beating = !status
+
+#undef BALLMER_POINTS

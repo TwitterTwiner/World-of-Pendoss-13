@@ -338,3 +338,8 @@
 	LegionSkull.friends += LivingUser
 	LegionSkull.faction = LivingUser.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
+
+#undef BONFIRE_TELEPORT
+#undef HEAD_DETACH
+#undef LEGIONNAIRE_CHARGE
+#undef SPEW_SMOKE

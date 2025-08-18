@@ -848,3 +848,5 @@
 	if(skillchip_mimic)
 		skillchip_mimic.on_removal(FALSE)
 		QDEL_NULL(skillchip_mimic)
+
+#undef EMP_RANDOMISE_TIME

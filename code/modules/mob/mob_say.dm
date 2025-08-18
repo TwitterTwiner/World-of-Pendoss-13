@@ -155,3 +155,5 @@
 		if(!message)
 			return
 	return message
+
+#undef MESSAGE_MODS_LENGTH

@@ -1116,3 +1116,7 @@ VENTORY!
 /obj/item/vampire/drill
 	grid_width = 10 GRID_BOXES
 	grid_height = 10 GRID_BOXES
+
+#undef CHECK_BITFIELD
+#undef STORAGE_NO_EQUIPPED_ACCESS
+#undef STORAGE_NO_WORN_ACCESS

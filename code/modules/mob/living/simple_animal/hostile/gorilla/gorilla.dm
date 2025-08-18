@@ -111,3 +111,5 @@
 	if(oogas >= rand(2,6))
 		playsound(src, 'sound/creatures/gorilla.ogg', 50)
 		oogas = 0
+
+#undef GORILLA_TOTAL_LAYERS

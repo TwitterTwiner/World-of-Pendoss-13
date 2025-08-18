@@ -1250,3 +1250,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/pruno/on_mob_life(mob/living/carbon/M)
 	M.adjust_disgust(5)
 	..()
+
+#undef ALCOHOL_EXPONENT
+#undef ALCOHOL_THRESHOLD_MODIFIER

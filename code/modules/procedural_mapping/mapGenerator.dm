@@ -204,3 +204,8 @@
 	to_chat(src, "Generating Region")
 	N.generate()
 	to_chat(src, "Generated Region")
+
+#undef CLUSTER_CHECK_ALL_ATOMS
+#undef CLUSTER_CHECK_ALL_TURFS
+#undef CLUSTER_CHECK_DIFFERENTS
+#undef CLUSTER_CHECK_SAMES

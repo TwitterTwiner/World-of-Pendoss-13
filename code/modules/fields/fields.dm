@@ -328,3 +328,6 @@
 
 /obj/item/multitool/field_debug/proc/check_turf(turf/T)
 	current.HandleMove()
+
+#undef FIELD_NO_SHAPE
+#undef FIELD_SHAPE_CUSTOM_SQUARE

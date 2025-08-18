@@ -1004,3 +1004,11 @@
 	H.ForceContractDisease(P, FALSE)
 	parrot_interest = null
 	H.visible_message("<span class='danger'>[src] dive bombs into [H]'s chest and vanishes!</span>", "<span class='userdanger'>[src] dive bombs into your chest, vanishing! This can't be good!</span>")
+
+#undef PARROT_ATTACK
+#undef PARROT_FLEE
+#undef PARROT_PERCH
+#undef PARROT_RETURN
+#undef PARROT_STEAL
+#undef PARROT_SWOOP
+#undef PARROT_WANDER

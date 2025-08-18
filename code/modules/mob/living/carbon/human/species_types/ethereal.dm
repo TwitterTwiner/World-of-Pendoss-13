@@ -193,3 +193,5 @@
 	if(istype(stomach))
 		return stomach.crystal_charge
 	return ETHEREAL_CHARGE_NONE
+
+#undef ETHEREAL_COLORS

@@ -113,3 +113,5 @@
 
 /obj/machinery/atmospherics/components/unary/tank/antinoblium
 	gas_type = /datum/gas/antinoblium
+
+#undef AIR_CONTENTS

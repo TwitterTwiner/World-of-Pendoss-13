@@ -167,3 +167,5 @@
 	var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
 	if(rotcomp)
 		rotcomp.HandRot(null,usr,ROTATION_FLIP)
+
+#undef ROTATION_WRENCH

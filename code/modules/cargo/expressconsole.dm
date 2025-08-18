@@ -245,3 +245,6 @@
 	for(var/datum/supply_pack/vampire/pack in order_queue)
 		total += pack.cost
 	return total
+
+#undef BEACON_COST
+#undef MAX_EMAG_ROCKETS
