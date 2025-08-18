@@ -42,8 +42,7 @@
 		"subsystem_init.dm",
 		"surgeries.dm",
 		"teleporters.dm",
-		"timer_sanity.dm",
-		"unit_test.dm"
+		"timer_sanity.dm"
 	],
 	"forbidden_includes": []
 }

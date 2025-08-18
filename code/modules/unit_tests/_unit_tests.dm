@@ -38,7 +38,6 @@
 #define UNIT_TEST_SKIPPED 2
 
 /* FeudeyTF: No unit tests, while i fix them
-// BEGIN_INCLUDE
 #include "anchored_mobs.dm"
 #include "bespoke_id.dm"
 #include "binary_insert.dm"
@@ -79,9 +78,10 @@
 #include "surgeries.dm"
 #include "teleporters.dm"
 #include "timer_sanity.dm"
+*/
+// BEGIN_INCLUDE
 #include "unit_test.dm"
 // END_INCLUDE
-*/
 
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
