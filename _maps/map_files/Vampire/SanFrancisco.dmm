@@ -23522,7 +23522,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special9,
+/obj/structure/delivery_receiver/special9,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "bNV" = (
@@ -26243,7 +26243,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/laundromat)
 "dtn" = (
-/obj/structure/delivery_reciever/special3,
+/obj/structure/delivery_receiver/special3,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "dtJ" = (
@@ -27674,7 +27674,7 @@
 /turf/open/floor/plating/rough/cave,
 /area/vtm/interior)
 "edC" = (
-/obj/structure/delivery_reciever/special5,
+/obj/structure/delivery_receiver/special5,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "edH" = (
@@ -27750,7 +27750,7 @@
 /turf/open/floor/plating/vampbeach,
 /area/vtm)
 "efx" = (
-/obj/structure/delivery_reciever/store9,
+/obj/structure/delivery_receiver/store9,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "efz" = (
@@ -28428,7 +28428,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special8,
+/obj/structure/delivery_receiver/special8,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "eAF" = (
@@ -29187,7 +29187,7 @@
 "eTD" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -29700,7 +29700,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special7,
+/obj/structure/delivery_receiver/special7,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "fgN" = (
@@ -30813,7 +30813,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/store19,
+/obj/structure/delivery_receiver/store19,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/pacificheights)
 "fNd" = (
@@ -31056,7 +31056,7 @@
 /obj/item/clothing/under/vampire/graveyard,
 /obj/item/clothing/gloves/vampire/work,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
@@ -35015,7 +35015,7 @@
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/fishermanswharf)
 "hRo" = (
-/obj/structure/delivery_reciever/store10,
+/obj/structure/delivery_receiver/store10,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/fishermanswharf)
 "hRq" = (
@@ -36107,7 +36107,7 @@
 /turf/open/floor/carpet/lone,
 /area/vtm/interior/glasswalker)
 "itx" = (
-/obj/structure/delivery_reciever/store18,
+/obj/structure/delivery_receiver/store18,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "ity" = (
@@ -36417,7 +36417,7 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm/interior)
 "iCU" = (
-/obj/structure/delivery_reciever/store15,
+/obj/structure/delivery_receiver/store15,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "iDc" = (
@@ -37412,7 +37412,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior/mansion)
 "jcz" = (
-/obj/structure/delivery_reciever/store20,
+/obj/structure/delivery_receiver/store20,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "jcL" = (
@@ -38125,7 +38125,7 @@
 /turf/open/floor/plating/granite,
 /area/vtm/cabaret)
 "jvO" = (
-/obj/structure/delivery_reciever/store13,
+/obj/structure/delivery_receiver/store13,
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/financialdistrict)
 "jwc" = (
@@ -38207,7 +38207,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special10,
+/obj/structure/delivery_receiver/special10,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/pacificheights)
 "jxQ" = (
@@ -38520,7 +38520,7 @@
 /turf/open/floor/plating/sidewalk,
 /area/vtm/financialdistrict)
 "jHe" = (
-/obj/structure/delivery_reciever/special2,
+/obj/structure/delivery_receiver/special2,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "jHn" = (
@@ -39651,7 +39651,7 @@
 /turf/open/floor/plating/vampdirt,
 /area/vtm/anarch)
 "kql" = (
-/obj/structure/delivery_reciever/store3,
+/obj/structure/delivery_receiver/store3,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "kqm" = (
@@ -40273,7 +40273,7 @@
 /turf/closed/wall/vampwall/rich/old/low/window/reinforced,
 /area/vtm/interior)
 "kIM" = (
-/obj/structure/delivery_reciever/store8,
+/obj/structure/delivery_receiver/store8,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "kIO" = (
@@ -40694,7 +40694,7 @@
 /turf/open/floor/plating/rough/cave,
 /area/vtm/forest)
 "kVR" = (
-/obj/structure/delivery_reciever/special12,
+/obj/structure/delivery_receiver/special12,
 /turf/open/floor/plating/vampdirt,
 /area/vtm/pacificheights)
 "kWn" = (
@@ -42757,7 +42757,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/church)
 "meh" = (
-/obj/structure/delivery_reciever/store2,
+/obj/structure/delivery_receiver/store2,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "mex" = (
@@ -43033,7 +43033,7 @@
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "mlw" = (
-/obj/structure/delivery_reciever/store12,
+/obj/structure/delivery_receiver/store12,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "mlx" = (
@@ -43902,7 +43902,7 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -46034,7 +46034,7 @@
 /obj/item/stack/dollar/twohundredfifty,
 /obj/item/stack/dollar/twohundredfifty,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
@@ -47297,7 +47297,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/giovanni)
 "oKQ" = (
-/obj/structure/delivery_reciever/special1,
+/obj/structure/delivery_receiver/special1,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "oLg" = (
@@ -48599,7 +48599,7 @@
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/wyrm_corrupted)
 "ptn" = (
-/obj/structure/delivery_reciever/special6,
+/obj/structure/delivery_receiver/special6,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "pto" = (
@@ -48655,7 +48655,7 @@
 /area/vtm/prince)
 "puC" = (
 /obj/effect/landmark/npcwall,
-/obj/structure/delivery_reciever/store11,
+/obj/structure/delivery_receiver/store11,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/northbeach)
 "puF" = (
@@ -49470,7 +49470,7 @@
 /turf/open/floor/carpet,
 /area/vtm/interior/bianchiBank)
 "pPF" = (
-/obj/structure/delivery_reciever/store6,
+/obj/structure/delivery_receiver/store6,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "pPM" = (
@@ -51901,7 +51901,7 @@
 /turf/open/floor/plating/granite/black,
 /area/vtm/interior)
 "rhU" = (
-/obj/structure/delivery_reciever/store17,
+/obj/structure/delivery_receiver/store17,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/financialdistrict)
 "rhV" = (
@@ -52660,7 +52660,7 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm)
 "rEM" = (
-/obj/structure/delivery_reciever/store4,
+/obj/structure/delivery_receiver/store4,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "rFj" = (
@@ -52789,7 +52789,7 @@
 	name = "sheriff's tactical helmet"
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -54241,7 +54241,7 @@
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm)
 "swQ" = (
-/obj/structure/delivery_reciever/store1,
+/obj/structure/delivery_receiver/store1,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/ghetto)
 "sxc" = (
@@ -56095,7 +56095,7 @@
 "tvf" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -56142,7 +56142,7 @@
 /turf/open/floor/plasteel/dark,
 /area/vtm/forest)
 "twA" = (
-/obj/structure/delivery_reciever/store5,
+/obj/structure/delivery_receiver/store5,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/pacificheights)
 "txk" = (
@@ -58863,7 +58863,7 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -59962,7 +59962,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/anarch)
 "vzB" = (
-/obj/structure/delivery_reciever/store12,
+/obj/structure/delivery_receiver/store12,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "vzC" = (
@@ -60364,7 +60364,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "vJv" = (
-/obj/structure/delivery_reciever/store7,
+/obj/structure/delivery_receiver/store7,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "vJA" = (
@@ -62283,7 +62283,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special11,
+/obj/structure/delivery_receiver/special11,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "wJS" = (
@@ -62295,7 +62295,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/clinic)
 "wJU" = (
-/obj/structure/delivery_reciever/special4,
+/obj/structure/delivery_receiver/special4,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "wKb" = (
@@ -63305,7 +63305,7 @@
 /turf/open/floor/plating/church,
 /area/vtm/church)
 "xnn" = (
-/obj/structure/delivery_reciever/store14,
+/obj/structure/delivery_receiver/store14,
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/financialdistrict)
 "xnP" = (
@@ -63462,7 +63462,7 @@
 /obj/item/clothing/head/vampire/top,
 /obj/item/clothing/mask/vampire/balaclava,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
