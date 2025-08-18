@@ -50,3 +50,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	if(istype(D))
 		D.wipe_state()
 		D.in_use = FALSE
+
+/// Provides a dummy for unit_tests that functions like a normal human, but with a standardized appearance
+/// Copies the stock dna setup from the dummy/consistent type
+/mob/living/carbon/human/consistent

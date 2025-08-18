@@ -135,16 +135,17 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 
 
 /mob/living/proc/kislota_trip()
-	animate(client, color = GLOB.hapi_palaci, time = 10, delay=1)
-	animate(client, color = GLOB.kent, time = 5, delay=10)
-	animate(client, color = GLOB.xorek, time = 5, delay=10)
-	animate(client, color = GLOB.meomoor, time = 5, delay=10)
-	animate(client, color = GLOB.trip_black, time = 5, delay=10)
-	animate(client, color = GLOB.xorek, time = 5, delay=10)
-	animate(client, color = GLOB.meomoor, time = 5, delay=10)
-	animate(client, color = GLOB.kent, time = 5, delay=10)
-	animate(client, color = GLOB.meomoor, time = 5, delay=10)
-	animate(client, color = GLOB.trip_black, time = 5, delay=10)
+	if(client)
+		animate(client, color = GLOB.hapi_palaci, time = 10, delay=1)
+		animate(client, color = GLOB.kent, time = 5, delay=10)
+		animate(client, color = GLOB.xorek, time = 5, delay=10)
+		animate(client, color = GLOB.meomoor, time = 5, delay=10)
+		animate(client, color = GLOB.trip_black, time = 5, delay=10)
+		animate(client, color = GLOB.xorek, time = 5, delay=10)
+		animate(client, color = GLOB.meomoor, time = 5, delay=10)
+		animate(client, color = GLOB.kent, time = 5, delay=10)
+		animate(client, color = GLOB.meomoor, time = 5, delay=10)
+		animate(client, color = GLOB.trip_black, time = 5, delay=10)
 
 /*
 /datum/reagent/drug/proc/proriv(mob/living/carbon/human/M, vremeno = TRUE, time, location = TRUE)
