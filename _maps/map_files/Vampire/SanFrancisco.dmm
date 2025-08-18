@@ -17760,17 +17760,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/vtm/cabinet)
-"bpu" = (
-/obj/structure/delivery_receiver/store11{
-	chute_name = "Biker Bar - Fisherman's Wharf"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/fishermanswharf)
 "bpw" = (
 /obj/effect/decal/bordur/corner,
 /turf/open/floor/plating/sidewalk/poor,
@@ -23533,7 +23522,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_receiver/special9,
+/obj/structure/delivery_reciever/special9,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "bNV" = (
@@ -23973,15 +23962,6 @@
 /turf/open/floor/plating/vampwood,
 /area/vtm/interior)
 "cch" = (
-/obj/structure/chinesesign/alt/alt{
-	pixel_y = 32
-	},
-/obj/structure/delivery_receiver/special3,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/chinesesign/alt/alt{
 	pixel_y = 32
 	},
@@ -25633,17 +25613,6 @@
 	},
 /turf/open/floor/plating/bacotell,
 /area/vtm/interior)
-"dbr" = (
-/obj/structure/delivery_receiver/store6{
-	chute_name = "Gumma Guts - Fisherman's Wharf"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/fishermanswharf)
 "dbL" = (
 /obj/structure/stairs/west,
 /obj/structure/railing{
@@ -26678,17 +26647,6 @@
 	},
 /turf/open/floor/plating/rough/cave,
 /area/vtm/interior)
-"dDS" = (
-/obj/structure/delivery_receiver/special5{
-	chute_name = "Police Station - Ghetto"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/poor,
-/area/vtm/ghetto)
 "dEq" = (
 /obj/effect/decal/pallet,
 /obj/effect/decal/ventilation_system,
@@ -27187,17 +27145,6 @@
 "dPL" = (
 /turf/open/floor/plating/vampwood,
 /area/vtm/interior/giovanni)
-"dPT" = (
-/obj/structure/delivery_receiver/store1{
-	chute_name = "Nightwolf Tech Shop - Ghetto"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/ghetto)
 "dQc" = (
 /obj/structure/table/wood,
 /obj/vampire_computer,
@@ -28408,15 +28355,6 @@
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating/vampdirt,
 /area/vtm/ghetto)
-"exX" = (
-/obj/structure/delivery_receiver/store3,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/poor,
-/area/vtm/ghetto)
 "eye" = (
 /obj/structure/table,
 /obj/structure/vampfence/rich{
@@ -28490,7 +28428,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_receiver/special8,
+/obj/structure/delivery_reciever/special8,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "eAF" = (
@@ -29249,18 +29187,6 @@
 "eTD" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
-/obj/item/clothing/head/beret/sec,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/suit/vampire/trench/alt{
 	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
@@ -29351,17 +29277,6 @@
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior)
-"eVn" = (
-/obj/structure/delivery_receiver/store15{
-	chute_name = "Jeans Store - Union Square"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/unionsquare)
 "eVs" = (
 /obj/structure/fluff/hedge,
 /obj/effect/turf_decal/siding/white{
@@ -29785,7 +29700,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_receiver/special7,
+/obj/structure/delivery_reciever/special7,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "fgN" = (
@@ -30044,17 +29959,6 @@
 /mob/living/carbon/human/npc/hunter/stale,
 /turf/open/floor/plating/church,
 /area/vtm/church)
-"fnv" = (
-/obj/structure/delivery_receiver/store9{
-	chute_name = "Dora Strip Club - Pacific Heights"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/financialdistrict)
 "fnZ" = (
 /obj/structure/vampdoor/simple{
 	dir = 8
@@ -31152,7 +31056,7 @@
 /obj/item/clothing/under/vampire/graveyard,
 /obj/item/clothing/gloves/vampire/work,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
@@ -31408,15 +31312,6 @@
 	},
 /turf/open/floor/plating/asphalt,
 /area/vtm/prince)
-"fYW" = (
-/obj/structure/delivery_receiver/store19,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/old,
-/area/vtm/pacificheights)
 "fZg" = (
 /obj/structure/vampdoor/npc{
 	dir = 8
@@ -32471,17 +32366,6 @@
 /obj/item/stack/sheet/mineral/wood/fifty,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
-"gBE" = (
-/obj/structure/delivery_receiver/store14{
-	chute_name = "Flower Shop - Financial District"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/financialdistrict)
 "gCr" = (
 /obj/structure/filingcabinet,
 /obj/machinery/light/prince{
@@ -42591,15 +42475,6 @@
 /obj/item/drinkable_bloodpack/full,
 /turf/open/floor/plating/circled,
 /area/vtm/interior)
-"lWi" = (
-/obj/structure/delivery_receiver/store5,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalkalt,
-/area/vtm/pacificheights)
 "lWp" = (
 /obj/structure/railing{
 	dir = 8
@@ -43166,15 +43041,6 @@
 /obj/item/food/kebab/tofu,
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/laundromat)
-"mlT" = (
-/obj/structure/delivery_receiver/special2,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalkalt,
-/area/vtm/chinatown)
 "mlW" = (
 /obj/effect/decal/ventilation_system{
 	dir = 10
@@ -44036,7 +43902,7 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -44232,15 +44098,6 @@
 /obj/item/vampire_stake,
 /turf/open/floor/plating/concrete,
 /area/vtm/theatre)
-"mSb" = (
-/obj/structure/delivery_receiver/store20,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/unionsquare)
 "mSt" = (
 /obj/effect/landmark/npcactivity,
 /turf/open/floor/plating/sidewalk,
@@ -44659,17 +44516,6 @@
 /obj/effect/landmark/npcability,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
-"ngA" = (
-/obj/effect/landmark/npcwall,
-/obj/structure/delivery_receiver/special12,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/landmark/npcwall,
-/turf/open/floor/plating/sidewalk/old,
-/area/vtm/pacificheights)
 "ngC" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 8
@@ -44706,17 +44552,6 @@
 "nhw" = (
 /turf/open/floor/plating/parquetry,
 /area/vtm)
-"nhz" = (
-/obj/structure/delivery_receiver/store16{
-	chute_name = "Butcher Shop- Financial District"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/financialdistrict)
 "nia" = (
 /obj/effect/landmark/start/hound,
 /turf/open/floor/carpet/red,
@@ -45146,17 +44981,6 @@
 	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior)
-"ntz" = (
-/obj/structure/delivery_receiver/store4{
-	chute_name = "Patriot Weapon Shop - Ghetto"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/poor,
-/area/vtm/ghetto)
 "ntR" = (
 /turf/open/floor/plating/gummaguts,
 /area/vtm/interior/glasswalker)
@@ -46210,7 +46034,7 @@
 /obj/item/stack/dollar/twohundredfifty,
 /obj/item/stack/dollar/twohundredfifty,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
@@ -48775,7 +48599,7 @@
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/wyrm_corrupted)
 "ptn" = (
-/obj/structure/delivery_receiver/special6,
+/obj/structure/delivery_reciever/special6,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "pto" = (
@@ -49444,7 +49268,7 @@
 /area/vtm/graveyard/interior)
 "pJt" = (
 /obj/structure/water_source/puddle{
-	dispensedreagent = /datum/reagent/fuel/unholywater;
+	dispensedreagent = /datum/reagent/unholywater;
 	name = "Well of Kupala";
 	desc = "A pool of unholy water blessed by the ancient demon."
 	},
@@ -50172,19 +49996,6 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/vampdirt,
 /area/vtm/interior/giovanni)
-"qfH" = (
-/obj/effect/landmark/npcwall,
-/obj/structure/delivery_receiver/store18{
-	chute_name = "Book Shop - Union Square"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/landmark/npcwall,
-/turf/open/floor/plating/sidewalkalt,
-/area/vtm/unionsquare)
 "qgn" = (
 /obj/structure/vampdoor/wood{
 	dir = 8
@@ -50633,17 +50444,6 @@
 	},
 /turf/open/floor/plating/toilet,
 /area/vtm/anarch)
-"qum" = (
-/obj/structure/delivery_receiver/store10{
-	chute_name = "Flower Shop - Fisherman's Wharf"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/old,
-/area/vtm/fishermanswharf)
 "quq" = (
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/financialdistrict)
@@ -50983,17 +50783,6 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
-"qCG" = (
-/obj/structure/delivery_receiver/store12{
-	chute_name = "Clinic - Union Square"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/rich,
-/area/vtm/unionsquare)
 "qCJ" = (
 /obj/machinery/vamp/atm{
 	pixel_y = 25
@@ -53000,35 +52789,6 @@
 	name = "sheriff's tactical helmet"
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
-/obj/machinery/light/prince{
-	pixel_y = 32
-	},
-/obj/item/clothing/head/hos/beret,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/closet/cabinet,
-/obj/item/clothing/shoes/vampire/heels,
-/obj/item/clothing/suit/vampire/vest/army{
-	masquerade_violating = 0;
-	name = "sheriff's vest"
-	},
-/obj/item/clothing/under/vampire/sheriff,
-/obj/item/clothing/under/vampire/sheriff/female,
-/obj/item/clothing/shoes/vampire,
-/obj/item/clothing/glasses/vampire/sun,
-/obj/item/clothing/head/vampire/army{
-	desc = "Looks dangerous. Provides great protection against blunt force. Doesn't break the masquerade";
-	masquerade_violating = 0;
-	name = "sheriff's tactical helmet"
-	},
-/obj/item/clothing/suit/vampire/trench/alt{
 	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
@@ -54009,17 +53769,6 @@
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
-"sjQ" = (
-/obj/structure/delivery_receiver/store7{
-	chute_name = "Pizzeria - Fisherman's Wharf"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/fishermanswharf)
 "sjU" = (
 /turf/open/floor/plating/rust,
 /area/vtm/sewer)
@@ -56346,18 +56095,6 @@
 "tvf" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
-/obj/item/clothing/head/beret/sec,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/closet/cabinet,
-/obj/item/clothing/suit/vampire/trench/alt{
 	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
@@ -57421,15 +57158,6 @@
 	},
 /turf/open/water,
 /area/vtm/financialdistrict)
-"ucj" = (
-/obj/structure/delivery_receiver/store2,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/poor,
-/area/vtm/ghetto)
 "ucl" = (
 /obj/structure/closet/crate/freezer/fridge,
 /obj/item/food/vampire/pizza,
@@ -59135,7 +58863,7 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -59161,24 +58889,6 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police)
 "uWn" = (
-/obj/item/clothing/under/vampire/clerk,
-/obj/item/clothing/under/vampire/clerk/female,
-/obj/item/clothing/shoes/vampire/heels,
-/obj/item/clothing/shoes/vampire,
-/obj/structure/closet/cabinet,
-/obj/machinery/light/prince{
-	pixel_y = 32
-	},
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/item/clothing/under/vampire/clerk,
 /obj/item/clothing/under/vampire/clerk/female,
 /obj/item/clothing/shoes/vampire/heels,
@@ -59902,17 +59612,6 @@
 /obj/structure/curtain/cloth/fancy,
 /turf/open/floor/mineral/plastitanium/red,
 /area/vtm/jazzclub)
-"voT" = (
-/obj/structure/delivery_receiver/store13{
-	chute_name = "Abibas Store - Union Square"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/rich,
-/area/vtm/financialdistrict)
 "vpc" = (
 /obj/effect/decal/bordur{
 	dir = 4
@@ -60996,17 +60695,6 @@
 /obj/item/clothing/shoes/vampire/heels,
 /turf/open/floor/carpet,
 /area/vtm/interior/techshop)
-"vTw" = (
-/obj/structure/delivery_receiver/special10{
-	chute_name = "Church - Pacific Heights"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk/old,
-/area/vtm/pacificheights)
 "vTx" = (
 /obj/machinery/mineral/equipment_vendor/fastfood/snacks{
 	pixel_y = 20
@@ -61507,17 +61195,6 @@
 	},
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/interior/police)
-"wgB" = (
-/obj/structure/delivery_receiver/store17{
-	chute_name = "Hat Store - Union Square"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/ghetto)
 "wgJ" = (
 /obj/structure/closet/crate/freezer/fridge,
 /obj/item/food/meat/slab/chicken,
@@ -62475,15 +62152,6 @@
 "wGs" = (
 /turf/closed/wall/vampwall/bar,
 /area/vtm/interior)
-"wGv" = (
-/obj/structure/delivery_receiver/special4,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalk,
-/area/vtm/unionsquare)
 "wGw" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/coffee/vampire,
@@ -62615,7 +62283,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_receiver/special11,
+/obj/structure/delivery_reciever/special11,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "wJS" = (
@@ -63794,7 +63462,7 @@
 /obj/item/clothing/head/vampire/top,
 /obj/item/clothing/mask/vampire/balaclava,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
@@ -64028,17 +63696,6 @@
 /turf/open/floor/plating/shit,
 /area/vtm/sewer/nosferatu_town)
 "xzg" = (
-/obj/american_flag{
-	pixel_y = 32
-	},
-/obj/structure/delivery_receiver/store8{
-	chute_name = "Big Time Arms Store - Fisherman's Wharf"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/american_flag{
 	pixel_y = 32
 	},
@@ -64593,15 +64250,6 @@
 /obj/structure/grib/muhomor,
 /turf/open/floor/plating/vampgrass,
 /area/vtm/pacificheights)
-"xPb" = (
-/obj/structure/delivery_receiver/special1,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/open/floor/plating/sidewalkalt,
-/area/vtm/chinatown)
 "xPh" = (
 /obj/structure/fluff/hedge,
 /turf/open/floor/plating/parquetry/old,
@@ -139674,7 +139322,7 @@ aoS
 aoS
 aoS
 aoS
-dbr
+aoS
 aoS
 aoS
 bCp
@@ -140265,7 +139913,7 @@ mAQ
 mAQ
 hcM
 umJ
-fYW
+umJ
 rIV
 bdm
 bdm
@@ -146621,7 +146269,7 @@ aWu
 aWs
 aWs
 agR
-fnv
+aGC
 aGX
 bdm
 bdm
@@ -146834,7 +146482,7 @@ aoS
 aoS
 aoS
 aoS
-sjQ
+aoS
 aoS
 aoS
 aoS
@@ -148746,7 +148394,7 @@ bfM
 bfM
 bfM
 wiZ
-ngA
+gQA
 sex
 bdm
 bdm
@@ -149203,7 +148851,7 @@ bIU
 hFi
 bhS
 bhS
-lWi
+bhS
 bhS
 bhS
 bhS
@@ -149215,7 +148863,7 @@ umJ
 bhZ
 umJ
 bhY
-vTw
+umJ
 umJ
 umJ
 bgQ
@@ -150219,7 +149867,7 @@ quq
 quq
 hnQ
 wJG
-gBE
+aGC
 aGX
 bdm
 bdm
@@ -152451,7 +152099,7 @@ aoS
 ayW
 cdW
 aoS
-bpu
+aoS
 aoS
 aoS
 bCp
@@ -154990,7 +154638,7 @@ aqo
 aqo
 tzg
 apO
-qum
+nxj
 nxj
 nxj
 nxj
@@ -163120,7 +162768,7 @@ aSY
 aHw
 aGv
 aGm
-nhz
+aGC
 atL
 atL
 atL
@@ -163207,7 +162855,7 @@ aIq
 aoy
 aoy
 apO
-mSb
+ajG
 ajG
 anj
 aqW
@@ -163496,7 +163144,7 @@ vkD
 vkD
 vkD
 ath
-qCG
+axT
 axT
 ayy
 axj
@@ -166588,7 +166236,7 @@ aqY
 aqX
 aqX
 aqL
-eVn
+ajG
 aAy
 aqq
 aoy
@@ -168424,7 +168072,7 @@ aGM
 aGM
 aGM
 aGM
-voT
+aGM
 aId
 aGv
 aHw
@@ -170946,7 +170594,7 @@ ajK
 ajK
 ajK
 ajK
-wgB
+ajK
 ajK
 ajK
 ajK
@@ -172209,7 +171857,7 @@ cOQ
 fWz
 oPw
 arz
-dPT
+ajK
 ali
 aiI
 aso
@@ -174159,7 +173807,7 @@ bfW
 bkW
 bfU
 sbZ
-xPb
+bfU
 blh
 yez
 ofg
@@ -174604,7 +174252,7 @@ afA
 afA
 aGP
 acr
-qfH
+acr
 acr
 aPr
 aPS
@@ -182103,7 +181751,7 @@ biW
 bfU
 bfU
 bfU
-mlT
+bfU
 bfU
 bfU
 bfU
@@ -183110,7 +182758,7 @@ bIG
 aOC
 bap
 baJ
-wGv
+ajG
 ajG
 ajG
 ajG
@@ -183818,7 +183466,7 @@ azu
 azT
 aAz
 azv
-dDS
+ajU
 ajU
 hGa
 aiI
@@ -186354,7 +186002,7 @@ vRY
 fYN
 meh
 ajU
-ucj
+ajU
 ajU
 ajU
 ajU
@@ -188212,7 +187860,7 @@ odX
 ajU
 ajU
 ajU
-exX
+ajU
 ajU
 ajU
 ajU
@@ -188250,7 +187898,7 @@ ajU
 fYN
 ajU
 ajU
-ntz
+ajU
 ajU
 ajU
 ajU
