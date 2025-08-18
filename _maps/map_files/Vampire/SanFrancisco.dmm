@@ -8312,7 +8312,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "aFs" = (
-/obj/structure/delivery_reciever/special2,
+/obj/structure/delivery_receiver/special2,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
 "aFt" = (
@@ -9764,7 +9764,7 @@
 /turf/open/openspace,
 /area/vtm/theatre)
 "aKF" = (
-/obj/structure/delivery_reciever/store16{
+/obj/structure/delivery_receiver/store16{
 	chute_name = "Butcher Shop- Financial District"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -16549,7 +16549,7 @@
 /obj/structure/chinesesign/alt/alt{
 	pixel_y = 32
 	},
-/obj/structure/delivery_reciever/special3,
+/obj/structure/delivery_receiver/special3,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
 "biY" = (
@@ -24531,7 +24531,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "cae" = (
-/obj/structure/delivery_reciever/store4{
+/obj/structure/delivery_receiver/store4{
 	chute_name = "Patriot Weapon Shop - Ghetto"
 	},
 /turf/open/floor/plating/sidewalk/poor,
@@ -24951,7 +24951,7 @@
 /area/vtm/park)
 "cks" = (
 /obj/effect/landmark/npcwall,
-/obj/structure/delivery_reciever/store18{
+/obj/structure/delivery_receiver/store18{
 	chute_name = "Book Shop - Union Square"
 	},
 /turf/open/floor/plating/sidewalkalt,
@@ -25669,7 +25669,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special7,
+/obj/structure/delivery_receiver/special7,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "cHa" = (
@@ -27068,7 +27068,7 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm/pacificheights)
 "dzn" = (
-/obj/structure/delivery_reciever/special10{
+/obj/structure/delivery_receiver/special10{
 	chute_name = "Church - Pacific Heights"
 	},
 /turf/open/floor/plating/sidewalk/old,
@@ -27730,7 +27730,7 @@
 /turf/open/floor/plating/vampwood,
 /area/vtm/interior/giovanni)
 "dPV" = (
-/obj/structure/delivery_reciever/store7{
+/obj/structure/delivery_receiver/store7{
 	chute_name = "Pizzeria - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -31471,7 +31471,7 @@
 /turf/open/floor/plating/vampdirt,
 /area/vtm/forest)
 "fQj" = (
-/obj/structure/delivery_reciever/store14{
+/obj/structure/delivery_receiver/store14{
 	chute_name = "Flower Shop - Financial District"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -31484,7 +31484,7 @@
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/chinatown)
 "fQu" = (
-/obj/structure/delivery_reciever/store1{
+/obj/structure/delivery_receiver/store1{
 	chute_name = "Nightwolf Tech Shop - Ghetto"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -37876,7 +37876,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior/mansion)
 "jcz" = (
-/obj/structure/delivery_reciever/store20,
+/obj/structure/delivery_receiver/store20,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "jcL" = (
@@ -40025,7 +40025,7 @@
 /turf/open/floor/plating/vampdirt,
 /area/vtm/anarch)
 "kql" = (
-/obj/structure/delivery_reciever/store3,
+/obj/structure/delivery_receiver/store3,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "kqm" = (
@@ -40613,7 +40613,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "kGW" = (
-/obj/structure/delivery_reciever/store12{
+/obj/structure/delivery_receiver/store12{
 	chute_name = "Clinic - Union Square"
 	},
 /turf/open/floor/plating/sidewalk/rich,
@@ -40915,7 +40915,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/laundromat)
 "kSN" = (
-/obj/structure/delivery_reciever/store6{
+/obj/structure/delivery_receiver/store6{
 	chute_name = "Gumma Guts - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -41907,7 +41907,7 @@
 /turf/open/floor/plating/sidewalk,
 /area/vtm/interior/laundromat)
 "lvv" = (
-/obj/structure/delivery_reciever/store11{
+/obj/structure/delivery_receiver/store11{
 	chute_name = "Biker Bar - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -43104,7 +43104,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/church)
 "meh" = (
-/obj/structure/delivery_reciever/store2,
+/obj/structure/delivery_receiver/store2,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "mex" = (
@@ -44975,7 +44975,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "njT" = (
-/obj/structure/delivery_reciever/special6,
+/obj/structure/delivery_receiver/special6,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "nka" = (
@@ -48759,7 +48759,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch)
 "pnJ" = (
-/obj/structure/delivery_reciever/store17{
+/obj/structure/delivery_receiver/store17{
 	chute_name = "Hat Store - Union Square"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -49795,7 +49795,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special9,
+/obj/structure/delivery_receiver/special9,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "pRh" = (
@@ -50001,7 +50001,7 @@
 /turf/open/floor/plating/granite/black,
 /area/vtm/interior)
 "pWe" = (
-/obj/structure/delivery_reciever/special5{
+/obj/structure/delivery_receiver/special5{
 	chute_name = "Police Station - Ghetto"
 	},
 /turf/open/floor/plating/sidewalk/poor,
@@ -50145,7 +50145,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special11,
+/obj/structure/delivery_receiver/special11,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "qaF" = (
@@ -52612,7 +52612,7 @@
 	},
 /area/vtm/interior)
 "rwS" = (
-/obj/structure/delivery_reciever/store9{
+/obj/structure/delivery_receiver/store9{
 	chute_name = "Dora Strip Club - Pacific Heights"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -56301,7 +56301,7 @@
 /turf/open/floor/plasteel/dark,
 /area/vtm/forest)
 "twA" = (
-/obj/structure/delivery_reciever/store5,
+/obj/structure/delivery_receiver/store5,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/pacificheights)
 "txk" = (
@@ -59946,7 +59946,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special8,
+/obj/structure/delivery_receiver/special8,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "vyh" = (
@@ -60054,7 +60054,7 @@
 /obj/american_flag{
 	pixel_y = 32
 	},
-/obj/structure/delivery_reciever/store8{
+/obj/structure/delivery_receiver/store8{
 	chute_name = "Big Time Arms Store - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -61304,7 +61304,7 @@
 /turf/open/floor/plating/rough/cave,
 /area/vtm/forest)
 "wiI" = (
-/obj/structure/delivery_reciever/store19,
+/obj/structure/delivery_receiver/store19,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/pacificheights)
 "wiJ" = (
@@ -61712,7 +61712,7 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm/prince)
 "wrx" = (
-/obj/structure/delivery_reciever/special1,
+/obj/structure/delivery_receiver/special1,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
 "wrD" = (
@@ -62311,7 +62311,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/clinic)
 "wJU" = (
-/obj/structure/delivery_reciever/special4,
+/obj/structure/delivery_receiver/special4,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "wKb" = (
@@ -62327,7 +62327,7 @@
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/laundromat)
 "wKf" = (
-/obj/structure/delivery_reciever/store10{
+/obj/structure/delivery_receiver/store10{
 	chute_name = "Flower Shop - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk/old,
@@ -62715,7 +62715,7 @@
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/shop)
 "wVM" = (
-/obj/structure/delivery_reciever/store15{
+/obj/structure/delivery_receiver/store15{
 	chute_name = "Jeans Store - Union Square"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -62754,7 +62754,7 @@
 /area/vtm/interior/techshop)
 "wXf" = (
 /obj/effect/landmark/npcwall,
-/obj/structure/delivery_reciever/special12,
+/obj/structure/delivery_receiver/special12,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/pacificheights)
 "wXi" = (
@@ -63795,7 +63795,7 @@
 /turf/open/floor/plating/asphalt,
 /area/vtm/clinic)
 "xBY" = (
-/obj/structure/delivery_reciever/store13{
+/obj/structure/delivery_receiver/store13{
 	chute_name = "Abibas Store - Union Square"
 	},
 /turf/open/floor/plating/sidewalk/rich,

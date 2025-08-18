@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 				throw_error("You must write a subject!")
 				return TRUE
 			else if(!params["to"])
-				throw_error("You must write a reciever adress!")
+				throw_error("You must write a receiver adress!")
 				return TRUE
 			var/sended = gmail.send_email(params["message"], params["subject"], params["to"])
 			if(!sended)

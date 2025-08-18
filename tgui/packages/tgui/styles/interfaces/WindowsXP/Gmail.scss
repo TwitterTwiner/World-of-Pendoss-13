@@ -251,21 +251,21 @@ $active-color: rgb(134, 178, 255) !default;
     height: 60%;
   }
 
-  .compose-reciever {
+  .compose-receiver {
     height: 50%;
     justify-content: space-between;
     align-items: center;
     display: flex;
   }
 
-  .reciever-info {
+  .receiver-info {
     width: 13%;
     color: #333;
     text-align: right;
     font-weight: 700;
   }
 
-  .reciever-input {
+  .receiver-input {
     background-color: white;
     color: #333;
     border-radius: 3px;
@@ -274,7 +274,7 @@ $active-color: rgb(134, 178, 255) !default;
     margin-right: 8px;
   }
 
-  .reciever-input.reciever-to {
+  .receiver-input.receiver-to {
     height: 75%;
   }
 }

@@ -15,7 +15,7 @@
 	var/list/splat_blacklist
 	///Only allow certain species to receive this gear
 	var/list/splat_whitelist
-	///A list of jobs with typepaths to the loadout item the job should recieve
+	///A list of jobs with typepaths to the loadout item the job should receive
 	var/list/role_replacements
 	///The sub tab under gear that the loadout item is listed under
 	var/sort_category = "General"
