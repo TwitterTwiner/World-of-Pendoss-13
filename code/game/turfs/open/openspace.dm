@@ -5,11 +5,11 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 
 	anchored		= TRUE
 
-	icon            = 'icons/turf/floors.dmi'
-	icon_state      = "grey"
-	plane           = OPENSPACE_BACKDROP_PLANE
+	icon			= 'icons/turf/floors.dmi'
+	icon_state	  = "grey"
+	plane		   = OPENSPACE_BACKDROP_PLANE
 	mouse_opacity 	= MOUSE_OPACITY_TRANSPARENT
-	layer           = SPLASHSCREEN_LAYER
+	layer		   = SPLASHSCREEN_LAYER
 	//I don't know why the others are aligned but I shall do the same.
 	vis_flags		= VIS_INHERIT_ID
 
@@ -84,9 +84,9 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	return can_build_on
 
 /turf/open/openspace/attack_hand(mob/living/carbon/human/H)
-    if(istype(H, /mob/living/carbon/human))
-        H.climb_down(src)
-    return ..()
+	if(istype(H, /mob/living/carbon/human))
+		H.climb_down(src)
+	return ..()
 
 /turf/open/openspace/attackby(obj/item/C, mob/user, params)
 	..()
