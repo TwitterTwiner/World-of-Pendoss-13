@@ -48,7 +48,6 @@
 #include "confusion.dm"
 #include "designs.dm"
 #include "emoting.dm"
-#include "find_reference_sanity.dm"
 #include "heretic_knowledge.dm"
 #include "holidays.dm"
 #include "initialize_sanity.dm"
@@ -80,11 +79,7 @@
 #include "teleporters.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
-
 // END_INCLUDE
-#ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
-#include "find_reference_sanity.dm"
-#endif
 
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
