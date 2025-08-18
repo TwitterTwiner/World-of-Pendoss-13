@@ -805,7 +805,7 @@ SUBSYSTEM_DEF(carpool)
 			if(do_after(user, 2 SECONDS, pulled_crate))
 				playsound(src,'code/modules/wod13/delevery_club/cargocrate_load.ogg',50,10)
 				delivery_trunk.add_to_storage(user,pulled_crate)
-	
+
 			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
 			return
 		else
@@ -1093,7 +1093,7 @@ SUBSYSTEM_DEF(carpool)
 		if(WEST)
 			controlling(0, -turn_speed)
 
-/obj/vampire_car/proc/controlling(var/adjusting_speed, var/adjusting_turn)
+/obj/vampire_car/proc/controlling(adjusting_speed, adjusting_turn)
 	var/drift = 1
 //	var/drive = get_a_drive(driver)
 	var/ugl = 1

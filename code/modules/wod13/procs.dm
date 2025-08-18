@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/AdjustHumanity(var/value, var/limit, var/forced = FALSE)
+/mob/living/carbon/human/proc/AdjustHumanity(value, limit, forced = FALSE)
 	if(value < 0)
 		for(var/mob/living/carbon/human/H in viewers(7, src))
 			if(H != src && H.mind?.dharma)
@@ -77,7 +77,7 @@
 				ghostize(FALSE)
 				P.reason_of_death = "Lost control to the Beast ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 
-/mob/living/carbon/human/proc/AdjustMasquerade(var/value, var/forced = FALSE)
+/mob/living/carbon/human/proc/AdjustMasquerade(value, forced = FALSE)
 	if(!iskindred(src) && !isghoul(src) && !iscathayan(src))
 		return
 	if(!GLOB.canon_event)
@@ -160,7 +160,7 @@
 					smallhunter.remove_movespeed_modifier(/datum/movespeed_modifier/npc)
 
 
-/mob/living/carbon/human/npc/proc/backinvisible(var/atom/A)
+/mob/living/carbon/human/npc/proc/backinvisible(atom/A)
 	switch(dir)
 		if(NORTH)
 			if(A.y >= y)

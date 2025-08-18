@@ -160,17 +160,17 @@
 		gaussian_next = R2 * working
 	return (mean + stddev * R1)
 
-var/global/normal_next
+GLOBAL_VAR(normal_next)
 
 /proc/NormalDistr(mean = 0, stddev = 1) //because gaussian() looks... strange. This is Box-Muller transform
-	if(normal_next != null)
-		. = mean + normal_next * stddev
-		normal_next = null
+	if(GLOB.normal_next != null)
+		. = mean + GLOB.normal_next * stddev
+		GLOB.normal_next = null
 	else
 		var/R1 = sqrt(-2.0 * log(rand(1, ACCURACY) / ACCURACY))
 		var/R2 = 360 * (rand(0, ACCURACY) / ACCURACY) //because BYOND's cos() and sin() accepts degrees
 		. = mean + (R1 * cos(R2)) * stddev
-		normal_next = R1 * sin(R2)
+		GLOB.normal_next = R1 * sin(R2)
 	return .
 #undef ACCURACY
 

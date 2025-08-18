@@ -29,8 +29,6 @@
 	logged_in = FALSE
 	current_card = null
 
-
-
 /datum/vtm_bank_account
 	var/account_owner = ""
 	var/bank_id = 0
@@ -38,7 +36,6 @@
 	var/code = ""
 	var/list/credit_cards = list()
 
-var/mob/living/carbon/human/H
 /datum/vtm_bank_account/New()
 	..()
 	if(!code || code == "")
