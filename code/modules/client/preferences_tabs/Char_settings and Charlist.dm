@@ -378,7 +378,7 @@
 //	dat += "<a href='byond://?_src_=prefs;preference=toggle_random;random_type=[RANDOM_SOCKS]'>[(randomise[RANDOM_SOCKS]) ? "Lock" : "Unlock"]</A>"
 
 
-//	dat += "<br><b>Jumpsuit Style:</b><BR><a href ='?_src_=prefs;preference=suit;task=input'>[jumpsuit_style]</a>"
+//	dat += "<br><b>Jumpsuit Style:</b><BR><a href ='byond://??_src_=prefs;preference=suit;task=input'>[jumpsuit_style]</a>"
 //	dat += "<a href='byond://?_src_=prefs;preference=toggle_random;random_type=[RANDOM_JUMPSUIT_STYLE]'>[(randomise[RANDOM_JUMPSUIT_STYLE]) ? "Lock" : "Unlock"]</A>"
 
 	dat += "<br><b>Backpack:</b><BR><a href ='byond://?_src_=prefs;preference=bag;task=input'>[backpack]</a>"
@@ -403,9 +403,9 @@
 		dat += "<BR><b>Temporal Scarring:</b><BR><a href='byond://?_src_=prefs;preference=persistent_scars'>[(persistent_scars) ? "Enabled" : "Disabled"]</A>"
 		dat += "<a href='byond://?_src_=prefs;preference=clear_scars'>Clear scar slots</A>"
 
-//	dat += "<br><b>Antagonist Items Spawn Location:</b><BR><a href ='?_src_=prefs;preference=uplink_loc;task=input'>[uplink_spawn_loc]</a><BR></td>"
+//	dat += "<br><b>Antagonist Items Spawn Location:</b><BR><a href ='byond://??_src_=prefs;preference=uplink_loc;task=input'>[uplink_spawn_loc]</a><BR></td>"
 //	if (user.client.get_exp_living(TRUE) >= PLAYTIME_VETERAN)
-//		dat += "<br><b>Don The Ultimate Gamer Cloak?:</b><BR><a href ='?_src_=prefs;preference=playtime_reward_cloak'>[(playtime_reward_cloak) ? "Enabled" : "Disabled"]</a><BR></td>"
+//		dat += "<br><b>Don The Ultimate Gamer Cloak?:</b><BR><a href ='byond://??_src_=prefs;preference=playtime_reward_cloak'>[(playtime_reward_cloak) ? "Enabled" : "Disabled"]</a><BR></td>"
 	var/use_skintones = pref_species.use_skintones
 	if(use_skintones)
 
