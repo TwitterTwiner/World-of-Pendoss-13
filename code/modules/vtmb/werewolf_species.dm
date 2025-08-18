@@ -44,7 +44,7 @@
 /datum/species/garou/check_roundstart_eligible()
 	return FALSE
 
-/proc/adjust_rage(var/amount, var/mob/living/carbon/C, var/sound = TRUE)
+/proc/adjust_rage(amount, mob/living/carbon/C, sound = TRUE)
 	if(amount > 0)
 		if(C.auspice.rage < 10)
 			if(sound)
@@ -72,7 +72,7 @@
 				else
 					playsound(get_turf(C), 'code/modules/wod13/sounds/male_growl.ogg', 75, FALSE)
 
-/proc/adjust_gnosis(var/amount, var/mob/living/carbon/C, var/sound = TRUE)
+/proc/adjust_gnosis(amount, mob/living/carbon/C, sound = TRUE)
 	if(amount > 0)
 		if(C.auspice.gnosis < C.auspice.start_gnosis)
 			if(sound)

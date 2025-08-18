@@ -99,7 +99,7 @@
 /atom
 	var/conjured = FALSE
 
-/atom/proc/vanish_after(var/duration)
+/atom/proc/vanish_after(duration)
 	if(!duration || duration == -1)
 		return
 	if(QDELETED(src))
@@ -114,7 +114,7 @@
 		visible_message(span_warning("[A] disappears in a puff of smoke!"))
 		qdel(A)
 
-/datum/discipline_power/thaumaturgy_path_of_conjuring/proc/summon_item(var/list/items, var/duration)
+/datum/discipline_power/thaumaturgy_path_of_conjuring/proc/summon_item(list/items, duration)
 	var/list/display_list = list()
 	for(var/typepath in items)
 		var/obj/item/I = new typepath()
@@ -140,7 +140,7 @@
 		I.forceMove(owner.loc)
 		to_chat(owner, span_notice("You conjure a [choice] at your feet."))
 
-/datum/discipline_power/thaumaturgy_path_of_conjuring/proc/summon_living(var/list/livings, var/duration)
+/datum/discipline_power/thaumaturgy_path_of_conjuring/proc/summon_living(list/livings, duration)
 	var/list/display_list = list()
 	for(var/name in livings)
 		display_list[name] = livings[name]

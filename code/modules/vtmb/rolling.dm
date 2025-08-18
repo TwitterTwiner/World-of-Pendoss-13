@@ -409,7 +409,7 @@ SUBSYSTEM_DEF(woddices)
 	return dat
 
 
-/proc/secret_vampireroll(var/dices_num = 1, var/hardness = 1, var/mob/living/rollperformer, var/stealthy = FALSE, var/decap_rolls = TRUE)
+/proc/secret_vampireroll(dices_num = 1, hardness = 1, mob/living/rollperformer, stealthy = FALSE, decap_rolls = TRUE)
 	if(!dices_num)
 		if(!stealthy)
 			create_number_on_mob(rollperformer, "#646464", "0")
@@ -733,7 +733,7 @@ SUBSYSTEM_DEF(woddices)
 	var/murder_victms = 0	//So when it hits 5 it's confirmed mass murder
 
 
-/datum/morality_path/proc/trigger_morality(var/trig_event)
+/datum/morality_path/proc/trigger_morality(trig_event)
 	if(ready_events[trig_event] == 1)
 		return
 	ready_events[trig_event] = 1
@@ -747,7 +747,7 @@ SUBSYSTEM_DEF(woddices)
 	ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0, "massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0, "baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0, "deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0, "corpseitems" = 0, "friendmeet" = 0, "lovermeet" = 0)
 	bad_events = list("attackfirst", "steal", "robbery", "drugdealing", "organtrade", "drying", "kill", "massmurder", "diablerie")
 
-/datum/morality_path/humanity/trigger_morality(var/trig_event)
+/datum/morality_path/humanity/trigger_morality(trig_event)
 	if(bad_events.Find(trig_event))
 		for(var/mob/living/carbon/human/H in viewers(7, owner))
 			if(H != owner && H.mind?.dharma)
@@ -1141,7 +1141,7 @@ SUBSYSTEM_DEF(woddices)
 //	var/beast_virtue = /datum/virtue
 //	var/list/virtues = list(/datum/virtue)
 
-/datum/morality_path/proc/adjust(var/point)
+/datum/morality_path/proc/adjust(point)
 	if(!iskindred(owner))
 		return
 
@@ -1202,7 +1202,7 @@ SUBSYSTEM_DEF(woddices)
 	var/span = "<span class='secradio'>"
 	var/list/ready_events = list()
 
-/datum/virtue/proc/trigger(var/trigger_event)
+/datum/virtue/proc/trigger(trigger_event)
 	if(trigger_event in ready_events)
 		return
 	ready_events += trigger_event

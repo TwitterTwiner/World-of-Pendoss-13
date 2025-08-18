@@ -56,7 +56,7 @@ SUBSYSTEM_DEF(whitelists)
 
 	return FALSE
 
-/datum/controller/subsystem/whitelists/proc/add_whitelist(var/ckey, var/whitelist, var/approver_ckey, var/ticket_link, var/approval_reason)
+/datum/controller/subsystem/whitelists/proc/add_whitelist(ckey, whitelist, approver_ckey, ticket_link, approval_reason)
 	if (!whitelists_enabled || !SSdbcore.Connect())
 		return FALSE
 	if (is_whitelisted(ckey, whitelist))
@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(whitelists)
 		qdel(query)
 		return FALSE
 
-/datum/controller/subsystem/whitelists/proc/remove_whitelist(var/ckey, var/whitelist)
+/datum/controller/subsystem/whitelists/proc/remove_whitelist(ckey, whitelist)
 	if (!whitelists_enabled || !SSdbcore.Connect())
 		return FALSE
 	if (!is_whitelisted(ckey, whitelist))
@@ -124,7 +124,7 @@ SUBSYSTEM_DEF(whitelists)
 			whitelist_entries += entry
 		qdel(query)
 
-/datum/controller/subsystem/whitelists/proc/get_user_whitelists(var/ckey)
+/datum/controller/subsystem/whitelists/proc/get_user_whitelists(ckey)
 	if (!whitelists_enabled)
 		return
 

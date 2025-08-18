@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(zalgo_letters, list(
 	send_speech(message, 2, src, , spans, message_language=language)
 //	speech_span = initial(speech_span)
 
-/proc/scramble_lasombra_message(var/message)
+/proc/scramble_lasombra_message(message)
 	var/gibberish_message = ""
 	for(var/i = 1 to length(message))
 		var/char = message[i]

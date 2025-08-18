@@ -178,7 +178,7 @@
 	..()
 
 
-/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, var/guaranteed_hit = FALSE)
+/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, guaranteed_hit = FALSE)
 	if(!I || !user)
 		return FALSE
 

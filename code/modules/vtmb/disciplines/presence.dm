@@ -113,7 +113,7 @@
 	. = ..()
 	target.remove_overlay(MUTATIONS_LAYER)
 
-/datum/discipline_power/presence/proc/presence_end(mob/living/target, mob/living/carbon/human/caster, var/initial_fights_anyway)
+/datum/discipline_power/presence/proc/presence_end(mob/living/target, mob/living/carbon/human/caster, initial_fights_anyway)
 	var/mob/living/carbon/human/npc/N = target
 	if(N && N.presence_master == caster)
 		// End presence effect

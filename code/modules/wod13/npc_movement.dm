@@ -105,7 +105,7 @@
 //				if(3)
 //					SpeechAction()
 
-/mob/living/carbon/human/npc/proc/CreateWay(var/direction)
+/mob/living/carbon/human/npc/proc/CreateWay(direction)
 	var/turf/location = get_turf(src)
 	for(var/distance = 1 to 50)
 		location = get_step(location, direction)
@@ -184,7 +184,7 @@
 					return pick(north_steps, south_steps, east_steps)
 				else
 					return pick(north_steps, south_steps, west_steps)
-/mob/living/carbon/human/npc/proc/CheckMove(var/hardlock = FALSE)
+/mob/living/carbon/human/npc/proc/CheckMove(hardlock = FALSE)
 	if(stat >= HARD_CRIT)
 		return TRUE
 	if(last_grab+15 > world.time && !hardlock)

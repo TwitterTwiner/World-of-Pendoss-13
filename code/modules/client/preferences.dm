@@ -277,7 +277,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/add_experience(amount)
 	true_experience = clamp(true_experience + amount, 0, 1000)
 
-/datum/preferences/proc/reset_stats(var/attributes_only = FALSE)
+/datum/preferences/proc/reset_stats(attributes_only = FALSE)
 	Strength = 1
 	Dexterity = 1
 	Stamina = 1
@@ -445,7 +445,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 //A proc that creates the score circles based on attribute and the additional bonus for the attribute
 //
-/datum/preferences/proc/build_attribute_score(var/attribute, var/max_number, var/price, var/variable_name, var/freepoints)
+/datum/preferences/proc/build_attribute_score(attribute, max_number, price, variable_name, freepoints)
 	var/dat
 	for(var/a in 1 to attribute)
 		dat += "•"
@@ -461,7 +461,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "<br>"
 	return dat
 
-/datum/preferences/proc/get_freebie_points(var/categor)
+/datum/preferences/proc/get_freebie_points(categor)
 	var/physical_priorities = 0
 	var/social_priorities = 0
 	var/mental_priorities = 0
@@ -503,7 +503,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return mental_priorities
 	return 0
 
-/datum/preferences/proc/get_gen_attribute_limit(var/gen = 13)
+/datum/preferences/proc/get_gen_attribute_limit(gen = 13)
 	if(pref_species.name == "Vampire")
 		switch(gen)
 			if(9)
@@ -2405,7 +2405,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	ShowChoices(user)
 	return TRUE
 
-/datum/preferences/proc/handle_upgrade(var/number, var/cost, var/numlimit, var/catgr)
+/datum/preferences/proc/handle_upgrade(number, cost, numlimit, catgr)
 	if(cost <= 0)
 		if(!catgr)
 			cost = 3

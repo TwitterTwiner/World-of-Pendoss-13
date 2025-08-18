@@ -60,7 +60,7 @@
 					icon = onflooricon
 
 
-/obj/item/fishing_rod/proc/catch_fish_ocean(var/diceroll)
+/obj/item/fishing_rod/proc/catch_fish_ocean(diceroll)
 	if(diceroll == -1)
 		return /obj/item/trash/can/food
 	else if(diceroll <= 2)
@@ -72,7 +72,7 @@
 	else if (diceroll >= 6)
 		return /obj/item/food/fish/shark
 
-/obj/item/fishing_rod/proc/catch_fish_sewer(var/diceroll)
+/obj/item/fishing_rod/proc/catch_fish_sewer(diceroll)
 	if(diceroll == -1)
 		return /obj/item/trash/can/food
 	else if(diceroll <= 2)
@@ -92,13 +92,13 @@
 	else
 		return /obj/item/flashlight
 
-/obj/item/fishing_rod/proc/calc_fishing_speed(var/diceroll)
+/obj/item/fishing_rod/proc/calc_fishing_speed(diceroll)
 	if(diceroll == -1)
 		return fishing_speed_base + 5
 	else
 		return fishing_speed_base - diceroll
 
-/obj/item/fishing_rod/proc/catch_fish(var/fishing_roll)
+/obj/item/fishing_rod/proc/catch_fish(fishing_roll)
 	if(istype(get_step(src, dir), /turf/open/floor/plating/vampocean))
 		return catch_fish_ocean(fishing_roll)
 	else

@@ -1,4 +1,4 @@
-/mob/living/carbon/human/npc/proc/Aggro(var/mob/M, var/attacked = FALSE)
+/mob/living/carbon/human/npc/proc/Aggro(mob/M, attacked = FALSE)
 	if(M == src)
 		return
 	if(ishuman(M))

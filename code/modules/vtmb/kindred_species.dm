@@ -570,7 +570,7 @@
  * * source - The Kindred whose organ has been removed.
  * * organ - The organ which has been removed.
  */
-/datum/species/kindred/proc/lose_organ(var/mob/living/carbon/human/source, var/obj/item/organ/organ)
+/datum/species/kindred/proc/lose_organ(mob/living/carbon/human/source, obj/item/organ/organ)
 	SIGNAL_HANDLER
 
 	if (istype(organ, /obj/item/organ/heart))
@@ -578,7 +578,7 @@
 			if (!source.getorganslot(ORGAN_SLOT_HEART))
 				source.death()
 
-/datum/species/kindred/proc/slip_into_torpor(var/mob/living/carbon/human/source)
+/datum/species/kindred/proc/slip_into_torpor(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
 
 	to_chat(source, "<span class='warning'>You can feel yourself slipping into Torpor. You can use succumb to immediately sleep...</span>")
