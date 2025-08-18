@@ -25559,7 +25559,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special7,
+/obj/structure/delivery_receiver/special7,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "cHa" = (
@@ -25886,7 +25886,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "cRS" = (
-/obj/structure/delivery_reciever/store4,
+/obj/structure/delivery_receiver/store4,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "cSD" = (
@@ -26998,7 +26998,7 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm/pacificheights)
 "dzn" = (
-/obj/structure/delivery_reciever/store12,
+/obj/structure/delivery_receiver/store12,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "dzy" = (
@@ -29636,7 +29636,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/store19,
+/obj/structure/delivery_receiver/store19,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/pacificheights)
 "eSW" = (
@@ -30060,7 +30060,7 @@
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/chinatown)
 "fdk" = (
-/obj/structure/delivery_reciever/store10,
+/obj/structure/delivery_receiver/store10,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/fishermanswharf)
 "fdm" = (
@@ -30320,11 +30320,11 @@
 /turf/open/floor/plating/granite,
 /area/vtm/prince)
 "fjF" = (
-/obj/structure/delivery_reciever/store14,
+/obj/structure/delivery_receiver/store14,
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/financialdistrict)
 "fkj" = (
-/obj/structure/delivery_reciever/store15,
+/obj/structure/delivery_receiver/store15,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "fkB" = (
@@ -30654,7 +30654,7 @@
 /turf/open/floor/plating/concrete,
 /area/vtm/supply)
 "fwN" = (
-/obj/structure/delivery_reciever/store17,
+/obj/structure/delivery_receiver/store17,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/financialdistrict)
 "fwQ" = (
@@ -31787,7 +31787,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special10,
+/obj/structure/delivery_receiver/special10,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/pacificheights)
 "gaB" = (
@@ -37890,7 +37890,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior/mansion)
 "jcz" = (
-/obj/structure/delivery_reciever/store20,
+/obj/structure/delivery_receiver/store20,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "jcL" = (
@@ -40050,7 +40050,7 @@
 /turf/open/floor/plating/vampdirt,
 /area/vtm/anarch)
 "kql" = (
-/obj/structure/delivery_reciever/store3,
+/obj/structure/delivery_receiver/store3,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "kqm" = (
@@ -40459,7 +40459,7 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm/forest)
 "kCz" = (
-/obj/structure/delivery_reciever/special5,
+/obj/structure/delivery_receiver/special5,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "kCH" = (
@@ -40959,7 +40959,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/laundromat)
 "kSU" = (
-/obj/structure/delivery_reciever/special3,
+/obj/structure/delivery_receiver/special3,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "kSZ" = (
@@ -43138,7 +43138,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/church)
 "meh" = (
-/obj/structure/delivery_reciever/store2,
+/obj/structure/delivery_receiver/store2,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "mex" = (
@@ -44220,7 +44220,7 @@
 /turf/closed/wall/vampwall/rich/old,
 /area/vtm/cabaret)
 "mKU" = (
-/obj/structure/delivery_reciever/store1,
+/obj/structure/delivery_receiver/store1,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/ghetto)
 "mLj" = (
@@ -44965,7 +44965,7 @@
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "njT" = (
-/obj/structure/delivery_reciever/special6,
+/obj/structure/delivery_receiver/special6,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "nka" = (
@@ -46345,7 +46345,7 @@
 /turf/open/floor/plating/asphalt,
 /area/vtm/pacificheights)
 "nZi" = (
-/obj/structure/delivery_reciever/store7,
+/obj/structure/delivery_receiver/store7,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "nZr" = (
@@ -49297,7 +49297,7 @@
 /turf/open/floor/carpet/black,
 /area/vtm/interior/laundromat)
 "pDB" = (
-/obj/structure/delivery_reciever/store13,
+/obj/structure/delivery_receiver/store13,
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/financialdistrict)
 "pDJ" = (
@@ -49782,7 +49782,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special9,
+/obj/structure/delivery_receiver/special9,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "pRh" = (
@@ -49867,7 +49867,7 @@
 /turf/open/floor/carpet/lone,
 /area/vtm/interior/giovanni)
 "pTI" = (
-/obj/structure/delivery_reciever/store6,
+/obj/structure/delivery_receiver/store6,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "pTK" = (
@@ -50119,7 +50119,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special11,
+/obj/structure/delivery_receiver/special11,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "qaF" = (
@@ -53827,7 +53827,7 @@
 /area/vtm/supply)
 "sfN" = (
 /obj/effect/landmark/npcwall,
-/obj/structure/delivery_reciever/store11,
+/obj/structure/delivery_receiver/store11,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/northbeach)
 "sfV" = (
@@ -54429,7 +54429,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/laundromat)
 "svM" = (
-/obj/structure/delivery_reciever/store12,
+/obj/structure/delivery_receiver/store12,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "svS" = (
@@ -54448,7 +54448,7 @@
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm)
 "swH" = (
-/obj/structure/delivery_reciever/store9,
+/obj/structure/delivery_receiver/store9,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/fishermanswharf)
 "sxc" = (
@@ -55710,7 +55710,7 @@
 /turf/open/floor/plating/asphalt,
 /area/vtm/financialdistrict)
 "tgq" = (
-/obj/structure/delivery_reciever/special1,
+/obj/structure/delivery_receiver/special1,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "tgU" = (
@@ -56301,7 +56301,7 @@
 /turf/open/floor/plasteel/dark,
 /area/vtm/forest)
 "twA" = (
-/obj/structure/delivery_reciever/store5,
+/obj/structure/delivery_receiver/store5,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/pacificheights)
 "txk" = (
@@ -57596,7 +57596,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/bianchiBank)
 "ulC" = (
-/obj/structure/delivery_reciever/special2,
+/obj/structure/delivery_receiver/special2,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "ulM" = (
@@ -59955,7 +59955,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special8,
+/obj/structure/delivery_receiver/special8,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "vyh" = (
@@ -62340,7 +62340,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/clinic)
 "wJU" = (
-/obj/structure/delivery_reciever/special4,
+/obj/structure/delivery_receiver/special4,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "wKb" = (
@@ -62747,7 +62747,7 @@
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/shop)
 "wVM" = (
-/obj/structure/delivery_reciever/special12,
+/obj/structure/delivery_receiver/special12,
 /turf/open/floor/plating/vampdirt,
 /area/vtm/pacificheights)
 "wWp" = (
@@ -64093,7 +64093,7 @@
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
 "xKH" = (
-/obj/structure/delivery_reciever/store18,
+/obj/structure/delivery_receiver/store18,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "xKU" = (
