@@ -498,6 +498,9 @@
 /datum/controller/subsystem/ticker/proc/market_report()
 	var/list/parts = list()
 	parts += "<span class='header'>City Economic Summary:</span>"
+	if(!GLOB.bank_account_list.len)
+		parts += "Somehow, nobody made any money this shift! This'll result in some budget cuts...</div>"
+		return parts
 	///This is the richest account on station at roundend.
 	var/datum/vtm_bank_account/mr_moneybags = GLOB.bank_account_list[1]
 	if(!istype(mr_moneybags))
@@ -517,8 +520,6 @@
 		log_econ("Roundend credit total: [station_vault] dollars. Average cash amount: [station_vault/total_players]")
 	if(mr_moneybags)
 		parts += "The most affluent person at the night's end was <b>[mr_moneybags.account_owner] with [mr_moneybags.balance]</b> dollars!</div>"
-	else
-		parts += "Somehow, nobody made any money this shift! This'll result in some budget cuts...</div>"
 	return parts
 
 /datum/controller/subsystem/ticker/proc/medal_report()
