@@ -1,4 +1,3 @@
-
 /// Vampire cannot drink from anyone who doesn't consent to it
 #define TRAIT_CONSENSUAL_FEEDING_ONLY "consensual_feeding_only"
 /// Instead of knocking someone out when fed on, this vampire's Kiss inflicts pain
