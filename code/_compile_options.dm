@@ -55,7 +55,7 @@
 #endif
 
 #ifdef CIBUILDING
-//#define UNIT_TESTS FeudeyTF: No unit tests, while i fix them
+#define UNIT_TESTS
 #endif
 
 #ifdef CITESTING
