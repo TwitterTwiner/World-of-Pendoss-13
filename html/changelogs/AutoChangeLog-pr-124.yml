@@ -1,0 +1,4 @@
+author: "FeudeyTF"
+delete-after: True
+changes:
+  - rscadd: "Включил авто-лейблер в CI"
