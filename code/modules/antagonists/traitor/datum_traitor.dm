@@ -1,6 +1,3 @@
-#define TRAITOR_HUMAN "human"
-#define TRAITOR_AI	  "AI"
-
 /datum/antagonist/traitor
 	name = "Traitor"
 	roundend_category = "traitors"
@@ -290,7 +287,7 @@
 
 	result += objectives_text
 
-	var/special_role_text = lowertext(name)
+	var/special_role_text = LOWER_TEXT(name)
 
 	if (contractor_hub)
 		result += contractor_round_end()
@@ -351,3 +348,5 @@
 
 /datum/antagonist/traitor/is_gamemode_hero()
 	return SSticker.mode.name == "traitor"
+
+#undef TRAITOR_AI

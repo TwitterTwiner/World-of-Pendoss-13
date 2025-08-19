@@ -247,3 +247,9 @@
 	name = "\improper Antinoblium Gas Miner"
 	overlay_color = "#022e00"
 	spawn_id = /datum/gas/antinoblium
+
+#undef GASMINER_POWER_FULLSCALE
+#undef GASMINER_POWER_KPA
+#undef GASMINER_POWER_MOLES
+#undef GASMINER_POWER_NONE
+#undef GASMINER_POWER_STATIC

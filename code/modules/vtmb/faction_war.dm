@@ -136,7 +136,7 @@ SUBSYSTEM_DEF(factionwar)
 					to_chat(H, "<b><span class='warning'>Triad</span> don't have resources to sustain [A.name] [R.x]:[R.y], so it belongs to no one now.</b>")
 
 
-/datum/controller/subsystem/factionwar/proc/switch_member(var/mob/living/member, var/vampire_faction)
+/datum/controller/subsystem/factionwar/proc/switch_member(mob/living/member, vampire_faction)
 	switch(vampire_faction)
 		if("Camarilla")
 			anarch_members -= member
@@ -164,7 +164,7 @@ SUBSYSTEM_DEF(factionwar)
 			giovanni_members -= member
 			triad_members -= member
 
-/datum/controller/subsystem/factionwar/proc/check_faction_ability(var/vampire_faction)
+/datum/controller/subsystem/factionwar/proc/check_faction_ability(vampire_faction)
 	switch(vampire_faction)
 		if("Sabbat")
 			return TRUE
@@ -193,7 +193,7 @@ SUBSYSTEM_DEF(factionwar)
 				return FALSE
 			return TRUE
 
-/datum/controller/subsystem/factionwar/proc/move_mark(var/obj/graffiti/G, var/vampire_faction)
+/datum/controller/subsystem/factionwar/proc/move_mark(obj/graffiti/G, vampire_faction)
 	switch(vampire_faction)
 		if("Camarilla")
 			marks_anarch -= G

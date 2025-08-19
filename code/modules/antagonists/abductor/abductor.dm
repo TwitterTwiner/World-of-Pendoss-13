@@ -1,4 +1,3 @@
-#define ABDUCTOR_MAX_TEAMS 4
 GLOBAL_LIST_INIT(possible_abductor_names, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
 
 /datum/antagonist/abductor

@@ -52,3 +52,15 @@
 #define WIRE_RESETOWNER "Reset Owner"
 #define WIRE_AGELIMIT "Age Limit"
 
+// Wire states for the AI
+#define AI_WIRE_NORMAL 0
+#define AI_WIRE_DISABLED 1
+#define AI_WIRE_HACKED 2
+#define AI_WIRE_DISABLED_HACKED -1
+
+#define WIRE_RECEIVE		(1<<0)
+#define WIRE_PULSE			(1<<1)
+#define WIRE_PULSE_SPECIAL	(1<<2)
+#define WIRE_RADIO_RECEIVE	(1<<3)
+#define WIRE_RADIO_PULSE	(1<<4)
+#define ASSEMBLY_BEEP_VOLUME 5

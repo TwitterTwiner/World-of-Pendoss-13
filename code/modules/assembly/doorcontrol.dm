@@ -1,3 +1,6 @@
+#define LOCKED 1
+#define UNLOCKED 0
+
 /obj/item/assembly/control
 	name = "blast door controller"
 	desc = "A small electronic device able to control a blast door remotely."
@@ -214,3 +217,5 @@
 	lift.lift_master_datum.set_controls(UNLOCKED)
 
 #undef FLOOR_TRAVEL_TIME
+#undef LOCKED
+#undef UNLOCKED

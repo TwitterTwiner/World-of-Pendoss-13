@@ -146,7 +146,7 @@ SUBSYSTEM_DEF(beastmastering)
 		else
 			walk(src, 0)
 
-/mob/living/simple_animal/hostile/beastmaster/proc/add_beastmaster_enemies(var/mob/living/L)
+/mob/living/simple_animal/hostile/beastmaster/proc/add_beastmaster_enemies(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/beastmaster))
 		var/mob/living/simple_animal/hostile/beastmaster/M = L
 		if(M.beastmaster == beastmaster)
@@ -157,7 +157,7 @@ SUBSYSTEM_DEF(beastmastering)
 	if(!targa)
 		targa = L
 
-/mob/living/carbon/human/npc/proc/add_presence_enemies(var/mob/living/L)
+/mob/living/carbon/human/npc/proc/add_presence_enemies(mob/living/L)
 	if(istype(L, /mob/living/carbon/human/npc))
 		var/mob/living/carbon/human/npc/M = L
 		if(M.presence_master == presence_master)

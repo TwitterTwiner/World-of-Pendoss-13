@@ -1365,7 +1365,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		return TRUE
 
 ///This proc handles punching damage. IMPORTANT: Our owner is the TARGET and not the USER in this proc. For whatever reason...
-/datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style, var/guaranteed_hit = FALSE)
+/datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style, guaranteed_hit = FALSE)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
@@ -1574,7 +1574,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		if("disarm")
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, var/guaranteed_hit = FALSE)
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, guaranteed_hit = FALSE)
 	// Allows you to put in item-specific reactions based on species
 	if(ishuman(user))
 		var/mob/living/carbon/human/ohvampire = user

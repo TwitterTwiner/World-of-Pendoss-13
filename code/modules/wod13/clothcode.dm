@@ -905,14 +905,14 @@
 	icon_state = "bandana_black"
 
 /obj/item/clothing/head/vampire/baseballcap
-    name = "baseball cap"
-    desc = "A soft hat with a rounded crown and a stiff bill projecting in front. Giants baseball, there's nothing like it!"
-    icon_state = "baseballcap"
+	name = "baseball cap"
+	desc = "A soft hat with a rounded crown and a stiff bill projecting in front. Giants baseball, there's nothing like it!"
+	icon_state = "baseballcap"
 
 /obj/item/clothing/head/vampire/ushanka
-    name = "ushanka"
-    desc = "A heavy fur cap with ear-covering flaps."
-    icon_state = "ushanka"
+	name = "ushanka"
+	desc = "A heavy fur cap with ear-covering flaps."
+	icon_state = "ushanka"
 
 /obj/item/clothing/head/vampire/beanie
 	name = "beanie"
@@ -1022,10 +1022,10 @@
 	masquerade_violating = TRUE
 
 /obj/item/clothing/head/vampire/hardhat
-    name = "construction helmet"
-    desc = "A thermoplastic hard helmet used to protect the head from injury."
-    icon_state = "hardhat"
-    armor = list(BASHING = 4, LETHAL = 2, AGGRAVATED = 0, MELEE = 20, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 5, ACID = 0, WOUND = 15)
+	name = "construction helmet"
+	desc = "A thermoplastic hard helmet used to protect the head from injury."
+	icon_state = "hardhat"
+	armor = list(BASHING = 4, LETHAL = 2, AGGRAVATED = 0, MELEE = 20, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 5, ACID = 0, WOUND = 15)
 
 /obj/item/clothing/head/vampire/eod
 	name = "EOD helmet"
@@ -1505,7 +1505,7 @@
 	icon = 'code/modules/wod13/clothing.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	
+
 	var/earflaps = TRUE
 	var/storona = 1
 

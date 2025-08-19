@@ -778,3 +778,18 @@
 /obj/structure/vampdoor/npc/Initialize()
 	. = ..()
 	lock_id = "npc[rand(1, 20)]"
+
+#undef LOCKDIFFICULTY_1
+#undef LOCKTIMER_1
+#undef LOCKDIFFICULTY_2
+#undef LOCKTIMER_2
+#undef LOCKDIFFICULTY_3
+#undef LOCKTIMER_3
+#undef LOCKDIFFICULTY_4
+#undef LOCKTIMER_4
+#undef LOCKDIFFICULTY_5
+#undef LOCKTIMER_5
+#undef LOCKDIFFICULTY_6
+#undef LOCKTIMER_6
+#undef LOCKDIFFICULTY_7
+#undef LOCKTIMER_7

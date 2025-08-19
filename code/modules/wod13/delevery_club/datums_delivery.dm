@@ -10,7 +10,7 @@
 	var/obj/vampire_car/delivery_truck/active_truck
 	var/list/spawned_keys = list()
 	var/list/delivery_dispensers = list()
-	var/list/delivery_recievers = list()
+	var/list/delivery_receivers = list()
 	var/list/crate_designations = list()
 	var/list/active_crates = list()
 	var/list/delivery_score = list(
@@ -19,7 +19,7 @@
 		"dispensed_crates" = 0,
 		"delivered_crates" = 0,
 		"misdelivered_crates" = 0,
-		"completed_recievers" = 0,
+		"completed_receivers" = 0,
 		"manifest_refresh" = 0,
 		"timeout_timestamp" = 0,
 		)
@@ -30,21 +30,21 @@
 			"income" = 0,
 			"grade" = 0,
 			"completed" = 0,
-			"completed_recievers" = 0,
+			"completed_receivers" = 0,
 			"delivered_crates" = 0,
 		),
 		"millenium_delivery" = list(
 			"income" = 0,
 			"grade" = 0,
 			"completed" = 0,
-			"completed_recievers" = 0,
+			"completed_receivers" = 0,
 			"delivered_crates" = 0,
 		),
 		"bar_delivery" = list(
 			"income" = 0,
 			"grade" = 0,
 			"completed" = 0,
-			"completed_recievers" = 0,
+			"completed_receivers" = 0,
 			"delivered_crates" = 0,
 		),
 	)
@@ -54,14 +54,14 @@
 	GLOB.delivery_stats["[delivery_employer_tag]"]["income"] += income
 	GLOB.delivery_stats["[delivery_employer_tag]"]["grade"] += grade
 	GLOB.delivery_stats["[delivery_employer_tag]"]["completed"] += 1
-	GLOB.delivery_stats["[delivery_employer_tag]"]["completed_recievers"] += delivery_score["completed_recievers"]
+	GLOB.delivery_stats["[delivery_employer_tag]"]["completed_receivers"] += delivery_score["completed_receivers"]
 	GLOB.delivery_stats["[delivery_employer_tag]"]["delivered_crates"] += delivery_score["delivered_crates"]
 	return
 
 /datum/delivery_datum/proc/process_payouts(grade)
 	var/payout_quota = 0
 	payout_quota += delivery_score["delivered_crates"] * 100
-	payout_quota += delivery_score["completed_recievers"] * 200
+	payout_quota += delivery_score["completed_receivers"] * 200
 	var/payout_multiplier
 	switch(grade)
 		if(7)
@@ -117,7 +117,7 @@
 	var/final_grade = 7
 	if(world.time > delivery_score["timeout_timestamp"])
 		final_grade -= 3
-	if(delivery_recievers.len > 0)
+	if(delivery_receivers.len > 0)
 		final_grade -= 5
 	if(delivery_score["trucks_used"] > 1)
 		final_grade -= 1
@@ -150,7 +150,7 @@
 		return 1
 
 /datum/delivery_datum/proc/check_complete()
-	if(delivery_recievers.len == 0)
+	if(delivery_receivers.len == 0)
 		return 1
 	else
 		return 0
@@ -160,14 +160,14 @@
 	for (var/mob/living/carbon/human/mob in contract_takers)
 		to_chat(mob, "<p>[message]</p>")
 
-/datum/delivery_datum/proc/reciever_complete(obj/reciever)
-	var/obj/structure/delivery_reciever/target_reciever = reciever
-	delivery_recievers.Remove(target_reciever)
-	delivery_score["completed_recievers"] += 1
+/datum/delivery_datum/proc/receiver_complete(obj/receiver)
+	var/obj/structure/delivery_receiver/target_receiver = receiver
+	delivery_receivers.Remove(target_receiver)
+	delivery_score["completed_receivers"] += 1
 	if(check_complete() == 1)
 		broadcast_to_holders("<b>All deliveries have been completed.</b> Please return the truck and any outstanding cargo back to the office to finalize the contract!")
 	else
-		broadcast_to_holders("<b>Delivery to [target_reciever.chute_name] complete.</b> [num2text(delivery_recievers.len)] chutes remain.")
+		broadcast_to_holders("<b>Delivery to [target_receiver.chute_name] complete.</b> [num2text(delivery_receivers.len)] chutes remain.")
 
 /datum/delivery_datum/proc/assign_dispenser(tag)
 	var/list/dispenser_candidates = list()
@@ -196,35 +196,35 @@
 	picked_dispenser.mouse_opacity = 1
 	return 1
 
-/datum/delivery_datum/proc/assign_recievers(ammount)
-	var/recievers_to_assign
-	var/list/reciever_list = list()
-	reciever_list = GLOB.delivery_available_recievers.Copy()
-	for(var/obj/structure/delivery_reciever/reciever_candidate in reciever_list)
-		if(reciever_candidate.delivery_in_use == 1)	reciever_list.Remove(reciever_candidate)
+/datum/delivery_datum/proc/assign_receivers(ammount)
+	var/receivers_to_assign
+	var/list/receiver_list = list()
+	receiver_list = GLOB.delivery_available_receivers.Copy()
+	for(var/obj/structure/delivery_receiver/receiver_candidate in receiver_list)
+		if(receiver_candidate.delivery_in_use == 1)	receiver_list.Remove(receiver_candidate)
 	if(!ammount)
-		recievers_to_assign = 5
+		receivers_to_assign = 5
 	else
-		recievers_to_assign = ammount
-	while(recievers_to_assign > 0)
-		var/picked_reciever = pick(reciever_list)
-		delivery_recievers.Add(picked_reciever)
-		reciever_list.Remove(picked_reciever)
-		recievers_to_assign -= 1
+		receivers_to_assign = ammount
+	while(receivers_to_assign > 0)
+		var/picked_receiver = pick(receiver_list)
+		delivery_receivers.Add(picked_receiver)
+		receiver_list.Remove(picked_receiver)
+		receivers_to_assign -= 1
 
 /datum/delivery_datum/proc/assign_crates(ammount_min,ammount_max)
 	if(!ammount_min || !ammount_max) return
-	if(delivery_recievers.len == 0) return
-	for(var/obj/structure/delivery_reciever/reciever in delivery_recievers)
-		reciever.delivery_in_use = 1
+	if(delivery_receivers.len == 0) return
+	for(var/obj/structure/delivery_receiver/receiver in delivery_receivers)
+		receiver.delivery_in_use = 1
 		var/crate_number = rand(ammount_min,ammount_max)
 		while(crate_number > 0)
 			var/picked_type = pick("red","green","yellow","blue")
-			reciever.delivery_status[picked_type] += 1
+			receiver.delivery_status[picked_type] += 1
 			crate_number -= 1
-		animate(reciever,alpha = 255, time = 5 SECONDS)
-		reciever.set_light(2)
-		reciever.mouse_opacity = 1
+		animate(receiver,alpha = 255, time = 5 SECONDS)
+		receiver.set_light(2)
+		receiver.mouse_opacity = 1
 
 /datum/delivery_datum/proc/assign_garage()
 	if(!delivery_employer_tag) return 0
@@ -246,10 +246,10 @@
 	delivery_score["trucks_used"] += 1
 
 /datum/delivery_datum/proc/delivery_timeout()
-	broadcast_to_holders("<b>Delivery timer expired.</b> Deactivating any outstanding recievers. You have <b>five minutes</b> to return the truck and any outstanding cargo.")
-	if(delivery_recievers.len != 0)
-		for(var/obj/structure/delivery_reciever/reciever in delivery_recievers)
-			reciever.reset_reciever()
+	broadcast_to_holders("<b>Delivery timer expired.</b> Deactivating any outstanding receivers. You have <b>five minutes</b> to return the truck and any outstanding cargo.")
+	if(delivery_receivers.len != 0)
+		for(var/obj/structure/delivery_receiver/receiver in delivery_receivers)
+			receiver.reset_receiver()
 	addtimer(CALLBACK(src,PROC_REF(delivery_finish)),5 MINUTES)
 
 /datum/delivery_datum/proc/delivery_set_timer(delay)
@@ -267,12 +267,12 @@
 			receiver_number = 5
 		if(3)
 			receiver_number = 7
-	var/list/reciever_list = list()
-	reciever_list = GLOB.delivery_available_recievers.Copy()
-	for(var/obj/structure/delivery_reciever/potential_reciever in reciever_list)
-		if(potential_reciever.delivery_in_use == 1) reciever_list.Remove(potential_reciever)
-	if(reciever_list.len < receiver_number)
-		broadcast_to_holders("Error: Not enough delivery recievers. Too many deliveries in progress. Contract aborted.")
+	var/list/receiver_list = list()
+	receiver_list = GLOB.delivery_available_receivers.Copy()
+	for(var/obj/structure/delivery_receiver/potential_receiver in receiver_list)
+		if(potential_receiver.delivery_in_use == 1) receiver_list.Remove(potential_receiver)
+	if(receiver_list.len < receiver_number)
+		broadcast_to_holders("Error: Not enough delivery receivers. Too many deliveries in progress. Contract aborted.")
 		return 0
 	return 1
 
@@ -286,15 +286,15 @@
 	if(spawn_truck() == 0) return "fail_truck"
 	switch(contract_difficulty)
 		if(1)
-			assign_recievers(3)
+			assign_receivers(3)
 			assign_crates(3,6)
 			delivery_set_timer(20 MINUTES)
 		if(2)
-			assign_recievers(5)
+			assign_receivers(5)
 			assign_crates(7,10)
 			delivery_set_timer(45 MINUTES)
 		if(3)
-			assign_recievers(7)
+			assign_receivers(7)
 			assign_crates(9,15)
 			delivery_set_timer(90 MINUTES)
 	return 1
@@ -325,10 +325,10 @@
 		for(var/obj/structure/delivery_dispenser/dispenser in delivery_dispensers)
 			dispenser.reset_dispenser()
 	delivery_dispensers = list()
-	if(delivery_recievers.len != 0)
-		for(var/obj/structure/delivery_reciever/reciever in delivery_recievers)
-			reciever.reset_reciever()
-	delivery_recievers = list()
+	if(delivery_receivers.len != 0)
+		for(var/obj/structure/delivery_receiver/receiver in delivery_receivers)
+			receiver.reset_receiver()
+	delivery_receivers = list()
 	if(active_crates.len != 0)
 		for(var/obj/structure/delivery_crate/crate in active_crates)
 			qdel(crate)
@@ -447,7 +447,7 @@
 /datum/delivery_manifest/
 
 	var/datum/delivery_datum/delivery
-	var/list/saved_recievers = list()
+	var/list/saved_receivers = list()
 	var/list/saved_data = list(
 		"dispensed_crates" = 0,
 		"delivered_crates" = 0,
@@ -461,31 +461,31 @@
 
 /datum/delivery_manifest/Destroy(force, ...)
 	delivery = null
-	saved_recievers = list()
+	saved_receivers = list()
 	. = ..()
 
 
 /datum/delivery_manifest/proc/save_data(init)
 	if(!delivery) return
-	saved_recievers = list()
-	if(delivery.delivery_recievers.len > 0)
+	saved_receivers = list()
+	if(delivery.delivery_receivers.len > 0)
 		var/current_position = 1
-		while(current_position <= delivery.delivery_recievers.len)
-			var/obj/structure/delivery_reciever/reciever_saved = delivery.delivery_recievers[current_position]
-			var/turf/reciever_turf = get_turf(reciever_saved)
+		while(current_position <= delivery.delivery_receivers.len)
+			var/obj/structure/delivery_receiver/receiver_saved = delivery.delivery_receivers[current_position]
+			var/turf/receiver_turf = get_turf(receiver_saved)
 
 			var/list/list_saved = list("[current_position]" = list(
-					"chute_name" = reciever_saved.chute_name,
-					"red" = reciever_saved.delivery_status["red"],
-					"blue" = reciever_saved.delivery_status["blue"],
-					"yellow" = reciever_saved.delivery_status["yellow"],
-					"green" = reciever_saved.delivery_status["green"],
-					"x" = reciever_turf.x,
-					"y" = reciever_turf.y,
-					"z" = reciever_turf.z,
+					"chute_name" = receiver_saved.chute_name,
+					"red" = receiver_saved.delivery_status["red"],
+					"blue" = receiver_saved.delivery_status["blue"],
+					"yellow" = receiver_saved.delivery_status["yellow"],
+					"green" = receiver_saved.delivery_status["green"],
+					"x" = receiver_turf.x,
+					"y" = receiver_turf.y,
+					"z" = receiver_turf.z,
 				)
 			)
-			saved_recievers.Add(list_saved)
+			saved_receivers.Add(list_saved)
 			current_position += 1
 
 	if(!init) delivery.delivery_score["manifest_refresh"] += 1
@@ -529,29 +529,29 @@
 	<body>
 	"}
 	html += "<p><b>Current coordinates:</b> X:[user_turf.x] Y:[user_turf.y] Z: [user_turf.z]<br></p>"
-	if(saved_recievers.len == 0)
-		html += "<p><b>No recievers found. Return the truck to the garage and any outstanding crates to their dispensers, then return the contract to the board.</b></p>"
+	if(saved_receivers.len == 0)
+		html += "<p><b>No receivers found. Return the truck to the garage and any outstanding crates to their dispensers, then return the contract to the board.</b></p>"
 	else
 		html += "<p><b>OUTSDANDING DELIVERIES</b></p>"
 		var/current_position = 1
-		while(current_position <= saved_recievers.len)
-			html += {"<p><b>[saved_recievers["[current_position]"]["chute_name"]]</b> - X:[saved_recievers["[current_position]"]["x"]] Y:[saved_recievers["[current_position]"]["y"]] Z:[saved_recievers["[current_position]"]["z"]]</p><p>"}
-			if(saved_recievers["[current_position]"]["red"] > 0)
+		while(current_position <= saved_receivers.len)
+			html += {"<p><b>[saved_receivers["[current_position]"]["chute_name"]]</b> - X:[saved_receivers["[current_position]"]["x"]] Y:[saved_receivers["[current_position]"]["y"]] Z:[saved_receivers["[current_position]"]["z"]]</p><p>"}
+			if(saved_receivers["[current_position]"]["red"] > 0)
 				var/cargo_name = get_cargo_name("red")
 				var/html_color = get_cargo_color_value("red")
-				html += {"<span style="color: [html_color];">[cargo_name]</span> - <b>[saved_recievers["[current_position]"]["red"]]</b> remaining.<br>"}
-			if(saved_recievers["[current_position]"]["blue"] > 0)
+				html += {"<span style="color: [html_color];">[cargo_name]</span> - <b>[saved_receivers["[current_position]"]["red"]]</b> remaining.<br>"}
+			if(saved_receivers["[current_position]"]["blue"] > 0)
 				var/cargo_name = get_cargo_name("blue")
 				var/html_color = get_cargo_color_value("blue")
-				html += {"<span style="color: [html_color];">[cargo_name]</span> - <b>[saved_recievers["[current_position]"]["blue"]]</b> remaining.<br>"}
-			if(saved_recievers["[current_position]"]["yellow"] > 0)
+				html += {"<span style="color: [html_color];">[cargo_name]</span> - <b>[saved_receivers["[current_position]"]["blue"]]</b> remaining.<br>"}
+			if(saved_receivers["[current_position]"]["yellow"] > 0)
 				var/cargo_name = get_cargo_name("yellow")
 				var/html_color = get_cargo_color_value("yellow")
-				html += {"<span style="color: [html_color];">[cargo_name]</span> - <b>[saved_recievers["[current_position]"]["yellow"]]</b> remaining.<br>"}
-			if(saved_recievers["[current_position]"]["green"] > 0)
+				html += {"<span style="color: [html_color];">[cargo_name]</span> - <b>[saved_receivers["[current_position]"]["yellow"]]</b> remaining.<br>"}
+			if(saved_receivers["[current_position]"]["green"] > 0)
 				var/cargo_name = get_cargo_name("green")
 				var/html_color = get_cargo_color_value("green")
-				html += {"<span style="color: [html_color];">[cargo_name]</span> - <b>[saved_recievers["[current_position]"]["green"]]</b> remaining.<br>"}
+				html += {"<span style="color: [html_color];">[cargo_name]</span> - <b>[saved_receivers["[current_position]"]["green"]]</b> remaining.<br>"}
 			html += "</p>"
 			current_position += 1
 	if(delivery.active_truck)
@@ -597,10 +597,10 @@
 			"millenium_delivery" = 0,
 			"bar_delivery" = 0,
 		),
-		"completed_recievers" = list(
-			"oops" = GLOB.delivery_stats["oops"]["completed_recievers"],
-			"millenium_delivery" = GLOB.delivery_stats["millenium_delivery"]["completed_recievers"],
-			"bar_delivery" = GLOB.delivery_stats["bar_delivery"]["completed_recievers"],
+		"completed_receivers" = list(
+			"oops" = GLOB.delivery_stats["oops"]["completed_receivers"],
+			"millenium_delivery" = GLOB.delivery_stats["millenium_delivery"]["completed_receivers"],
+			"bar_delivery" = GLOB.delivery_stats["bar_delivery"]["completed_receivers"],
 		),
 		"crates" = list(
 			"oops" = GLOB.delivery_stats["oops"]["delivered_crates"],
@@ -619,7 +619,7 @@
 	var/list/winners = list(
 		"income" = "none",
 		"averages" = "none",
-		"completed_recievers" = "none",
+		"completed_receivers" = "none",
 		"crates" = "none",
 		)
 
@@ -627,8 +627,8 @@
 		winners["income"] = "oops"
 	if(results_array["averages"]["oops"] > results_array["averages"]["millenium_delivery"] && results_array["averages"]["oops"] > results_array["averages"]["bar_delivery"])
 		winners["averages"] = "oops"
-	if(results_array["completed_recievers"]["oops"] > results_array["completed_recievers"]["millenium_delivery"] && results_array["completed_recievers"]["oops"] > results_array["completed_recievers"]["bar_delivery"])
-		winners["completed_recievers"] = "oops"
+	if(results_array["completed_receivers"]["oops"] > results_array["completed_receivers"]["millenium_delivery"] && results_array["completed_receivers"]["oops"] > results_array["completed_receivers"]["bar_delivery"])
+		winners["completed_receivers"] = "oops"
 	if(results_array["crates"]["oops"] > results_array["crates"]["millenium_delivery"] && results_array["crates"]["oops"] > results_array["crates"]["bar_delivery"])
 		winners["crates"] = "oops"
 
@@ -636,8 +636,8 @@
 		winners["income"] = "millenium_delivery"
 	if(results_array["averages"]["millenium_delivery"] > results_array["averages"]["oops"] && results_array["averages"]["millenium_delivery"] > results_array["averages"]["bar_delivery"])
 		winners["averages"] = "millenium_delivery"
-	if(results_array["completed_recievers"]["millenium_delivery"] > results_array["completed_recievers"]["oops"] && results_array["completed_recievers"]["millenium_delivery"] > results_array["completed_recievers"]["bar_delivery"])
-		winners["completed_recievers"] = "millenium_delivery"
+	if(results_array["completed_receivers"]["millenium_delivery"] > results_array["completed_receivers"]["oops"] && results_array["completed_receivers"]["millenium_delivery"] > results_array["completed_receivers"]["bar_delivery"])
+		winners["completed_receivers"] = "millenium_delivery"
 	if(results_array["crates"]["millenium_delivery"] > results_array["crates"]["oops"] && results_array["crates"]["millenium_delivery"] > results_array["crates"]["bar_delivery"])
 		winners["crates"] = "millenium_delivery"
 
@@ -645,8 +645,8 @@
 		winners["income"] = "bar_delivery"
 	if(results_array["averages"]["bar_delivery"] > results_array["averages"]["millenium_delivery"] && results_array["averages"]["bar_delivery"] > results_array["averages"]["oops"])
 		winners["averages"] = "bar_delivery"
-	if(results_array["completed_recievers"]["bar_delivery"] > results_array["completed_recievers"]["millenium_delivery"] && results_array["completed_recievers"]["bar_delivery"] > results_array["completed_recievers"]["oops"])
-		winners["completed_recievers"] = "bar_delivery"
+	if(results_array["completed_receivers"]["bar_delivery"] > results_array["completed_receivers"]["millenium_delivery"] && results_array["completed_receivers"]["bar_delivery"] > results_array["completed_receivers"]["oops"])
+		winners["completed_receivers"] = "bar_delivery"
 	if(results_array["crates"]["bar_delivery"] > results_array["crates"]["millenium_delivery"] && results_array["crates"]["bar_delivery"] > results_array["crates"]["oops"])
 		winners["crates"] = "bar_delivery"
 
@@ -670,8 +670,8 @@
 			if(winner_array["averages"] == "oops") text_color = "#fffb2b"
 			parts += {"<span style="color: [text_color];">Grade Average: <b>[GLOB.delivery_stats["oops"]["grade"] / GLOB.delivery_stats["oops"]["completed"]]</span></b><br>"}
 			text_color = "#ffffff"
-		if(winner_array["completed_recievers"] == "oops") text_color = "#fffb2b"
-		parts += {"<span style="color: [text_color];">Recievers Completed: <b>[GLOB.delivery_stats["oops"]["completed_recievers"]]</span></b><br>"}
+		if(winner_array["completed_receivers"] == "oops") text_color = "#fffb2b"
+		parts += {"<span style="color: [text_color];">Receivers Completed: <b>[GLOB.delivery_stats["oops"]["completed_receivers"]]</span></b><br>"}
 		text_color = "#ffffff"
 		if(winner_array["crates"] == "oops") text_color = "#fffb2b"
 		parts += {"<span style="color: [text_color];">Crates Delivered: <b>[GLOB.delivery_stats["oops"]["delivered_crates"]]</span></b><br>"}
@@ -690,8 +690,8 @@
 			if(winner_array["averages"] == "millenium_delivery") text_color = "#fffb2b"
 			parts += {"<span style="color: [text_color];">Grade Average: <b>[GLOB.delivery_stats["millenium_delivery"]["grade"] / GLOB.delivery_stats["millenium_delivery"]["completed"]]</span></b><br>"}
 			text_color = "#ffffff"
-		if(winner_array["completed_recievers"] == "millenium_delivery") text_color = "#fffb2b"
-		parts += {"<span style="color: [text_color];">Recievers Completed: <b>[GLOB.delivery_stats["millenium_delivery"]["completed_recievers"]]</span></b><br>"}
+		if(winner_array["completed_receivers"] == "millenium_delivery") text_color = "#fffb2b"
+		parts += {"<span style="color: [text_color];">Receivers Completed: <b>[GLOB.delivery_stats["millenium_delivery"]["completed_receivers"]]</span></b><br>"}
 		text_color = "#ffffff"
 		if(winner_array["crates"] == "millenium_delivery") text_color = "#fffb2b"
 		parts += {"<span style="color: [text_color];">Crates Delivered: <b>[GLOB.delivery_stats["millenium_delivery"]["delivered_crates"]]</span></b><br>"}
@@ -710,8 +710,8 @@
 			if(winner_array["averages"] == "bar_delivery") text_color = "#fffb2b"
 			parts += {"<span style="color: [text_color];">Grade Average: <b>[GLOB.delivery_stats["bar_delivery"]["grade"] / GLOB.delivery_stats["bar_delivery"]["completed"]]</span></b><br>"}
 			text_color = "#ffffff"
-		if(winner_array["completed_recievers"] == "bar_delivery") text_color = "#fffb2b"
-		parts += {"<span style="color: [text_color];">Recievers Completed: <b>[GLOB.delivery_stats["bar_delivery"]["completed_recievers"]]</span></b><br>"}
+		if(winner_array["completed_receivers"] == "bar_delivery") text_color = "#fffb2b"
+		parts += {"<span style="color: [text_color];">Receivers Completed: <b>[GLOB.delivery_stats["bar_delivery"]["completed_receivers"]]</span></b><br>"}
 		text_color = "#ffffff"
 		if(winner_array["crates"] == "bar_delivery") text_color = "#fffb2b"
 		parts += {"<span style="color: [text_color];">Crates Delivered: <b>[GLOB.delivery_stats["bar_delivery"]["delivered_crates"]]</span></b><br>"}

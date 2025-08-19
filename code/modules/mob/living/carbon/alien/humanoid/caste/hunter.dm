@@ -86,3 +86,5 @@
 			visible_message("<span class='danger'>[src] smashes into [hit_atom]!</span>", "<span class='alertalien'>[src] smashes into [hit_atom]!</span>")
 			Paralyze(40, ignore_canstun = TRUE)
 
+
+#undef MAX_ALIEN_LEAP_DIST

@@ -1,8 +1,3 @@
-
-#define PUNISHMENT_MURDER "murder"
-#define PUNISHMENT_GIB "gib"
-#define PUNISHMENT_TELEPORT "teleport"
-
 //very similar to stationloving, but more made for mobs and not objects. used on derelict drones currently
 
 
@@ -60,3 +55,5 @@ It has a punishment variable that is what happens to the parent when they leave 
 			if(!targetturf)
 				targetturf = locate(world.maxx/2,world.maxy/2,stuck_zlevel)
 			L.forceMove(targetturf)
+
+#undef PUNISHMENT_TELEPORT

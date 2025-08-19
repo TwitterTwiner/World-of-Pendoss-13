@@ -228,7 +228,7 @@
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/Shapeshift
 	var/datum/language_holder/lange
 
-/datum/warform/proc/transform(var/animal_atom, var/mob/living/carbon/human/owner, var/masquerady = TRUE, var/time)
+/datum/warform/proc/transform(animal_atom, mob/living/carbon/human/owner, masquerady = TRUE, time)
 //	var/matrix/ntransform = matrix()
 //	if(animal_atom.mob_size == )
 //		ntransform.Scale(1.25, 1.5)

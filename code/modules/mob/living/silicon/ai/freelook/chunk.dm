@@ -143,4 +143,3 @@
 		t.vis_contents += GLOB.cameranet.vis_contents_objects
 
 #undef UPDATE_BUFFER
-#undef CHUNK_SIZE

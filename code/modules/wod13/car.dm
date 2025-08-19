@@ -347,7 +347,7 @@ SUBSYSTEM_DEF(carpool)
 		for(var/mob/living/rider in src)
 			. += "<span class='notice'>* [rider]</span>"
 
-/obj/vampire_car/proc/get_damage(var/cost, var/mob/living/bumped_into, var/onbump_force)
+/obj/vampire_car/proc/get_damage(cost, mob/living/bumped_into, onbump_force)
 	if(cost > 0)
 		var/dam_multiplicator = 1
 		if(driver)
@@ -805,7 +805,7 @@ SUBSYSTEM_DEF(carpool)
 			if(do_after(user, 2 SECONDS, pulled_crate))
 				playsound(src,'code/modules/wod13/delevery_club/cargocrate_load.ogg',50,10)
 				delivery_trunk.add_to_storage(user,pulled_crate)
-	
+
 			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
 			return
 		else
@@ -824,7 +824,7 @@ SUBSYSTEM_DEF(carpool)
 	lighticon = "lights4"
 	access = "giovanni"
 
-/proc/get_dist_in_pixels(var/pixel_starts_x, var/pixel_starts_y, var/pixel_ends_x, var/pixel_ends_y)
+/proc/get_dist_in_pixels(pixel_starts_x, pixel_starts_y, pixel_ends_x, pixel_ends_y)
 	var/total_x = abs(pixel_starts_x-pixel_ends_x)
 	var/total_y = abs(pixel_starts_y-pixel_ends_y)
 	return round(sqrt(total_x*total_x + total_y*total_y))
@@ -840,7 +840,7 @@ SUBSYSTEM_DEF(carpool)
 	else if(dx < 0)
 		. += 360
 
-/proc/get_angle_diff(var/angle_a, var/angle_b)
+/proc/get_angle_diff(angle_a, angle_b)
 	return ((angle_b - angle_a) + 180) % 360 - 180;
 
 /obj/vampire_car
@@ -1093,7 +1093,7 @@ SUBSYSTEM_DEF(carpool)
 		if(WEST)
 			controlling(0, -turn_speed)
 
-/obj/vampire_car/proc/controlling(var/adjusting_speed, var/adjusting_turn)
+/obj/vampire_car/proc/controlling(adjusting_speed, adjusting_turn)
 	var/drift = 1
 //	var/drive = get_a_drive(driver)
 	var/ugl = 1

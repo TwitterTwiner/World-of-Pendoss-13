@@ -157,3 +157,9 @@
 				replace_tank(usr, FALSE)
 				. = TRUE
 	update_icon()
+
+#undef PUMP_DEFAULT_PRESSURE
+#undef PUMP_IN
+#undef PUMP_MAX_PRESSURE
+#undef PUMP_MIN_PRESSURE
+#undef PUMP_OUT

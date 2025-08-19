@@ -62,3 +62,7 @@
 #define CALIBER_HOOK		"hook"
 /// The caliber used by the changeling tentacle mutation.
 #define CALIBER_TENTACLE	"tentacle"
+
+#define RETURN_PRECISE_POINT(A) new /datum/point(A)
+
+#define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))

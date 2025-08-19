@@ -39,3 +39,5 @@
 			to_chat(user, "<span class='danger'>You're too new to play as a drone! Please try again in [DRONE_MINIMUM_AGE - user.client.player_age] days.</span>")
 			return
 	. = ..()
+
+#undef DRONE_MINIMUM_AGE

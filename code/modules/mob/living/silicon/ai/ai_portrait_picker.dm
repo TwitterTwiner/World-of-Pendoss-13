@@ -76,3 +76,7 @@
 			ai.cut_overlays() //so people can't keep repeatedly select portraits to add stacking overlays
 			ai.icon_state = "ai-portrait-active"//background
 			ai.add_overlay(MA)
+
+#undef TAB_LIBRARY
+#undef TAB_PRIVATE
+#undef TAB_SECURE

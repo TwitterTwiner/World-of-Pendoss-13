@@ -1,10 +1,3 @@
-#define FORWARD 1
-#define BACKWARD -1
-
-#define ITEM_DELETE "delete"
-#define ITEM_MOVE_INSIDE "move_inside"
-
-
 /datum/component/construction
 	var/list/steps
 	var/result
@@ -159,3 +152,5 @@
 
 /datum/component/construction/unordered/custom_action(obj/item/I, mob/living/user, typepath)
 	return TRUE
+
+#undef BACKWARD

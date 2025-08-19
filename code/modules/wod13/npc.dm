@@ -251,7 +251,7 @@
 		"Блять... Сердце..."
 	)
 
-/mob/living/carbon/human/npc/proc/AssignSocialRole(var/datum/socialrole/S, var/dont_random = FALSE)
+/mob/living/carbon/human/npc/proc/AssignSocialRole(datum/socialrole/S, dont_random = FALSE)
 	if(!S)
 		return
 	attributes.randomize()
@@ -357,11 +357,11 @@
 	equipOutfit(O)
 	qdel(O)
 
-/mob/living/carbon/human/npc/proc/GetSayDelay(var/message)
+/mob/living/carbon/human/npc/proc/GetSayDelay(message)
 	var/delay = length_char(message)
 	return delay
 
-/mob/living/carbon/human/npc/proc/RealisticSay(var/message)
+/mob/living/carbon/human/npc/proc/RealisticSay(message)
 	walk(src,0)
 	if(!message)
 		return
@@ -382,7 +382,7 @@
 				say(message)
 				is_talking = FALSE
 
-/mob/living/carbon/human/npc/proc/Annoy(var/atom/source)
+/mob/living/carbon/human/npc/proc/Annoy(atom/source)
 	walk(src,0)
 	if(CheckMove())
 		return

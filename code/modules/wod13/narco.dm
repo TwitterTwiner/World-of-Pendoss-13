@@ -1007,3 +1007,5 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 	icon_state = "tabletos_nootrop"
 	spawn_type = /obj/item/reagent_containers/pill/phenotropil
 */
+
+#undef STAGE_DOWN_TIME

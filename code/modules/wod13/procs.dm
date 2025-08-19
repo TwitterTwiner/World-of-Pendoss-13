@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/AdjustHumanity(var/value, var/limit, var/forced = FALSE)
+/mob/living/carbon/human/proc/AdjustHumanity(value, limit, forced = FALSE)
 	if(value < 0)
 		for(var/mob/living/carbon/human/H in viewers(7, src))
 			if(H != src && H.mind?.dharma)
@@ -77,7 +77,7 @@
 				ghostize(FALSE)
 				P.reason_of_death = "Lost control to the Beast ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 
-/mob/living/carbon/human/proc/AdjustMasquerade(var/value, var/forced = FALSE)
+/mob/living/carbon/human/proc/AdjustMasquerade(value, forced = FALSE)
 	if(!iskindred(src) && !isghoul(src) && !iscathayan(src))
 		return
 	if(!GLOB.canon_event)
@@ -161,7 +161,7 @@
 						smallhunter.remove_movespeed_modifier(/datum/movespeed_modifier/npc)
 
 
-/mob/living/carbon/human/npc/proc/backinvisible(var/atom/A)
+/mob/living/carbon/human/npc/proc/backinvisible(atom/A)
 	switch(dir)
 		if(NORTH)
 			if(A.y >= y)
@@ -177,7 +177,7 @@
 				return TRUE
 	return FALSE
 
-/mob/living/proc/CheckEyewitness(var/mob/living/source, var/mob/attacker, var/range = 0, var/affects_source = FALSE)
+/mob/living/proc/CheckEyewitness(mob/living/source, mob/attacker, range = 0, affects_source = FALSE)
 	var/actual_range = max(1, round(range*(attacker.alpha/255)))
 	/*
 	if(SScityweather.fogging)
@@ -270,7 +270,7 @@
 		else
 			return ROLL_SUCCESS
 
-/proc/vampireroll(var/dices_num = 1, var/hardness = 1, var/atom/rollviewer)
+/proc/vampireroll(dices_num = 1, hardness = 1, atom/rollviewer)
 	var/wins = 0
 	var/crits = 0
 	var/brokes = 0
@@ -312,7 +312,7 @@
 				to_chat(rollviewer, "<span class='boldnotice'>Phenomenal</span>")
 				return DICE_WIN
 
-/proc/get_vamp_skin_color(var/value = "albino")
+/proc/get_vamp_skin_color(value = "albino")
 	switch(value)
 		if("caucasian1")
 			return "vamp1"

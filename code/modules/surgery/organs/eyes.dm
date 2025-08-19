@@ -439,3 +439,5 @@
 /obj/item/organ/eyes/fly/Remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_FLASH_SENSITIVE, ORGAN_TRAIT)
 	return ..()
+
+#undef RGB2EYECOLORSTRING

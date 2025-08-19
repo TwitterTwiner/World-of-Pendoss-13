@@ -7,13 +7,14 @@
  * @license MIT
  */
 
-import { classes } from 'tgui-core/react';
-import { Component } from 'react';
 import { marked } from 'marked';
-import { useBackend } from '../backend';
+import { Component } from 'react';
 import { Box, Flex, Tabs, TextArea } from 'tgui-core/components';
-import { Window } from '../layouts';
 import { clamp } from 'tgui-core/math';
+import { classes } from 'tgui-core/react';
+
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 const MAX_PAPER_LENGTH = 5000; // Question, should we send this with ui_data?
 

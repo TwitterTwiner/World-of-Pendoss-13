@@ -1587,3 +1587,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	target?.client?.images -= izmvenchivoe_body
 	QDEL_NULL(izmvenchivoe_body)
 	return ..()
+
+#undef FAKE_FLOOD_EXPAND_TIME
+#undef FAKE_FLOOD_MAX_RADIUS
+#undef HAL_LINES_FILE

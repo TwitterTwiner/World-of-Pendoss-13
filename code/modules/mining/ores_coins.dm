@@ -517,3 +517,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	return TRUE//did the coin flip? useful for suicide_act
 
 #undef ORESTACK_OVERLAYS_MAX
+
+#undef GIBTONITE_QUALITY_HIGH
+#undef GIBTONITE_QUALITY_LOW
+#undef GIBTONITE_QUALITY_MEDIUM

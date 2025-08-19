@@ -49,7 +49,7 @@
 	else
 		walk_to(H, 0)
 
-/datum/species/vamp_mannequin/proc/do_spooky(var/mob/living/carbon/human/man)
+/datum/species/vamp_mannequin/proc/do_spooky(mob/living/carbon/human/man)
 //	if(last_spooked_out+10 > world.time)
 //		return
 //	last_spooked_out = world.time

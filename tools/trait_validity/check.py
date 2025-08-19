@@ -13,7 +13,7 @@ def red(text):
 # simple way to check if we're running on github actions, or on a local machine
 on_github = os.getenv("GITHUB_ACTIONS") == "true"
 
-defines_file = "code/__DEFINES/traits/vtm/declarations.dm"
+defines_file = "code/__DEFINES/traits/declarations.dm"
 globalvars_file = "code/_globalvars/traits/_traits.dm"
 
 how_to_fix_message = f"Please ensure that all traits in the {defines_file} file are added in the {globalvars_file} file."
@@ -66,7 +66,7 @@ if number_of_defines == 0:
 	print(red("No defines found! This is likely an error."))
 	sys.exit(1)
 
-if number_of_defines <= 450:
+if number_of_defines <= 200:
 	print(red(f"Only found {number_of_defines} defines! Something has likely gone wrong as the number of global traits should not be this low."))
 	sys.exit(1)
 

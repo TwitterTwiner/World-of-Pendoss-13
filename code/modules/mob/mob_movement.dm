@@ -573,3 +573,6 @@
 	..()
 
 	glide_size = (world.icon_size / ceil(add_delay / world.tick_lag))
+
+#undef MOVEMENT_DELAY_BUFFER
+#undef MOVEMENT_DELAY_BUFFER_DELTA

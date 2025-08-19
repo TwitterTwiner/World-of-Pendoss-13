@@ -82,69 +82,70 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "nzp"
 */
-var/list/trip_black = list(0.1,0,0,0.2, 0.1,\
+GLOBAL_LIST_INIT(trip_black, list(0.1,0,0,0.2, 0.1,\
 						0,1,0,0.2,0.1,\
 						0,0,1,0.2, 0.1,\
-						0.2,0.2,0.2,0.2,)
+						0.2,0.2,0.2,0.2,))
 
-var/list/hapi_palaci = list(0.5,0.3,0.6,0,\
+GLOBAL_LIST_INIT(hapi_palaci, list(0.5,0.3,0.6,0,\
 						0.0,0.3,0.3,0,\
 						0.3,0.3,0.0,0,\
-						0.2,0.3,0.2,1,)
+						0.2,0.3,0.2,1,))
 
 
-var/list/meomoor = list(0.6,0.5,0.5,0,\
+GLOBAL_LIST_INIT(meomoor, list(0.6,0.5,0.5,0,\
 						0.3,0.4,0.3,0,\
 						0.4,0.2,0.2,0,\
-						0.2,0.2,0.2,0.3, 0)
+						0.2,0.2,0.2,0.3, 0))
 
-var/list/dilirium = list(0.5,0.4,0.5,0,\
+GLOBAL_LIST_INIT(dilirium, list(0.5,0.4,0.5,0,\
 						0.3,0.4,0.3,0,\
 						0.4,0.2,0.2,0,\
-						0.2,0.2,0.2,1,)
+						0.2,0.2,0.2,1,))
 
-var/list/xorek = list(0.1,0.0,0.1,0,\
+GLOBAL_LIST_INIT(xorek, list(0.1,0.0,0.1,0,\
 						0.0,0.0,0.0,0,\
 						0.0,0.0,0.0,0,\
-						0.3,0.0,0.0,1,)
+						0.3,0.0,0.0,1,))
 
-var/list/kent = list(0.7,0.6,0.5,0,\
+GLOBAL_LIST_INIT(kent, list(0.7,0.6,0.5,0,\
 						0.2,0.1,0.0,0,\
 						0.3,0.35,0.25,0,\
-						0.015,0.0,0.015,1,)
+						0.015,0.0,0.015,1,))
 /*
 ПОЧТИ НЗП
-var/list/hapihapi = list(0.7,0.6,0.5,0,\
+GLOBAL_LIST_INIT(hapihapi, list(0.7,0.6,0.5,0,\
 						0.2,0.1,0.0,0,\
 						0.3,0.35,0.25,0,\
-						0.015,0.0,0.015,1,)
+						0.015,0.0,0.015,1,))
 */
 //////NZP
 
-var/list/nzp = list(0.7,0.6,0.5,0,\
+GLOBAL_LIST_INIT(nzp, list(0.7,0.6,0.5,0,\
 						0.2,0.1,0.0,0,\
 						0.3,0.35,0.25,0,\
-						0.015,0.0,0.015,1,)
+						0.015,0.0,0.015,1,))
 
 /////////DEPRESSION
 
-var/list/dpr = list(0.3,0.3,0.3,0,\
+GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 						0.3,0.3,0.3,0,\
 						0.3,0.3,0.3,0,\
-						0.0,0.0,0.0,1,)
+						0.0,0.0,0.0,1,))
 
 
 /mob/living/proc/kislota_trip()
-	animate(client, color = hapi_palaci, time = 10, delay=1)
-	animate(client, color = kent, time = 5, delay=10)
-	animate(client, color = xorek, time = 5, delay=10)
-	animate(client, color = meomoor, time = 5, delay=10)
-	animate(client, color = trip_black, time = 5, delay=10)
-	animate(client, color = xorek, time = 5, delay=10)
-	animate(client, color = meomoor, time = 5, delay=10)
-	animate(client, color = kent, time = 5, delay=10)
-	animate(client, color = meomoor, time = 5, delay=10)
-	animate(client, color = trip_black, time = 5, delay=10)
+	if(client)
+		animate(client, color = GLOB.hapi_palaci, time = 10, delay=1)
+		animate(client, color = GLOB.kent, time = 5, delay=10)
+		animate(client, color = GLOB.xorek, time = 5, delay=10)
+		animate(client, color = GLOB.meomoor, time = 5, delay=10)
+		animate(client, color = GLOB.trip_black, time = 5, delay=10)
+		animate(client, color = GLOB.xorek, time = 5, delay=10)
+		animate(client, color = GLOB.meomoor, time = 5, delay=10)
+		animate(client, color = GLOB.kent, time = 5, delay=10)
+		animate(client, color = GLOB.meomoor, time = 5, delay=10)
+		animate(client, color = GLOB.trip_black, time = 5, delay=10)
 
 /*
 /datum/reagent/drug/proc/proriv(mob/living/carbon/human/M, vremeno = TRUE, time, location = TRUE)
@@ -1173,7 +1174,8 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	L.attributes.stamina_reagent = 0
 	L.attributes.dexterity_reagent = 0
 	L.attributes.strength_reagent = 0
-	animate(L.client, color = null, time = 20)
+	if(L.client)
+		animate(L.client, color = null, time = 20)
 	..()
 
 /datum/reagent/drug/heroin/on_mob_life(mob/living/carbon/M)
@@ -1205,7 +1207,8 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	if(prob(33))
 		M.drop_all_held_items()
 		M.Jitter(2)
-	animate(M.client, color = dpr, time = 50)
+	if(M.client)
+		animate(M.client, color = GLOB.dpr, time = 50)
 	..()
 
 /datum/reagent/drug/heroin/addiction_act_stage2(mob/living/M)
@@ -1227,7 +1230,8 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	..()
 
 /datum/reagent/drug/heroin/addiction_act_stage4(mob/living/M)
-	animate(M.client, color = null, time = 50)
+	if(M.client)
+		animate(M.client, color = null, time = 50)
 	if(prob(33))
 		M.drop_all_held_items()
 		M.adjustToxLoss(3*REM, 0)
@@ -1308,7 +1312,8 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	if(L.client && music)
 		music.file = null
 		L.client << music
-	animate(L.client, color = null, time = 20)
+	if(L.client)
+		animate(L.client, color = null, time = 20)
 	L.clear_fullscreen("RADUGA")
 	REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
 	L.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
@@ -1355,16 +1360,17 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 			/*
 			switch(kto)
 				if(1)
-					to_chat(M, "<font size=12>[icon2html('icons/xorek_DMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
+					to_chat(M, "<font size=12>[icon2html('icons.xorek_DMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
 				if(2)
-					to_chat(M, "<font size=12>[icon2html('icons/meomoorDMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
+					to_chat(M, "<font size=12>[icon2html('icons.meomoorDMT.png', M)]</font> <span class='comradio'><b>SOMEONE</b></span><span class='notice'>[DMTmessage1]</span>","<span class='reallybig hypnophrase'>[DMTmessage2]</span>")
 					*/
 			M.intro_Sperma(DMTmessage1, 10)
 		if(do_mob(M, M, 6 SECONDS))
 			M.suicide()
 
 /datum/reagent/drug/mushroomhallucinogen/Dmt/on_mob_end_metabolize(mob/living/L)
-	animate(L.client, color = null, time = 20)
+	if(L.client)
+		animate(L.client, color = null, time = 20)
 	if(L.client && music)
 		music.file = null
 		L.client << music
@@ -1398,10 +1404,12 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	L.attributes.wits_reagent = 3
 	L.attributes.intelligence_reagent = 3
 	L.attributes.perception_reagent = 2
-	animate(L.client, color = nzp, time = 50)
+	if(L.client)
+		animate(L.client, color = GLOB.nzp, time = 50)
 	var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 	for(var/atom/whole_screen in screens)
-		animate(L.client, color = nzp, time = 5, easing = QUAD_EASING)
+		if(L.client)
+			animate(L.client, color = GLOB.nzp, time = 5, easing = QUAD_EASING)
 		for(var/i in 1 to 7)
 			whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 100, y = 100, size =5, offset = rand()))
 
@@ -1409,7 +1417,8 @@ var/list/dpr = list(0.3,0.3,0.3,0,\
 	L.attributes.wits_reagent = 0
 	L.attributes.intelligence_reagent = 0
 	L.attributes.perception_reagent = 0
-	animate(L.client, color = null, time = 20)
+	if(L.client)
+		animate(L.client, color = null, time = 20)
 	var/list/screens = list(L.hud_used.plane_masters["[FLOOR_PLANE]"], L.hud_used.plane_masters["[GAME_PLANE]"], L.hud_used.plane_masters["[LIGHTING_PLANE]"])
 	for(var/atom/whole_screen in screens)
 	//	remove_wibbly_filters(whole_screen)

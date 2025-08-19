@@ -268,7 +268,7 @@
 
 /obj/item/toy/crayon/proc/crayon_text_strip(text)
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
-	return replacetext(lowertext(text), crayon_r, "")
+	return replacetext(LOWER_TEXT(text), crayon_r, "")
 
 /obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -855,6 +855,7 @@
 	desc = "Now with 30% more bluespace technology."
 
 #undef DARK_COLOR_LIGHTNESS_THRESHOLD
+
 #undef RANDOM_GRAFFITI
 #undef RANDOM_LETTER
 #undef RANDOM_PUNCTUATION
@@ -864,3 +865,7 @@
 #undef RANDOM_ORIENTED
 #undef RANDOM_RUNE
 #undef RANDOM_ANY
+
+#undef PAINT_NORMAL
+#undef PAINT_LARGE_HORIZONTAL
+#undef PAINT_LARGE_HORIZONTAL_ICON

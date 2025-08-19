@@ -100,16 +100,16 @@
 	i - danger target
 
 	�1
-	  o
+	o
 		\ | /
 		- .
 		/
-			 i
+			i
 	�2
-		i
-		  .	-
+			i
+		-
 		/ | \
-		  o
+			o
 
 	If there is an obstacle in the possible way of movement - chance is 0%
 	Always choosing the nearest target to move to, from list. If there are a couple of dangers - pattern will seek for optimal way to avoid all

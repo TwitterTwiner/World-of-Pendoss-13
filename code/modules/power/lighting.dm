@@ -4,11 +4,6 @@
 
 #define LIGHT_EMERGENCY_POWER_USE 0.2 //How much power emergency lights will consume per tick
 // status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
-
 #define BROKEN_SPARKS_MIN (3 MINUTES)
 #define BROKEN_SPARKS_MAX (9 MINUTES)
 
@@ -992,3 +987,7 @@
 
 #undef LIGHT_DRAIN_TIME
 #undef LIGHT_POWER_GAIN
+
+#undef BROKEN_SPARKS_MAX
+#undef BROKEN_SPARKS_MIN
+#undef LIGHT_EMERGENCY_POWER_USE

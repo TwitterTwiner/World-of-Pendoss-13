@@ -228,3 +228,8 @@
 		parts += "<span class='header'>The monkeys were:</span>"
 		parts += printplayerlist(SSticker.mode.ape_infectees)
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
+
+#undef DISEASE_LIVED
+#undef MONKEYS_DIED
+#undef MONKEYS_ESCAPED
+#undef MONKEYS_LIVED

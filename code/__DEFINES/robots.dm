@@ -66,3 +66,11 @@
 #define BORG_CHOOSE_MODULE_ONE 	   1
 #define BORG_CHOOSE_MODULE_TWO 	   2
 #define BORG_CHOOSE_MODULE_THREE   3
+
+// AI defines
+
+#define LAW_ZEROTH "zeroth"
+#define LAW_INHERENT "inherent"
+#define LAW_SUPPLIED "supplied"
+#define LAW_ION "ion"
+#define LAW_HACKED "hacked"

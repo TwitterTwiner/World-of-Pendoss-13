@@ -66,10 +66,6 @@ SUBSYSTEM_DEF(explosions)
 	msg += "} "
 	return ..()
 
-
-#define SSEX_TURF "turf"
-#define SSEX_OBJ "obj"
-
 /datum/controller/subsystem/explosions/proc/is_exploding()
 	return (lowturf.len || medturf.len || highturf.len || flameturf.len || throwturf.len || low_mov_atom.len || med_mov_atom.len || high_mov_atom.len)
 
@@ -267,7 +263,7 @@ SUBSYSTEM_DEF(explosions)
 					if(HAS_TRAIT(M, AUSPEX_TRAIT))
 						far_volume = clamp(far_dist/1.2, FAR_LOWER, FAR_UPPER)
 
-						 // Volume is based on explosion size and dist
+						// Volume is based on explosion size and dist
 					if(creaking_explosion)
 						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
 					else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
@@ -570,3 +566,5 @@ SUBSYSTEM_DEF(explosions)
 		cost_throwturf = MC_AVERAGE(cost_throwturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
 	currentpart = SSEXPLOSIONS_TURFS
+
+#undef EXPLOSION_THROW_SPEED

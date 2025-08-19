@@ -16,3 +16,9 @@
 	author = "Forces beyond your comprehension"
 	unique = 1
 	title = "the Codex Gigas"
+
+#undef MULTIPLE_SYLLABLE
+#undef PRE_TITLE
+#undef TITLE
+#undef SUFFIX
+#undef SYLLABLE

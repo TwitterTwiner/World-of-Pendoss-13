@@ -272,3 +272,9 @@
 			account = null
 			say("Account settings reset.")
 	. = TRUE
+
+#undef MACHINE_OPERATION
+#undef MACHINE_OVERLOAD
+#undef MAJOR_THRESHOLD
+#undef MINOR_THRESHOLD
+#undef STANDARD_DEVIATION

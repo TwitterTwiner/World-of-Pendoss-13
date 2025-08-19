@@ -181,3 +181,5 @@
 	if(!target_detailed)
 		var/you_feel = pick("a brief pain", "your body tense up", "an unnerving sensation")
 		target.show_message(vague_message, MSG_VISUAL, "<span class='notice'>You feel [you_feel] as you are operated on.</span>")
+
+#undef SURGERY_SLOWDOWN_CAP_MULTIPLIER

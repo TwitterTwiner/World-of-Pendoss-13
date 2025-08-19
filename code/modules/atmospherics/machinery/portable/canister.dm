@@ -620,3 +620,8 @@
 				replace_tank(usr, FALSE)
 				. = TRUE
 	update_icon()
+
+#undef CANISTER_TIER_1
+#undef CANISTER_TIER_2
+#undef CANISTER_TIER_3
+#undef CAN_DEFAULT_RELEASE_PRESSURE

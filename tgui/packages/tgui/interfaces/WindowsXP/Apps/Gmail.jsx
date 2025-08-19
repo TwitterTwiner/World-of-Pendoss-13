@@ -1,5 +1,6 @@
-import gmail_icon from '../../../assets/WindowsXP/gmail.png';
 import { Icon, Input, TextArea } from 'tgui-core/components';
+
+import gmail_icon from '../../../assets/WindowsXP/gmail.png';
 import { useLocalState } from '../../../backend';
 import { XPButton } from '../Components';
 
@@ -114,24 +115,24 @@ const ComposeEmail = (props) => {
       />
       <div className="compose-body">
         <div className="compose-info">
-          <div className="compose-reciever">
-            <div className="reciever-info">To:</div>
+          <div className="compose-receiver">
+            <div className="receiver-info">To:</div>
             <Input
               onInput={(e, value) => {
                 setTo(value);
               }}
               value={to}
-              className="reciever-input reciever-to"
+              className="receiver-input receiver-to"
             />
           </div>
-          <div className="compose-reciever">
-            <div className="reciever-info">Subject:</div>
+          <div className="compose-receiver">
+            <div className="receiver-info">Subject:</div>
             <TextArea
               onInput={(e, value) => {
                 setSubject(value);
               }}
               value={subject}
-              className="reciever-input"
+              className="receiver-input"
             />
           </div>
         </div>

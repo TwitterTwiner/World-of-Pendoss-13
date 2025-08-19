@@ -1,9 +1,8 @@
 // THIS IS A SKYRAT UI FILE
 import { useState } from 'react';
+import { Section, Stack, Tabs } from 'tgui-core/components';
 
-import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { ByondUi, Section, Stack, Tabs } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const formatURLs = (text) => {
@@ -38,12 +37,7 @@ export const ExaminePanel = (props) => {
   const [tabIndex, setTabIndex] = useState(1);
   const [lowerTabIndex, setLowerTabIndex] = useState(1);
   const { act, data } = useBackend();
-  const {
-    character_name,
-    obscured,
-    flavor_text,
-    ooc_notes,
-  } = data;
+  const { character_name, obscured, flavor_text, ooc_notes } = data;
   return (
     <Window
       title={character_name + "'s Examine Panel"}
@@ -82,8 +76,8 @@ export const ExaminePanel = (props) => {
               >
                 <Section fitted title={'OOC Notes'} />
               </Tabs.Tab>
-              </Tabs>
-              {lowerTabIndex === 1 && (
+            </Tabs>
+            {lowerTabIndex === 1 && (
               <Section
                 style={{ 'overflow-y': 'scroll' }}
                 preserveWhitespace

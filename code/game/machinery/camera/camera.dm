@@ -1,7 +1,3 @@
-#define CAMERA_UPGRADE_XRAY 1
-#define CAMERA_UPGRADE_EMP_PROOF 2
-#define CAMERA_UPGRADE_MOTION 4
-
 /obj/machinery/camera
 	name = "security camera"
 	desc = "It's used to monitor rooms."
@@ -55,7 +51,7 @@
 	. = ..()
 	for(var/i in network)
 		network -= i
-		network += lowertext(i)
+		network += LOWER_TEXT(i)
 	if(CA)
 		assembly = CA
 		if(assembly.xray_module)

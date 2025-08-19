@@ -14,6 +14,7 @@ import {
 } from 'react';
 import { Box, Icon } from 'tgui-core/components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from 'tgui-core/constants';
+import { BooleanLike } from 'tgui-core/react';
 import { classes } from 'tgui-core/react';
 import { decodeHtmlEntities, toTitleCase } from 'tgui-core/string';
 
@@ -191,7 +192,7 @@ const statusToColor = (status) => {
 type TitleBarProps = Partial<{
   canClose: boolean;
   className: string;
-  fancy: boolean;
+  fancy: BooleanLike;
   onClose: (e) => void;
   onDragStart: (e) => void;
   status: number;

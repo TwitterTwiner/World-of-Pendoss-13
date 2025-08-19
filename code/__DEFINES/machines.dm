@@ -141,3 +141,8 @@
 #define MASSDRIVER_CHAPEL "chapelgun"
 #define MASSDRIVER_DISPOSALS "trash"
 #define MASSDRIVER_SHACK "shack"
+
+// Camera upgrade bitflags.
+#define CAMERA_UPGRADE_XRAY (1<<0)
+#define CAMERA_UPGRADE_EMP_PROOF (1<<1)
+#define CAMERA_UPGRADE_MOTION (1<<2)

@@ -22,7 +22,7 @@
 	animate(T, alpha = 255, time = time, easing = EASE_IN)
 	addtimer(CALLBACK(src, .proc/clear_Sperma_text, T), 35)
 
-/mob/proc/clear_Sperma_text(var/obj/screen/A)
+/mob/proc/clear_Sperma_text(obj/screen/A)
 	if(!A)
 		return
 	if(!client)
@@ -118,7 +118,7 @@
 //	addtimer(CALLBACK(src, .proc/polnii_GOI, F), 35)
 
 /*
-/mob/proc/polnii_GOI(var/obj/screen/A, atom/in_atom)
+/mob/proc/polnii_GOI(obj/screen/A, atom/in_atom)
 	var/list/screens = list(hud_used.plane_masters["[FLOOR_PLANE]"], hud_used.plane_masters["[GAME_PLANE]"], hud_used.plane_masters["[LIGHTING_PLANE]"])
 	for(var/whole_screen in screens)
 		animate(whole_screen, transform = matrix(), time = 1.0 SECONDS, easing = QUAD_EASING)

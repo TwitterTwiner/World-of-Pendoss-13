@@ -744,3 +744,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/guardiancreator/miner/choose
 	random = FALSE
+
+#undef GUARDIAN_HANDS_LAYER
+#undef GUARDIAN_TOTAL_LAYERS

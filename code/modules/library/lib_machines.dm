@@ -607,3 +607,5 @@
 			qdel(P)
 		else
 			P.forceMove(drop_location())
+
+#undef PRINTER_COOLDOWN

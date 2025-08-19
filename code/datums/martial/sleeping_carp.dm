@@ -242,3 +242,7 @@
 	if(!wielded)
 		return ..()
 	return FALSE
+
+#undef DROP_KICK_COMBO
+#undef LAUNCH_KICK_COMBO
+#undef STRONG_PUNCH_COMBO

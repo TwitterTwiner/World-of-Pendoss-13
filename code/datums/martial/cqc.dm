@@ -233,3 +233,9 @@
 	if(!is_type_in_list(get_area(owner), valid_areas))
 		return FALSE
 	return ..()
+
+#undef CONSECUTIVE_COMBO
+#undef KICK_COMBO
+#undef PRESSURE_COMBO
+#undef RESTRAIN_COMBO
+#undef SLAM_COMBO

@@ -265,8 +265,8 @@
 	SIGNAL_HANDLER
 
 	var/obj/item/pda/master = parent
-	if(trim(lowertext(new_ring_text)) != trim(lowertext(unlock_code)))
-		if(trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
+	if(trim(LOWER_TEXT(new_ring_text)) != trim(LOWER_TEXT(unlock_code)))
+		if(trim(LOWER_TEXT(new_ring_text)) == trim(LOWER_TEXT(failsafe_code)))
 			failsafe(user)
 			return COMPONENT_STOP_RINGTONE_CHANGE
 		return
@@ -348,3 +348,5 @@
 	log_game("[key_name(user)] triggered an uplink failsafe explosion. The owner of the uplink was [key_name(owner)].")
 	explosion(T,1,2,3)
 	qdel(parent) //Alternatively could brick the uplink.
+
+#undef PEN_ROTATIONS

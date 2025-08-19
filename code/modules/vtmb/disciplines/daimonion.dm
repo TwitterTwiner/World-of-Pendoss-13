@@ -4,7 +4,7 @@
 /datum/curse/daimonion
 	var/genrequired
 
-/datum/curse/daimonion/proc/activate(var/mob/living/target)
+/datum/curse/daimonion/proc/activate(mob/living/target)
 	return
 
 /datum/curse/daimonion/lying_weakness

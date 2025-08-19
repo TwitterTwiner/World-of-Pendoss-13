@@ -45,3 +45,8 @@
 #define CONDIMASTER_STYLE_FALLBACK "_"
 
 #define ALLERGIC_REMOVAL_SKIP "Allergy"
+
+#define CHEMICAL_QUANTISATION_LEVEL 0.0001 //stops floating point errors causing issues with checking reagent amounts
+
+//The rate at which alcohol affects you
+#define ALCOHOL_RATE 0.005

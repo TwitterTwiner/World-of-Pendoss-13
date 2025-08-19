@@ -277,7 +277,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/add_experience(amount)
 	true_experience = clamp(true_experience + amount, 0, 1000)
 
-/datum/preferences/proc/reset_stats(var/attributes_only = FALSE)
+/datum/preferences/proc/reset_stats(attributes_only = FALSE)
 	Strength = 1
 	Dexterity = 1
 	Stamina = 1
@@ -445,7 +445,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 //A proc that creates the score circles based on attribute and the additional bonus for the attribute
 //
-/datum/preferences/proc/build_attribute_score(var/attribute, var/max_number, var/price, var/variable_name, var/freepoints)
+/datum/preferences/proc/build_attribute_score(attribute, max_number, price, variable_name, freepoints)
 	var/dat
 	for(var/a in 1 to attribute)
 		dat += "•"
@@ -461,7 +461,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "<br>"
 	return dat
 
-/datum/preferences/proc/get_freebie_points(var/categor)
+/datum/preferences/proc/get_freebie_points(categor)
 	var/physical_priorities = 0
 	var/social_priorities = 0
 	var/mental_priorities = 0
@@ -503,7 +503,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return mental_priorities
 	return 0
 
-/datum/preferences/proc/get_gen_attribute_limit(var/gen = 13)
+/datum/preferences/proc/get_gen_attribute_limit(gen = 13)
 	if(pref_species.name == "Vampire")
 		switch(gen)
 			if(9)
@@ -568,7 +568,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		HTML += "<b>Choose occupation chances</b><br>"
 		HTML += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
 		HTML += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
-		HTML += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
+		HTML += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		HTML += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		HTML += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
@@ -666,7 +666,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					prefUpperLevel = 3
 					prefLowerLevel = 1
 
-			HTML += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
+			HTML += "<a class='white' href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
 
 			if(rank == SSjob.overflow_role)//Overflow is special
 				if(job_preferences[SSjob.overflow_role] == JP_LOW)
@@ -1277,7 +1277,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((true_experience < 10) || !(pref_species.id == "ghoul"))
 						return
 
-					 // [ChillRaccoon] - hot-patched shit for specify which disces should be able to be taken
+					// [ChillRaccoon] - hot-patched shit for specify which disces should be able to be taken
 					var/list/possible_new_disciplines = list(/datum/discipline/obfuscate, /datum/discipline/auspex, /datum/discipline/celerity, /datum/discipline/fortitude, /datum/discipline/potence, /datum/discipline/dementation) - discipline_types - /datum/discipline/bloodheal //subtypesof(/datum/discipline) - discipline_types
 
 					var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in possible_new_disciplines
@@ -2405,7 +2405,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	ShowChoices(user)
 	return TRUE
 
-/datum/preferences/proc/handle_upgrade(var/number, var/cost, var/numlimit, var/catgr)
+/datum/preferences/proc/handle_upgrade(number, cost, numlimit, catgr)
 	if(cost <= 0)
 		if(!catgr)
 			cost = 3

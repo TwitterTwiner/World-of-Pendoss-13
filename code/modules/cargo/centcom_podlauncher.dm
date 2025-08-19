@@ -873,3 +873,9 @@ GLOBAL_DATUM_INIT(podlauncher, /datum/centcom_podlauncher, new)
 	image_state = "dropoff_indicator"
 	image_layer = FLY_LAYER
 	alpha = 0
+
+#undef LAUNCH_ALL
+#undef LAUNCH_ORDERED
+#undef LAUNCH_RANDOM
+#undef TAB_BAY
+#undef TAB_POD

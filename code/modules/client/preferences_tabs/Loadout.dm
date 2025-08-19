@@ -47,7 +47,7 @@
 	dat += "<table align='center' width='100%'>"
 	dat += "<tr><td colspan=5><b><center>Slots Used: [loadout_slots]/[loadout_slots_max].<br>"
 	dat += "Remaining Dots: [loadout_dots]/[loadout_dots_max].<br>"
-	dat += "<a href='?_src_=prefs;preference=gear;task=clear_loadout;'>Clear Loadout</a> | <a href='?_src_=prefs;preference=gear;task=toggle_loadout;'>Toggle Loadout</a></center></b></td></tr>"
+	dat += "<a href='byond://?_src_=prefs;preference=gear;task=clear_loadout;'>Clear Loadout</a> | <a href='byond://?_src_=prefs;preference=gear;task=toggle_loadout;'>Toggle Loadout</a></center></b></td></tr>"
 	dat += "<tr><td colspan=5><center><b>"
 
 	var/firstcat = 1
@@ -59,7 +59,7 @@
 		if(category == gear_tab)
 			dat += " <span class='linkOff'>[category]</span> "
 		else
-			dat += " <a href='?_src_=prefs;preference=loadout;task=select_category;gear_category=[category]'>[category]</a> "
+			dat += " <a href='byond://?_src_=prefs;preference=loadout;task=select_category;gear_category=[category]'>[category]</a> "
 	dat += "</b></center></td></tr>"
 
 	var/datum/loadout_category/loadout_category = SSloadout.loadout_categories[gear_tab]
@@ -99,11 +99,11 @@
 		dat += "<td width=25%><p style='vertical-align: middle;'><center>[category_gear.display_name]</p></center></td>"
 		dat += "<td width=15%><p style='vertical-align: middle;'><center>"
 		if((loadout_slots < loadout_slots_max) && (category_gear.cost < loadout_dots))
-			dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=loadout;task=add_gear;gear=[category_gear.display_name]'>Add</a>"
+			dat += "<a style='white-space:normal;' href='byond://?_src_=prefs;preference=loadout;task=add_gear;gear=[category_gear.display_name]'>Add</a>"
 			if(equipped)
 				dat += " - "
 		if(equipped)
-			dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=loadout;task=remove_gear;gear=[category_gear.display_name]'>Remove</a>"
+			dat += "<a style='white-space:normal;' href='byond://?_src_=prefs;preference=loadout;task=remove_gear;gear=[category_gear.display_name]'>Remove</a>"
 		dat += "</center></p></td>"
 		dat += "<td><p style='vertical-align: middle;'><font size=2><i>[category_gear.description]"
 		if(category_gear.allowed_roles && length(category_gear.allowed_roles))

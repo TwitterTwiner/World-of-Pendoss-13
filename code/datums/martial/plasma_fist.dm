@@ -185,3 +185,7 @@
 /datum/martial_art/plasma_fist/nobomb
 	name = "Novice Plasma Fist"
 	nobomb = TRUE
+
+#undef PLASMA_COMBO
+#undef THROWBACK_COMBO
+#undef TORNADO_COMBO

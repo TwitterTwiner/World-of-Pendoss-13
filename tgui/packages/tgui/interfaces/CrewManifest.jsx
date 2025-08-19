@@ -5,12 +5,12 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const commandJobs = [
-	"Prince",
-	"Baron",
-	"Chantry Regent",
-	"Police Chief",
-	"Dealer",
-  "Capo"
+  'Prince',
+  'Baron',
+  'Chantry Regent',
+  'Police Chief',
+  'Dealer',
+  'Capo',
 ];
 
 export const CrewManifest = (props) => {
@@ -23,7 +23,7 @@ export const CrewManifest = (props) => {
       <Window.Content scrollable>
         {Object.entries(manifest).map(([dept, crew]) => (
           <Section
-            className={`CrewManifest--${dept.replace(" ", "")}`}
+            className={`CrewManifest--${dept.replace(' ', '')}`}
             key={dept}
             title={dept}
           >
@@ -57,18 +57,19 @@ export const CrewManifest = (props) => {
                           name="star"
                         />
                       </Tooltip>
-                    ) :
-                    commandJobs.includes(crewMember.rank) && (
-                      <Tooltip content="Member of leaders" position="bottom">
-                        <Icon
-                          className={classes([
-                            'CrewManifest__Icon',
-                            'CrewManifest__Icon--Command',
-                            'CrewManifest__Icon--Chevron',
-                          ])}
-                          name="chevron-up"
-                        />
-                      </Tooltip>
+                    ) : (
+                      commandJobs.includes(crewMember.rank) && (
+                        <Tooltip content="Member of leaders" position="bottom">
+                          <Icon
+                            className={classes([
+                              'CrewManifest__Icon',
+                              'CrewManifest__Icon--Command',
+                              'CrewManifest__Icon--Chevron',
+                            ])}
+                            name="chevron-up"
+                          />
+                        </Tooltip>
+                      )
                     )}
                   </Table.Cell>
                   <Table.Cell

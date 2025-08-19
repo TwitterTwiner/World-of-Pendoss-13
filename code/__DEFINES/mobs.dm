@@ -299,6 +299,7 @@
 #define	ETHEREAL_CHARGE_FACTOR	1.6 //factor at which ethereal's charge decreases
 #define	REAGENTS_METABOLISM 0.4	//How many units of reagent are consumed per tick, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	// By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+#define REM REAGENTS_EFFECT_MULTIPLIER
 
 // Eye protection
 #define FLASH_PROTECTION_SENSITIVE -1
@@ -309,6 +310,12 @@
 // Roundstart trait system
 
 #define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
+
+//Medical Categories for quirks
+#define CAT_QUIRK_ALL 0
+#define CAT_QUIRK_NOTES 1
+#define CAT_QUIRK_MINOR_DISABILITY 2
+#define CAT_QUIRK_MAJOR_DISABILITY 3
 
 // AI Toggles
 #define AI_CAMERA_LUMINOSITY	5

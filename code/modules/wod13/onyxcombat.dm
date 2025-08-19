@@ -233,7 +233,7 @@
 		return
 	..()
 
-/mob/living/carbon/human/proc/Parry(var/mob/M)
+/mob/living/carbon/human/proc/Parry(mob/M)
 	if(!pulledby && !parrying && world.time-parry_cd >= 30 && M != src)
 		parrying = M
 		if(blocking)
@@ -709,7 +709,7 @@
 				spawn(dadelay+BD.discipline_time_plus)
 					icon_state = main_state
 
-/atom/movable/screen/disciplines/proc/range_activate(var/mob/living/trgt, var/mob/living/carbon/human/cstr)
+/atom/movable/screen/disciplines/proc/range_activate(mob/living/trgt, mob/living/carbon/human/cstr)
 	var/plus = 0
 	if(HAS_TRAIT(cstr, TRAIT_HUNGRY))
 		plus = 1

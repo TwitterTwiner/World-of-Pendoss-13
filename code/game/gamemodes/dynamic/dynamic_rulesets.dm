@@ -1,9 +1,6 @@
 #define EXTRA_RULESET_PENALTY 20	// Changes how likely a gamemode is to scale based on how many other roundstart rulesets are waiting to be rolled.
 #define POP_SCALING_PENALTY 50		// Discourages scaling up rulesets if ratio of antags to crew is high.
 
-#define REVOLUTION_VICTORY 1
-#define STATION_VICTORY 2
-
 /datum/dynamic_ruleset
 	/// For admin logging and round end screen.
 	var/name = ""
@@ -208,3 +205,6 @@
 /// Should ignore certain checks if forced is TRUE
 /datum/dynamic_ruleset/roundstart/ready(forced = FALSE)
 	return ..()
+
+#undef EXTRA_RULESET_PENALTY
+#undef POP_SCALING_PENALTY
