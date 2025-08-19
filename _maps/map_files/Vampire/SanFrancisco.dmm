@@ -13990,10 +13990,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/vampire/bar,
 /obj/item/clothing/under/vampire/bouncer,
-/obj/item/clothing/suit/vampire/jacket/better{
-	armor = list("melee"=45,"bullet"=45,"laser"=10,"energy"=10,"bomb"=35,"bio"=0,"rad"=0,"fire"=45,"acid"=10,"wound"=35);
-	name = "armored leather jacket"
-	},
+/obj/item/clothing/suit/vampire/jacket/better/armored,
 /obj/item/clothing/shoes/vampire/jackboots,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch)
@@ -30022,11 +30019,7 @@
 /area/vtm/sewer)
 "fEf" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
+/obj/item/clothing/suit/vampire/trench/alt/armored,
 /obj/item/clothing/head/beret/sec,
 /turf/open/floor/plating/parquetry,
 /area/vtm/camarilla)
@@ -31297,11 +31290,7 @@
 /obj/machinery/light/prince{
 	pixel_y = 32
 	},
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
+/obj/item/clothing/suit/vampire/trench/alt/armored,
 /turf/open/floor/carpet/royalblack,
 /area/vtm/prince)
 "gjl" = (
@@ -35934,11 +35923,7 @@
 /obj/machinery/light/prince{
 	pixel_y = 32
 	},
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
+/obj/item/clothing/suit/vampire/trench/alt/armored,
 /turf/open/floor/plating/parquetry,
 /area/vtm/prince)
 "ivm" = (
@@ -43373,11 +43358,7 @@
 /area/vtm/pacificheights)
 "mwB" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
+/obj/item/clothing/suit/vampire/trench/alt/armored,
 /obj/item/clothing/head/beret/sec,
 /turf/open/floor/plating/parquetry,
 /area/vtm/prince)
@@ -46236,11 +46217,7 @@
 /obj/machinery/light/prince{
 	pixel_y = 32
 	},
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
+/obj/item/clothing/suit/vampire/trench/alt/armored,
 /turf/open/floor/carpet/royalblack,
 /area/vtm/cabinet)
 "ofg" = (
@@ -46444,11 +46421,7 @@
 /obj/item/clothing/shoes/vampire/jackboots,
 /obj/item/clothing/head/vampire/top,
 /obj/item/clothing/mask/vampire/balaclava,
-/obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	name = "Armored trenchcoat";
-	max_integrity = 1000
-	},
+/obj/item/clothing/suit/vampire/trench/armored,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/graveyard/interior)
 "oki" = (
@@ -48328,11 +48301,7 @@
 	pixel_y = 24
 	},
 /obj/structure/closet/crate/necropolis,
-/obj/item/clothing/suit/vampire/trench/tzi{
-	name = "elder fleshcoat";
-	armor = list("bashing" = 4, "lethal" = 4, "aggravated" = 2, "melee" = 50, "bullet" = 50, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 10, "wound" = 50);
-	masquerade_violating = 1
-	},
+/obj/item/clothing/suit/vampire/trench/tzi/elder,
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "pim" = (
@@ -51262,11 +51231,7 @@
 	masquerade_violating = 0;
 	name = "sheriff's tactical helmet"
 	},
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "Armored trenchcoat"
-	},
+/obj/item/clothing/suit/vampire/trench/alt/armored,
 /obj/machinery/light/prince{
 	pixel_y = 32
 	},
@@ -57869,11 +57834,7 @@
 /obj/item/vampire_stake,
 /obj/item/stack/dollar/twohundredfifty,
 /obj/item/stack/dollar/twohundredfifty,
-/obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	name = "Armored trenchcoat";
-	max_integrity = 1000
-	},
+/obj/item/clothing/suit/vampire/trench/armored,
 /obj/structure/closet/cabinet,
 /obj/item/storage/pill_bottle/probital,
 /turf/open/floor/plating/parquetry/old,
@@ -57932,11 +57893,7 @@
 /obj/item/clothing/shoes/vampire/jackboots,
 /obj/item/clothing/under/vampire/graveyard,
 /obj/item/clothing/gloves/vampire/work,
-/obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	name = "Armored trenchcoat";
-	max_integrity = 1000
-	},
+/obj/item/clothing/suit/vampire/trench/armored,
 /obj/item/melee/vampirearms/fireaxe,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/shop)
