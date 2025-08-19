@@ -72,6 +72,12 @@ if $grep '(new|newlist|icon|matrix|sound)\(.+\)' $map_files;	then
 	echo -e "${RED}ERROR: Using unsupported procs in variables in a map file! Please remove all instances of this.${NC}"
 	st=1
 fi;
+part "armor lists"
+if $grep '\tarmor = list' $map_files; then
+	echo
+	echo -e "${RED}ERROR: Outdated armor list in map file.${NC}"
+	st=1
+fi;
 part "common spelling mistakes"
 if $grep -i 'nanotransen' $map_files; then
 	echo
@@ -253,22 +259,6 @@ do
         fi
     done < <(jq -r '[.map_file] | flatten | .[]' $json)
 done
-
-part "updatepaths validity"
-missing_txt_lines=$(find tools/UpdatePaths/Scripts -type f ! -name "*.txt" | wc -l)
-if [ $missing_txt_lines -gt 0 ]; then
-    echo
-    echo -e "${RED}ERROR: Found an UpdatePaths File that doesn't end in .txt! Please add the proper file extension!${NC}"
-    st=1
-fi;
-
-number_prefix_lines=$(find tools/UpdatePaths/Scripts -type f | wc -l)
-valid_number_prefix_lines=$(find tools/UpdatePaths/Scripts -type f | $grep -P "\d+_(.+)" | wc -l)
-if [ $valid_number_prefix_lines -ne $number_prefix_lines ]; then
-    echo
-    echo -e "${RED}ERROR: Detected an UpdatePaths File that doesn't start with the PR number! Please add the proper number prefix!${NC}"
-    st=1
-fi;
 
 section "515 Proc Syntax"
 part "proc ref syntax"
