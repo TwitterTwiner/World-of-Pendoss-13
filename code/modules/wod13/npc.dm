@@ -372,13 +372,11 @@
 	is_talking = TRUE
 	var/delay = round(length_char(message)/2)
 	spawn(5)
-		remove_overlay(SAY_LAYER)
-		var/mutable_appearance/say_overlay = mutable_appearance('icons/mob/talk.dmi', "default0", -SAY_LAYER)
-		overlays_standing[SAY_LAYER] = say_overlay
-		apply_overlay(SAY_LAYER)
+		ADD_TRAIT(src, TRAIT_THINKING_IN_CHARACTER, CURRENTLY_TYPING_TRAIT)
+		create_typing_indicator()
 		spawn(max(1, delay))
 			if(stat != DEAD)
-				remove_overlay(SAY_LAYER)
+				remove_all_indicators()
 				say(message)
 				is_talking = FALSE
 
