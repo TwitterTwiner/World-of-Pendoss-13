@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(woddices)
 /mob/living
 	var/datum/attributes/attributes
 
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	attributes = new ()
 	attributes.randomize()

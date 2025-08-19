@@ -16,7 +16,7 @@
 	var/list/access_list
 	network_id = NETWORK_DOOR_REMOTES
 
-/obj/item/door_remote/Initialize()
+/obj/item/door_remote/Initialize(mapload)
 	. = ..()
 	access_list = get_region_accesses(region_access)
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_NAK, PROC_REF(bad_signal))

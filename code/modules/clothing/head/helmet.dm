@@ -19,7 +19,7 @@
 	var/obj/item/flashlight/seclite/attached_light
 	var/datum/action/item_action/toggle_helmet_flashlight/alight
 
-/obj/item/clothing/head/helmet/Initialize()
+/obj/item/clothing/head/helmet/Initialize(mapload)
 	. = ..()
 	if(attached_light)
 		alight = new(src)
@@ -156,7 +156,7 @@
 	///Looping sound datum for the siren helmet
 	var/datum/looping_sound/siren/weewooloop
 
-/obj/item/clothing/head/helmet/justice/Initialize()
+/obj/item/clothing/head/helmet/justice/Initialize(mapload)
 	. = ..()
 	weewooloop = new(list(src), FALSE, FALSE)
 
@@ -394,7 +394,7 @@
 	var/polling = FALSE///if the helmet is currently polling for targets (special code for removal)
 	var/light_colors = 1 ///which icon state color this is (red, blue, yellow)
 
-/obj/item/clothing/head/helmet/monkey_sentience/Initialize()
+/obj/item/clothing/head/helmet/monkey_sentience/Initialize(mapload)
 	. = ..()
 	light_colors = rand(1,3)
 	update_icon()

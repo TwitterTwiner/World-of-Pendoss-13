@@ -54,7 +54,7 @@
 		spear = null
 	return ..()
 
-/obj/structure/headpike/Initialize()
+/obj/structure/headpike/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-8, 8)
 

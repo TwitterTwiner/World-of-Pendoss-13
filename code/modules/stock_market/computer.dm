@@ -30,7 +30,7 @@
 			new /obj/item/stack/dollar(get_turf(src), CR.balance)
 			CR.balance = 0
 
-/obj/machinery/computer/stockexchange/Initialize()
+/obj/machinery/computer/stockexchange/Initialize(mapload)
 	. = ..()
 	logged_in = "Millenium Stock Department"
 

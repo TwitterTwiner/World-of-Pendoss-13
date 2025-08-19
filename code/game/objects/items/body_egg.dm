@@ -9,7 +9,7 @@
 	..()
 	to_chat(finder, "<span class='warning'>You found an unknown alien organism in [owner]'s [zone]!</span>")
 
-/obj/item/organ/body_egg/Initialize()
+/obj/item/organ/body_egg/Initialize(mapload)
 	. = ..()
 	if(iscarbon(loc))
 		Insert(loc)

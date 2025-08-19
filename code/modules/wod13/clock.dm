@@ -31,7 +31,7 @@
 	var/owner_age
 	var/clozed = TRUE
 
-/obj/item/passport/Initialize()
+/obj/item/passport/Initialize(mapload)
 	. = ..()
 	owner_gender = pick(MALE, FEMALE)
 	switch(owner_gender)

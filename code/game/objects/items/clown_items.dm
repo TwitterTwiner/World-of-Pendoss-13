@@ -187,7 +187,7 @@
 	attack_verb_continuous = list("HONKS")
 	attack_verb_simple = list("HONK")
 
-/obj/item/bikehorn/Initialize()
+/obj/item/bikehorn/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50, falloff_exponent = 20) //die off quick please)
 
@@ -210,7 +210,7 @@
 	icon_state = "air_horn"
 	worn_icon_state = "horn_air"
 
-/obj/item/bikehorn/airhorn/Initialize()
+/obj/item/bikehorn/airhorn/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/airhorn2.ogg'=1), 50, falloff_exponent = 20) //die off quick please)
 

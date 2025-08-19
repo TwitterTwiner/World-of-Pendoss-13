@@ -208,7 +208,7 @@
 	var/bitecount = 0
 	foodtypes = DAIRY | SUGAR
 
-/obj/item/food/popsicle/Initialize()
+/obj/item/food/popsicle/Initialize(mapload)
 	. = ..()
 	bite_consumption = reagents.total_volume / bite_states
 

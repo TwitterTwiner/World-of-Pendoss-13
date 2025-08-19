@@ -12,7 +12,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal //they're metal now, shut up
 	var/buildstackamount = 1
 
-/obj/structure/toilet/Initialize()
+/obj/structure/toilet/Initialize(mapload)
 	. = ..()
 	open = round(rand(0, 1))
 	update_icon()
@@ -156,7 +156,7 @@
 	var/exposed = 0 // can you currently put an item inside
 	var/obj/item/hiddenitem = null // what's in the urinal
 
-/obj/structure/urinal/Initialize()
+/obj/structure/urinal/Initialize(mapload)
 	. = ..()
 	hiddenitem = new /obj/item/food/urinalcake
 
@@ -736,7 +736,7 @@
 	GLOB.curtains -= src
 	return ..()
 
-/obj/structure/curtain/cloth/fancy/mechanical/Initialize()
+/obj/structure/curtain/cloth/fancy/mechanical/Initialize(mapload)
 	. = ..()
 	GLOB.curtains += src
 

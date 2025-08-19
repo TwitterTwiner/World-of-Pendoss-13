@@ -119,7 +119,7 @@
 	name = "NPC Activity"
 	icon_state = "activity"
 
-/obj/effect/landmark/activity/Initialize()
+/obj/effect/landmark/activity/Initialize(mapload)
 	. = ..()
 	GLOB.npc_activities += src
 

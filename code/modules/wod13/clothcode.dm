@@ -677,14 +677,28 @@
 	icon_state = "jacket2"
 	armor = list(BASHING = 2, LETHAL = 2, AGGRAVATED = 0, MELEE = 35, BULLET = 35, LASER = 10, ENERGY = 10, BOMB = 35, BIO = 0, RAD = 0, FIRE = 35, ACID = 10, WOUND = 35)
 
+/obj/item/clothing/suit/vampire/jacket/better/armored
+	name = "armored leather jacket"
+	armor = list(BASHING = 2, LETHAL = 2, AGGRAVATED = 0, MELEE = 45, BULLET = 45, LASER = 10, ENERGY = 10, BOMB = 35, BIO = 0, RAD = 0, FIRE = 45, ACID = 10, WOUND = 35)
+
 /obj/item/clothing/suit/vampire/trench
 	name = "trenchcoat"
 	desc = "Best noir clothes for night. Provides some kind of protection."
 	icon_state = "trench1"
 	armor = list(BASHING = 2, LETHAL = 2, AGGRAVATED = 0, MELEE = 25, BULLET = 25, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 10, WOUND = 25)
 
+/obj/item/clothing/suit/vampire/trench/armored
+	name = "armored trenchcoat"
+	armor = list(BASHING = 3, LETHAL = 4, AGGRAVATED = 1, MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 40, ACID = 10, WOUND = 25)
+	max_integrity = 1000
+
 /obj/item/clothing/suit/vampire/trench/alt
 	icon_state = "trench2"
+
+/obj/item/clothing/suit/vampire/trench/alt/armored
+	name = "armored trenchcoat"
+	armor = list(BASHING = 3, LETHAL = 4, AGGRAVATED = 1, MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 40, ACID = 10, WOUND = 25)
+	max_integrity = 1000
 
 /obj/item/clothing/suit/vampire/trench/archive
 	name = "rich trenchcoat"
@@ -703,6 +717,11 @@
 	icon_state = "trench_tzi"
 	armor = list(BASHING = 3, LETHAL = 3, AGGRAVATED = 1, MELEE = 50, BULLET = 50, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 50)
 	clothing_traits = list(TRAIT_UNMASQUERADE)
+
+/obj/item/clothing/suit/vampire/trench/tzi/elder
+	name = "elder fleshcoat"
+	armor = list(BASHING = 4, LETHAL = 4, AGGRAVATED = 2, MELEE = 50, BULLET = 50, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 10, WOUND = 50)
+	masquerade_violating = 1
 
 /obj/item/clothing/suit/vampire/trench/voivode
 	name = "regal coat"

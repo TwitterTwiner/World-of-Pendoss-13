@@ -10,7 +10,7 @@
 	tastes = list("cheese" = 1)
 	foodtypes = DAIRY
 
-/obj/item/food/cheesewheel/Initialize()
+/obj/item/food/cheesewheel/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/food_storage)
 
@@ -110,7 +110,7 @@
 	foodtypes = VEGETABLES | GRAIN | FRIED
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/fries/Initialize()
+/obj/item/food/fries/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
@@ -123,7 +123,7 @@
 	foodtypes = FRIED | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/tatortot/Initialize()
+/obj/item/food/tatortot/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
@@ -147,7 +147,7 @@
 	foodtypes = VEGETABLES | GRAIN | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/cheesyfries/Initialize()
+/obj/item/food/cheesyfries/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
@@ -159,7 +159,7 @@
 	foodtypes = GROSS
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/badrecipe/Initialize()
+/obj/item/food/badrecipe/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_GRILLED, PROC_REF(OnGrill))
 
@@ -177,7 +177,7 @@
 	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/carrotfries/Initialize()
+/obj/item/food/carrotfries/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
@@ -477,7 +477,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/food/chewable/lollipop/Initialize()
+/obj/item/food/chewable/lollipop/Initialize(mapload)
 	. = ..()
 	head = mutable_appearance('icons/obj/lollipop.dmi', "lollipop_head")
 	change_head_color(rgb(rand(0, 255), rand(0, 255), rand(0, 255)))
@@ -496,7 +496,7 @@
 /obj/item/food/chewable/lollipop/cyborg
 	var/spamchecking = TRUE
 
-/obj/item/food/chewable/lollipop/cyborg/Initialize()
+/obj/item/food/chewable/lollipop/cyborg/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(spamcheck)), 1200)
 
@@ -584,14 +584,14 @@
 	foodtypes = JUNKFOOD
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/food/chewable/gumball/Initialize()
+/obj/item/food/chewable/gumball/Initialize(mapload)
 	. = ..()
 	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 
 /obj/item/food/chewable/gumball/cyborg
 	var/spamchecking = TRUE
 
-/obj/item/food/chewable/gumball/cyborg/Initialize()
+/obj/item/food/chewable/gumball/cyborg/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(spamcheck)), 1200)
 

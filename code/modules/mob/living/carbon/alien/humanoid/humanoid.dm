@@ -27,7 +27,7 @@
 		/obj/item/bodypart/l_leg/alien,
 		)
 
-/mob/living/carbon/alien/humanoid/Initialize()
+/mob/living/carbon/alien/humanoid/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 

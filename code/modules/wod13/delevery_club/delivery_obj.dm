@@ -535,7 +535,7 @@
 	if(delivery_status["red"] != 0 || delivery_status["blue"] != 0 || delivery_status["yellow"] != 0 || delivery_status["green"] != 0) return 0
 	return 1
 
-/obj/structure/delivery_receiver/Initialize()
+/obj/structure/delivery_receiver/Initialize(mapload)
 	. = ..()
 	alpha = 0
 	mouse_opacity = 0
@@ -588,7 +588,7 @@
 	light_color = "#ffffff"
 	light_power = 20
 
-/obj/structure/delivery_dispenser/Initialize()
+/obj/structure/delivery_dispenser/Initialize(mapload)
 	. = ..()
 	GLOB.delivery_available_dispensers.Add(src)
 	alpha = 0
@@ -668,7 +668,7 @@
 	var/obj/structure/delivery_dispenser/source_dispenser
 	var/crate_type
 
-/obj/structure/delivery_crate/Initialize()
+/obj/structure/delivery_crate/Initialize(mapload)
 	if(crate_type) name = initial(name) + " - [crate_type]"
 	AddElement(/datum/element/climbable)
 	. = ..()
@@ -733,7 +733,7 @@
 	spawned_truck.delivery.spawned_keys.Add(spawned_keys)
 	spawned_truck.delivery.original_owner.put_in_hands(spawned_keys)
 
-/obj/effect/landmark/delivery_truck_beacon/Initialize()
+/obj/effect/landmark/delivery_truck_beacon/Initialize(mapload)
 	GLOB.delivery_available_veh_spawners.Add(src)
 	. = ..()
 

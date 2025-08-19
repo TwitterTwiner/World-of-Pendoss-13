@@ -31,7 +31,7 @@
 	SSgraveyard.alive_zombies = max(0, SSgraveyard.alive_zombies-1)
 	GLOB.zombie_list -= src
 
-/mob/living/simple_animal/hostile/zombie/Initialize()
+/mob/living/simple_animal/hostile/zombie/Initialize(mapload)
 	. = ..()
 	GLOB.zombie_list += src
 /*
@@ -166,7 +166,7 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 /*
-/mob/living/simple_animal/hostile/giovanni_zombie/level2/Initialize()
+/mob/living/simple_animal/hostile/giovanni_zombie/level2/Initialize(mapload)
 	. = ..()
 	give_player()
 */
@@ -180,7 +180,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 /*
-/mob/living/simple_animal/hostile/giovanni_zombie/level3/Initialize()
+/mob/living/simple_animal/hostile/giovanni_zombie/level3/Initialize(mapload)
 	. = ..()
 	give_player()
 */
@@ -194,7 +194,7 @@
 	icon_living = "skeleton"
 	icon_dead = "skeleton_dead"
 /*
-/mob/living/simple_animal/hostile/giovanni_zombie/level4/Initialize()
+/mob/living/simple_animal/hostile/giovanni_zombie/level4/Initialize(mapload)
 	. = ..()
 	give_player()
 */
@@ -209,7 +209,7 @@
 	icon_dead = "zombietop_dead"
 	speed = 4
 /*
-/mob/living/simple_animal/hostile/giovanni_zombie/level5/Initialize()
+/mob/living/simple_animal/hostile/giovanni_zombie/level5/Initialize(mapload)
 	. = ..()
 	give_player()
 */

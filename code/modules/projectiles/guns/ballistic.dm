@@ -112,7 +112,7 @@
 	///How much does shooting the gun increment the misfire probability?
 	var/misfire_percentage_increment = 0
 
-/obj/item/gun/ballistic/Initialize()
+/obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
 	if (!spawnwithmagazine)
 		bolt_locked = TRUE

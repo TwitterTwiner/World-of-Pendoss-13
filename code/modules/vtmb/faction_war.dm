@@ -241,7 +241,7 @@ SUBSYSTEM_DEF(factionwar)
 	var/permanent = FALSE
 //	invisibility = INVISIBILITY_FACTION
 
-/obj/graffiti/Initialize()
+/obj/graffiti/Initialize(mapload)
 	. = ..()
 	if(icon_state)
 		SSfactionwar.move_mark(src, icon_state)

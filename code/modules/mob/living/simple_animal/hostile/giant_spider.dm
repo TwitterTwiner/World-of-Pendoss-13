@@ -81,7 +81,7 @@
 	///The message that the mother spider left for this spider when the egg was layed.
 	var/directive = ""
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
 	lay_web = new
 	lay_web.Grant(src)
@@ -147,7 +147,7 @@
 	///The health HUD applied to the mob.
 	var/health_hud = DATA_HUD_MEDICAL_ADVANCED
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/datahud = GLOB.huds[health_hud]
 	datahud.add_hud_to(src)
@@ -205,7 +205,7 @@
 	///The spider's charge ability
 	var/obj/effect/proc_holder/tarantula_charge/charge
 
-/mob/living/simple_animal/hostile/poison/giant_spider/tarantula/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/tarantula/Initialize(mapload)
 	. = ..()
 	charge = new
 	AddAbility(charge)
@@ -284,7 +284,7 @@
 	///The ability for the spider to send a message to all currently living spiders.
 	var/datum/action/innate/spider/comm/letmetalkpls
 
-/mob/living/simple_animal/hostile/poison/giant_spider/midwife/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/midwife/Initialize(mapload)
 	. = ..()
 	wrap = new
 	AddAbility(wrap)
@@ -388,7 +388,7 @@
 	action_icon_state = "wrap_0"
 	action_background_icon_state = "bg_alien"
 
-/obj/effect/proc_holder/wrap/Initialize()
+/obj/effect/proc_holder/wrap/Initialize(mapload)
 	. = ..()
 	action = new(src)
 
@@ -445,7 +445,7 @@
 	action_icon_state = "wrap_0"
 	action_background_icon_state = "bg_alien"
 
-/obj/effect/proc_holder/tarantula_charge/Initialize()
+/obj/effect/proc_holder/tarantula_charge/Initialize(mapload)
 	. = ..()
 	action = new(src)
 

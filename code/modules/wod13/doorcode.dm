@@ -131,7 +131,7 @@
 		"npc"
 	)
 
-/obj/item/vamp/keys/npc/Initialize()
+/obj/item/vamp/keys/npc/Initialize(mapload)
 	. = ..()
 	accesslocks = list(
 		"npc[rand(1, 20)]"
@@ -775,7 +775,7 @@
 	lockpick_difficulty = 6
 	magic_lock = TRUE
 
-/obj/structure/vampdoor/npc/Initialize()
+/obj/structure/vampdoor/npc/Initialize(mapload)
 	. = ..()
 	lock_id = "npc[rand(1, 20)]"
 

@@ -14,7 +14,7 @@
 	close_sound_volume = 50
 	var/obj/item/tank/internals/emergency_oxygen/tank
 
-/obj/structure/closet/crate/critter/Initialize()
+/obj/structure/closet/crate/critter/Initialize(mapload)
 	. = ..()
 	tank = new
 

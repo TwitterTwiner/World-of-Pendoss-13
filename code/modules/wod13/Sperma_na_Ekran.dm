@@ -20,7 +20,7 @@
 	T.maptext_y = 64
 	playsound_local(src, 'code/modules/wod13/sounds/domination.ogg', 100, FALSE)
 	animate(T, alpha = 255, time = time, easing = EASE_IN)
-	addtimer(CALLBACK(src, .proc/clear_Sperma_text, T), 35)
+	addtimer(CALLBACK(src, PROC_REF(clear_Sperma_text), T), 35)
 
 /mob/proc/clear_Sperma_text(obj/screen/A)
 	if(!A)
@@ -60,7 +60,7 @@
 	var/atom/movable/screen/fullscreen/warp_effect/warp
 
 
-/obj/screen/fullscreen/fisheye/Initialize()
+/obj/screen/fullscreen/fisheye/Initialize(mapload)
 	. = ..()
 	apply_wibbly_filters(src, 20)
 
@@ -86,7 +86,7 @@
 	layer = CURSE_LAYER
 	plane = FULLSCREEN_PLANE
 
-/atom/movable/screen/fullscreen/badtrip/Initialize()
+/atom/movable/screen/fullscreen/badtrip/Initialize(mapload)
 	. = ..()
 	dir = pick( EAST, WEST, SOUTHWEST, NORTHEAST)
 
@@ -96,7 +96,7 @@
 	layer = CURSE_LAYER
 	plane = FULLSCREEN_PLANE
 
-/atom/movable/screen/fullscreen/niggatrip/Initialize()
+/atom/movable/screen/fullscreen/niggatrip/Initialize(mapload)
 	. = ..()
 	dir = pick(NORTH, EAST, WEST, SOUTH, SOUTHEAST, SOUTHWEST, NORTHEAST, NORTHWEST)
 
@@ -115,7 +115,7 @@
 		animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 1.0 SECONDS, easing = QUAD_EASING)
 		for(var/i in 1 to 7)
 			whole_screen.add_filter("wibbly-[i]", 5, wave_filter(x = 350, y = 200, size =25, offset = rand()))
-//	addtimer(CALLBACK(src, .proc/polnii_GOI, F), 35)
+//	addtimer(CALLBACK(src, PROC_REF(polnii_GOI), F), 35)
 
 /*
 /mob/proc/polnii_GOI(obj/screen/A, atom/in_atom)

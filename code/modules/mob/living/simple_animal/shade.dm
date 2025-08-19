@@ -36,7 +36,7 @@
 	initial_language_holder = /datum/language_holder/construct
 	ventcrawler = VENTCRAWLER_ALWAYS
 
-/mob/living/simple_animal/shade/Initialize()
+/mob/living/simple_animal/shade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 

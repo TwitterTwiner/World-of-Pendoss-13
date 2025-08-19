@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(beastmastering)
 			return
 		NPC.handle_automated_beasting()
 
-/mob/living/simple_animal/hostile/beastmaster/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/Initialize(mapload)
 	. = ..()
 	GLOB.beast_list += src
 

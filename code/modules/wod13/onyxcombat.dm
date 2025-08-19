@@ -516,7 +516,7 @@
 	var/obj/overlay/level4
 	var/obj/overlay/level5
 
-/atom/movable/screen/disciplines/Initialize()
+/atom/movable/screen/disciplines/Initialize(mapload)
 	. = ..()
 	level2 = new(src)
 	level2.icon = 'code/modules/wod13/disciplines.dmi'
@@ -625,7 +625,7 @@
 							to_chat(HUY, "<span class='notice'>You are looking far away.</span>")
 	..()
 /*
-/atom/movable/screen/disciplines/Initialize()
+/atom/movable/screen/disciplines/Initialize(mapload)
 	. = ..()
 
 /atom/movable/screen/disciplines/Click(location,control,params)
@@ -772,7 +772,7 @@
 
 	..()
 
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	gnosis = new(src)
 	gnosis.icon = 'code/modules/wod13/48x48.dmi'

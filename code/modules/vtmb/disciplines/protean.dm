@@ -182,7 +182,7 @@
 	is_flying_animal = 1
 	movement_type = FLYING
 
-/mob/living/simple_animal/hostile/smokecrawler/mist/Initialize()
+/mob/living/simple_animal/hostile/smokecrawler/mist/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_MOVE_FLYING, ELEMENT_TRAIT)
 
@@ -247,7 +247,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 	movement_type = FLYING
 
-/mob/living/simple_animal/hostile/beastmaster/rat/flying/vampire/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/rat/flying/vampire/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_MOVE_FLYING, ELEMENT_TRAIT)
 
@@ -271,7 +271,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
 
-/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire/Initialize(mapload)
 	. = ..()
 	var/matrix/ntransform = matrix()
 	ntransform.Scale(1.25, 1.5)
@@ -285,7 +285,7 @@
 	health = 300
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
-/mob/living/simple_animal/hostile/beastmaster/rat/vampire/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/rat/vampire/Initialize(mapload)
 	. = ..()
 	var/matrix/ntransform = matrix()
 	ntransform.Scale(1.25, 1.5)
@@ -310,7 +310,7 @@
 	icon_state = "crow"
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
-/mob/living/simple_animal/pet/crow/vampire/Initialize()
+/mob/living/simple_animal/pet/crow/vampire/Initialize(mapload)
 	. = ..()
 	var/datum/action/I_belive_I_can_Fly/FU = new()
 	FU.Grant(src)

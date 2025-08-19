@@ -30,7 +30,7 @@
 	food_flags = FOOD_FINGER_FOOD
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 3)
 
-/obj/item/food/vampire/donut/Initialize()
+/obj/item/food/vampire/donut/Initialize(mapload)
 	. = ..()
 	icon_state = "donut[rand(1, 3)]"
 
@@ -500,7 +500,7 @@
 	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 
-/obj/food_cart/Initialize()
+/obj/food_cart/Initialize(mapload)
 	. = ..()
 	icon_state = "vat[rand(1, 3)]"
 

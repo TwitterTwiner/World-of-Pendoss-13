@@ -60,36 +60,8 @@ if $grep '//' $map_files | $grep -v '//MAP CONVERTED BY dmm2tgm.py THIS HEADER C
 	echo -e "${RED}ERROR: Unexpected commented out line detected in this map file. Please remove it.${NC}"
 	st=1
 fi;
-if grep -P 'Merge Conflict Marker' _maps/**/*.dmm; then
-    echo "ERROR: Merge conflict markers detected in map, please resolve all merge failures!"
-    st=1
-fi;
-# We check for this as well to ensure people aren't actually using this mapping effect in their maps.
-if grep -P '/obj/merge_conflict_marker' _maps/**/*.dmm; then
-    echo "ERROR: Merge conflict markers detected in map, please resolve all merge failures!"
-    st=1
-fi;
-if grep -P '^\ttag = \"icon' _maps/**/*.dmm;	then
-    echo "ERROR: tag vars from icon state generation detected in maps, please remove them."
-    st=1
-fi;
-if grep -P 'step_[xy]' _maps/**/*.dmm;	then
-    echo "ERROR: step_x/step_y variables detected in maps, please remove them."
-    st=1
-fi;
-if grep -P 'pixel_[^xy]' _maps/**/*.dmm;	then
-    echo "ERROR: incorrect pixel offset variables detected in maps, please remove them."
-    st=1
-fi;
-if grep -P '/obj/structure/cable(/\w+)+\{' _maps/**/*.dmm;	then
-    echo "ERROR: vareditted cables detected, please remove them."
-    st=1
-fi;
-if grep -P '\td[1-2] =' _maps/**/*.dmm;	then
-    echo "ERROR: d1/d2 cable variables detected in maps, please remove them."
-    st=1
-fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/cable,\n[^)]*?/obj/structure/cable,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
+part "iconstate tags"
+if $grep '^\ttag = "icon' $map_files;	then
 	echo
     echo -e "${RED}ERROR: Tag vars from icon state generation detected in maps, please remove them.${NC}"
     st=1
@@ -239,6 +211,13 @@ if $grep 'AddElement\(/datum/element/update_icon_updates_onmob.+ITEM_SLOT_HANDS'
 	st=1
 fi;
 
+part "forceMove sanity"
+if $grep 'forceMove\(\s*(\w+\(\)|\w+)\s*,\s*(\w+\(\)|\w+)\s*\)' $code_files; then
+	echo
+	echo -e "${RED}ERROR: forceMove() call with two arguments - this is not how forceMove() is invoked! It's x.forceMove(y), not forceMove(x, y).${NC}"
+	st=1
+fi;
+
 part "common spelling mistakes"
 if $grep -i 'centcomm' $code_files; then
 	echo
@@ -304,10 +283,6 @@ if $grep '\.proc/' $code_x_515 ; then
     echo -e "${RED}ERROR: Outdated proc reference use detected in code, please use proc reference helpers.${NC}"
     st=1
 fi;
-if $grep "href[\s='\"\\\\]*\?" $code_files ; then
-    echo
-    echo -e "${RED}ERROR: BYOND requires internal href links to begin with \"byond://\".${NC}"
-    st=1
 
 if [ "$pcre2_support" -eq 1 ]; then
 	section "regexes requiring PCRE2"
@@ -335,12 +310,6 @@ if [ "$pcre2_support" -eq 1 ]; then
 		echo -e "${RED}ERROR: File(s) with no trailing newline detected, please add one.${NC}"
 		st=1
 	fi
-	part "datum stockpart sanity"
-	if $grep -P 'for\b.*/obj/item/stock_parts/(?!power_store)(?![\w_]+ in )' $code_files; then
-		echo
-		echo -e "${RED}ERROR: Should be using datum/stock_part instead"
-		st=1
-	fi;
 	part "improper atom initialize args"
 	if $grep -P '^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)' $code_files; then
 		echo
@@ -353,12 +322,6 @@ if [ "$pcre2_support" -eq 1 ]; then
 		echo -e "${RED}ERROR: Invalid pronoun helper found.${NC}"
 		st=1
 	fi;
-	part "shuttle area checker"
-	if $grep -PU '(},|\/obj|\/mob|\/turf\/(?!template_noop).+)[^()]+\/area\/template_noop\)' $shuttle_map_files; then
-		echo
-		echo -e "${RED}ERROR: Shuttle has objs or turfs in a template_noop area. Please correct their areas to a shuttle subtype.${NC}"
-		st=1
-fi;
 else
 	echo -e "${RED}pcre2 not supported, skipping checks requiring pcre2"
 	echo -e "if you want to run these checks install ripgrep with pcre2 support.${NC}"

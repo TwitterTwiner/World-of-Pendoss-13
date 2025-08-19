@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(graveyard)
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
-/obj/vampgrave/Initialize()
+/obj/vampgrave/Initialize(mapload)
 	. = ..()
 	SSgraveyard.graves += src
 	icon_state = "grave[rand(1, 10)]"

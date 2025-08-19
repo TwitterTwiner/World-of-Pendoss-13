@@ -91,7 +91,7 @@
 	QDEL_NULL(keyslot)
 	return ..()
 
-/obj/item/radio/Initialize()
+/obj/item/radio/Initialize(mapload)
 	wires = new /datum/wires/radio(src)
 	if(prison_radio)
 		wires.cut(WIRE_TX) // OH GOD WHY
@@ -384,7 +384,7 @@
 	subspace_switchable = FALSE
 	keyslot = new /obj/item/encryptionkey/headset_sec
 
-/obj/item/radio/cop/Initialize()
+/obj/item/radio/cop/Initialize(mapload)
 	. = ..()
 	set_frequency(FREQ_SECURITY)
 
@@ -394,7 +394,7 @@
 	subspace_switchable = FALSE
 	keyslot = new /obj/item/encryptionkey/headset_medsci
 
-/obj/item/radio/clinic/Initialize()
+/obj/item/radio/clinic/Initialize(mapload)
 	. = ..()
 	set_frequency(FREQ_MEDICAL)
 
@@ -405,7 +405,7 @@
 	syndie = TRUE
 	keyslot = new /obj/item/encryptionkey/syndicate
 
-/obj/item/radio/military/Initialize()
+/obj/item/radio/military/Initialize(mapload)
 	. = ..()
 	set_frequency(FREQ_SYNDICATE)
 
@@ -432,7 +432,7 @@
 	syndie = 1
 	keyslot = new /obj/item/encryptionkey/syndicate
 
-/obj/item/radio/borg/syndicate/Initialize()
+/obj/item/radio/borg/syndicate/Initialize(mapload)
 	. = ..()
 	set_frequency(FREQ_CTF_RED)
 

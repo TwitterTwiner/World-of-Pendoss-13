@@ -74,7 +74,7 @@
 	///Check if fusion has started
 	var/fusion_started = FALSE
 
-/obj/machinery/atmospherics/components/unary/hypertorus/Initialize()
+/obj/machinery/atmospherics/components/unary/hypertorus/Initialize(mapload)
 	. = ..()
 	initialize_directions = dir
 
@@ -304,7 +304,7 @@
 	///Var used in the meltdown phase
 	var/final_countdown = FALSE
 
-/obj/machinery/atmospherics/components/unary/hypertorus/core/Initialize()
+/obj/machinery/atmospherics/components/unary/hypertorus/core/Initialize(mapload)
 	. = ..()
 	internal_fusion = new
 	internal_fusion.assert_gases(/datum/gas/hydrogen, /datum/gas/tritium)

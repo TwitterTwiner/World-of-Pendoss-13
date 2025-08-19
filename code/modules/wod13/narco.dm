@@ -144,7 +144,7 @@
 	update_weed_icon()
 	return
 
-/obj/structure/weedshit/Initialize()
+/obj/structure/weedshit/Initialize(mapload)
 	. = ..()
 	GLOB.weed_list += src
 
@@ -806,7 +806,7 @@ SUBSYSTEM_DEF(smokeweedeveryday)
 //	var/suka = 0
 	var/zanuhnut = 0
 
-/obj/item/reagent_containers/dorozhka/Initialize()
+/obj/item/reagent_containers/dorozhka/Initialize(mapload)
 	. = ..()
 	if(!suka)
 		list_reagents = list(/datum/reagent/drug/cocaine = 15)
