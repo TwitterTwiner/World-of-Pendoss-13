@@ -722,4 +722,6 @@
 		dat += "<a href='byond://?_src_=prefs;preference=trait;task=menu'>Configure Quirks</a><br></center>"
 		dat += "<center><b>Current Quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
 
+#undef APPEARANCE_CATEGORY_COLUMN
+#undef MAX_MUTANT_ROWS
 #undef ATTRIBUTE_BASE_LIMIT

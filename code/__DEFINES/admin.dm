@@ -139,3 +139,10 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define GHOSTROLE_SILICONS			(1<<3)
 //ie mafia, ctf
 #define GHOSTROLE_MINIGAME			(1<<4)
+
+/// State when an interview has been approved
+#define INTERVIEW_APPROVED	"interview_approved"
+/// State when an interview as been denied
+#define INTERVIEW_DENIED 	"interview_denied"
+/// State when an interview has had no action on it yet
+#define INTERVIEW_PENDING	"interview_pending"
