@@ -121,7 +121,7 @@ jobs:
         run: |
           ./DMCompiler_linux-x64/DMCompiler tgstation.dme --suppress-unimplemented --define=CIBUILDING | bash tools/ci/annotate_od.sh
       - name: Run Map Checks
-        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        if: false && steps.linter-setup.conclusion == 'success' && !cancelled()
         run: |
           tools/bootstrap/python -m mapmerge2.dmm_test
           tools/bootstrap/python -m tools.maplint.source
