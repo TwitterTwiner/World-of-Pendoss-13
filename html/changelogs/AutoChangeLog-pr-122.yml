@@ -1,4 +1,0 @@
-author: "FeudeyTF"
-delete-after: True
-changes:
-  - rscadd: "Добавляет различные инструменты для работы: авто-changelog и авто-labeler"
