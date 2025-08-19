@@ -172,7 +172,7 @@ Contains:
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
 
@@ -191,7 +191,7 @@ Contains:
 	cell = /obj/item/stock_parts/cell/bluespace
 
 // ERT suit's gets EMP Protection
-/obj/item/clothing/suit/space/hardsuit/ert/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ert/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_CONTENTS)
 
@@ -321,7 +321,7 @@ Contains:
 	actions_types = list()
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACIALHAIR //facial hair will clip with the helm, this'll need a dynamic_fhair_suffix at some point.
 
-/obj/item/clothing/head/helmet/space/hardsuit/carp/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/carp/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
 
@@ -369,7 +369,7 @@ Contains:
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, TRUE, ITEM_SLOT_OCLOTHING)
 
@@ -398,7 +398,7 @@ Contains:
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/spear, /obj/item/organ/regenerative_core/legion, /obj/item/kitchen/knife, /obj/item/kinetic_crusher, /obj/item/resonator, /obj/item/melee/transforming/cleaving_saw)
 
 
-/obj/item/clothing/suit/space/hardsuit/berserker/Initialize()
+/obj/item/clothing/suit/space/hardsuit/berserker/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, TRUE, ITEM_SLOT_OCLOTHING)
 
@@ -430,7 +430,7 @@ Contains:
 	/// Status of berserk
 	var/berserk_active = FALSE
 
-/obj/item/clothing/head/helmet/space/hardsuit/berserker/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/berserker/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
 

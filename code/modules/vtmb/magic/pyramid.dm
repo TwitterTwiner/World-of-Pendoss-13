@@ -8,7 +8,7 @@
 	is_magic = TRUE
 	var/list/rituals = list()
 
-/obj/item/arcane_tome/Initialize()
+/obj/item/arcane_tome/Initialize(mapload)
 	. = ..()
 	for(var/i in subtypesof(/obj/ritualrune))
 		if(i)

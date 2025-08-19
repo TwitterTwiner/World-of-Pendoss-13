@@ -41,7 +41,7 @@
 /mob/living/simple_animal/hostile/ghost/hostile
 	faction = list("hostile")
 
-/mob/living/simple_animal/hostile/ghost/Initialize()
+/mob/living/simple_animal/hostile/ghost/Initialize(mapload)
 	. = ..()
 	switch(rand(0,1))
 		if(0)

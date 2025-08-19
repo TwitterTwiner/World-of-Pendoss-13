@@ -77,7 +77,7 @@
 	melee_damage_lower = 35
 	melee_damage_upper = 40
 
-/mob/living/simple_animal/pet/cat/floppa/Initialize()
+/mob/living/simple_animal/pet/cat/floppa/Initialize(mapload)
 	. = ..()
 	var/matrix/ntransform = matrix(transform)
 	ntransform.Scale(0.5, 0.5)
@@ -111,7 +111,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 
-/mob/living/simple_animal/pet/horse/Initialize()
+/mob/living/simple_animal/pet/horse/Initialize(mapload)
 	. = ..()
 	if(vampiric)
 		AddElement(/datum/element/ridable, /datum/component/riding/creature/horse/vamp)

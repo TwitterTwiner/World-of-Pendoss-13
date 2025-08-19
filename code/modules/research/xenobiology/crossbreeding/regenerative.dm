@@ -150,7 +150,7 @@ Regenerative extracts:
 		to_chat(target, "<span class='danger'>The milky goo teleports you somewhere it remembers!</span>")
 
 
-/obj/item/slimecross/regenerative/bluespace/Initialize()
+/obj/item/slimecross/regenerative/bluespace/Initialize(mapload)
 	. = ..()
 	T = get_turf(src)
 

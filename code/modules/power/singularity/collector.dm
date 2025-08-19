@@ -23,7 +23,7 @@
 	var/drainratio = 0.5
 	var/powerproduction_drain = 0.001
 
-/obj/machinery/power/rad_collector/anchored/Initialize()
+/obj/machinery/power/rad_collector/anchored/Initialize(mapload)
 	. = ..()
 	set_anchored(TRUE)
 

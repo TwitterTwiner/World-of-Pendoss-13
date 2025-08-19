@@ -58,7 +58,7 @@
 /obj/item/pda/ai/pai
 	ttone = "assist"
 
-/obj/item/pda/ai/Initialize()
+/obj/item/pda/ai/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PDA_CHECK_DETONATE, PROC_REF(pda_no_detonate))
 
@@ -141,7 +141,7 @@
 	inserted_item = /obj/item/pen/fountain/captain
 	icon_state = "pda-captain"
 
-/obj/item/pda/captain/Initialize()
+/obj/item/pda/captain/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PDA_CHECK_DETONATE, PROC_REF(pda_no_detonate))
 

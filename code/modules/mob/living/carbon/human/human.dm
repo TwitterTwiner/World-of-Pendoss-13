@@ -1,4 +1,4 @@
-/mob/living/carbon/human/Initialize()
+/mob/living/carbon/human/Initialize(mapload)
 	add_verb(src, /mob/living/proc/mob_sleep)
 	add_verb(src, /mob/living/proc/toggle_resting)
 
@@ -1336,7 +1336,7 @@
 	var/race = null
 	var/use_random_name = TRUE
 
-/mob/living/carbon/human/species/Initialize()
+/mob/living/carbon/human/species/Initialize(mapload)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(set_species), race)
 
@@ -1353,7 +1353,7 @@
 
 /mob/living/carbon/human/species/vamp_mannequin/napoleon
 
-/mob/living/carbon/human/species/vamp_mannequin/napoleon/Initialize()
+/mob/living/carbon/human/species/vamp_mannequin/napoleon/Initialize(mapload)
 	. = ..()
 	equip_to_slot_or_del(new /obj/item/clothing/head/vampire/napoleon(src), ITEM_SLOT_HEAD)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/vampire/jackboots/high(src), ITEM_SLOT_FEET)
@@ -1361,7 +1361,7 @@
 
 /mob/living/carbon/human/species/vamp_mannequin/nazi
 
-/mob/living/carbon/human/species/vamp_mannequin/nazi/Initialize()
+/mob/living/carbon/human/species/vamp_mannequin/nazi/Initialize(mapload)
 	. = ..()
 	equip_to_slot_or_del(new /obj/item/clothing/head/vampire/nazi(src), ITEM_SLOT_HEAD)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/vampire/jackboots/high(src), ITEM_SLOT_FEET)
@@ -1370,7 +1370,7 @@
 
 /mob/living/carbon/human/species/vamp_mannequin/conquestador
 
-/mob/living/carbon/human/species/vamp_mannequin/conquestador/Initialize()
+/mob/living/carbon/human/species/vamp_mannequin/conquestador/Initialize(mapload)
 	. = ..()
 	equip_to_slot_or_del(new /obj/item/clothing/head/vampire/musketeer(src), ITEM_SLOT_HEAD)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/vampire/brown(src), ITEM_SLOT_FEET)
@@ -1379,7 +1379,7 @@
 
 /mob/living/carbon/human/species/vamp_mannequin/cowboy
 
-/mob/living/carbon/human/species/vamp_mannequin/cowboy/Initialize()
+/mob/living/carbon/human/species/vamp_mannequin/cowboy/Initialize(mapload)
 	. = ..()
 	equip_to_slot_or_del(new /obj/item/clothing/head/vampire/cowboy(src), ITEM_SLOT_HEAD)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/vampire/brown(src), ITEM_SLOT_FEET)

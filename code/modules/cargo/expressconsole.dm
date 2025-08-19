@@ -24,7 +24,7 @@
 	var/max_orders = 10
 	var/process_order = FALSE
 
-/obj/machinery/computer/cargo/express/Initialize()
+/obj/machinery/computer/cargo/express/Initialize(mapload)
 	. = ..()
 	packin_up()
 	for(var/obj/item/supplypod_beacon/sb in range(20, src))

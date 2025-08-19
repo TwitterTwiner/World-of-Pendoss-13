@@ -10,7 +10,7 @@
 	var/here = FALSE
 	var/riding = FALSE
 
-/obj/elevator_button_up/Initialize()
+/obj/elevator_button_up/Initialize(mapload)
 	. = ..()
 	for(var/obj/elevator_button_down/W in world)
 		if(W)
@@ -58,7 +58,7 @@
 	var/here = FALSE
 	var/riding = FALSE
 
-/obj/elevator_button_down/Initialize()
+/obj/elevator_button_down/Initialize(mapload)
 	. = ..()
 	for(var/obj/elevator_button_up/W in world)
 		if(W)
@@ -103,7 +103,7 @@
 	var/obj/elevator_button_down/I = null
 	var/obj/elevator_button_up/O = null
 
-/obj/elevator_button/Initialize()
+/obj/elevator_button/Initialize(mapload)
 	. = ..()
 	for(var/obj/elevator_button_up/W in range(3, src))
 		if(W)

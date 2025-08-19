@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/list/rituals = list()
 
-/obj/item/mystic_tome/Initialize()
+/obj/item/mystic_tome/Initialize(mapload)
 	. = ..()
 	for(var/i in subtypesof(/obj/abyssrune))
 		if(i)

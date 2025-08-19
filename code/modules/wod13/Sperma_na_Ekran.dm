@@ -60,7 +60,7 @@
 	var/atom/movable/screen/fullscreen/warp_effect/warp
 
 
-/obj/screen/fullscreen/fisheye/Initialize()
+/obj/screen/fullscreen/fisheye/Initialize(mapload)
 	. = ..()
 	apply_wibbly_filters(src, 20)
 
@@ -86,7 +86,7 @@
 	layer = CURSE_LAYER
 	plane = FULLSCREEN_PLANE
 
-/atom/movable/screen/fullscreen/badtrip/Initialize()
+/atom/movable/screen/fullscreen/badtrip/Initialize(mapload)
 	. = ..()
 	dir = pick( EAST, WEST, SOUTHWEST, NORTHEAST)
 
@@ -96,7 +96,7 @@
 	layer = CURSE_LAYER
 	plane = FULLSCREEN_PLANE
 
-/atom/movable/screen/fullscreen/niggatrip/Initialize()
+/atom/movable/screen/fullscreen/niggatrip/Initialize(mapload)
 	. = ..()
 	dir = pick(NORTH, EAST, WEST, SOUTH, SOUTHEAST, SOUTHWEST, NORTHEAST, NORTHWEST)
 

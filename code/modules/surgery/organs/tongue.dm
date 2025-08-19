@@ -261,7 +261,7 @@
 		/datum/language/greek
 	))
 
-/obj/item/organ/tongue/bone/Initialize()
+/obj/item/organ/tongue/bone/Initialize(mapload)
 	. = ..()
 	phomeme_type = pick(phomeme_types)
 	languages_possible = languages_possible_skeleton

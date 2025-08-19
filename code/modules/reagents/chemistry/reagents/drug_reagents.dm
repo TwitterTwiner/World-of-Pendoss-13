@@ -72,7 +72,7 @@
 	layer = CURSE_LAYER
 	plane = FULLSCREEN_PLANE
 
-/atom/movable/screen/fullscreen/Zuki/Initialize()
+/atom/movable/screen/fullscreen/Zuki/Initialize(mapload)
 	. =..()
 	var/bloom = filter(type="bloom", threshold = "#E700E7", size=1, offset=0.5, alpha = 200)
 	filters += bloom

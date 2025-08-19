@@ -97,20 +97,20 @@
 	plane = GAME_PLANE
 	layer = HIGH_SIGIL_LAYER
 
-/obj/effect/temp_visual/dir_setting/crack_effect/Initialize()
+/obj/effect/temp_visual/dir_setting/crack_effect/Initialize(mapload)
 	. = ..()
 	animate(src, alpha = 0, time = 50)
 
-/obj/effect/temp_visual/dir_setting/fall_effect/Initialize()
+/obj/effect/temp_visual/dir_setting/fall_effect/Initialize(mapload)
 	. = ..()
 	var/size_matrix = matrix()*3
 	animate(src, transform = size_matrix, alpha = 0, time = 5)
 
-/obj/effect/temp_visual/dir_setting/swing_effect/Initialize()
+/obj/effect/temp_visual/dir_setting/swing_effect/Initialize(mapload)
 	. = ..()
 	icon_state = "swing[rand(1, 2)]"
 
-/obj/effect/temp_visual/dir_setting/claw_effect/Initialize()
+/obj/effect/temp_visual/dir_setting/claw_effect/Initialize(mapload)
 	. = ..()
 	icon_state = "claw[rand(1, 2)]"
 

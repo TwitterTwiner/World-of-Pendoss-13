@@ -19,7 +19,7 @@
 	var/obj/item/card/id/inserted_scan_id
 	circuit = /obj/item/circuitboard/computer/bountypad
 
-/obj/machinery/computer/piratepad_control/civilian/Initialize()
+/obj/machinery/computer/piratepad_control/civilian/Initialize(mapload)
 	. = ..()
 	pad = /obj/machinery/piratepad/civilian
 

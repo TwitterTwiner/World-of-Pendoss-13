@@ -16,7 +16,7 @@
 	/// Abstract root type
 	var/abstract_type = /obj/structure/statue
 
-/obj/structure/statue/Initialize()
+/obj/structure/statue/Initialize(mapload)
 	. = ..()
 	AddElement(art_type, impressiveness)
 	AddComponent(/datum/component/beauty, impressiveness * 75)

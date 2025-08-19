@@ -37,7 +37,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	var/detail_color = COLOR_ASSEMBLY_ORANGE
 
-/obj/item/card/data/Initialize()
+/obj/item/card/data/Initialize(mapload)
 	.=..()
 	update_icon()
 
@@ -370,7 +370,7 @@ update_label()
 	///have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
 	var/forged = FALSE
 
-/obj/item/card/id/syndicate/Initialize()
+/obj/item/card/id/syndicate/Initialize(mapload)
 	. = ..()
 	var/datum/action/item_action/chameleon/change/id/chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/card/id
@@ -504,7 +504,7 @@ update_label()
 	assignment = "Captain"
 	registered_age = null
 
-/obj/item/card/id/captains_spare/Initialize()
+/obj/item/card/id/captains_spare/Initialize(mapload)
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
 	. = ..()
@@ -527,7 +527,7 @@ update_label()
 	uses_overlays = FALSE
 	registered_age = null
 
-/obj/item/card/id/centcom/Initialize()
+/obj/item/card/id/centcom/Initialize(mapload)
 	access = get_all_centcom_access()
 	. = ..()
 
@@ -541,7 +541,7 @@ update_label()
 	uses_overlays = FALSE
 	registered_age = null
 
-/obj/item/card/id/ert/Initialize()
+/obj/item/card/id/ert/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -550,7 +550,7 @@ update_label()
 	assignment = "Security Response Officer"
 	icon_state = "ert_security"
 
-/obj/item/card/id/ert/security/Initialize()
+/obj/item/card/id/ert/security/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -559,7 +559,7 @@ update_label()
 	assignment = "Engineering Response Officer"
 	icon_state = "ert_engineer"
 
-/obj/item/card/id/ert/engineer/Initialize()
+/obj/item/card/id/ert/engineer/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("eng")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -568,7 +568,7 @@ update_label()
 	assignment = "Medical Response Officer"
 	icon_state = "ert_medic"
 
-/obj/item/card/id/ert/medical/Initialize()
+/obj/item/card/id/ert/medical/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -577,7 +577,7 @@ update_label()
 	assignment = "Religious Response Officer"
 	icon_state = "ert_chaplain"
 
-/obj/item/card/id/ert/chaplain/Initialize()
+/obj/item/card/id/ert/chaplain/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -586,7 +586,7 @@ update_label()
 	assignment = "Janitorial Response Officer"
 	icon_state = "ert_janitor"
 
-/obj/item/card/id/ert/janitor/Initialize()
+/obj/item/card/id/ert/janitor/Initialize(mapload)
 	access = get_all_accesses()
 	. = ..()
 
@@ -595,7 +595,7 @@ update_label()
 	assignment = "Entertainment Response Officer"
 	icon_state = "ert_clown"
 
-/obj/item/card/id/ert/clown/Initialize()
+/obj/item/card/id/ert/clown/Initialize(mapload)
 	access = get_all_accesses()
 	. = ..()
 
@@ -615,7 +615,7 @@ update_label()
 	assignment = "Jannie"
 	uses_overlays = FALSE
 
-/obj/item/card/id/debug/Initialize()
+/obj/item/card/id/debug/Initialize(mapload)
 	access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	. = ..()
@@ -733,7 +733,7 @@ update_label()
 	var/department_name = ACCOUNT_CIV_NAME
 	registered_age = null
 
-/obj/item/card/id/departmental_budget/Initialize()
+/obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
 	var/datum/bank_account/B = SSeconomy.get_dep_account(department_ID)
 	if(B)

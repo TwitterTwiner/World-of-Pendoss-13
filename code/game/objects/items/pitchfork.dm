@@ -16,7 +16,7 @@
 	resistance_flags = FIRE_PROOF
 	var/wielded = FALSE // track wielded status on item
 
-/obj/item/pitchfork/Initialize()
+/obj/item/pitchfork/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))

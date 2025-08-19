@@ -2,14 +2,14 @@
 	name = "NPC beacon"
 	var/directionwalk
 /obj/effect/landmark/npc_spawn_point
-/obj/effect/landmark/npc_spawn_point/Initialize()
+/obj/effect/landmark/npc_spawn_point/Initialize(mapload)
 	. = ..()
 	GLOB.npc_spawn_points |= src
 /obj/effect/landmark/npcbeacon/directed
 	name = "NPC traffic"
 	icon_state = "npc"
 
-/obj/effect/landmark/npcbeacon/directed/Initialize()
+/obj/effect/landmark/npcbeacon/directed/Initialize(mapload)
 	..()
 	directionwalk = dir
 
@@ -25,14 +25,14 @@
 	name = "NPC Ability"
 	icon_state = "ability"
 
-/obj/effect/landmark/npcactivity/Initialize()
+/obj/effect/landmark/npcactivity/Initialize(mapload)
 	. = ..()
 	GLOB.npc_activities += src
 
 /mob/living/carbon/human/npc
 	var/organschecklist = 0
 
-/mob/living/carbon/human/npc/Initialize()
+/mob/living/carbon/human/npc/Initialize(mapload)
 	..()
 	GLOB.npc_list += src
 	GLOB.alive_npc_list += src

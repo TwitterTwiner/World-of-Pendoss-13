@@ -73,7 +73,7 @@
 	var/list/datum/contact_network/contact_networks = null
 	var/important_contact_of = null
 
-/obj/item/vamp/phone/Initialize()
+/obj/item/vamp/phone/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 	var/mob/living/carbon/human/owner = ishuman(loc) ? loc : !isnull(loc) && ishuman(loc.loc) ? loc.loc : null
@@ -624,12 +624,12 @@
 	var/obj/machinery/p25transceiver/clinic_transceiver
 	var/obj/machinery/p25transceiver/police_transceiver
 
-/obj/item/vamp/phone/emergency/Initialize()
+/obj/item/vamp/phone/emergency/Initialize(mapload)
 	. = ..()
 	GLOB.phone_numbers_list += number
 	GLOB.phones_list += src
 
-/obj/item/vamp/phone/clean/Initialize()
+/obj/item/vamp/phone/clean/Initialize(mapload)
 	. = ..()
 	GLOB.phone_numbers_list += number
 	GLOB.phones_list += src

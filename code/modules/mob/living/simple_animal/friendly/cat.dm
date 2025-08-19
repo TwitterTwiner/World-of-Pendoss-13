@@ -45,7 +45,7 @@
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/pet/cat/Initialize()
+/mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
 	add_verb(src, /mob/living/proc/toggle_resting)
 	add_cell_sample()
@@ -118,7 +118,7 @@
 	var/memory_saved = FALSE
 	held_state = "cat"
 
-/mob/living/simple_animal/pet/cat/runtime/Initialize()
+/mob/living/simple_animal/pet/cat/runtime/Initialize(mapload)
 	if(prob(5))
 		icon_state = "original"
 		icon_living = "original"
@@ -290,7 +290,7 @@
 	maxbloodpool = 2
 	mob_size = MOB_SIZE_SMALL
 
-/mob/living/simple_animal/pet/cat/vampire/Initialize()
+/mob/living/simple_animal/pet/cat/vampire/Initialize(mapload)
 	. = ..()
 	var/id = rand(1, 7)
 	icon_state = "cat[id]"
@@ -356,7 +356,7 @@
 	speed = -0.1
 	dodging = TRUE
 
-/mob/living/simple_animal/hostile/beastmaster/cat/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/cat/Initialize(mapload)
 	. = ..()
 	var/id = rand(1, 7)
 	icon_state = "cat[id]"

@@ -65,7 +65,7 @@
 /obj/item/food/grown/holymelon/make_dryable()
 	return //No drying
 
-/obj/item/food/grown/holymelon/Initialize()
+/obj/item/food/grown/holymelon/Initialize(mapload)
 	. = ..()
 	var/uses = 1
 	if(seed)

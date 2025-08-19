@@ -266,7 +266,7 @@
 	icon_state = "sleeper_s"
 	controls_inside = TRUE
 
-/obj/machinery/sleeper/syndie/fullupgrade/Initialize()
+/obj/machinery/sleeper/syndie/fullupgrade/Initialize(mapload)
 	. = ..()
 
 	// Cache the old_parts first, we'll delete it after we've changed component_parts to a new list.

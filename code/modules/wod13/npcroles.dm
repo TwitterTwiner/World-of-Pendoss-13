@@ -1008,7 +1008,7 @@
 	vampire_faction = "City"
 	max_stat = 3
 
-/mob/living/carbon/human/npc/bandit/Initialize()
+/mob/living/carbon/human/npc/bandit/Initialize(mapload)
 	..()
 	if(prob(33))
 		base_body_mod = "f"
@@ -1028,14 +1028,14 @@
 	max_stat = 2
 	staying = TRUE
 
-/mob/living/carbon/human/npc/churka/Initialize()
+/mob/living/carbon/human/npc/churka/Initialize(mapload)
 	..()
 	AssignSocialRole(/datum/socialrole/churka)
 
 /mob/living/carbon/human/npc/walkby
 	vampire_faction = "City"
 
-/mob/living/carbon/human/npc/walkby/Initialize()
+/mob/living/carbon/human/npc/walkby/Initialize(mapload)
 	..()
 	if(prob(50))
 		base_body_mod = pick("s", "f")
@@ -1046,7 +1046,7 @@
 	bloodquality = BLOOD_QUALITY_LOW
 	old_movement = FALSE
 
-/mob/living/carbon/human/npc/hobo/Initialize()
+/mob/living/carbon/human/npc/hobo/Initialize(mapload)
 	..()
 	if(prob(33))
 		base_body_mod = "s"
@@ -1056,7 +1056,7 @@
 	vampire_faction = "City"
 	bloodquality = BLOOD_QUALITY_HIGH
 
-/mob/living/carbon/human/npc/business/Initialize()
+/mob/living/carbon/human/npc/business/Initialize(mapload)
 	..()
 	if(prob(66))
 		base_body_mod = "s"
@@ -1092,7 +1092,7 @@
 	maxHealth = 5
 	health = 5
 
-/mob/living/simple_animal/pet/rat/Initialize()
+/mob/living/simple_animal/pet/rat/Initialize(mapload)
 	. = ..()
 	pixel_w = rand(-8, 8)
 	pixel_z = rand(-8, 8)
@@ -1183,7 +1183,7 @@
 	speed = 0
 	dodging = TRUE
 
-/mob/living/simple_animal/hostile/beastmaster/rat/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/rat/Initialize(mapload)
 	. = ..()
 	pixel_w = rand(-8, 8)
 	pixel_z = rand(-8, 8)
@@ -1298,7 +1298,7 @@
 	staying = TRUE
 	is_talking = TRUE
 
-/mob/living/carbon/human/npc/shop/Initialize()
+/mob/living/carbon/human/npc/shop/Initialize(mapload)
 	..()
 	if(prob(66))
 		base_body_mod = "f"
@@ -1311,7 +1311,7 @@
 	vampire_faction = "City"
 	staying = TRUE
 
-/mob/living/carbon/human/npc/bacotell/Initialize()
+/mob/living/carbon/human/npc/bacotell/Initialize(mapload)
 	..()
 	if(prob(66))
 		base_body_mod = "f"
@@ -1324,7 +1324,7 @@
 	vampire_faction = "City"
 	staying = TRUE
 
-/mob/living/carbon/human/npc/bubway/Initialize()
+/mob/living/carbon/human/npc/bubway/Initialize(mapload)
 	..()
 	if(prob(66))
 		base_body_mod = "f"
@@ -1337,7 +1337,7 @@
 	vampire_faction = "City"
 	staying = TRUE
 
-/mob/living/carbon/human/npc/gummaguts/Initialize()
+/mob/living/carbon/human/npc/gummaguts/Initialize(mapload)
 	..()
 	if(prob(66))
 		base_body_mod = "f"
@@ -1525,7 +1525,7 @@
 	fights_anyway = TRUE
 	max_stat = 4
 
-/mob/living/carbon/human/npc/police/Initialize()
+/mob/living/carbon/human/npc/police/Initialize(mapload)
 	..()
 	if(prob(66))
 		base_body_mod = "f"
@@ -1541,7 +1541,7 @@
 	fights_anyway = TRUE
 	max_stat = 5
 
-/mob/living/carbon/human/npc/swat/Initialize()
+/mob/living/carbon/human/npc/swat/Initialize(mapload)
 	..()
 	my_weapon = new /obj/item/gun/ballistic/automatic/vampire/aug(src)
 	ignores_warrant = TRUE
@@ -1552,7 +1552,7 @@
 	fights_anyway = TRUE
 	max_stat = 5
 
-/mob/living/carbon/human/npc/hunter/Initialize()
+/mob/living/carbon/human/npc/hunter/Initialize(mapload)
 	..()
 	my_weapon = new /obj/item/gun/ballistic/automatic/vampire/ak74/hunter(src)
 	ignores_warrant = TRUE
@@ -1710,14 +1710,14 @@
 	fights_anyway = TRUE
 	max_stat = 4
 
-/mob/living/carbon/human/npc/guard/Initialize()
+/mob/living/carbon/human/npc/guard/Initialize(mapload)
 	..()
 	if(prob(66))
 		base_body_mod = "f"
 	my_weapon = new /obj/item/gun/ballistic/automatic/vampire/m1911(src)
 	AssignSocialRole(/datum/socialrole/guard)
 
-/mob/living/carbon/human/npc/walkby/club/Initialize()
+/mob/living/carbon/human/npc/walkby/club/Initialize(mapload)
 	. = ..()
 	for(var/obj/machinery/jukebox/Juke in range(7, src))
 		if(Juke)
@@ -1857,7 +1857,7 @@
 	staying = TRUE
 	var/obj/structure/pole/MyPole
 
-/mob/living/carbon/human/npc/stripper/Initialize()
+/mob/living/carbon/human/npc/stripper/Initialize(mapload)
 	..()
 	base_body_mod = "s"
 	AssignSocialRole(/datum/socialrole/stripfemale)
@@ -1884,7 +1884,7 @@
 	vampire_faction = "City"
 	staying = TRUE
 
-/mob/living/carbon/human/npc/incel/Initialize()
+/mob/living/carbon/human/npc/incel/Initialize(mapload)
 	..()
 	if(prob(50))
 		base_body_mod = "f"
@@ -1915,6 +1915,6 @@
 	staying = TRUE
 	is_talking = TRUE
 
-/mob/living/carbon/human/npc/illegal/Initialize()
+/mob/living/carbon/human/npc/illegal/Initialize(mapload)
 	..()
 	AssignSocialRole(/datum/socialrole/shop/illegal)

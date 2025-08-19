@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(vampire_computers)
 	var/username
 
 
-/obj/vampire_computer/Initialize()
+/obj/vampire_computer/Initialize(mapload)
 	. = ..()
 	GLOB.vampire_computers += src
 	username = gen_username()

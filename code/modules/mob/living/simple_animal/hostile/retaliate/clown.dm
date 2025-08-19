@@ -71,7 +71,7 @@
 	emote_see = list("bubbles", "oozes")
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/effect/particle_effect/foam)
 
-/mob/living/simple_animal/hostile/retaliate/clown/lube/Initialize()
+/mob/living/simple_animal/hostile/retaliate/clown/lube/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/snailcrawl)
 
@@ -315,7 +315,7 @@
 	///This ability lets you fire a single random item from your pouch.
 	var/obj/effect/proc_holder/regurgitate/my_regurgitate
 
-/mob/living/simple_animal/hostile/retaliate/clown/mutant/glutton/Initialize()
+/mob/living/simple_animal/hostile/retaliate/clown/mutant/glutton/Initialize(mapload)
 	. = ..()
 	my_regurgitate = new
 	AddAbility(my_regurgitate)

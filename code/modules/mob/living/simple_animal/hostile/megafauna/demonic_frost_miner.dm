@@ -49,7 +49,7 @@ Difficulty: Extremely Hard
 	/// If the demonic frost miner is currently transforming to its enraged state
 	var/enraging = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner/Initialize()
+/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/knockback, 7, FALSE, TRUE)
 	AddComponent(/datum/component/lifesteal, 50)
@@ -315,7 +315,7 @@ Difficulty: Extremely Hard
 	var/change_turf = /turf/open/floor/plating/ice/icemoon
 	var/duration = 6 SECONDS
 
-/obj/item/clothing/shoes/winterboots/ice_boots/ice_trail/Initialize()
+/obj/item/clothing/shoes/winterboots/ice_boots/ice_trail/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
 
@@ -352,7 +352,7 @@ Difficulty: Extremely Hard
 	desc = "Cracks rocks at an inhuman speed, as well as being enhanced for combat purposes."
 	toolspeed = 0
 
-/obj/item/pickaxe/drill/jackhammer/demonic/Initialize()
+/obj/item/pickaxe/drill/jackhammer/demonic/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/knockback, 4, TRUE, FALSE)
 	AddComponent(/datum/component/lifesteal, 5)

@@ -16,7 +16,7 @@ VENTORY!
 /// jimmy joger variable
 #define CHECK_BITFIELD(variable, flag) (variable & (flag))
 
-/obj/item/storage/Initialize()
+/obj/item/storage/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	if(STR)

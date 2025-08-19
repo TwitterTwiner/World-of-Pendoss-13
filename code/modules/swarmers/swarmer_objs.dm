@@ -56,7 +56,7 @@
 	///Reference to all the swarmers currently alive this beacon has created
 	var/list/mob/living/simple_animal/hostile/swarmer/swarmerlist
 
-/obj/structure/swarmer_beacon/Initialize()
+/obj/structure/swarmer_beacon/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
 
@@ -162,7 +162,7 @@
 	icon_state = "disintegrate"
 	duration = 1 SECONDS
 
-/obj/effect/temp_visual/swarmer/disintegration/Initialize()
+/obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
 	. = ..()
 	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 

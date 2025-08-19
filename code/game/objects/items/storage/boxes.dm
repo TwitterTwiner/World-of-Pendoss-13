@@ -1190,7 +1190,7 @@
 	custom_price = PAYCHECK_HARD * 3
 	custom_premium_price = PAYCHECK_HARD * 3
 
-/obj/item/storage/box/gum/happiness/Initialize()
+/obj/item/storage/box/gum/happiness/Initialize(mapload)
 	. = ..()
 	if (prob(25))
 		desc += "You can faintly make out the word 'Hemopagopril' was once scribbled on it."

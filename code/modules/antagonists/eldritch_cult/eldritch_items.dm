@@ -81,7 +81,7 @@
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	var/datum/action/innate/heretic_shatter/linked_action
 
-/obj/item/melee/sickly_blade/Initialize()
+/obj/item/melee/sickly_blade/Initialize(mapload)
 	. = ..()
 	linked_action = new(src)
 
@@ -318,7 +318,7 @@
 	. += "This item can carve 'Grasping carving' - when stepped on it causes heavy damage to the legs and stuns for 5 seconds."
 	. += "This item can carve 'Mad carving' - when stepped on it causes dizzyness, jiterryness, temporary blindness, confusion , stuttering and slurring."
 
-/obj/item/melee/rune_knife/Initialize()
+/obj/item/melee/rune_knife/Initialize(mapload)
 	. = ..()
 	linked_action = new(src)
 

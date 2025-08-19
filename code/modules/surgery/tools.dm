@@ -148,7 +148,7 @@
 	wound_bonus = 15
 	bare_wound_bonus = 15
 
-/obj/item/scalpel/Initialize()
+/obj/item/scalpel/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 80 * toolspeed, 100, 0)
 
@@ -186,7 +186,7 @@
 	wound_bonus = 15
 	bare_wound_bonus = 10
 
-/obj/item/circular_saw/Initialize()
+/obj/item/circular_saw/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 40 * toolspeed, 100, 5, 'sound/weapons/circsawhit.ogg') //saws are very accurate and fast at butchering
 

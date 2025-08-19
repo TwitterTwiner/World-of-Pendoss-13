@@ -37,7 +37,7 @@
 
 	var/eatsound = 'sound/items/eatfood.ogg'
 
-/obj/item/food/Initialize()
+/obj/item/food/Initialize(mapload)
 	. = ..()
 	if(food_reagents)
 		food_reagents = string_assoc_list(food_reagents)

@@ -53,11 +53,11 @@
 	minbodytemp = 0
 	speed = 1
 
-/mob/living/simple_animal/hostile/pirate/melee/space/Initialize()
+/mob/living/simple_animal/hostile/pirate/melee/space/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
-/mob/living/simple_animal/hostile/pirate/melee/Initialize()
+/mob/living/simple_animal/hostile/pirate/melee/Initialize(mapload)
 	. = ..()
 	sord = new(src)
 
@@ -65,7 +65,7 @@
 	QDEL_NULL(sord)
 	return ..()
 
-/mob/living/simple_animal/hostile/pirate/melee/Initialize()
+/mob/living/simple_animal/hostile/pirate/melee/Initialize(mapload)
 	. = ..()
 	set_light(2)
 
@@ -92,6 +92,6 @@
 	minbodytemp = 0
 	speed = 1
 
-/mob/living/simple_animal/hostile/pirate/ranged/space/Initialize()
+/mob/living/simple_animal/hostile/pirate/ranged/space/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)

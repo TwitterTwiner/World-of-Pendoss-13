@@ -77,7 +77,7 @@
 	masquerade_violating = FALSE
 	var/wielded = FALSE
 
-/obj/item/melee/vampirearms/fireaxe/Initialize()
+/obj/item/melee/vampirearms/fireaxe/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
@@ -469,7 +469,7 @@
 			color = "#72b27c"
 			qdel(I)
 
-/obj/item/melee/vampirearms/knife/gangrel/Initialize()
+/obj/item/melee/vampirearms/knife/gangrel/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
@@ -496,7 +496,7 @@
 	var/on = FALSE
 	var/wielded = FALSE
 
-/obj/item/melee/vampirearms/chainsaw/Initialize()
+/obj/item/melee/vampirearms/chainsaw/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
@@ -675,7 +675,7 @@
 		if(result == "4")
 			playsound(loc, 'code/modules/wod13/sounds/solo4.ogg', 100, FALSE)
 */
-/obj/item/melee/vampirearms/eguitar/Initialize()
+/obj/item/melee/vampirearms/eguitar/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))

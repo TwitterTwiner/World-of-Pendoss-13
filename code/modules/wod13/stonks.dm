@@ -21,7 +21,7 @@
 			name = "[H.true_real_name]'s stocks trading license"
 			whose = H.true_real_name
 
-/obj/item/stocks_license/Initialize()
+/obj/item/stocks_license/Initialize(mapload)
 	. = ..()
 	icon_state = "card[rand(1, 3)]"
 	GLOB.stock_licenses += src

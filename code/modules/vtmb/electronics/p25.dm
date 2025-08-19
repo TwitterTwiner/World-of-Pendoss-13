@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(p25_radios)
 	var/in_restricted_area = FALSE
 	var/powered = TRUE  // New var to track power state
 
-/obj/item/p25radio/Initialize()
+/obj/item/p25radio/Initialize(mapload)
 	. = ..()
 	GLOB.p25_radios += src
 
@@ -606,7 +606,7 @@ GLOBAL_LIST_EMPTY(p25_radios)
 	var/last_status_change = 0
 	var/status_cooldown = 100
 
-/obj/item/p25radio/police/Initialize()
+/obj/item/p25radio/police/Initialize(mapload)
 	. = ..()
 	GLOB.police_radios += src
 

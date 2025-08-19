@@ -31,7 +31,7 @@
 	/// If blind drop option is available
 	var/blind_drop_ready = TRUE
 
-/obj/machinery/computer/auxiliary_base/Initialize()
+/obj/machinery/computer/auxiliary_base/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "NT_AUX")
 

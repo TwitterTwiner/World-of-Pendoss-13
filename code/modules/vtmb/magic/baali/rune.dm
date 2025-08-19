@@ -7,7 +7,7 @@
 	var/total_corpses = 0
 	var/list/rune_rituals = list()
 
-/obj/effect/decal/baalirune/Initialize()
+/obj/effect/decal/baalirune/Initialize(mapload)
 	. = ..()
 	for(var/type in subtypesof(/datum/rune_ritual))
 		var/datum/rune_ritual/rune_type = type

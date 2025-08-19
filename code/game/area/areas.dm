@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	alpha = 28
 	var/last_fire_extinguish = 0
 
-/obj/effect/decal/firecontrol/Initialize()
+/obj/effect/decal/firecontrol/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

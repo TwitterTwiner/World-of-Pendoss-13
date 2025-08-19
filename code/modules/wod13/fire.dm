@@ -139,7 +139,7 @@ SUBSYSTEM_DEF(die_in_a_fire)
 	set_light(0)
 	GLOB.fires_list -= src
 
-/obj/effect/fire/Initialize()
+/obj/effect/fire/Initialize(mapload)
 	. = ..()
 	set_light(3, 2, "#ffa800")
 	GLOB.fires_list += src
@@ -158,7 +158,7 @@ SUBSYSTEM_DEF(die_in_a_fire)
 			stage = 3
 			icon = 'code/modules/wod13/64x64.dmi'
 
-/turf/open/floor/Initialize()
+/turf/open/floor/Initialize(mapload)
 	..()
 	if(istype(get_area(src), /area/vtm))
 		var/area/vtm/V = get_area(src)

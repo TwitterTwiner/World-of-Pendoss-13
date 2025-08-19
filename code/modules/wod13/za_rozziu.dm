@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(zombiepool)
 		if(76 to 100)
 			. += "<span class='notice'><b>Density: [punches_to_break]/[initial(punches_to_break)]</b></span>"
 
-/obj/structure/vampgate/Initialize()
+/obj/structure/vampgate/Initialize(mapload)
 	. = ..()
 	GLOB.vampgate = src
 

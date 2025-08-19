@@ -23,7 +23,7 @@
 	///Type of drone that will be spawned
 	mob_type = /mob/living/simple_animal/drone
 
-/obj/effect/mob_spawn/drone/Initialize()
+/obj/effect/mob_spawn/drone/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)

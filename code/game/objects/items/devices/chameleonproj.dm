@@ -58,7 +58,7 @@
 	var/saved_appearance = null
 	var/generated = FALSE
 
-/obj/item/chameleon/Initialize()
+/obj/item/chameleon/Initialize(mapload)
 	. = ..()
 
 /obj/item/chameleon/dropped()

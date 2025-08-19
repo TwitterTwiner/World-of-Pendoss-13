@@ -109,7 +109,7 @@ GLOBAL_LIST_INIT(caesar_cipher, list(
 					icon_state = "b_sarcophagus-open0"
 					new /mob/living/simple_animal/hostile/megafauna/wendigo(loc)
 
-/obj/sarcophagus/Initialize()
+/obj/sarcophagus/Initialize(mapload)
 	. = ..()
 	password = pick(GLOB.sarcophagus_passwords)
 	if(prob(50))

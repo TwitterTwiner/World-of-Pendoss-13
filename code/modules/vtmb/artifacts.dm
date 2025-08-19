@@ -229,7 +229,7 @@
 /obj/item/vtm_artifact/fake
 	name = "unidentified occult fetish"
 
-/obj/item/vtm_artifact/fake/Initialize()
+/obj/item/vtm_artifact/fake/Initialize(mapload)
 	var/george_floid = rand(1, 5)
 	switch(george_floid)
 		if(1)
@@ -253,7 +253,7 @@
 /obj/item/vtm_artifact/rand
 	icon_state = "art_rand"
 
-/obj/item/vtm_artifact/rand/Initialize()
+/obj/item/vtm_artifact/rand/Initialize(mapload)
 	. = ..()
 	if (prob(50)) //50% chance of spawning something
 		var/spawn_artifact = pick(/obj/item/vtm_artifact/odious_chalice, /obj/item/vtm_artifact/key_of_alamut,
@@ -271,7 +271,7 @@
 	layer = CURSE_LAYER
 	plane = FULLSCREEN_PLANE
 
-/atom/movable/screen/fullscreen/artcurse/Initialize()
+/atom/movable/screen/fullscreen/artcurse/Initialize(mapload)
 	. = ..()
 	dir = pick(NORTH, EAST, WEST, SOUTH, SOUTHEAST, SOUTHWEST, NORTHEAST, NORTHWEST)
 

@@ -49,7 +49,7 @@
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP_EDGED
 
-/obj/item/melee/synthetic_arm_blade/Initialize()
+/obj/item/melee/synthetic_arm_blade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 60, 80) //very imprecise
 
@@ -75,7 +75,7 @@
 	wound_bonus = 10
 	bare_wound_bonus = 25
 
-/obj/item/melee/sabre/Initialize()
+/obj/item/melee/sabre/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
 
@@ -446,7 +446,7 @@
 	var/balanced = 1
 	force_string = "INFINITE"
 
-/obj/item/melee/supermatter_sword/Initialize()
+/obj/item/melee/supermatter_sword/Initialize(mapload)
 	. = ..()
 	shard = new /obj/machinery/power/supermatter_crystal(src)
 	qdel(shard.countdown)
@@ -567,7 +567,7 @@
 	var/on = FALSE
 	var/datum/beam/beam
 
-/obj/item/melee/roastingstick/Initialize()
+/obj/item/melee/roastingstick/Initialize(mapload)
 	. = ..()
 	if (!ovens)
 		ovens = typecacheof(list(/obj/singularity, /obj/energy_ball, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
@@ -682,7 +682,7 @@
 	var/overlay_state = "mace_handle"
 	var/mutable_appearance/overlay
 
-/obj/item/melee/cleric_mace/Initialize()
+/obj/item/melee/cleric_mace/Initialize(mapload)
 	. = ..()
 	overlay = mutable_appearance(icon, overlay_state)
 	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | KEEP_APART

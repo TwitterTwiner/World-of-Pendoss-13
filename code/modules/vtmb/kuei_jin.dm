@@ -125,7 +125,7 @@
 	layer = HUD_LAYER
 	plane = HUD_PLANE
 
-/atom/movable/screen/chi_pool/Initialize()
+/atom/movable/screen/chi_pool/Initialize(mapload)
 	. = ..()
 	upper_layer = image(icon = 'code/modules/wod13/UI/chi.dmi', icon_state = "add", layer = HUD_LAYER+1)
 	add_overlay(upper_layer)

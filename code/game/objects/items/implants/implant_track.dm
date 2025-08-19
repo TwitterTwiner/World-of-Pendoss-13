@@ -11,7 +11,7 @@
 	var/lifespan = 3000 //how many deciseconds does the implant last?
 	allow_teleport = FALSE
 
-/obj/item/implant/tracking/c38/Initialize()
+/obj/item/implant/tracking/c38/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, lifespan)
 

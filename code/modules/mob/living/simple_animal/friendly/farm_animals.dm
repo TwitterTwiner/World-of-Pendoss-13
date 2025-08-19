@@ -37,7 +37,7 @@
 
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/retaliate/goat/Initialize()
+/mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	udder = new()
 	. = ..()
 
@@ -147,7 +147,7 @@
 	pet_bonus = TRUE
 	pet_bonus_emote = "moos happily!"
 
-/mob/living/simple_animal/cow/Initialize()
+/mob/living/simple_animal/cow/Initialize(mapload)
 	udder = new()
 	add_cell_sample()
 	. = ..()
@@ -216,7 +216,7 @@
 	bonus_tame_chance = 0
 	speak_chance = 15
 
-/mob/living/simple_animal/cow/wisdom/Initialize()
+/mob/living/simple_animal/cow/wisdom/Initialize(mapload)
 	. = ..()
 	speak = GLOB.wisdoms //Done here so it's setup properly
 
@@ -268,7 +268,7 @@
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/chick/Initialize()
+/mob/living/simple_animal/chick/Initialize(mapload)
 	. = ..()
 	pixel_x = base_pixel_x + rand(-6, 6)
 	pixel_y = base_pixel_y + rand(0, 10)
@@ -334,7 +334,7 @@
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/chicken/Initialize()
+/mob/living/simple_animal/chicken/Initialize(mapload)
 	. = ..()
 	if(!body_color)
 		body_color = pick(validColors)
@@ -395,7 +395,7 @@
 /obj/item/udder
 	name = "udder"
 
-/obj/item/udder/Initialize()
+/obj/item/udder/Initialize(mapload)
 	create_reagents(50)
 	reagents.add_reagent(/datum/reagent/consumable/milk, 20)
 	. = ..()

@@ -25,7 +25,7 @@
 	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
 
-/obj/item/clothing/head/helmet/space/hardsuit/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(), FALSE, TRUE)
 	soundloop.volume = 5
@@ -113,7 +113,7 @@
 	var/hardsuit_type
 
 
-/obj/item/clothing/suit/space/hardsuit/Initialize()
+/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
 	. = ..()
@@ -280,7 +280,7 @@
 	light_range = 7
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
 
-/obj/item/clothing/head/helmet/space/hardsuit/mining/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/mining/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 	RegisterSignal(src, COMSIG_ARMOR_PLATED, PROC_REF(upgrade_icon))
@@ -312,7 +312,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
-/obj/item/clothing/suit/space/hardsuit/mining/Initialize()
+/obj/item/clothing/suit/space/hardsuit/mining/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 	RegisterSignal(src, COMSIG_ARMOR_PLATED, PROC_REF(upgrade_icon))
@@ -349,7 +349,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[hardsuit_type]"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
 	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/syndi))
 		linkedsuit = loc
@@ -438,7 +438,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug/Initialize(mapload)
 	. = ..()
 	soundloop.volume = 0
 
@@ -521,7 +521,7 @@
 	cell = /obj/item/stock_parts/cell/hyper
 	slowdown = 0 //you're spending 2 wizard points on this thing, the least it could do is not make you a sitting duck
 
-/obj/item/clothing/suit/space/hardsuit/wizard/Initialize()
+/obj/item/clothing/suit/space/hardsuit/wizard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, FALSE, FALSE, ITEM_SLOT_OCLOTHING, INFINITY, FALSE)
 
@@ -560,7 +560,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SCAN_REAGENTS | SNUG_FIT
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 
@@ -616,7 +616,7 @@
 	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 40, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 20)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 
-/obj/item/clothing/suit/space/hardsuit/security/Initialize()
+/obj/item/clothing/suit/space/hardsuit/security/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_hardsuit_allowed
 
@@ -665,7 +665,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat
 
 // SWAT and Captain get EMP Protection
-/obj/item/clothing/suit/space/hardsuit/swat/Initialize()
+/obj/item/clothing/suit/space/hardsuit/swat/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_hardsuit_allowed
 
@@ -782,7 +782,7 @@
 	var/shield_state = "shield-old"
 	var/shield_on = "shield-old"
 
-/obj/item/clothing/suit/space/hardsuit/shielded/Initialize()
+/obj/item/clothing/suit/space/hardsuit/shielded/Initialize(mapload)
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
@@ -911,7 +911,7 @@
 		to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing back the shield's color to red.</span>")
 	user.update_inv_wear_suit()
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize()
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize(mapload)
 	jetpack = new /obj/item/tank/jetpack/suit(src)
 	. = ..()
 

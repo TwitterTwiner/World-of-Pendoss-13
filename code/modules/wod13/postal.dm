@@ -52,7 +52,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/letter/Initialize()
+/obj/item/letter/Initialize(mapload)
 	. = ..()
 	var/list/mail_recipients = list()
 	for(var/mob/living/carbon/human/alive in GLOB.player_list)

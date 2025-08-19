@@ -32,7 +32,7 @@
 	/// Max bomb timer allower in seconds
 	var/bomb_timer_max = 20
 
-/obj/item/pizzabox/Initialize()
+/obj/item/pizzabox/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -270,14 +270,14 @@
 	wires = null
 	update_icon()
 
-/obj/item/pizzabox/bomb/Initialize()
+/obj/item/pizzabox/bomb/Initialize(mapload)
 	. = ..()
 	var/randompizza = pick(subtypesof(/obj/item/food/pizza))
 	pizza = new randompizza(src)
 	bomb = new(src)
 	wires = new /datum/wires/explosive/pizza(src)
 
-/obj/item/pizzabox/margherita/Initialize()
+/obj/item/pizzabox/margherita/Initialize(mapload)
 	. = ..()
 	AddPizza()
 	boxtag = "Margherita Deluxe"
@@ -288,22 +288,22 @@
 /obj/item/pizzabox/margherita/robo/AddPizza()
 	pizza = new /obj/item/food/pizza/margherita/robo(src)
 
-/obj/item/pizzabox/vegetable/Initialize()
+/obj/item/pizzabox/vegetable/Initialize(mapload)
 	. = ..()
 	pizza = new /obj/item/food/pizza/vegetable(src)
 	boxtag = "Gourmet Vegatable"
 
-/obj/item/pizzabox/mushroom/Initialize()
+/obj/item/pizzabox/mushroom/Initialize(mapload)
 	. = ..()
 	pizza = new /obj/item/food/pizza/mushroom(src)
 	boxtag = "Mushroom Special"
 
-/obj/item/pizzabox/meat/Initialize()
+/obj/item/pizzabox/meat/Initialize(mapload)
 	. = ..()
 	pizza = new /obj/item/food/pizza/meat(src)
 	boxtag = "Meatlover's Supreme"
 
-/obj/item/pizzabox/pineapple/Initialize()
+/obj/item/pizzabox/pineapple/Initialize(mapload)
 	. = ..()
 	pizza = new /obj/item/food/pizza/pineapple(src)
 	boxtag = "Honolulu Chew"
@@ -324,7 +324,7 @@
 	) //pizzas here are weighted by chance to be someone's favorite
 	var/static/list/pizza_preferences
 
-/obj/item/pizzabox/infinite/Initialize()
+/obj/item/pizzabox/infinite/Initialize(mapload)
 	. = ..()
 	if(!pizza_preferences)
 		pizza_preferences = list()

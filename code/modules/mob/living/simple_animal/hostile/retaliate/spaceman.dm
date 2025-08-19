@@ -97,7 +97,7 @@
 	var/time_created = 0
 	var/last_seen_time = 0
 
-/mob/living/simple_animal/hostile/retaliate/nanotrasenpeace/vampire/Initialize()
+/mob/living/simple_animal/hostile/retaliate/nanotrasenpeace/vampire/Initialize(mapload)
 	. = ..()
 	time_created = world.time
 	if(prob(10))

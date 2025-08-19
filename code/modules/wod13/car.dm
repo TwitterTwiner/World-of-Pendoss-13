@@ -56,7 +56,7 @@ SUBSYSTEM_DEF(carpool)
 
 /obj/item/gas_can/rand
 
-/obj/item/gas_can/rand/Initialize()
+/obj/item/gas_can/rand/Initialize(mapload)
 	. = ..()
 	stored_gasoline = rand(0, 500)
 
@@ -677,7 +677,7 @@ SUBSYSTEM_DEF(carpool)
 /obj/vampire_car/retro/rand
 	icon_state = "3"
 
-/obj/vampire_car/retro/rand/Initialize()
+/obj/vampire_car/retro/rand/Initialize(mapload)
 	icon_state = "[pick(1, 3, 5)]"
 	if(access == "none")
 		access = "npc[rand(1, 20)]"
@@ -687,7 +687,7 @@ SUBSYSTEM_DEF(carpool)
 	icon_state = "4"
 	dir = WEST
 
-/obj/vampire_car/rand/Initialize()
+/obj/vampire_car/rand/Initialize(mapload)
 	icon_state = "[pick(2, 4, 6)]"
 	if(access == "none")
 		access = "npc[rand(1, 20)]"
@@ -765,7 +765,7 @@ SUBSYSTEM_DEF(carpool)
 	delivery_capacity = 15
 	component_type = /datum/component/storage/concrete/vtm/car/track
 
-/obj/vampire_car/track/Initialize()
+/obj/vampire_car/track/Initialize(mapload)
 	if(access == "none")
 		access = "npc[rand(1, 20)]"
 	..()
@@ -850,7 +850,7 @@ SUBSYSTEM_DEF(carpool)
 	var/impact_delay = 0
 	glide_size = 96
 
-/obj/vampire_car/Initialize()
+/obj/vampire_car/Initialize(mapload)
 	. = ..()
 	CarImage = image(icon = src.icon, icon_state = src.icon_state, pixel_x = -32, pixel_y = -32)
 	CarImage.appearance_flags = KEEP_TOGETHER
@@ -894,7 +894,7 @@ SUBSYSTEM_DEF(carpool)
 	if(density)
 		unpassable += src
 
-/atom/movable/Initialize()
+/atom/movable/Initialize(mapload)
 	. = ..()
 	if(density && !isitem(src))
 		if(isturf(get_turf(src)))

@@ -27,7 +27,7 @@
 	. = ..()
 	adjust_totem_health(round(P.damage/2))
 
-/obj/structure/werewolf_totem/Initialize()
+/obj/structure/werewolf_totem/Initialize(mapload)
 	. = ..()
 	for(var/obj/effect/landmark/teleport_mark/T in GLOB.landmarks_list)
 		if(T.tribe == tribe)

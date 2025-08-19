@@ -6,7 +6,7 @@
 	var/overlay_state = "cover_blue"
 	var/mutable_appearance/overlay
 
-/obj/vehicle/ridden/speedbike/Initialize()
+/obj/vehicle/ridden/speedbike/Initialize(mapload)
 	. = ..()
 	overlay = mutable_appearance(icon, overlay_state, ABOVE_MOB_LAYER)
 	add_overlay(overlay)
@@ -35,7 +35,7 @@
 	pixel_y = -48
 	pixel_x = -48
 
-/obj/vehicle/ridden/speedwagon/Initialize()
+/obj/vehicle/ridden/speedwagon/Initialize(mapload)
 	. = ..()
 	add_overlay(overlay)
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/speedwagon)

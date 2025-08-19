@@ -157,7 +157,7 @@
 	var/friendc = FALSE      // track if Friend Computer mode
 	var/last_picture  // For when Friend Computer mode is undone
 
-/obj/machinery/status_display/evac/Initialize()
+/obj/machinery/status_display/evac/Initialize(mapload)
 	. = ..()
 	// register for radio system
 	SSradio.add_object(src, frequency)
@@ -322,7 +322,7 @@
 		AI_EMOTION_RED_GLOW = "ai_hal",
 	)
 
-/obj/machinery/status_display/ai/Initialize()
+/obj/machinery/status_display/ai/Initialize(mapload)
 	. = ..()
 	GLOB.ai_status_displays.Add(src)
 

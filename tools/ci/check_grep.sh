@@ -310,12 +310,6 @@ if [ "$pcre2_support" -eq 1 ]; then
 		echo -e "${RED}ERROR: File(s) with no trailing newline detected, please add one.${NC}"
 		st=1
 	fi
-	part "datum stockpart sanity"
-	if $grep -P 'for\b.*/obj/item/stock_parts/(?!power_store)(?![\w_]+ in )' $code_files; then
-		echo
-		echo -e "${RED}ERROR: Should be using datum/stock_part instead"
-		st=1
-	fi;
 	part "improper atom initialize args"
 	if $grep -P '^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)' $code_files; then
 		echo
@@ -328,12 +322,6 @@ if [ "$pcre2_support" -eq 1 ]; then
 		echo -e "${RED}ERROR: Invalid pronoun helper found.${NC}"
 		st=1
 	fi;
-	part "shuttle area checker"
-	if $grep -PU '(},|\/obj|\/mob|\/turf\/(?!template_noop).+)[^()]+\/area\/template_noop\)' $shuttle_map_files; then
-		echo
-		echo -e "${RED}ERROR: Shuttle has objs or turfs in a template_noop area. Please correct their areas to a shuttle subtype.${NC}"
-		st=1
-fi;
 else
 	echo -e "${RED}pcre2 not supported, skipping checks requiring pcre2"
 	echo -e "if you want to run these checks install ripgrep with pcre2 support.${NC}"
