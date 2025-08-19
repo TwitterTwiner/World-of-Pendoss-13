@@ -241,4 +241,3 @@
 	return total
 
 #undef BEACON_COST
-#undef MAX_EMAG_ROCKETS
