@@ -154,5 +154,5 @@
 /mob/living/simple_animal/hostile/gorilla/regenerate_icons()
 	update_inv_hands()
 
-
+#undef GORILLA_HANDS_LAYER
 #undef GORILLA_TOTAL_LAYERS
