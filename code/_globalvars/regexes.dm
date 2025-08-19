@@ -8,3 +8,7 @@ GLOBAL_DATUM_INIT(is_punctuation, /regex, regex("\[.!?]+", "i"))
 
 //finds text strings recognized as links on discord. Mainly used to stop embedding.
 GLOBAL_DATUM_INIT(has_discord_embeddable_links, /regex, regex("(https?://\[^\\s|<\]{2,})"))
+
+//All characters forbidden by filenames: ", \, \n, \t, /, ?, %, *, :, |, <, >, ..
+GLOBAL_DATUM_INIT(filename_forbidden_chars, /regex, regex(@{""|[\\\n\t/?%*:|<>]|\.\."}, "g"))
+GLOBAL_PROTECT(filename_forbidden_chars)
