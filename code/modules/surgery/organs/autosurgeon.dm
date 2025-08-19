@@ -230,3 +230,5 @@
 	desc = "A single use autosurgeon that contains a Syndicate skillchip. A screwdriver can be used to remove it, but skillchips can't be placed back in."
 	uses = 1
 	starting_skillchip = /obj/item/skillchip/chameleon
+
+#undef INFINITE

@@ -188,6 +188,17 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	update_icon()
 	set_power()
 
+/obj/machinery/gravity_generator/main/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	on = FALSE
+	update_list()
+
+/obj/machinery/gravity_generator/main/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+	. = ..()
+	if(charge_count != 0 && charging_state != POWER_UP)
+		on = TRUE
+	update_list()
+
 // Interaction
 
 // Fixing the gravity generator.
@@ -419,5 +430,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 #undef GRAV_NEEDS_SCREWDRIVER
 #undef GRAV_NEEDS_WELDING
 #undef GRAV_NEEDS_WRENCH
+#undef POWER_UP
 #undef POWER_DOWN
 #undef POWER_IDLE

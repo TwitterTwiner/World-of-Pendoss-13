@@ -19,5 +19,6 @@
 
 #undef MULTIPLE_SYLLABLE
 #undef PRE_TITLE
+#undef TITLE
 #undef SUFFIX
 #undef SYLLABLE

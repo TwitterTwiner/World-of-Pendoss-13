@@ -4,3 +4,4 @@
 #define MINOR_RULESET      8
 
 #define RULESET_STOP_PROCESSING 1
+#define ABDUCTOR_MAX_TEAMS 4

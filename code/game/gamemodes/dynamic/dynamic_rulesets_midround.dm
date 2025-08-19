@@ -557,7 +557,6 @@
 //           ABDUCTORS    (GHOST)           //
 //                                          //
 //////////////////////////////////////////////
-#define ABDUCTOR_MAX_TEAMS 4
 
 /datum/dynamic_ruleset/midround/from_ghosts/abductors
 	name = "Abductors"
@@ -587,8 +586,6 @@
 	else // Our second guy is the agent, team is already created, don't need to make another one.
 		var/datum/antagonist/abductor/agent/new_role = new
 		new_character.mind.add_antag_datum(new_role, new_team)
-
-#undef ABDUCTOR_MAX_TEAMS
 
 //////////////////////////////////////////////
 //                                          //

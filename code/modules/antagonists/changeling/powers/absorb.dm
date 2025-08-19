@@ -1,3 +1,5 @@
+#define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
+
 /datum/action/changeling/absorb_dna
 	name = "Absorb DNA"
 	desc = "Absorb the DNA of our victim. Requires us to strangle them."
@@ -145,3 +147,5 @@
 	target.death(0)
 	target.Drain()
 	return TRUE
+
+#undef LING_ABSORB_RECENT_SPEECH

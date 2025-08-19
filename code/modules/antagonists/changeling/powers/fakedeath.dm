@@ -1,4 +1,6 @@
-/datum/action/changeling/fakedeath
+#define LING_FAKEDEATH_TIME					400 //40 seconds
+
+datum/action/changeling/fakedeath
 	name = "Reviving Stasis"
 	desc = "We fall into a stasis, allowing us to regenerate and trick our enemies. Costs 15 chemicals."
 	button_icon_state = "fake_death"
@@ -67,3 +69,5 @@
 			if("No")
 				return
 	return ..()
+
+#undef LING_FAKEDEATH_TIME
