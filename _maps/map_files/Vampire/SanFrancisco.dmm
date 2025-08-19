@@ -30023,7 +30023,7 @@
 "fEf" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -31298,7 +31298,7 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -35935,7 +35935,7 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -43374,7 +43374,7 @@
 "mwB" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -46237,7 +46237,7 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -46445,7 +46445,7 @@
 /obj/item/clothing/head/vampire/top,
 /obj/item/clothing/mask/vampire/balaclava,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
@@ -51263,7 +51263,7 @@
 	name = "sheriff's tactical helmet"
 	},
 /obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	max_integrity = 1000;
 	name = "Armored trenchcoat"
 	},
@@ -57870,7 +57870,7 @@
 /obj/item/stack/dollar/twohundredfifty,
 /obj/item/stack/dollar/twohundredfifty,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
@@ -57933,7 +57933,7 @@
 /obj/item/clothing/under/vampire/graveyard,
 /obj/item/clothing/gloves/vampire/work,
 /obj/item/clothing/suit/vampire/trench{
-	armor = list("bashing" = 3 "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
+	armor = list("bashing" = 3, "lethal" = 4, "aggravated" = 1,"melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
 	name = "Armored trenchcoat";
 	max_integrity = 1000
 	},
