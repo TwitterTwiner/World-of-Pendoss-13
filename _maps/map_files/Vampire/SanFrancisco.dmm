@@ -13277,7 +13277,7 @@
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/prince)
 "aZS" = (
-/obj/structure/delivery_reciever/store9{
+/obj/structure/delivery_receiver/store9{
 	chute_name = "Dora Strip Club - Pacific Heights"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -23921,7 +23921,7 @@
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "csA" = (
-/obj/structure/delivery_reciever/store12{
+/obj/structure/delivery_receiver/store12{
 	chute_name = "Clinic - Union Square"
 	},
 /turf/open/floor/plating/sidewalk/rich,
@@ -24415,7 +24415,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special7,
+/obj/structure/delivery_receiver/special7,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "cHa" = (
@@ -27866,7 +27866,7 @@
 /turf/open/floor/plating/shit,
 /area/vtm/fishermanswharf)
 "ewL" = (
-/obj/structure/delivery_reciever/special5{
+/obj/structure/delivery_receiver/special5{
 	chute_name = "Police Station - Ghetto"
 	},
 /turf/open/floor/plating/sidewalk/poor,
@@ -30044,7 +30044,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/vtm/interior)
 "fEJ" = (
-/obj/structure/delivery_reciever/store18{
+/obj/structure/delivery_receiver/store18{
 	chute_name = "Lawyer Costumes Store - Union Square"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -31364,7 +31364,7 @@
 /obj/american_flag{
 	pixel_y = 32
 	},
-/obj/structure/delivery_reciever/store8{
+/obj/structure/delivery_receiver/store8{
 	chute_name = "Big Time Arms Store - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -31398,7 +31398,7 @@
 /turf/closed/wall/vampwall/brick/low,
 /area/vtm/supply)
 "gmk" = (
-/obj/structure/delivery_reciever/store6{
+/obj/structure/delivery_receiver/store6{
 	chute_name = "Gumma Guts - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -32952,7 +32952,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/vtm/prince)
 "hbj" = (
-/obj/structure/delivery_reciever/store11{
+/obj/structure/delivery_receiver/store11{
 	chute_name = "Biker Bar - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -33612,7 +33612,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/mansion)
 "hql" = (
-/obj/structure/delivery_reciever/store15{
+/obj/structure/delivery_receiver/store15{
 	chute_name = "Jeans Store - Union Square"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -37233,7 +37233,7 @@
 /turf/closed/wall/vampwall/market/low/window,
 /area/vtm/interior)
 "jcz" = (
-/obj/structure/delivery_reciever/store20,
+/obj/structure/delivery_receiver/store20,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "jcL" = (
@@ -37396,7 +37396,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special12,
+/obj/structure/delivery_receiver/special12,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/pacificheights)
 "jfZ" = (
@@ -39469,7 +39469,7 @@
 /turf/open/floor/plating/vampdirt,
 /area/vtm/anarch)
 "kql" = (
-/obj/structure/delivery_reciever/store3,
+/obj/structure/delivery_receiver/store3,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "kqm" = (
@@ -39752,7 +39752,7 @@
 /turf/open/floor/plating/bacotell,
 /area/vtm/interior/bianchiBank)
 "kxk" = (
-/obj/structure/delivery_reciever/store19,
+/obj/structure/delivery_receiver/store19,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/pacificheights)
 "kxz" = (
@@ -42603,7 +42603,7 @@
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/graveyard)
 "lZP" = (
-/obj/structure/delivery_reciever/store10{
+/obj/structure/delivery_receiver/store10{
 	chute_name = "Flower Shop - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk/old,
@@ -42728,7 +42728,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/church)
 "meh" = (
-/obj/structure/delivery_reciever/store2,
+/obj/structure/delivery_receiver/store2,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "meF" = (
@@ -43861,7 +43861,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/giovanni)
 "mMZ" = (
-/obj/structure/delivery_reciever/store13{
+/obj/structure/delivery_receiver/store13{
 	chute_name = "Abibas Store - Union Square"
 	},
 /turf/open/floor/plating/sidewalk/rich,
@@ -44196,7 +44196,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch)
 "mXX" = (
-/obj/structure/delivery_reciever/special2,
+/obj/structure/delivery_receiver/special2,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
 "mYa" = (
@@ -44593,7 +44593,7 @@
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "njT" = (
-/obj/structure/delivery_reciever/special6,
+/obj/structure/delivery_receiver/special6,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "nka" = (
@@ -45386,7 +45386,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/graveyard/interior)
 "nGU" = (
-/obj/structure/delivery_reciever/store7{
+/obj/structure/delivery_receiver/store7{
 	chute_name = "Pizzeria - Fisherman's Wharf"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -45605,7 +45605,7 @@
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/laundromat)
 "nML" = (
-/obj/structure/delivery_reciever/special3,
+/obj/structure/delivery_receiver/special3,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
 "nMN" = (
@@ -45894,7 +45894,7 @@
 /turf/open/floor/plating/asphalt,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "nUg" = (
-/obj/structure/delivery_reciever/special1,
+/obj/structure/delivery_receiver/special1,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
 "nUu" = (
@@ -49625,7 +49625,7 @@
 /obj/effect/decal/bordur{
 	dir = 1
 	},
-/obj/structure/delivery_reciever/special9,
+/obj/structure/delivery_receiver/special9,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "pRg" = (
@@ -49956,7 +49956,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special11,
+/obj/structure/delivery_receiver/special11,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "qaF" = (
@@ -56407,7 +56407,7 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm/pacificheights)
 "twt" = (
-/obj/structure/delivery_reciever/special10{
+/obj/structure/delivery_receiver/special10{
 	chute_name = "Church - Pacific Heights"
 	},
 /turf/open/floor/plating/sidewalk/old,
@@ -56423,7 +56423,7 @@
 /turf/open/floor/plasteel/dark,
 /area/vtm/forest)
 "twA" = (
-/obj/structure/delivery_reciever/store5,
+/obj/structure/delivery_receiver/store5,
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/pacificheights)
 "twD" = (
@@ -58542,7 +58542,7 @@
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/park)
 "uGa" = (
-/obj/structure/delivery_reciever/store14{
+/obj/structure/delivery_receiver/store14{
 	chute_name = "Flower Shop - Financial District"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -60226,7 +60226,7 @@
 /obj/effect/decal/bordur{
 	dir = 4
 	},
-/obj/structure/delivery_reciever/special8,
+/obj/structure/delivery_receiver/special8,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights)
 "vyh" = (
@@ -62541,7 +62541,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
 "wDz" = (
-/obj/structure/delivery_reciever/store1{
+/obj/structure/delivery_receiver/store1{
 	chute_name = "Nightwolf Tech Shop - Ghetto"
 	},
 /turf/open/floor/plating/sidewalk,
@@ -62740,7 +62740,7 @@
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/financialdistrict)
 "wIo" = (
-/obj/structure/delivery_reciever/store4{
+/obj/structure/delivery_receiver/store4{
 	chute_name = "Patriot Weapon Shop - Ghetto"
 	},
 /turf/open/floor/plating/sidewalk/poor,
@@ -62782,7 +62782,7 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/clinic)
 "wJU" = (
-/obj/structure/delivery_reciever/special4,
+/obj/structure/delivery_receiver/special4,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "wKb" = (
@@ -64233,7 +64233,7 @@
 /turf/open/floor/carpet/black,
 /area/vtm/interior)
 "xzu" = (
-/obj/structure/delivery_reciever/store17{
+/obj/structure/delivery_receiver/store17{
 	chute_name = "Hat Store - Union Square"
 	},
 /turf/open/floor/plating/sidewalk,
