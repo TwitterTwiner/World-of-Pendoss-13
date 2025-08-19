@@ -94,28 +94,25 @@
 
 /// Overrides for overlay creation
 /mob/living/carbon/create_thinking_indicator()
-	if(active_thinking_indicator || active_typing_indicator || stat != CONSCIOUS || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER))
+	if(stat != CONSCIOUS || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER))
 		return FALSE
-	active_thinking_indicator = mutable_appearance('icons/mob/talk.dmi', "default0", SAY_LAYER)
-	add_overlay(active_thinking_indicator)
+
+	var/mutable_appearance/say_overlay = mutable_appearance('icons/mob/talk.dmi', "default0", -SAY_LAYER)
+	overlays_standing[SAY_LAYER] = say_overlay
+	apply_overlay(SAY_LAYER)
 
 /mob/living/carbon/remove_thinking_indicator()
-	if(!active_thinking_indicator)
-		return FALSE
-	cut_overlay(active_thinking_indicator)
-	active_thinking_indicator = null
+	remove_overlay(SAY_LAYER)
 
 /mob/living/carbon/create_typing_indicator()
-	if(active_typing_indicator || active_thinking_indicator ||stat != CONSCIOUS || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER))
+	if(stat != CONSCIOUS || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER))
 		return FALSE
-	active_typing_indicator = mutable_appearance('icons/mob/talk.dmi', "default0", SAY_LAYER)
-	add_overlay(active_typing_indicator)
+	var/mutable_appearance/say_overlay = mutable_appearance('icons/mob/talk.dmi', "default0", -SAY_LAYER)
+	overlays_standing[SAY_LAYER] = say_overlay
+	apply_overlay(SAY_LAYER)
 
 /mob/living/carbon/remove_typing_indicator()
-	if(!active_typing_indicator)
-		return FALSE
-	cut_overlay(active_typing_indicator)
-	active_typing_indicator = null
+	remove_overlay(SAY_LAYER)
 
 /mob/living/carbon/remove_all_indicators()
 	REMOVE_TRAIT(src, TRAIT_THINKING_IN_CHARACTER, CURRENTLY_TYPING_TRAIT)

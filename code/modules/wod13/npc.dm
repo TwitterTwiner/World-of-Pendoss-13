@@ -251,7 +251,7 @@
 		"Блять... Сердце..."
 	)
 
-/mob/living/carbon/human/npc/proc/AssignSocialRole(datum/socialrole/S, dont_random = FALSE)
+/mob/living/carbon/human/npc/proc/AssignSocialRole(var/datum/socialrole/S, var/dont_random = FALSE)
 	if(!S)
 		return
 	attributes.randomize()
@@ -357,11 +357,11 @@
 	equipOutfit(O)
 	qdel(O)
 
-/mob/living/carbon/human/npc/proc/GetSayDelay(message)
+/mob/living/carbon/human/npc/proc/GetSayDelay(var/message)
 	var/delay = length_char(message)
 	return delay
 
-/mob/living/carbon/human/npc/proc/RealisticSay(message)
+/mob/living/carbon/human/npc/proc/RealisticSay(var/message)
 	walk(src,0)
 	if(!message)
 		return
@@ -372,15 +372,17 @@
 	is_talking = TRUE
 	var/delay = round(length_char(message)/2)
 	spawn(5)
-		ADD_TRAIT(src, TRAIT_THINKING_IN_CHARACTER, CURRENTLY_TYPING_TRAIT)
-		create_typing_indicator()
+		remove_overlay(SAY_LAYER)
+		var/mutable_appearance/say_overlay = mutable_appearance('icons/mob/talk.dmi', "default0", -SAY_LAYER)
+		overlays_standing[SAY_LAYER] = say_overlay
+		apply_overlay(SAY_LAYER)
 		spawn(max(1, delay))
 			if(stat != DEAD)
-				remove_all_indicators()
+				remove_overlay(SAY_LAYER)
 				say(message)
 				is_talking = FALSE
 
-/mob/living/carbon/human/npc/proc/Annoy(atom/source)
+/mob/living/carbon/human/npc/proc/Annoy(var/atom/source)
 	walk(src,0)
 	if(CheckMove())
 		return

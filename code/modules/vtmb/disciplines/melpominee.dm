@@ -37,7 +37,7 @@
 
 	if (CHAT_FILTER_CHECK(new_say))
 		to_chat(owner, span_warning("That message contained a word prohibited in IC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ic_chat'>\"[new_say]\"</span>"))
-		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, LOWER_TEXT(config.ic_filter_regex.match))
+		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, lowertext(config.ic_filter_regex.match))
 		return
 
 	target.say(message = new_say, forced = "melpominee 1")
@@ -55,7 +55,7 @@
 		if (!victim.is_face_visible())
 			masked = TRUE
 			base_difficulty += 2
-		if (victim.active_typing_indicator)
+		if (victim.overlays_standing[SAY_LAYER]) //ugly way to check for if the victim is currently typing
 			base_difficulty += 2
 
 	for (var/mob/living/hearer in (oviewers(7, target) - owner))
@@ -104,7 +104,7 @@
 	input_message = trim(copytext_char(sanitize(input_message), 1, MAX_MESSAGE_LEN))
 	if(CHAT_FILTER_CHECK(input_message))
 		to_chat(owner, span_warning("That message contained a word prohibited in IC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ic_chat'>\"[input_message]\"</span>"))
-		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, LOWER_TEXT(config.ic_filter_regex.match))
+		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, lowertext(config.ic_filter_regex.match))
 		return
 
 	var/language = owner.get_selected_language()
