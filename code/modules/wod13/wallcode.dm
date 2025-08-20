@@ -1176,7 +1176,7 @@
 /turf/open/floor/plating/vampocean
 	gender = PLURAL
 	name = "water"
-	icon = 'wotah.dmi'
+	icon = 'icons/turf/water.dmi'
 	icon_state = "0,0"
 	flags_1 = NONE
 	attachment_holes = FALSE
