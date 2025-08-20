@@ -1,7 +1,7 @@
 /obj/structure/punching_bag
 	name = "punching bag"
 	desc = "A punching bag. Can you get to speed level 4???"
-	icon = 'goon/icons/obj/fitness.dmi'
+	icon = 'icons/goon/obj/fitness.dmi'
 	icon_state = "punchingbag"
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
@@ -56,7 +56,7 @@
 		user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
 /obj/structure/weightmachine/stacklifter
-	icon = 'goon/icons/obj/fitness.dmi'
+	icon = 'icons/goon/obj/fitness.dmi'
 	icon_state = "fitnesslifter"
 	icon_state_inuse = "fitnesslifter2"
 
@@ -70,10 +70,10 @@
 		sleep(3)
 		animate(user, pixel_y = -4, time = 3)
 		sleep(3)
-		playsound(user, 'goon/sound/effects/spring.ogg', 60, TRUE)
+		playsound(user, 'sound/effects/spring.ogg', 60, TRUE)
 
 /obj/structure/weightmachine/weightlifter
-	icon = 'goon/icons/obj/fitness.dmi'
+	icon = 'icons/goon/obj/fitness.dmi'
 	icon_state = "fitnessweight"
 	icon_state_inuse = "fitnessweight-c"
 
@@ -88,7 +88,7 @@
 		for (var/innerReps = max(reps, 1), innerReps > 0, innerReps--)
 			sleep(3)
 			animate(user, pixel_y = (user.pixel_y == 3) ? 5 : 3, time = 3)
-		playsound(user, 'goon/sound/effects/spring.ogg', 60, TRUE)
+		playsound(user, 'sound/effects/spring.ogg', 60, TRUE)
 	sleep(3)
 	animate(user, pixel_y = 2, time = 3)
 	sleep(3)
