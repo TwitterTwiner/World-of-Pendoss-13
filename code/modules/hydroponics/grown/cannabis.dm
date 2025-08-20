@@ -10,7 +10,7 @@
 	potency = 20
 	growthstages = 1
 	instability = 40
-	growing_icon = 'icons/goon/obj/hydroponics.dmi'
+	growing_icon = 'icons/goon/hydroponics.dmi'
 	icon_grow = "cannabis-grow" // Uses one growth icons set for all the subtypes
 	icon_dead = "cannabis-dead" // Same for the dead icon
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
@@ -84,7 +84,7 @@
 
 /obj/item/food/grown/cannabis
 	seed = /obj/item/seeds/cannabis
-	icon = 'icons/goon/obj/hydroponics.dmi'
+	icon = 'icons/goon/hydroponics.dmi'
 	name = "cannabis leaf"
 	desc = "Recently legalized in most galaxies."
 	icon_state = "cannabis"

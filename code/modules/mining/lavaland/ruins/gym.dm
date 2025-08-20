@@ -1,7 +1,7 @@
 /obj/structure/punching_bag
 	name = "punching bag"
 	desc = "A punching bag. Can you get to speed level 4???"
-	icon = 'icons/goon/obj/fitness.dmi'
+	icon = 'icons/goon/fitness.dmi'
 	icon_state = "punchingbag"
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
@@ -56,7 +56,7 @@
 		user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
 /obj/structure/weightmachine/stacklifter
-	icon = 'icons/goon/obj/fitness.dmi'
+	icon = 'icons/goon/fitness.dmi'
 	icon_state = "fitnesslifter"
 	icon_state_inuse = "fitnesslifter2"
 
@@ -73,7 +73,7 @@
 		playsound(user, 'sound/effects/spring.ogg', 60, TRUE)
 
 /obj/structure/weightmachine/weightlifter
-	icon = 'icons/goon/obj/fitness.dmi'
+	icon = 'icons/goon/fitness.dmi'
 	icon_state = "fitnessweight"
 	icon_state_inuse = "fitnessweight-c"
 
