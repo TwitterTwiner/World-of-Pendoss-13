@@ -55,7 +55,7 @@
 		if (!victim.is_face_visible())
 			masked = TRUE
 			base_difficulty += 2
-		if (victim.overlays_standing[SAY_LAYER]) //ugly way to check for if the victim is currently typing
+		if (victim.active_typing_indicator) //ugly way to check for if the victim is currently typing
 			base_difficulty += 2
 
 	for (var/mob/living/hearer in (oviewers(7, target) - owner))
