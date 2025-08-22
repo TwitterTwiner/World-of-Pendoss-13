@@ -1033,6 +1033,9 @@
 //		if(LAZYLEN(mob_occupant.mind.objectives))
 //			mob_occupant.mind.objectives.Cut()
 		mob_occupant.mind.special_role = null
+		for(var/datum/data/record/r in GLOB.data_core.general)
+			if(r.fields["name"] == mob_occupant.name)
+				qdel(r)
 	else
 		crew_member["job"] = "N/A"
 
