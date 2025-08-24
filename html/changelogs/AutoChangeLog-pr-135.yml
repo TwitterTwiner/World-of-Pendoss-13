@@ -1,0 +1,4 @@
+author: "FeudeyTF"
+delete-after: True
+changes:
+  - rscadd: "Портировал скрипты для быстрого доступа к функциям файла сборки проекта"
