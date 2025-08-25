@@ -93,9 +93,9 @@
 	violates_masquerade = TRUE
 
 	cancelable = TRUE
-	toggled = TRUE
-	duration_length = 30 SECONDS
-	cooldown_length = 30 SECONDS
+	duration_length = 10 SECONDS
+	cooldown_length = 15 SECONDS
+	var/datum/martial_art/cowalker/style
 
 /datum/discipline_power/temporis/patience_of_the_norns/activate()
 	. = ..()
@@ -110,11 +110,14 @@
 	animate(owner, transform = tertiary_matrix, time = 1 SECONDS, loop = 0, ANIMATION_PARALLEL)
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(temporis_visual))
 	RegisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION, PROC_REF(celerity_explode))
+	style.teach(owner, make_temporaty = TRUE)
 
 /datum/discipline_power/temporis/patience_of_the_norns/deactivate()
 	. = ..()
+	style.remove(owner)
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
+
 
 /datum/discipline_power/temporis/patience_of_the_norns/proc/temporis_visual(datum/discipline_power/temporis/source, atom/newloc, dir)
 	SIGNAL_HANDLER
@@ -133,7 +136,7 @@
 	desc = "..."
 	anchored = 1
 
-/obj/effect/temporis/Initialize(mapload)
+/obj/effect/temporis/Initialize()
 	. = ..()
 	spawn(0.5 SECONDS)
 		qdel(src)
@@ -150,9 +153,8 @@
 	violates_masquerade = TRUE
 
 	cancelable = TRUE
-	toggled = TRUE
-	duration_length = 30 SECONDS
-	cooldown_length = 30 SECONDS
+	duration_length = 10 SECONDS
+	cooldown_length = 15 SECONDS
 
 /datum/discipline_power/temporis/clothos_gift/activate()
 	. = ..()
