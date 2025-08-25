@@ -141,8 +141,9 @@ GLOBAL_LIST_EMPTY(auspex_users)
 
 	level = 4
 
+	range = 50
 	toggled = TRUE
-	duration_length = 30 SECONDS
+//	duration_length = 30 SECONDS
 
 /datum/discipline_power/auspex/telepathy/proc/get_info(mob/target)
 	var/obj/item/organ/brain/brain = owner.getorganslot(ORGAN_SLOT_BRAIN)

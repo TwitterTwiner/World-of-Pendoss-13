@@ -199,10 +199,6 @@
 	var/is_shapeshifted = FALSE
 	var/proval = 0
 
-/datum/discipline_power/obfuscate/mask_of_a_thousand_faces/pre_activation_checks()
-	. = ..()
-	return is_seen_check()
-
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/activate()
 	. = ..()
 	var/choice = alert(owner, "What form do you wish to take?", name, "Yours", "Original","Someone Else's")
@@ -217,14 +213,14 @@
 	if(choice == "Someone Else's")
 		choose_impersonating()
 		shapeshift()
-
+/*
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
-
+*/
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/make_original()
 	initialize_original()
-	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_fleshcraft(owner), 6, FALSE)
+	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_empathy(owner), 6, owner)
 	var/list/vibori = list()
 	switch(roll)
 		if(-INFINITY to -1)
@@ -332,7 +328,7 @@
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/choose_impersonating()
 	initialize_original()
-	var/roll = secret_vampireroll(get_a_manipulation(owner)+get_a_performance(owner), 7, FALSE)
+	var/roll = secret_vampireroll(get_a_manipulation(owner)+get_a_performance(owner), 7, owner)
 	var/list/mob/living/carbon/human/potential_victims = list()
 	for(var/mob/living/carbon/human/adding_victim in oviewers(7, owner))
 		potential_victims += adding_victim
@@ -408,6 +404,8 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/initialize_origin
 	original_headshot = owner.headshot_link
 	original_gender = owner.gender
 
+	original_dna = new
+	owner.dna.copy_dna(original_dna)
 	impersonating_hairstyle = owner.hairstyle
 	impersonating_name = owner.real_name
 	impersonating_facialhair = owner.facial_hairstyle
@@ -455,7 +453,8 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_ori
 		is_shapeshifted = FALSE
 		owner.stealthy3 = 0
 	else
-		impersonating_dna.transfer_identity(destination = owner, superficial = TRUE)
+		if(impersonating_dna)
+			impersonating_dna.transfer_identity(destination = owner, superficial = TRUE)
 		owner.real_name = impersonating_name
 		owner.skin_tone = impersonating_skintone
 		owner.hairstyle = impersonating_hairstyle

@@ -138,14 +138,14 @@
 		choose_impersonating()
 		shapeshift()
 
-
+/*
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
-
+*/
 /datum/discipline_power/vicissitude/malleable_visage/proc/make_original()
 	initialize_original()
-	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_fleshcraft(owner), 6, FALSE)
+	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_fleshcraft(owner), 6, owner)
 	var/list/vibori = list()
 	switch(roll)
 		if(-INFINITY to -1)
@@ -252,7 +252,7 @@
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/choose_impersonating()
 	initialize_original()
-	var/roll = secret_vampireroll(get_a_perception(owner)+get_a_fleshcraft(owner), 8, FALSE)
+	var/roll = secret_vampireroll(get_a_perception(owner)+get_a_fleshcraft(owner), 8, owner)
 	var/list/mob/living/carbon/human/potential_victims = list()
 	for(var/mob/living/carbon/human/adding_victim in oviewers(7, owner))
 		potential_victims += adding_victim
