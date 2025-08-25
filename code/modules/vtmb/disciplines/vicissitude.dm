@@ -175,9 +175,10 @@
 			vibori += "Телосложение"
 	for()
 		Begin
+		var/vnesnost = input(owner, "Измени свою внешность. Нажми отмена, чтобы завершить", "Изменчивость") as null|anything in vibori
 		if(vnesnost)
 			vnesnost = null
-		var/vnesnost = input(owner, "Измени свою внешность. Нажми отмена, чтобы завершить", "Изменчивость") as null|anything in vibori
+			goto Begin
 		if(!vnesnost)
 			break
 		switch(vnesnost)
