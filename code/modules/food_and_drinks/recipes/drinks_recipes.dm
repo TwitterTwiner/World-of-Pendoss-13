@@ -239,3 +239,11 @@
 /datum/chemical_reaction/cream_soda
 	results = list(/datum/reagent/consumable/cream_soda = 4)
 	required_reagents = list(/datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/sodawater = 2, /datum/reagent/consumable/vanilla = 1)
+
+/datum/chemical_reaction/tea
+	results = list(/datum/reagent/consumable/tea = 3)
+	required_reagents = list(/datum/reagent/water = 2, /datum/reagent/toxin/teapowder = 1)
+
+/datum/chemical_reaction/coffee
+	results = list(/datum/reagent/consumable/coffee = 3)
+	required_reagents = list(/datum/reagent/water = 2, /datum/reagent/toxin/coffeepowder = 1)
