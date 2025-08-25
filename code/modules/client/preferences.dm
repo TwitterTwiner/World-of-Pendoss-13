@@ -1526,6 +1526,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(handle_upgrade(Intimidation, Intimidation * 3, 5))
 						Intimidation++
 
+				if("expression")
+					if(handle_upgrade(Expression, Expression * 3, 5))
+						Expression++
+
 				if("crafts")
 					if(handle_upgrade(Crafts, Crafts * 3, 5))
 						Crafts++
@@ -1545,6 +1549,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("security")
 					if(handle_upgrade(Security, Security * 3, 5))
 						Security++
+
+				if("performance")
+					if(handle_upgrade(Performance, Performance * 3, 5))
+						Performance++
+
+				if("fleshcraft")
+					if(handle_upgrade(Fleshcraft, Fleshcraft * 3, 5))
+						Fleshcraft++
 
 				if("finance")
 					if(handle_upgrade(Finance, Finance * 3, 5))
