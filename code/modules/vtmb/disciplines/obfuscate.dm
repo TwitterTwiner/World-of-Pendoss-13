@@ -247,8 +247,8 @@
 			vibori += "Цвет глаз"
 			vibori += "Телосложение"
 	for()
-		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
 		Begin
+		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
 		if(!vnesnost)
 			break
 		switch(vnesnost)

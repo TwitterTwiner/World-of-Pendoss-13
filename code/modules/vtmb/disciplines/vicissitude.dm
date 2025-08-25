@@ -172,8 +172,8 @@
 			vibori += "Цвет глаз"
 			vibori += "Телосложение"
 	for()
-		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
 		Begin
+		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
 		if(!vnesnost)
 			break
 		switch(vnesnost)
@@ -390,7 +390,8 @@
 		//Nosferatu, Cappadocians, Gargoyles, Kiasyd, etc. will revert instead of being indefinitely without their curse
 		if(original_alt_sprite)
 			addtimer(CALLBACK(src, PROC_REF(revert_to_cursed_form)), 5 MINUTES)
-		impersonating_dna.transfer_identity(destination = owner, superficial = TRUE)
+		if(impersonating_dna)
+			impersonating_dna.transfer_identity(destination = owner, superficial = TRUE)
 
 		owner.real_name = impersonating_name
 		owner.skin_tone = impersonating_skintone
@@ -536,7 +537,7 @@
 			if("Убрать")
 				remove_upgrade()
 	else
-		if(selected_upgrade)
+		if(length(selected_upgrade) > 0 )
 			remove_upgrade()
 		else
 			give_upgrade()
