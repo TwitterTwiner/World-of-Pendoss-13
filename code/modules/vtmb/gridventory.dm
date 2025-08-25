@@ -1120,3 +1120,7 @@ VENTORY!
 /obj/item/melee/vampirearms/sledgehammer
 	grid_width = 7 GRID_BOXES
 	grid_height = 1 GRID_BOXES
+
+#undef CHECK_BITFIELD
+#undef STORAGE_NO_EQUIPPED_ACCESS
+#undef STORAGE_NO_WORN_ACCESS
