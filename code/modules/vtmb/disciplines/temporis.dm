@@ -136,7 +136,7 @@
 	desc = "..."
 	anchored = 1
 
-/obj/effect/temporis/Initialize()
+/obj/effect/temporis/Initialize(mapload)
 	. = ..()
 	spawn(0.5 SECONDS)
 		qdel(src)
