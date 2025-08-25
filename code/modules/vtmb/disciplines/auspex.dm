@@ -198,9 +198,10 @@ GLOBAL_LIST_EMPTY(auspex_users)
 	var/bank_code = 0
 	var/clane_info = 0
 	var/mission = 0
-	for(var/datum/antagonist/A in target.mind.antag_datums)
-		if(A.objectives)
-			mission = 1
+	if(target.mind)
+		for(var/datum/antagonist/A in target.mind.antag_datums)
+			if(A.objectives)
+				mission = 1
 
 	if(info_class == "usual")
 		switch(info)
@@ -225,11 +226,11 @@ GLOBAL_LIST_EMPTY(auspex_users)
 				var/mob/living/carbon/human/target1 = target
 				if(target1.mind.enslaved_to)
 					return "Ты чувствуешь приятные чувства, чуть ли не любовь. Стекающая хладная, но все такая же вкусная жидкость стекает тебе в рот. "
-				else if(target1.Myself.Lover.owner)
+				else if(target1.Myself.Lover)
 					return "Ты ощущаешь любовь. Звонкое имя \"[target1.Myself.Lover.owner.true_real_name]\" звучит в твоем сердце снова и снова. Любовь, любовь... "
-				else if(target1.Myself.Friend.owner)
+				else if(target1.Myself.Friend)
 					return "Партнерство, дружба, братство - эти слова отзываются в твоем сердце наилучшим образом и не единожды. Ты ощущаешь, как сидишь в кампании друзей. Одна из имен тебе хорошо знакомо - \"[target1.Myself.Friend.owner.true_real_name]]\""
-				else if(target1.Myself.Enemy.owner)
+				else if(target1.Myself.Enemy)
 					return "Ненависть, страх, агрессия. Ты чувстваешь множество негативных эмоций в направлении некоторых особ. Ты ощущаешь, что твои враги повсюду. Они тебе мешают и ты помешаешь им. Однако одно из этих лиц находится прямо в этом городе. Ты прочувствовал всю ненависть к имени \"[target1.Myself.Enemy.owner.true_real_name]\""
 				else
 					return "Ты ощущаешь... Одиночество. Здесь нету кого ты бы мог ненавидить. Как и испытывать другие теплые чувства. Ты ощущаешь... Пустоту."
@@ -438,8 +439,10 @@ GLOBAL_LIST_EMPTY(auspex_users)
 	switch(vibor)
 		if("Сказать")
 			say_to(target)
+			return
 		if("Прочесть мысли")
 			get_info(target)
+			return
 
 //PSYCHIC PROJECTION
 /datum/discipline_power/auspex/psychic_projection
