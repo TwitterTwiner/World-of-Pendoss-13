@@ -134,9 +134,11 @@
 	if(choice == "Original")
 		make_original()
 		shapeshift()
+		return
 	if(choice == "Someone Else's")
 		choose_impersonating()
 		shapeshift()
+		return
 
 /*
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
@@ -173,7 +175,9 @@
 			vibori += "Телосложение"
 	for()
 		Begin
-		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
+		if(vnesnost)
+			vnesnost = null
+		var/vnesnost = input(owner, "Измени свою внешность. Нажми отмена, чтобы завершить", "Изменчивость") as null|anything in vibori
 		if(!vnesnost)
 			break
 		switch(vnesnost)
