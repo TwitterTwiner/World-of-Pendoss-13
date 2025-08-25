@@ -262,7 +262,7 @@
 					new_name = reject_bad_name(new_name)
 					if(new_name)
 						impersonating_name = new_name
-					goto Begin
+				goto Begin
 			if("Причёска")
 				var/hair = input(owner, "Измени свою причёску", "Изменчивость") as null|anything in list("Цвет", "Стиль")
 				var/new_hairstyle
