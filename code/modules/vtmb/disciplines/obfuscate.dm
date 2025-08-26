@@ -162,8 +162,6 @@
 	level = 3
 	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_SEE
 
-	toggled = TRUE
-
 	var/datum/dna/original_dna
 	var/original_name
 	var/original_skintone
