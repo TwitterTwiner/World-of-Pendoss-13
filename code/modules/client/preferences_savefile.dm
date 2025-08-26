@@ -412,12 +412,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["s_brawl"], Brawl)
 	READ_FILE(S["s_empathy"], Empathy)
 	READ_FILE(S["s_intimidation"], Intimidation)
+	READ_FILE(S["s_expression"], Expression)
 
 	READ_FILE(S["s_crafts"], Crafts)
 	READ_FILE(S["s_melee"], Melee)
 	READ_FILE(S["s_firearms"], Firearms)
 	READ_FILE(S["s_drive"], Drive)
 	READ_FILE(S["s_security"], Security)
+	READ_FILE(S["s_fleshcraft"], Fleshcraft)
 
 	READ_FILE(S["s_finance"], Finance)
 	READ_FILE(S["s_investigation"], Investigation)
@@ -793,12 +795,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["s_brawl"], Brawl)
 	WRITE_FILE(S["s_empathy"], Empathy)
 	WRITE_FILE(S["s_intimidation"], Intimidation)
+	WRITE_FILE(S["s_expression"], Expression)
 
 	WRITE_FILE(S["s_crafts"], Crafts)
 	WRITE_FILE(S["s_melee"], Melee)
 	WRITE_FILE(S["s_firearms"], Firearms)
 	WRITE_FILE(S["s_drive"], Drive)
 	WRITE_FILE(S["s_security"], Security)
+	WRITE_FILE(S["s_fleshcraft"], Fleshcraft)
 
 	WRITE_FILE(S["s_finance"], Finance)
 	WRITE_FILE(S["s_investigation"], Investigation)
