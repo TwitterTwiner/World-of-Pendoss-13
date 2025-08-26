@@ -138,11 +138,11 @@
 		choose_impersonating()
 		shapeshift()
 
-/*
+
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
-*/
+
 /datum/discipline_power/vicissitude/malleable_visage/proc/make_original()
 	initialize_original()
 	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_fleshcraft(owner), 6, owner)

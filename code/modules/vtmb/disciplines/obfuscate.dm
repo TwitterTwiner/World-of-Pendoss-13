@@ -213,11 +213,11 @@
 	if(choice == "Someone Else's")
 		choose_impersonating()
 		shapeshift()
-/*
+
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
-*/
+
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/make_original()
 	initialize_original()
 	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_empathy(owner), 6, owner)
@@ -256,6 +256,7 @@
 					new_name = reject_bad_name(new_name)
 					if(new_name)
 						impersonating_name = new_name
+						impersonating_alt_sprite_greyscale = 0
 				continue
 			if("Причёска")
 				var/hair = input(owner, "Измени свою причёску", "Затменение") as null|anything in list("Цвет", "Стиль")
@@ -362,6 +363,7 @@
 			if (victim.clane)
 				impersonating_alt_sprite = victim.clane.alt_sprite
 				impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
+
 		if(4 to INFINITY)
 			impersonating_dna = new
 			victim.dna.copy_dna(impersonating_dna)
