@@ -140,7 +140,6 @@
 		shapeshift()
 		return
 
-
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
