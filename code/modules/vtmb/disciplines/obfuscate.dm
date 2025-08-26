@@ -418,8 +418,6 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/initialize_origin
 	impersonating_body_mod = owner.base_body_mod
 	impersonating_gender = owner.gender
 	impersonating_headshot = owner.headshot_link
-	impersonating_alt_sprite = owner.clane.alt_sprite
-	impersonating_alt_sprite_greyscale = owner.clane.alt_sprite_greyscale
 
 datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_original = FALSE)
 	// secret_vampireroll
