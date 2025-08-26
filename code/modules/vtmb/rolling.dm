@@ -491,228 +491,224 @@ SUBSYSTEM_DEF(woddices)
 	check_flags = NONE
 	var/mob/living/carbon/human/host
 
-//<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-//			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+/datum/action/aboutme/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AboutMePanel", name)
+		ui.open()
 
+/datum/action/aboutme/ui_host(mob/user)
+	return host
+
+/datum/action/aboutme/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/action/aboutme/ui_data(mob/user)
+	var/list/data = list()
+	if(!host)
+		return data
+	data["name"] = host.real_name ? host.real_name : "Unknown"
+	if(host.mind)
+		if(iskindred(host))
+			if(host.clane)
+				data["affiliation"] = host.clane.name
+			else
+				data["affiliation"] = "caitiff"
+		else if(isgarou(host) || iswerewolf(host))
+			data["affiliation"] =  "garou"
+		else if(iscathayan(host))
+			data["affiliation"] = "kuei-jin"
+		else if(isghoul(host))
+			data["affiliation"] = "ghoul"
+		else
+			data["affiliation"] = "mortal"
+		if(host.mind.assigned_role)
+			data["role"] = host.mind.assigned_role
+		if(host.mind.special_role)
+			data["special_role"] = host.mind.special_role
+	var/list/memories = list()
+	if(iskindred(host) || isghoul(host))
+		if(host.vampire_faction == "Camarilla" || host.vampire_faction == "Anarchs" || host.vampire_faction == "Sabbat" || host.vampire_faction == "Giovanni" || host.vampire_faction == "Triad")
+			memories += "I belong to [host.vampire_faction] faction, I shouldn't disobey their rules."
+		if(host.generation)
+			memories += "I'm from [host.generation] generation."
+		var/masquerade_level = " followed the Masquerade Tradition perfectly."
+		switch(host.masquerade)
+			if(4)
+				masquerade_level = " broke the Masquerade rule once."
+			if(3)
+				masquerade_level = " made a couple of Masquerade breaches."
+			if(2)
+				masquerade_level = " provoked a moderate Masquerade breach."
+			if(1)
+				masquerade_level = " almost ruined the Masquerade."
+			if(0)
+				masquerade_level = "'m danger to the Masquerade and my own kind."
+		memories += "Camarilla thinks I[masquerade_level]"
+		var/humanity = "I'm out of my mind."
+		var/enlight = FALSE
+		if(host.clane)
+			if(host.clane.enlightenment)
+				enlight = TRUE
+		if(!enlight)
+			switch(host.humanity)
+				if(8 to 10)
+					humanity = "I'm saintly."
+				if(7)
+					humanity = "I feel as human as when I lived."
+				if(5 to 6)
+					humanity = "I'm feeling distant from my humanity."
+				if(4)
+					humanity = "I don't feel any compassion for the Kine anymore."
+				if(2 to 3)
+					humanity = "I feel hunger for BLOOD. My humanity is slipping away."
+				if(1)
+					humanity = "Blood. Feed. Hunger. It gnaws. Must FEED!"
+		else
+			switch(host.humanity)
+				if(8 to 10)
+					humanity = "I'm ENLIGHTENED, my BEAST and I are in complete harmony."
+				if(7)
+					humanity = "I've made great strides in co-existing with my beast."
+				if(5 to 6)
+					humanity = "I'm starting to learn how to share this unlife with my beast."
+				if(4)
+					humanity = "I'm still new to my path, but I'm learning."
+				if(2 to 3)
+					humanity = "I'm a complete novice to my path."
+				if(1)
+					humanity = "I'm losing control over my beast!"
+		memories += humanity
+	if(iskindred(host))
+		var/datum/phonecontact/clane_leader_contact = GLOB.important_contacts[host.clane.name]
+		if (!isnull(clane_leader_contact) && host.real_name != clane_leader_contact.name)
+			var/clane_leader_number = isnull(clane_leader_contact.number) ? "Unknown" : clane_leader_contact.number
+			memories += "My clane leader is [clane_leader_contact.name]. Their phone number is [clane_leader_number]."
+	if(iscathayan(host))
+		var/masquerade_level = "is clueless about my presence."
+		switch(host.masquerade)
+			if(4)
+				masquerade_level = "has some thoughts of awareness."
+			if(3)
+				masquerade_level = "is barely spotting the truth."
+			if(2)
+				masquerade_level = "is starting to know."
+			if(1)
+				masquerade_level = "knows me and my true nature."
+			if(0)
+				masquerade_level = "thinks I'm a monster and is hunting me."
+		memories += "West [masquerade_level]"
+		var/dharma = "I'm mindless carrion-eater!"
+		switch(host.mind.dharma?.level)
+			if(1)
+				dharma = "I have not proved my worthiness to exist as Kuei-jin..."
+			if(2 to 3)
+				dharma = "I'm only at the basics of my Dharma."
+			if(4 to 5)
+				dharma = "I'm so enlighted I can be a guru."
+			if(6)
+				dharma = "I have mastered the Dharma so far!"
+
+		memories += dharma
+		memories += "The [host.mind.dharma?.animated] Chi Energy helps me to stay alive..."
+		memories += "My P'o is [host.mind.dharma?.Po]"
+		memories += "Yin/Yang[host.max_yin_chi]/[host.max_yang_chi]"
+		memories += "Hun/P'o[host.mind.dharma?.Hun]/[host.max_demon_chi]"
+
+	var/list/attributes = list()
+	attributes += "Strength: [get_a_strength(host)]"
+	attributes += "Dexterity: [get_a_dexterity(host)]"
+	attributes += "Stamina: [get_a_stamina(host)]"
+	attributes += "Charisma: [get_a_charisma(host)]"
+	attributes += "Manipulation: [get_a_manipulation(host)]"
+	attributes += "Appearance: [get_a_appearance(host)]"
+	attributes += "Perception: [get_a_perception(host)]"
+	attributes += "Intelligence: [get_a_intelligence(host)]"
+	attributes += "Wits: [get_a_wits(host)]"
+
+	var/list/abilities = list()
+	abilities += "Alertness: [get_a_alertness(host)]"
+	abilities += "Athletics: [get_a_athletics(host)]"
+	abilities += "Brawl: [get_a_brawl(host)]"
+	abilities += "Empathy: [get_a_empathy(host)]"
+	abilities += "Intimidation: [get_a_intimidation(host)]"
+	abilities += "Crafts: [get_a_crafts(host)]"
+	abilities += "Melee: [get_a_melee(host)]"
+	abilities += "Firearms: [get_a_firearms(host)]"
+	abilities += "Drive: [get_a_drive(host)]"
+	abilities += "Security: [get_a_security(host)]"
+	abilities += "Finance: [get_a_finance(host)]"
+	abilities += "Investigation: [get_a_investigation(host)]"
+	abilities += "Medicine: [get_a_medicine(host)]"
+	abilities += "Linguistics: [get_a_linguistics(host)]"
+	abilities += "Occult: [get_a_occult(host)]"
+
+	if(host.Myself)
+		if(host.Myself.Friend)
+			if(host.Myself.Friend.owner)
+				memories += "My friend's name is [host.Myself.Friend.owner.true_real_name]."
+				if(host.Myself.Friend.phone_number)
+					memories += "Their number is [host.Myself.Friend.phone_number]."
+				if(host.Myself.Friend.friend_text)
+					memories += host.Myself.Friend.friend_text
+		if(host.Myself.Enemy)
+			if(host.Myself.Enemy.owner)
+				memories += "My nemesis is [host.Myself.Enemy.owner.true_real_name]!"
+				if(host.Myself.Enemy.enemy_text)
+					memories += "[host.Myself.Enemy.enemy_text]"
+		if(host.Myself.Lover)
+			if(host.Myself.Lover.owner)
+				memories += "I'm in love with [host.Myself.Lover.owner.true_real_name]."
+				if(host.Myself.Lover.phone_number)
+					memories += "Their number is [host.Myself.Lover.phone_number]."
+				if(host.Myself.Lover.lover_text)
+					memories += "[host.Myself.Lover.lover_text]"
+	if(length(host.knowscontacts) > 0)
+		memories += "I know some other of my kind in this city. Need to check my phone, there definetely should be:"
+		for(var/i in host.knowscontacts)
+			memories += "-[i] contact"
+	var/list/disciplines = list()
+	if(host.hud_used && (iskindred(host) || isghoul(host)))
+		for(var/datum/action/discipline/D in host.actions)
+			if(D)
+				if(D.discipline)
+					disciplines += "[D.discipline.name] [D.discipline.level] - [D.discipline.desc]"
+	var/obj/keypad/armory/K = find_keypad(/obj/keypad/armory)
+	if(K && (host.mind.assigned_role == "Prince" || host.mind.assigned_role == "Sheriff"))
+		memories += "The pincode for the armory keypad is: [K.pincode]"
+	var/obj/structure/vaultdoor/pincode/bank/bankdoor = find_door_pin(/obj/structure/vaultdoor/pincode/bank)
+	if(bankdoor && (host.mind.assigned_role == "Capo"))
+		memories += "The pincode for the bank vault is: [bankdoor.pincode]"
+	if(bankdoor && (host.mind.assigned_role == "La Squadra"))
+		if(prob(50))
+			memories += "The pincode for the bank vault is: [bankdoor.pincode]"
+		else
+			memories += "Unfortunately you don't know the vault code."
+	for(var/datum/vtm_bank_account/account in GLOB.bank_account_list)
+		if(host.bank_id == account.bank_id)
+			memories += "My bank account code is: [account.code]"
+			break
+	data["info"] = list(
+		list(
+			"name" = "Memories",
+			"tooltip" = "These are your memories. You received them at birth or during your life!",
+			"values" = memories
+		),
+		list("name" = "Disciplines", "tooltip" = "Your disciplines", "values" = disciplines),
+		list("name" = "Abilities", "tooltip" = "Your abilities", "values" = abilities),
+		list("name" = "Attributes", "tooltip" = "Your attributes", "values" = attributes)
+	)
+	return data
+
+/datum/action/aboutme/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
 
 /datum/action/aboutme/Trigger()
 	if(host)
-		var/dat = {"
-			<style type="text/css">
-
-			body {
-				background-color: #090909; color: white;
-			}
-			</style>
-			"}
-		dat += "<center><h2>Memories</h2><BR></center>"
-		dat += "[icon2html(getFlatIcon(host), host)]I am"
-		if(host.real_name)
-			dat += "[host.real_name],"
-		if(!host.real_name)
-			dat += "Unknown,"
-
-		if(host.mind)
-
-			if(iskindred(host))
-				if(host.clane)
-					dat += " the [host.clane.name]"
-				else
-					dat += " the caitiff"
-			else if(isgarou(host) || iswerewolf(host))
-				dat += " the garou"
-			else if(iscathayan(host))
-				dat += " the kuei-jin"
-			else if(isghoul(host))
-				dat += " the ghoul"
-			else
-				dat += " the mortal"
-
-		//	for(var/bloodbonds in )
-
-			if(host.mind.assigned_role)
-				if(host.mind.special_role)
-					dat += ", carrying the [host.mind.assigned_role] (<font color=red>[host.mind.special_role]</font>) role."
-				else
-					dat += ", carrying the [host.mind.assigned_role] role."
-			if(!host.mind.assigned_role)
-				dat += "."
-			dat += "<BR>"
-			if(host.mind.enslaved_to)
-				dat += "My Regnant is [host.mind.enslaved_to], I should obey their wants.<BR>"
-		if(host.mind.special_role)
-			for(var/datum/antagonist/A in host.mind.antag_datums)
-				if(A.objectives)
-					dat += "[printobjectives(A.objectives)]<BR>"
-		if(iskindred(host) || isghoul(host))
-			if(host.vampire_faction == "Camarilla" || host.vampire_faction == "Anarchs" || host.vampire_faction == "Sabbat" || host.vampire_faction == "Giovanni" || host.vampire_faction == "Triad")
-				dat += "I belong to [host.vampire_faction] faction, I shouldn't disobey their rules.<BR>"
-			if(host.generation)
-				dat += "I'm from [host.generation] generation.<BR>"
-			var/masquerade_level = " followed the Masquerade Tradition perfectly."
-			switch(host.masquerade)
-				if(4)
-					masquerade_level = " broke the Masquerade rule once."
-				if(3)
-					masquerade_level = " made a couple of Masquerade breaches."
-				if(2)
-					masquerade_level = " provoked a moderate Masquerade breach."
-				if(1)
-					masquerade_level = " almost ruined the Masquerade."
-				if(0)
-					masquerade_level = "'m danger to the Masquerade and my own kind."
-			dat += "Camarilla thinks I[masquerade_level]<BR>"
-			var/humanity = "I'm out of my mind."
-			var/enlight = FALSE
-			if(host.clane)
-				if(host.clane.enlightenment)
-					enlight = TRUE
-
-			if(!enlight)
-				switch(host.humanity)
-					if(8 to 10)
-						humanity = "I'm saintly."
-					if(7)
-						humanity = "I feel as human as when I lived."
-					if(5 to 6)
-						humanity = "I'm feeling distant from my humanity."
-					if(4)
-						humanity = "I don't feel any compassion for the Kine anymore."
-					if(2 to 3)
-						humanity = "I feel hunger for <b>BLOOD</b>. My humanity is slipping away."
-					if(1)
-						humanity = "Blood. Feed. Hunger. It gnaws. Must <b>FEED!</b>"
-
-			else
-				switch(host.humanity)
-					if(8 to 10)
-						humanity = "I'm <b>ENLIGHTENED</b>, my <b>BEAST</b> and I are in complete harmony."
-					if(7)
-						humanity = "I've made great strides in co-existing with my beast."
-					if(5 to 6)
-						humanity = "I'm starting to learn how to share this unlife with my beast."
-					if(4)
-						humanity = "I'm still new to my path, but I'm learning."
-					if(2 to 3)
-						humanity = "I'm a complete novice to my path."
-					if(1)
-						humanity = "I'm losing control over my beast!"
-
-			dat += "[humanity]<BR>"
-
-		if(iskindred(host))
-			var/datum/phonecontact/clane_leader_contact = GLOB.important_contacts[host.clane.name]
-			if (!isnull(clane_leader_contact) && host.real_name != clane_leader_contact.name)
-				var/clane_leader_number = isnull(clane_leader_contact.number) ? "unknown" : clane_leader_contact.number
-				dat += " My clane leader is [clane_leader_contact.name]. Their phone number is [clane_leader_number].<BR>"
-		if(iscathayan(host))
-			var/masquerade_level = " is clueless about my presence."
-			switch(host.masquerade)
-				if(4)
-					masquerade_level = " has some thoughts of awareness."
-				if(3)
-					masquerade_level = " is barely spotting the truth."
-				if(2)
-					masquerade_level = " is starting to know."
-				if(1)
-					masquerade_level = " knows me and my true nature."
-				if(0)
-					masquerade_level = " thinks I'm a monster and is hunting me."
-			dat += "West[masquerade_level]<BR>"
-			var/dharma = "I'm mindless carrion-eater!"
-			switch(host.mind.dharma?.level)
-				if(1)
-					dharma = "I have not proved my worthiness to exist as Kuei-jin..."
-				if(2 to 3)
-					dharma = "I'm only at the basics of my Dharma."
-				if(4 to 5)
-					dharma = "I'm so enlighted I can be a guru."
-				if(6)
-					dharma = "I have mastered the Dharma so far!"
-
-			dat += "[dharma]<BR>"
-
-			dat += "The <b>[host.mind.dharma?.animated]</b> Chi Energy helps me to stay alive...<BR>"
-			dat += "My P'o is [host.mind.dharma?.Po]<BR>"
-			dat += "<b>Yin/Yang</b>[host.max_yin_chi]/[host.max_yang_chi]<BR>"
-			dat += "<b>Hun/P'o</b>[host.mind.dharma?.Hun]/[host.max_demon_chi]<BR>"
-
-		dat += "<b>Attributes</b><BR>"
-		dat += "Strength: [get_a_strength(host)]<BR>"
-		dat += "Dexterity: [get_a_dexterity(host)]<BR>"
-		dat += "Stamina: [get_a_stamina(host)]<BR>"
-		dat += "Charisma: [get_a_charisma(host)]<BR>"
-		dat += "Manipulation: [get_a_manipulation(host)]<BR>"
-		dat += "Appearance: [get_a_appearance(host)]<BR>"
-		dat += "Perception: [get_a_perception(host)]<BR>"
-		dat += "Intelligence: [get_a_intelligence(host)]<BR>"
-		dat += "Wits: [get_a_wits(host)]<BR>"
-		dat += "<b>Abilities</b><BR>"
-		dat += "Alertness: [get_a_alertness(host)]<BR>"
-		dat += "Athletics: [get_a_athletics(host)]<BR>"
-		dat += "Brawl: [get_a_brawl(host)]<BR>"
-		dat += "Empathy: [get_a_empathy(host)]<BR>"
-		dat += "Intimidation: [get_a_intimidation(host)]<BR>"
-		dat += "Crafts: [get_a_crafts(host)]<BR>"
-		dat += "Melee: [get_a_melee(host)]<BR>"
-		dat += "Firearms: [get_a_firearms(host)]<BR>"
-		dat += "Drive: [get_a_drive(host)]<BR>"
-		dat += "Security: [get_a_security(host)]<BR>"
-		dat += "Finance: [get_a_finance(host)]<BR>"
-		dat += "Investigation: [get_a_investigation(host)]<BR>"
-		dat += "Medicine: [get_a_medicine(host)]<BR>"
-		dat += "Linguistics: [get_a_linguistics(host)]<BR>"
-		dat += "Occult: [get_a_occult(host)]<BR>"
-
-
-		if(host.Myself)
-			if(host.Myself.Friend)
-				if(host.Myself.Friend.owner)
-					dat += "<b>My friend's name is [host.Myself.Friend.owner.true_real_name].</b><BR>"
-					if(host.Myself.Friend.phone_number)
-						dat += "Their number is [host.Myself.Friend.phone_number].<BR>"
-					if(host.Myself.Friend.friend_text)
-						dat += "[host.Myself.Friend.friend_text]<BR>"
-			if(host.Myself.Enemy)
-				if(host.Myself.Enemy.owner)
-					dat += "<b>My nemesis is [host.Myself.Enemy.owner.true_real_name]!</b><BR>"
-					if(host.Myself.Enemy.enemy_text)
-						dat += "[host.Myself.Enemy.enemy_text]<BR>"
-			if(host.Myself.Lover)
-				if(host.Myself.Lover.owner)
-					dat += "<b>I'm in love with [host.Myself.Lover.owner.true_real_name].</b><BR>"
-					if(host.Myself.Lover.phone_number)
-						dat += "Their number is [host.Myself.Lover.phone_number].<BR>"
-					if(host.Myself.Lover.lover_text)
-						dat += "[host.Myself.Lover.lover_text]<BR>"
-		if(length(host.knowscontacts) > 0)
-			dat += "<b>I know some other of my kind in this city. Need to check my phone, there definetely should be:</b><BR>"
-			for(var/i in host.knowscontacts)
-				dat += "-[i] contact<BR>"
-		if(host.hud_used && (iskindred(host) || isghoul(host)))
-			dat += "<b>Known disciplines:</b><BR>"
-			for(var/datum/action/discipline/D in host.actions)
-				if(D)
-					if(D.discipline)
-						dat += "[D.discipline.name] [D.discipline.level] - [D.discipline.desc]<BR>"
-		var/obj/keypad/armory/K = find_keypad(/obj/keypad/armory)
-		if(K && (host.mind.assigned_role == "Prince" || host.mind.assigned_role == "Sheriff"))
-			dat += "<b>The pincode for the armory keypad is: [K.pincode]</b><BR>"
-		var/obj/structure/vaultdoor/pincode/bank/bankdoor = find_door_pin(/obj/structure/vaultdoor/pincode/bank)
-		if(bankdoor && (host.mind.assigned_role == "Capo"))
-			dat += "<b>The pincode for the bank vault is: [bankdoor.pincode]</b><BR>"
-		if(bankdoor && (host.mind.assigned_role == "La Squadra"))
-			if(prob(50))
-				dat += "<b>The pincode for the bank vault is: [bankdoor.pincode]</b><BR>"
-			else
-				dat += "<b>Unfortunately you don't know the vault code.</b><BR>"
-		for(var/datum/vtm_bank_account/account in GLOB.bank_account_list)
-			if(host.bank_id == account.bank_id)
-				dat += "<b>My bank account code is: [account.code]</b><BR>"
-				break
-
-		host << browse(HTML_SKELETON(dat), "window=vampire;size=400x450;border=1;can_resize=1;can_minimize=0")
-		onclose(host, "vampire", src)
+		ui_interact(host)
+		return
 
 /mob/living/carbon/human
 	var/datum/morality_path/MyPath
