@@ -301,11 +301,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		Brawl = 0
 		Empathy = 0
 		Intimidation = 0
+		Expression = 0
 		Crafts = 0
 		Melee = 0
 		Firearms = 0
 		Drive = 0
 		Security = 0
+		Fleshcraft = 0
 		Finance = 0
 		Investigation = 0
 		Medicine = 0
@@ -2487,12 +2489,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.attributes.Brawl = Brawl
 	character.attributes.Empathy = Empathy
 	character.attributes.Intimidation = Intimidation
+	character.attributes.Expression = Expression
+	Expression
 
 	character.attributes.Crafts = Crafts
 	character.attributes.Melee = Melee
 	character.attributes.Firearms = Firearms
 	character.attributes.Drive = Drive
 	character.attributes.Security = Security
+	character.attributes.Fleshcraft = Fleshcraft
 
 	character.attributes.Finance = Finance
 	character.attributes.Investigation = Investigation
