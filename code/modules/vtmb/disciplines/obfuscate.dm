@@ -81,7 +81,7 @@
 		if (NPC.danger_source == owner)
 			NPC.danger_source = null
 
-	owner.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+level-20
+	owner.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+level
 	owner.alpha = 100
 	owner.obfuscate_level = level
 
@@ -132,7 +132,7 @@
 		if (NPC.danger_source == owner)
 			NPC.danger_source = null
 
-	owner.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+level-20
+	owner.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+level
 	owner.alpha = 100
 	owner.obfuscate_level = level
 
@@ -453,6 +453,7 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_ori
 		owner.headshot_link = original_headshot
 		is_shapeshifted = FALSE
 		owner.stealthy3 = 0
+		owner.switch_masquerade(owner)
 	else
 		if(impersonating_dna)
 			impersonating_dna.transfer_identity(destination = owner, superficial = TRUE)
@@ -468,6 +469,7 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_ori
 		owner.clane?.alt_sprite = impersonating_alt_sprite
 		owner.clane?.alt_sprite_greyscale = impersonating_alt_sprite_greyscale
 		is_shapeshifted = TRUE
+		owner.switch_masquerade(owner)
 
 		owner.stealthy3 = 1
 
@@ -497,7 +499,7 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_ori
 	for(var/mob/living/carbon/human/npc/NPC in GLOB.npc_list)
 		if (NPC.danger_source == owner)
 			NPC.danger_source = null
-	owner.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+level-20
+	owner.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+level
 	owner.alpha = 100
 	owner.obfuscate_level = level
 
@@ -532,7 +534,7 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_ori
 	for(var/mob/living/carbon/human/npc/NPC in GLOB.npc_list)
 		if (NPC.danger_source == owner)
 			NPC.danger_source = null
-	owner.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+level-20
+	owner.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+level
 	owner.alpha = 100
 	owner.obfuscate_level = level
 

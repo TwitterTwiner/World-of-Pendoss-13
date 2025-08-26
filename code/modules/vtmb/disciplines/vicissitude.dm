@@ -134,16 +134,15 @@
 	if(choice == "Original")
 		make_original()
 		shapeshift()
-		return
 	if(choice == "Someone Else's")
 		choose_impersonating()
 		shapeshift()
-		return
 
+/*
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
-
+*/
 /datum/discipline_power/vicissitude/malleable_visage/proc/make_original()
 	initialize_original()
 	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_fleshcraft(owner), 6, owner)
@@ -173,7 +172,8 @@
 			vibori += "Цвет глаз"
 			vibori += "Телосложение"
 	for()
-		var/vnesnost = input(owner, "Измени свою внешность. Нажми отмена, чтобы завершить", "Изменчивость") as null|anything in vibori
+		Begin
+		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
 		if(!vnesnost)
 			break
 		switch(vnesnost)
@@ -183,7 +183,7 @@
 					new_name = reject_bad_name(new_name)
 					if(new_name)
 						impersonating_name = new_name
-				continue
+				goto Begin
 			if("Причёска")
 				var/hair = input(owner, "Измени свою причёску", "Изменчивость") as null|anything in list("Цвет", "Стиль")
 				var/new_hairstyle
@@ -192,12 +192,12 @@
 						var/new_hair = input(owner, "Измени цвет своих волос:", "Изменчивость","#"+original_haircolor) as color|null
 						if(new_hair)
 							impersonating_haircolor = sanitize_hexcolor(new_hair)
-						continue
+						goto Begin
 					if("Стиль")
 						new_hairstyle = input(owner, "Измени стиль:", "Изменчивость")  as null|anything in GLOB.hairstyles_list
 						if(new_hairstyle)
 							impersonating_hairstyle = new_hairstyle
-						continue
+						goto Begin
 
 			if("Лицевая растительность")
 				var/new_facial_hairstyle
@@ -207,55 +207,49 @@
 						var/new_facial = input(owner, "Измени цвет волос:", "Изменчивость","#"+original_facialhaircolor) as color|null
 						if(new_facial)
 							impersonating_facialhaircolor = sanitize_hexcolor(new_facial)
-						continue
+						goto Begin
 					if("Стиль")
 						new_facial_hairstyle = input(owner, "Измени стиль:", "Изменчивость")  as null|anything in GLOB.facial_hairstyles_list
 						if(new_facial_hairstyle)
 							impersonating_facialhair = new_facial_hairstyle
-						continue
+						goto Begin
 			if("Видимый возраст")
 				var/new_age = input(owner, "Измени свой видимый возраст:\n([18]-[100])", "Изменчивость") as num|null
 				if(new_age)
 					impersonating_age = max(min( round(text2num(new_age)), 100), 18)
-				continue
+				goto Begin
 			if("Особенности голоса(voicetag)")
 				var/new_tag = input(owner, "Выбери тональность своего голоса", "Особенности голоса") as num|null
 				if(new_tag)
 					impresonating_phonevoicetag = length(GLOB.human_list)+max((min(round(text2num(new_tag)), 30)), -30)
-				continue
+				goto Begin
 
 			if("Кожа")
 				var/new_s_tone = input(owner, "Выбери цвет твоей кожи:", "Изменчивость")  as null|anything in GLOB.skin_tones
 				if(new_s_tone)
 					impersonating_skintone = new_s_tone
-				continue
+				goto Begin
 
 			if("Цвет глаз")
 				var/new_eyes = input(owner, "Измени цвет своих глаз:", "Изменчивость","#"+original_eyecolor) as color|null
 				if(new_eyes)
 					impersonating_eyecolor = sanitize_hexcolor(new_eyes)
-				continue
+				goto Begin
 			if("Телосложени")
-				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф", "Уродство")
+				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
+				if(!telo)
+					goto Begin
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
-						continue
+						goto Begin
 					if("Мезоморф")
 						impersonating_body_mod = ""
-						continue
+						goto Begin
 					if("Эктоморф")
 						impersonating_body_mod = "s"
-						continue
-					if("Уродство")
-						var/urod = input(owner, "Измени свои черти", "Изменчивость") as null|anything in list("Спина", "Лицо", "Основное тело")
-						switch(urod)
-							if("Спина")
-							if("Лицо")
-							if("Основное тело")
-						continue
-				if(!telo)
-					continue
+						goto Begin
+
 /datum/discipline_power/vicissitude/malleable_visage/proc/choose_impersonating()
 	initialize_original()
 	var/roll = secret_vampireroll(get_a_perception(owner)+get_a_fleshcraft(owner), 8, owner)
@@ -392,6 +386,7 @@
 		owner.age = original_age
 		owner.headshot_link = original_headshot
 		is_shapeshifted = FALSE
+		owner.switch_masquerade(owner)
 	else
 		//Nosferatu, Cappadocians, Gargoyles, Kiasyd, etc. will revert instead of being indefinitely without their curse
 		if(original_alt_sprite)
@@ -411,6 +406,7 @@
 		owner.clane?.alt_sprite = impersonating_alt_sprite
 		owner.clane?.alt_sprite_greyscale = impersonating_alt_sprite_greyscale
 		is_shapeshifted = TRUE
+		owner.switch_masquerade(owner)
 
 	owner.update_body()
 

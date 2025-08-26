@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 
 /datum/discipline_power/auspex/activate()
 	. = ..()
-	owner.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+20+maxlevel /// {T.WINER} - Временный фикс на +20, так как почему то си инвизибил лвл обфус меньше обфус инвизибл
+	owner.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+maxlevel /// {T.WINER} - Временный фикс на +20, так как почему то си инвизибил лвл обфус меньше обфус инвизибл
 
 /datum/discipline_power/auspex/deactivate()
 	. = ..()
