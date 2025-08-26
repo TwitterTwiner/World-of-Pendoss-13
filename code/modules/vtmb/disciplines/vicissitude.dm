@@ -236,8 +236,7 @@
 				continue
 			if("Телосложени")
 				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
-				if(!telo)
-					continue
+
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
@@ -248,6 +247,8 @@
 					if("Эктоморф")
 						impersonating_body_mod = "s"
 						continue
+				if(!telo)
+					continue
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/choose_impersonating()
 	initialize_original()

@@ -311,8 +311,7 @@
 				continue
 			if("Телосложени")
 				var/telo = input(owner, "Измени своё телосложение", "Затменение") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
-				if(!telo)
-					continue
+
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
@@ -323,7 +322,8 @@
 					if("Эктоморф")
 						impersonating_body_mod = "s"
 						continue
-
+				if(!telo)
+					continue
 
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/choose_impersonating()
