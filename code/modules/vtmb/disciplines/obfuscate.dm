@@ -162,6 +162,8 @@
 	level = 3
 	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_SEE
 
+	toggled = TRUE
+
 	var/datum/dna/original_dna
 	var/original_name
 	var/original_skintone
@@ -208,16 +210,14 @@
 	if(choice == "Original")
 		make_original()
 		shapeshift()
-		return
 	if(choice == "Someone Else's")
 		choose_impersonating()
 		shapeshift()
-		return
-
+/*
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
-
+*/
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/make_original()
 	initialize_original()
 	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_empathy(owner), 6, owner)
@@ -247,89 +247,88 @@
 			vibori += "Цвет глаз"
 			vibori += "Телосложение"
 	for()
-		var/vnesnost = input(owner, "Измени свою внешность", "Затемнение") as null|anything in vibori
+		Begin
+		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
 		if(!vnesnost)
 			break
 		switch(vnesnost)
 			if("Имя")
-				var/new_name = input(owner, "Измени свои основные черты лица:", "Затемнение")  as text|null
+				var/new_name = input(owner, "Измени свои основные черты лица:", "Изменчивость")  as text|null
 				if(new_name)
 					new_name = reject_bad_name(new_name)
 					if(new_name)
 						impersonating_name = new_name
-						impersonating_alt_sprite = null
-						impersonating_alt_sprite_greyscale = 0
-				continue
+				goto Begin
 			if("Причёска")
-				var/hair = input(owner, "Измени свою причёску", "Затемнение") as null|anything in list("Цвет", "Стиль")
+				var/hair = input(owner, "Измени свою причёску", "Изменчивость") as null|anything in list("Цвет", "Стиль")
 				var/new_hairstyle
 				switch(hair)
 					if("Цвет")
-						var/new_hair = input(owner, "Измени цвет своих волос:", "Затемнение","#"+original_haircolor) as color|null
+						var/new_hair = input(owner, "Измени цвет своих волос:", "Изменчивость","#"+original_haircolor) as color|null
 						if(new_hair)
 							impersonating_haircolor = sanitize_hexcolor(new_hair)
-						continue
+						goto Begin
 					if("Стиль")
-						new_hairstyle = input(owner, "Измени стиль:", "Затемнение")  as null|anything in GLOB.hairstyles_list
+						new_hairstyle = input(owner, "Измени стиль:", "Изменчивость")  as null|anything in GLOB.hairstyles_list
 						if(new_hairstyle)
 							impersonating_hairstyle = new_hairstyle
-						continue
+						goto Begin
 
 			if("Лицевая растительность")
 				var/new_facial_hairstyle
-				var/hair = input(owner, "Измени свою причёску", "Затемнение") as null|anything in list("Цвет", "Стиль")
+				var/hair = input(owner, "Измени свою причёску", "Изменчивость") as null|anything in list("Цвет", "Стиль")
 				switch(hair)
 					if("Цвет")
 						var/new_facial = input(owner, "Измени цвет волос:", "Изменчивость","#"+original_facialhaircolor) as color|null
 						if(new_facial)
 							impersonating_facialhaircolor = sanitize_hexcolor(new_facial)
-						continue
+						goto Begin
 					if("Стиль")
-						new_facial_hairstyle = input(owner, "Измени стиль:", "Затемнение")  as null|anything in GLOB.facial_hairstyles_list
+						new_facial_hairstyle = input(owner, "Измени стиль:", "Изменчивость")  as null|anything in GLOB.facial_hairstyles_list
 						if(new_facial_hairstyle)
 							impersonating_facialhair = new_facial_hairstyle
-						continue
+						goto Begin
 			if("Видимый возраст")
-				var/new_age = input(owner, "Измени свой видимый возраст:\n([18]-[100])", "Затемнение") as num|null
+				var/new_age = input(owner, "Измени свой видимый возраст:\n([18]-[100])", "Изменчивость") as num|null
 				if(new_age)
 					impersonating_age = max(min( round(text2num(new_age)), 100), 18)
-				continue
+				goto Begin
 			if("Особенности голоса(voicetag)")
 				var/new_tag = input(owner, "Выбери тональность своего голоса", "Особенности голоса") as num|null
 				if(new_tag)
 					impresonating_phonevoicetag = length(GLOB.human_list)+max((min(round(text2num(new_tag)), 30)), -30)
-				continue
+				goto Begin
 
 			if("Кожа")
-				var/new_s_tone = input(owner, "Выбери цвет твоей кожи:", "Затемнение")  as null|anything in GLOB.skin_tones
+				var/new_s_tone = input(owner, "Выбери цвет твоей кожи:", "Изменчивость")  as null|anything in GLOB.skin_tones
 				if(new_s_tone)
 					impersonating_skintone = new_s_tone
-				continue
+				goto Begin
 
 			if("Цвет глаз")
-				var/new_eyes = input(owner, "Измени цвет своих глаз:", "Затемнение","#"+original_eyecolor) as color|null
+				var/new_eyes = input(owner, "Измени цвет своих глаз:", "Изменчивость","#"+original_eyecolor) as color|null
 				if(new_eyes)
 					impersonating_eyecolor = sanitize_hexcolor(new_eyes)
-				continue
+				goto Begin
 			if("Телосложени")
-				var/telo = input(owner, "Измени своё телосложение", "Затемнение") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
+				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
+				if(!telo)
+					goto Begin
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
-						continue
+						goto Begin
 					if("Мезоморф")
 						impersonating_body_mod = ""
-						continue
+						goto Begin
 					if("Эктоморф")
 						impersonating_body_mod = "s"
-						continue
-				if(!telo)
-					continue
+						goto Begin
 
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/choose_impersonating()
 	initialize_original()
-	var/roll = secret_vampireroll(get_a_manipulation(owner)+get_a_performance(owner), 7, owner)
+	var/roll = secret_vampireroll(get_a_manipulation(owner)+get_a_empathy(owner), 7, owner)
 	var/list/mob/living/carbon/human/potential_victims = list()
 	for(var/mob/living/carbon/human/adding_victim in oviewers(7, owner))
 		potential_victims += adding_victim
@@ -350,8 +349,6 @@
 			impersonating_age = victim.age
 			impersonating_dna = new
 			owner.dna.copy_dna(impersonating_dna)
-			impersonating_alt_sprite = null
-			impersonating_alt_sprite_greyscale = 0
 
 		if(2 to 3)
 			impersonating_dna = new
@@ -363,12 +360,9 @@
 			impersonating_facialhaircolor = victim.facial_hair_color
 			impersonating_skintone = victim.skin_tone
 			impersonating_headshot = victim.headshot_link
-			if(victim.clane)
+			if (victim.clane)
 				impersonating_alt_sprite = victim.clane.alt_sprite
 				impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
-			else
-				impersonating_alt_sprite = null
-				impersonating_alt_sprite_greyscale = 0
 		if(4 to INFINITY)
 			impersonating_dna = new
 			victim.dna.copy_dna(impersonating_dna)
@@ -386,9 +380,6 @@
 			if (victim.clane)
 				impersonating_alt_sprite = victim.clane.alt_sprite
 				impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
-			else
-				impersonating_alt_sprite = null
-				impersonating_alt_sprite_greyscale = 0
 
 datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/initialize_original()
 	if(is_shapeshifted)
@@ -437,6 +428,7 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_ori
 		to_chat(owner, "У тебя появляются образы в голове! Тебе становится страшно от видений!")
 		owner.Stun(10 SECONDS)
 		owner.do_jitter_animation(10)
+		proval = 0
 		return
 
 	playsound(get_turf(owner), 'code/modules/wod13/sounds/thousand_faces.ogg', 100, TRUE, -6)
