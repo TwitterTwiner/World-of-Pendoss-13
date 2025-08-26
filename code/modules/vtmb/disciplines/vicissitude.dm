@@ -150,6 +150,7 @@
 			to_chat(owner, span_warning("Твоя плоть противится изменению! Тебя корежит изнутри!"))
 			owner.Stun(5 SECONDS)
 			owner.do_jitter_animation(10)
+			return
 		if(1)
 			vibori += "Имя"
 			vibori += "Причёска"
@@ -169,7 +170,7 @@
 			vibori += "Кожа"
 			vibori += "Цвет глаз"
 			vibori += "Телосложение"
-	//		vibori += "Пол"
+			vibori += "Пол"
 	for()
 
 		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
@@ -249,6 +250,18 @@
 						continue
 				if(!telo)
 					continue
+			if("Пол")
+				var/gender_bender = input(owner, "Измени свой пол", "Изменчивость") as null|anything in list("Мужской", "Женский")
+				switch(gender_bender)
+					if("Мужской")
+						impersonating_gender = MALE
+						continue
+					if("Женский")
+						impersonating_gender = MALE
+						continue
+				if(!gender_bender)
+					continue
+
 	shapeshift()
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/choose_impersonating()
@@ -408,6 +421,9 @@
 		owner.phonevoicetag = impresonating_phonevoicetag
 		owner.clane?.alt_sprite = impersonating_alt_sprite
 		owner.clane?.alt_sprite_greyscale = impersonating_alt_sprite_greyscale
+		owner.gender = impersonating_gender
+		owner.age = impersonating_age
+		owner.headshot_link = impersonating_headshot
 		is_shapeshifted = TRUE
 		owner.switch_masquerade(owner)
 

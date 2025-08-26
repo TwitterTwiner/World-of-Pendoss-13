@@ -222,9 +222,10 @@
 	var/list/vibori = list()
 	switch(roll)
 		if(-INFINITY to -1)
-			to_chat(owner, span_warning("Твоя плоть противится изменению! Тебя корежит изнутри!"))
+			to_chat(owner, span_warning("Твоя суть противится изменению! Тебя корежит изнутри!"))
 			owner.Stun(5 SECONDS)
 			owner.do_jitter_animation(10)
+			return
 		if(1)
 			vibori += "Имя"
 			vibori += "Причёска"
@@ -324,6 +325,18 @@
 						continue
 				if(!telo)
 					continue
+			if("Пол")
+				var/gender_bender = input(owner, "Измени свой пол", "Изменчивость") as null|anything in list("Мужской", "Женский")
+				switch(gender_bender)
+					if("Мужской")
+						impersonating_gender = MALE
+						continue
+					if("Женский")
+						impersonating_gender = MALE
+						continue
+				if(!gender_bender)
+					continue
+					
 	shapeshift()
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/choose_impersonating()
@@ -339,7 +352,7 @@
 	if(!victim)
 		return
 	switch(roll)
-		if(-INFINITY to 0)
+		if(-INFINITY to -1)
 			proval = 1
 			return
 		if(1)
@@ -469,6 +482,9 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_ori
 		owner.phonevoicetag = impresonating_phonevoicetag
 		owner.clane?.alt_sprite = impersonating_alt_sprite
 		owner.clane?.alt_sprite_greyscale = impersonating_alt_sprite_greyscale
+		owner.gender = impersonating_gender
+		owner.age = impersonating_age
+		owner.headshot_link = impersonating_headshot
 		is_shapeshifted = TRUE
 		owner.switch_masquerade(owner)
 
