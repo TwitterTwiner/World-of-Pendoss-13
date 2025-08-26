@@ -555,7 +555,7 @@
 	if(!do_after(user, 10 SECONDS))
 		return
 //	if(selected_upgrade && owner.generation > 7)
-	if(lenght(selected_upgrade) > 4)
+	if(length(selected_upgrade) > 4)
 		return
 	selected_upgrade += upgrade
 	ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
