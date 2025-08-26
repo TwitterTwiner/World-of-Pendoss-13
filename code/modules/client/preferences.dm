@@ -2490,7 +2490,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.attributes.Empathy = Empathy
 	character.attributes.Intimidation = Intimidation
 	character.attributes.Expression = Expression
-	Expression
 
 	character.attributes.Crafts = Crafts
 	character.attributes.Melee = Melee
