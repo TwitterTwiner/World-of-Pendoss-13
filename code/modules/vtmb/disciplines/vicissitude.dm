@@ -125,13 +125,13 @@
 
 /datum/discipline_power/vicissitude/malleable_visage/activate()
 	. = ..()
-	var/choice = alert(owner, "What form do you wish to take?", name, "Yours", "Original","Someone Else's")
+	var/choice = alert(owner, "What form do you wish to take?", name, "Yours", "New Appearance","Someone Else's")
 //	if(is_shapeshifted)
 
 	if(choice == "Yours")
 		deactivate()
 		return
-	if(choice == "Original")
+	if(choice == "New Appearance")
 		make_original()
 		shapeshift()
 	if(choice == "Someone Else's")
@@ -592,32 +592,35 @@
 	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 
 /datum/action/basic_vicissitude/proc/remove_upgrade()
+	var/razmer = length(selected_upgrade)
 	var/mob/living/carbon/human/user = owner
-	if(!selected_upgrade)
+	if(razmer < 1)
 		return
-	to_chat(user, span_notice("You begin surgically removing your enhancements..."))
-	if(!do_after(user, 10 SECONDS))
-		return
-	REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
-	switch(selected_upgrade)
-		if("Skin armor")
-			user.unique_body_sprite = null
-			user.skin_tone = original_skin_tone
-			user.hairstyle = original_hairstyle
-			user.base_body_mod = original_body_mod
-			user.physiology.armor.melee -= 20
-			user.physiology.armor.bullet -= 20
-		if("Centipede legs")
-			user.remove_overlay(PROTEAN_LAYER)
-			QDEL_NULL(upgrade_overlay)
-			user.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
-		if("Second pair of arms")
-			var/limbs = user.held_items.len
-			user.change_number_of_hands(limbs - 2)
-			user.remove_overlay(PROTEAN_LAYER)
-			QDEL_NULL(upgrade_overlay)
-		if("Leather wings")
-			user.dna.species.RemoveSpeciesFlight(user)
+	for(var/i, i<length(selected_upgrade), i++)
+
+		to_chat(user, span_notice("You begin surgically removing your enhancements..."))
+		if(!do_after(user, 10 SECONDS))
+			return
+		REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+		switch(selected_upgrade)
+			if("Skin armor")
+				user.unique_body_sprite = null
+				user.skin_tone = original_skin_tone
+				user.hairstyle = original_hairstyle
+				user.base_body_mod = original_body_mod
+				user.physiology.armor.melee -= 20
+				user.physiology.armor.bullet -= 20
+			if("Centipede legs")
+				user.remove_overlay(PROTEAN_LAYER)
+				QDEL_NULL(upgrade_overlay)
+				user.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
+			if("Second pair of arms")
+				var/limbs = user.held_items.len
+				user.change_number_of_hands(limbs - 2)
+				user.remove_overlay(PROTEAN_LAYER)
+				QDEL_NULL(upgrade_overlay)
+			if("Leather wings")
+				user.dna.species.RemoveSpeciesFlight(user)
 
 	user.do_jitter_animation(10)
 	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)

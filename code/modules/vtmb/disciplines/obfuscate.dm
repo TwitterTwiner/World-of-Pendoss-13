@@ -201,13 +201,13 @@
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/activate()
 	. = ..()
-	var/choice = alert(owner, "What form do you wish to take?", name, "Yours", "Original","Someone Else's")
+	var/choice = alert(owner, "What form do you wish to take?", name, "Yours", "New Appearance","Someone Else's")
 //	if(is_shapeshifted)
 
 	if(choice == "Yours")
 		deactivate()
 		return
-	if(choice == "Original")
+	if(choice == "New Appearance")
 		make_original()
 		shapeshift()
 	if(choice == "Someone Else's")
