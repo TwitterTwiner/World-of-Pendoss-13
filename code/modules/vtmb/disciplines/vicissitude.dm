@@ -555,8 +555,8 @@
 	if(!do_after(user, 10 SECONDS))
 		return
 //	if(selected_upgrade && owner.generation > 7)
-//	if(selected_upgrade)
-//		return
+	if(lenght(selected_upgrade) > 4)
+		return
 	selected_upgrade += upgrade
 	ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 	switch(upgrade)
@@ -570,6 +570,7 @@
 			user.base_body_mod = ""
 			user.physiology.armor.melee += 20
 			user.physiology.armor.bullet += 20
+			user.attributes.tzimisce_bonus = 2
 		if("Centipede legs")
 			user.remove_overlay(PROTEAN_LAYER)
 			upgrade_overlay = mutable_appearance('code/modules/wod13/64x64.dmi', "centipede", -PROTEAN_LAYER)
