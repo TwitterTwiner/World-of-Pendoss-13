@@ -146,7 +146,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 /datum/discipline_power/auspex/telepathy/proc/get_info(mob/target)
 	var/obj/item/organ/brain/brain = owner.getorganslot(ORGAN_SLOT_BRAIN)
 
-	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_intimidation(owner), get_a_willpower(target), owner)
+	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_intimidation(owner), max(get_a_wits(target), get_a_willpower(target)), owner)
 	if(roll <= -1)
 		to_chat(owner, "Ты чувствуешь необычное осознание свободы. ы мог ненавидить. Как и испытывать другие теплые чувства. Ты ощущаешь... Пустоту.")
 		if(brain)
@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 		if(1 to INFINITY)
 			for(var/i =0, i<roll, i++)
 				to_chat(owner, "<span class='warning'> Ты пробираешься в глубины разума [target.name]...</span>")
-				if(!do_after(owner, 5))
+				if(!do_after(owner, 5 SECONDS))
 					to_chat(owner, "Твой фокус исчез! Ты теряешь связь!")
 					break
 					return

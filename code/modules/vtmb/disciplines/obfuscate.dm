@@ -215,11 +215,11 @@
 		choose_impersonating()
 		shapeshift()
 		return
-/*
+
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
-*/
+
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/make_original()
 	initialize_original()
 	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_empathy(owner), 6, owner)
@@ -313,8 +313,6 @@
 				continue
 			if("Телосложени")
 				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
-				if(!telo)
-					continue
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
@@ -325,6 +323,8 @@
 					if("Эктоморф")
 						impersonating_body_mod = "s"
 						continue
+				if(!telo)
+					continue
 
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/choose_impersonating()
@@ -361,7 +361,7 @@
 			impersonating_facialhaircolor = victim.facial_hair_color
 			impersonating_skintone = victim.skin_tone
 			impersonating_headshot = victim.headshot_link
-			if (victim.clane)
+			if(victim.clane)
 				impersonating_alt_sprite = victim.clane.alt_sprite
 				impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
 		if(4 to INFINITY)

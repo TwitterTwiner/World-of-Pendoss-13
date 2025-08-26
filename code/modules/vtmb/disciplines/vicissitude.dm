@@ -140,11 +140,11 @@
 		shapeshift()
 		return
 
-/*
+
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
-*/
+
 /datum/discipline_power/vicissitude/malleable_visage/proc/make_original()
 	initialize_original()
 	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_fleshcraft(owner), 6, owner)
@@ -237,9 +237,7 @@
 					impersonating_eyecolor = sanitize_hexcolor(new_eyes)
 				continue
 			if("Телосложени")
-				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
-				if(!telo)
-					continue
+				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф", "Уродство")
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
@@ -250,7 +248,15 @@
 					if("Эктоморф")
 						impersonating_body_mod = "s"
 						continue
-
+					if("Уродство")
+						var/urod = input(owner, "Измени свои черти", "Изменчивость") as null|anything in list("Спина", "Лицо", "Основное тело")
+						switch(urod)
+							if("Спина")
+							if("Лицо")
+							if("Основное тело")
+						continue
+				if(!telo)
+					continue
 /datum/discipline_power/vicissitude/malleable_visage/proc/choose_impersonating()
 	initialize_original()
 	var/roll = secret_vampireroll(get_a_perception(owner)+get_a_fleshcraft(owner), 8, owner)
