@@ -596,7 +596,7 @@
 	var/mob/living/carbon/human/user = owner
 	if(razmer < 1)
 		return
-	for(var/i, i<length(selected_upgrade), i++)
+	for(razmer, razmer>0, razmer--)
 
 		to_chat(user, span_notice("You begin surgically removing your enhancements..."))
 		if(!do_after(user, 10 SECONDS))
