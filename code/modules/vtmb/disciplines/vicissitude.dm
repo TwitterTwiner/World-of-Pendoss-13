@@ -171,11 +171,10 @@
 			vibori += "Кожа"
 			vibori += "Цвет глаз"
 			vibori += "Телосложение"
+	//		vibori += "Пол"
 	for()
-		Begin
+
 		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
-		if(!vnesnost)
-			break
 		switch(vnesnost)
 			if("Имя")
 				var/new_name = input(owner, "Измени свои основные черты лица:", "Изменчивость")  as text|null
@@ -183,7 +182,7 @@
 					new_name = reject_bad_name(new_name)
 					if(new_name)
 						impersonating_name = new_name
-				goto Begin
+				continue
 			if("Причёска")
 				var/hair = input(owner, "Измени свою причёску", "Изменчивость") as null|anything in list("Цвет", "Стиль")
 				var/new_hairstyle
@@ -192,12 +191,12 @@
 						var/new_hair = input(owner, "Измени цвет своих волос:", "Изменчивость","#"+original_haircolor) as color|null
 						if(new_hair)
 							impersonating_haircolor = sanitize_hexcolor(new_hair)
-						goto Begin
+						continue
 					if("Стиль")
 						new_hairstyle = input(owner, "Измени стиль:", "Изменчивость")  as null|anything in GLOB.hairstyles_list
 						if(new_hairstyle)
 							impersonating_hairstyle = new_hairstyle
-						goto Begin
+						continue
 
 			if("Лицевая растительность")
 				var/new_facial_hairstyle
@@ -207,48 +206,48 @@
 						var/new_facial = input(owner, "Измени цвет волос:", "Изменчивость","#"+original_facialhaircolor) as color|null
 						if(new_facial)
 							impersonating_facialhaircolor = sanitize_hexcolor(new_facial)
-						goto Begin
+						continue
 					if("Стиль")
 						new_facial_hairstyle = input(owner, "Измени стиль:", "Изменчивость")  as null|anything in GLOB.facial_hairstyles_list
 						if(new_facial_hairstyle)
 							impersonating_facialhair = new_facial_hairstyle
-						goto Begin
+						continue
 			if("Видимый возраст")
 				var/new_age = input(owner, "Измени свой видимый возраст:\n([18]-[100])", "Изменчивость") as num|null
 				if(new_age)
 					impersonating_age = max(min( round(text2num(new_age)), 100), 18)
-				goto Begin
+				continue
 			if("Особенности голоса(voicetag)")
 				var/new_tag = input(owner, "Выбери тональность своего голоса", "Особенности голоса") as num|null
 				if(new_tag)
 					impresonating_phonevoicetag = length(GLOB.human_list)+max((min(round(text2num(new_tag)), 30)), -30)
-				goto Begin
+				continue
 
 			if("Кожа")
 				var/new_s_tone = input(owner, "Выбери цвет твоей кожи:", "Изменчивость")  as null|anything in GLOB.skin_tones
 				if(new_s_tone)
 					impersonating_skintone = new_s_tone
-				goto Begin
+				continue
 
 			if("Цвет глаз")
 				var/new_eyes = input(owner, "Измени цвет своих глаз:", "Изменчивость","#"+original_eyecolor) as color|null
 				if(new_eyes)
 					impersonating_eyecolor = sanitize_hexcolor(new_eyes)
-				goto Begin
+				continue
 			if("Телосложени")
 				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
 				if(!telo)
-					goto Begin
+					continue
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
-						goto Begin
+						continue
 					if("Мезоморф")
 						impersonating_body_mod = ""
-						goto Begin
+						continue
 					if("Эктоморф")
 						impersonating_body_mod = "s"
-						goto Begin
+						continue
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/choose_impersonating()
 	initialize_original()
