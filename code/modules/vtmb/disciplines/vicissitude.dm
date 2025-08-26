@@ -133,10 +133,8 @@
 		return
 	if(choice == "New Appearance")
 		make_original()
-		shapeshift()
 	if(choice == "Someone Else's")
 		choose_impersonating()
-		shapeshift()
 
 
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
@@ -175,6 +173,8 @@
 	for()
 
 		var/vnesnost = input(owner, "Измени свою внешность", "Изменчивость") as null|anything in vibori
+		if(!vnesnost)
+			break
 		switch(vnesnost)
 			if("Имя")
 				var/new_name = input(owner, "Измени свои основные черты лица:", "Изменчивость")  as text|null
@@ -249,6 +249,7 @@
 						continue
 				if(!telo)
 					continue
+	shapeshift()
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/choose_impersonating()
 	initialize_original()
@@ -305,6 +306,8 @@
 			if (victim.clane)
 				impersonating_alt_sprite = victim.clane.alt_sprite
 				impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
+
+	shapeshift()
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/initialize_original()
 	if(is_shapeshifted)
