@@ -707,7 +707,7 @@
 	dat += "Brawl: [build_attribute_score(Brawl, 5, 3, "brawl")]"
 	dat += "Empathy: [build_attribute_score(Empathy, 5, 3, "empathy")]"
 	dat += "Intimidation: [build_attribute_score(Intimidation, 5, 3, "intimidation")]"
-//	dat += "Expression: [build_attribute_score(Expression, 5, 3, "expression")]"
+	dat += "Expression: [build_attribute_score(Expression, 5, 3, "expression")]"
 	dat += "<b>SKILLS</b><BR>"
 	dat += "Crafts: [build_attribute_score(Crafts, 5, 3, "crafts")]"
 	dat += "Melee: [build_attribute_score(Melee, 5, 3, "melee")]"
