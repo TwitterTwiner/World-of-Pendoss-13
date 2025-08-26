@@ -110,7 +110,7 @@
 	animate(owner, transform = tertiary_matrix, time = 1 SECONDS, loop = 0, ANIMATION_PARALLEL)
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(temporis_visual))
 	RegisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION, PROC_REF(celerity_explode))
-	style.teach(owner, make_temporaty = TRUE)
+	style.teach(owner, make_temporary = TRUE)
 
 /datum/discipline_power/temporis/patience_of_the_norns/deactivate()
 	. = ..()
