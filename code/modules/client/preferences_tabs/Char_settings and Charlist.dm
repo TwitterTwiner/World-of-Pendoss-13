@@ -671,6 +671,9 @@
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=priorities;task=input'>Change Priorities</a><BR>"
 
+	var/datum/species/kindred/K = pref_species
+	var/datum/species/ghoul/G = pref_species
+
 	var/physical_priorities = get_freebie_points("Physical")
 	var/social_priorities = get_freebie_points("Social")
 	var/mental_priorities = get_freebie_points("Mental")
@@ -704,18 +707,24 @@
 	dat += "Brawl: [build_attribute_score(Brawl, 5, 3, "brawl")]"
 	dat += "Empathy: [build_attribute_score(Empathy, 5, 3, "empathy")]"
 	dat += "Intimidation: [build_attribute_score(Intimidation, 5, 3, "intimidation")]"
+	dat += "Expression: [build_attribute_score(Expression, 5, 3, "expression")]"
 	dat += "<b>SKILLS</b><BR>"
 	dat += "Crafts: [build_attribute_score(Crafts, 5, 3, "crafts")]"
 	dat += "Melee: [build_attribute_score(Melee, 5, 3, "melee")]"
 	dat += "Firearms: [build_attribute_score(Firearms, 5, 3, "firearms")]"
 	dat += "Drive: [build_attribute_score(Drive, 5, 3, "drive")]"
 	dat += "Security: [build_attribute_score(Security, 5, 3, "security")]"
+//	dat += "Performance: [build_attribute_score(Performance, 5, 3, "performance")]"
+	if(clane.name == "Tzimisce" || (clane.name == "Old Clan Tzimisce" && K.get_discipline("Vicissitude" )) || (pref_species.name == "Ghoul" && G.get_discipline("Vicissitude")) )
+		dat += "Fleshcraft: [build_attribute_score(Fleshcraft, 5, 3, "fleshcraft")]"
 	dat += "<b>KNOWLEDGES</b><BR>"
 	dat += "Finance: [build_attribute_score(Finance, 5, 3, "finance")]"
 	dat += "Investigation: [build_attribute_score(Investigation, 5, 3, "investigation")]"
 	dat += "Medicine: [build_attribute_score(Medicine, 5, 3, "medicine")]"
 	dat += "Linguistics: [build_attribute_score(Linguistics, 5, 3, "linguistics")]"
 	dat += "Occult: [build_attribute_score(Occult, 5, 3, "occult")]"
+	// if(clane.name == "Old Clan Tzimiscee" || (clane.name == "Tzimisce" && K.get_discipline("Koldunstvo" )) || (pref_species.name == "Ghoul" && G.get_discipline("Koldunstvo")) )
+	//	dat += "Koldun Sorcery: [build_attribute_score(Koldunt, 5, 3, "koldun")]"
 
 	if(CONFIG_GET(flag/roundstart_traits))
 		dat += "<center><h2>[make_font_cool("QUIRK SETUP")]</h2>"
