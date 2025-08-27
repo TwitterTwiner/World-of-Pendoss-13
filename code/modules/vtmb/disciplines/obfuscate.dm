@@ -395,7 +395,7 @@
 
 	shapeshift()
 
-datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/initialize_original()
+/datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/initialize_original()
 	if(is_shapeshifted)
 		return
 	if(original_dna && original_body_mod) //// ??
@@ -432,7 +432,7 @@ datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/initialize_origin
 	impersonating_gender = owner.gender
 	impersonating_headshot = owner.headshot_link
 
-datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_original = FALSE)
+/datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/shapeshift(to_original = FALSE)
 	// secret_vampireroll
 //	if(!impersonating_dna)
 //		return
