@@ -96,8 +96,6 @@
 		if(CheckEyewitness(src, src, 7, FALSE))
 			AdjustMasquerade(-1)
 	if(do_after(src, 30, target = target, timed_action_flags = NONE, progress = FALSE))
-		if(user.has_status_effect(/datum/status_effect/blood_of_potency))
-			user.remove_status_effect(/datum/status_effect/blood_of_potency)
 		if(!iscarbon(target))
 			if(istype(target, /mob/living/simple_animal/pet/rat))
 				if(MyPath)
@@ -154,14 +152,6 @@
 					client.images -= suckbar
 				qdel(suckbar)
 				return
-			if(clane.name == "Salubri Warrior" && (ishumanbasic(src) || isghoul(src))) //passes by if it's not a supernatural
-				if((!HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA)) && src.stat < SOFT_CRIT) //Needs to be KO'd to feed on
-					to_chat(src, span_warning("I HAVE NOT BESTED THIS ONE IN COMBAT!! I FEED ON WARRIORS, NOT CATTLE!!"))
-					stop_sound_channel(CHANNEL_BLOOD)
-					if(client)
-						client.images -= suckbar
-					qdel(suckbar)
-					return
 		if(iskindred(target))
 			to_chat(src, "<span class='userlove'>[target]'s blood tastes HEAVENLY...</span>")
 			adjustBruteLoss(-25, TRUE)
@@ -186,6 +176,7 @@
 					if(alert("Ты ДЕЙСТВИТЕЛЬНО хочешь высосать душу?",,"Да","Нет")=="Да")
 						user.Immobilize(80 SECONDS, TRUE)
 						attributes.stamina_bonus = -2
+						ADD_TRAIT(K, BEING_DIABLERIE, TRAIT_GENERIC)
 				//	if(diablerist || P.generation > P2.generation+2)
 						if(diablerist)
 							modifikator_diab = 1
@@ -202,6 +193,7 @@
 									to_chat(user, "<span class='warning'>Ты чувствуешь, как душа [target] слабеет...</span>")
 							else
 								to_chat(user, "<span class='warning'><b> ДУША УСКОЛЬЗНУЛА С ТВОИХ УСТ!!! </b></span>")
+								REMOVE_TRAIT(K, BEING_DIABLERIE, TRAIT_GENERIC)
 								return
 						if(L == 7)
 							switch(uspeh)
