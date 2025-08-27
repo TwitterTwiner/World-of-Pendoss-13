@@ -244,8 +244,7 @@
 	results = list(/datum/reagent/consumable/tea = 3)
 	required_reagents = list(/datum/reagent/water = 2, /datum/reagent/toxin/teapowder = 1)
 
-
-
 /datum/chemical_reaction/coffee
 	results = list(/datum/reagent/consumable/coffee = 3)
 	required_reagents = list(/datum/reagent/water = 2, /datum/reagent/toxin/coffeepowder = 1)
+
