@@ -252,16 +252,24 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/Intelligence = 1
 	var/Wits = 1
 
+/////TALENTS
 	var/Alertness = 0
 	var/Athletics = 0
 	var/Brawl = 0
 	var/Empathy = 0
 	var/Intimidation = 0
+	var/Expression = 0
+
+////// SKILLS
 	var/Crafts = 0
 	var/Melee = 0
 	var/Firearms = 0
 	var/Drive = 0
 	var/Security = 0
+	var/Fleshcraft = 0
+	var/Performance = 0
+
+//// KNOWELEDGE
 	var/Finance = 0
 	var/Investigation = 0
 	var/Medicine = 0
@@ -293,11 +301,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		Brawl = 0
 		Empathy = 0
 		Intimidation = 0
+		Expression = 0
 		Crafts = 0
 		Melee = 0
 		Firearms = 0
 		Drive = 0
 		Security = 0
+		Fleshcraft = 0
 		Finance = 0
 		Investigation = 0
 		Medicine = 0
@@ -1540,6 +1550,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(handle_upgrade(Intimidation, Intimidation * 3, 5))
 						Intimidation++
 
+				if("expression")
+					if(handle_upgrade(Expression, Expression * 3, 5))
+						Expression++
+
 				if("crafts")
 					if(handle_upgrade(Crafts, Crafts * 3, 5))
 						Crafts++
@@ -1559,6 +1573,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("security")
 					if(handle_upgrade(Security, Security * 3, 5))
 						Security++
+
+				if("performance")
+					if(handle_upgrade(Performance, Performance * 3, 5))
+						Performance++
+
+				if("fleshcraft")
+					if(handle_upgrade(Fleshcraft, Fleshcraft * 3, 5))
+						Fleshcraft++
 
 				if("finance")
 					if(handle_upgrade(Finance, Finance * 3, 5))
@@ -2467,12 +2489,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.attributes.Brawl = Brawl
 	character.attributes.Empathy = Empathy
 	character.attributes.Intimidation = Intimidation
+	character.attributes.Expression = Expression
 
 	character.attributes.Crafts = Crafts
 	character.attributes.Melee = Melee
 	character.attributes.Firearms = Firearms
 	character.attributes.Drive = Drive
 	character.attributes.Security = Security
+	character.attributes.Fleshcraft = Fleshcraft
 
 	character.attributes.Finance = Finance
 	character.attributes.Investigation = Investigation
