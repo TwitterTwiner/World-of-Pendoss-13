@@ -685,8 +685,8 @@ Dancer
 
 /datum/quirk/diablerist
 	name = "Black Secret"
-	desc = "You have a small, ancient secret, somehow related to Diablerie, and this decreases your chance to survive another one. <b>This isn't a licence to diablerie anyone you want!</b>"
-	value = -3
+	desc = "Однажды ты совершил диаблери - запретный акт поедания души другого вампира. Теперь твоя душа отмечена чёрной аурой, которую могут заметить другие вампиры, а твои шансы пережить повторное диаблери снижены. <b>Это не даёт тебе права диаблезировать без причины!</b>"
+	value = 2
 	allowed_species = list("Vampire")
 
 /datum/quirk/diablerist/on_spawn()
