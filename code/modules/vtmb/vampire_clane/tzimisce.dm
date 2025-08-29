@@ -656,7 +656,7 @@
 	else
 		hided = FALSE
 		if(masquerade)
-			violating_appearance = TRUE
+			clane.violating_appearance = TRUE
 		if(additional_hands || additional_wings || additional_centipede || additional_armor)
 			ADD_TRAIT(H, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 			if(additional_hands)
