@@ -146,9 +146,9 @@
 /mob/living/simple_animal/hostile/cobra
 	name = "Cobra Form"
 	desc = "Hssssss..."
-	icon = 'code/modules/wod13/48x48.dmi'
-	icon_state = "cobra"
-	icon_living = "cobra"
+	icon = 'code/modules/wod13/64x64.dmi'
+	icon_state = "setits_zmei"
+	icon_living = "setits_zmei"
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	speed = -1
