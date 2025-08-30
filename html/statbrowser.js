@@ -711,6 +711,10 @@ function set_theme(which) {
 		document.body.className = "dark";
 		document.documentElement.className = 'dark';
 		set_style_sheet("browserOutput");
+	} else if (which == "vampire") {
+		document.body.className = "vampire";
+		document.documentElement.className = 'vampire';
+		set_style_sheet("browserOutput");
 	}
 }
 

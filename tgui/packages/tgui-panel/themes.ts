@@ -4,20 +4,26 @@
  * @license MIT
  */
 
-export const THEMES = ['light', 'dark'];
+export const THEMES = ['light', 'dark', 'vampire'];
 
 const COLORS = {
   DARK: {
-    BG_BASE: '#660c0c',
-    BG_SECOND: '#1b0101',
-    BUTTON: '#FFFFFF ',
-    TEXT: '#660c0c',
+    BG_BASE: '#202020',
+    BG_SECOND: '#151515',
+    BUTTON: '#404040',
+    TEXT: '#A6A6A6',
   },
   LIGHT: {
     BG_BASE: '#EFEEEE',
     BG_SECOND: '#FFFFFF',
     BUTTON: '#FFFEFE',
     TEXT: '#000000',
+  },
+  VAMPIRE: {
+    BG_BASE: '#1a0505',
+    BG_SECOND: '#0f0202',
+    BUTTON: '#2d0909',
+    TEXT: '#d4a574',
   },
 };
 
