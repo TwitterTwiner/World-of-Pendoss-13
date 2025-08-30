@@ -376,7 +376,7 @@
 			time_delay += 10 SECONDS
 		if(fleshcrafting)
 			time_delay -= 3*fleshcrafting SECONDS
-		if(time_delay)
+		if(time_delay > 0)
 			to_chat(owner, span_notice("You begin molding your appearance... This will take [DisplayTimeText(time_delay)]."))
 
 			if (!do_after(owner, time_delay))
