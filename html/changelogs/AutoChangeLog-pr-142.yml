@@ -1,0 +1,5 @@
+author: "FeudeyTF"
+delete-after: True
+changes:
+  - rscadd: "Новая вампирская тема"
+  - refactor: "Вернул стандартную тёмную тему"
