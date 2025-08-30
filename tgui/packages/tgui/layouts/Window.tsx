@@ -47,7 +47,7 @@ type Props = Partial<{
 export const Window = (props: Props) => {
   const {
     canClose = true,
-    theme,
+    theme = 'vampire',
     title,
     children,
     buttons,
