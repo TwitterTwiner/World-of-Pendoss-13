@@ -424,7 +424,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 	log_directed_talk(owner, target, msg, LOG_SAY, "[name]")
 	to_chat(owner, "<span class='boldnotice'>Ты вселил свои мысли в [target]:</span> <span class='notice'>[msg]</span>")
 	to_chat(target, "<span class='boldnotice'>Ты слышишь, как кто-то говорит прямо в твоей голове...</span> <span class='notice'>[msg]</span>")
-	message_admins("Explosion with size 
+	message_admins("[owner.name] транслировал мысли в голову [target.name]. Мысли: [msg]")
 
 /datum/discipline_power/auspex/telepathy/pre_activation_checks(mob/living/target)
 	if(iskindred(target) || iscathayan(target) || iswerewolf(target))
