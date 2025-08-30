@@ -129,17 +129,20 @@
 //	if(is_shapeshifted)
 
 	if(choice == "Yours")
-		deactivate()
+		shapeshift(to_original = TRUE)
 		return
 	if(choice == "New Appearance")
 		make_original()
+		return
 	if(choice == "Someone Else's")
 		choose_impersonating()
+		return
 
-
+/*
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
+*/
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/make_original()
 	initialize_original()
