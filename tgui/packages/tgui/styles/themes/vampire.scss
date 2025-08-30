@@ -52,9 +52,7 @@
   );
   @include meta.load-css(
     '~tgui-core/styles/components/Tabs',
-    $with: (
-      'color-default': hsl(45, 80%, 70%)
-    )
+    $with: ('color-default': hsl(45, 80%, 70%))
   );
   @include meta.load-css('~tgui-core/styles/components/Section.scss');
   @include meta.load-css('~tgui-core/styles/components/Table.scss');

@@ -1095,7 +1095,6 @@ em {
   flex-grow: 1;
 }
 
-
 $alert-stripe-colors: (
   'default': hsl(0, 25%, 12%),
   'green': hsl(120, 100%, 12%),
@@ -1230,11 +1229,13 @@ $border-width-px: $border-width * 1px;
     padding: 0;
     display: flex;
     flex-direction: column;
-    border-image: repeating-linear-gradient(-45deg,
-        map.get($alert-stripe-alternate-colors, $color-name),
-        map.get($alert-stripe-alternate-colors, $color-name) 10px,
-        $color-value 10px,
-        $color-value 20px);
+    border-image: repeating-linear-gradient(
+      -45deg,
+      map.get($alert-stripe-alternate-colors, $color-name),
+      map.get($alert-stripe-alternate-colors, $color-name) 10px,
+      $color-value 10px,
+      $color-value 20px
+    );
     border-image-slice: $border-width fill;
     border-width: $border-width-px;
     border-image-width: $border-width-px;
@@ -1256,14 +1257,18 @@ $border-width-px: $border-width * 1px;
   }
 
   .chat_alert_#{$color-name} .minor_announcement_text {
-    background-color: color.adjust(map.get($alert-stripe-colors, $color-name),
-        $lightness: -5%,
-        $space: hsl);
+    background-color: color.adjust(
+      map.get($alert-stripe-colors, $color-name),
+      $lightness: -5%,
+      $space: hsl
+    );
   }
 
   .chat_alert_#{$color-name} .major_announcement_text {
-    background-color: color.adjust(map.get($alert-stripe-colors, $color-name),
-        $lightness: -5%,
-        $space: hsl);
+    background-color: color.adjust(
+      map.get($alert-stripe-colors, $color-name),
+      $lightness: -5%,
+      $space: hsl
+    );
   }
 }
