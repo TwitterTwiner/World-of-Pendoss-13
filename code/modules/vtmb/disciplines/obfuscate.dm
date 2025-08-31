@@ -203,16 +203,20 @@
 //	if(is_shapeshifted)
 
 	if(choice == "Yours")
-		deactivate()
+		shapeshift(to_original = TRUE)
 		return
 	if(choice == "New Appearance")
 		make_original()
+		return
 	if(choice == "Someone Else's")
 		choose_impersonating()
+		return
 
+/*
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
+*/
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/make_original()
 	initialize_original()

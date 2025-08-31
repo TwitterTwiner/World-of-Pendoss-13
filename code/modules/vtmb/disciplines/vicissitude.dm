@@ -129,17 +129,20 @@
 //	if(is_shapeshifted)
 
 	if(choice == "Yours")
-		deactivate()
+		shapeshift(to_original = TRUE)
 		return
 	if(choice == "New Appearance")
 		make_original()
+		return
 	if(choice == "Someone Else's")
 		choose_impersonating()
+		return
 
-
+/*
 /datum/discipline_power/vicissitude/malleable_visage/deactivate()
 	. = ..()
 	shapeshift(to_original = TRUE)
+*/
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/make_original()
 	initialize_original()
@@ -373,7 +376,7 @@
 			time_delay += 10 SECONDS
 		if(fleshcrafting)
 			time_delay -= 3*fleshcrafting SECONDS
-		if(time_delay)
+		if(time_delay > 0)
 			to_chat(owner, span_notice("You begin molding your appearance... This will take [DisplayTimeText(time_delay)]."))
 
 			if (!do_after(owner, time_delay))

@@ -1,3 +1,100 @@
+//bats
+
+/mob/living/simple_animal/hostile/bats
+	name = "bats"
+	desc = "A swarm of bats."
+	icon = 'code/modules/wod13/icons.dmi'
+	icon_state = "bat"
+	icon_living = "bat"
+	icon_dead = "bat_dead"
+	icon_gib = "syndicate_gib"
+	mob_biotypes = MOB_ORGANIC
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	move_to_delay = 14
+	ranged = 1
+	vision_range = 5
+	aggro_vision_range = 9
+	speed = 3
+	maxHealth = 100
+	health = 100
+	harm_intent_damage = 5
+	melee_damage_lower = 0
+	melee_damage_upper = 0
+	attack_verb_continuous = "lashes out at"
+	attack_verb_simple = "lash out at"
+	speak_emote = list("telepathically cries")
+	attack_sound = 'sound/weapons/pierce.ogg'
+	ranged_cooldown = 0
+	ranged_cooldown_time = 20
+	obj_damage = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	retreat_distance = 3
+	minimum_distance = 3
+	pass_flags = PASSTABLE
+	loot = list(/obj/item/drinkable_bloodpack/full)
+	var/brood_type = /mob/living/simple_animal/hostile/bat
+	del_on_death = 1
+
+/mob/living/simple_animal/hostile/bats/OpenFire(the_target)
+	if(world.time >= ranged_cooldown)
+		var/mob/living/simple_animal/hostile/bat/A = new brood_type(src.loc)
+
+		A.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
+		A.GiveTarget(target)
+		A.friends = friends
+		A.faction = faction.Copy()
+		ranged_cooldown = world.time + ranged_cooldown_time
+
+/mob/living/simple_animal/hostile/bats/AttackingTarget()
+	OpenFire()
+	return TRUE
+
+/mob/living/simple_animal/hostile/bats/death(gibbed)
+	mouse_opacity = MOUSE_OPACITY_ICON
+	..(gibbed)
+
+/mob/living/simple_animal/hostile/bat
+	name = "Bat"
+	desc = "A bat."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "bat"
+	icon_living = "bat"
+	icon_dead = "bat_dead"
+	icon_gib = "syndicate_gib"
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	move_to_delay = 1
+	response_help_continuous = "brushes aside"
+	response_help_simple = "brush aside"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	speak_chance = 0
+	maxHealth = 20
+	health = 20
+	see_in_dark = 10
+	harm_intent_damage = 10
+	melee_damage_lower = 10
+	melee_damage_upper = 5
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	pass_flags = PASSTABLE
+	faction = list("hostile")
+	attack_sound = 'sound/weapons/bite.ogg'
+	obj_damage = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	ventcrawler = VENTCRAWLER_ALWAYS
+	mob_size = MOB_SIZE_TINY
+	is_flying_animal = TRUE
+	speak_emote = list("squeaks")
+	del_on_death = 1
+
+/mob/living/simple_animal/hostile/bat/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(death)), 100)
+	AddComponent(/datum/component/swarming)
+
+
+//Hivelord
 /mob/living/simple_animal/hostile/asteroid/hivelord
 	name = "hivelord"
 	desc = "A truly alien creature, it is a mass of unknown organic material, constantly fluctuating. When attacking, pieces of it split off and attack in tandem with the original."
@@ -23,7 +120,6 @@
 	attack_verb_simple = "lash out at"
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/pierce.ogg'
-	throw_message = "falls right through the strange body of the"
 	ranged_cooldown = 0
 	ranged_cooldown_time = 20
 	obj_damage = 0
