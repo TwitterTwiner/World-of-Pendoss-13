@@ -720,7 +720,7 @@ SUBSYSTEM_DEF(woddices)
 			"tooltip" = "These are your memories. You received them at birth or during your life!",
 			"values" = memories
 		),
-		list("name" = "Objectives", "tooltip" = "YOur objectives", "values" = objectives),
+		list("name" = "Objectives", "tooltip" = "Your objectives", "values" = objectives),
 		list("name" = "Disciplines", "tooltip" = "Your disciplines", "values" = disciplines),
 		list("name" = "Abilities", "tooltip" = "Your abilities", "values" = abilities),
 		list("name" = "Attributes", "tooltip" = "Your attributes", "values" = attributes)
