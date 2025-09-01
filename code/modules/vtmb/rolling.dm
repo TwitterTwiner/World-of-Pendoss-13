@@ -541,16 +541,15 @@ SUBSYSTEM_DEF(woddices)
 		if(host.mind.assigned_role)
 			data["role"] = host.mind.assigned_role
 		if(host.mind.special_role)
-			if(host.mind.special_role)
-				for(var/datum/antagonist/A in host.mind.antag_datums)
-					if(A.objectives && A.objectives.len)
-						var/count = 1
-						for(var/datum/objective/objective in A.objectives)
-							if(objective.check_completion())
-								objectives += "Objective #[count]: [objective.explanation_text] Success!"
-							else
-								objectives += "Objective #[count]: [objective.explanation_text] Fail."
-							count++
+			for(var/datum/antagonist/A in host.mind.antag_datums)
+				if(A.objectives && A.objectives.len)
+					var/count = 1
+					for(var/datum/objective/objective in A.objectives)
+						if(objective.check_completion())
+							objectives += "Objective #[count]: [objective.explanation_text] Success!"
+						else
+							objectives += "Objective #[count]: [objective.explanation_text] Fail."
+						count++
 			data["special_role"] = host.mind.special_role
 	var/list/memories = list()
 	if(iskindred(host) || isghoul(host))
