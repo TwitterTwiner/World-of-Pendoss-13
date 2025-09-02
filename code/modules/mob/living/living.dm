@@ -956,7 +956,7 @@
 		var/resist_physique = get_a_strength(src)+get_a_brawl(src) // The one who is  resisting physique
 		var/difficulty = secret_vampireroll(grabber_physique, 6, G)
 		var/roll_result = secret_vampireroll(resist_physique, difficulty+altered_grab_state, src)
-		if(roll_result > 1)
+		if(roll_result >= 3)
 			visible_message("<span class='danger'>[src] breaks free of [pulledby]'s grip!</span>", \
 							"<span class='danger'>You break free of [pulledby]'s grip!</span>", null, null, pulledby)
 			to_chat(pulledby, "<span class='warning'>[src] breaks free of your grip!</span>")
