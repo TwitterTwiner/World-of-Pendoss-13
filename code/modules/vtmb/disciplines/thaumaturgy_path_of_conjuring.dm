@@ -35,7 +35,8 @@
 		/obj/item/melee/vampirearms/knife,
 		/obj/item/melee/vampirearms/machete,
 		/obj/item/vampire_stake,
-		/obj/item/vampire_stake/metal
+		/obj/item/vampire_stake/metal,
+		/obj/item/clothing/head/vampire/skull
 	)
 
 	var/list/normal_items = list(
@@ -57,7 +58,16 @@
 		/obj/item/gun/ballistic/shotgun/toy/crossbow/vampire,
 		/obj/item/ammo_box/vampire/arrows,
 		/obj/item/restraints/handcuffs,
-		/obj/item/masquerade_contract
+		/obj/item/masquerade_contract,
+		/obj/item/gun/ballistic/automatic/vampire/thompson,
+		/obj/item/ammo_box/magazine/tommygunm45,
+		/obj/item/clothing/suit/vampire/vest,
+		/obj/item/clothing/head/vampire/helmet,
+		/obj/item/clothing/suit/vampire/vest/medieval,
+		/obj/item/clothing/head/vampire/helmet/spain,
+		/obj/item/grenade/flashbang,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/melee/classic_baton/vampire
 	)
 
 	var/list/hard_items = list(
@@ -74,7 +84,9 @@
 		/obj/item/gun/ballistic/automatic/vampire/aug,
 		/obj/item/ammo_box/magazine/vampaug,
 		/obj/item/gun/ballistic/automatic/vampire/sniper,
-		/obj/item/ammo_box/vampire/c556
+		/obj/item/ammo_box/vampire/c556,
+		/obj/item/clothing/suit/vampire/vest/army,
+		/obj/item/clothing/head/vampire/army
 	)
 
 	var/list/living = list(

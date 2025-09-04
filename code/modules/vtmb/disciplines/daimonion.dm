@@ -1,197 +1,6 @@
-/datum/curse
-	var/name
-
-/datum/curse/daimonion
-	var/genrequired
-
-/datum/curse/daimonion/proc/activate(mob/living/target)
-	return
-
-/datum/curse/daimonion/lying_weakness
-	name = "No Lying Tongue"
-	genrequired = 13
-
-/datum/curse/daimonion/physical_weakness
-	name = "Baby Strength"
-	genrequired = 10
-
-/datum/curse/daimonion/mental_weakness
-	name = "Reap Mentality"
-	genrequired = 9
-
-/datum/curse/daimonion/offspring_weakness
-	name = "Sterile Vitae"
-	genrequired = 8
-
-/datum/curse/daimonion/success_weakness
-	name = "The Mark Of Doom"
-	genrequired = 7
-
-/datum/curse/daimonion/lying_weakness/activate(mob/living/carbon/human/target)
-	. = ..()
-	target.gain_trauma(/datum/brain_trauma/mild/mind_echo, TRAUMA_RESILIENCE_ABSOLUTE)
-	to_chat(target, "<span class='userdanger'><b>You feel like a great curse was placed on you!</span></b>")
-
-/datum/curse/daimonion/physical_weakness/activate(mob/living/target)
-	. = ..()
-	var/mob/living/carbon/human/H = target
-	if(get_a_strength(H) > 0)
-		H.attributes.strength -= 1
-	if(get_a_dexterity(H) > 0)
-		H.attributes.dexterity -= 1
-	if(get_a_stamina(H) > 0)
-		H.attributes.stamina -= 1
-	if(get_a_athletics(H) > 0)
-		H.attributes.Athletics -= 1
-	if(get_a_brawl(H) > 0)
-		H.attributes.Brawl -= 1
-	if(get_a_melee(H) > 0)
-		H.attributes.Melee -= 1
-	if(iskindred(target))
-		var/mob/living/carbon/human/vampire = target
-		for (var/datum/action/blood_power/blood_power in vampire.actions)
-			if(blood_power)
-				blood_power.Remove(vampire)
-	to_chat(target, "<span class='userdanger'><b>You feel like a great curse was placed on you!</span></b>")
-
-/datum/curse/daimonion/mental_weakness/activate(mob/living/target)
-	. = ..()
-	var/mob/living/carbon/human/H = target
-	if(get_a_charisma(H) > 0)
-		H.attributes.charisma -= 1
-	if(get_a_manipulation(H) > 0)
-		H.attributes.manipulation -= 1
-	if(get_a_appearance(H) > 0)
-		H.attributes.appearance -= 1
-	if(get_a_perception(H) > 0)
-		H.attributes.perception -= 1
-	if(get_a_intelligence(H) > 0)
-		H.attributes.intelligence -= 1
-	if(get_a_wits(H) > 0)
-		H.attributes.wits -= 1
-	if(get_a_alertness(H) > 0)
-		H.attributes.Alertness -= 1
-	to_chat(target, "<span class='userdanger'><b>You feel like a great curse was placed on you!</span></b>")
-
-/datum/curse/daimonion/offspring_weakness/activate(mob/living/target)
-	. = ..()
-	if(iskindred(target))
-		var/mob/living/carbon/human/vampire = target
-		for (var/datum/action/give_vitae/give_vitae in vampire.actions)
-			if(give_vitae)
-				give_vitae.Remove(vampire)
-	to_chat(target, "<span class='userdanger'><b>You feel like a great curse was placed on you!</span></b>")
-
-/datum/curse/daimonion/success_weakness/activate(mob/living/target)
-	. = ..()
-	var/mob/living/carbon/human/H = target
-	H.attributes.diff_curse += 1
-	to_chat(target, "<span class='userdanger'><b>You feel like a great curse was placed on you!</span></b>")
-
-/datum/daimonion/proc/baali_get_stolen_disciplines(target, owner)
-	if(!owner || !target)
-		return
-	var/mob/living/carbon/human/vampire = target
-	if(iskindred(vampire))
-		var/datum/species/kindred/clan = vampire.dna.species
-		if(clan.get_discipline("Quietus") && vampire.clane?.name != "Banu Haqim")
-			to_chat(owner, "[target] fears that the fact they stole Banu Haqim's Quietus will be known.")
-		if(clan.get_discipline("Protean") && vampire.clane?.name != "Gangrel")
-			to_chat(owner, "[target] fears that the fact they stole Gangrel's Protean will be known.")
-		if(clan.get_discipline("Serpentis") && vampire.clane?.name != "Followers of Set")
-			to_chat(owner, "[target] fears that the fact they stole Ministry's Serpentis will be known.")
-		if(clan.get_discipline("Necromancy") && vampire.clane?.name != "Giovanni" || clan.get_discipline("Necromancy") && vampire.clane?.name != "Cappadocian")
-			to_chat(owner, "[target] fears that the fact they stole Giovanni's Necromancy will be known.")
-		if(clan.get_discipline("Obtenebration") && vampire.clane?.name != "Lasombra" || clan.get_discipline("Obtenebration") && vampire.clane?.name != "Baali")
-			to_chat(owner, "[target] fears that the fact they stole Lasombra's Obtenebration will be known.")
-		if(clan.get_discipline("Dementation") && vampire.clane?.name != "Malkavian")
-			to_chat(owner, "[target] fears that the fact they stole Malkavian's Dementation will be known.")
-		if(clan.get_discipline("Thaumaturgy") && vampire.clane?.name != "Tremere" || clan.get_discipline("Thaumaturgy") && vampire.clane?.name != "Baali")
-			to_chat(owner, "[target] fears that the fact they stole Tremere's Thaumaturgy will be known.")
-		if(clan.get_discipline("Vicissitude") && vampire.clane?.name != "Tzimisce")
-			to_chat(owner, "[target] fears that the fact they stole Tzimisce's Vicissitude will be known.")
-		if(clan.get_discipline("Melpominee") && vampire.clane?.name != "Daughters of Cacophony")
-			to_chat(owner, "[target] fears that the fact they stole Daughters of Cacophony's Melpominee will be known.")
-		if(clan.get_discipline("Daimonion") && vampire.clane?.name != "Baali")
-			to_chat(owner, "[target] fears that the fact they stole Baali's Daimonion will be known.")
-		if(clan.get_discipline("Temporis") && vampire.clane?.name != "True Brujah")
-			to_chat(owner, "[target] fears that the fact they stole True Brujah's Temporis will be known.")
-		if(clan.get_discipline("Valeren") && vampire.clane?.name != "Salubri")
-			to_chat(owner, "[target] fears that the fact they stole Salubri's Valeren will be known.")
-		if(clan.get_discipline("Mytherceria") && vampire.clane?.name != "Kiasyd")
-			to_chat(owner, "[target] fears that the fact they stole Kiasyd's Mytherceria will be known.")
-
-/datum/daimonion/proc/baali_get_clan_weakness(target, owner)
-	if(!owner || !target)
-		return
-	var/mob/living/carbon/human/vampire = target
-	if(iskindred(vampire))
-//		var/datum/species/kindred/clan = vampire.dna.species
-		if(vampire.clane?.name)
-			if(vampire.clane?.name == "Toreador")
-				to_chat(owner, "[target] is too clingy to the art.")
-				return
-			if(vampire.clane?.name == "Daughters of Cacophony")
-				to_chat(owner, "[target]'s mind is envelopped by nonstopping music.")
-				return
-			if(vampire.clane?.name == "Ventrue")
-				to_chat(owner, "[target] finds no pleasure in poor's blood.")
-				return
-			if(vampire.clane?.name == "Lasombra")
-				to_chat(owner, "[target] is afraid of modern technology.")
-				return
-			if(vampire.clane?.name == "Tzimisce")
-				to_chat(owner, "[target] is tied to its domain.")
-				return
-			if(vampire.clane?.name == "Gangrel")
-				to_chat(owner, "[target] is a feral being used to the nature.")
-				return
-			if(vampire.clane?.name == "Malkavian")
-				to_chat(owner, "[target] is unstable, the mind is ill.")
-				return
-			if(vampire.clane?.name == "Brujah")
-				to_chat(owner, "[target] is full of uncontrollable rage.")
-				return
-			if(vampire.clane?.name == "Nosferatu")
-				to_chat(owner, "[target] is ugly and nothing will save them.")
-				return
-			if(vampire.clane?.name == "Tremere")
-				to_chat(owner, "[target] is weak to kindred blood and vulnerable to blood bonds.")
-				return
-			if(vampire.clane?.name == "Baali")
-				to_chat(owner, "[target] is afraid of holy.")
-				return
-			if(vampire.clane?.name == "Banu Haqim")
-				to_chat(owner, "[target] is addicted to kindred vitae...")
-				return
-			if(vampire.clane?.name == "True Brujah")
-				to_chat(owner, "[target] cant express emotions.")
-				return
-			if(vampire.clane?.name == "Salubri")
-				to_chat(owner, "[target] is unable to feed on unwilling.")
-				return
-			if(vampire.clane?.name == "Giovanni")
-				to_chat(owner, "[target]'s bite inflicts too much harm.")
-				return
-			if(vampire.clane?.name == "Cappadocian")
-				to_chat(owner, "[target]'s skin will stay pale and lifeless no matter what.")
-				return
-			if(vampire.clane?.name == "Kiasyd")
-				to_chat(owner, "[target] is afraid of cold iron.")
-				return
-			if(vampire.clane?.name == "Gargoyle")
-				to_chat(owner, "[target] is too dependent on its masters, its mind is feeble.")
-				return
-			if(vampire.clane?.name == "Followers of Set")
-				to_chat(owner, "[target] is afraid of bright lights.")
-				return
-			var/clan_not_found = TRUE
-			if(clan_not_found)
-				to_chat(owner, "[target] is a [vampire.clane?.name]")
-
 /datum/discipline/daimonion
 	name = "Daimonion"
-	desc = "Get a help from the Hell creatures, resist THE FIRE, transform into an imp. Violates Masquerade."
+	desc = "Draw power from the demons and infernal nature of Hell. Use subtle power to manipulate people and when you must, draw upon fire itself and protect yourself."
 	icon_state = "daimonion"
 	clan_restricted = TRUE
 	power_type = /datum/discipline_power/daimonion
@@ -199,7 +8,8 @@
 /datum/discipline_power/daimonion
 	name = "Daimonion power name"
 	desc = "Daimonion power description"
-	range = 20
+
+	cooldown_length = 15 SECONDS
 
 	activate_sound = 'code/modules/wod13/sounds/protean_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/protean_deactivate.ogg'
@@ -207,97 +17,206 @@
 //SENSE THE SIN
 /datum/discipline_power/daimonion/sense_the_sin
 	name = "Sense the Sin"
-	desc = "Become supernaturally resistant to fire."
+	desc = "Sense the weakness."
 
 	level = 1
+	range = 7
 
 	target_type = TARGET_HUMAN
-	cancelable = TRUE
-	duration_length = 20 SECONDS
-	cooldown_length = 10 SECONDS
 
 /datum/discipline_power/daimonion/sense_the_sin/pre_activation_checks(mob/living/target)
-	var/mypower = secret_vampireroll(max(get_a_charisma(owner), get_a_perception(owner))+max(get_a_empathy(owner), get_a_intimidation(owner)), get_a_willpower(target), owner)
-	if(mypower < 3)
-		to_chat(owner, "<span class='warning'>You fail at harvesting any useful info!</span>")
-		if(mypower == -1)
-			owner.Stun(3 SECONDS)
-			owner.do_jitter_animation(10)
+	var/selfcontrol = 3
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		selfcontrol = H.MyPath?.selfcontrol
+	var/success_chance = secret_vampireroll(get_a_perception(target)+get_a_empathy(target), selfcontrol+4, owner)
+	if(success_chance <= 0)
+		to_chat(owner, span_notice("Your magic fizzles out!"))
+		owner.Stun(3 SECONDS)
+		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
 
 /datum/discipline_power/daimonion/sense_the_sin/activate(mob/living/carbon/human/target)
 	. = ..()
+	if(!HAS_TRAIT(target, TRAIT_SENSE_THE_SIN))
+		ADD_TRAIT(target, TRAIT_SENSE_THE_SIN, DISCIPLINE_TRAIT)
+		addtimer(CALLBACK(src, PROC_REF(timer_deactivation), target), 60 SECONDS)
 	if(get_a_strength(target) <= 4)
-		to_chat(owner, "[target] lacks in strength.")
+		to_chat(owner, span_notice("Weak arms betray their lack of might."))
 	if(get_a_dexterity(target) <= 4)
-		to_chat(owner, "[target] doesn't have fast movements.")
+		to_chat(owner, span_notice("They stumble where others glide, awkward and unbalanced."))
 	if(get_a_stamina(target) <= 4)
-		to_chat(owner, "[target]'s body is weak and feeble.")
+		to_chat(owner, span_notice("Their vigor is spent before the struggle even begins."))
 	if(get_a_charisma(target) <= 4)
-		to_chat(owner, "[target] isn't charismatic at all.")
+		to_chat(owner, span_notice("Their words drip with dullness, falling dead to the ground."))
 	if(get_a_manipulation(target) <= 4)
-		to_chat(owner, "[target] struggles with manipulating others.")
+		to_chat(owner, span_notice("Schemes fall apart in their hands, for none heed their deceit."))
 	if(get_a_appearance(target) <= 4)
-		to_chat(owner, "[target ] is ugly.")
+		to_chat(owner, span_notice("The sight of them is a burden, not a blessing."))
 	if(get_a_perception(target) <= 4)
-		to_chat(owner, "[target ] struggles to notice small things.")
+		to_chat(owner, span_notice("Blind to subtleties, the world whispers past them."))
 	if(get_a_intelligence(target ) <= 4)
-		to_chat(owner, "[target] isn't wise.")
+		to_chat(owner, span_notice("Their mind is a barren field, yielding no harvest of thought."))
 	if(get_a_wits(target) <= 4)
-		to_chat(owner, "[target ] brain is porridge and uninspiring.")
+		to_chat(owner, span_notice("The spark of insight eludes them."))
 	if(get_a_willpower(target) <= 4)
-		to_chat(owner, "[target ] mind is weak and controllable.")
-	if(isgarou(target))
-		to_chat(owner, "[target]'s natural banishment is silver...")
+		to_chat(owner, span_notice("Their spirit bends like reed before the storm."))
+
 	if(iskindred(target))
-		var/datum/daimonion/daim = new
-		daim.baali_get_stolen_disciplines(target , owner)
-		daim.baali_get_clan_weakness(target , owner)
+		to_chat(owner, span_notice("\nThe fear of fire coils tightly in their soul.\n"))
+		if(target.MyPath)
+			if(target.MyPath.willpower <= 5)
+				to_chat(owner, span_notice("Their resolve falters, like a candle struggling against the wind."))
+			if(target.MyPath.consience <= 2)
+				to_chat(owner, span_notice("Moral compass shattered, they wander in shadows of doubt."))
+			if(target.MyPath.selfcontrol <= 2)
+				to_chat(owner, span_notice("Impulse reigns within them, chains of restraint broken."))
+			if(target.MyPath.courage <= 2)
+				to_chat(owner, span_notice("Fear grips their heart, and even whispers seem like roars."))
+		baali_get_moral_failings(target)
+		baali_get_stolen_disciplines(target)
 		if(target.generation >= 10)
-			to_chat(owner, "[target]'s vitae is weak and thin. You can clearly see their fear for fire, it seems that's a kindred.")
+			to_chat(owner, span_notice("Their blood is shallow, hollow before the might of the ancients."))
 		else
-			to_chat(owner, "[target]'s vitae is thick and strong. You can clearly see their fear for fire, it seems that's a kindred.")
-	if(isghoul(target))
-		var/mob/living/carbon/human/ghoul = target
-		if(ghoul.mind.enslaved_to)
-			to_chat(owner, "[target]  is addicted to vampiric vitae and its true master is [ghoul.mind.enslaved_to]")
+			to_chat(owner, span_notice("Their blood hums with primal force, resisting dilution."))
+
+	else if(isghoul(target))
+		if(target.mind.enslaved_to)
+			to_chat(owner, span_notice("Bound to vampiric vitae, their will is chained to a power beyond themselves."))
 		else
-			to_chat(owner, "[target] is addicted to vampiric vitae, but is independent and free.")
-	if(iscathayan(target))
+			to_chat(owner, span_notice("Their hunger for vampiric blood flows freely, guided only by their own will."))
+
+	else if(isgarou(target) || iswerewolf(target))
+		to_chat(owner, span_notice("\nTheir flesh shivers at the touch of silver, a bane older than their memory."))
+		if(target.client?.prefs?.breed == "Homid")
+			to_chat(owner, span_notice("Between the pulse of nature and the lull of mankind, their strength falters in hesitation."))
+		else if(target.client?.prefs?.breed == "Lupus")
+			to_chat(owner, span_notice("They roam with the strength of the wilderness, but human artifice confounds their simple minds."))
+		else if(target.client?.prefs?.breed == "Metis")
+			to_chat(owner, span_notice("Born of forbidden union, they walk in immense form, yet flaw and fury linger in every step."))
+
+		if(target.client?.prefs?.tribe == "Wendigo")
+			to_chat(owner, span_notice("Steeped in the cold and stealth of their totem, they falter when drawn from the purity of the wild."))
+		else if(target.client?.prefs?.tribe == "Glasswalkers")
+			to_chat(owner, span_notice("Their strength grows with each passing innovation, but the comfort of progress dulls their instincts."))
+		else if(target.client?.prefs?.tribe == "Black Spiral Dancers")
+			to_chat(owner, span_notice("Twisted by darkness and rage, their power is immense, yet the seed of madness gnaws at every thought."))
+
+	else if(iscathayan(target))
+		to_chat(owner, span_notice("\nTheir once fallen soul drifts between vitality and rot."))
+		if(target.mind.dharma?.name == "Devil Tiger (P'o)")
+			to_chat(owner, span_notice("Quick to act and driven by hidden hunger, their movements betray a restless, dangerous intent."))
+		else if(target.mind.dharma?.name == "Song of the Shadow (Yin)")
+			to_chat(owner, span_notice("Cold as bone and drifting through darkness, their presence leaves hearts unsettled and minds unheeding."))
+		else if(target.mind.dharma?.name == "Resplendent Crane (Hun)")
+			to_chat(owner, span_notice("Shadows of past transgressions cling tightly, shaping every step with a weight unseen yet ever felt."))
+		else if(target.mind.dharma?.name == "Thrashing Dragon (Yang)")
+			to_chat(owner, span_notice("Hunger drives every act, a restless fire that consumes both self and others, masking the doubt that gnaws beneath."))
+		else if(target.mind.dharma?.name == "Flame of the Rising Phoenix (Yang+Hun)")
+			to_chat(owner, span_notice("Whispers of hunger and imbalance shadow every step, leaving even the most devoted to falter and vanish into silent ruin."))
+
 		if(target.mind.dharma?.Po == "Legalist")
-			to_chat(owner, "[target] hates to be controlled!")
-		if(target.mind.dharma?.Po == "Rebel")
-			to_chat(owner, "[target] doesn't like to be touched.")
-		if(target.mind.dharma?.Po == "Monkey")
-			to_chat(owner, "[target] is too focused on money, toys and other sources of easy pleasure.")
-		if(target.mind.dharma?.Po == "Demon")
-			to_chat(owner, "[target] is addicted to pain, as well as to inflicting it to others.")
-		if(target.mind.dharma?.Po == "Fool")
-			to_chat(owner, "[target] doesn't like to be pointed at!")
-	if(!iskindred(target) && !isghoul(target) && !isgarou(target) && !iscathayan(target))
-		to_chat(owner, "[target] is a feeble worm with no strengths or visible weaknesses, a mere human.")
+			to_chat(owner, span_notice("Order imposed upon them twists their soul into silent rebellion."))
+		else if(target.mind.dharma?.Po == "Rebel")
+			to_chat(owner, span_notice("They flinch at touch, guarding freedom like a sacred flame."))
+		else if(target.mind.dharma?.Po == "Monkey")
+			to_chat(owner, span_notice("Fleeting joys and easy profits tug at them like mischievous strings."))
+		else if(target.mind.dharma?.Po == "Demon")
+			to_chat(owner, span_notice("Pain enthralls them, both inflicted and endured, addiction in their veins."))
+		else if(target.mind.dharma?.Po == "Fool")
+			to_chat(owner, span_notice("They shrink from attention, laughter turning their gaze inward in discomfort."))
+	else
+		to_chat(owner, span_notice("Fragile creature, neither mighty nor marked by weakness."))
+
+/datum/discipline_power/daimonion/sense_the_sin/proc/timer_deactivation(mob/living/target)
+	if(HAS_TRAIT(target, TRAIT_SENSE_THE_SIN))
+		REMOVE_TRAIT(target, TRAIT_SENSE_THE_SIN, DISCIPLINE_TRAIT)
+
+/datum/discipline_power/daimonion/sense_the_sin/proc/baali_get_moral_failings(target)
+	var/mob/living/carbon/human/H = target
+	var/clan_messages = list(
+		"Toreador" = "Obsessive to a fault, their thoughts circling endlessly.",
+		"Daughters of Cacophony" = "Their mind is drowned in ceaseless music.",
+		"Ventrue" = "Blood of the poor brings no stir to their spirit.",
+		"Lasombra" = "Fear of change grips them tightly, refusing release.",
+		"Tzimisce" = "They have a singular desire that burns like fire, consuming all else.",
+		"Old Clan Tzimisce" = "Steeped in ancient pride, their bonds run deep and possessive, yet their vision is clouded by millennia-old grudges.",
+		"Gangrel" = "Impulses surge unchecked, their reason slipping away.",
+		"Malkavian" = "Their presence unsettles all nearby, twisting perception.",
+		"Brujah" = "Their anger festers, born of shame long buried.",
+		"Nosferatu" = "They are drawn irresistibly to hidden truths and unknown paths.",
+		"Tremere" = "Their perfectionism in every act drives relentless pursuit.",
+		"Baali" = "They tremble beneath unseen powers, ever fearful.",
+		"Banu Haqim" = "Their judgement is absolute, unyielding in every thought.",
+		"True Brujah" = "Their emotions are locked deep, impossible to unveil.",
+		"Salubri" = "They are bound by consent, every choice weighed heavily.",
+		"Salubri Warrior" = "Bound by sacred duty, their resolve is unshakable, yet every step carries the weight of fallen battles.",
+		"Giovanni" = "They think no act too great if it serves the family.",
+		"Cappadocian" = "They are haunted endlessly by death's reflection.",
+		"Kiasyd" = "Cold iron chills them more than flesh, striking fear.",
+		"Gargoyle" = "Their mind is a fortress with gates open and unbarred.",
+		"Followers of Set" = "Every stain of sin they twist into virtue."
+	)
+
+	var/message = clan_messages[H.clane?.name]
+	if(!message)
+		message = "They've been abandoned by the cold ocean of the night with nobody to keep them afloat."
+	to_chat(owner, span_notice(message))
+
+/datum/discipline_power/daimonion/sense_the_sin/proc/baali_get_stolen_disciplines(target)
+	var/mob/living/carbon/human/H = target
+	var/datum/species/kindred/clan = H.dna.species
+	var/discipline_owners = list(
+		"Quietus" = list("Banu Haqim"),
+		"Protean" = list("Gangrel"),
+		"Serpentis" = list("Followers of Set"),
+		"Necromancy" = list("Giovanni", "Cappadocian"),
+		"Obtenebration" = list("Lasombra"),
+		"Dementation" = list("Malkavian"),
+		"Vicissitude" = list("Tzimisce"),
+		"Melpominee" = list("Daughters of Cacophony"),
+		"Daimonion" = list("Baali"),
+		"Temporis" = list("True Brujah"),
+		"Visceratika" = list("Gargoyle"),
+		"Thaumaturgy: Path of Blood" = list("Tremere"),
+		"Thaumaturgy: Path of Conjuring" = list("Tremere"),
+		"Thaumaturgy: The Lure of Flames" = list("Tremere"),
+		"Dark Thaumaturgy: The Fires of the Inferno" = list("Baali"),
+		"Dark Thaumaturgy: Path of Pain" = list("Baali"),
+		"Dark Thaumaturgy: The Taking of the Spirit" = list("Baali"),
+		"Healer Valeren" = list("Salubri", "Salubri Warrior"),
+		"Warrior Valeren" = list("Salubri", "Salubri Warrior"),
+		"Mytherceria" = list("Kiasyd")
+	)
+	for(var/discipline in discipline_owners)
+		if(clan.get_discipline(discipline) && !(H.clane?.name in discipline_owners[discipline]))
+			to_chat(owner, span_notice("[H] fears that the fact they stole [discipline_owners[discipline][1]]'s [discipline] will be known."))
+
 
 //FEAR OF THE VOID BELOW
 /datum/discipline_power/daimonion/fear_of_the_void_below
 	name = "Fear of the Void Below"
-	desc = "WILD FEAR."
+	desc = "Induce fear in a target."
 
 	level = 2
+	range = 7
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_LYING | DISC_CHECK_IMMOBILE
 	target_type = TARGET_HUMAN | TARGET_VAMPIRE
-	violates_masquerade = TRUE
-
-	cancelable = TRUE
-	cooldown_length = 20 SECONDS
 
 /datum/discipline_power/daimonion/fear_of_the_void_below/pre_activation_checks(mob/living/target)
-	var/mypower = secret_vampireroll(max(get_a_manipulation(owner), get_a_intelligence(owner))+max(get_a_intimidation(owner), get_a_occult(owner)), get_a_wits(target)+2, owner)
-	if(mypower < 3)
-		to_chat(owner, "<span class='warning'>You fail at corrupting!</span>")
-		if(mypower == -1)
-			owner.Stun(3 SECONDS)
-			owner.do_jitter_animation(10)
+	if(!HAS_TRAIT(target, TRAIT_SENSE_THE_SIN))
+		to_chat(owner, span_notice("You need to Sense the Sin in them first!"))
+		return FALSE
+	var/courage = 3
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		courage = H.MyPath?.courage
+	var/success_chance = secret_vampireroll(get_a_wits(target)+get_a_intimidation(target), courage+4, owner)
+	if(success_chance <= 0)
+		to_chat(owner, span_notice("Your magic fizzles out!"))
+		owner.Stun(3 SECONDS)
+		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
 
@@ -318,14 +237,24 @@
 //CONFLAGRATION
 /datum/discipline_power/daimonion/conflagration
 	name = "Conflagration"
-	desc = "Turn your hands into deadly claws."
+	desc = "Draw out the destructive essence of the Beyond."
 
 	level = 3
+	range = 7
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE
 
 	violates_masquerade = TRUE
+	hostile = TRUE
 	target_type = TARGET_MOB | TARGET_OBJ | TARGET_TURF
-	cooldown_length = 10 SECONDS
+
+/datum/discipline_power/daimonion/conflagration/pre_activation_checks(mob/living/target)
+	var/success_chance = secret_vampireroll(get_a_dexterity(target)+get_a_occult(target), 6, owner)
+	if(success_chance <= 0)
+		to_chat(owner, span_notice("Your magic fizzles out!"))
+		owner.Stun(3 SECONDS)
+		owner.do_jitter_animation(10)
+		return FALSE
+	return TRUE
 
 /datum/discipline_power/daimonion/conflagration/activate(atom/target)
 	. = ..()
@@ -334,54 +263,33 @@
 	created_fireball.firer = owner
 	created_fireball.preparePixelProjectile(target, start)
 	created_fireball.fire(direct_target = target)
-/*
-
-/datum/discipline_power/daimonion/conflagration/post_gain()
-	. = ..()
-	var/obj/effect/proc_holder/spell/aimed/fireball/baali/balefire = new(owner)
-	owner.mind.AddSpell(balefire)
-
-/obj/effect/proc_holder/spell/aimed/fireball/baali
-	name = "Infernal Fireball"
-	desc = "This spell fires an explosive fireball at a target."
-	school = "evocation"
-	charge_max = 60
-	clothes_req = FALSE
-	invocation = "FR BRTH"
-	invocation_type = INVOCATION_WHISPER
-	range = 20
-	cooldown_min = 20 //10 deciseconds reduction per rank
-	projectile_type = /obj/projectile/magic/aoe/fireball/baali
-	base_icon_state = "infernaball"
-	action_icon_state = "infernaball0"
-	sound = 'sound/magic/fireball.ogg'
-	active_msg = "You prepare to cast your fireball spell!"
-	deactive_msg = "You extinguish your fireball... for now."
-	active = FALSE
-*/
 
 //PSYCHOMACHIA
 /datum/discipline_power/daimonion/psychomachia
 	name = "Psychomachia"
-	desc = "FEAR."
+	desc = "Bring forth the target's greatest fear."
 
 	level = 4
+	range = 7
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_LYING
 	target_type = TARGET_HUMAN
 
-	violates_masquerade = TRUE
 	target_type = TARGET_HUMAN
-	duration_length = 30 SECONDS
-	cooldown_length = 10 SECONDS
 
 
 /datum/discipline_power/daimonion/psychomachia/pre_activation_checks(mob/living/target)
-	var/mypower = secret_vampireroll(max(get_a_appearance(owner), get_a_charisma(owner))+max(get_a_empathy(owner), get_a_intimidation(owner)), get_a_wits(target)+2, owner)
-	if(mypower < 3)
-		to_chat(owner, "<span class='warning'>You fail at inducing fear!</span>")
-		if(mypower == -1)
-			owner.Stun(3 SECONDS)
-			owner.do_jitter_animation(10)
+	if(!HAS_TRAIT(target, TRAIT_SENSE_THE_SIN))
+		to_chat(owner, span_notice("You need to Sense the Sin in them first!"))
+		return FALSE
+	var/lowest_stat = 2
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		lowest_stat = min(H.MyPath?.consience, H.MyPath?.courage, H.MyPath?.selfcontrol)
+	var/success_chance = secret_vampireroll(lowest_stat, 6, target)
+	if(success_chance <= 0)
+		to_chat(owner, span_notice("Your magic fizzles out!"))
+		owner.Stun(3 SECONDS)
+		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
 
@@ -396,79 +304,48 @@
 	desc = "CURSE OF VTM13."
 
 	level = 5
+	range = 7
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_LYING
 	target_type = TARGET_HUMAN | TARGET_LIVING
 
-	violates_masquerade = TRUE
-	cooldown_length = 10 SECONDS
+	var/initialized_curses = FALSE //can't do this in new since it wouldn't have assigned owner yet. this will do.
+	var/list/curse_names = list()
+	var/list/curses = list()
 
-/*
 /datum/discipline_power/daimonion/condemnation/pre_activation_checks(mob/living/target)
+	var/success_chance = secret_vampireroll(get_a_intelligence(owner)+get_a_occult(owner), get_a_willpower(target), target)
+	if(success_chance <= 0)
+		to_chat(owner, span_notice("Your magic fizzles out!"))
+		owner.Stun(3 SECONDS)
+		owner.do_jitter_animation(10)
+		return FALSE
+	return TRUE
 
-*/
 /datum/discipline_power/daimonion/condemnation/activate(mob/living/carbon/human/target)
 	. = ..()
-	var/list/curses_names = list()
-	if(GLOB.who_is_cursed.len > 0 && !(GLOB.who_is_cursed.Find(target)) || GLOB.who_is_cursed.len == 0)
-		for(var/i in subtypesof(/datum/curse/daimonion))
-			var/datum/curse/daimonion/D = i
-			if(owner.generation <= D.genrequired)
-				curses_names += initial(D.name)
-		to_chat(owner, "<span class='userdanger'><b>To place a curse on someone is to pay the great price. Are you willing to take the risks?</b></span>")
-		var/choosecurse = input(owner, "Choose curse to use:", "Daimonion") as null|anything in curses_names
-		if(choosecurse)
-			var/mob/living/BP = owner
-			var/datum/curse/daimonion/D = choosecurse
-			if(D == "No Lying Tongue")
-				var/datum/curse/daimonion/lying_weakness/curs = new
-				if(owner.maxbloodpool > 1)
-					curs.activate(target)
-					BP.cursed_bloodpool += 1
-					BP.update_blood_hud()
-					GLOB.who_is_cursed += target
-				else
-					to_chat(owner, "<span class='warning'>You don't have enough vitae to cast this curse.</span>")
-			if(D == "Baby Strength")
-				var/datum/curse/daimonion/physical_weakness/curs = new
-				if(owner.maxbloodpool > 2)
-					curs.activate(target)
-					BP.cursed_bloodpool += 2
-					BP.update_blood_hud()
-					GLOB.who_is_cursed += target
-				else
-					to_chat(owner, "<span class='warning'>You don't have enough vitae to cast this curse.</span>")
-			if(D == "Reap Mentality")
-				var/datum/curse/daimonion/mental_weakness/curs = new
-				if(owner.maxbloodpool > 3)
-					curs.activate(target)
-					BP.cursed_bloodpool += 3
-					BP.update_blood_hud()
-					GLOB.who_is_cursed += target
-				else
-					to_chat(owner, "<span class='warning'>You don't have enough vitae to cast this curse.</span>")
-			if(D == "Sterile Vitae")
-				if(iskindred(target))
-					var/datum/curse/daimonion/offspring_weakness/curs = new
-					if(owner.maxbloodpool > 4)
-						curs.activate(target)
-						BP.cursed_bloodpool += 4
-						BP.update_blood_hud()
-						GLOB.who_is_cursed += target
-					else
-						to_chat(owner, "<span class='warning'>You don't have enough vitae to cast this curse.</span>")
-				else
-					to_chat(owner, "<span class='warning'>[target]  is not a kindred!</span>")
-			if(D == "The Mark Of Doom")
-				var/datum/curse/daimonion/success_weakness/curs = new
-				if(owner.maxbloodpool > 5)
-					curs.activate(target)
-					BP.cursed_bloodpool += 5
-					BP.update_blood_hud()
-					GLOB.who_is_cursed += target
-				else
-					to_chat(owner, "<span class='warning'>You don't have enough vitae to cast this curse.</span>")
+	if(LAZYLEN(GLOB.cursed_characters) == 0 || LAZYLEN(GLOB.cursed_characters) > 0 && !(GLOB.cursed_characters.Find(target)))
+		if(!initialized_curses)
+			for(var/i in subtypesof(/datum/curse/daimonion))
+				var/datum/curse/daimonion/daimonion_curse = new i
+				curses += daimonion_curse
+				if(owner.generation <= daimonion_curse.genrequired)
+					curse_names += initial(daimonion_curse.name)
+				initialized_curses = TRUE
+
+		to_chat(owner, span_userdanger("The greatest of curses come with the greatest of costs. Are you willing to take the risk of total damnation?"))
+		var/chosencurse = tgui_input_list(owner, "Pick a curse to bestow:", "Daimonion", curse_names, timeout=15 SECONDS)
+		if(!chosencurse)
+			return
+		for(var/datum/curse/daimonion/C in curses)
+			if(C.name == chosencurse)
+				C.activate(target)
+				owner.maxbloodpool -= C.bloodcurse
+				if(owner.bloodpool > owner.maxbloodpool)
+					owner.bloodpool = owner.maxbloodpool
+				GLOB.cursed_characters += target
+				to_chat(owner, span_notice(span_bold("You place a great infernal curse on your victim!")))
 	else
-		to_chat(owner, "<span class='warning'>[target] is already cursed!</span>")
+		to_chat(owner, span_warning("This one is already cursed!"))
 
 /datum/discipline_power/daimonion/condemnation/post_gain()
 	. = ..()
