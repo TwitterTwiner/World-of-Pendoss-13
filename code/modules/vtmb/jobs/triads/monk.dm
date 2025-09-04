@@ -2,8 +2,8 @@
 	title = "Monk"
 	department_head = list("Red Dragon")
 	faction = "Vampire"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 10
+	spawn_positions = 10
 	supervisors = " Red Dragon"
 	selection_color = "#bb9d3d"
 

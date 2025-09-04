@@ -2347,6 +2347,7 @@
 #include "code\modules\mob\status_procs.dm"
 #include "code\modules\mob\transform_procs.dm"
 #include "code\modules\mob\camera\camera.dm"
+#include "code\modules\mob\dead\auspex_avarar.dm"
 #include "code\modules\mob\dead\dead.dm"
 #include "code\modules\mob\dead\new_player\latejoin_menu.dm"
 #include "code\modules\mob\dead\new_player\lobby_screen.dm"
