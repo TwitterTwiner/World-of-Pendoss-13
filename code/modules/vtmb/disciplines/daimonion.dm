@@ -149,6 +149,8 @@
 		"Tremere" = "Their perfectionism in every act drives relentless pursuit.",
 		"Baali" = "They tremble beneath unseen powers, ever fearful.",
 		"Banu Haqim" = "Their judgement is absolute, unyielding in every thought.",
+		"Banu Haqim Sorcerer" = "Magic clings to their soul, a stain that no veil can hide.",
+		"Banu Haqim Vizier" = "Knowledge consumes them as fire consumes parchment.",
 		"True Brujah" = "Their emotions are locked deep, impossible to unveil.",
 		"Salubri" = "They are bound by consent, every choice weighed heavily.",
 		"Salubri Warrior" = "Bound by sacred duty, their resolve is unshakable, yet every step carries the weight of fallen battles.",
