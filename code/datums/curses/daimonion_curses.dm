@@ -4,7 +4,7 @@
 	//Amount of blood to permanently tithe
 	var/bloodcurse = 1
 
-/datum/curse/daimonion/proc/activate(var/mob/living/target)
+/datum/curse/daimonion/proc/activate(mob/living/target)
 	to_chat(target, span_userdanger(span_bold("You feel like a great infernal curse was placed upon you!")))
 	return
 

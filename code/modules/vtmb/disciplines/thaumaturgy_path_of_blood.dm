@@ -6,6 +6,10 @@
 	learnable_by_clans = list(/datum/vampireclane/baali)
 	power_type = /datum/discipline_power/thaumaturgy_path_of_blood
 
+/datum/discipline/thaumaturgy_path_of_blood/duranki
+	name = "Du-Ran-Ki: Path of Blood"
+	learnable_by_clans = list()
+
 /datum/discipline/thaumaturgy_path_of_blood/post_gain()
 	. = ..()
 	owner.faction |= "Tremere"

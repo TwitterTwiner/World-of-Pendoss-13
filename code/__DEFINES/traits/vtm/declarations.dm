@@ -41,3 +41,7 @@
 #define TRAIT_LYING_WEAKNESS "lying_weakness"
 /// Trait from Daimonion 1
 #define TRAIT_SENSE_THE_SIN "sense_the_sin"
+
+/// Awakening of the steel related traits
+#define TRAIT_ARMOR_BREAK "armor_break"
+#define TRAIT_FORTITUDE_NEGATION "fortitude_negation"
