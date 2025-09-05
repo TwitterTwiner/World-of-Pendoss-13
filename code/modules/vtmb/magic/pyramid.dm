@@ -462,7 +462,7 @@
 	icon_state = "rune9"
 	word = "GRORRR'RRR"
 	thaumlevel = 4
-	clan_restricted_ritual = list(/datum/vampireclane/tremere)
+	clan_restricted_ritual = list(/datum/vampireclane/tremere, /datum/vampireclane/baali)
 
 /obj/ritualrune/gargoyle/complete()
 	for(var/mob/living/carbon/human/H in loc)
