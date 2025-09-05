@@ -39,7 +39,7 @@
 	add_cell_sample()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_SLIME, 0)
 
-/mob/living/simple_animal/hostile/ooze/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/ooze/attacked_by(obj/item/I, mob/living/user, armor_break = FALSE)
 	if(!check_edible(I))
 		return ..()
 	eat_atom(I)

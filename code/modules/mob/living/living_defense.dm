@@ -1,5 +1,5 @@
 
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE, fortitude_negation=FALSE)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	var/total_cubes = armor
@@ -22,7 +22,8 @@
 			if(isgarou(src) || iswerewolf(src))
 				total_cubes += get_a_stamina(src)
 
-	total_cubes += get_fortitude_dices(src)+get_visceratika_dices(src)+get_bloodshield_dices(src)+get_lasombra_dices(src)+get_tzimisce_dices(src)
+	if(!fortitude_negation)
+		total_cubes += get_fortitude_dices(src)+get_visceratika_dices(src)+get_bloodshield_dices(src)+get_lasombra_dices(src)+get_tzimisce_dices(src)
 
 	if(attack_flag == BASHING || attack_flag == LETHAL || attack_flag == AGGRAVATED)
 		var/final_block = secret_vampireroll(total_cubes, 6, src, silent, FALSE)

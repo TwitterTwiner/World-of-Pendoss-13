@@ -36,3 +36,12 @@
 
 /// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
 #define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
+
+/// Trait from Daimonion 5 Lying Weakness
+#define TRAIT_LYING_WEAKNESS "lying_weakness"
+/// Trait from Daimonion 1
+#define TRAIT_SENSE_THE_SIN "sense_the_sin"
+
+/// Awakening of the steel related traits
+#define TRAIT_ARMOR_BREAK "armor_break"
+#define TRAIT_FORTITUDE_NEGATION "fortitude_negation"

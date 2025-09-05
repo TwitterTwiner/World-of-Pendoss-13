@@ -255,7 +255,7 @@ SUBSYSTEM_DEF(witness_pool)
 						to_chat(H, "<span class='warning'>[I] is <b>COLD IRON</b>!")
 
 		if(clane && !antifrenzy && !HAS_TRAIT(H, TRAIT_KNOCKEDOUT))
-			if(clane.name == "Banu Haqim")
+			if((clane.name == "Banu Haqim") || (clane.name = "Banu Haqim Sorcerer") || (clane.name = "Banu Haqim Vizier"))
 				if(mind)
 					if(mind.enslaved_to)
 						if(get_dist(H, mind.enslaved_to) > 10)

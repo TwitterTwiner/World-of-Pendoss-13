@@ -123,6 +123,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 /atom/movable/proc/lang_treat(atom/movable/speaker, datum/language/language, raw_message, list/spans, list/message_mods = list(), no_quote = FALSE)
 	if(has_language(language))
 		var/atom/movable/AM = speaker.GetSource()
+		if(ishuman(speaker) && HAS_TRAIT(speaker, TRAIT_LYING_WEAKNESS))
+			for(var/k in GLOB.lying_weakness_replacements)
+				if(findtext(LOWER_TEXT(raw_message), k))
+					raw_message = replacetext(raw_message, k, GLOB.lying_weakness_replacements[k])
 		if(AM) //Basically means "if the speaker is virtual"
 			return no_quote ? raw_message : AM.say_quote(raw_message, spans, message_mods)
 		else

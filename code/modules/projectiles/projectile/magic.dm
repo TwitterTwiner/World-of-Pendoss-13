@@ -682,6 +682,8 @@
 
 /obj/projectile/magic/aoe/fireball/baali
 	color = "#2dff00"
+	damage = 25
+	damage_type = CLONE
 
 //still magic related, but a different path
 
