@@ -189,7 +189,9 @@
 		"Dark Thaumaturgy: The Taking of the Spirit" = list("Baali"),
 		"Healer Valeren" = list("Salubri", "Salubri Warrior"),
 		"Warrior Valeren" = list("Salubri", "Salubri Warrior"),
-		"Mytherceria" = list("Kiasyd")
+		"Mytherceria" = list("Kiasyd"),
+		"Du-Ran-Ki: Awakening of the Steel" = list("Banu Haqim Sorcerer"),
+		"Du-Ran-Ki: Path of Blood" = list("Banu Haqim Sorcerer")
 	)
 	for(var/discipline in discipline_owners)
 		if(clan.get_discipline(discipline) && !(H.clane?.name in discipline_owners[discipline]))

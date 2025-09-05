@@ -3,7 +3,7 @@
 	desc = "Opens the secrets of blood magic and how you use it, allows to steal other's blood. Violates Masquerade."
 	icon_state = "thaumaturgy_path_of_blood"
 	clan_restricted = TRUE
-	learnable_by_clans = list(/datum/vampireclane/baali)
+	learnable_by_clans = list(/datum/vampireclane/baali, /datum/vampireclane/tremere)
 	power_type = /datum/discipline_power/thaumaturgy_path_of_blood
 
 /datum/discipline/thaumaturgy_path_of_blood/duranki
