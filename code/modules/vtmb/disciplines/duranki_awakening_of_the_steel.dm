@@ -36,33 +36,23 @@
 	name = "Confer with the Blade"
 	desc = "Speak with the weapon's Soul"
 	level = 1
-
-/datum/discipline_power/duranki_awakening_of_the_steel/confer_with_the_blade/pre_activation_checks(atom/target)
-	. = ..()
-	var/success_roll
-	success_roll = secret_vampireroll(get_a_willpower(owner)+get_a_occult(owner), level+3, owner)
-	if(success_roll <= 0)
-		to_chat(owner, span_notice("Your magic fizzles out!"))
-		owner.Stun(3 SECONDS)
-		owner.do_jitter_animation(10)
-		return FALSE
-	var/obj/item/I = owner.get_active_held_item()
-	if(!I || !I.force || !I.sharpness)
-		to_chat(owner, span_warning("You need to hold a sharp weapon in your hands!"))
-		return FALSE
-	return TRUE
+	var/obj/item/I_examined
 
 /datum/discipline_power/duranki_awakening_of_the_steel/confer_with_the_blade/activate(atom/target)
 	. = ..()
-	to_chat(owner, span_notice("Your [I.name] shudders. \nYour sword has a force of [I.force] and a throwforce of [I.throwforce]. It deals [I.damtype] damage."))
-	if(I.block_chance)
-		to_chat(owner, span_notice("You have [I.block_chance]% chance to block attacks with this weapon."))
-	if(I.armour_penetration)
-		to_chat(owner, span_notice("It pierces through [I.armour_penetration]% of armor."))
-	if(I.wound_bonus)
-		to_chat(owner, span_notice("The blade has a wound bonus of [I.wound_bonus]."))
-	if(I.bare_wound_bonus)
-		to_chat(owner, span_notice("It also has a bare wound bonus of [I.bare_wound_bonus]."))
+	I_examined = owner.get_active_held_item()
+	if(!I_examined || !I_examined.force || !I_examined.sharpness)
+		to_chat(owner, span_warning("You need to hold a sharp weapon in your hands!"))
+		return
+	to_chat(owner, span_notice("Your [I_examined.name] shudders. \nYour sword has a force of [I_examined.force] and a throwforce of [I_examined.throwforce]. It deals [I_examined.damtype] damage."))
+	if(I_examined.block_chance)
+		to_chat(owner, span_notice("You have [I_examined.block_chance]% chance to block attacks with this weapon."))
+	if(I_examined.armour_penetration)
+		to_chat(owner, span_notice("It pierces through [I_examined.armour_penetration]% of armor."))
+	if(I_examined.wound_bonus)
+		to_chat(owner, span_notice("The blade has a wound bonus of [I_examined.wound_bonus]."))
+	if(I_examined.bare_wound_bonus)
+		to_chat(owner, span_notice("It also has a bare wound bonus of [I_examined.bare_wound_bonus]."))
 
 /datum/discipline_power/duranki_awakening_of_the_steel/grasp_of_the_mountain
 	name = "Grasp of the Mountain"
@@ -72,36 +62,25 @@
 	cooldown_length = 1 SCENES
 	toggled = TRUE
 	cancelable = TRUE
-	var/obj/item/I
-
-/datum/discipline_power/duranki_awakening_of_the_steel/grasp_of_the_mountain/pre_activation_checks(atom/target)
-	. = ..()
-	var/success_roll
-	success_roll = secret_vampireroll(get_a_willpower(owner)+get_a_occult(owner), level+3, owner)
-	if(success_roll <= 0)
-		to_chat(owner, span_notice("Your magic fizzles out!"))
-		owner.Stun(3 SECONDS)
-		owner.do_jitter_animation(10)
-		return FALSE
-	var/obj/item/I = owner.get_active_held_item()
-	if(!I || !I.force || !I.sharpness)
-		to_chat(owner, span_warning("You need to hold a sharp weapon in your hands!"))
-		return FALSE
-	return TRUE
+	var/obj/item/I_held
 
 /datum/discipline_power/duranki_awakening_of_the_steel/grasp_of_the_mountain/activate(atom/target)
 	. = ..()
-	if(!HAS_TRAIT(I, TRAIT_NODROP))
-		ADD_TRAIT(I, TRAIT_NODROP, DISCIPLINE_TRAIT)
-		to_chat(owner, span_notice("You hold on the [I] tight."))
+	I_held = owner.get_active_held_item()
+	if(!I_held || !I_held.force || !I_held.sharpness)
+		to_chat(owner, span_warning("You need to hold a sharp weapon in your hands!"))
+		return
+	if(!HAS_TRAIT(I_held, TRAIT_NODROP))
+		ADD_TRAIT(I_held, TRAIT_NODROP, DISCIPLINE_TRAIT)
+		to_chat(owner, span_notice("You hold on the [I_held.name] tight."))
 	else
-		to_chat(owner, span_warning("You're already holding [I] firm!"))
+		to_chat(owner, span_warning("You're already holding [I_held.name] firmly enough!"))
 
 /datum/discipline_power/duranki_awakening_of_the_steel/grasp_of_the_mountain/deactivate(atom/target)
 	. = ..()
-	if(HAS_TRAIT(I, TRAIT_NODROP))
-		REMOVE_TRAIT(I, TRAIT_NODROP, DISCIPLINE_TRAIT)
-		to_chat(owner, span_warning("Your grip on [I] weakens."))
+	if(HAS_TRAIT(I_held, TRAIT_NODROP))
+		REMOVE_TRAIT(I_held, TRAIT_NODROP, DISCIPLINE_TRAIT)
+		to_chat(owner, span_warning("Your grip on [I_held.name] weakens."))
 
 
 /datum/discipline_power/duranki_awakening_of_the_steel/pierce_steels_skin
