@@ -335,7 +335,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/obj/effect/hallucination/simple/demon/demon
 	var/turf/landing
 	var/charged
-	var/next_action = 0
+	COOLDOWN_DECLARE(next_cooldown)
 
 /datum/hallucination/baali/New(mob/living/carbon/C, forced = TRUE)
 	set waitfor = FALSE
@@ -358,9 +358,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/hallucination/baali/process(delta_time)
-	next_action -= delta_time
-
-	if (next_action > 0)
+	if(!COOLDOWN_FINISHED(src, next_cooldown))
 		return
 
 	if (target?.stat != DEAD)
@@ -371,12 +369,12 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		if(demon.Adjacent(target) && !charged)
 			charged = TRUE
 			target.Paralyze(1 SECONDS)
-			target.adjustStaminaLoss(500)
+			target.adjustStaminaLoss(150)
 			step_away(target, demon)
 			target.visible_message("<span class='warning'>[target] jumps backwards, falling on the ground!</span>","<span class='userdanger'>[demon] slams into you!</span>")
 			STOP_PROCESSING(SSfastprocess, src)
 			qdel(src)
-		next_action = 0.2
+		COOLDOWN_START(src, next_cooldown, 2 SECONDS)
 	else
 		STOP_PROCESSING(SSfastprocess, src)
 		QDEL_IN(src, 3 SECONDS)

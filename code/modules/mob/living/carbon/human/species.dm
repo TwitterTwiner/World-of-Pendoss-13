@@ -1467,10 +1467,22 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			return FALSE
 
 		var/armor_block
+
 		if(get_potence_dices(user) || iscrinos(user))
-			armor_block = target.run_armor_check(affecting, AGGRAVATED)
+			if(HAS_TRAIT(user, TRAIT_FORTITUDE_NEGATION))
+				armor_block = target.run_armor_check(affecting, AGGRAVATED, fortitude_negation=TRUE)
+				REMOVE_TRAIT(user, TRAIT_FORTITUDE_NEGATION, DISCIPLINE_TRAIT)
+				to_chat(user, span_warning("You can't shred through magical armor no longer."))
+			else
+				armor_block = target.run_armor_check(affecting, AGGRAVATED)
 		else
-			armor_block = target.run_armor_check(affecting, BASHING)
+			if(HAS_TRAIT(user, TRAIT_FORTITUDE_NEGATION))
+				armor_block = target.run_armor_check(affecting, BASHING, fortitude_negation=TRUE)
+				REMOVE_TRAIT(user, TRAIT_FORTITUDE_NEGATION, DISCIPLINE_TRAIT)
+				to_chat(user, span_warning("You can't shred through magical armor no longer."))
+			else
+				armor_block = target.run_armor_check(affecting, BASHING)
+
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, TRUE, -1)
 
@@ -1574,7 +1586,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		if("disarm")
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, guaranteed_hit = FALSE)
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, guaranteed_hit = FALSE, armor_break = FALSE)
 	// Allows you to put in item-specific reactions based on species
 	if(ishuman(user))
 		var/mob/living/carbon/human/ohvampire = user
@@ -1671,7 +1683,10 @@ GLOBAL_LIST_EMPTY(selectable_races)
 					if(H.bloodpool)
 						H.bloodpool = max(0, H.bloodpool-1)
 						OC.stored_blood = OC.stored_blood+1
-	apply_damage(round(I.force*((modifikator+1)/4)) * weakness, I.damtype, def_zone, armor_block, H, wound_bonus = Iwound_bonus, bare_wound_bonus = I.bare_wound_bonus, sharpness = I.get_sharpness())
+	if(!armor_break)
+		apply_damage(round(I.force*((modifikator+1)/4)) * weakness, I.damtype, def_zone, armor_block, H, wound_bonus = Iwound_bonus, bare_wound_bonus = I.bare_wound_bonus, sharpness = I.get_sharpness())
+	else
+		H.damage_clothes((round(I.force*((modifikator+1)/4))) * weakness * 5, I.damtype, def_zone)
 
 	if(!I.force)
 		return FALSE //item force is zero
