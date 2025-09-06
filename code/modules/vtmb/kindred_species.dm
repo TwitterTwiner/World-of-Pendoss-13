@@ -472,10 +472,10 @@
 						qdel(discipline)
 						continue
 
-				if (discipline.learnable_by_clans && discipline.learnable_by_clans.len)
+				/* if (discipline.learnable_by_clans && discipline.learnable_by_clans.len)
 					if (!can_access_discipline(src, type_to_create))
 						qdel(discipline)
-						continue
+						continue */
 
 				adding_disciplines += discipline
 		else if (disciplines.len) //initialise given disciplines
@@ -641,11 +641,11 @@
 				qdel(giving_discipline)
 				return
 
-		if (giving_discipline.learnable_by_clans && giving_discipline.learnable_by_clans.len)
+		/* if (giving_discipline.learnable_by_clans && giving_discipline.learnable_by_clans.len)
 			if(!can_access_discipline(student, teaching_discipline))
 				to_chat(teacher, span_warning("Your student is not whitelisted for any Clans which allows this Discipline, so they cannot learn it."))
 				qdel(giving_discipline)
-				return
+				return */
 
 		//ensure the teacher's mastered it, also prevents them from teaching with free starting experience
 		if (teacher_discipline.level < 5)
@@ -734,11 +734,11 @@
 		qdel(discipline_object_checking)
 		return TRUE
 
-	if (discipline_object_checking.learnable_by_clans && discipline_object_checking.learnable_by_clans.len)
+	/* if (discipline_object_checking.learnable_by_clans && discipline_object_checking.learnable_by_clans.len)
 		for (var/allowed_clan in discipline_object_checking.learnable_by_clans)
 			if (vampire_checking.clane.type == allowed_clan)
 				qdel(discipline_object_checking)
-				return TRUE
+				return TRUE */
 	qdel(discipline_object_checking)
 
 	//first, check their Clan Disciplines to see if that gives them access

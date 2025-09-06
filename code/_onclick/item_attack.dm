@@ -104,7 +104,12 @@
 		user.client.give_award(/datum/award/achievement/misc/selfouch, user)
 
 	user.do_attack_animation(M)
-	M.attacked_by(src, user)
+
+	if(HAS_TRAIT(user, TRAIT_ARMOR_BREAK))
+		M.attacked_by(src, user, armor_break=TRUE)
+	else
+		M.attacked_by(src, user)
+
 
 	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 	add_fingerprint(user)
@@ -132,10 +137,13 @@
 		log_combat(user, src, "attacked", I)
 	take_damage(I.force, I.damtype, MELEE, 1)
 
-/mob/living/attacked_by(obj/item/I, mob/living/user)
+/mob/living/attacked_by(obj/item/I, mob/living/user, armor_break = FALSE)
 	send_item_attack_message(I, user)
 	if(I.force)
-		apply_damage(I.force, I.damtype)
+		if(!armor_break)
+			apply_damage(I.force, I.damtype)
+		else
+			damage_clothes(I.force*5, I.damtype)
 		if(I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)
@@ -145,7 +153,7 @@
 					user.add_mob_blood(src)
 		return TRUE //successful attack
 
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, armor_break = FALSE)
 	if(!attack_threshold_check(I.force, I.damtype, MELEE, FALSE))
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
 	else

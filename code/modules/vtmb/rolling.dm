@@ -523,6 +523,7 @@ SUBSYSTEM_DEF(woddices)
 	if(!host)
 		return data
 	data["name"] = host.real_name ? host.real_name : "Unknown"
+	var/list/objectives = list()
 	if(host.mind)
 		if(iskindred(host))
 			if(host.clane)
@@ -540,6 +541,15 @@ SUBSYSTEM_DEF(woddices)
 		if(host.mind.assigned_role)
 			data["role"] = host.mind.assigned_role
 		if(host.mind.special_role)
+			for(var/datum/antagonist/A in host.mind.antag_datums)
+				if(A.objectives && A.objectives.len)
+					var/count = 1
+					for(var/datum/objective/objective in A.objectives)
+						if(objective.check_completion())
+							objectives += "Objective #[count]: [objective.explanation_text] Success!"
+						else
+							objectives += "Objective #[count]: [objective.explanation_text] Fail."
+						count++
 			data["special_role"] = host.mind.special_role
 	var/list/memories = list()
 	if(iskindred(host) || isghoul(host))
@@ -709,6 +719,7 @@ SUBSYSTEM_DEF(woddices)
 			"tooltip" = "These are your memories. You received them at birth or during your life!",
 			"values" = memories
 		),
+		list("name" = "Objectives", "tooltip" = "Your objectives", "values" = objectives),
 		list("name" = "Disciplines", "tooltip" = "Your disciplines", "values" = disciplines),
 		list("name" = "Abilities", "tooltip" = "Your abilities", "values" = abilities),
 		list("name" = "Attributes", "tooltip" = "Your attributes", "values" = attributes)

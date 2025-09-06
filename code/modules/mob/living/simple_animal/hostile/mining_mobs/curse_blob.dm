@@ -101,7 +101,7 @@ IGNORE_PROC_IF_NOT_TARGET(attack_slime)
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/curseblob/attacked_by(obj/item/I, mob/living/L)
+/mob/living/simple_animal/hostile/asteroid/curseblob/attacked_by(obj/item/I, mob/living/L, armor_break = FALSE)
 	if(L != set_target)
 		return
 	return ..()

@@ -321,7 +321,7 @@
 	AddAbility(my_regurgitate)
 	add_cell_sample()
 
-/mob/living/simple_animal/hostile/retaliate/clown/mutant/glutton/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/retaliate/clown/mutant/glutton/attacked_by(obj/item/I, mob/living/user, armor_break = FALSE)
 	if(!check_edible(I))
 		return ..()
 	eat_atom(I)

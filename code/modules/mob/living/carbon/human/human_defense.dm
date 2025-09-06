@@ -178,7 +178,7 @@
 	..()
 
 
-/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, guaranteed_hit = FALSE)
+/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, guaranteed_hit = FALSE, armor_break = FALSE)
 	if(!I || !user)
 		return FALSE
 
@@ -198,7 +198,7 @@
 	SSblackbox.record_feedback("tally", "zone_targeted", 1, target_area)
 
 	// the attacked_by code varies among species
-	return dna.species.spec_attacked_by(I, user, affecting, a_intent, src, guaranteed_hit)
+	return dna.species.spec_attacked_by(I, user, affecting, a_intent, src, guaranteed_hit, armor_break)
 
 
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user)
