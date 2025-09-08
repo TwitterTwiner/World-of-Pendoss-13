@@ -99,26 +99,42 @@
 		if(ishuman(owner))
 			playsound(get_turf(owner), 'code/modules/wod13/sounds/venom_claws.ogg', 75, FALSE)
 			var/mob/living/carbon/human/H = owner
-			H.melee_damage_lower = initial(H.melee_damage_lower)+5
-			H.melee_damage_upper = initial(H.melee_damage_upper)+5
-			H.tox_damage_plus = 5
+			H.dna.species.attack_verb = "slash"
+			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+			H.dna.species.punchdamagelow += 5
+			H.dna.species.punchdamagehigh += 5
+			H.dna.species.attack_type = CLONE
+			H.tox_damage_plus = 15
 			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
 			spawn(15 SECONDS)
 				H.tox_damage_plus = 0
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)
+				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
+				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
+				H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
+				H.dna.species.attack_type = initial(H.dna.species.attack_type)
 				to_chat(owner, span_warning("Your claws are not poison anymore..."))
 		else
 			playsound(get_turf(owner), 'code/modules/wod13/sounds/venom_claws.ogg', 75, FALSE)
 			var/mob/living/carbon/H = owner
-			H.melee_damage_lower = initial(H.melee_damage_lower)+5
-			H.melee_damage_upper = initial(H.melee_damage_upper)+5
-			H.tox_damage_plus = 5
+			H.dna.species.attack_verb = "slash"
+			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+			H.dna.species.punchdamagelow += 5
+			H.dna.species.punchdamagehigh += 5
+			H.dna.species.attack_type = CLONE
+			H.tox_damage_plus = 15
 			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
 			spawn(15 SECONDS)
 				H.tox_damage_plus = 0
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)
+				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
+				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
+				H.dna.species.miss_sound = initialH.dna.species.miss_sound()
+				H.dna.species.attack_type = initial(H.dna.species.attack_type)
 				to_chat(owner, span_warning("Your claws are not poison anymore..."))
 
 /datum/action/gift/burning_scars
