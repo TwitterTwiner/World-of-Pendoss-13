@@ -614,7 +614,7 @@
 /datum/action/gift/howling/proc/get_message(mob/living/carbon/Garou, turf/origin_turf)
 
 	var/distance = get_dist(Garou, origin_turf)
-	var/dirtext = " to the "
+	var/dirtext = "to the "
 	var/direction = get_dir(Garou, origin_turf)
 
 	switch(direction)
