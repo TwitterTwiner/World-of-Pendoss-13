@@ -62911,7 +62911,7 @@
 	},
 /obj/item/storage/backpack/duffelbag,
 /obj/item/clothing/shoes/swagshoes,
-/obj/item/vamp/keys/techstore.
+/obj/item/vamp/keys/techstore,
 /obj/item/clothing/under/vampire/sport,
 /turf/open/floor/carpet,
 /area/vtm/interior/techshop)
