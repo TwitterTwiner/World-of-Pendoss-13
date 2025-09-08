@@ -26,13 +26,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_ENDRON
 
-	minimal_masquerade = 5
+	minimal_masquerade = 4
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Black Spiral Dancers")
 
 	my_contact_is_important = TRUE
-	known_contacts = list(
-	)
+	known_contacts = list("Endron Employee", "Endron Security Agent", "Endron Chief of Security", "Endron Internal Affairs Agent", "Endron Executive")
 
 	v_duty = "You are the current branch leader for the Endron Oil Refinery, operating out of San Francisco. Your job is to fuel production, keep your clowns in line, and to bring forth the banes that will ultimately allow the Wyrm to prevail over the Weaver."
 	experience_addition = 25
@@ -92,13 +91,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_ENDRON
 
-	minimal_masquerade = 5
+	minimal_masquerade = 4
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Black Spiral Dancers")
 
 	my_contact_is_important = TRUE
-	known_contacts = list(
-	)
+	known_contacts = list("Endron Employee", "Endron Security Agent", "Endron Chief of Security", "Endron Internal Affairs Agent", "Endron Branch Lead")
 
 	v_duty = "You are an acting executive for the Endron Oil Refinery, operating out of San Francisco. With discretion to the Branch Leader, a position you may aim for, your job is to fuel production, aid in bringing forth banes, and sate the heads of the Wyrm. Expand!"
 
@@ -156,13 +154,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_ENDRON
 
-	minimal_masquerade = 5
+	minimal_masquerade = 4
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Black Spiral Dancers")
 
 	my_contact_is_important = TRUE
-	known_contacts = list(
-	)
+	list("Endron Employee", "Endron Security Agent", "Endron Chief of Security", "Endron Executive", "Endron Branch Lead")
 
 	v_duty = "You are the internal affairs agent operating in the Endron Oil Refinery. You know the bloody and vile needs commanded of destruction will lead to jeopardy, and your duty is to see excellence on task rewarded and acknowledged, and curb the invariable atrocities that could endanger the greater plans of Pentex."
 
@@ -221,13 +218,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_ENDRON
 
-	minimal_masquerade = 5
+	minimal_masquerade = 4
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Black Spiral Dancers")
 
 	my_contact_is_important = TRUE
-	known_contacts = list(
-	)
+	known_contacts = list("Endron Employee", "Endron Security Agent", "Endron Internal Affairs Agent", "Endron Executive", "Endron Branch Lead")
 
 	v_duty = "You are an acting chief of security for the Endron Oil Refinery, operating out of San Francisco. With discretion to the Branch Leader, your job is to keep the complex and it's source of taint under control with the help of your security team, and to turn over contract violators to internal affairs or the executives."
 
@@ -283,12 +279,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_ENDRON
 
-	minimal_masquerade = 5
-	allowed_species = list("Werewolf")
-	allowed_tribes = list("Black Spiral Dancers")
+	allowed_species = list("Vampire", "Ghoul", "Human", "Werewolf")
+	department_head = list("Endron International")
+	allowed_tribes = list("Black Spiral Dancers", "Ronin")
+	allowed_bloodlines = list("True Brujah", "Daughters of Cacophony", "Salubri", "Baali", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Ministry", "Tzimisce", "Lasombra", "Caitiff", "Kiasyd")
 
-	known_contacts = list(
-	)
+	known_contacts = list("Endron Chief of Security", "Endron Internal Affairs Agent", "Endron Executive", "Endron Branch Lead")
 
 	v_duty = "You are an acting security for the Endron Oil Refinery, operating out of San Francisco. Under the chief of security's direction, your job is to keep the complex free of nosy meddlers, pick up contract violators, and to assist the chief in tackling threats to corporate assets."
 
@@ -344,10 +340,9 @@
 
 	display_order = JOB_DISPLAY_ORDER_ENDRON
 
-	minimal_masquerade = 5
+	minimal_masquerade = 3
 
-	known_contacts = list(
-	)
+	known_contacts = list("Endron Chief of Security", "Endron Internal Affairs Agent", "Endron Executive", "Endron Branch Lead")
 
 	v_duty ="You are an employee for the Endron Oil Refinery, operating out of San Francisco. Your bosses can be a little strange; give credence to the security team and executives for tasks on the night shift, and avoid getting negative attention from the branch manager or internal affairs."
 

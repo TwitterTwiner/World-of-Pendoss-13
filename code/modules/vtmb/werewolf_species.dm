@@ -102,13 +102,15 @@
 		return TRUE
 	if(isgarou(src) && auspice?.base_breed == "Homid")
 		return TRUE
+	if(iscrinos(src) && auspice?.base_breed == "Crinos")
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/Life()
 	. = ..()
 	if(wolf_recov)
 		if(stat != DEAD)
-			var/mob/living/carbon/C = src
+				var/mob/living/carbon/C = src
 			if(!C.is_base_breed() || C.auspice?.base_breed == "Metis")
-				adjustBruteLoss(-5, TRUE)
-				adjustFireLoss(-5, TRUE)
+					adjustBruteLoss(-5, TRUE)
+					adjustFireLoss(-5, TRUE)

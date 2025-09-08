@@ -236,13 +236,16 @@
 		var/list/things_to_ruin = shuffle(bodyparts.Copy())
 		for(var/B in things_to_ruin)
 			var/obj/item/bodypart/bodypart = B
-			if(bodypart.body_zone == BODY_ZONE_HEAD || bodypart.body_zone == BODY_ZONE_CHEST)
+			if(bodypart.body_zone == BODY_ZONE_CHEST)
 				continue
+			if(bodypart.body_zone == BODY_ZONE_HEAD)
+				if(get_bodypart(BODY_ZONE_L_ARM) && get_bodypart(BODY_ZONE_R_ARM) && get_bodypart(BODY_ZONE_L_LEG) && get_bodypart(BODY_ZONE_R_LEG))
+					continue
 			if(!affecting || ((affecting.get_damage() / affecting.max_damage) < (bodypart.get_damage() / bodypart.max_damage)))
 				affecting = bodypart
 	if(affecting)
 		dam_zone = affecting.body_zone
-		if(affecting.get_damage() >= affecting.max_damage)
+		if(affecting.get_damage(include_clone = TRUE) >= affecting.max_damage)
 			affecting.dismember()
 			return null
 		return affecting.body_zone

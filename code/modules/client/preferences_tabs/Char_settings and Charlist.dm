@@ -179,7 +179,7 @@
 		var/can_raise_gnosis = 0
 		if(renownrank < MAX_PUBLIC_RANK)
 			canraise = AuspiceRankUp()
-		if((extra_gnosis < renownrank) && extra_gnosis < 5)
+		if(extra_gnosis < min(renownrank, 5))
 			can_raise_gnosis = 1
 		if(canraise)
 			dat += "<a href='byond://?_src_=prefs;preference=renownrank;task=input'>Raise Renown Rank</a><BR>"
