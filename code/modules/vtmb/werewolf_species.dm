@@ -13,8 +13,11 @@
 	heatmod = 1
 	burnmod = 1
 	dust_anim = "dust-h"
+	punchdamagelow = 10
+	punchdamagehigh = 20
 	whitelisted = TRUE
 	selectable = TRUE
+	species_language_holder = /datum/language_holder/werewolf
 	var/glabro = FALSE
 
 /datum/species/garou/on_species_gain(mob/living/carbon/human/C)
@@ -29,8 +32,10 @@
 	glabro.Grant(C)
 	var/datum/action/gift/rage_heal/GH = new()
 	GH.Grant(C)
+	var/datum/action/gift/howling/howl = new()
+	howl.Grant(C)
 	C.transformator = new(C)
-	C.transformator.human_form = C
+	C.transformator.human_form = WEAKREF(C)
 
 /datum/species/garou/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()

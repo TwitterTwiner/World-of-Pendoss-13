@@ -639,6 +639,28 @@ SUBSYSTEM_DEF(woddices)
 		memories += "My P'o is [host.mind.dharma?.Po]"
 		memories += "Yin/Yang[host.max_yin_chi]/[host.max_yang_chi]"
 		memories += "Hun/P'o[host.mind.dharma?.Hun]/[host.max_demon_chi]"
+	if(iswerewolf(host) || isgarou(host))
+		var/masquerade_level = " have followed the rules tonight."
+		switch(host.masquerade)
+			if(4)
+				masquerade_level = " have made a faux pas tonight."
+			if(3)
+				masquerade_level = " have made a few issues tonight."
+			if(2)
+				masquerade_level = " have erred tonight."
+			if(1)
+				masquerade_level = " have acted foolishly and caused an uproar."
+			if(0)
+				masquerade_level = " should beg our totem for forgiveness."
+		memories += "My sect thinks I[masquerade_level]"
+		if(host.auspice.tribe.name == "Black Spiral Dancers")
+			memories += "Power: [host.honor]"
+			memories += "Infamy: [host.glory]"
+			memories += "Cunning: [host.wisdom]"
+		else
+			memories += "Honor: [host.honor]"
+			memories += "Glory: [host.glory]"
+			memories += "Wisdom: [host.wisdom]"
 
 	var/list/attributes = list()
 	attributes += "Strength: [get_a_strength(host)]"

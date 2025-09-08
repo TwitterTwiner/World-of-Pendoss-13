@@ -135,7 +135,61 @@
 		dat += "<b>Yin/Yang</b>: [yin]/[yang] <a href='byond://?_src_=prefs;preference=chibalance;task=input'>Adjust</a><BR>"
 		dat += "<b>Hun/P'o</b>: [hun]/[po] <a href='byond://?_src_=prefs;preference=demonbalance;task=input'>Adjust</a><BR>"
 	if(pref_species.name == "Werewolf")
+		if(!glory)
+			glory = 0
+		if(!honor)
+			honor = 0
+		if(!wisdom)
+			wisdom = 0
+		if(!renownrank)
+			renownrank = 0
+		if(!extra_gnosis)
+			extra_gnosis = 0
+		var/gloryXP = 25
+		var/honorXP = 25
+		var/wisdomXP = 25
 		dat += "<b>Veil:</b> [masquerade]/5<BR>"
+		switch(tribe.name)
+			if("Ronin")
+				dat += "Renown matters little to you, now.<BR>"
+			if("Black Spiral Dancers")
+				dat += "<b>Infamy:</b> [glory]/10<BR>"
+				if(gloryXP <= true_experience && glory < 10)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Raise Infamy ([gloryXP])</a><BR>"
+				dat += "<b>Power:</b> [honor]/10<BR>"
+				if(honorXP <= true_experience && honor < 10)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Raise Power ([honorXP])</a><BR>"
+				dat += "<b>Cunning:</b> [wisdom]/10<BR>"
+				if(wisdomXP <= true_experience && wisdom < 10)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Raise Cunning ([wisdomXP])</a><BR>"
+			else
+				dat += "<b>Glory:</b> [glory]/10<BR>"
+				if(gloryXP <= true_experience && glory < 10)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Raise Glory ([gloryXP])</a><BR>"
+				dat += "<b>Honor:</b> [honor]/10<BR>"
+				if(honorXP <= true_experience && honor < 10)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Raise Honor ([honorXP])</a><BR>"
+				dat += "<b>Wisdom:</b> [wisdom]/10<BR>"
+				if(wisdomXP <= true_experience && wisdom < 10)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Raise Wisdom ([wisdomXP])</a><BR>"
+		dat += "<b>Renown Rank:</b> [RankName(renownrank)]<BR>"
+		dat += "[RankDesc(renownrank)]<BR>"
+		dat += "<b> Extra Gnosis:</b> ([extra_gnosis]/5)<BR>"
+		var/canraise = 0
+		var/can_raise_gnosis = 0
+		if(renownrank < MAX_PUBLIC_RANK)
+			canraise = AuspiceRankUp()
+		if(extra_gnosis < renownrank)
+			can_raise_gnosis = 1
+		if(canraise)
+			dat += "<a href='byond://?_src_=prefs;preference=renownrank;task=input'>Raise Renown Rank</a><BR>"
+		if(can_raise_gnosis && true_experience >= 50)
+			dat += "<a href='byond://?_src_=prefs;preference=extra_gnosis;task=input'>Raise Extra Gnosis ([extra_gnosis]/5) Cost: 50 EXP </a><BR>"
+		else if(renownrank < MAX_PUBLIC_RANK)
+			var/renownrequirement = RenownRequirements()
+			dat += "<b>Needed To Raise Renown:</b> [renownrequirement]<BR>"
+		else
+			dat += "<BR>"
 	if(pref_species.name == "Vampire" || pref_species.name == "Ghoul")
 		dat += "<b>Masquerade:</b> [masquerade]/5<BR>"
 	if(pref_species.name == "Vampire")
@@ -163,14 +217,7 @@
 		var/gifts_text = ""
 		var/num_of_gifts = 0
 		for(var/i in 1 to auspice_level)
-			var/zalupa
-			switch (tribe)
-				if ("Glasswalkers")
-					zalupa = auspice.glasswalker[i]
-				if ("Wendigo")
-					zalupa = auspice.wendigo[i]
-				if ("Black Spiral Dancers")
-					zalupa = auspice.spiral[i]
+			var/zalupa = tribe.tribal_gifts[i]
 			var/datum/action/T = new zalupa()
 			gifts_text += "[T.name], "
 		for(var/i in auspice.gifts)
@@ -223,7 +270,8 @@
 		qdel(DAWOF2)
 
 		dat += "<b>Breed:</b> <a href='byond://?_src_=prefs;preference=breed;task=input'>[breed]</a><BR>"
-		dat += "<b>Tribe:</b> <a href='byond://?_src_=prefs;preference=tribe;task=input'>[tribe]</a><BR>"
+		dat += "<b>Tribe:</b> <a href='byond://?_src_=prefs;preference=tribe;task=input'>[tribe.name]</a><BR>"
+		dat += "<b>Description:</b> [tribe.desc]<BR>"
 		dat += "Color: <a href='byond://?_src_=prefs;preference=werewolf_color;task=input'>[werewolf_color]</a><BR>"
 		dat += "Scars: <a href='byond://?_src_=prefs;preference=werewolf_scar;task=input'>[werewolf_scar]</a><BR>"
 		dat += "Hair: <a href='byond://?_src_=prefs;preference=werewolf_hair;task=input'>[werewolf_hair]</a><BR>"
