@@ -104,16 +104,11 @@
 		return TRUE
 	return FALSE
 
-/mob/living/carbon/proc/is_base_metis()
-	if(iscrinos(src) && auspice?.base_breed == "Metis")
-		return TRUE
-	return FALSE
-
 /mob/living/carbon/Life()
 	. = ..()
 	if(wolf_recov)
 		if(stat != DEAD)
 			var/mob/living/carbon/C = src
-			if(!C.is_base_breed() || C.is_base_metis())
+			if(!C.is_base_breed() || C.auspice?.base_breed == "Metis")
 				adjustBruteLoss(-5, TRUE)
 				adjustFireLoss(-5, TRUE)
