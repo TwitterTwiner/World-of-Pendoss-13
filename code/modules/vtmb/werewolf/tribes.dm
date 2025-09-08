@@ -133,7 +133,7 @@
 				H.melee_damage_upper = initial(H.melee_damage_upper)
 				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
 				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
-				H.dna.species.miss_sound = initialH.dna.species.miss_sound()
+				H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
 				H.dna.species.attack_type = initial(H.dna.species.attack_type)
 				to_chat(owner, span_warning("Your claws are not poison anymore..."))
 
