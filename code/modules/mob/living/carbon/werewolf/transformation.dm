@@ -70,11 +70,13 @@
 			G.glabro = FALSE
 			H.update_icons()
 	var/datum/language_holder/garou_lang = trans.get_language_holder()
+	if(!garou_lang)
+		trans.language_holder = trans.initial_language_holder
+		garou_lang = trans.language_holder
 	switch(form)
 		if("Lupus")
 			for(var/spoken_language in garou_lang.spoken_languages)
 				garou_lang.remove_language(spoken_language, FALSE, TRUE)
-
 			garou_lang.grant_language(/datum/language/primal_tongue, TRUE, TRUE)
 			garou_lang.grant_language(/datum/language/garou_tongue, TRUE, TRUE)
 			if(iscrinos(trans))
@@ -84,7 +86,6 @@
 		if("Crinos")
 			for(var/spoken_language in garou_lang.spoken_languages)
 				garou_lang.remove_language(spoken_language, FALSE, TRUE)
-
 			garou_lang.grant_language(/datum/language/primal_tongue, TRUE, TRUE)
 			garou_lang.grant_language(/datum/language/garou_tongue, TRUE, TRUE)
 			if(islupus(trans))

@@ -1840,9 +1840,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					/datum/language/hebrew,
 					/datum/language/japanese,
 					/datum/language/cantonese,
-					/datum/language/greek,
-					/datum/language/garou_tongue,
-					/datum/language/primal_tongue
+					/datum/language/greek
 					)
 					var/list/available = languages_possible_base - languages
 
