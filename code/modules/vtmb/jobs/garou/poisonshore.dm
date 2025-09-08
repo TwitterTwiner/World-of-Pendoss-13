@@ -370,4 +370,3 @@
 /obj/effect/landmark/start/garou/spiral/employee
 	name = "Endron Employee"
 	icon_state = "Hound"
-	

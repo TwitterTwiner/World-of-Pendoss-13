@@ -46,7 +46,7 @@
 
 	if(sprite_apparel)
 		switch(auspice.tribe.name)
-			if("Wendigo" || "Silver Fangs" || "Ghost Council" || "Bone Gnawers")
+			if("Wendigo", "Silver Fangs", "Ghost Council", "Bone Gnawers")
 				var/mutable_appearance/clothing_overlay = mutable_appearance(icon, "wendigo[sprite_apparel][laid_down ? "_rest" : ""]")
 				add_overlay(clothing_overlay)
 			if("Glass Walkers")
