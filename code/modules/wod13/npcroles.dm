@@ -1248,7 +1248,7 @@
 	speed = -0.8
 	dodging = TRUE
 
-/mob/living/simple_animal/hostile/beastmaster/cockroach/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/cockroach/Initialize(mapload)
 	. = ..()
 	pixel_w = rand(-8, 8)
 	pixel_z = rand(-8, 8)

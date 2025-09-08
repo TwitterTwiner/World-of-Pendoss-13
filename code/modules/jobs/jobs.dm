@@ -92,7 +92,7 @@ GLOBAL_LIST_INIT(gang_positions, list(
 ))
 
 GLOBAL_LIST_INIT(spiral_positions, list(
-    "Endron Branch Lead",
+	"Endron Branch Lead",
 	"Endron Executive",
 	"Endron Internal Affairs Agent",
 	"Endron Chief of Security",
