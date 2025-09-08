@@ -1820,8 +1820,6 @@
 	icon = 'code/modules/wod13/icons_metro/relsi.dmi'
 	icon_state = "relsi"
 
-
-/// podiemnik
 /obj/structure/metrobaner
 	name = "Baner"
 	desc = "Baner for metro"
@@ -1839,3 +1837,16 @@
 /obj/structure/metrobaner/reklama
 	desc = "Adds!"
 	icon_state = "podiem_3"
+
+/obj/structure/chair/lavochka
+	name = "street bench"
+	icon_state = "lavochka_seredina"
+	icon = 'code/modules/wod13/icons_metro/lavochka.dmi'
+	buildstackamount = 1
+	item_chair = null
+
+/obj/structure/chair/lavochka/left
+	icon_state = "lavochka_left"
+
+/obj/structure/chair/lavochka/right
+	icon_state = "lavochka_right"

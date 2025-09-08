@@ -1,5 +1,5 @@
 /datum/job/vamp/red_stick
-	title = "Red Scick"
+	title = "Red Stick"
 	department_head = list("Red Dragon")
 	faction = "Vampire"
 	total_positions = 1
