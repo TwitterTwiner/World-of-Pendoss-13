@@ -74,6 +74,11 @@
 			var/matrix/ntransform = matrix(C.transform)
 			ntransform.Scale(2, 2)
 			animate(C, transform = ntransform, alpha = 0, time = 3)
+	if(wolf_recov)
+		if(stat != DEAD)
+			adjustBruteLoss(-5, TRUE)
+			adjustFireLoss(-5, TRUE)
+
 
 /mob/living/carbon/proc/inspired()
 	inspired = TRUE
@@ -111,9 +116,9 @@
 			H.dna.species.attack_verb = "slash"
 			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
 			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
-			H.dna.species.punchdamagelow = 20
-			H.dna.species.punchdamagehigh = 20
-			H.agg_damage_plus = 5
+			H.dna.species.punchdamagelow += 5
+			H.dna.species.punchdamagehigh += 5
+			H.dna.species.attack_type = CLONE
 			to_chat(owner, "<span class='notice'>You feel your claws sharpening...</span>")
 			if(H.CheckEyewitness(H, H, 7, FALSE))
 				H.adjust_veil(-1)
@@ -123,19 +128,17 @@
 				H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
 				H.dna.species.punchdamagelow = initial(H.dna.species.punchdamagelow)
 				H.dna.species.punchdamagehigh = initial(H.dna.species.punchdamagehigh)
-				H.agg_damage_plus = 0
+				H.dna.species.attack_type = initial(H.dna.species.attack_type)
 				to_chat(owner, "<span class='warning'>Your claws are not sharp anymore...</span>")
 		else
 			playsound(get_turf(owner), 'code/modules/wod13/sounds/razor_claws.ogg', 75, FALSE)
 			var/mob/living/carbon/H = owner
-			H.melee_damage_lower = H.melee_damage_lower+15
-			H.melee_damage_upper = H.melee_damage_upper+15
-			H.agg_damage_plus = 3
+			H.melee_damage_lower = H.melee_damage_lower+5
+			H.melee_damage_upper = H.melee_damage_upper+5
 			to_chat(owner, "<span class='notice'>You feel your claws sharpening...</span>")
 			spawn(150)
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)
-				H.tox_damage_plus = 0
 				to_chat(owner, "<span class='warning'>Your claws are not sharp anymore...</span>")
 
 /datum/action/gift/beast_speech
@@ -387,11 +390,11 @@
 		var/mob/living/carbon/C = owner
 		if(C.stat != DEAD)
 			SEND_SOUND(owner, sound('code/modules/wod13/sounds/rage_heal.ogg', 0, 0, 75))
-			C.adjustBruteLoss(-40*C.auspice.level, TRUE)
-			C.adjustFireLoss(-30*C.auspice.level, TRUE)
-			C.adjustCloneLoss(-5*C.auspice.level, TRUE) //-10 ---> -5 [ChillRaccoon]
+			C.adjustBruteLoss(-25*C.auspice.level, TRUE)
+			C.adjustFireLoss(-25*C.auspice.level, TRUE)
+			C.adjustCloneLoss(-10*C.auspice.level, TRUE)
 			C.adjustToxLoss(-10*C.auspice.level, TRUE)
-			C.adjustOxyLoss(-20*C.auspice.level, TRUE)
+			C.adjustOxyLoss(-25*C.auspice.level, TRUE)
 			C.bloodpool = min(C.bloodpool + C.auspice.level, C.maxbloodpool)
 			C.blood_volume = min(C.blood_volume + 56 * C.auspice.level, BLOOD_VOLUME_NORMAL)
 			if(ishuman(owner))
@@ -457,6 +460,7 @@
 	H.pixel_z = 0
 	H.melee_damage_lower = initial(H.melee_damage_lower)
 	H.melee_damage_upper = initial(H.melee_damage_upper)
+	H.armour_penetration = initial(H.armour_penetration)
 	H.hispo = FALSE
 	H.regenerate_icons()
 	H.update_transform()
@@ -468,8 +472,9 @@
 	H.icon = 'code/modules/wod13/hispo.dmi'
 	H.pixel_w = -16
 	H.pixel_z = -16
-	H.melee_damage_lower = 35
-	H.melee_damage_upper = 55
+	H.melee_damage_lower = 30
+	H.melee_damage_upper = 30
+	H.armour_penetration = 35
 	H.hispo = TRUE
 	H.regenerate_icons()
 	H.update_transform()
@@ -493,9 +498,14 @@
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/transform.ogg', 50, FALSE)
 		if(G.glabro)
 			H.remove_overlay(PROTEAN_LAYER)
-			H.attributes.strength_bonus -= 2
-			H.attributes.stamina_bonus -= 2
-			H.attributes.dexterity_bonus -= 2
+			H.melee_damage_lower = initial(H.melee_damage_lower)
+			H.melee_damage_upper = initial(H.melee_damage_upper)
+			H.armour_penetration = initial(H.armour_penetration)
+			H.dna.species.attack_type = initial(H.dna.species.attack_type)
+			H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
+			H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
+			H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
+			H.limb_destroyer = initial(H.limb_destroyer)
 			var/matrix/M = matrix()
 			M.Scale(1)
 			animate(H, transform = M, time = 1 SECONDS)
@@ -507,9 +517,14 @@
 			var/mutable_appearance/glabro_overlay = mutable_appearance('code/modules/wod13/werewolf_abilities.dmi', crinos?.sprite_color, -PROTEAN_LAYER)
 			H.overlays_standing[PROTEAN_LAYER] = glabro_overlay
 			H.apply_overlay(PROTEAN_LAYER)
-			H.attributes.strength_bonus += 2
-			H.attributes.stamina_bonus += 2
-			H.attributes.dexterity_bonus += 2
+			H.melee_damage_lower = 30
+			H.melee_damage_upper = 30
+			H.armour_penetration = 35
+			H.dna.species.attack_type = CLONE
+			H.dna.species.attack_verb = "slash"
+			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+			H.limb_destroyer = 1
 			var/matrix/M = matrix()
 			M.Scale(1.23)
 			animate(H, transform = M, time = 1 SECONDS)
@@ -526,31 +541,31 @@
 	var/list/howls = list(
 		"attack" = list(
 			"menu" = "Attack",
-			"message" = "A wolf howls a fierce call to attack"
+			"message" = "<b>A wolf howls a fierce call to attack</b>"
 		),
 		"retreat" = list(
 			"menu" = "Retreat",
-			"message" = "A wolf howls a warning to retreat"
+			"message" = "<b>A wolf howls a warning to retreat</b>"
 		),
 		"help" = list(
 			"menu" = "Help",
-			"message" = "A wolf howls a desperate plea for help"
+			"message" = "<b>A wolf howls a desperate plea for help</b>"
 		),
 		"gather" = list(
 			"menu" = "Gather",
-			"message" = "A wolf howls to gather the pack"
+			"message" = "<b>A wolf howls to gather the pack</b>"
 		),
 		"victory" = list(
 			"menu" = "Victory",
-			"message" = "A wolf howls in celebration of victory"
+			"message" = "<b>A wolf howls in celebration of victory</b>"
 		),
 		"dying" = list(
 			"menu" = "Dying",
-			"message" = "A wolf howls in pain and despair"
+			"message" = "<b>A wolf howls in pain and despair</b>"
 		),
 		"mourning" = list(
 			"menu" = "Mourning",
-			"message" = "A wolf howls in deep mourning for the fallen"
+			"message" = "<b>A wolf howls in deep mourning for the fallen</b>"
 		)
 	)
 
@@ -642,7 +657,7 @@
 
 	var/place = get_area_name(origin_turf)
 
-	var/returntext = "[disttext],[dirtext], at [place]."
+	var/returntext = "<b>[disttext], [dirtext], at [place].</b>"
 
 	return returntext
 

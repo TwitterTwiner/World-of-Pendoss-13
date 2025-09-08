@@ -145,6 +145,12 @@
 
 	var/inspired = FALSE
 
+	var/wolf_recov = FALSE
+
+	var/melee_damage_type
+
+	var/armour_penetration = 0
+
 	var/tox_damage_plus = 0
 	var/agg_damage_plus = 0
 

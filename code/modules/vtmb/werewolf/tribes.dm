@@ -34,7 +34,7 @@
 
 /datum/action/gift/freezing_wind
 	name = "Freezing Wind"
-	desc = "Garou of Galestalkers Tribe can create a stream of cold, freezing wind, and strike her foes with it."
+	desc = "Garou of Wendigo Tribe can create a stream of cold, freezing wind, and strike her foes with it."
 	button_icon_state = "freezing_wind"
 	rage_req = 1
 	//gnosis_req = 1
@@ -99,11 +99,11 @@
 		if(ishuman(owner))
 			playsound(get_turf(owner), 'code/modules/wod13/sounds/venom_claws.ogg', 75, FALSE)
 			var/mob/living/carbon/human/H = owner
-			H.melee_damage_lower = initial(H.melee_damage_lower)+15
-			H.melee_damage_upper = initial(H.melee_damage_upper)+15
-			H.tox_damage_plus = 15
+			H.melee_damage_lower = initial(H.melee_damage_lower)+5
+			H.melee_damage_upper = initial(H.melee_damage_upper)+5
+			H.tox_damage_plus = 5
 			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
-			spawn(12 SECONDS)
+			spawn(15 SECONDS)
 				H.tox_damage_plus = 0
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)
@@ -111,11 +111,11 @@
 		else
 			playsound(get_turf(owner), 'code/modules/wod13/sounds/venom_claws.ogg', 75, FALSE)
 			var/mob/living/carbon/H = owner
-			H.melee_damage_lower = initial(H.melee_damage_lower)+10
-			H.melee_damage_upper = initial(H.melee_damage_upper)+10
-			H.tox_damage_plus = 10
+			H.melee_damage_lower = initial(H.melee_damage_lower)+5
+			H.melee_damage_upper = initial(H.melee_damage_upper)+5
+			H.tox_damage_plus = 5
 			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
-			spawn(12 SECONDS)
+			spawn(15 SECONDS)
 				H.tox_damage_plus = 0
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)

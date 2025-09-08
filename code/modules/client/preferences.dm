@@ -221,7 +221,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/archetype = /datum/archetype/average
 
 	var/breed = "Homid"
-	var/datum/garou_tribe/tribe = new /datum/garou_tribe/galestalkers()
+	var/datum/garou_tribe/tribe = new /datum/garou_tribe/wendigo()
 	var/datum/auspice/auspice = new /datum/auspice/ahroun()
 	var/werewolf_color = "black"
 	var/werewolf_scar = 0
@@ -2676,7 +2676,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if(pref_species.name == "Werewolf")
 		switch(tribe.name)
-			if("Galestalkers","Children of Gaia","Ghost Council","Hart Wardens")
+			if("Wendigo")
 				character.yin_chi = 1
 				character.max_yin_chi = 1
 				character.yang_chi = 5 + (auspice_level * 2)

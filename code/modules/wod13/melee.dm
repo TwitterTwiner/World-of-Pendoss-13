@@ -442,6 +442,8 @@
 /obj/item/melee/touch_attack/werewolf/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity)
 		return
+	if(!isliving(target))
+		return
 	if(isliving(target))
 		var/mob/living/L = target
 		L.AdjustKnockdown(4 SECONDS)

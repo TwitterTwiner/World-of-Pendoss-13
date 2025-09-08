@@ -57,8 +57,7 @@
 	var/wound_bonus = 20
 	var/bare_wound_bonus = 25
 	var/sharpness = 50
-	var/armour_penetration = 0
-	var/melee_damage_type = BRUTE
+	melee_damage_type = CLONE
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	var/attack_verb_continuous = "attacks"
 	var/attack_verb_simple = "attack"
@@ -113,6 +112,8 @@
 	GH.Grant(src)
 	var/datum/action/gift/howling/howl = new()
 	howl.Grant(src)
+	var/datum/action/gift/guise_of_the_hound/guise = new()
+	guise.Grant(src)
 	add_verb(src, /mob/living/proc/mob_sleep)
 	add_verb(src, /mob/living/proc/toggle_resting)
 
@@ -191,8 +192,8 @@
 	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	limb_destroyer = 1
 	hud_type = /datum/hud/werewolf
-	melee_damage_lower = 65
-	melee_damage_upper = 65
+	melee_damage_lower = 35
+	melee_damage_upper = 35
 	armour_penetration = 50
 	health = 250
 	maxHealth = 250

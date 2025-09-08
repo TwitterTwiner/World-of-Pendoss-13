@@ -7,7 +7,7 @@
 	var/start_gnosis = 1
 	var/gnosis = 1
 	var/base_breed = "Homid"
-	var/datum/garou_tribe/tribe = new /datum/garou_tribe/galestalkers()
+	var/datum/garou_tribe/tribe = new /datum/garou_tribe/wendigo()
 	var/list/gifts = list()
 	var/force_abomination = FALSE
 

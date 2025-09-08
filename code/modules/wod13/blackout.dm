@@ -130,13 +130,13 @@ SUBSYSTEM_DEF(witness_pool)
 			return
 
 	switch(auspice.tribe.name)
-		if("Galestalkers", "Ghost Council", "Hart Wardens", "Get of Fenris", "Black Furies", "Silent Striders", "Red Talons", "Silver Fangs", "Stargazers")
+		if("Wendigo", "Silver Fangs", "Ghost Council")
 			if(istype(get_area(src), /area/vtm/forest))
 				adjust_veil(1, random = -1)
 				last_veil_restore = world.time
 
-		if("Bone Gnawers", "Children of Gaia", "Shadow Lords")
-			if(istype(get_area(src), /area/vtm/forest)) // Временно пока маппер не накодит чет
+		if("Bone Gnawers")
+			if(istype(get_area(src), /area/vtm/sewer))
 				adjust_veil(1, random = -1)
 				last_veil_restore = world.time
 

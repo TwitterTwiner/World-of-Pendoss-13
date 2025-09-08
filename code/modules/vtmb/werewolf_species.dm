@@ -13,8 +13,8 @@
 	heatmod = 1
 	burnmod = 1
 	dust_anim = "dust-h"
-	punchdamagelow = 10
-	punchdamagehigh = 20
+	punchdamagelow = 15
+	punchdamagehigh = 15
 	whitelisted = TRUE
 	selectable = TRUE
 	species_language_holder = /datum/language_holder/werewolf
@@ -34,8 +34,11 @@
 	GH.Grant(C)
 	var/datum/action/gift/howling/howl = new()
 	howl.Grant(C)
+	var/datum/action/gift/guise_of_the_hound/guise = new()
+	guise.Grant(C)
 	C.transformator = new(C)
 	C.transformator.human_form = WEAKREF(C)
+	C.wolf_recov = TRUE
 
 /datum/species/garou/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
@@ -45,6 +48,7 @@
 	for(var/datum/action/gift/G in C.actions)
 		if(G)
 			G.Remove(C)
+	C.wolf_recov = FALSE
 
 /datum/species/garou/check_roundstart_eligible()
 	return FALSE

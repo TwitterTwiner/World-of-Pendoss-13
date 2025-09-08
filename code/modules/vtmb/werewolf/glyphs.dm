@@ -175,10 +175,10 @@
     icon_state = "glasswalkers"
     color = "#000000"
 
-/obj/effect/decal/garou_glyph/galestalkers
+/obj/effect/decal/garou_glyph/wendigo
     name = "Abnormal Glyph"
     garou_name = "Younger Brother Glyph"
-    garou_desc = "A glyph that represents the Galestalkers tribe."
+    garou_desc = "A glyph that represents the Wendigo tribe."
     icon = 'code/modules/wod13/icons.dmi'
     icon_state = "younger_brother"
     color = "#000000"
