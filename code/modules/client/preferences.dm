@@ -2818,6 +2818,65 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				crinos.name = real_name
 				lupus.name = real_name
 
+			crinos.attributes.strength = character.attributes.strength
+			crinos.attributes.dexterity = character.attributes.dexterity
+			crinos.attributes.stamina = character.attributes.stamina
+			crinos.attributes.charisma = character.attributes.charisma
+			crinos.attributes.manipulation = character.attributes.manipulation
+			crinos.attributes.appearance = character.attributes.appearance
+			crinos.attributes.perception = character.attributes.perception
+			crinos.attributes.intelligence = character.attributes.intelligence
+			crinos.attributes.wits = character.attributes.wits
+
+			crinos.attributes.Alertness = character.attributes.Alertness
+			crinos.attributes.Athletics = character.attributes.Athletics
+			crinos.attributes.Brawl = character.attributes.Brawl
+			crinos.attributes.Empathy = character.attributes.Empathy
+			crinos.attributes.Intimidation = character.attributes.Intimidation
+			crinos.attributes.Crafts = character.attributes.Crafts
+			crinos.attributes.Melee = character.attributes.Melee
+			crinos.attributes.Firearms = character.attributes.Firearms
+			crinos.attributes.Drive = character.attributes.Drive
+			crinos.attributes.Security = character.attributes.Security
+			crinos.attributes.Finance = character.attributes.strength
+			crinos.attributes.Investigation = character.attributes.Investigation
+			crinos.attributes.Medicine = character.attributes.Medicine
+			crinos.attributes.Linguistics = character.attributes.Linguistics
+			crinos.attributes.Occult = character.attributes.Occult
+			crinos.attributes.Performance = character.attributes.Performance
+			crinos.attributes.Fleshcraft = character.attributes.Fleshcraft
+			crinos.attributes.Expression = character.attributes.Expression
+
+			lupus.attributes.strength = character.attributes.strength
+			lupus.attributes.dexterity = character.attributes.dexterity
+			lupus.attributes.stamina = character.attributes.stamina
+			lupus.attributes.charisma = character.attributes.charisma
+			lupus.attributes.manipulation = character.attributes.manipulation
+			lupus.attributes.appearance = character.attributes.appearance
+			lupus.attributes.perception = character.attributes.perception
+			lupus.attributes.intelligence = character.attributes.intelligence
+			lupus.attributes.wits = character.attributes.wits
+
+			lupus.attributes.Alertness = character.attributes.Alertness
+			lupus.attributes.Athletics = character.attributes.Athletics
+			lupus.attributes.Brawl = character.attributes.Brawl
+			lupus.attributes.Empathy = character.attributes.Empathy
+			lupus.attributes.Intimidation = character.attributes.Intimidation
+			lupus.attributes.Crafts = character.attributes.Crafts
+			lupus.attributes.Melee = character.attributes.Melee
+			lupus.attributes.Firearms = character.attributes.Firearms
+			lupus.attributes.Drive = character.attributes.Drive
+			lupus.attributes.Security = character.attributes.Security
+			lupus.attributes.Finance = character.attributes.strength
+			lupus.attributes.Investigation = character.attributes.Investigation
+			lupus.attributes.Medicine = character.attributes.Medicine
+			lupus.attributes.Linguistics = character.attributes.Linguistics
+			lupus.attributes.Occult = character.attributes.Occult
+			lupus.attributes.Performance = character.attributes.Performance
+			lupus.attributes.Fleshcraft = character.attributes.Fleshcraft
+			lupus.attributes.Expression = character.attributes.Expression
+
+
 	if(pref_species.mutant_bodyparts["tail_lizard"])
 		character.dna.species.mutant_bodyparts["tail_lizard"] = pref_species.mutant_bodyparts["tail_lizard"]
 	if(pref_species.mutant_bodyparts["spines"])
