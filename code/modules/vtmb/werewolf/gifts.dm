@@ -74,11 +74,6 @@
 			var/matrix/ntransform = matrix(C.transform)
 			ntransform.Scale(2, 2)
 			animate(C, transform = ntransform, alpha = 0, time = 3)
-	if(wolf_recov)
-		if(stat != DEAD)
-			adjustBruteLoss(-5, TRUE)
-			adjustFireLoss(-5, TRUE)
-
 
 /mob/living/carbon/proc/inspired()
 	inspired = TRUE

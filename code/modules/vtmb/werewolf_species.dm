@@ -70,16 +70,17 @@
 
 	if(amount && sound)
 		if(prob(20))
-			C.emote("growl")
-			if(iscrinos(C))
-				playsound(get_turf(C), 'code/modules/wod13/sounds/crinos_growl.ogg', 75, FALSE)
-			if(islupus(C))
-				playsound(get_turf(C), 'code/modules/wod13/sounds/lupus_growl.ogg', 75, FALSE)
-			if(isgarou(C))
-				if(C.gender == FEMALE)
-					playsound(get_turf(C), 'code/modules/wod13/sounds/female_growl.ogg', 75, FALSE)
-				else
-					playsound(get_turf(C), 'code/modules/wod13/sounds/male_growl.ogg', 75, FALSE)
+			spawn()
+				C.emote("growl")
+				if(iscrinos(C))
+					playsound(get_turf(C), 'code/modules/wod13/sounds/crinos_growl.ogg', 75, FALSE)
+				if(islupus(C))
+					playsound(get_turf(C), 'code/modules/wod13/sounds/lupus_growl.ogg', 75, FALSE)
+				if(isgarou(C))
+					if(C.gender == FEMALE)
+						playsound(get_turf(C), 'code/modules/wod13/sounds/female_growl.ogg', 75, FALSE)
+					else
+						playsound(get_turf(C), 'code/modules/wod13/sounds/male_growl.ogg', 75, FALSE)
 
 /proc/adjust_gnosis(amount, mob/living/carbon/C, sound = TRUE)
 	if(amount > 0)
@@ -95,3 +96,24 @@
 				SEND_SOUND(C, sound('code/modules/wod13/sounds/rage_decrease.ogg', 0, 0, 75))
 			to_chat(C, "<span class='boldnotice'><b>GNOSIS DECREASES</b></span>")
 	C.update_rage_hud()
+
+/mob/living/carbon/proc/is_base_breed()
+	if(islupus(src) && auspice?.base_breed == "Lupus")
+		return TRUE
+	if(isgarou(src) && auspice?.base_breed == "Homid")
+		return TRUE
+	return FALSE
+
+/mob/living/carbon/proc/is_base_metis()
+	if(iscrinos(src) && auspice?.base_breed == "Metis")
+		return TRUE
+	return FALSE
+
+/mob/living/carbon/Life()
+	. = ..()
+	if(wolf_recov)
+		if(stat != DEAD)
+			var/mob/living/carbon/C = src
+			if(!C.is_base_breed() || C.is_base_metis())
+				adjustBruteLoss(-5, TRUE)
+				adjustFireLoss(-5, TRUE)

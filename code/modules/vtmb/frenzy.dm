@@ -149,7 +149,7 @@
 	in_frenzy = TRUE
 	add_client_colour(/datum/client_colour/glass_colour/red)
 	demon_chi = 0
-	if(isgarou(src) || iswerewolf(src))
+	if(iswerewolf(src) || isgarou(src))
 		adjust_rage(-10, src, TRUE)
 	GLOB.frenzy_list += src
 
