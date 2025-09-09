@@ -239,8 +239,8 @@
 			if(bodypart.body_zone == BODY_ZONE_CHEST)
 				continue
 			if(bodypart.body_zone == BODY_ZONE_HEAD)
-				if(get_bodypart(BODY_ZONE_L_ARM) && get_bodypart(BODY_ZONE_R_ARM) && get_bodypart(BODY_ZONE_L_LEG) && get_bodypart(BODY_ZONE_R_LEG))
-					bodypart.drop_limb(FALSE, TRUE)
+				if(!(get_bodypart(BODY_ZONE_L_ARM) || get_bodypart(BODY_ZONE_R_ARM) || get_bodypart(BODY_ZONE_L_LEG) || get_bodypart(BODY_ZONE_R_LEG)))
+					bodypart.dismember()
 			if(!affecting || ((affecting.get_damage() / affecting.max_damage) < (bodypart.get_damage() / bodypart.max_damage)))
 				affecting = bodypart
 	if(affecting)

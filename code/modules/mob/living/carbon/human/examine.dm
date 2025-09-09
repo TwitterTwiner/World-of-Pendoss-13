@@ -100,6 +100,7 @@
 					. += "<b>You know [p_them()] as a fostern of the [auspice.tribe.name].</b>"
 					isknown = 1
 			if(3,4,5,6)
+				if(same_tribe || truescent)
 				. += "<b>You know [p_them()] as an [RankName(src.renownrank)] [auspice.name] of the [auspice.tribe.name].</b>"
 				isknown = 1
 		if(isknown)

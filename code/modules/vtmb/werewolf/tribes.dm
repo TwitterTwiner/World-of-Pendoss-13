@@ -143,18 +143,25 @@
 	button_icon_state = "burning_scars"
 	rage_req = 2
 	gnosis_req = 1
+	var/datum/progressbar/progress_burning
 
 /datum/action/gift/burning_scars/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
-		owner.visible_message(span_warning("[owner.name] crackles with heat!</span>"), span_danger("You crackle with heat, charging up your Gift!"))
-		if(do_after(owner, 3 SECONDS))
+		if(progress_burning)
+			to_chat(owner, span_warning("You are already charging your Gift!"))
+			return
+		owner.visible_message(span_userdanger("[owner.name] crackles with heat!</span>"), span_warning("You crackle with heat, charging up your Gift!"))
+		playsound(owner, 'sound/magic/burning_scars.ogg', 100, TRUE, extrarange = 5)
+		progress_burning = new(owner, 3 SECONDS)
+		spawn(3 SECONDS)
+			QDEL_NULL(progress_burning)
 			for(var/mob/living/L in orange(5, owner))
 				if(L)
 					L.adjustFireLoss(40)
 			for(var/turf/T in orange(4, get_turf(owner)))
 				var/obj/effect/fire/F = new(T)
-				spawn(10)
+				spawn(1 SECONDS)
 					qdel(F)
 
 /datum/action/gift/smooth_move
@@ -182,25 +189,19 @@
 	button_icon_state = "digital_feelings"
 	rage_req = 2
 	gnosis_req = 1
+	var/datum/progressbar/progress_digital
 
 /datum/action/gift/digital_feelings/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
+		if(progress_digital)
+			to_chat(owner, span_warning("You are already charging your Gift!"))
+			return
 		owner.visible_message(span_danger("[owner.name] crackles with static electricity!"), span_danger("You crackle with static electricity, charging up your Gift!"))
-		if(istype(get_area(src), /area/vtm))
-			var/area/vtm/V = get_area(src)
-			if(V.zone_type != "masquerade")
-				var/mob/living/carbon/human/H
-				var/mob/living/carbon/werewolf/W
-				if(ishuman(owner))
-					H = owner
-				else
-					W = owner
-				if(H)
-					H.adjust_veil(-1)
-				if(W)
-					W.adjust_veil(-1)
-		if(do_after(owner, 3 SECONDS))
+		playsound(owner, 'sound/magic/digital_feelings.ogg', 100, TRUE, extrarange = 5)
+		progress_digital = new(owner, 3 SECONDS)
+		spawn(3 SECONDS)
+			QDEL_NULL(progress_digital)
 			playsound(owner, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 			tesla_zap(owner, 3, 30, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES)
 			for(var/mob/living/L in orange(6, owner))

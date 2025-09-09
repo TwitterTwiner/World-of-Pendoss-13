@@ -457,6 +457,10 @@
 	H.melee_damage_upper = initial(H.melee_damage_upper)
 	H.armour_penetration = initial(H.armour_penetration)
 	H.hispo = FALSE
+	H.attributes.strength -= 3
+	H.attributes.dexterity -= 2
+	H.attributes.stamina -= 3
+	H.attributes.manipulation += 3
 	H.regenerate_icons()
 	H.update_transform()
 	animate(H, transform = null, color = "#FFFFFF", time = 1)
@@ -471,6 +475,10 @@
 	H.melee_damage_upper = 30
 	H.armour_penetration = 35
 	H.hispo = TRUE
+	H.attributes.strength += 3
+	H.attributes.dexterity += 2
+	H.attributes.stamina += 3
+	H.attributes.manipulation -= 3
 	H.regenerate_icons()
 	H.update_transform()
 	animate(H, transform = null, color = "#FFFFFF", time = 1)
@@ -501,6 +509,10 @@
 			H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
 			H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
 			H.limb_destroyer = initial(H.limb_destroyer)
+			H.attributes.strength -= 2
+			H.attributes.stamina -= 2
+			H.attributes.appearance += 1
+			H.attributes.manipulation += 1
 			var/matrix/M = matrix()
 			M.Scale(1)
 			animate(H, transform = M, time = 1 SECONDS)
@@ -520,6 +532,10 @@
 			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
 			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
 			H.limb_destroyer = 1
+			H.attributes.strength += 2
+			H.attributes.stamina += 2
+			H.attributes.appearance -= 1
+			H.attributes.manipulation -= 1
 			var/matrix/M = matrix()
 			M.Scale(1.23)
 			animate(H, transform = M, time = 1 SECONDS)

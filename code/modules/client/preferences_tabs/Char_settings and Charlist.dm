@@ -148,26 +148,42 @@
 			if("Ronin")
 				dat += "Renown matters little to you, now.<BR>"
 			if("Black Spiral Dancers")
-				dat += "<b>Infamy:</b> [glory]/10<BR>"
+				dat += "<b>Infamy:</b> [glory]/10"
 				if(!slotlocked)
 					dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Change Infamy</a><BR>"
-				dat += "<b>Power:</b> [honor]/10<BR>"
+				else
+					dat +="<BR>"
+				dat += "<b>Power:</b> [honor]/10"
 				if(!slotlocked)
 					dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Change Power</a><BR>"
-				dat += "<b>Cunning:</b> [wisdom]/10<BR>"
+				else
+					dat +="<BR>"
+				dat += "<b>Cunning:</b> [wisdom]/10"
 				if(!slotlocked)
 					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Change Cunning</a><BR>"
+				else
+					dat +="<BR>"
 			else
-				dat += "<b>Glory:</b> [glory]/10<BR>"
+				dat += "<b>Glory:</b> [glory]/10"
 				if(!slotlocked)
 					dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Change Glory</a><BR>"
-				dat += "<b>Honor:</b> [honor]/10<BR>"
+				else
+					dat +="<BR>"
+				dat += "<b>Honor:</b> [honor]/10"
 				if(!slotlocked)
 					dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Change Honor</a><BR>"
-				dat += "<b>Wisdom:</b> [wisdom]/10<BR>"
+				else
+					dat +="<BR>"
+				dat += "<b>Wisdom:</b> [wisdom]/10"
 				if(!slotlocked)
 					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Change Wisdom</a><BR>"
-		dat += "<b>Renown Rank:</b> [RankName(renownrank)]<BR>"
+				else
+					dat +="<BR>"
+		dat += "<b>Renown Rank:</b> [RankName(renownrank)]"
+		if(!slotlocked)
+			dat +=" <a href='byond://?_src_=prefs;preference=renownrank;task=input'>Change Renown Rank</a><BR>"
+		else
+			dat +="<BR>"
 		dat += "[RankDesc(renownrank)]<BR>"
 		dat += "<BR>"
 	if(pref_species.name == "Vampire" || pref_species.name == "Ghoul")

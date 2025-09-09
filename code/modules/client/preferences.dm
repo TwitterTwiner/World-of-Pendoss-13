@@ -1794,29 +1794,29 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(slotlocked)
 						return
 
-					var/new_renown = input(user, "Select your Renown Rank:", "Character Preference") as num|null
+					var/new_renown = tgui_input_number(user, "Select your Renown Rank (0-3):", "Character Preference", renownrank, 3, 0)
 					if(new_renown)
-						renownrank = clamp(new_renown, 0, 5)
+						renownrank = clamp(new_renown, 0, 3)
 
 				if("renownglory")
 					if(slotlocked)
 						return
 
-					var/new_glory = input(user, "Select your Glory:", "Character Preference") as num|null
+					var/new_glory = tgui_input_number(user, "Select your Glory (0-10):", "Character Preference", glory, 10, 0)
 					if(new_glory)
 						glory = clamp(new_glory, 0, 10)
 				if("renownhonor")
 					if(slotlocked)
 						return
 
-					var/new_honor = input(user, "Select your Honor:", "Character Preference") as num|null
+					var/new_honor = tgui_input_number(user, "Select your Honor (0-10):", "Character Preference", honor, 10, 0)
 					if(new_honor)
 						honor = clamp(new_honor, 0, 10)
 				if("renownwisdom")
 					if(slotlocked)
 						return
 
-					var/new_wisdom = input(user, "Select your Wisdom:", "Character Preference") as num|null
+					var/new_wisdom = tgui_input_number(user, "Select your Wisdom (0-10):", "Character Preference", wisdom, 10, 0)
 					if(new_wisdom)
 						wisdom = clamp(new_wisdom, 0, 10)
 
@@ -2818,11 +2818,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				crinos.name = real_name
 				lupus.name = real_name
 
-			crinos.attributes.strength = character.attributes.strength
-			crinos.attributes.dexterity = character.attributes.dexterity
-			crinos.attributes.stamina = character.attributes.stamina
+			crinos.attributes.strength = character.attributes.strength+4
+			crinos.attributes.dexterity = character.attributes.dexterity+1
+			crinos.attributes.stamina = character.attributes.stamina+3
 			crinos.attributes.charisma = character.attributes.charisma
-			crinos.attributes.manipulation = character.attributes.manipulation
+			crinos.attributes.manipulation = character.attributes.manipulation-3
 			crinos.attributes.appearance = character.attributes.appearance
 			crinos.attributes.perception = character.attributes.perception
 			crinos.attributes.intelligence = character.attributes.intelligence
@@ -2847,11 +2847,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			crinos.attributes.Fleshcraft = character.attributes.Fleshcraft
 			crinos.attributes.Expression = character.attributes.Expression
 
-			lupus.attributes.strength = character.attributes.strength
-			lupus.attributes.dexterity = character.attributes.dexterity
-			lupus.attributes.stamina = character.attributes.stamina
+			lupus.attributes.strength = character.attributes.strength+1
+			lupus.attributes.dexterity = character.attributes.dexterity+2
+			lupus.attributes.stamina = character.attributes.stamina+2
 			lupus.attributes.charisma = character.attributes.charisma
-			lupus.attributes.manipulation = character.attributes.manipulation
+			lupus.attributes.manipulation = character.attributes.manipulation-3
 			lupus.attributes.appearance = character.attributes.appearance
 			lupus.attributes.perception = character.attributes.perception
 			lupus.attributes.intelligence = character.attributes.intelligence
