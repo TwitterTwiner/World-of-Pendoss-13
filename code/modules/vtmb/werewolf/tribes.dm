@@ -143,26 +143,24 @@
 	button_icon_state = "burning_scars"
 	rage_req = 2
 	gnosis_req = 1
-	var/datum/progressbar/progress_burning
 
 /datum/action/gift/burning_scars/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
-		if(progress_burning)
-			to_chat(owner, span_warning("You are already charging your Gift!"))
-			return
 		owner.visible_message(span_userdanger("[owner.name] crackles with heat!</span>"), span_warning("You crackle with heat, charging up your Gift!"))
 		playsound(owner, 'sound/magic/burning_scars.ogg', 100, TRUE, extrarange = 5)
-		progress_burning = new(owner, 3 SECONDS)
-		spawn(3 SECONDS)
-			QDEL_NULL(progress_burning)
+		owner.move_resist = MOVE_FORCE_VERY_STRONG
+		if(do_after(owner, 1.5 SECONDS))
+			owner.move_resist = initial(owner.move_resist)
 			for(var/mob/living/L in orange(5, owner))
 				if(L)
 					L.adjustFireLoss(40)
 			for(var/turf/T in orange(4, get_turf(owner)))
 				var/obj/effect/fire/F = new(T)
-				spawn(1 SECONDS)
+				spawn(6)
 					qdel(F)
+		else
+			owner.move_resist = initial(owner.move_resist)
 
 /datum/action/gift/smooth_move
 	name = "Smooth Move"
@@ -194,19 +192,18 @@
 /datum/action/gift/digital_feelings/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
-		if(progress_digital)
-			to_chat(owner, span_warning("You are already charging your Gift!"))
-			return
 		owner.visible_message(span_danger("[owner.name] crackles with static electricity!"), span_danger("You crackle with static electricity, charging up your Gift!"))
 		playsound(owner, 'sound/magic/digital_feelings.ogg', 100, TRUE, extrarange = 5)
-		progress_digital = new(owner, 3 SECONDS)
-		spawn(3 SECONDS)
-			QDEL_NULL(progress_digital)
+		owner.move_resist = MOVE_FORCE_VERY_STRONG
+		if(do_after(owner, 1.5 SECONDS))
+			owner.move_resist = initial(owner.move_resist)
 			playsound(owner, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 			tesla_zap(owner, 3, 30, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES)
 			for(var/mob/living/L in orange(6, owner))
 				if(L)
 					L.electrocute_act(30, owner, siemens_coeff = 1, flags = NONE)
+		else
+			owner.move_resist = initial(owner.move_resist)
 
 /datum/action/gift/hands_full_of_thunder
 	name = "Hands Full of Thunder"

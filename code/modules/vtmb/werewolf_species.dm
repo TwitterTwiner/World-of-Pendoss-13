@@ -113,5 +113,5 @@
 	if(wolf_recov)
 		if(stat != DEAD)
 			if(!is_base_breed() || auspice?.base_breed == "Crinos")
-				adjustBruteLoss(-5, TRUE)
-				adjustFireLoss(-5, TRUE)
+				adjustBruteLoss(-10, TRUE)
+				adjustFireLoss(-10, TRUE)
