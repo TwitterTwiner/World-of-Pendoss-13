@@ -187,7 +187,6 @@
 	button_icon_state = "digital_feelings"
 	rage_req = 2
 	gnosis_req = 1
-	var/datum/progressbar/progress_digital
 
 /datum/action/gift/digital_feelings/Trigger()
 	. = ..()
