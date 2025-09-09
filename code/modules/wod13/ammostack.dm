@@ -355,7 +355,7 @@
 	. = ..()
 	if(iswerewolf(target) || isgarou(target))
 		var/mob/living/carbon/M = target
-		if(M.is_base_breed() && M.auspice?.base_breed != "Metis")
+		if(M.is_base_breed() && M.auspice?.base_breed != "Crinos")
 			var/roll = secret_vampireroll(get_a_stamina(M), 6, M)
 			if(roll >= 1)
 				return
@@ -380,7 +380,7 @@
 	. = ..()
 	if(iswerewolf(target) || isgarou(target))
 		var/mob/living/carbon/M = target
-		if(M.is_base_breed() && M.auspice?.base_breed != "Metis")
+		if(M.is_base_breed() && M.auspice?.base_breed != "Crinos")
 			var/roll = secret_vampireroll(get_a_stamina(M), 6, M)
 			if(roll >= 1)
 				return
@@ -404,7 +404,7 @@
 	. = ..()
 	if(iswerewolf(target) || isgarou(target))
 		var/mob/living/carbon/M = target
-		if(M.is_base_breed() && M.auspice?.base_breed != "Metis")
+		if(M.is_base_breed() && M.auspice?.base_breed != "Crinos")
 			var/roll = secret_vampireroll(get_a_stamina(M), 6, M)
 			if(roll >= 1)
 				return
@@ -430,7 +430,7 @@
 	. = ..()
 	if(iswerewolf(target) || isgarou(target))
 		var/mob/living/carbon/M = target
-		if(M.is_base_breed() && M.auspice?.base_breed != "Metis")
+		if(M.is_base_breed() && M.auspice?.base_breed != "Crinos")
 			var/roll = secret_vampireroll(get_a_stamina(M), 6, M)
 			if(roll >= 1)
 				return

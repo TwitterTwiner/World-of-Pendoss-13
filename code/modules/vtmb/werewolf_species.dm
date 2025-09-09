@@ -110,7 +110,7 @@
 	. = ..()
 	if(wolf_recov)
 		if(stat != DEAD)
-				var/mob/living/carbon/C = src
-			if(!C.is_base_breed() || C.auspice?.base_breed == "Metis")
-					adjustBruteLoss(-5, TRUE)
-					adjustFireLoss(-5, TRUE)
+			var/mob/living/carbon/C = src
+			if(!C.is_base_breed() || C.auspice?.base_breed == "Crinos")
+				adjustBruteLoss(-5, TRUE)
+				adjustFireLoss(-5, TRUE)

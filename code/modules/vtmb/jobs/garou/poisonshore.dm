@@ -159,7 +159,7 @@
 	allowed_tribes = list("Black Spiral Dancers")
 
 	my_contact_is_important = TRUE
-	list("Endron Employee", "Endron Security Agent", "Endron Chief of Security", "Endron Executive", "Endron Branch Lead")
+	known_contacts = list("Endron Employee", "Endron Security Agent", "Endron Chief of Security", "Endron Executive", "Endron Branch Lead")
 
 	v_duty = "You are the internal affairs agent operating in the Endron Oil Refinery. You know the bloody and vile needs commanded of destruction will lead to jeopardy, and your duty is to see excellence on task rewarded and acknowledged, and curb the invariable atrocities that could endanger the greater plans of Pentex."
 
