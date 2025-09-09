@@ -80,6 +80,8 @@
 
 	var/assigned_quirks = FALSE
 
+	wolf_recov = TRUE
+
 /mob/living/carbon/werewolf/update_resting()
 	if(resting)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)

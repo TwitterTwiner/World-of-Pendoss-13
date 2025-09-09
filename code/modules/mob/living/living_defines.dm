@@ -281,7 +281,6 @@
 
 	//Garou stats
 	var/renownrank = 0
-	var/extra_gnosis = 0
 	var/wisdom = 0
 	var/honor = 0
 	var/glory = 0

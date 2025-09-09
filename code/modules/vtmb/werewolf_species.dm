@@ -36,6 +36,8 @@
 	howl.Grant(C)
 	var/datum/action/gift/guise_of_the_hound/guise = new()
 	guise.Grant(C)
+	C.grant_language(/datum/language/primal_tongue, TRUE, TRUE)
+	C.grant_language(/datum/language/garou_tongue, TRUE, FALSE)
 	C.transformator = new(C)
 	C.transformator.human_form = WEAKREF(C)
 	C.wolf_recov = TRUE
@@ -110,7 +112,6 @@
 	. = ..()
 	if(wolf_recov)
 		if(stat != DEAD)
-			var/mob/living/carbon/C = src
-			if(!C.is_base_breed() || C.auspice?.base_breed == "Crinos")
+			if(!is_base_breed() || auspice?.base_breed == "Crinos")
 				adjustBruteLoss(-5, TRUE)
 				adjustFireLoss(-5, TRUE)

@@ -143,53 +143,33 @@
 			wisdom = 0
 		if(!renownrank)
 			renownrank = 0
-		if(!extra_gnosis)
-			extra_gnosis = 0
-		var/gloryXP = 25
-		var/honorXP = 25
-		var/wisdomXP = 25
 		dat += "<b>Veil:</b> [masquerade]/5<BR>"
 		switch(tribe.name)
 			if("Ronin")
 				dat += "Renown matters little to you, now.<BR>"
 			if("Black Spiral Dancers")
 				dat += "<b>Infamy:</b> [glory]/10<BR>"
-				if(gloryXP <= true_experience && glory < 10)
-					dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Raise Infamy ([gloryXP])</a><BR>"
+				if(!slotlocked)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Change Infamy</a><BR>"
 				dat += "<b>Power:</b> [honor]/10<BR>"
-				if(honorXP <= true_experience && honor < 10)
-					dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Raise Power ([honorXP])</a><BR>"
+				if(!slotlocked)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Change Power</a><BR>"
 				dat += "<b>Cunning:</b> [wisdom]/10<BR>"
-				if(wisdomXP <= true_experience && wisdom < 10)
-					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Raise Cunning ([wisdomXP])</a><BR>"
+				if(!slotlocked)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Change Cunning</a><BR>"
 			else
 				dat += "<b>Glory:</b> [glory]/10<BR>"
-				if(gloryXP <= true_experience && glory < 10)
-					dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Raise Glory ([gloryXP])</a><BR>"
+				if(!slotlocked)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Change Glory</a><BR>"
 				dat += "<b>Honor:</b> [honor]/10<BR>"
-				if(honorXP <= true_experience && honor < 10)
-					dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Raise Honor ([honorXP])</a><BR>"
+				if(!slotlocked)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Change Honor</a><BR>"
 				dat += "<b>Wisdom:</b> [wisdom]/10<BR>"
-				if(wisdomXP <= true_experience && wisdom < 10)
-					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Raise Wisdom ([wisdomXP])</a><BR>"
+				if(!slotlocked)
+					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Change Wisdom</a><BR>"
 		dat += "<b>Renown Rank:</b> [RankName(renownrank)]<BR>"
 		dat += "[RankDesc(renownrank)]<BR>"
-		dat += "<b> Extra Gnosis:</b> ([extra_gnosis]/5)<BR>"
-		var/canraise = 0
-		var/can_raise_gnosis = 0
-		if(renownrank < MAX_PUBLIC_RANK)
-			canraise = AuspiceRankUp()
-		if(extra_gnosis < min(renownrank, 5))
-			can_raise_gnosis = 1
-		if(canraise)
-			dat += "<a href='byond://?_src_=prefs;preference=renownrank;task=input'>Raise Renown Rank</a><BR>"
-		if(can_raise_gnosis && true_experience >= 50)
-			dat += "<a href='byond://?_src_=prefs;preference=extra_gnosis;task=input'>Raise Extra Gnosis ([extra_gnosis]/5) Cost: 50 EXP </a><BR>"
-		else if(renownrank < MAX_PUBLIC_RANK)
-			var/renownrequirement = RenownRequirements()
-			dat += "<b>Needed To Raise Renown:</b> [renownrequirement]<BR>"
-		else
-			dat += "<BR>"
+		dat += "<BR>"
 	if(pref_species.name == "Vampire" || pref_species.name == "Ghoul")
 		dat += "<b>Masquerade:</b> [masquerade]/5<BR>"
 	if(pref_species.name == "Vampire")

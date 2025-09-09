@@ -161,7 +161,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//Renown
 	var/renownrank = 0
-	var/extra_gnosis = 0
 	var/honor = 0
 	var/glory = 0
 	var/wisdom = 0
@@ -341,7 +340,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	chi_levels = list()
 	renownrank = initial(renownrank)
 	auspice_level = initial(auspice_level)
-	extra_gnosis = 0
 	honor = initial(honor)
 	glory = initial(glory)
 	wisdom = initial(wisdom)
@@ -1793,33 +1791,34 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					enlightenment = !enlightenment
 
 				if("renownrank")
-					renownrank = renownrank+1
-
-				if("extra_gnosis")
-					var/cost = 50
-					if ((true_experience < cost) || !(pref_species.id == "garou"))
+					if(slotlocked)
 						return
-					true_experience -= cost
-					extra_gnosis = extra_gnosis+1
+
+					var/new_renown = input(user, "Select your Renown Rank:", "Character Preference") as num|null
+					if(new_renown)
+						renownrank = clamp(new_renown, 0, 5)
 
 				if("renownglory")
-					var/cost = 25
-					if ((true_experience < cost) || (glory >= 10) || !(pref_species.id == "garou"))
+					if(slotlocked)
 						return
-					true_experience -= cost
-					glory = glory+1
+
+					var/new_glory = input(user, "Select your Glory:", "Character Preference") as num|null
+					if(new_glory)
+						glory = clamp(new_renown, 0, 10)
 				if("renownhonor")
-					var/cost = 25
-					if ((true_experience < cost) || (honor >= 10) || !(pref_species.id == "garou"))
+					if(slotlocked)
 						return
-					true_experience -= cost
-					honor = honor+1
+
+					var/new_honor = input(user, "Select your Honor:", "Character Preference") as num|null
+					if(new_honor)
+						honor = clamp(new_renown, 0, 10)
 				if("renownwisdom")
-					var/cost = 25
-					if ((true_experience < cost) || (wisdom >= 10) || !(pref_species.id == "garou"))
+					if(slotlocked)
 						return
-					true_experience -= cost
-					wisdom = wisdom+1
+
+					var/new_wisdom = input(user, "Select your Wisdom:", "Character Preference") as num|null
+					if(new_glory)
+						glory = clamp(new_renown, 0, 10)
 
 				if("languages_reset")
 					languages = list()
@@ -2697,7 +2696,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.wisdom = wisdom
 		character.glory = glory
 		character.renownrank = renownrank
-		character.extra_gnosis = extra_gnosis
 	character.humanity = humanity
 	character.masquerade = masquerade
 	if(!character_setup)
@@ -2783,16 +2781,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.auspice.on_gain(character)
 		switch(breed)
 			if("Homid")
-				character.auspice.gnosis = 1 + character.extra_gnosis
-				character.auspice.start_gnosis = 1 + character.extra_gnosis
+				character.auspice.gnosis = 1
+				character.auspice.start_gnosis = 1
 				character.auspice.base_breed = "Homid"
 			if("Lupus")
-				character.auspice.gnosis = 5 + character.extra_gnosis
-				character.auspice.start_gnosis = 5 + character.extra_gnosis
+				character.auspice.gnosis = 5
+				character.auspice.start_gnosis = 5
 				character.auspice.base_breed = "Lupus"
 			if("Metis")
-				character.auspice.gnosis = 3 + character.extra_gnosis
-				character.auspice.start_gnosis = 3 + character.extra_gnosis
+				character.auspice.gnosis = 3
+				character.auspice.start_gnosis = 3
 				character.auspice.base_breed = "Crinos"
 		if(character.transformator?.crinos_form && character.transformator?.lupus_form)
 			var/mob/living/carbon/werewolf/crinos/crinos = character.transformator.crinos_form?.resolve()
