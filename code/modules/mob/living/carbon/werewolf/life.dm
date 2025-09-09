@@ -160,9 +160,6 @@
 				amount = (threshold - current_value)
 			to_chat(vessel, span_userdanger("You feel [get_negative_emotion(attribute)]!"))
 			current_value = max(0, current_value + amount)
-			if(renownrank > AuspiceRankCheck(src))
-				renownrank = AuspiceRankCheck(src)
-				to_chat(vessel, span_userdanger("You are now a [RankName(src.renownrank)]."))
 
 		if(amount > 0)
 			if(threshold && current_value >= threshold)
@@ -171,10 +168,6 @@
 				amount = (threshold - current_value)
 			to_chat(vessel, span_bold("You feel [get_positive_emotion(attribute)]!"))
 			current_value = min(10, current_value + amount)
-			if(renownrank < AuspiceRankCheck(src))
-				renownrank = AuspiceRankCheck(src)
-				to_chat(vessel, span_boldnotice("You are now a [RankName(src.renownrank)]."))
-
 		switch(attribute)
 			if("honor")
 				honor = current_value

@@ -149,7 +149,7 @@
 	if(allowed_to_proceed)
 		owner.visible_message(span_userdanger("[owner.name] crackles with heat!</span>"), span_warning("You crackle with heat, charging up your Gift!"))
 		playsound(owner, 'sound/magic/burning_scars.ogg', 100, TRUE, extrarange = 5)
-		owner.move_resist = MOVE_FORCE_VERY_STRONG
+		owner.move_resist = MOVE_FORCE_STRONG
 		if(do_after(owner, 1.5 SECONDS))
 			owner.move_resist = initial(owner.move_resist)
 			for(var/mob/living/L in orange(5, owner))
@@ -194,7 +194,7 @@
 	if(allowed_to_proceed)
 		owner.visible_message(span_danger("[owner.name] crackles with static electricity!"), span_danger("You crackle with static electricity, charging up your Gift!"))
 		playsound(owner, 'sound/magic/digital_feelings.ogg', 100, TRUE, extrarange = 5)
-		owner.move_resist = MOVE_FORCE_VERY_STRONG
+		owner.move_resist = MOVE_FORCE_STRONG
 		if(do_after(owner, 1.5 SECONDS))
 			owner.move_resist = initial(owner.move_resist)
 			playsound(owner, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
