@@ -1818,7 +1818,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					var/new_wisdom = input(user, "Select your Wisdom:", "Character Preference") as num|null
 					if(new_wisdom)
-						glory = clamp(new_wisdom, 0, 10)
+						wisdom = clamp(new_wisdom, 0, 10)
 
 				if("languages_reset")
 					languages = list()
