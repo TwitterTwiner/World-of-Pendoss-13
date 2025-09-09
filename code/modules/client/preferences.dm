@@ -1804,21 +1804,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					var/new_glory = input(user, "Select your Glory:", "Character Preference") as num|null
 					if(new_glory)
-						glory = clamp(new_renown, 0, 10)
+						glory = clamp(new_glory, 0, 10)
 				if("renownhonor")
 					if(slotlocked)
 						return
 
 					var/new_honor = input(user, "Select your Honor:", "Character Preference") as num|null
 					if(new_honor)
-						honor = clamp(new_renown, 0, 10)
+						honor = clamp(new_honor, 0, 10)
 				if("renownwisdom")
 					if(slotlocked)
 						return
 
 					var/new_wisdom = input(user, "Select your Wisdom:", "Character Preference") as num|null
-					if(new_glory)
-						glory = clamp(new_renown, 0, 10)
+					if(new_wisdom)
+						glory = clamp(new_wisdom, 0, 10)
 
 				if("languages_reset")
 					languages = list()
