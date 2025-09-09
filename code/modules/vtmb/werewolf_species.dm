@@ -36,8 +36,8 @@
 	howl.Grant(C)
 	var/datum/action/gift/guise_of_the_hound/guise = new()
 	guise.Grant(C)
-	C.grant_language(/datum/language/primal_tongue, TRUE, TRUE)
-	C.grant_language(/datum/language/garou_tongue, TRUE, FALSE)
+	C.grant_language(/datum/language/primal_tongue, TRUE, FALSE)
+	C.grant_language(/datum/language/garou_tongue, TRUE, TRUE)
 	C.transformator = new(C)
 	C.transformator.human_form = WEAKREF(C)
 	C.wolf_recov = TRUE
@@ -50,6 +50,8 @@
 	for(var/datum/action/gift/G in C.actions)
 		if(G)
 			G.Remove(C)
+	C.remove_language(/datum/language/primal_tongue, TRUE, TRUE)
+	C.remove_language(/datum/language/garou_tongue, TRUE, TRUE)
 	C.wolf_recov = FALSE
 
 /datum/species/garou/check_roundstart_eligible()

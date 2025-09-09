@@ -406,38 +406,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		return coolfont
 
 /proc/RankName(rank, colored = FALSE)
-	if(colored)
-		switch(rank)
-			if(0)
-				return "<span class='grey'>Cub</span>"
-			if(1)
-				return "<span class='blue'>Cliath</span>"
-			if(2)
-				return "<span class='yellow'>Fostern</span>"
-			if(3)
-				return "<span class='orange'>Adren</span>"
-			if(4)
-				return "<span class='indigo'>Athro</span>"
-			if(5)
-				return "<span class='red'>Elder</span>"
-			if(6)
-				return "<span class='green'>Legend</span>"
-	else
-		switch(rank)
-			if(0)
-				return "Cub"
-			if(1)
-				return "Cliath"
-			if(2)
-				return "Fostern"
-			if(3)
-				return "Adren"
-			if(4)
-				return "Athro"
-			if(5)
-				return "Elder"
-			if(6)
-				return "Legend"
+	switch(rank)
+		if(0)
+			return "Cub"
+		if(1)
+			return "Cliath"
+		if(2)
+			return "Fostern"
+		if(3)
+			return "Adren"
+		if(4)
+			return "Athro"
+		if(5)
+			return "Elder"
+		if(6)
+			return "Legend"
 
 /proc/RankDesc(rank)
 	switch(rank)
