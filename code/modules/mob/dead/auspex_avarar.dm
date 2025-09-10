@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 	can_reenter_corpse = TRUE
 	var/mob_biotype = MOB_SPIRIT
 
-/mob/dead/observer/avatar/Initialize()
+/mob/dead/observer/avatar/Initialize(mapload)
 	. = ..()
 	set_invisibility(INVISIBILITY_LEVEL_OBFUSCATE+5)
 	add_to_avatar_list()

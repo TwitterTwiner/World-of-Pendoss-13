@@ -89,9 +89,9 @@
 	if((newval < FLOODLIGHT_OFF) || (newval > light_setting_list.len))
 		return
 	setting = newval
-	active_power_usage = light_setting_list[setting] * light_power_coefficient
-	if(!avail(active_power_usage) && setting > FLOODLIGHT_OFF)
-		return change_setting(setting - 1)
+//	active_power_usage = light_setting_list[setting] * light_power_coefficient
+//	if(!avail(active_power_usage) && setting > FLOODLIGHT_OFF)
+//		return change_setting(setting - 1)
 	set_light(light_setting_list[setting], light_power)
 	var/setting_text = ""
 	if(setting > FLOODLIGHT_OFF)

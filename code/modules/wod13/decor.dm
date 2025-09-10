@@ -1840,7 +1840,7 @@
 
 /obj/structure/chair/lavochka
 	name = "street bench"
-	icon_state = "lavochka_seredina"
+	icon_state = "lavochka_middle"
 	icon = 'code/modules/wod13/icons_metro/lavochka.dmi'
 	buildstackamount = 1
 	item_chair = null
