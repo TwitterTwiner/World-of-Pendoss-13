@@ -619,7 +619,9 @@
 			var/howl_details
 			var/final_message
 			for(var/mob/living/carbon/Garou in GLOB.player_list)
-				if(isgarou(Garou) || iswerewolf(Garou) && !owner)
+				if(isgarou(Garou) || iswerewolf(Garou))
+					if(owner)
+						continue
 					if(!sound_hearers.Find(Garou))
 						Garou.playsound_local(get_turf(Garou), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 25, FALSE)
 					howl_details = get_message(Garou, origin_turf)
