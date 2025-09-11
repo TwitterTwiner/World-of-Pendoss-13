@@ -153,6 +153,7 @@
 
 	var/tox_damage_plus = 0
 	var/agg_damage_plus = 0
+	var/stam_damage_plus = 0
 
 	var/lock_on_by_mannequin = FALSE
 

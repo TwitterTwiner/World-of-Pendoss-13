@@ -106,9 +106,11 @@
 			H.dna.species.punchdamagehigh += 5
 			H.dna.species.attack_type = CLONE
 			H.tox_damage_plus = 15
+			H.stam_damage_plus = 15
 			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
 			spawn(15 SECONDS)
 				H.tox_damage_plus = 0
+				H.stam_damage_plus = 0
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)
 				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
@@ -126,9 +128,11 @@
 			H.dna.species.punchdamagehigh += 5
 			H.dna.species.attack_type = CLONE
 			H.tox_damage_plus = 15
+			H.stam_damage_plus = 15
 			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
 			spawn(15 SECONDS)
 				H.tox_damage_plus = 0
+				H.stam_damage_plus = 15
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)
 				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
