@@ -248,6 +248,7 @@
 	pixel_y = 32
 	var/damaged = 0
 	var/repairing = FALSE
+	var/hacking = FALSE
 
 /obj/fusebox/proc/check_damage(mob/living/user)
 	if(damaged > 100 && icon_state != "fusebox_open")
@@ -287,6 +288,25 @@
 		if(I.force)
 			damaged += I.force
 			check_damage(user)
+
+/obj/fusebox/attack_hand(mob/living/user)
+	. = ..()
+	playsound(get_turf(src),'code/modules/wod13/sounds/fix.ogg', 75, FALSE)
+	if(!hacking)
+		hacking = TRUE
+		to_chat(user, "<span class='notice'>You try to hack the fusebox.</span>")
+		if(do_after(user, 100, src))
+			var/result = secret_vampireroll(get_a_wits(user)+get_a_security(user), 6, user)
+			if(result < 1)
+				user.electrocute_act(50, src, siemens_coeff = 1, flags = NONE)
+			else
+				icon_state = "fusebox_open"
+				var/area/A = get_area(src)
+				A.requires_power = TRUE
+				A.fire_controled = FALSE
+				for(var/obj/machinery/light/L in A)
+					L.update(FALSE)
+
 
 /obj/generator
 	name = "generator"

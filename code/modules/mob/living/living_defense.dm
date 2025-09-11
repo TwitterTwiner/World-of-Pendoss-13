@@ -1,5 +1,5 @@
 
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE, fortitude_negation=FALSE)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	var/total_cubes = armor
@@ -22,7 +22,8 @@
 			if(isgarou(src) || iswerewolf(src))
 				total_cubes += get_a_stamina(src)
 
-	total_cubes += get_fortitude_dices(src)+get_visceratika_dices(src)+get_bloodshield_dices(src)+get_lasombra_dices(src)+get_tzimisce_dices(src)
+	if(!fortitude_negation)
+		total_cubes += get_fortitude_dices(src)+get_visceratika_dices(src)+get_bloodshield_dices(src)+get_lasombra_dices(src)+get_tzimisce_dices(src)
 
 	if(attack_flag == BASHING || attack_flag == LETHAL || attack_flag == AGGRAVATED)
 		var/final_block = secret_vampireroll(total_cubes, 6, src, silent, FALSE)
@@ -261,7 +262,14 @@
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
 		return FALSE
-
+	var/modifikator = secret_vampireroll(get_a_strength(M) + get_a_brawl(M), 6, M)
+	if(modifikator == 0)
+		return FALSE
+	var/my_dodge_chances = get_a_dexterity(src) + get_a_alertness(src);
+	if(secret_vampireroll(my_dodge_chances, 6 + src.get_health_difficulty(), src, TRUE) >= 3)
+		visible_message("<span class='danger'>[M]'s [M.attack_verb_simple] misses [src]!</span>", \
+							"<span class='danger'>You avoid [M]'s [M.attack_verb_simple]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, src)
+		return FALSE
 	if(M.attack_sound)
 		playsound(loc, M.attack_sound, 50, TRUE, TRUE)
 	M.do_attack_animation(src)

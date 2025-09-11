@@ -19,6 +19,10 @@
 	. = ..()
 	for(var/obj/ritualrune/R in rituals)
 		if(R)
+			if(ishuman(user))
+				var/mob/living/carbon/human/vampire = user
+				if(R.clan_restricted_ritual.len && !(vampire.clane?.type in R.clan_restricted_ritual))
+					continue
 			if(R.sacrifices.len > 0)
 				var/list/required_items = list()
 				for(var/item_type in R.sacrifices)
@@ -67,6 +71,8 @@
 		var/list/rune_names = list()
 		for(var/i in subtypesof(/obj/ritualrune))
 			var/obj/ritualrune/R = new i(owner)
+			if(R.clan_restricted_ritual.len && !(H.clane.type in R.clan_restricted_ritual))
+				continue
 			if(R.thaumlevel <= level)
 				rune_names[R.name] = i
 			qdel(R)
@@ -86,6 +92,8 @@
 		var/list/shit = list()
 		for(var/i in subtypesof(/obj/ritualrune))
 			var/obj/ritualrune/R = new i(owner)
+			if(R.clan_restricted_ritual.len && !(H.clane.type in R.clan_restricted_ritual))
+				continue
 			if(R.thaumlevel <= level)
 				shit += i
 			qdel(R)
@@ -115,6 +123,7 @@
 	var/mob/living/last_activator
 	var/thaumlevel = 1
 	var/list/sacrifices = list()
+	var/list/clan_restricted_ritual = list()
 
 /obj/ritualrune/proc/complete()
 	return
@@ -453,6 +462,7 @@
 	icon_state = "rune9"
 	word = "GRORRR'RRR"
 	thaumlevel = 4
+	clan_restricted_ritual = list(/datum/vampireclane/tremere, /datum/vampireclane/baali)
 
 /obj/ritualrune/gargoyle/complete()
 	for(var/mob/living/carbon/human/H in loc)

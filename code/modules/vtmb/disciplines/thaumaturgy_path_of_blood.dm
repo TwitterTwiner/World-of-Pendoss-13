@@ -3,7 +3,12 @@
 	desc = "Opens the secrets of blood magic and how you use it, allows to steal other's blood. Violates Masquerade."
 	icon_state = "thaumaturgy_path_of_blood"
 	clan_restricted = TRUE
+	learnable_by_clans = list(/datum/vampireclane/baali, /datum/vampireclane/tremere)
 	power_type = /datum/discipline_power/thaumaturgy_path_of_blood
+
+/datum/discipline/thaumaturgy_path_of_blood/duranki
+	name = "Du-Ran-Ki: Path of Blood"
+	learnable_by_clans = list()
 
 /datum/discipline/thaumaturgy_path_of_blood/post_gain()
 	. = ..()
@@ -230,7 +235,7 @@
 
 	level = 4
 
-	vitae_cost = 0 //Since 1 success should give one vitae, balancing.
+	vitae_cost = 1
 	effect_sound = 'sound/magic/enter_blood.ogg'
 	range = 8 // Within 50 feet (15 meters).
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED | DISC_CHECK_SEE | DISC_CHECK_DIRECT_SEE // The subject must be visible to the thaumaturge
