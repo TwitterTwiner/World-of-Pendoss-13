@@ -1751,12 +1751,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					true_experience -= 20
 					dharma_level = clamp(dharma_level + 1, 1, 6)
-
+					yin = min(10, yin += 1)
+					yang = min(10, yang += 1)
 					if (dharma_level >= 6)
 						hun += 1
 						po += 1
-						yin += 1
-						yang += 1
 
 				/*
 				if("torpor_restore")
@@ -1784,8 +1783,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								dharma_level = initial(dharma_level)
 								hun = initial(hun)
 								po = initial(po)
-								yin = initial(yin)
-								yang = initial(yang)
+								yin = min(10, max(5, dharma_level * 2))
+								yang = min(10, max(5, dharma_level * 2))
 
 				if("potype")
 					if(slotlocked)
@@ -1796,7 +1795,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						po_type = result
 
 				if("chibalance")
-					var/max_limit = max(10, dharma_level * 2)
+					var/max_limit = min(dharma_level * 4, 20)
 					var/sett = input(user, "Enter the maximum of Yin your character has:", "Yin/Yang") as num|null
 					if(sett)
 						sett = max(1, min(sett, max_limit-1))
