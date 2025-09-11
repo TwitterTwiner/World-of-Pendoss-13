@@ -418,11 +418,11 @@
 		kueijin.max_yang_chi = max_limit - max_yin
 		kueijin.yin_chi = min(kueijin.yin_chi, kueijin.max_yin_chi)
 		kueijin.yang_chi = min(kueijin.yang_chi, kueijin.max_yang_chi)
-		if (max_yin > max_yang + 2)
+		if (kueijin.max_yin_chi > kueijin.max_yang_chi + 2)
 			kueijin.mind.dharma?.animated = "Yin"
-			kueijin.skin_tone = get_vamp_skin_color(mob.skin_tone)
-			kueijin.dna?.species.brutemod = initial(mob.dna?.species.brutemod)
-			kueijin.dna?.species.burnmod = initial(mob.dna?.species.burnmod)
+			kueijin.skin_tone = get_vamp_skin_color(kueijin.skin_tone)
+			kueijin.dna?.species.brutemod = initial(kueijin.dna?.species.brutemod)
+			kueijin.dna?.species.burnmod = initial(kueijin.dna?.species.burnmod)
 		else
 			kueijin.mind.dharma?.animated = "Yang"
 			kueijin.dna?.species.brutemod = 1
