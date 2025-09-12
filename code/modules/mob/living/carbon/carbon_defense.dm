@@ -68,7 +68,7 @@
 
 
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user, armor_break = FALSE)
-	if(I.force)
+	if(I.force && user != src)
 		do_rage_from_attack(user)
 	var/obj/item/bodypart/affecting
 	if(user == src)
@@ -148,7 +148,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
 
-	if(user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM && user != src)
 		do_rage_from_attack(user)
 
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
@@ -285,7 +285,8 @@
 					mind?.dharma?.deserving |= target.real_name
 
 /mob/living/carbon/proc/disarm(mob/living/carbon/target)
-	target.do_rage_from_attack(src)
+	if(target != src)
+		target.do_rage_from_attack(src)
 	if(zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		var/target_on_help_and_unarmed = target.a_intent == INTENT_HELP && !target.get_active_held_item()
 		if(target_on_help_and_unarmed || HAS_TRAIT(target, TRAIT_RESTRAINED))
@@ -755,8 +756,8 @@
 		. += limb.get_organs()
 
 /mob/living/carbon/grabbedby(mob/living/carbon/user, supress_message = FALSE)
-	do_rage_from_attack(user)
 	if(user != src)
+		do_rage_from_attack(user)
 		return ..()
 
 	var/obj/item/bodypart/grasped_part = get_bodypart(zone_selected)
