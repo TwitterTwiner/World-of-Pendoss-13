@@ -13540,7 +13540,14 @@
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/strip)
 "aXz" = (
-/turf/open/floor/plating/rough,
+/obj/matrix{
+	alpha = 0;
+	opacity = 0
+	},
+/turf/closed/wall/vampwall/brick/low{
+	alpha = 0;
+	opacity = 1
+	},
 /area/space)
 "aXA" = (
 /obj/structure/table/wood/fancy/red,
@@ -14665,10 +14672,6 @@
 /area/vtm/pacificheights)
 "bbN" = (
 /obj/structure/table,
-/obj/item/vamp/keys/pentex,
-/obj/item/vamp/keys/pentex,
-/obj/item/vamp/keys/pentex,
-/obj/item/vamp/keys/pentex,
 /obj/structure/sign/warning/securearea{
 	pixel_y = 30
 	},
@@ -17811,7 +17814,7 @@
 /turf/closed/wall/vampwall/rock{
 	alpha = 0
 	},
-/area/space)
+/area/vtm)
 "bnb" = (
 /obj/structure/closet/crate/coffin{
 	pixel_y = 5
@@ -31956,8 +31959,6 @@
 /area/vtm/pacificheights)
 "fzB" = (
 /obj/structure/table,
-/obj/item/vamp/keys/pentex,
-/obj/item/vamp/keys/pentex,
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
@@ -35492,12 +35493,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/plating/vampcarpet,
 /area/vtm/interior/techshop)
-"hea" = (
-/obj/structure/chair/lavochka{
-	dir = 1
-	},
-/turf/open/floor/plating/rough,
-/area/vtm/sewer/metro)
 "hee" = (
 /obj/structure/lamppost/one,
 /turf/open/floor/plating/sidewalk,
@@ -36976,21 +36971,11 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
 "hLU" = (
-/obj/matrix{
+/turf/closed/wall/vampwall/brick/low{
 	alpha = 0;
-	opacity = 0
+	opacity = 1
 	},
-/obj/matrix{
-	alpha = 0;
-	opacity = 0
-	},
-/obj/matrix{
-	opacity = 0
-	},
-/turf/closed/wall/vampwall/rock{
-	alpha = 0
-	},
-/area/space)
+/area/vtm)
 "hMa" = (
 /obj/machinery/light{
 	dir = 1
@@ -38660,6 +38645,10 @@
 /turf/open/floor/plating/rough,
 /area/vtm/anarch)
 "izt" = (
+/obj/matrix{
+	alpha = 0;
+	opacity = 0
+	},
 /turf/closed/wall/vampwall/rock{
 	alpha = 0
 	},
@@ -43621,7 +43610,10 @@
 /obj/matrix{
 	opacity = 0
 	},
-/turf/closed/wall/vampwall/rock,
+/turf/closed/wall/vampwall/brick/low{
+	alpha = 0;
+	opacity = 1
+	},
 /area/space)
 "kZN" = (
 /obj/effect/decal/ventilation_system{
@@ -47289,12 +47281,7 @@
 /turf/open/floor/plating/toilet,
 /area/vtm/interior)
 "mWo" = (
-/obj/structure/chair/lavochka{
-	dir = 1
-	},
-/obj/structure/chair/lavochka{
-	dir = 1
-	},
+/obj/structure/chair/lavochka,
 /turf/open/floor/plating/rough,
 /area/vtm/sewer/metro)
 "mWp" = (
@@ -48149,7 +48136,10 @@
 /obj/matrix{
 	opacity = 0
 	},
-/turf/closed/wall/vampwall/rock,
+/turf/closed/wall/vampwall/brick/low{
+	alpha = 0;
+	opacity = 1
+	},
 /area/space)
 "nrX" = (
 /obj/transfer_point_vamp{
@@ -53441,18 +53431,6 @@
 /obj/effect/decal/wallpaper/stone/low,
 /turf/closed/wall/vampwall/painted/low/window/reinforced,
 /area/vtm/interior)
-"pXv" = (
-/obj/matrix{
-	alpha = 0;
-	opacity = 0
-	},
-/obj/matrix{
-	opacity = 0
-	},
-/turf/closed/wall/vampwall/rock{
-	alpha = 0
-	},
-/area/space)
 "pXD" = (
 /obj/structure/statue/bone/rib,
 /obj/effect/decal/gut_floor,
@@ -63919,7 +63897,10 @@
 /obj/matrix{
 	opacity = 0
 	},
-/turf/closed/wall/vampwall/rock,
+/turf/closed/wall/vampwall/brick/low{
+	alpha = 0;
+	opacity = 1
+	},
 /area/space)
 "vkF" = (
 /mob/living/carbon/human/npc/hunter,
@@ -68808,9 +68789,7 @@
 /area/vtm/interior/shop)
 "xIe" = (
 /obj/structure/cable,
-/obj/structure/chair/lavochka{
-	dir = 1
-	},
+/obj/structure/chair/lavochka,
 /turf/open/floor/plating/rough,
 /area/vtm/sewer/metro)
 "xIf" = (
@@ -289410,51 +289389,51 @@ aaa
 aaa
 aaa
 aaa
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
-jOh
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
+aXz
 aaa
 aaa
 aaa
@@ -289656,18 +289635,18 @@ aaa
 aaa
 "}
 (90,1,4) = {"
-aiw
-aiw
-aiw
-aiw
-aiw
-aiw
-aiw
-aiw
-aiw
-aiw
-aiw
-jOh
+hLU
+hLU
+hLU
+hLU
+hLU
+hLU
+hLU
+hLU
+hLU
+hLU
+hLU
+izt
 aiw
 aiw
 aiw
@@ -289968,7 +289947,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -290225,7 +290204,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -290482,7 +290461,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -290739,7 +290718,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -290952,7 +290931,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -290996,7 +290975,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -291209,7 +291188,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -291253,7 +291232,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -291466,7 +291445,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -291510,7 +291489,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -291723,7 +291702,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -291767,7 +291746,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -291980,7 +291959,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -292024,8 +292003,8 @@ aiw
 aiw
 aiw
 aiw
-pXv
-aam
+vkE
+aaa
 aaa
 aaa
 aaa
@@ -292281,7 +292260,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -292494,51 +292473,51 @@ aiw
 aiw
 aiw
 aiw
-jOh
 izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-izt
-pXv
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+aiw
+vkE
 aaa
 aaa
 aaa
@@ -292751,7 +292730,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -292795,7 +292774,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -293008,7 +292987,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -293052,7 +293031,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -293265,7 +293244,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -293309,7 +293288,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -293522,7 +293501,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -293566,7 +293545,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -293779,7 +293758,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -293823,7 +293802,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -294036,7 +294015,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -294080,7 +294059,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -294293,7 +294272,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -294337,7 +294316,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -294550,7 +294529,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -294594,7 +294573,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -294807,7 +294786,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 aiw
 aiw
@@ -294851,7 +294830,7 @@ aiw
 aiw
 aiw
 aiw
-hLU
+kZM
 aaa
 aaa
 aaa
@@ -295064,7 +295043,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 oci
 loY
@@ -295108,7 +295087,7 @@ aiw
 aiw
 aiw
 aiw
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -295321,7 +295300,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 oCl
 olR
@@ -295365,7 +295344,7 @@ loY
 loY
 loY
 loY
-pXv
+vkE
 aaa
 aaa
 aaa
@@ -295835,7 +295814,7 @@ aiw
 aiw
 aiw
 aiw
-jOh
+izt
 aiw
 oCl
 klq
@@ -297678,7 +297657,7 @@ aiE
 olR
 olR
 aiE
-nuV
+aXz
 aaa
 aaa
 aaa
@@ -303042,7 +303021,7 @@ aaa
 aaa
 aaa
 aaa
-aam
+aaa
 aaa
 aaa
 aaa
@@ -306110,7 +306089,7 @@ aaa
 aaa
 aaa
 aaa
-aXz
+aaa
 aaa
 aaa
 aaa
@@ -316146,7 +316125,7 @@ sXQ
 dey
 gNz
 fyB
-hea
+mWo
 dey
 eWC
 dey
