@@ -117,11 +117,3 @@
 			if(!is_base_breed() || auspice?.base_breed == "Crinos")
 				adjustBruteLoss(-10, TRUE)
 				adjustFireLoss(-10, TRUE)
-
-/mob/living/carbon/proc/did_resist_silver()
-	if(isgarou(src) || iswerewolf(src))
-		if(src.is_base_breed() && src.auspice?.base_breed != "Crinos")
-			var/modifikator = secret_vampireroll(get_a_stamina(src), 6, src)
-			if(modifikator <= 0)
-				return FALSE
-	return TRUE

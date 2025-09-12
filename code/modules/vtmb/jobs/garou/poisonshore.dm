@@ -264,6 +264,7 @@
 
 	req_admin_notify = 1
 	minimal_player_age = 25
+	max_generation = 11
 	exp_requirements = 100
 	exp_type_department = EXP_TYPE_SPIRAL
 
@@ -325,6 +326,7 @@
 
 	req_admin_notify = 1
 	minimal_player_age = 25
+	max_generation = 11
 	exp_requirements = 50
 	exp_type_department = EXP_TYPE_SPIRAL
 

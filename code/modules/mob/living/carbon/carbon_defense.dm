@@ -229,6 +229,17 @@
 /mob/living/carbon/proc/dismembering_strike(mob/living/attacker, dam_zone)
 	if(!attacker.limb_destroyer)
 		return dam_zone
+	if(isgarou(attacker) || iswerewolf(attacker))
+		var/list/missing = get_missing_limbs()
+		var/list/needed = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+		var/all_missing = TRUE
+		for(var/zone in needed)
+			if(!(zone in missing))
+				all_missing = FALSE
+		if(all_missing)
+			var/obj/item/bodypart/head = get_bodypart(ran_zone(BODY_ZONE_HEAD))
+			if(head)
+				head.dismember()
 	var/obj/item/bodypart/affecting
 	if(dam_zone && attacker.client)
 		affecting = get_bodypart(ran_zone(dam_zone))

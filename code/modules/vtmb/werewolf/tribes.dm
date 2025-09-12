@@ -106,7 +106,7 @@
 			H.dna.species.punchdamagehigh += 5
 			H.dna.species.attack_type = CLONE
 			H.tox_damage_plus = 15
-			H.stam_damage_plus = 15
+			H.stam_damage_plus = 35
 			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
 			spawn(15 SECONDS)
 				H.tox_damage_plus = 0
@@ -128,7 +128,7 @@
 			H.dna.species.punchdamagehigh += 5
 			H.dna.species.attack_type = CLONE
 			H.tox_damage_plus = 15
-			H.stam_damage_plus = 15
+			H.stam_damage_plus = 35
 			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
 			spawn(15 SECONDS)
 				H.tox_damage_plus = 0
