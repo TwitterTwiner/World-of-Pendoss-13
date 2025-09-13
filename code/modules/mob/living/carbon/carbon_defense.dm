@@ -492,7 +492,7 @@
 				if(M.key)
 					var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
 					if(P)
-						P.add_experience(2)
+						P.add_experience(3)
 		if(human.Myself?.Friend?.owner == src)
 			call_dharma("meet", M)
 			if(!human.Myself.got_friendo)
@@ -500,7 +500,7 @@
 				if(M.key)
 					var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
 					if(P)
-						P.add_experience(2)
+						P.add_experience(3)
 
 	if(body_position == LYING_DOWN)
 		if(buckled)
