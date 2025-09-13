@@ -179,6 +179,7 @@
 			return
 		P.save_preferences()
 		P.save_character()
+		P.verify_attributes()
 
 /datum/dharma/proc/get_done_tenets()
 	var/total = 0
