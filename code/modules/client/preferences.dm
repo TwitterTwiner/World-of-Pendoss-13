@@ -609,7 +609,29 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					return 8
 				else
 					return 6
-
+	if(pref_species.name == "Werewolf")
+		switch(auspice_level)
+			if(1)
+				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+					return 5
+				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+					return 3
+				else
+					return 1
+			if(2)
+				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+					return 6
+				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+					return 4
+				else
+					return 2
+			if(3)
+				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+					return 7
+				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+					return 5
+				else
+					return 3
 	if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
 		return 5
 	else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
