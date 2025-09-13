@@ -686,6 +686,8 @@
 		dat += "<a href='byond://?_src_=prefs;preference=main_physical;task=input'>Change</a><BR>"
 	else
 		dat += "<BR>"
+	else
+		dat += "<BR>"
 	dat += "Secondary physical attribute: <b>[uppertext(secondary_physical_attribute)]</b> "
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=secondary_physical;task=input'>Change</a><BR>"
@@ -703,6 +705,8 @@
 		dat += "<a href='byond://?_src_=prefs;preference=main_social;task=input'>Change</a><BR>"
 	else
 		dat += "<BR>"
+	else
+		dat += "<BR>"
 	dat += "Secondary social attribute: <b>[uppertext(secondary_social_attribute)]</b> "
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=secondary_social;task=input'>Change</a><BR>"
@@ -718,6 +722,8 @@
 	dat += "Main mental attribute: <b>[uppertext(main_mental_attribute)]</b> "
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=main_mental;task=input'>Change</a><BR>"
+	else
+		dat += "<BR>"
 	else
 		dat += "<BR>"
 	dat += "Secondary mental attribute: <b>[uppertext(secondary_mental_attribute)]</b> "

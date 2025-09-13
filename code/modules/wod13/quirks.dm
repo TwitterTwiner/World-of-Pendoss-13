@@ -145,7 +145,7 @@ Dancer
 	value = -5
 	gain_text = "<span class='warning'>You feel dumb.</span>"
 	lose_text = "<span class='notice'>You don't feel dumb anymore.</span>"
-	allowed_species = list("Vampire", "Human", "Ghoul", "Kuei-Jin")
+	allowed_species = list("Vampire", "Human", "Ghoul", "Kuei-Jin", "Werewolf")
 
 /datum/quirk/coffin_therapy
 	name = "Coffin Therapy"
