@@ -687,9 +687,9 @@
 	dat += "Secondary physical attribute: <b>[uppertext(secondary_physical_attribute)]</b> "
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=secondary_physical;task=input'>Change</a><BR>"
-	dat += "Strength: [build_attribute_score(Strength, get_gen_attribute_limit(generation-generation_bonus, "Strength"), 5, "strength", physical_priorities)]"
-	dat += "Dexterity: [build_attribute_score(Dexterity, get_gen_attribute_limit(generation-generation_bonus, "Dexterity"), 5, "dexterity", physical_priorities)]"
-	dat += "Stamina: [build_attribute_score(Stamina, get_gen_attribute_limit(generation-generation_bonus, "Stamina"), 5, "stamina", physical_priorities)]"
+	dat += "Strength: [build_attribute_score(Strength, get_gen_attribute_limit("Strength"), 5, "strength", physical_priorities)]"
+	dat += "Dexterity: [build_attribute_score(Dexterity, get_gen_attribute_limit("Dexterity"), 5, "dexterity", physical_priorities)]"
+	dat += "Stamina: [build_attribute_score(Stamina, get_gen_attribute_limit("Stamina"), 5, "stamina", physical_priorities)]"
 	dat += "<b>SOCIAL</b>"
 	if(social_priorities)
 		dat += "([social_priorities])"
@@ -700,9 +700,9 @@
 	dat += "Secondary social attribute: <b>[uppertext(secondary_social_attribute)]</b> "
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=secondary_social;task=input'>Change</a><BR>"
-	dat += "Charisma: [build_attribute_score(Charisma, get_gen_attribute_limit(generation-generation_bonus, "Charisma"), 5, "charisma", social_priorities)]"
-	dat += "Manipulation: [build_attribute_score(Manipulation, get_gen_attribute_limit(generation-generation_bonus, "Manipulation"), 5, "manipulation", social_priorities)]"
-	dat += "Appearance: [build_attribute_score(Appearance, get_gen_attribute_limit(generation-generation_bonus, "Appearance"), 5, "appearance", social_priorities)]"
+	dat += "Charisma: [build_attribute_score(Charisma, get_gen_attribute_limit("Charisma"), 5, "charisma", social_priorities)]"
+	dat += "Manipulation: [build_attribute_score(Manipulation, get_gen_attribute_limit("Manipulation"), 5, "manipulation", social_priorities)]"
+	dat += "Appearance: [build_attribute_score(Appearance, get_gen_attribute_limit("Appearance"), 5, "appearance", social_priorities)]"
 	dat += "<b>MENTAL</b>"
 	if(mental_priorities)
 		dat += "([mental_priorities])"
@@ -713,9 +713,9 @@
 	dat += "Secondary mental attribute: <b>[uppertext(secondary_mental_attribute)]</b> "
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=secondary_mental;task=input'>Change</a><BR>"
-	dat += "Perception: [build_attribute_score(Perception, get_gen_attribute_limit(generation-generation_bonus, "Perception"), 5, "perception", mental_priorities)]"
-	dat += "Intelligence: [build_attribute_score(Intelligence, get_gen_attribute_limit(generation-generation_bonus, "Intelligence"), 5, "intelligence", mental_priorities)]"
-	dat += "Wits: [build_attribute_score(Wits, get_gen_attribute_limit(generation-generation_bonus, "Wits"), 5, "wits", mental_priorities)]"
+	dat += "Perception: [build_attribute_score(Perception, get_gen_attribute_limit("Perception"), 5, "perception", mental_priorities)]"
+	dat += "Intelligence: [build_attribute_score(Intelligence, get_gen_attribute_limit("Intelligence"), 5, "intelligence", mental_priorities)]"
+	dat += "Wits: [build_attribute_score(Wits, get_gen_attribute_limit("Wits"), 5, "wits", mental_priorities)]"
 
 	dat += "<h2>[make_font_cool("ABILITIES")]</h2>"
 
