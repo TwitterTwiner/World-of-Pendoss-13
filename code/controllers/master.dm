@@ -261,33 +261,33 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(new_runlevel == RUNLEVEL_POSTGAME)
 		GLOB.canon_event = FALSE
 		// TFN EDIT REFACTOR START
-		for(var/mob/living/carbon/werewolf/W in GLOB.player_list)
-			if(W?.stat != DEAD && W?.key)
-				var/datum/preferences/char_sheet = GLOB.preferences_datums[ckey(W.key)]
-				char_sheet?.add_experience(3)
+		// for(var/mob/living/carbon/werewolf/W in GLOB.player_list)
+			// if(W?.stat != DEAD && W?.key)
+				// var/datum/preferences/char_sheet = GLOB.preferences_datums[ckey(W.key)]
+				// char_sheet?.add_experience(3)
 		for(var/mob/living/carbon/human/H in GLOB.human_list)
 			if(H?.stat != DEAD && H?.key)
 				var/datum/preferences/char_sheet = GLOB.preferences_datums[ckey(H.key)]
 				if(char_sheet)
-					char_sheet.add_experience(3)
+					// char_sheet.add_experience(3)
 
 					var/role = H.mind?.assigned_role
 					var/special_role = H.mind?.special_role
 
 					if(role in list("Prince", "Sheriff", "Hound", "Seneschal", "Chantry Regent", "Baron", "Dealer", "Primogen Ventrue", "Primogen Lasombra", "Primogen Banu Haqim", "Primogen Nosferatu", "Primogen Malkavian"))
-						char_sheet.add_experience(2)
+						char_sheet.add_experience(3)
 					if(H.total_erp > 1500)
-						char_sheet.add_experience(2)
+						char_sheet.add_experience(3)
 					if(H.total_cleaned > 25)
-						char_sheet.add_experience(1)
+						char_sheet.add_experience(2)
 						call_dharma("cleangrow", H)
 					if(role == "Graveyard Keeper")
 						if(SSgraveyard.total_good > SSgraveyard.total_bad)
-							char_sheet.add_experience(1)
+							char_sheet.add_experience(2)
 					if(special_role)
 						var/datum/antagonist/A = special_role
 						if(A.check_completed())
-							char_sheet.add_experience(3)
+							char_sheet.add_experience(4)
 
 					char_sheet.save_preferences()
 					char_sheet.save_character()
