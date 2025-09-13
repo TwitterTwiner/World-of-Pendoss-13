@@ -573,8 +573,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return 10
 	if(pref_species.name == "Kuei-Jin")
 		return max(5, 4+dharma_level)
-	if(pref_species.name == "Werewolf")
-		return max(5, 4+auspice_level)
 	return 5
 
 #undef APPEARANCE_CATEGORY_COLUMN
