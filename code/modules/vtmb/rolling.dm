@@ -383,6 +383,15 @@ SUBSYSTEM_DEF(woddices)
 			return ohvampire.MyPath.willpower
 		else if(ohvampire.mind?.dharma)
 			return ohvampire.mind.dharma.willpower
+		else if(isgarou(Living) || iswerewolf(Living))
+			var/mob/living/carbon/C = Living
+			switch(C.client.prefs.auspice_level)
+				if(1)
+					return 7
+				if(2)
+					return 8
+				if(3)
+					return 9
 		else
 			return ceil(ohvampire.humanity/2)
 	else

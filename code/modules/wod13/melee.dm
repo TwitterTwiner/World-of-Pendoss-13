@@ -460,7 +460,7 @@
 		return
 	if(istype(target,/turf/closed/wall))
 		var/turf/closed/wall/twall = target
-		for(var/obj/matrix in orange(1,twall))
+		for(var/obj/matrix/M in orange(1,twall))
 			to_chat(user, "This particular wall feels reinforced too harshly by the veil to dissolve.")
 			return
 		twall.dismantle_wall(1,0)

@@ -33,7 +33,7 @@
 				SEND_SOUND(owner, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
 				allowed_to_proceed = FALSE
 				return
-		if(cool_down+150 >= world.time)
+		if(cool_down+20 SECONDS >= world.time)
 			allowed_to_proceed = FALSE
 			return
 		cool_down = world.time
@@ -78,7 +78,7 @@
 /mob/living/carbon/proc/inspired()
 	inspired = TRUE
 	to_chat(src, "<span class='notice'>You feel inspired...</span>")
-	spawn(150)
+	spawn(20 SECONDS)
 		to_chat(src, "<span class='warning'>You no longer feel inspired...</span>")
 		inspired = FALSE
 
@@ -117,7 +117,7 @@
 			to_chat(owner, "<span class='notice'>You feel your claws sharpening...</span>")
 			if(H.CheckEyewitness(H, H, 7, FALSE))
 				H.adjust_veil(-1)
-			spawn(150)
+			spawn(20 SECONDS)
 				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
 				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
 				H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
@@ -131,7 +131,7 @@
 			H.melee_damage_lower = H.melee_damage_lower+5
 			H.melee_damage_upper = H.melee_damage_upper+5
 			to_chat(owner, "<span class='notice'>You feel your claws sharpening...</span>")
-			spawn(150)
+			spawn(20 SECONDS)
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)
 				to_chat(owner, "<span class='warning'>Your claws are not sharp anymore...</span>")
@@ -215,7 +215,7 @@
 			var/mob/living/carbon/human/H = owner
 			H.attributes.stamina_bonus += 4
 			to_chat(owner, "<span class='notice'>You feel your skin thickering...</span>")
-			spawn(15 SECONDS)
+			spawn(20 SECONDS)
 				H.attributes.stamina_bonus -= 4
 				to_chat(owner, "<span class='warning'>Your skin is thin again...</span>")
 		else
@@ -223,7 +223,7 @@
 			var/mob/living/carbon/werewolf/H = owner
 			H.werewolf_armor = 40
 			to_chat(owner, "<span class='notice'>You feel your skin thickering...</span>")
-			spawn(15 SECONDS)
+			spawn(20 SECONDS)
 				H.werewolf_armor = initial(H.werewolf_armor)
 				to_chat(owner, "<span class='warning'>Your skin is thin again...</span>")
 
@@ -309,7 +309,7 @@
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
 		C.see_invisible = SEE_INVISIBLE_OBSERVER
-		spawn(200)
+		spawn(20 SECONDS)
 			C.update_sight()
 
 /datum/action/gift/blur_of_the_milky_eye
@@ -323,11 +323,11 @@
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
-		C.obfuscate_level = 4
+		C.obfuscate_level = clamp(C.client.prefs.auspice_level*2, 1, 5)
 		C.alpha = 100
-		C.invisibility = INVISIBILITY_LEVEL_OBFUSCATE
-		playsound(get_turf(owner), 'code/modules/wod13/sounds/milky_blur.ogg', 75, FALSE)
-		spawn(200)
+		C.invisibility = INVISIBILITY_LEVEL_OBFUSCATE+clamp(C.client.prefs.auspice_level*2, 1, 5)
+		owner.playsound_local(get_turf(owner), 'code/modules/wod13/sounds/milky_blur.ogg', 75, FALSE)
+		spawn(20 SECONDS)
 			C.obfuscate_level = 0
 			C.alpha = 255
 			C.invisibility = initial(C.invisibility)
@@ -344,7 +344,7 @@
 		for(var/obj/structure/vampdoor/V in range(5, owner))
 			if(V)
 				if(V.closed)
-					if(V.lockpick_difficulty < 10)
+					if(V.lockpick_difficulty < clamp(10*owner.client.prefs.auspice_level, 10, 30))
 						V.locked = FALSE
 						playsound(V, V.open_sound, 75, TRUE)
 						V.icon_state = "[V.baseicon]-0"
@@ -619,7 +619,7 @@
 			var/howl_details
 			var/final_message
 			for(var/mob/living/carbon/Garou in GLOB.player_list)
-				if((isgarou(Garou) || iswerewolf(Garou)) && Garou != owner)
+				if((isgarou(Garou) || iswerewolf(Garou)) && Garou != owner && Garou.auspice?.tribe == C.auspice?.tribe)
 					if(!sound_hearers.Find(Garou))
 						Garou.playsound_local(get_turf(Garou), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 25, FALSE)
 					howl_details = get_message(Garou, origin_turf)
@@ -672,5 +672,441 @@
 
 	return returntext
 
-#undef DOGGY_ANIMATION_COOLDOWN
+/datum/action/gift/stoic_pose
+	name = "Stoic Pose"
+	desc = "With this gift garou sends theirself into cryo-state, ignoring all incoming damage but also covering themself in a block of ice."
+	button_icon_state = "stoic_pose"
+	rage_req = 2
+	gnosis_req = 2
+	var/in_use = FALSE
 
+/datum/action/gift/stoic_pose/Trigger()
+	. = ..()
+	if(!allowed_to_proceed)
+		return
+
+	playsound(get_turf(owner), 'code/modules/wod13/sounds/ice_blocking.ogg', 100, FALSE)
+	var/mob/living/carbon/C = owner
+	var/obj/W
+
+	if(in_use)
+		in_use = FALSE
+		C.forceMove(get_turf(W))
+		qdel(W)
+
+	if(isgarou(C))
+		W = new /obj/were_ice(get_turf(owner))
+	if(iscrinos(C))
+		W = new /obj/were_ice/crinos(get_turf(owner))
+	if(islupus(C))
+		W = new /obj/were_ice/lupus(get_turf(owner))
+
+	C.Stun(300 SECONDS)
+	C.forceMove(W)
+	in_use = TRUE
+	spawn(300 SECONDS)
+		C.forceMove(get_turf(W))
+		qdel(W)
+		in_use = FALSE
+
+
+/datum/action/gift/freezing_wind
+	name = "Freezing Wind"
+	desc = "Garou of Wendigo Tribe can create a stream of cold, freezing wind, and strike her foes with it."
+	button_icon_state = "freezing_wind"
+	rage_req = 1
+	//gnosis_req = 1
+
+/datum/action/gift/freezing_wind/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		playsound(get_turf(owner), 'code/modules/wod13/sounds/wind_cast.ogg', 100, FALSE)
+		for(var/turf/T in range(3, get_step(get_step(owner, owner.dir), owner.dir)))
+			if(owner.loc != T)
+				var/obj/effect/wind/W = new(T)
+				W.dir = owner.dir
+				W.strength = 100
+				spawn(20 SECONDS)
+					qdel(W)
+//	if(allowed_to_proceed)
+
+/datum/action/gift/bloody_feast
+	name = "Bloody Feast"
+	desc = "By eating a grabbed corpse, garou can redeem their lost health and heal the injuries."
+	button_icon_state = "bloody_feast"
+	rage_req = 2
+	gnosis_req = 1
+
+/datum/action/gift/bloody_feast/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/mob/living/carbon/C = owner
+		if(C.pulling)
+			if(isliving(C.pulling))
+				var/mob/living/L = C.pulling
+				if(L.stat == DEAD)
+					playsound(get_turf(owner), 'code/modules/wod13/sounds/bloody_feast.ogg', 50, FALSE)
+					qdel(L)
+					C.revive(full_heal = TRUE, admin_revive = TRUE)
+
+/datum/action/gift/stinky_fur
+	name = "Stinky Fur"
+	desc = "Garou creates an aura of very toxic smell, which disorientates everyone around."
+	button_icon_state = "stinky_fur"
+
+/datum/action/gift/stinky_fur/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		playsound(get_turf(owner), 'code/modules/wod13/sounds/necromancy.ogg', 75, FALSE)
+		for(var/mob/living/carbon/C in orange(5, owner))
+			if(C)
+				if(prob(25))
+					C.vomit()
+				C.dizziness += 10
+				C.add_confusion(10)
+
+/datum/action/gift/venom_claws
+	name = "Venom Claws"
+	desc = "While this ability is active, strikes with claws poison foes of garou."
+	button_icon_state = "venom_claws"
+	rage_req = 1
+
+/datum/action/gift/venom_claws/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		if(ishuman(owner))
+			playsound(get_turf(owner), 'code/modules/wod13/sounds/venom_claws.ogg', 75, FALSE)
+			var/mob/living/carbon/human/H = owner
+			H.dna.species.attack_verb = "slash"
+			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+			H.dna.species.punchdamagelow += 5
+			H.dna.species.punchdamagehigh += 5
+			H.dna.species.attack_type = CLONE
+			H.tox_damage_plus = 15
+			H.stam_damage_plus = 35
+			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
+			spawn(20 SECONDS)
+				H.tox_damage_plus = 0
+				H.stam_damage_plus = 0
+				H.melee_damage_lower = initial(H.melee_damage_lower)
+				H.melee_damage_upper = initial(H.melee_damage_upper)
+				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
+				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
+				H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
+				H.dna.species.attack_type = initial(H.dna.species.attack_type)
+				to_chat(owner, span_warning("Your claws are not poison anymore..."))
+		else
+			playsound(get_turf(owner), 'code/modules/wod13/sounds/venom_claws.ogg', 75, FALSE)
+			var/mob/living/carbon/H = owner
+			H.dna.species.attack_verb = "slash"
+			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+			H.dna.species.punchdamagelow += 5
+			H.dna.species.punchdamagehigh += 5
+			H.dna.species.attack_type = CLONE
+			H.tox_damage_plus = 15
+			H.stam_damage_plus = 35
+			to_chat(owner, span_notice("You feel your claws filling with pure venom..."))
+			spawn(20 SECONDS)
+				H.tox_damage_plus = 0
+				H.stam_damage_plus = 0
+				H.melee_damage_lower = initial(H.melee_damage_lower)
+				H.melee_damage_upper = initial(H.melee_damage_upper)
+				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
+				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
+				H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
+				H.dna.species.attack_type = initial(H.dna.species.attack_type)
+				to_chat(owner, span_warning("Your claws are not poison anymore..."))
+
+/datum/action/gift/burning_scars
+	name = "Burning Scars"
+	desc = "Garou creates an aura of very hot air, which burns everyone around."
+	button_icon_state = "burning_scars"
+	rage_req = 2
+	gnosis_req = 1
+
+/datum/action/gift/burning_scars/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		owner.visible_message(span_userdanger("[owner.name] crackles with heat!</span>"), span_warning("You crackle with heat, charging up your Gift!"))
+		playsound(owner, 'sound/magic/burning_scars.ogg', 100, TRUE, extrarange = 5)
+		owner.move_resist = MOVE_FORCE_STRONG
+		if(do_after(owner, 1.5 SECONDS))
+			owner.move_resist = initial(owner.move_resist)
+			for(var/mob/living/L in orange(5, owner))
+				if(L)
+					L.adjustFireLoss(40)
+			for(var/turf/T in orange(4, get_turf(owner)))
+				var/obj/effect/fire/F = new(T)
+				spawn(6)
+					qdel(F)
+		else
+			owner.move_resist = initial(owner.move_resist)
+
+/datum/action/gift/smooth_move
+	name = "Smooth Move"
+	desc = "Garou jumps forward, avoiding every damage for a moment."
+	button_icon_state = "smooth_move"
+	//rage_req = 1   somewhat useless gift with MMB pounce
+
+/datum/action/gift/smooth_move/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/turf/T = get_turf(get_step(get_step(get_step(owner, owner.dir), owner.dir), owner.dir))
+		if(!T || T == owner.loc)
+			return
+		owner.visible_message(span_danger("[owner] charges!"))
+		owner.setDir(get_dir(owner, T))
+		var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(owner.loc,owner)
+		animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 1)
+		spawn(3)
+			owner.throw_at(T, get_dist(owner, T), 1, owner, 0)
+
+/datum/action/gift/digital_feelings
+	name = "Digital Feelings"
+	desc = "Every technology creates an electrical strike, which hits garou's enemies."
+	button_icon_state = "digital_feelings"
+	rage_req = 2
+	gnosis_req = 1
+
+/datum/action/gift/digital_feelings/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		owner.visible_message(span_danger("[owner.name] crackles with static electricity!"), span_danger("You crackle with static electricity, charging up your Gift!"))
+		playsound(owner, 'sound/magic/digital_feelings.ogg', 100, TRUE, extrarange = 5)
+		owner.move_resist = MOVE_FORCE_STRONG
+		if(do_after(owner, 1.5 SECONDS))
+			owner.move_resist = initial(owner.move_resist)
+			playsound(owner, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+			tesla_zap(owner, 3, 30, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES)
+			for(var/mob/living/L in orange(6, owner))
+				if(L)
+					L.electrocute_act(30, owner, siemens_coeff = 1, flags = NONE)
+		else
+			owner.move_resist = initial(owner.move_resist)
+
+/datum/action/gift/hands_full_of_thunder
+	name = "Hands Full of Thunder"
+	desc = "Invoke the machine spirits to support you in these trying times. Abstain from needing bullets when you fire a gun."
+	button_icon_state = "hands_full_of_thunder"
+	gnosis_req = 1
+
+/datum/action/gift/hands_full_of_thunder/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		ADD_TRAIT(owner, TRAIT_THUNDERSHOT, WEREWOLF_TRAIT)
+		to_chat(owner, span_notice("You feel your fingers tingling with electricity...!"))
+		spawn(10 SECONDS)
+			REMOVE_TRAIT(owner, TRAIT_THUNDERSHOT, WEREWOLF_TRAIT)
+			to_chat(owner, span_notice("The buzz in your fingertips ebbs..."))
+
+/datum/action/gift/elemental_improvement
+	name = "Elemental Improvement"
+	desc = "Garou flesh replaces itself with prothesis, making it less vulnerable to brute damage, but more for burn damage."
+	button_icon_state = "elemental_improvement"
+	rage_req = 2
+	gnosis_req = 1
+
+/datum/action/gift/elemental_improvement/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		animate(owner, color = "#6a839a", time = 10)
+		if(ishuman(owner))
+			playsound(get_turf(owner), 'code/modules/wod13/sounds/electro_cast.ogg', 75, FALSE)
+			var/mob/living/carbon/human/H = owner
+			H.attributes.stamina_bonus += 4
+			H.attributes.dexterity_bonus += 2
+			to_chat(owner, span_notice("You feel your skin replaced with the machine..."))
+			spawn(20 SECONDS)
+				H.attributes.stamina_bonus -= 4
+				H.attributes.dexterity_bonus -= 2
+				to_chat(owner, span_warning("Your skin is natural again..."))
+				owner.color = "#FFFFFF"
+		else
+			playsound(get_turf(owner), 'code/modules/wod13/sounds/electro_cast.ogg', 75, FALSE)
+			var/mob/living/carbon/werewolf/H = owner
+			H.werewolf_armor = 45
+			to_chat(owner, span_notice("You feel your skin replaced with the machine..."))
+			spawn(20 SECONDS)
+				H.werewolf_armor = initial(H.werewolf_armor)
+				to_chat(owner, span_warning("Your skin is natural again..."))
+				owner.color = "#FFFFFF"
+
+/datum/action/gift/guise_of_the_hound
+	name = "Guise of the Hound"
+	desc = "Wear the skin of the fleabitten dog to pass without concern."
+	button_icon_state = "guise_of_the_hound"
+	rage_req = 1
+
+/datum/action/gift/guise_of_the_hound/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		if(!HAS_TRAIT(owner,TRAIT_DOGWOLF))
+			ADD_TRAIT(owner, TRAIT_DOGWOLF, WEREWOLF_TRAIT)
+			to_chat(owner, span_notice("You feel your canid nature softening!"))
+		else
+			REMOVE_TRAIT(owner, TRAIT_DOGWOLF, WEREWOLF_TRAIT)
+			to_chat(owner, span_notice("You feel your lupine nature intensifying!"))
+
+		if(istype(owner, /mob/living/carbon/werewolf/lupus))
+			var/mob/living/carbon/werewolf/lupus/lopor = owner
+
+			if(lopor && !lopor.hispo)
+				playsound(get_turf(owner), 'code/modules/wod13/sounds/transform.ogg', 50, FALSE)
+				var/matrix/ntransform = matrix(owner.transform)
+				ntransform.Scale(0.95, 0.95)
+				animate(owner, transform = ntransform, color = "#000000", time = 3 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(trans_doggy), lopor), 3 SECONDS)
+
+/datum/action/gift/guise_of_the_hound/proc/trans_doggy(mob/living/carbon/werewolf/lupus/H)
+	if(HAS_TRAIT(H, TRAIT_DOGWOLF))
+		H.icon = 'code/modules/wod13/werewolf_lupus.dmi'
+	else
+		H.icon = 'code/modules/wod13/vtm_lupus.dmi'
+	H.regenerate_icons()
+	H.update_transform()
+	animate(H, transform = null, color = "#FFFFFF", time = 1)
+
+/datum/action/gift/infest
+	name = "Infest"
+	desc = "Call forth the vermin in the area to serve you against your enemies."
+	button_icon_state = "infest"
+	rage_req = 1
+
+/datum/action/gift/infest/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		if(iscarbon(owner))
+			var/mob/living/carbon/C = owner
+			if(length(C.beastmaster) > get_a_intelligence(C)+get_a_occult(C))
+				var/mob/living/simple_animal/hostile/beastmaster/beast = pick(C.beastmaster)
+				beast.death()
+			if(!length(C.beastmaster))
+				var/datum/action/beastmaster_stay/stay = new()
+				stay.Grant(C)
+				var/datum/action/beastmaster_deaggro/deaggro = new()
+				deaggro.Grant(C)
+
+			var/mob/living/simple_animal/hostile/beastmaster/cockroach/roach = new(get_turf(C))
+			roach.my_creator = C
+			C.beastmaster |= roach
+			roach.beastmaster = C
+
+/mob/living/simple_animal/hostile/beastmaster/cockroach
+	name = "cockroach"
+	desc = "It flutters like the giant, unhealthy skittering thing it is."
+	icon = 'code/modules/wod13/icons.dmi'
+	icon_state = "cockroach"
+	icon_living = "cockroach"
+	icon_dead = "cockroach_no_animation"
+	emote_hear = list("chitters.")
+	emote_see = list("flutters its' wings.", "wriggles its' antennae.")
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	attack_sound = 'sound/weapons/bite.ogg'
+	speak_chance = 0
+	turns_per_move = 5
+	see_in_dark = 10
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently sweeps aside"
+	response_disarm_simple = "gently sweep aside"
+	response_harm_continuous = "smashes"
+	response_harm_simple = "smash"
+	can_be_held = FALSE
+	density = FALSE
+	anchored = FALSE
+	footstep_type = FOOTSTEP_MOB_CLAW
+	bloodquality = BLOOD_QUALITY_LOW
+	bloodpool = 1
+	maxbloodpool = 1
+	del_on_death = 1
+	maxHealth = 5
+	health = 5
+	melee_damage_type = TOX
+	harm_intent_damage = 7
+	melee_damage_lower = 7
+	melee_damage_upper = 7
+	is_flying_animal = TRUE
+	speed = -0.8
+	dodging = TRUE
+
+/datum/action/gift/gift_of_the_termite
+	name = "Gift of the Termite"
+	desc = "Eat through structures. Obey no laws but the litany."
+	button_icon_state = "gift_of_the_termite"
+	rage_req = 3
+	gnosis_req = 2
+
+/datum/action/gift/gift_of_the_termite/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/mob/living/carbon/H = owner
+		H.put_in_active_hand(new /obj/item/melee/touch_attack/werewolf/gift_of_the_termite(H))
+
+
+/datum/action/gift/shroud
+	name = "Shroud"
+	desc = "Call together the shadows, blocking line of sight."
+	button_icon_state = "shroud"
+	rage_req = 1
+
+/datum/action/gift/shroud/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/atom/movable/shadow
+		shadow = new(owner)
+		shadow.set_light(5, -10)
+		spawn(20 SECONDS)
+			if (shadow)
+				QDEL_NULL(shadow)
+
+/datum/action/gift/coils_of_the_serpent
+	name = "Coils of the Serpent"
+	desc = "Summon forth tendrils of shadow to assault an opponent."
+	button_icon_state = "coils_of_the_serpent"
+	rage_req = 1
+
+/datum/action/gift/coils_of_the_serpent/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			if(H.CheckEyewitness(H, H, 7, FALSE))
+				H.adjust_veil(-1)
+			H.drop_all_held_items()
+			H.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
+			H.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
+			for(var/obj/item/melee/vampirearms/knife/gangrel/lasombra/arm in H.contents)
+				arm.name = "\improper shadow coil"
+				arm.desc = "Squeeze tight."
+				spawn(20 SECONDS)
+					qdel(arm)
+
+/datum/action/gift/banish_totem
+	name = "Banish Totem"
+	desc = "Choose a target. Dissolve the gnosis and connection they hold temporarily to their totem."
+	button_icon_state = "banish_totem"
+	rage_req = 3
+	gnosis_req = 2
+
+/datum/action/gift/banish_totem/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/valid_tribe = FALSE
+		var/list/targets = list()
+		for(var/mob/living/carbon/werewolf/wtarget in orange(7,owner))
+			targets += wtarget
+		for(var/mob/living/carbon/human/htarget in orange(7,owner))
+			targets += htarget
+		var/mob/living/carbon/target = tgui_input_list(owner, "Select a target", "Banish Totem", sort_list(targets))
+		if(target && (iswerewolf(target) || isgarou(target)))
+			valid_tribe = target.auspice.tribe
+		for(var/mob/living/carbon/targetted in targets)
+			if(targetted && targetted.auspice.tribe.name == valid_tribe)
+				targetted.auspice.gnosis = 0
+				to_chat(targetted, span_userdanger("You feel your tie to your totem snap, gnosis leaving you...!"))
+				to_chat(owner, span_danger("You feel [target.name]'s gnostic ties fray...!"))
+
+#undef DOGGY_ANIMATION_COOLDOWN

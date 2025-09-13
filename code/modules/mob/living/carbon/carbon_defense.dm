@@ -63,7 +63,6 @@
 							"<span class='userdanger'>You catch [I] in mid-air!</span>")
 			throw_mode_off()
 			return TRUE
-	do_rage_from_attack()
 	return ..()
 
 
@@ -147,8 +146,7 @@
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
-
-	if(user.a_intent == INTENT_HARM && user != src)
+	if(user != src)
 		do_rage_from_attack(user)
 
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
