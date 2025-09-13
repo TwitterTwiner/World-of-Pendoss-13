@@ -527,117 +527,138 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return mental_priorities
 	return 0
 
-/datum/preferences/proc/get_gen_attribute_limit(gen = 13, attribute)
+/datum/preferences/proc/get_gen_attribute_limit(attribute)
+	var/level
+
 	if(pref_species.name == "Vampire")
-		switch(gen)
+		level = generation - generation_bonus
+	else if(pref_species.name == "Werewolf")
+		level = auspice_level
+	else if(pref_species.name == "Kuei-Jin")
+		level = dharma_level
+	else
+		level = 13
+
+	if(pref_species.name == "Vampire")
+		switch(level)
 			if(9)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 6
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 4
 				else
-					return 2
+					return 3
 			if(8)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 7
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 5
 				else
 					return 3
 			if(7)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 8
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 6
 				else
 					return 4
 			if(6)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 9
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 7
 				else
 					return 5
-		if(gen < 6)
-			if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+		if(level > 9)
+			if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+				return 5
+			else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+				return 4
+			else
+				return 3
+		if(level < 6)
+			if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 				return 10
-			else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+			else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 				return 8
 			else
 				return 6
+
 	if(pref_species.name == "Kuei-Jin")
-		switch(dharma_level)
+		switch(level)
 			if(1)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 5
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
-					return 3
-				else
-					return 1
-			if(2)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
-					return 6
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 4
 				else
-					return 2
+					return 3
+			if(2)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 6
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 4
+				else
+					return 3
 			if(3)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 7
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 5
 				else
 					return 3
 			if(4)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 8
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 6
 				else
 					return 4
 			if(5)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 9
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 7
 				else
 					return 5
 			if(6)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 10
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 8
 				else
 					return 6
+
 	if(pref_species.name == "Werewolf")
-		switch(auspice_level)
+		switch(level)
 			if(1)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 5
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
-					return 3
-				else
-					return 1
-			if(2)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
-					return 6
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 4
 				else
-					return 2
+					return 3
+			if(2)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 6
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 4
+				else
+					return 3
 			if(3)
-				if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 					return 7
-				else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
 					return 5
 				else
 					return 3
-	if(attribute in list(main_physical_attribute, main_social_attribute, main_mental_attribute))
+
+	if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
 		return 5
-	else if(attribute in list(secondary_physical_attribute, secondary_social_attribute, secondary_mental_attribute))
-		return 3
+	else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+		return 4
 	else
-		return 1
+		return 3
 
 
 #undef APPEARANCE_CATEGORY_COLUMN
@@ -1634,7 +1655,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
 						return
 					var/list/social_attributes = list("Charisma", "Manipulation", "Appearance")
-					social_attributes -= main_social_attribute
+					social_attributes -= secondary_social_attribute
 					var/new_main_social = tgui_input_list(user, "Select a Main Social Attribute", "Attribute Selection", social_attributes)
 					if(new_main_social)
 						main_social_attribute = new_main_social
@@ -1677,39 +1698,39 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						verify_attributes()
 
 				if("strength")
-					if(handle_upgrade(Strength, Strength * 5, get_gen_attribute_limit(generation-generation_bonus, "Strength"), "Physical"))
+					if(handle_upgrade(Strength, Strength * 5, get_gen_attribute_limit("Strength"), "Physical"))
 						Strength++
 
 				if("dexterity")
-					if(handle_upgrade(Dexterity, Dexterity * 5, get_gen_attribute_limit(generation-generation_bonus, "Dexterity"), "Physical"))
+					if(handle_upgrade(Dexterity, Dexterity * 5, get_gen_attribute_limit("Dexterity"), "Physical"))
 						Dexterity++
 
 				if("stamina")
-					if(handle_upgrade(Stamina, Stamina * 5, get_gen_attribute_limit(generation-generation_bonus, "Stamina"), "Physical"))
+					if(handle_upgrade(Stamina, Stamina * 5, get_gen_attribute_limit("Stamina"), "Physical"))
 						Stamina++
 
 				if("charisma")
-					if(handle_upgrade(Charisma, Charisma * 5, get_gen_attribute_limit(generation-generation_bonus, "Charisma"), "Social"))
+					if(handle_upgrade(Charisma, Charisma * 5, get_gen_attribute_limit("Charisma"), "Social"))
 						Charisma++
 
 				if("manipulation")
-					if(handle_upgrade(Manipulation, Manipulation * 5, get_gen_attribute_limit(generation-generation_bonus, "Manipulation"), "Social"))
+					if(handle_upgrade(Manipulation, Manipulation * 5, get_gen_attribute_limit("Manipulation"), "Social"))
 						Manipulation++
 
 				if("appearance")
-					if(handle_upgrade(Appearance, Appearance * 5, get_gen_attribute_limit(generation-generation_bonus, "Appearance"), "Social"))
+					if(handle_upgrade(Appearance, Appearance * 5, get_gen_attribute_limit("Appearance"), "Social"))
 						Appearance++
 
 				if("perception")
-					if(handle_upgrade(Perception, Perception * 5, get_gen_attribute_limit(generation-generation_bonus, "Perception"), "Mental"))
+					if(handle_upgrade(Perception, Perception * 5, get_gen_attribute_limit("Perception"), "Mental"))
 						Perception++
 
 				if("intelligence")
-					if(handle_upgrade(Intelligence, Intelligence * 5, get_gen_attribute_limit(generation-generation_bonus, "Intelligence"), "Mental"))
+					if(handle_upgrade(Intelligence, Intelligence * 5, get_gen_attribute_limit("Intelligence"), "Mental"))
 						Intelligence++
 
 				if("wits")
-					if(handle_upgrade(Wits, Wits * 5, get_gen_attribute_limit(generation-generation_bonus, "Wits"), "Mental"))
+					if(handle_upgrade(Wits, Wits * 5, get_gen_attribute_limit("Wits"), "Mental"))
 						Wits++
 
 				if("alertness")
@@ -2657,17 +2678,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.diablerist = diablerist
 	character.know_diablerie = know_diablerie
 
-	var/genlimited = get_gen_attribute_limit(generation-generation_bonus)
+	character.attributes.strength = min(get_gen_attribute_limit("Strength"), Strength)
+	character.attributes.dexterity = min(get_gen_attribute_limit("Dexterity"), Dexterity)
+	character.attributes.stamina = min(get_gen_attribute_limit("Stamina"), Stamina)
 
-	character.attributes.strength = min(genlimited, Strength)
-	character.attributes.dexterity = min(genlimited, Dexterity)
-	character.attributes.stamina = min(genlimited, Stamina)
-	character.attributes.charisma = min(genlimited, Charisma)
-	character.attributes.manipulation = min(genlimited, Manipulation)
-	character.attributes.appearance = min(genlimited, Appearance)
-	character.attributes.perception = min(genlimited, Perception)
-	character.attributes.intelligence = min(genlimited, Intelligence)
-	character.attributes.wits = min(genlimited, Wits)
+	character.attributes.charisma = min(get_gen_attribute_limit("Charisma"), Charisma)
+	character.attributes.manipulation = min(get_gen_attribute_limit("Manipulation"), Manipulation)
+	character.attributes.appearance = min(get_gen_attribute_limit("Appearance"), Appearance)
+
+	character.attributes.perception = min(get_gen_attribute_limit("Perception"), Perception)
+	character.attributes.intelligence = min(get_gen_attribute_limit("Intelligence"), Intelligence)
+	character.attributes.wits = min(get_gen_attribute_limit("Wits"), Wits)
 
 	character.attributes.Alertness = Alertness
 	character.attributes.Athletics = Athletics
@@ -2945,26 +2966,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			custom_names[name_id] = sanitized_name
 
 /datum/preferences/proc/verify_attributes()
-	if(Strength > get_gen_attribute_limit(generation-generation_bonus, "Strength"))
-		Strength = get_gen_attribute_limit(generation-generation_bonus, "Strength")
-	if(Dexterity > get_gen_attribute_limit(generation-generation_bonus, "Dexterity"))
-		Dexterity = get_gen_attribute_limit(generation-generation_bonus, "Dexterity")
-	if(Stamina > get_gen_attribute_limit(generation-generation_bonus, "Stamina"))
-		Stamina = get_gen_attribute_limit(generation-generation_bonus, "Stamina")
+	Strength = min(Strength, get_gen_attribute_limit("Strength"))
+	Dexterity = min(Dexterity, get_gen_attribute_limit("Dexterity"))
+	Stamina = min(Stamina, get_gen_attribute_limit("Stamina"))
 
-	if(Charisma > get_gen_attribute_limit(generation-generation_bonus, "Charisma"))
-		Charisma = get_gen_attribute_limit(generation-generation_bonus, "Charisma")
-	if(Manipulation > get_gen_attribute_limit(generation-generation_bonus, "Manipulation"))
-		Manipulation = get_gen_attribute_limit(generation-generation_bonus, "Manipulation")
-	if(Appearance > get_gen_attribute_limit(generation-generation_bonus, "Appearance"))
-		Appearance = get_gen_attribute_limit(generation-generation_bonus, "Appearance")
+	Charisma = min(Charisma, get_gen_attribute_limit("Charisma"))
+	Manipulation = min(Manipulation, get_gen_attribute_limit("Manipulation"))
+	Appearance = min(Appearance, get_gen_attribute_limit("Appearance"))
 
-	if(Perception > get_gen_attribute_limit(generation-generation_bonus, "Perception"))
-		Perception = get_gen_attribute_limit(generation-generation_bonus, "Perception")
-	if(Intelligence > get_gen_attribute_limit(generation-generation_bonus, "Intelligence"))
-		Intelligence = get_gen_attribute_limit(generation-generation_bonus, "Intelligence")
-	if(Wits > get_gen_attribute_limit(generation-generation_bonus, "Wits"))
-		Wits = get_gen_attribute_limit(generation-generation_bonus, "Wits")
+	Perception = min(Perception, get_gen_attribute_limit("Perception"))
+	Intelligence = min(Intelligence, get_gen_attribute_limit("Intelligence"))
+	Wits = min(Wits, get_gen_attribute_limit("Wits"))
 
 /datum/preferences/proc/reset_attributes()
 	Strength = 1
