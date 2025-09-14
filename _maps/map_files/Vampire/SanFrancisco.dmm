@@ -14672,6 +14672,10 @@
 /area/vtm/pacificheights)
 "bbN" = (
 /obj/structure/table,
+/obj/item/vamp/keys/pentex,
+/obj/item/vamp/keys/pentex,
+/obj/item/vamp/keys/pentex,
+/obj/item/vamp/keys/pentex,
 /obj/structure/sign/warning/securearea{
 	pixel_y = 30
 	},
@@ -31959,6 +31963,8 @@
 /area/vtm/pacificheights)
 "fzB" = (
 /obj/structure/table,
+/obj/item/vamp/keys/pentex,
+/obj/item/vamp/keys/pentex,
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
@@ -52579,26 +52585,10 @@
 /area/vtm/interior/delivery/oops_office)
 "pCJ" = (
 /obj/structure/table,
-/obj/item/vamp/keys{
-	accesslocks = list("wolftech");
-	color = "#466a72";
-	name = "Tech Store keys"
-	},
-/obj/item/vamp/keys{
-	accesslocks = list("wolftech");
-	color = "#466a72";
-	name = "Tech Store keys"
-	},
-/obj/item/vamp/keys{
-	accesslocks = list("wolftech");
-	color = "#466a72";
-	name = "Tech Store keys"
-	},
-/obj/item/vamp/keys{
-	accesslocks = list("wolftech");
-	color = "#466a72";
-	name = "Tech Store keys"
-	},
+/obj/item/vamp/keys/techstore,
+/obj/item/vamp/keys/techstore,
+/obj/item/vamp/keys/techstore,
+/obj/item/vamp/keys/techstore,
 /turf/open/floor/plating/gummaguts,
 /area/vtm/interior/glasswalker)
 "pCP" = (
@@ -64995,11 +64985,7 @@
 	},
 /obj/item/storage/backpack/duffelbag,
 /obj/item/clothing/shoes/swagshoes,
-/obj/item/vamp/keys{
-	accesslocks = list("wolftech");
-	color = "#466a72";
-	name = "Tech Store keys"
-	},
+/obj/item/vamp/keys/techstore,
 /obj/item/clothing/under/vampire/sport,
 /turf/open/floor/carpet,
 /area/vtm/interior/techshop)
@@ -65212,11 +65198,7 @@
 	anchored = 1
 	},
 /obj/item/storage/backpack/duffelbag,
-/obj/item/vamp/keys{
-	accesslocks = list("wolftech");
-	color = "#466a72";
-	name = "Tech Store keys"
-	},
+/obj/item/vamp/keys/techstore,
 /obj/item/clothing/suit/vampire/slickbackcoat,
 /obj/item/clothing/under/vampire/gangrel/female,
 /obj/item/clothing/shoes/vampire/heels,

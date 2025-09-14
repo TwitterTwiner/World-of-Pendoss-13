@@ -6,73 +6,104 @@
 	var/rage = 1
 	var/start_gnosis = 1
 	var/gnosis = 1
-	var/base_breed = "Homid"
-	var/tribe = "Wendigo"
+	var/breed_form = FORM_HOMID
+	var/datum/garou_tribe/tribe = new /datum/garou_tribe/wendigo()
 	var/list/gifts = list()
 	var/force_abomination = FALSE
 
-	var/list/wendigo = list(
-		/datum/action/gift/stoic_pose = 1,
-		/datum/action/gift/freezing_wind = 2,
-		/datum/action/gift/bloody_feast = 3
-	)
-
-	var/list/glasswalker = list(
-		/datum/action/gift/smooth_move = 1,
-		/datum/action/gift/digital_feelings = 2,
-		/datum/action/gift/elemental_improvement = 3
-	)
-
-	var/list/spiral = list(
-		/datum/action/gift/stinky_fur = 1,
-		/datum/action/gift/venom_claws = 2,
-		/datum/action/gift/burning_scars = 3
-	)
-
 /datum/auspice/proc/on_gain(mob/living/carbon/C)
 	C.update_rage_hud()
-	C.transformator.lupus_form.auspice = src
-	C.transformator.lupus_form.dna = C.dna
-	C.transformator.crinos_form.auspice = src
-	C.transformator.crinos_form.dna = C.dna
+	var/mob/living/carbon/werewolf/lupus/lupus = C.transformator.lupus_form?.resolve()
+	var/mob/living/carbon/werewolf/crinos/crinos = C.transformator.crinos_form?.resolve()
+	var/mob/living/carbon/werewolf/corax/corax_crinos/cor_crinos = C.transformator.corax_form?.resolve()
+	var/mob/living/carbon/werewolf/lupus/corvid/corvid = C.transformator.corvid_form?.resolve()
+
+	lupus?.auspice = src
+	lupus?.dna = C.dna
+	crinos?.auspice = src
+	crinos?.dna = C.dna
+	cor_crinos?.auspice = src
+	cor_crinos?.dna = C.dna
+	ADD_TRAIT(cor_crinos, TRAIT_CORAX, tribe)
+	corvid?.auspice = src
+	corvid?.dna = C.dna
+	ADD_TRAIT(corvid, TRAIT_CORAX, tribe)
+
 	rage = start_rage
 	if(length(gifts))
 		for(var/i in gifts)
 			var/datum/action/A1 = new i()
 			A1.Grant(C)
 			var/datum/action/A2 = new i()
-			A2.Grant(C.transformator.lupus_form)
+			A2.Grant(lupus)
 			var/datum/action/A3 = new i()
-			A3.Grant(C.transformator.crinos_form)
+			A3.Grant(crinos)
+			var/datum/action/A4 = new i()
+			A4.Grant(cor_crinos)
+			var/datum/action/A5 = new i()
+			A5.Grant(corvid)
 
-	switch(tribe)
-		if("Glasswalkers")
-			for(var/i in 1 to level)
-				var/zalupa = glasswalker[i]
-				var/datum/action/A = new zalupa()
-				A.Grant(C)
-				var/datum/action/A1 = new zalupa()
-				A1.Grant(C.transformator.lupus_form)
-				var/datum/action/A2 = new zalupa()
-				A2.Grant(C.transformator.crinos_form)
-		if("Wendigo")
-			for(var/i in 1 to level)
-				var/zalupa = wendigo[i]
-				var/datum/action/A = new zalupa()
-				A.Grant(C)
-				var/datum/action/A1 = new zalupa()
-				A1.Grant(C.transformator.lupus_form)
-				var/datum/action/A2 = new zalupa()
-				A2.Grant(C.transformator.crinos_form)
-		if("Black Spiral Dancers")
-			for(var/i in 1 to level)
-				var/zalupa = spiral[i]
-				var/datum/action/A = new zalupa()
-				A.Grant(C)
-				var/datum/action/A1 = new zalupa()
-				A1.Grant(C.transformator.lupus_form)
-				var/datum/action/A2 = new zalupa()
-				A2.Grant(C.transformator.crinos_form)
+	for(var/i in 1 to level)
+		var/zalupa
+		zalupa = tribe.tribal_gifts[i]
+		var/datum/action/A = new zalupa()
+		A.Grant(C)
+		var/datum/action/A1 = new zalupa()
+		A1.Grant(lupus)
+		var/datum/action/A2 = new zalupa()
+		A2.Grant(crinos)
+		var/datum/action/A3 = new zalupa()
+		A3.Grant(cor_crinos)
+		var/datum/action/A4 = new zalupa()
+		A4.Grant(corvid)
+
+	if(tribe.tribe_keys)
+		C.put_in_hands(new tribe.tribe_keys(C))
+	if(tribe.tribe_trait == TRAIT_CORAX)
+		ADD_TRAIT(C, TRAIT_CORAX, tribe)
+
+/**
+ * Sets the breed of a shapeshifter, or what form
+ * they were born in and naturally stay in. If that
+ * form isn't human form, this will also allow them to
+ * transform out of human form upon death. Sets Gnosis
+ * to the values every breed starts with.
+ *
+ * Arguments:
+ * * breed - Name of the breed being set
+ * * owner - Mob whose breed is being set, and whose Auspice this is
+ */
+/datum/auspice/proc/set_breed(breed, mob/living/carbon/human/owner)
+	// Apply breed-specific stats
+	switch (breed)
+		if(BREED_HOMID)
+			owner.auspice.gnosis = 1
+			owner.auspice.start_gnosis = 1
+			breed_form = FORM_HOMID
+		if(BREED_LUPUS)
+			owner.auspice.gnosis = 5
+			owner.auspice.start_gnosis = 5
+			breed_form = FORM_LUPUS
+		if(BREED_METIS)
+			owner.auspice.gnosis = 3
+			owner.auspice.start_gnosis = 3
+			breed_form = FORM_CRINOS
+		if(BREED_CORVID)
+			owner.auspice.gnosis = 5
+			owner.auspice.start_gnosis = 5
+			breed_form = FORM_CORVID
+
+	// Reverting to Homid form is handled elsewhere, this is specifically to transform out of Homid
+	if(breed != BREED_HOMID)
+		RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(handle_death))
+
+/datum/auspice/proc/handle_death(mob/living/carbon/human/source, gibbed)
+	SIGNAL_HANDLER
+
+	if(gibbed)
+		return
+
+	source.transformator?.transform(source, breed_form, TRUE)
 
 /datum/auspice/ahroun
 	name = "Ahroun"

@@ -143,6 +143,9 @@
 	var/datum/action/rebalance/R = new()
 	R.Grant(C)
 
+	//Kuei-jin resist vampire bites better than mortals
+	RegisterSignal(C, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_kuei_jin_bitten))
+
 /datum/species/kuei_jin/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	for(var/datum/action/aboutme/VI in C.actions)
@@ -166,6 +169,19 @@
 	for(var/datum/action/chi_discipline/A in C.actions)
 		if(A)
 			A.Remove(C)
+
+	UnregisterSignal(C, COMSIG_MOB_VAMPIRE_SUCKED)
+
+/**
+ * On being bit by a vampire
+ *
+ * This handles vampire bite sleep immunity and any future special interactions.
+ */
+/datum/species/kuei_jin/proc/on_kuei_jin_bitten(datum/source, mob/living/carbon/being_bitten)
+	SIGNAL_HANDLER
+
+	if(iscathayan(being_bitten))
+		return COMPONENT_RESIST_VAMPIRE_KISS
 
 /datum/action/breathe_chi
 	name = "Inhale Chi"

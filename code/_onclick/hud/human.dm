@@ -80,22 +80,40 @@
 	static_inventory += ui_announcement
 
 	if(isgarou(owner))
-		transform_werewolf = new /atom/movable/screen/transform_lupus()
-		transform_werewolf.screen_loc = ui_werewolf_lupus
-		transform_werewolf.hud = src
-		static_inventory += transform_werewolf
+		if(HAS_TRAIT(owner, TRAIT_CORAX)) // if we picked the Corax tribe, we get the HUD that makes you transform into the various Corax forms
+			transform_werewolf = new /atom/movable/screen/transform_corvid()
+			transform_werewolf.screen_loc = ui_werewolf_lupus
+			transform_werewolf.hud = src
+			static_inventory += transform_werewolf
 
-		transform_werewolf = new /atom/movable/screen/transform_crinos()
-		transform_werewolf.screen_loc = ui_werewolf_crinos
-		transform_werewolf.hud = src
-		static_inventory += transform_werewolf
+			transform_werewolf = new /atom/movable/screen/transform_corax_crinos()
+			transform_werewolf.screen_loc = ui_werewolf_crinos
+			transform_werewolf.hud = src
+			static_inventory += transform_werewolf
 
-		transform_werewolf = new /atom/movable/screen/transform_homid()
-		transform_werewolf.screen_loc = ui_werewolf_homid
-		transform_werewolf.hud = src
-		static_inventory += transform_werewolf
+			transform_werewolf = new /atom/movable/screen/transform_homid()
+			transform_werewolf.screen_loc = ui_werewolf_homid
+			transform_werewolf.hud = src
+			static_inventory += transform_werewolf
 
-		transform_werewolf = new /atom/movable/screen/auspice()
+		else
+		
+			transform_werewolf = new /atom/movable/screen/transform_lupus()
+			transform_werewolf.screen_loc = ui_werewolf_lupus
+			transform_werewolf.hud = src
+			static_inventory += transform_werewolf
+
+			transform_werewolf = new /atom/movable/screen/transform_crinos()
+			transform_werewolf.screen_loc = ui_werewolf_crinos
+			transform_werewolf.hud = src
+			static_inventory += transform_werewolf
+
+			transform_werewolf = new /atom/movable/screen/transform_homid()
+			transform_werewolf.screen_loc = ui_werewolf_homid
+			transform_werewolf.hud = src
+			static_inventory += transform_werewolf
+
+		transform_werewolf = new /atom/movable/screen/auspice() // Corax and Garou can share these two UI elements
 		transform_werewolf.screen_loc = ui_werewolf_auspice
 		transform_werewolf.hud = src
 		static_inventory += transform_werewolf

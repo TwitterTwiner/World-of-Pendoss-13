@@ -205,6 +205,29 @@
 		if(a_intent == INTENT_HARM)
 			if(istype(A, /mob/living))
 				var/mob/living/target = A
+				if(src.tox_damage_plus)
+					target.adjustToxLoss(src.tox_damage_plus)
+					to_chat(src, "<span class='notice'>Your toxic claws seep into [target]'s flesh!</span>")
+				if(src.agg_damage_plus)
+					target.adjustCloneLoss(src.agg_damage_plus)
+					to_chat(src, "<span class='notice'>Your razor sharp claws rip through [target]'s flesh!</span>")
+				if(src.stam_damage_plus)
+					target.adjustStaminaLoss(src.stam_damage_plus)
+					to_chat(src, span_notice("Your venom claws take [target]'s breathing away!"))
+			return ..()
+		A.attack_hand(src)
+		update_inv_hands()
+
+/atom/proc/attack_crinos(mob/user)
+	return
+
+/mob/living/carbon/werewolf/corax/corax_crinos/UnarmedAttack(atom/A, proximity)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
+	if(A) // not putting this here will cause a runtime, I do NOT know why
+		if(a_intent == INTENT_HARM)
+			if(istype(A, /mob/living))
+				var/mob/living/target = A
 				target.adjustCloneLoss(2)
 				if(src.tox_damage_plus)
 					target.adjustToxLoss(src.tox_damage_plus)
@@ -215,10 +238,6 @@
 			return ..()
 		A.attack_hand(src)
 		update_inv_hands()
-
-/atom/proc/attack_crinos(mob/user)
-	return
-
 
 /*
 	Hostile animals
