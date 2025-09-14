@@ -179,12 +179,12 @@
 					dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Change Wisdom</a><BR>"
 				else
 					dat +="<BR>"
-		dat += "<b>Renown Rank:</b> [RankName(renownrank)]"
+		dat += "<b>Renown Rank:</b> [RankName(renownrank,src.tribe.name)]<br>"
 		if(!slotlocked)
 			dat +=" <a href='byond://?_src_=prefs;preference=renownrank;task=input'>Change Renown Rank</a><BR>"
 		else
 			dat +="<BR>"
-		dat += "[RankDesc(renownrank)]<BR>"
+		dat += "[RankDesc(renownrank, src.tribe.name)]<BR>"
 		dat += "<BR>"
 	if(pref_species.name == "Vampire" || pref_species.name == "Ghoul")
 		dat += "<b>Masquerade:</b> [masquerade]/5<BR>"

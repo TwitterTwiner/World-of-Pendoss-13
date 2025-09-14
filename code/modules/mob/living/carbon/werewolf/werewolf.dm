@@ -34,7 +34,7 @@
 	rotate_on_lying = 0
 	initial_language_holder = /datum/language_holder/werewolf_transformed
 
-	movement_type = GROUND // [ChillRaccoon] - fucking flying werewolfes is a meme
+	dna = null
 
 	bloodpool = 20
 	maxbloodpool = 20
@@ -58,7 +58,7 @@
 	var/bare_wound_bonus = 25
 	var/sharpness = 50
 	melee_damage_type = CLONE
-	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
+	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
 	var/attack_verb_continuous = "attacks"
 	var/attack_verb_simple = "attack"
 	var/friendly_verb_continuous = "nuzzles"
@@ -76,11 +76,18 @@
 
 	var/werewolf_armor = 0
 
-	var/wyrm_tainted = 0
+	var/wyrm_tainted = FALSE
 
 	var/assigned_quirks = FALSE
 
 	wolf_recov = TRUE
+
+/mob/living/carbon/werewolf/corax // the Corax variety of werewolves, also refers to the Crinos form in a roundabout way, not exactly clean.
+	name = "Corax"
+	icon = 'code/modules/wod13/corax_crinos.dmi'
+	verb_say = "caws"
+	verb_exclaim = "squawks"
+	verb_yell = "shrieks"
 
 /mob/living/carbon/werewolf/update_resting()
 	if(resting)
@@ -123,14 +130,28 @@
 
 	create_internal_organs()
 
-	ADD_TRAIT(src, TRAIT_NEVER_WOUNDED, ROUNDSTART_TRAIT)
+	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
+	hud.add_to_hud(src)
+
+	ADD_TRAIT(src, TRAIT_NEVER_WOUNDED, GAROU_TRAIT)
+	ADD_TRAIT(src, TRAIT_NIGHT_VISION, GAROU_TRAIT)
 
 	. = ..()
+
+/mob/living/carbon/werewolf/Destroy()
+	. = ..()
+
+/mob/living/carbon/werewolf/death(gibbed)
+	. = ..()
+	if (gibbed)
+		return
+
+	transformator.transform(src, auspice.breed_form, TRUE) //Turn werewolves back into their breed form once they die.
 
 /mob/living/carbon/werewolf/create_internal_organs()
 	internal_organs += new /obj/item/organ/brain
 	internal_organs += new /obj/item/organ/tongue
-	internal_organs += new /obj/item/organ/eyes/night_vision
+	internal_organs += new /obj/item/organ/eyes
 	internal_organs += new /obj/item/organ/liver
 	internal_organs += new /obj/item/organ/stomach
 	internal_organs += new /obj/item/organ/heart
@@ -175,9 +196,6 @@
 /mob/living/carbon/werewolf/canBeHandcuffed()
 	return FALSE
 
-/mob/living/carbon/werewolf/can_hold_items(obj/item/I)
-	return (I && (I.item_flags & WEREWOLF_HOLDABLE || ISADVANCEDTOOLUSER(src)) && ..())
-
 /mob/living/carbon/werewolf/on_lying_down(new_lying_angle)
 	. = ..()
 	update_icons()
@@ -207,15 +225,47 @@
 	pixel_w = -8
 //	deathsound = 'sound/voice/hiss6.ogg'
 	bodyparts = list(
-		/obj/item/bodypart/chest,
-		/obj/item/bodypart/head,
-		/obj/item/bodypart/l_arm,
-		/obj/item/bodypart/r_arm,
-		/obj/item/bodypart/r_leg,
-		/obj/item/bodypart/l_leg,
+		/obj/item/bodypart/chest/crinos,
+		/obj/item/bodypart/head/crinos,
+		/obj/item/bodypart/l_arm/crinos,
+		/obj/item/bodypart/r_arm/crinos,
+		/obj/item/bodypart/r_leg/crinos,
+		/obj/item/bodypart/l_leg/crinos,
 		)
 
 	werewolf_armor = 30
+
+/mob/living/carbon/werewolf/corax/corax_crinos // The specific stats for the Corax variation of Crinos
+	name = "corax"
+	icon_state = "black"
+	mob_size = MOB_SIZE_HUGE
+	butcher_results = list(/obj/item/food/meat/slab = 5)
+	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
+	limb_destroyer = 1
+
+	hud_type = /datum/hud/werewolf
+	melee_damage_lower = 25 // more reliable damage because I believe that's also a change staged for normal werewolves, also screw RNG
+	melee_damage_upper = 25 // less damage for were-ravens
+	armour_penetration = 25
+	health = 200 // a lot less HP
+	maxHealth = 200
+//	speed = -1  doesn't work on carbons
+	var/obj/item/r_store = null
+	var/obj/item/l_store = null
+	var/pounce_cooldown = 0
+	var/pounce_cooldown_time = 30
+	pixel_w = -8
+//	deathsound = 'sound/voice/hiss6.ogg'
+	bodyparts = list(
+		/obj/item/bodypart/chest/crinos,
+		/obj/item/bodypart/head/crinos,
+		/obj/item/bodypart/l_arm/crinos,
+		/obj/item/bodypart/r_arm/crinos,
+		/obj/item/bodypart/r_leg/crinos,
+		/obj/item/bodypart/l_leg/crinos,
+		)
+
+	werewolf_armor = 15
 
 /datum/movespeed_modifier/crinosform
 	multiplicative_slowdown = -0.25
@@ -232,8 +282,14 @@
 /mob/living/carbon/werewolf/lupus/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
-	var/datum/action/gift/hispo/hispo = new()
-	hispo.Grant(src)
+	if(!iscorvid(src))
+		var/datum/action/gift/hispo/hispo = new()
+		hispo.Grant(src)
+	else
+		var/datum/action/innate/togglecorvidflight/toggleflight = new()
+		toggleflight.Grant(src)
+		var/datum/action/fly_upper/fly_up = new()
+		fly_up.Grant(src)
 
 /mob/living/carbon/werewolf/crinos/show_inv(mob/user)
 	user.set_machine(src)
@@ -277,3 +333,112 @@
 
 /mob/living/carbon/werewolf/crinos/get_permeability_protection(list/target_zones)
 	return 0.8
+
+/mob/living/carbon/werewolf/corax/corax_crinos/show_inv(mob/user)
+	user.set_machine(src)
+	var/list/dat = list()
+	dat += "<table>"
+	for(var/i in 1 to held_items.len)
+		var/obj/item/I = get_item_for_held_index(i)
+		dat += "<tr><td><B>[get_held_index_name(i)]:</B></td><td><A href='byond://?src=[REF(src)];item=[ITEM_SLOT_HANDS];hand_index=[i]'>[(I && !(I.item_flags & ABSTRACT)) ? I : "<font color=grey>Empty</font>"]</a></td></tr>"
+	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
+	dat += "<tr><td><A href='byond://?src=[REF(src)];pouches=1'>Empty Pouches</A></td></tr>"
+
+	dat += {"</table>
+	<A href='byond://?src=[REF(user)];mach_close=mob[REF(src)]'>Close</A>
+	"}
+
+	var/datum/browser/popup = new(user, "mob[REF(src)]", "[src]", 440, 510)
+	popup.set_content(dat.Join())
+	popup.open()
+
+
+/mob/living/carbon/werewolf/corax/corax_crinos/can_hold_items(obj/item/I)
+	return TRUE
+
+/mob/living/carbon/werewolf/corax/corax_crinos/Topic(href, href_list)
+	//strip panel
+	if(href_list["pouches"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
+		visible_message("<span class='danger'>[usr] tries to empty [src]'s pouches.</span>", \
+						"<span class='userdanger'>[usr] tries to empty your pouches.</span>")
+		if(do_mob(usr, src, POCKET_STRIP_DELAY * 0.5))
+			dropItemToGround(r_store)
+			dropItemToGround(l_store)
+
+	..()
+
+/mob/living/carbon/werewolf/corax/corax_crinos/resist_grab(moving_resist)
+	if(pulledby.grab_state)
+		visible_message("<span class='danger'>[src] breaks free of [pulledby]'s grip!</span>", \
+						"<span class='danger'>You break free of [pulledby]'s grip!</span>")
+	pulledby.stop_pulling()
+	. = 0
+
+/mob/living/carbon/werewolf/corax/corax_crinos/get_permeability_protection(list/target_zones)
+	return 0.8
+
+/mob/living/carbon/werewolf/corax/corax_crinos/Move(NewLoc, direct)
+	if(isturf(loc))
+		step_variable = step_variable+1
+		if(step_variable == 2)
+			step_variable = 0
+			playsound(get_turf(src), 'code/modules/wod13/sounds/werewolf_step.ogg', 50, FALSE) // feel free to change the noise to something more avian later.
+	..()
+
+
+
+/atom/proc/attack_werewolf(mob/living/carbon/werewolf/user, list/modifiers)
+	attack_hand(user, modifiers)
+
+/obj/attack_werewolf(mob/living/carbon/werewolf/user, list/modifiers)
+	if (user.a_intent != INTENT_HARM)
+		return ..()
+
+	if(!user.melee_damage_upper && !user.obj_damage)
+		user.emote("custom", message = "[user.friendly_verb_continuous] [src].")
+		return FALSE
+	else
+		var/play_soundeffect = TRUE
+		if(user.environment_smash)
+			play_soundeffect = FALSE
+		if(user.obj_damage)
+			. = attack_generic(user, user.obj_damage, user.melee_damage_type, MELEE, play_soundeffect, user.armour_penetration)
+		else
+			. = attack_generic(user, rand(user.melee_damage_lower,user.melee_damage_upper), user.melee_damage_type, MELEE, play_soundeffect, user.armour_penetration)
+		if(. && !play_soundeffect)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+
+/obj/item/attack_werewolf(mob/living/carbon/werewolf/user, list/modifiers)
+	if(!user.can_hold_items(src))
+		if(user.contents.Find(src))
+			user.dropItemToGround(src)
+		// Lupus and Corvids can only hold small and tiny items respectively
+		if(iscorvid(user))
+			to_chat(user, span_warning("\The [src] is too large to hold in your beak!"))
+		else if(islupus(user))
+			to_chat(user, span_warning("\The [src] is too large to hold in your mouth!"))
+
+		return
+
+	attack_hand(user, modifiers)
+
+/mob/living/attack_werewolf(mob/living/carbon/werewolf/user, list/modifiers)
+	attack_paw(user)
+
+/obj/item/bodypart/chest/crinos
+	max_damage = 500
+
+/obj/item/bodypart/head/crinos
+	max_damage = 500
+
+/obj/item/bodypart/l_arm/crinos
+	max_damage = 125
+
+/obj/item/bodypart/r_arm/crinos
+	max_damage = 125
+
+/obj/item/bodypart/r_leg/crinos
+	max_damage = 125
+
+/obj/item/bodypart/l_leg/crinos
+	max_damage = 125

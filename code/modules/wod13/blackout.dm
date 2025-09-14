@@ -77,20 +77,24 @@ SUBSYSTEM_DEF(witness_pool)
 							if(last_gnosis_buff+300 < world.time)
 								last_gnosis_buff = world.time
 								adjust_gnosis(1, src, TRUE)
+		if(iscorvid(src))
+			gaining_rage = FALSE // Corax will ideally be talking a lot, not having passive rage generation should also make them weaker in combat.
+		if(iscoraxcrinos(src))
+			gaining_rage = TRUE // Corax have no Metis, Crinos is uneasy no matter your breed, no "buts" about it.
 		if(iscrinos(src))
-			if(auspice?.base_breed == "Crinos")
+			if(auspice.breed_form == FORM_CRINOS)
 				gaining_rage = FALSE
 			if(CheckEyewitness(src, src, 5, FALSE))
 				adjust_veil(-1, honoradj = -1)
 		if(islupus(src))
-			if(auspice?.base_breed == "Lupus")
+			if(auspice.breed_form == FORM_LUPUS)
 				gaining_rage = FALSE
 			var/mob/living/carbon/werewolf/lupus/Lupus = src
 			if(Lupus.hispo)
 				if(CheckEyewitness(src, src, 7, FALSE))
 					src.adjust_veil(-1,random = -1)
 			else
-				if(!(HAS_TRAIT(src, TRAIT_DOGWOLF)))
+				if(!(HAS_TRAIT(src, TRAIT_DOGWOLF) || !iscorax(src))) // ravens don't spook people
 					if(CheckEyewitness(src, src, 4, FALSE))
 						src.adjust_veil(-1,threshold = 4)
 		if(gaining_rage && client)
@@ -109,7 +113,7 @@ SUBSYSTEM_DEF(witness_pool)
 					to_chat(src, "<span class='warning'>My Veil is too low to connect with the spirits of Umbra!</span>")
 					adjust_gnosis(-1, src, FALSE)
 
-		if(auspice?.rage >= 8)
+		if(auspice?.rage >= 7)
 			if(!in_frenzy)
 				if((last_frenzy_check + 18 SECONDS) <= world.time)
 					last_frenzy_check = world.time
@@ -118,6 +122,11 @@ SUBSYSTEM_DEF(witness_pool)
 		if(last_veil_restore == 0 || (last_veil_restore + UMBRA_VEIL_COOLDOWN) < world.time)
 			if(masquerade < 5)
 				check_veil_adjust()
+
+/mob/living/carbon/werewolf/corax/corax_crinos/handle_witness()
+	. = ..()
+	if(CheckEyewitness(src, src, 5, FALSE))
+		adjust_veil(-1, honoradj = -1)
 
 // currently being in your caern restores veil to max because theres no other way of doing. remember to cap it to THREE once shame rituals are back
 
@@ -130,17 +139,17 @@ SUBSYSTEM_DEF(witness_pool)
 			return
 
 	switch(auspice.tribe.name)
-		if("Wendigo", "Silver Fangs", "Ghost Council")
+		if("Wendigo", "Silver Fangs", "Ghost Council", "Corax")
 			if(istype(get_area(src), /area/vtm/forest))
 				adjust_veil(1, random = -1)
 				last_veil_restore = world.time
 
-		if("Bone Gnawers")
+		if("Bone Gnawers", "Corax")
 			if(istype(get_area(src), /area/vtm/sewer))
 				adjust_veil(1, random = -1)
 				last_veil_restore = world.time
 
-		if("Glass Walkers")
+		if("Glass Walkers", "Corax")
 			if(istype(get_area(src), /area/vtm/interior/glasswalker))
 				adjust_veil(1, random = -1)
 				last_veil_restore = world.time
@@ -304,11 +313,12 @@ SUBSYSTEM_DEF(witness_pool)
 
 	else if(isgarou(src))
 
-		if(auspice?.base_breed != "Homid")
+		if(auspice?.breed_form != FORM_HOMID || !(HAS_TRAIT(src, TRAIT_CORAX)))
 			if(client)
-				if(((last_rage_gain + 1 MINUTES) < world.time) && (auspice.rage <= 6))
+				if(((last_rage_gain + RAGE_LIFE_COOLDOWN) < world.time) && (auspice.rage <= 6))
 					last_rage_gain = world.time
 					adjust_rage(1, src, TRUE)
+
 		if(masquerade == 0)
 			var/special_role_name
 			if(mind)
@@ -320,33 +330,33 @@ SUBSYSTEM_DEF(witness_pool)
 					to_chat(src, "<span class='warning'>My Veil is too low to connect with the spirits of Umbra!</span>")
 					adjust_gnosis(-1, src, FALSE)
 
-		if(auspice?.rage >= 9)
+		if(auspice?.rage >= 7)
 			if(!in_frenzy)
 				if((last_frenzy_check + 18 SECONDS) <= world.time)
 					last_frenzy_check = world.time
 					rollfrenzy()
 
 		if(istype(get_area(src), /area/vtm/interior/penumbra))
-			if((last_veil_restore + 40 SECONDS) < world.time)
+			if((last_veil_restore + UMBRA_VEIL_COOLDOWN) < world.time)
 				adjust_veil(1, src, TRUE)
 				last_veil_restore = world.time
 
 		switch(auspice?.tribe)
 			if("Wendigo")
 				if(istype(get_area(src), /area/vtm/forest))
-					if((last_veil_restore + 60 SECONDS) <= world.time)
+					if((last_veil_restore + CAERN_VEIL_COOLDOWN) <= world.time)
 						adjust_veil(1, src, TRUE)
 						last_veil_restore = world.time
 
 			if("Glasswalkers")
 				if(istype(get_area(src), /area/vtm/interior/glasswalker))
-					if((last_veil_restore + 60 SECONDS) <= world.time)
+					if((last_veil_restore + CAERN_VEIL_COOLDOWN) <= world.time)
 						adjust_veil(1, src, TRUE)
 						last_veil_restore = world.time
 
 			if("Black Spiral Dancers")
 				if(istype(get_area(src), /area/vtm/interior/wyrm_corrupted))
-					if((last_veil_restore + 60 SECONDS) <= world.time)
+					if((last_veil_restore + CAERN_VEIL_COOLDOWN) <= world.time)
 						adjust_veil(1, src, TRUE)
 						last_veil_restore = world.time
 
@@ -356,7 +366,7 @@ SUBSYSTEM_DEF(witness_pool)
 				if(CheckEyewitness(H, H, 7, FALSE))
 					adjust_veil(-1)
 
-		if((last_bloodpool_restore + 60 SECONDS) <= world.time)
+		if((last_bloodpool_restore + GAROU_BP_REGEN) <= world.time)
 			last_bloodpool_restore = world.time
 			bloodpool = min(maxbloodpool, bloodpool+1)
 

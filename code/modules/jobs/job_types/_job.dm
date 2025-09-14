@@ -88,7 +88,7 @@
 	///List of Bloodlines that are allowed to do this job.
 	var/list/allowed_bloodlines = list("Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Giovanni", "Followers of Set")
 	///List of Tribes that are allowed to do this job.
-	var/list/allowed_tribes = list("Wendigo","Ghost Council", "Glass Walkers", "Bone Gnawers", "Ronin", "Black Spiral Dancers", "Silver Fangs")
+	var/list/allowed_tribes = list("Wendigo","Ghost Council", "Glass Walkers", "Bone Gnawers", "Ronin", "Black Spiral Dancers", "Silver Fangs", "Corax")
 	///List of Auspices that are allowed to do this job.
 	var/list/allowed_auspice = list("Philodox", "Galliard", "Ragabash", "Theurge", "Ahroun")
 

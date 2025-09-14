@@ -1,5 +1,3 @@
-#define VEIL_COOLDOWN 20 SECONDS
-
 /mob/living/carbon/werewolf/Life()
 	update_icons()
 	update_rage_hud()

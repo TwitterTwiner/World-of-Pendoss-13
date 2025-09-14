@@ -182,7 +182,7 @@ Dancer
 	gain_text = "<span class='warning'>You feel wrongness crawling beneath your skin.</span>"
 	lose_text = "<span class='notice'>You feel relief and warmth.</span>"
 	allowed_species = list("Werewolf")
-	allowed_tribes = list("Wendigo","Ronin", "Glass Walkers", "Ghost Council", "Bone Gnawers", "Silver Fangs")
+	allowed_tribes = list("Wendigo","Ronin", "Glass Walkers", "Ghost Council", "Bone Gnawers", "Silver Fangs", "Corax")
 
 //Removed after changes to death consequences.
 /*

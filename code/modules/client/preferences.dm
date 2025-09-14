@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/archetype = /datum/archetype/average
 
-	var/breed = "Homid"
+	var/breed = BREED_HOMID
 	var/datum/garou_tribe/tribe = new /datum/garou_tribe/wendigo()
 	var/datum/auspice/auspice = new /datum/auspice/ahroun()
 	var/werewolf_color = "black"
@@ -413,39 +413,73 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/coolfont = "<font face='Percolator'>[text]</font>"
 		return coolfont
 
-/proc/RankName(rank, colored = FALSE)
-	switch(rank)
-		if(0)
-			return "Cub"
-		if(1)
-			return "Cliath"
-		if(2)
-			return "Fostern"
-		if(3)
-			return "Adren"
-		if(4)
-			return "Athro"
-		if(5)
-			return "Elder"
-		if(6)
-			return "Legend"
+/proc/RankName(rank, tribe)
+	if(tribe != "Corax")
+		switch(rank)
+			if(0)
+				return "Cub"
+			if(1)
+				return "Cliath"
+			if(2)
+				return "Fostern"
+			if(3)
+				return "Adren"
+			if(4)
+				return "Athro"
+			if(5)
+				return "Elder"
+			if(6)
+				return "Legend"
+	else
+		switch(rank)
+			if(0)
+				return "Fledgling"
+			if(1)
+				return "Oviculum"
+			if(2)
+				return "Neocornix"
+			if(3)
+				return "Ales"
+			if(4)
+				return "Volucris"
+			if(5)
+				return "Corvus"
+			if(6)
+				return "Grey Eminence"
 
-/proc/RankDesc(rank)
-	switch(rank)
-		if(0)
-			return "You are not known to other Garou. Why?"
-		if(1)
-			return "You have completed your rite of passage as a Cliath."
-		if(2)
-			return "Fosterns have challenged for their rank and become proven members of Garou society."
-		if(3)
-			return "With proven work, wit, and function, Adren are higher echelons of Garou society, better known for control."
-		if(4)
-			return "A disciplined lieutenant and trusted Garou to your peers, you have respect and renown within the city as an Athro."
-		if(5)
-			return "One of the renowned names of the region, you are known as outstanding in California to some degree, worthy of the title of Elder."
-		if(6)
-			return "You're a Legendary NPC."
+/proc/RankDesc(rank, tribe)
+	if(tribe != "Corax")
+		switch(rank)
+			if(0)
+				return "You are not known to other Garou. Why?"
+			if(1)
+				return "You have completed your rite of passage as a Cliath."
+			if(2)
+				return "Fosterns have challenged for their rank and become proven members of Garou society."
+			if(3)
+				return "With proven work, wit, and function, Adren are higher echelons of Garou society, better known for control."
+			if(4)
+				return "A disciplined lieutenant and trusted Garou to your peers, you have respect and renown within the city as an Athro."
+			if(5)
+				return "One of the renowned names of the region, you are known as outstanding in California to some degree, worthy of the title of Elder."
+			if(6)
+				return "You're a Legendary NPC."
+	else
+		switch(rank)
+			if(0)
+				return "You are barely known to other Corax, and sit on the lower branches during Parliament"
+			if(1)
+				return "Other Corax have indulged in your secrets, and consider you Oviculum."
+			if(2)
+				return "You usually get to speak before the afternoon, and have shared remarkable intel several times, making you Neocornix ."
+			if(3)
+				return "You are witty, knowledgeable and have started making your mark accross the state, earning you the title of Ales"
+			if(4)
+				return "Not only do you posess juicy info over the state's big players, but you've gotten into dangerous scraps and came out in (mostly) one piece. \nOther Corax respectfully refer to you as Volucris"
+			if(5)
+				return "You sit on the highest branches of the tree whenever a Parliament's ongoing. You have shared devastating secrets with the rest of the Corax, and have shaped the fate of this region. \n You have the influence and prestige that makes the rest of your kind quiet down and listen, earning you the illustrious title of Corvus."
+			if(6)
+				return "Though you are officially still Corvus, your name is known worldwide, and your words can make or break nations, you should ideally be an NPC"
 
 /datum/preferences/proc/ShowChoices(mob/user)
 	if(slot_randomized)
@@ -1583,17 +1617,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(slotlocked || !(pref_species.id == "garou"))
 						return
 
-					var/list/auspice_choices = list()
-					for(var/i in GLOB.auspices_list)
-						var/a = GLOB.auspices_list[i]
-						var/datum/auspice/V = new a
-						auspice_choices[V.name] += GLOB.auspices_list[i]
-						qdel(V)
-					var/result = input(user, "Select an Auspice", "Auspice Selection") as null|anything in auspice_choices
-					if(result)
-						var/newtype = GLOB.auspices_list[result]
-						var/datum/auspice/Auspic = new newtype()
-						auspice = Auspic
+					if(src.tribe.name == "Corax")
+						auspice = /datum/auspice/theurge
+						return
+					else
+						var/list/auspice_choices = list()
+						for(var/i in GLOB.auspices_list)
+							var/a = GLOB.auspices_list[i]
+							var/datum/auspice/V = new a
+							auspice_choices[V.name] += GLOB.auspices_list[i]
+							qdel(V)
+						var/result = tgui_input_list(user, "Select an Auspice", "Auspice Selection", auspice_choices)
+						if(result)
+							var/newtype = GLOB.auspices_list[result]
+							var/datum/auspice/Auspic = new newtype()
+							auspice = Auspic
 
 				if("clane_acc")
 					if(pref_species.id != "kindred")	//Due to a lot of people being locked to furries
@@ -1888,12 +1926,28 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/newtype = GLOB.tribes_list[new_tribe]
 						new_tribe = new newtype()
 						tribe = new_tribe
+						if(tribe.name == "Corax")
+							ADD_TRAIT(user, TRAIT_CORAX, tribe) //This might be redundant considering we also add this trait in auspice.dm
+							// Convert Lupus to Corvid, and default Metis to Corvid since Corax don't have them
+							if(breed == BREED_LUPUS || breed == BREED_METIS)
+								breed = BREED_CORVID
+							auspice = /datum/auspice/theurge // we do not want player to have a choice in the auspice, Corax being theurges is already silly enough
+						else
+							if(breed == BREED_CORVID)
+								breed = BREED_LUPUS
+							if(HAS_TRAIT(user, TRAIT_CORAX))
+								REMOVE_TRAIT(user, TRAIT_CORAX, tribe)
 				if("breed")
 					if(slotlocked || !(pref_species.id == "garou"))
 						return
 
-					var/new_breed = input("Choose your Breed.", "Breed") as null|anything in list("Homid", "Metis", "Lupus")
-					if (new_breed)
+					var/available_breeds = list(BREED_HOMID, BREED_METIS, BREED_LUPUS)
+					// Alternative breed choices for the Corax
+					if(istype(tribe, /datum/garou_tribe/corax))
+						available_breeds = list(BREED_HOMID, BREED_CORVID)
+
+					var/new_breed = tgui_input_list(user, "Choose your Breed:", "Breed", sort_list(available_breeds))
+					if(new_breed)
 						breed = new_breed
 /*
 				if("archetype")
@@ -2860,7 +2914,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if(pref_species.name == "Werewolf")
 		switch(tribe.name)
-			if("Wendigo")
+			if("Wendigo", "Corax")
 				character.yin_chi = 1
 				character.max_yin_chi = 1
 				character.yang_chi = 5 + (auspice_level * 2)
@@ -2962,20 +3016,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.auspice.level = auspice_level
 		character.auspice.tribe = tribe
 		character.auspice.on_gain(character)
-		switch(breed)
-			if("Homid")
-				character.auspice.gnosis = 1
-				character.auspice.start_gnosis = 1
-				character.auspice.base_breed = "Homid"
-			if("Lupus")
-				character.auspice.gnosis = 5
-				character.auspice.start_gnosis = 5
-				character.auspice.base_breed = "Lupus"
-			if("Metis")
-				character.auspice.gnosis = 3
-				character.auspice.start_gnosis = 3
-				character.auspice.base_breed = "Crinos"
-		if(character.transformator?.crinos_form && character.transformator?.lupus_form)
+		character.auspice.set_breed(breed, character)
+		if(character.transformator?.crinos_form && character.transformator?.lupus_form && !HAS_TRAIT(character, TRAIT_CORAX))
 			var/mob/living/carbon/werewolf/crinos/crinos = character.transformator.crinos_form?.resolve()
 			var/mob/living/carbon/werewolf/lupus/lupus = character.transformator.lupus_form?.resolve()
 
@@ -3000,6 +3042,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			else
 				crinos.name = real_name
 				lupus.name = real_name
+
+			if(!crinos.attributes)
+				crinos.attributes = new /datum/attributes()
+			if(!lupus.attributes)
+				lupus.attributes = new /datum/attributes()
 
 			crinos.attributes.strength = character.attributes.strength+4
 			crinos.attributes.dexterity = character.attributes.dexterity+1
@@ -3058,6 +3105,96 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			lupus.attributes.Performance = character.attributes.Performance
 			lupus.attributes.Fleshcraft = character.attributes.Fleshcraft
 			lupus.attributes.Expression = character.attributes.Expression
+
+		else if(HAS_TRAIT(character, TRAIT_CORAX) /*character.transformator?.corax_form && character.transformator?.corvid_form*/) // if we have the Corax tribe, use the Corax forms instead..
+			var/mob/living/carbon/werewolf/corax/corax_crinos/cor_crinos = character.transformator.corax_form?.resolve()
+			var/mob/living/carbon/werewolf/lupus/corvid/corvid = character.transformator.corvid_form?.resolve()
+
+			if(!cor_crinos)
+				character.transformator.corax_form = null
+				CRASH("[key_name(character)]'s corax_form weakref contained no corax crinos mob!")
+			if(!corvid)
+				character.transformator.corvid_form = null
+				CRASH("[key_name(character)]'s corvid_form weakref contained no corvid mob!")
+
+			cor_crinos.sprite_color = werewolf_color
+			//cor_crinos.icon_state = werewolf_color // gotta use Icon state for this one apparently
+			cor_crinos.sprite_scar = werewolf_scar
+			cor_crinos.sprite_hair = werewolf_hair
+			cor_crinos.sprite_hair_color = werewolf_hair_color
+			cor_crinos.sprite_eye_color = werewolf_eye_color
+			corvid.sprite_color = werewolf_color
+			corvid.sprite_eye_color = werewolf_eye_color
+
+			if(werewolf_name)
+				cor_crinos.name = werewolf_name
+				corvid.name = werewolf_name
+			else
+				cor_crinos.name = real_name
+				corvid.name = real_name
+
+			if(!cor_crinos.attributes)
+				cor_crinos.attributes = new /datum/attributes()
+			if(!corvid.attributes)
+				corvid.attributes = new /datum/attributes()
+
+			cor_crinos.attributes.strength = character.attributes.strength+1
+			cor_crinos.attributes.dexterity = character.attributes.dexterity+1
+			cor_crinos.attributes.stamina = character.attributes.stamina+1
+			cor_crinos.attributes.charisma = character.attributes.charisma
+			cor_crinos.attributes.manipulation = character.attributes.manipulation-2
+			cor_crinos.attributes.appearance = character.attributes.appearance-1
+			cor_crinos.attributes.perception = character.attributes.perception
+			cor_crinos.attributes.intelligence = character.attributes.intelligence
+			cor_crinos.attributes.wits = character.attributes.wits
+
+			cor_crinos.attributes.Alertness = character.attributes.Alertness
+			cor_crinos.attributes.Athletics = character.attributes.Athletics
+			cor_crinos.attributes.Brawl = character.attributes.Brawl
+			cor_crinos.attributes.Empathy = character.attributes.Empathy
+			cor_crinos.attributes.Intimidation = character.attributes.Intimidation
+			cor_crinos.attributes.Crafts = character.attributes.Crafts
+			cor_crinos.attributes.Melee = character.attributes.Melee
+			cor_crinos.attributes.Firearms = character.attributes.Firearms
+			cor_crinos.attributes.Drive = character.attributes.Drive
+			cor_crinos.attributes.Security = character.attributes.Security
+			cor_crinos.attributes.Finance = character.attributes.strength
+			cor_crinos.attributes.Investigation = character.attributes.Investigation
+			cor_crinos.attributes.Medicine = character.attributes.Medicine
+			cor_crinos.attributes.Linguistics = character.attributes.Linguistics
+			cor_crinos.attributes.Occult = character.attributes.Occult
+			cor_crinos.attributes.Performance = character.attributes.Performance+3
+			cor_crinos.attributes.Fleshcraft = character.attributes.Fleshcraft
+			cor_crinos.attributes.Expression = character.attributes.Expression
+
+			corvid.attributes.strength = character.attributes.strength-1
+			corvid.attributes.dexterity = character.attributes.dexterity+1
+			corvid.attributes.stamina = character.attributes.stamina
+			corvid.attributes.charisma = character.attributes.charisma
+			corvid.attributes.manipulation = character.attributes.manipulation-3
+			corvid.attributes.appearance = character.attributes.appearance
+			corvid.attributes.perception = character.attributes.perception
+			corvid.attributes.intelligence = character.attributes.intelligence
+			corvid.attributes.wits = character.attributes.wits
+
+			corvid.attributes.Alertness = character.attributes.Alertness
+			corvid.attributes.Athletics = character.attributes.Athletics
+			corvid.attributes.Brawl = character.attributes.Brawl
+			corvid.attributes.Empathy = character.attributes.Empathy
+			corvid.attributes.Intimidation = character.attributes.Intimidation
+			corvid.attributes.Crafts = character.attributes.Crafts
+			corvid.attributes.Melee = character.attributes.Melee
+			corvid.attributes.Firearms = character.attributes.Firearms
+			corvid.attributes.Drive = character.attributes.Drive
+			corvid.attributes.Security = character.attributes.Security
+			corvid.attributes.Finance = character.attributes.strength
+			corvid.attributes.Investigation = character.attributes.Investigation
+			corvid.attributes.Medicine = character.attributes.Medicine
+			corvid.attributes.Linguistics = character.attributes.Linguistics
+			corvid.attributes.Occult = character.attributes.Occult
+			corvid.attributes.Performance = character.attributes.Performance+3
+			corvid.attributes.Fleshcraft = character.attributes.Fleshcraft
+			corvid.attributes.Expression = character.attributes.Expression
 
 
 	if(pref_species.mutant_bodyparts["tail_lizard"])

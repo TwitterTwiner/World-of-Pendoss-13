@@ -594,7 +594,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		underwear		= sanitize_inlist(underwear, GLOB.underwear_list)
 		undershirt 		= sanitize_inlist(undershirt, GLOB.undershirt_list)
 
-	breed			= sanitize_inlist(breed, list("Homid", "Lupus", "Metis"))
+	breed			= sanitize_inlist(breed, list(BREED_HOMID, BREED_LUPUS, BREED_METIS, BREED_CORVID))
 	werewolf_color	= sanitize_inlist(werewolf_color, list("black", "gray", "red", "white", "ginger", "brown"))
 	werewolf_scar	= sanitize_integer(werewolf_scar, 0, 7, initial(werewolf_scar))
 	werewolf_hair	= sanitize_integer(werewolf_hair, 0, 4, initial(werewolf_hair))

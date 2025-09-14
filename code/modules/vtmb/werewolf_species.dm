@@ -10,6 +10,7 @@
 	wings_icon = "Dragon"
 	mutant_bodyparts = list("tail_human" = "None", "ears" = "None", "wings" = "None")
 	brutemod = 0.75
+	stunmod = 0.5
 	heatmod = 1
 	burnmod = 1
 	dust_anim = "dust-h"
@@ -42,6 +43,19 @@
 	C.transformator.human_form = WEAKREF(C)
 	C.wolf_recov = TRUE
 
+	var/mob/living/carbon/werewolf/lupus/lupus = C.transformator.lupus_form?.resolve()
+	var/mob/living/carbon/werewolf/crinos/crinos = C.transformator.crinos_form?.resolve()
+	var/mob/living/carbon/werewolf/lupus/corvid/corvid = C.transformator.corvid_form?.resolve()
+	var/mob/living/carbon/werewolf/corax/corax_crinos/corax_crinos = C.transformator.corax_form?.resolve()
+
+	RegisterSignal(C, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_garou_bitten))
+	RegisterSignal(lupus, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_garou_bitten))
+	RegisterSignal(crinos, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_garou_bitten))
+	RegisterSignal(corvid, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_garou_bitten))
+	RegisterSignal(corax_crinos, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_garou_bitten))
+
+	ADD_TRAIT(src, TRAIT_NIGHT_VISION, SPECIES_TRAIT)
+
 /datum/species/garou/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	for(var/datum/action/aboutme/VI in C.actions)
@@ -54,8 +68,32 @@
 	C.remove_language(/datum/language/garou_tongue, TRUE, TRUE)
 	C.wolf_recov = FALSE
 
+	var/mob/living/carbon/werewolf/lupus/lupus = C.transformator.lupus_form?.resolve()
+	var/mob/living/carbon/werewolf/crinos/crinos = C.transformator.crinos_form?.resolve()
+	var/mob/living/carbon/werewolf/lupus/corvid/corvid = C.transformator.corvid_form?.resolve()
+	var/mob/living/carbon/werewolf/corax/corax_crinos/corax_crinos = C.transformator.corax_form?.resolve()
+
+	UnregisterSignal(C, COMSIG_MOB_VAMPIRE_SUCKED)
+	UnregisterSignal(lupus, COMSIG_MOB_VAMPIRE_SUCKED)
+	UnregisterSignal(crinos, COMSIG_MOB_VAMPIRE_SUCKED)
+	UnregisterSignal(corvid, COMSIG_MOB_VAMPIRE_SUCKED)
+	UnregisterSignal(corax_crinos, COMSIG_MOB_VAMPIRE_SUCKED)
+
+	REMOVE_TRAIT(src, TRAIT_NIGHT_VISION, SPECIES_TRAIT)
+
 /datum/species/garou/check_roundstart_eligible()
 	return FALSE
+
+/**
+ * On being bit by a vampire
+ *
+ * This handles vampire bite sleep immunity and any future special interactions.
+ */
+/datum/species/garou/proc/on_garou_bitten(datum/source, mob/living/carbon/being_bitten)
+	SIGNAL_HANDLER
+
+	if(isgarou(being_bitten) || iswerewolf(being_bitten))
+		return COMPONENT_RESIST_VAMPIRE_KISS
 
 /proc/adjust_rage(amount, mob/living/carbon/C, sound = TRUE)
 	if(amount > 0)
@@ -102,11 +140,11 @@
 	C.update_rage_hud()
 
 /mob/living/carbon/proc/is_base_breed()
-	if(islupus(src) && auspice?.base_breed == "Lupus")
+	if(islupus(src) && auspice?.breed_form == FORM_LUPUS)
 		return TRUE
-	if(isgarou(src) && auspice?.base_breed == "Homid")
+	if(isgarou(src) && auspice?.breed_form == FORM_HOMID)
 		return TRUE
-	if(iscrinos(src) && auspice?.base_breed == "Crinos")
+	if(iscrinos(src) && auspice?.breed_form == FORM_CRINOS)
 		return TRUE
 	return FALSE
 
@@ -114,6 +152,6 @@
 	. = ..()
 	if(wolf_recov)
 		if(stat != DEAD)
-			if(!is_base_breed() || auspice?.base_breed == "Crinos")
+			if(!is_base_breed() || auspice?.breed_form == FORM_CRINOS)
 				adjustBruteLoss(-10, TRUE)
 				adjustFireLoss(-10, TRUE)

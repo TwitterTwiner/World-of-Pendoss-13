@@ -440,13 +440,13 @@
 		if(H.hispo)
 			ntransform.Scale(0.95, 0.95)
 			animate(owner, transform = ntransform, color = "#000000", time = DOGGY_ANIMATION_COOLDOWN)
-			addtimer(CALLBACK(src, PROC_REF(trans_doggy), H), DOGGY_ANIMATION_COOLDOWN)
+			addtimer(CALLBACK(src, PROC_REF(transform_lupus), H), DOGGY_ANIMATION_COOLDOWN)
 		else
 			ntransform.Scale(1.05, 1.05)
 			animate(owner, transform = ntransform, color = "#000000", time = DOGGY_ANIMATION_COOLDOWN)
-			addtimer(CALLBACK(src, PROC_REF(trans_hispo), H), DOGGY_ANIMATION_COOLDOWN)
+			addtimer(CALLBACK(src, PROC_REF(transform_hispo), H), DOGGY_ANIMATION_COOLDOWN)
 
-/datum/action/gift/hispo/proc/trans_doggy(mob/living/carbon/werewolf/lupus/H)
+/datum/action/gift/hispo/proc/transform_lupus(mob/living/carbon/werewolf/lupus/H)
 	if(HAS_TRAIT(H, TRAIT_DOGWOLF))
 		H.icon = 'code/modules/wod13/werewolf_lupus.dmi'
 	else
@@ -467,7 +467,7 @@
 	H.remove_movespeed_modifier(/datum/movespeed_modifier/crinosform)
 	H.add_movespeed_modifier(/datum/movespeed_modifier/lupusform)
 
-/datum/action/gift/hispo/proc/trans_hispo(mob/living/carbon/werewolf/lupus/H)
+/datum/action/gift/hispo/proc/transform_hispo(mob/living/carbon/werewolf/lupus/H)
 	H.icon = 'code/modules/wod13/hispo.dmi'
 	H.pixel_w = -16
 	H.pixel_z = -16
@@ -498,7 +498,8 @@
 	if(allowed_to_proceed)
 		var/mob/living/carbon/human/H = owner
 		var/datum/species/garou/G = H.dna.species
-		playsound(get_turf(owner), 'code/modules/wod13/sounds/transform.ogg', 50, FALSE)
+		if(!HAS_TRAIT(owner, TRAIT_CORAX))
+			playsound(get_turf(owner), 'code/modules/wod13/sounds/transform.ogg', 50, FALSE)
 		if(G.glabro)
 			H.remove_overlay(PROTEAN_LAYER)
 			H.melee_damage_lower = initial(H.melee_damage_lower)
@@ -519,28 +520,32 @@
 			G.glabro = FALSE
 			H.update_icons()
 		else
-			H.remove_overlay(PROTEAN_LAYER)
-			var/mob/living/carbon/werewolf/crinos/crinos = H.transformator.crinos_form?.resolve()
-			var/mutable_appearance/glabro_overlay = mutable_appearance('code/modules/wod13/werewolf_abilities.dmi', crinos?.sprite_color, -PROTEAN_LAYER)
-			H.overlays_standing[PROTEAN_LAYER] = glabro_overlay
-			H.apply_overlay(PROTEAN_LAYER)
-			H.melee_damage_lower = 30
-			H.melee_damage_upper = 30
-			H.armour_penetration = 35
-			H.dna.species.attack_type = CLONE
-			H.dna.species.attack_verb = "slash"
-			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
-			H.limb_destroyer = 1
-			H.attributes.strength += 2
-			H.attributes.stamina += 2
-			H.attributes.appearance -= 1
-			H.attributes.manipulation -= 1
-			var/matrix/M = matrix()
-			M.Scale(1.23)
-			animate(H, transform = M, time = 1 SECONDS)
-			G.glabro = TRUE
-			H.update_icons()
+			if(HAS_TRAIT(owner, TRAIT_CORAX))
+				to_chat(owner,"<span class='warning'>Corax do not have a Glabro form to shift into.</span>")
+				return
+			else
+				H.remove_overlay(PROTEAN_LAYER)
+				var/mob/living/carbon/werewolf/crinos/crinos = H.transformator.crinos_form?.resolve()
+				var/mutable_appearance/glabro_overlay = mutable_appearance('code/modules/wod13/werewolf_abilities.dmi', crinos?.sprite_color, -PROTEAN_LAYER)
+				H.overlays_standing[PROTEAN_LAYER] = glabro_overlay
+				H.apply_overlay(PROTEAN_LAYER)
+				H.melee_damage_lower = 30
+				H.melee_damage_upper = 30
+				H.armour_penetration = 35
+				H.dna.species.attack_type = CLONE
+				H.dna.species.attack_verb = "slash"
+				H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+				H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+				H.limb_destroyer = 1
+				H.attributes.strength += 2
+				H.attributes.stamina += 2
+				H.attributes.appearance -= 1
+				H.attributes.manipulation -= 1
+				var/matrix/M = matrix()
+				M.Scale(1.23)
+				animate(H, transform = M, time = 1 SECONDS)
+				G.glabro = TRUE
+				H.update_icons()
 
 /datum/action/gift/howling
 	name = "Howl"
@@ -552,31 +557,38 @@
 	var/list/howls = list(
 		"attack" = list(
 			"menu" = "Attack",
-			"message" = "<b>A wolf howls a fierce call to attack</b>"
+			"message" = "<b>A wolf howls a fierce call to attack</b>",
+			"corax_message" = "<b>A raven hisses a fierce call to attack</b>"
 		),
 		"retreat" = list(
 			"menu" = "Retreat",
-			"message" = "<b>A wolf howls a warning to retreat</b>"
+			"message" = "<b>A wolf howls a warning to retreat</b>",
+			"corax_message" = "<b>A raven squawks a warning to retreat</b>"
 		),
 		"help" = list(
 			"menu" = "Help",
-			"message" = "<b>A wolf howls a desperate plea for help</b>"
+			"message" = "<b>A wolf howls a desperate plea for help</b>",
+			"corax_message" = "<b>A raven shrieks a a desperate plea for help</b>"
 		),
 		"gather" = list(
 			"menu" = "Gather",
-			"message" = "<b>A wolf howls to gather the pack</b>"
+			"message" = "<b>A wolf howls to gather the pack</b>",
+			"corax_message" = "<b>A raven beckons the conspiracy</b>"
 		),
 		"victory" = list(
 			"menu" = "Victory",
-			"message" = "<b>A wolf howls in celebration of victory</b>"
+			"message" = "<b>A wolf howls in celebration of victory</b>",
+			"corax_message" = "<b>A raven croaks in celebration of victory</b>"
 		),
 		"dying" = list(
 			"menu" = "Dying",
-			"message" = "<b>A wolf howls in pain and despair</b>"
+			"message" = "<b>A wolf howls in pain and despair</b>",
+			"corax_message" = "<b>A raven shrieks in pain and despair</b>"
 		),
 		"mourning" = list(
 			"menu" = "Mourning",
-			"message" = "<b>A wolf howls in deep mourning for the fallen</b>"
+			"message" = "<b>A wolf howls in deep mourning for the fallen</b>",
+			"corax_message" = "<b>A raven mourns the loss of the fallen</b>"
 		)
 	)
 
@@ -585,7 +597,7 @@
 	if(allowed_to_proceed)
 
 		if(istype(get_area(owner), /area/vtm/interior/penumbra))
-			to_chat(owner, span_warning("Your howl echoes and dissapates into the Umbra, it's sound blanketed by the spiritual energy of the Velvet Shadow."))
+			to_chat(owner, span_warning("Your howl echoes and dissipates into the Umbra, it's sound blanketed by the spiritual energy of the Velvet Shadow."))
 			return
 
 		var/mob/living/carbon/C = owner
@@ -602,14 +614,20 @@
 					howl = howls[howl_key]
 					break
 
-			var/message = howl["message"]
+			var/message = howl[(HAS_TRAIT(C, TRAIT_CORAX)) ? "corax_message" : "message" ]
 			var/tribe = C.auspice.tribe.name
 			if (tribe)
 				message = replacetext(message, "tribe", tribe)
 
-			C.emote("howl")
 			var/origin_turf = get_turf(C)
-			playsound(origin_turf, pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 50, FALSE)
+
+			if(!HAS_TRAIT(C, TRAIT_CORAX))
+				C.emote("howl")
+				playsound(origin_turf, pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 50, FALSE)
+			else
+				C.emote("caw")
+				playsound(origin_turf, 'code/modules/wod13/sounds/cawcorvid.ogg', 50, FALSE)
+
 			var/list/sound_hearers = list()
 
 			for(var/mob/living/carbon/HearingGarou in range(17))
@@ -619,9 +637,12 @@
 			var/howl_details
 			var/final_message
 			for(var/mob/living/carbon/Garou in GLOB.player_list)
-				if((isgarou(Garou) || iswerewolf(Garou)) && Garou != owner && Garou.auspice?.tribe == C.auspice?.tribe)
+				if((isgarou(Garou) || iswerewolf(Garou) || HAS_TRAIT(Garou, TRAIT_CORAX)) && Garou != owner && Garou.auspice?.tribe == C.auspice?.tribe)
 					if(!sound_hearers.Find(Garou))
-						Garou.playsound_local(get_turf(Garou), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 25, FALSE)
+						if(!HAS_TRAIT(C, TRAIT_CORAX))
+							Garou.playsound_local(get_turf(Garou), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 25, FALSE)
+						else
+							Garou.playsound_local(get_turf(Garou), 'code/modules/wod13/sounds/cawcorvid.ogg', 25, FALSE)
 					howl_details = get_message(Garou, origin_turf)
 					final_message = message + howl_details
 					to_chat(Garou, final_message, confidential = TRUE)
@@ -957,9 +978,9 @@
 				var/matrix/ntransform = matrix(owner.transform)
 				ntransform.Scale(0.95, 0.95)
 				animate(owner, transform = ntransform, color = "#000000", time = 3 SECONDS)
-				addtimer(CALLBACK(src, PROC_REF(trans_doggy), lopor), 3 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(transform_lupus), lopor), 3 SECONDS)
 
-/datum/action/gift/guise_of_the_hound/proc/trans_doggy(mob/living/carbon/werewolf/lupus/H)
+/datum/action/gift/guise_of_the_hound/proc/transform_lupus(mob/living/carbon/werewolf/lupus/H)
 	if(HAS_TRAIT(H, TRAIT_DOGWOLF))
 		H.icon = 'code/modules/wod13/werewolf_lupus.dmi'
 	else
@@ -1108,5 +1129,104 @@
 				targetted.auspice.gnosis = 0
 				to_chat(targetted, span_userdanger("You feel your tie to your totem snap, gnosis leaving you...!"))
 				to_chat(owner, span_danger("You feel [target.name]'s gnostic ties fray...!"))
+
+/datum/action/gift/suns_guard // MASSIVE thanks to MachinePixie for coding this and the eye-drinking gifts, as well as making the relevant sprites
+	name = "Sun's Guard"
+	desc = "Gain the blessing of Helios, and become immune to spark and inferno both"
+	button_icon_state = "sunblock"
+	rage_req = 2
+	cool_down = 21 SECONDS
+
+
+
+
+/datum/action/gift/suns_guard/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/mob/living/carbon/caster = owner
+		var/storeburnmod = caster.dna.species.burnmod
+		caster.dna.species.burnmod = 0
+		caster.set_fire_stacks(0)
+		ADD_TRAIT(caster, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+		animate(caster, color = "#ff8800", time = 10, loop = 1)
+		playsound(get_turf(caster), 'code/modules/wod13/sounds/resist_pain.ogg', 75, FALSE)
+		to_chat(caster, "Sun's Guard activated, you have become immune to fire.")
+		addtimer(CALLBACK(src, PROC_REF(end_guard)), 140, storeburnmod)
+
+
+/datum/action/gift/suns_guard/proc/end_guard(storedburnmodifier)
+	var/mob/living/carbon/caster = owner
+	caster.dna.species.burnmod = storedburnmodifier
+	caster.set_fire_stacks(0)
+	REMOVE_TRAIT(caster, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+	caster.color = initial(caster.color)
+	playsound(get_turf(caster), 'code/modules/wod13/sounds/resist_pain.ogg', 75, FALSE)
+	to_chat(caster, "Sun's Guard is no longer active, you are no longer immune to fire.")
+
+/datum/action/gift/eye_drink
+	name = "Eye-Drinking"
+	desc = "Consumes the eyes of a corpse to unlock the secrets of its demise. Will risk breaching the veil if used in homid."
+	button_icon_state = "eye_drink"
+	rage_req = 0
+	cool_down = 1 MINUTES
+
+/datum/action/gift/eye_drink/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/mob/living/carbon/caster = owner
+		if(caster.pulling)
+			var/mob/living/carbon/victim = caster.pulling
+			var/obj/item/organ/eyes/victim_eyeballs = victim.getorganslot(ORGAN_SLOT_EYES)
+			var/isNPC = TRUE
+			if(!iscarbon(victim) || victim.stat != DEAD )
+				to_chat(caster, "<span class='warning'>You aren't currently pulling a corpse!</span>")
+				return
+			else
+				if(!victim_eyeballs)
+					to_chat(caster, "<span class='warning'>You cannot drink the eyes of a corpse that has no eyes!</span>")
+					return
+				else
+					if (!do_after(caster, 3 SECONDS)) //timer to cast
+						return
+					var/permission = tgui_input_list(victim, "Will you allow [caster.real_name] to view your death? (Note: You are expected to tell the truth in your character's eyes!)", "Select", list("Yes","No","I don't recall") ,"Yes", 1 MINUTES)
+					var/victim_two = victim
+
+					if (!permission) //returns null if no soul in body
+						for (var/mob/dead/observer/ghost in GLOB.player_list)
+							if (ghost.mind == victim.last_mind)
+								//ask again if null
+								permission = tgui_input_list(ghost, "Will you allow [caster.real_name] to view your death? (Note: You are expected to tell the truth in your character's eyes!)", "Select", list("Yes","No","I don't recall") ,"Yes", 1 MINUTES)
+								victim_two = ghost
+								break //no need to do further iterations if you found the right person
+
+					if(permission == "Yes")
+						if(ishuman(caster)) //listen buddy, hulking ravenmen and ravens can eat those eyes just fine, but a human? DISGUSTING.
+							if(caster.CheckEyewitness(caster, caster, 7, FALSE))
+								caster.adjust_veil(-1)
+						playsound(get_turf(owner), 'sound/items/eatfood.ogg', 50, FALSE) //itadakimasu! :D
+						qdel(victim_eyeballs)
+						caster.adjust_nutrition(5) //organ nutriment value is 5
+						to_chat(caster, "You drink of the eyes of [victim.name] and a vision fills your mind...")
+						var/deathdesc = tgui_input_text(victim_two, "", "How did you die?", "", 300, TRUE, TRUE, 5 MINUTES)
+						if (deathdesc == "")
+							to_chat(caster, "The vision is hazy, you can't make out many details...")
+						else
+							to_chat(caster, "<i>[deathdesc]</i>")
+						//discount scanner
+						to_chat(caster,"<b>Damage taken:<b><br>BRUTE: [victim.getBruteLoss()]<br>OXY: [victim.getOxyLoss()]<br>TOXIN: [victim.getToxLoss()]<br>BURN: [victim.getFireLoss()]<br>CLONE: [victim.getCloneLoss()]")
+						to_chat(caster, "Last melee attacker: [victim.lastattacker]") //guns behave weirdly
+						isNPC = FALSE
+
+					else if(permission == "No")
+						to_chat(caster,"<span class='warning'>The spirit seems relunctact to let you consume their eyes... so you refrain from doing so.</span>")
+						isNPC = FALSE
+
+					if(isNPC)
+						playsound(get_turf(owner), 'sound/items/eatfood.ogg', 50, FALSE) //yummers
+						qdel(victim_eyeballs)
+						caster.adjust_nutrition(5) //organ nutriment value is 5
+						to_chat(caster, "You drink of the eyes of [victim.name] but no vision springs to mind...")
+						to_chat(caster,"<b>Damage taken:<b><br>BRUTE: [victim.getBruteLoss()]<br>OXY: [victim.getOxyLoss()]<br>TOXIN: [victim.getToxLoss()]<br>BURN: [victim.getFireLoss()]<br>CLONE: [victim.getCloneLoss()]")
+						to_chat(caster, "Last melee attacker: [victim.lastattacker]") //guns behave weirdly
 
 #undef DOGGY_ANIMATION_COOLDOWN

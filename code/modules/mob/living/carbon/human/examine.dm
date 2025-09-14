@@ -70,8 +70,8 @@
 			else
 				if(same_faction && vampire_faction)
 					. += "<b>You know [p_them()] as a [job]. You are both of the [vampire_faction].</b>"
-	if((isgarou(user) || iswerewolf(user)) && isgarou(src) && is_face_visible())
-		var/isknown = 0
+	if((isgarou(user) || iswerewolf(user)) && (isgarou(src) || iswerewolf(src)))
+		var/isknown = FALSE
 		var/mob/living/carbon/human/werewolf = user
 		var/same_tribe = FALSE
 		var/truescent
@@ -93,16 +93,16 @@
 		switch(renownrank)
 			if(1)
 				if(same_tribe || truescent)
-					. += "<b>You know [p_them()] as a cliath of the [auspice.tribe.name].</b>"
-					isknown = 1
+					. += "<b>You know [p_them()] as \a [RankName(src.renownrank, src.auspice.tribe.name)] of the [auspice.tribe.name].</b>"
+					isknown = TRUE
 			if(2)
 				if(same_tribe || truescent)
-					. += "<b>You know [p_them()] as a fostern of the [auspice.tribe.name].</b>"
-					isknown = 1
+					. += "<b>You know [p_them()] as \a [RankName(src.renownrank, src.auspice.tribe.name)] of the [auspice.tribe.name].</b>"
+					isknown = TRUE
 			if(3,4,5,6)
 				if(same_tribe || truescent)
-					. += "<b>You know [p_them()] as an [RankName(src.renownrank, TRUE)] [auspice.name] of the [auspice.tribe.name].</b>"
-					isknown = 1
+					. += "<b>You know [p_them()] as \a [RankName(src.renownrank, src.auspice.tribe.name)] [auspice.name] of the [auspice.tribe.name].</b>"
+					isknown = TRUE
 		if(isknown)
 			switch(honor)
 				if(4,5,6)
@@ -535,7 +535,7 @@
 				var/mob/living/carbon/wolf = src
 				is_kin++
 				switch(wolf.auspice.tribe.name)
-					if ("Wendigo","Ghost Council","Silver Fangs")
+					if ("Wendigo","Ghost Council","Silver Fangs", "Corax")
 						wyld_taint++
 					if ("Glass Walkers","Bone Gnawers")
 						weaver_taint++
@@ -680,4 +680,3 @@
 			dat += "[new_text]\n" //dat.Join("\n") doesn't work here, for some reason
 	if(dat.len)
 		return dat.Join()
-
