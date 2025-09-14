@@ -398,6 +398,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["true_experience"], true_experience)
 
 	READ_FILE(S["a_priorities"], priorities)
+
+	READ_FILE(S["main_physical_attribute"], main_physical_attribute)
+	READ_FILE(S["secondary_physical_attribute"], secondary_physical_attribute)
+	READ_FILE(S["main_social_attribute"], main_social_attribute)
+	READ_FILE(S["secondary_social_attribute"], secondary_social_attribute)
+	READ_FILE(S["main_mental_attribute"], main_mental_attribute)
+	READ_FILE(S["secondary_mental_attribute"], secondary_mental_attribute)
+
 	READ_FILE(S["a_languages"], languages)
 	READ_FILE(S["a_loadout"], loadout)
 
@@ -627,15 +635,25 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	else
 		languages = sanitize_islist(languages, list())
 	loadout = sanitize_islist(loadout, list())
-	Strength				= sanitize_integer(Strength, 1, get_gen_attribute_limit(generation-generation_bonus, "Strength"), initial(Strength))
-	Dexterity				= sanitize_integer(Dexterity, 1, get_gen_attribute_limit(generation-generation_bonus, "Dexterity"), initial(Dexterity))
-	Stamina					= sanitize_integer(Stamina, 1, get_gen_attribute_limit(generation-generation_bonus, "Stamina"), initial(Stamina))
-	Charisma				= sanitize_integer(Charisma, 1, get_gen_attribute_limit(generation-generation_bonus, "Charisma"), initial(Charisma))
-	Manipulation				= sanitize_integer(Manipulation, 1, get_gen_attribute_limit(generation-generation_bonus, "Manipulation"), initial(Manipulation))
-	Appearance				= sanitize_integer(Appearance, 1, get_gen_attribute_limit(generation-generation_bonus, "Appearance"), initial(Appearance))
-	Perception				= sanitize_integer(Perception, 1, get_gen_attribute_limit(generation-generation_bonus, "Perception"), initial(Perception))
-	Intelligence				= sanitize_integer(Intelligence, 1, get_gen_attribute_limit(generation-generation_bonus, "Intelligence"), initial(Intelligence))
-	Wits				= sanitize_integer(Wits, 1, get_gen_attribute_limit(generation-generation_bonus, "Wits"), initial(Wits))
+
+	main_physical_attribute = sanitize_text(main_physical_attribute, initial(main_physical_attribute))
+	secondary_physical_attribute = sanitize_text(secondary_physical_attribute, initial(secondary_physical_attribute))
+
+	main_social_attribute = sanitize_text(main_social_attribute, initial(main_social_attribute))
+	secondary_social_attribute = sanitize_text(secondary_social_attribute, initial(secondary_social_attribute))
+
+	main_mental_attribute = sanitize_text(main_mental_attribute, initial(main_mental_attribute))
+	secondary_mental_attribute = sanitize_text(secondary_mental_attribute, initial(secondary_mental_attribute))
+
+	Strength				= sanitize_integer(Strength, 1, get_gen_attribute_limit("Strength"), initial(Strength))
+	Dexterity				= sanitize_integer(Dexterity, 1, get_gen_attribute_limit("Dexterity"), initial(Dexterity))
+	Stamina					= sanitize_integer(Stamina, 1, get_gen_attribute_limit("Stamina"), initial(Stamina))
+	Charisma				= sanitize_integer(Charisma, 1, get_gen_attribute_limit("Charisma"), initial(Charisma))
+	Manipulation				= sanitize_integer(Manipulation, 1, get_gen_attribute_limit("Manipulation"), initial(Manipulation))
+	Appearance				= sanitize_integer(Appearance, 1, get_gen_attribute_limit("Appearance"), initial(Appearance))
+	Perception				= sanitize_integer(Perception, 1, get_gen_attribute_limit("Perception"), initial(Perception))
+	Intelligence				= sanitize_integer(Intelligence, 1, get_gen_attribute_limit("Intelligence"), initial(Intelligence))
+	Wits				= sanitize_integer(Wits, 1, get_gen_attribute_limit("Wits"), initial(Wits))
 	Alertness				= sanitize_integer(Alertness, 0, 5, initial(Alertness))
 	Athletics				= sanitize_integer(Athletics, 0, 5, initial(Athletics))
 	Brawl				= sanitize_integer(Brawl, 0, 5, initial(Brawl))
@@ -788,6 +806,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["auspice_level"]			, auspice_level)
 
 	WRITE_FILE(S["a_priorities"], priorities)
+
+	WRITE_FILE(S["main_physical_attribute"], main_physical_attribute)
+	WRITE_FILE(S["secondary_physical_attribute"], secondary_physical_attribute)
+	WRITE_FILE(S["main_social_attribute"], main_social_attribute)
+	WRITE_FILE(S["secondary_social_attribute"], secondary_social_attribute)
+	WRITE_FILE(S["main_mental_attribute"], main_mental_attribute)
+	WRITE_FILE(S["secondary_mental_attribute"], secondary_mental_attribute)
+
 	WRITE_FILE(S["a_languages"], languages)
 	WRITE_FILE(S["a_loadout"], loadout)
 
