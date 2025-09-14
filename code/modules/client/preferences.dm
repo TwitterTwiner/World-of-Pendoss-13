@@ -280,6 +280,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/selfcontrol = 3
 	var/courage = 3
 
+	var/main_physical_attribute = "Strength"
+	var/main_social_attribute = "Charisma"
+	var/main_mental_attribute = "Perception"
+
+	var/secondary_physical_attribute = "Dexterity"
+	var/secondary_social_attribute = "Manipulation"
+	var/secondary_mental_attribute = "Intelligence"
+
 	var/old_enough_to_get_exp = FALSE
 
 /datum/preferences/proc/add_experience(amount)
@@ -456,18 +464,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 //A proc that creates the score circles based on attribute and the additional bonus for the attribute
 //
 /datum/preferences/proc/build_attribute_score(attribute, max_number, price, variable_name, freepoints)
-	var/dat
+	var/dat = ""
 	for(var/a in 1 to attribute)
 		dat += "•"
 	var/leftover_circles = max_number - attribute //5 is the default number of blank circles
 	for(var/c in 1 to leftover_circles)
 		dat += "o"
 	var/real_price = attribute ? (attribute*price) : price //In case we have an attribute of 0, we don't multiply by 0
-	if(leftover_circles)
-		if(freepoints > 0)
-			dat += "<a href='byond://?_src_=prefs;preference=[variable_name];task=input'>Increase (free)</a>"
-		else if(true_experience >= real_price)
-			dat += "<a href='byond://?_src_=prefs;preference=[variable_name];task=input'>Increase ([real_price])</a>"
+	if(attribute < max_number)
+		if(leftover_circles)
+			if(freepoints > 0)
+				dat += "<a href='byond://?_src_=prefs;preference=[variable_name];task=input'>Increase (free)</a>"
+			else if(true_experience >= real_price)
+				dat += "<a href='byond://?_src_=prefs;preference=[variable_name];task=input'>Increase ([real_price])</a>"
 	dat += "<br>"
 	return dat
 
@@ -500,9 +509,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					mental_priorities = 5
 				if(3)
 					mental_priorities = 3
-	physical_priorities = max(0, physical_priorities+3-Strength-Dexterity-Stamina)
-	social_priorities = max(0, social_priorities+3-Charisma-Manipulation-Appearance)
-	mental_priorities = max(0, mental_priorities+3-Perception-Intelligence-Wits)
+
+	var/used_physical = max(0, Strength - 1) + max(0, Dexterity - 1) + max(0, Stamina - 1)
+	var/used_social = max(0, Charisma - 1) + max(0, Manipulation - 1) + max(0, Appearance - 1)
+	var/used_mental = max(0, Perception - 1) + max(0, Intelligence - 1) + max(0, Wits - 1)
+
+	physical_priorities = max(0, physical_priorities - used_physical)
+	social_priorities = max(0, social_priorities - used_social)
+	mental_priorities = max(0, mental_priorities - used_mental)
 
 	switch(categor)
 		if("Physical")
@@ -513,22 +527,139 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return mental_priorities
 	return 0
 
-/datum/preferences/proc/get_gen_attribute_limit(gen = 13)
+/datum/preferences/proc/get_gen_attribute_limit(attribute)
+	var/level
+
 	if(pref_species.name == "Vampire")
-		switch(gen)
+		level = generation - generation_bonus
+	else if(pref_species.name == "Werewolf")
+		level = auspice_level
+	else if(pref_species.name == "Kuei-Jin")
+		level = dharma_level
+	else
+		level = 13
+
+	if(pref_species.name == "Vampire")
+		switch(level)
 			if(9)
-				return 6
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 6
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 4
+				else
+					return 3
 			if(8)
-				return 7
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 7
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 5
+				else
+					return 3
 			if(7)
-				return 8
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 8
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 6
+				else
+					return 4
 			if(6)
-				return 9
-		if(gen < 6)
-			return 10
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 9
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 7
+				else
+					return 5
+		if(level > 9)
+			if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+				return 5
+			else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+				return 4
+			else
+				return 3
+		if(level < 6)
+			if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+				return 10
+			else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+				return 8
+			else
+				return 6
+
 	if(pref_species.name == "Kuei-Jin")
-		return max(5, 4+dharma_level)
-	return 5
+		switch(level)
+			if(1)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 5
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 4
+				else
+					return 3
+			if(2)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 6
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 4
+				else
+					return 3
+			if(3)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 7
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 5
+				else
+					return 3
+			if(4)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 8
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 6
+				else
+					return 4
+			if(5)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 9
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 7
+				else
+					return 5
+			if(6)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 10
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 8
+				else
+					return 6
+
+	if(pref_species.name == "Werewolf")
+		switch(level)
+			if(1)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 5
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 4
+				else
+					return 3
+			if(2)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 6
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 4
+				else
+					return 3
+			if(3)
+				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+					return 7
+				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+					return 5
+				else
+					return 3
+
+	if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
+		return 5
+	else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
+		return 4
+	else
+		return 3
+
 
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
@@ -864,6 +995,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			C.clear_character_previews()
 
 /datum/preferences/proc/process_link(mob/user, list/href_list)
+	if(istype(user.client.mob, /mob/dead/observer/avatar))
+		to_chat(user, "<span class='notice'>You can't modify preferences while auspex ghosted!</span>")
+		return
 	if(href_list["bancheck"])
 		var/list/ban_details = is_banned_from_with_details(user.ckey, user.client.address, user.client.computer_id, href_list["bancheck"])
 		var/admin = FALSE
@@ -1494,40 +1628,112 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								priorities = list("Mental" = 1, "Physical" = 2, "Social" = 3)
 						reset_stats(TRUE)
 
+				if("main_physical")
+					if(slotlocked)
+						return
+					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/list/physical_attributes = list("Strength", "Dexterity", "Stamina")
+					physical_attributes -= secondary_physical_attribute
+					var/new_main_physical = tgui_input_list(user, "Select a Main Physical Attribute", "Attribute Selection", physical_attributes)
+					if(new_main_physical)
+						main_physical_attribute = new_main_physical
+						verify_attributes()
+
+				if("secondary_physical")
+					if(slotlocked)
+						return
+					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/list/physical_attributes = list("Strength", "Dexterity", "Stamina")
+					physical_attributes -= main_physical_attribute
+					var/new_secondary_physical = tgui_input_list(user, "Select a Secondary Physical Attribute", "Attribute Selection", physical_attributes)
+					if(new_secondary_physical)
+						secondary_physical_attribute = new_secondary_physical
+						verify_attributes()
+
+				if("main_social")
+					if(slotlocked)
+						return
+					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/list/social_attributes = list("Charisma", "Manipulation", "Appearance")
+					social_attributes -= secondary_social_attribute
+					var/new_main_social = tgui_input_list(user, "Select a Main Social Attribute", "Attribute Selection", social_attributes)
+					if(new_main_social)
+						main_social_attribute = new_main_social
+						verify_attributes()
+
+				if("secondary_social")
+					if(slotlocked)
+						return
+					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/list/social_attributes = list("Charisma", "Manipulation", "Appearance")
+					social_attributes -= secondary_social_attribute
+					var/new_secondary_social = tgui_input_list(user, "Select a Secondary Social Attribute", "Attribute Selection", social_attributes)
+					if(new_secondary_social)
+						secondary_social_attribute = new_secondary_social
+						verify_attributes()
+
+				if("main_mental")
+					if(slotlocked)
+						return
+					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/list/mental_attributes = list("Perception", "Intelligence", "Wits")
+					mental_attributes -= secondary_mental_attribute
+					var/new_main_mental = tgui_input_list(user, "Select a Main Mental Attribute", "Attribute Selection", mental_attributes)
+					if(new_main_mental)
+						main_mental_attribute = new_main_mental
+						verify_attributes()
+
+				if("secondary_mental")
+					if(slotlocked)
+						return
+					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/list/mental_attributes = list("Perception", "Intelligence", "Wits")
+					mental_attributes -= main_mental_attribute
+					var/new_secondary_mental = tgui_input_list(user, "Select a Secondary Mental Attribute", "Attribute Selection", mental_attributes)
+					if(new_secondary_mental)
+						secondary_mental_attribute = new_secondary_mental
+						verify_attributes()
+
 				if("strength")
-					if(handle_upgrade(Strength, Strength * 5, get_gen_attribute_limit(generation-generation_bonus), "Physical"))
+					if(handle_upgrade(Strength, Strength * 5, get_gen_attribute_limit("Strength"), "Physical"))
 						Strength++
 
 				if("dexterity")
-					if(handle_upgrade(Dexterity, Dexterity * 5, get_gen_attribute_limit(generation-generation_bonus), "Physical"))
+					if(handle_upgrade(Dexterity, Dexterity * 5, get_gen_attribute_limit("Dexterity"), "Physical"))
 						Dexterity++
 
 				if("stamina")
-					if(handle_upgrade(Stamina, Stamina * 5, get_gen_attribute_limit(generation-generation_bonus), "Physical"))
+					if(handle_upgrade(Stamina, Stamina * 5, get_gen_attribute_limit("Stamina"), "Physical"))
 						Stamina++
 
 				if("charisma")
-					if(handle_upgrade(Charisma, Charisma * 5, get_gen_attribute_limit(generation-generation_bonus), "Social"))
+					if(handle_upgrade(Charisma, Charisma * 5, get_gen_attribute_limit("Charisma"), "Social"))
 						Charisma++
 
 				if("manipulation")
-					if(handle_upgrade(Manipulation, Manipulation * 5, get_gen_attribute_limit(generation-generation_bonus), "Social"))
+					if(handle_upgrade(Manipulation, Manipulation * 5, get_gen_attribute_limit("Manipulation"), "Social"))
 						Manipulation++
 
 				if("appearance")
-					if(handle_upgrade(Appearance, Appearance * 5, get_gen_attribute_limit(generation-generation_bonus), "Social"))
+					if(handle_upgrade(Appearance, Appearance * 5, get_gen_attribute_limit("Appearance"), "Social"))
 						Appearance++
 
 				if("perception")
-					if(handle_upgrade(Perception, Perception * 5, get_gen_attribute_limit(generation-generation_bonus), "Mental"))
+					if(handle_upgrade(Perception, Perception * 5, get_gen_attribute_limit("Perception"), "Mental"))
 						Perception++
 
 				if("intelligence")
-					if(handle_upgrade(Intelligence, Intelligence * 5, get_gen_attribute_limit(generation-generation_bonus), "Mental"))
+					if(handle_upgrade(Intelligence, Intelligence * 5, get_gen_attribute_limit("Intelligence"), "Mental"))
 						Intelligence++
 
 				if("wits")
-					if(handle_upgrade(Wits, Wits * 5, get_gen_attribute_limit(generation-generation_bonus), "Mental"))
+					if(handle_upgrade(Wits, Wits * 5, get_gen_attribute_limit("Wits"), "Mental"))
 						Wits++
 
 				if("alertness")
@@ -1783,8 +1989,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								dharma_level = initial(dharma_level)
 								hun = initial(hun)
 								po = initial(po)
-								yin = min(10, max(5, dharma_level * 2))
-								yang = min(10, max(5, dharma_level * 2))
+								yin = initial(yin)
+								yang = initial(yang)
+						verify_attributes()
 
 				if("potype")
 					if(slotlocked)
@@ -1819,6 +2026,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						generation = clamp(new_gen, 7, 13)
 						generation_bonus = 0
 						diablerist = FALSE
+						verify_attributes()
 
 				if("friend_text")
 					var/new_text = input(user, "What a Friend knows about me:", "Character Preference") as text|null
@@ -1852,7 +2060,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(slotlocked)
 						return
 
-					if (alert("Are you sure you want to change species? This will reset species-specific stats.", "Confirmation", "Yes", "No") != "Yes")
+					if (alert("Are you sure you want to change species? This will reset species-specific stats and attributes.", "Confirmation", "Yes", "No") != "Yes")
 						return
 
 					var/list/choose_species = list()
@@ -1889,6 +2097,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							real_name = pref_species.random_name(gender)
 						all_quirks = list()
 						SetQuirks(user)
+						reset_attributes()
 
 				if("mutant_color")
 					if(slotlocked)
@@ -2291,27 +2500,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					toggles ^= SOUND_ENDOFROUND
 
 				if("ghost_ears")
-					if(istype(user.client.mob, /mob/dead/observer))
-						var/mob/dead/observer/obs = user.client.mob
-						if(obs.auspex_ghosted)
-							return
-						else
-							chat_toggles ^= CHAT_GHOSTEARS
-					else
-						chat_toggles ^= CHAT_GHOSTEARS
+					chat_toggles ^= CHAT_GHOSTEARS
 
 				if("ghost_sight")
 					chat_toggles ^= CHAT_GHOSTSIGHT
 
 				if("ghost_whispers")
-					if(istype(user.client.mob, /mob/dead/observer))
-						var/mob/dead/observer/obs = user.client.mob
-						if(obs.auspex_ghosted)
-							return
-						else
-							chat_toggles ^= CHAT_GHOSTWHISPER
-					else
-						chat_toggles ^= CHAT_GHOSTWHISPER
+					chat_toggles ^= CHAT_GHOSTWHISPER
 
 				if("ghost_radio")
 
@@ -2471,17 +2666,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.diablerist = diablerist
 	character.know_diablerie = know_diablerie
 
-	var/genlimited = get_gen_attribute_limit(generation-generation_bonus)
+	character.attributes.strength = min(get_gen_attribute_limit("Strength"), Strength)
+	character.attributes.dexterity = min(get_gen_attribute_limit("Dexterity"), Dexterity)
+	character.attributes.stamina = min(get_gen_attribute_limit("Stamina"), Stamina)
 
-	character.attributes.strength = min(genlimited, Strength)
-	character.attributes.dexterity = min(genlimited, Dexterity)
-	character.attributes.stamina = min(genlimited, Stamina)
-	character.attributes.charisma = min(genlimited, Charisma)
-	character.attributes.manipulation = min(genlimited, Manipulation)
-	character.attributes.appearance = min(genlimited, Appearance)
-	character.attributes.perception = min(genlimited, Perception)
-	character.attributes.intelligence = min(genlimited, Intelligence)
-	character.attributes.wits = min(genlimited, Wits)
+	character.attributes.charisma = min(get_gen_attribute_limit("Charisma"), Charisma)
+	character.attributes.manipulation = min(get_gen_attribute_limit("Manipulation"), Manipulation)
+	character.attributes.appearance = min(get_gen_attribute_limit("Appearance"), Appearance)
+
+	character.attributes.perception = min(get_gen_attribute_limit("Perception"), Perception)
+	character.attributes.intelligence = min(get_gen_attribute_limit("Intelligence"), Intelligence)
+	character.attributes.wits = min(get_gen_attribute_limit("Wits"), Wits)
 
 	character.attributes.Alertness = Alertness
 	character.attributes.Athletics = Athletics
@@ -2757,3 +2952,48 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return
 		else
 			custom_names[name_id] = sanitized_name
+
+/datum/preferences/proc/verify_attributes()
+	Strength = min(Strength, get_gen_attribute_limit("Strength"))
+	Dexterity = min(Dexterity, get_gen_attribute_limit("Dexterity"))
+	Stamina = min(Stamina, get_gen_attribute_limit("Stamina"))
+
+	Charisma = min(Charisma, get_gen_attribute_limit("Charisma"))
+	Manipulation = min(Manipulation, get_gen_attribute_limit("Manipulation"))
+	Appearance = min(Appearance, get_gen_attribute_limit("Appearance"))
+
+	Perception = min(Perception, get_gen_attribute_limit("Perception"))
+	Intelligence = min(Intelligence, get_gen_attribute_limit("Intelligence"))
+	Wits = min(Wits, get_gen_attribute_limit("Wits"))
+
+/datum/preferences/proc/reset_attributes()
+	Strength = 1
+	Dexterity = 1
+	Stamina = 1
+
+	Charisma = 1
+	Manipulation = 1
+	Appearance = 1
+
+	Perception = 1
+	Intelligence = 1
+	Wits = 1
+
+	Alertness = 0
+	Athletics = 0
+	Brawl = 0
+	Empathy = 0
+	Intimidation = 0
+	Expression = 0
+
+	Crafts = 0
+	Melee = 0
+	Firearms = 0
+	Drive = 0
+	Security = 0
+
+	Finance = 0
+	Investigation = 0
+	Medicine = 0
+	Linguistics = 0
+	Occult = 0
