@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(witness_pool)
 					to_chat(src, "<span class='warning'>My Veil is too low to connect with the spirits of Umbra!</span>")
 					adjust_gnosis(-1, src, FALSE)
 
-		if(auspice?.rage >= 7)
+		if(auspice?.rage >= 8)
 			if(!in_frenzy)
 				if((last_frenzy_check + 18 SECONDS) <= world.time)
 					last_frenzy_check = world.time
@@ -330,7 +330,7 @@ SUBSYSTEM_DEF(witness_pool)
 					to_chat(src, "<span class='warning'>My Veil is too low to connect with the spirits of Umbra!</span>")
 					adjust_gnosis(-1, src, FALSE)
 
-		if(auspice?.rage >= 7)
+		if(auspice?.rage >= 8)
 			if(!in_frenzy)
 				if((last_frenzy_check + 18 SECONDS) <= world.time)
 					last_frenzy_check = world.time
