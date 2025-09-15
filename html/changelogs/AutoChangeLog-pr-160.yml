@@ -1,0 +1,5 @@
+author: "Nokia2Student"
+delete-after: True
+changes:
+  - rscadd: "Теперь надо 8 рейджа чтобы был шанс впасть на ярость. Пассивно можно получить только 7"
+  - rscadd: "Гару могут играть за Supply Technician"
