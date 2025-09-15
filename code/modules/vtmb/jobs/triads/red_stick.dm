@@ -23,7 +23,7 @@
 	experience_addition = 0
 	minimal_masquerade = 0
 
-/datum/outfit/job/red_stickr/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/red_stick/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.grant_language(/datum/language/cantonese)
 	H.vampire_faction = "Triad"
