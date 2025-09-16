@@ -215,6 +215,20 @@
 	dat = replacetext(dat, "\t", "")
 	return dat
 
+/datum/datacore/proc/get_race(mob/living/carbon/human/H)
+	var/tone = H.skin_tone
+	if(tone == "albino")
+		return "Albino"
+	if(tone == "caucasian1" || tone == "caucasian2" || tone == "caucasian3" || tone == "asian1" || tone == "asian2")
+		return "Asian"
+	if(tone == "african1" || tone == "african2")
+		return "Negroid"
+	if(tone == "indian")
+		return "Indian"
+	if(tone == "latino" || tone == "mediterranean")
+		return "Latinos"
+	if(tone == "arab")
+		return "Arabian"
 
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C)
 	set waitfor = FALSE
@@ -251,7 +265,8 @@
 		G.fields["name"]		= H.real_name
 		G.fields["rank"]		= assignment
 		G.fields["age"]			= H.age
-		G.fields["species"]	= H.dna.species.name
+	//	G.fields["species"]	= H.dna.species.name
+		G.fields["species"]		= get_race(H)
 		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"

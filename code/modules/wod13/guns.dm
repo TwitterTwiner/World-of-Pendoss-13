@@ -772,3 +772,90 @@
 	name = "rifle magazine (5.56mm)"
 	icon_state = "hunt556"
 	max_ammo = 20
+
+/obj/item/gun/ballistic/automatic/vampire/rifle
+	name = "\improper hunting rifle"
+	desc = "A classic bolt-action hunting rifle. It takes 5.56mm rounds."
+	icon = 'code/modules/wod13/48x32weapons.dmi'
+	icon_state = "huntrifle"
+	inhand_icon_state = "huntrifle"
+	worn_icon_state = "huntrifle"
+	w_class = WEIGHT_CLASS_BULKY
+	mag_type = /obj/item/ammo_box/magazine/vamp556/hunt
+	bolt_wording = "bolt"
+	bolt_type = BOLT_TYPE_STANDARD
+	fire_sound = 'code/modules/wod13/sounds/rifle.ogg'
+	fire_sound_volume = 90
+	vary_fire_sound = FALSE
+	rack_sound = 'sound/weapons/gun/rifle/bolt_out.ogg'
+	bolt_drop_sound = 'sound/weapons/gun/rifle/bolt_in.ogg'
+	tac_reloads = FALSE
+	fire_delay = 3
+	burst_size = 1
+	actions_types = list()
+	masquerade_violating = TRUE
+	cost = 250
+	var/jamming_chance = 10
+	var/unjam_chance = 10
+	var/jamming_increment = 5
+	var/jammed = FALSE
+	var/can_jam = TRUE
+
+
+/obj/item/gun/ballistic/automatic/vampire/rifle/rack(mob/user = null)
+	if (bolt_locked == FALSE)
+		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
+		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+		process_chamber(FALSE, FALSE, FALSE)
+		bolt_locked = TRUE
+		update_icon()
+		return
+	drop_bolt(user)
+
+/obj/item/gun/ballistic/automatic/vampire/rifle/can_shoot()
+	if (bolt_locked)
+		return FALSE
+	return ..()
+
+/obj/item/gun/ballistic/automatic/vampire/rifle/examine(mob/user)
+	. = ..()
+	. += "The bolt is [bolt_locked ? "open" : "closed"]."
+
+/obj/item/gun/ballistic/automatic/vampire/rifle/blow_up(mob/user)
+	. = FALSE
+	if(chambered?.BB)
+		process_fire(user, user, FALSE)
+		. = TRUE
+
+
+/obj/item/gun/ballistic/automatic/vampire/rifle/attack_self(mob/user)
+	if(can_jam)
+		if(jammed)
+			if(prob(unjam_chance))
+				jammed = FALSE
+				unjam_chance = 10
+			else
+				unjam_chance += 10
+				to_chat(user, "<span class='warning'>[src] is jammed!</span>")
+				playsound(user,'sound/weapons/jammed.ogg', 75, TRUE)
+				return FALSE
+	..()
+
+/obj/item/gun/ballistic/automatic/vampire/rifle/process_fire(mob/user)
+	if(can_jam)
+		if(chambered.BB)
+			if(prob(jamming_chance))
+				jammed = TRUE
+			jamming_chance  += jamming_increment
+			jamming_chance = clamp (jamming_chance, 0, 100)
+	return ..()
+
+/obj/item/gun/ballistic/automatic/vampire/rifle/attackby(obj/item/item, mob/user, params)
+	. = ..()
+	if(can_jam)
+		if(bolt_locked)
+			if(istype(item, /obj/item/gun_maintenance_supplies))
+				if(do_after(user, 10 SECONDS, target = src))
+					user.visible_message("<span class='notice'>[user] finishes maintenance of [src].</span>")
+					jamming_chance = 10
+					qdel(item)

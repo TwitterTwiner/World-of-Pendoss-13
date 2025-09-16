@@ -115,23 +115,23 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		else
 			qdel(src)
 	else if(!victory_in_progress && (blobs_legit.len >= blobwincount))
-		victory_in_progress = TRUE
-		priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert")
-		set_security_level("delta")
-		max_blob_points = INFINITY
-		blob_points = INFINITY
-		addtimer(CALLBACK(src, PROC_REF(victory)), 450)
+	//	victory_in_progress = TRUE
+	//	priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert")
+	//	set_security_level("delta")
+	//	max_blob_points = INFINITY
+	//	blob_points = INFINITY
+	//	addtimer(CALLBACK(src, PROC_REF(victory)), 450)
 	else if(!free_strain_rerolls && (last_reroll_time + BLOB_POWER_REROLL_FREE_TIME<world.time))
 		to_chat(src, "<b><span class='big'><font color=\"#EE4000\">You have gained another free strain re-roll.</font></span></b>")
 		free_strain_rerolls = 1
 
 	if(!victory_in_progress && max_count < blobs_legit.len)
 		max_count = blobs_legit.len
-
+/*
 	if(announcement_time && (world.time >= announcement_time || blobs_legit.len >= announcement_size) && !has_announced)
 		priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/ai/outbreak5.ogg')
 		has_announced = TRUE
-
+*/
 /mob/camera/blob/proc/victory()
 	sound_to_playing_players('sound/machines/alarm.ogg')
 	sleep(100)
@@ -168,6 +168,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			A.layer = BELOW_MOB_LAYER
 			A.invisibility = 0
 			A.blend_mode = 0
+
+
 	var/datum/antagonist/blob/B = mind.has_antag_datum(/datum/antagonist/blob)
 	if(B)
 		var/datum/objective/blob_takeover/main_objective = locate() in B.objectives

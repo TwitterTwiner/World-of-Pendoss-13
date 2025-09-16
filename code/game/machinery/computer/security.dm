@@ -370,7 +370,7 @@ What a mess.*/
 					P.info = "<CENTER><B>Security Record - (SR-[GLOB.data_core.securityPrintCount])</B></CENTER><BR>"
 					if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))
 						P.info += text("Name: [] ID: []<BR>\nGender: []<BR>\nAge: []<BR>", active1.fields["name"], active1.fields["id"], active1.fields["gender"], active1.fields["age"])
-						P.info += "\nSpecies: [active1.fields["species"]]<BR>"
+					//	P.info += "\nSpecies: [active1.fields["species"]]<BR>"
 						P.info += text("\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>", active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"])
 					else
 						P.info += "<B>General Record Lost!</B><BR>"

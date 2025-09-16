@@ -549,6 +549,7 @@
 		new /datum/data/mining_equipment("antibirth pill bottle",/obj/item/storage/pill_bottle/antibirth, 50),
 		new /datum/data/mining_equipment("phenazepam pills",	/obj/item/storage/pill_bottle/phenazepam,	200),
 		new /datum/data/mining_equipment("Ultram",	/obj/item/storage/pill_bottle/tramadolum,	300),
+		new /datum/data/mining_equipment("heroin",	/obj/item/reagent_containers/syringe/contraband/heroin, 250),
 		new /datum/data/mining_equipment("morphine",	/obj/item/reagent_containers/glass/bottle/morphine, 150),
 		new /datum/data/mining_equipment("mushrooms package",	/obj/item/reagent_containers/food/drinks/meth/mushroom,	250),
 		new /datum/data/mining_equipment("muhomoor package",	/obj/item/reagent_containers/food/drinks/meth/mushroom/muhomor,	220),
