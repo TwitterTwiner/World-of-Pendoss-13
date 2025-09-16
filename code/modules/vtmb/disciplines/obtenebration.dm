@@ -68,6 +68,7 @@
 
 	violates_masquerade = TRUE
 
+	toggled = TRUE
 	cancelable = TRUE
 	duration_length = 30 SECONDS
 	cooldown_length = 15 SECONDS
@@ -94,9 +95,10 @@
 
 	violates_masquerade = TRUE
 
+	toggled = TRUE
 	cancelable = TRUE
-	duration_length = 15 SECONDS
-	cooldown_length = 10 SECONDS
+	duration_length = 30 SECONDS
+	cooldown_length = 15 SECONDS
 
 /datum/discipline_power/obtenebration/black_metamorphosis/activate()
 	. = ..()
@@ -119,7 +121,7 @@
 
 	violates_masquerade = TRUE
 
-	cooldown_length = 20 SECONDS
+	cooldown_length = 15 SECONDS
 
 	var/obj/effect/proc_holder/spell/targeted/shadowwalk/tenebrous_form_spell
 

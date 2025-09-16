@@ -35,6 +35,11 @@
 	crinos?.moveToNullspace()
 	lupus?.moveToNullspace()
 
+	RegisterSignal(crinos, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), crinos)
+	RegisterSignal(corax, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), corax)
+	RegisterSignal(corvid, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), corvid)
+	RegisterSignal(lupus, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), lupus)
+
 /datum/werewolf_holder/transformation/Destroy()
 	var/mob/h = human_form?.resolve()
 	var/mob/c = crinos_form?.resolve()
@@ -82,10 +87,13 @@
 
 	// Transfer resting or standing between forms
 	transfer_to.set_resting(transfer_from.resting)
-	if(transfer_to.body_position != STANDING_UP && !transfer_to.resting && !transfer_to.buckled && !HAS_TRAIT(transfer_to, TRAIT_FLOORED))
-		transfer_to.get_up(TRUE)
 
 	transfer_organ_states(transfer_from, transfer_to)
+
+/datum/werewolf_holder/transformation/proc/on_revive(mob/living/carbon/C)
+	C.setOxyLoss(0)
+	C.update_sight()
+	C.get_up(TRUE)
 
 /**
  * Transfers the state of one form's organs to those in what they're
@@ -137,14 +145,27 @@
 	if(!given_quirks)
 		given_quirks = TRUE
 		if(HAS_TRAIT(trans, TRAIT_DANCER))
-			var/datum/action/dance/DA = new()
-			DA.Grant(lupus_form)
-			var/datum/action/dance/NE = new()
-			NE.Grant(crinos_form)
-			var/datum/action/dance/DOOO = new()
-			DOOO.Grant(corax_form)
-			var/datum/action/dance/NEEE = new()
-			NEEE.Grant(corvid_form)
+
+			var/lupus_mob = lupus_form?.resolve()
+			if(lupus_mob)
+				var/datum/action/dance/DA = new()
+				DA.Grant(lupus_mob)
+
+			var/crinos_mob = crinos_form?.resolve()
+			if(crinos_mob)
+				var/datum/action/dance/NE = new()
+				NE.Grant(crinos_mob)
+
+			var/corax_mob = corax_form?.resolve()
+			if(corax_mob)
+				var/datum/action/dance/DOOO = new()
+				DOOO.Grant(corax_mob)
+
+			var/corvid_mob = corvid_form?.resolve()
+			if(corvid_mob)
+				var/datum/action/dance/NEEE = new()
+				NEEE.Grant(corvid_mob)
+
 	var/matrix/ntransform = matrix(trans.transform) //aka transform.Copy()
 	if(trans.auspice.rage == 0 && form != trans.auspice.breed_form)
 		to_chat(trans, "Not enough rage to transform into anything but [trans.auspice.breed_form].")
