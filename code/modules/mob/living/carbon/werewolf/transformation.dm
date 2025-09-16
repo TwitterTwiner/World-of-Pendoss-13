@@ -35,6 +35,11 @@
 	crinos?.moveToNullspace()
 	lupus?.moveToNullspace()
 
+	RegisterSignal(crinos, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), crinos)
+	RegisterSignal(corax, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), corax)
+	RegisterSignal(corvid, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), corvid)
+	RegisterSignal(lupus, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), lupus)
+
 /datum/werewolf_holder/transformation/Destroy()
 	var/mob/h = human_form?.resolve()
 	var/mob/c = crinos_form?.resolve()
@@ -79,14 +84,16 @@
 	transfer_to.setOxyLoss(0)
 	transfer_to.updatehealth()
 	transfer_to.update_health_hud()
-	transfer_to.update_sight()
 
 	// Transfer resting or standing between forms
 	transfer_to.set_resting(transfer_from.resting)
-	if(transfer_to.body_position != STANDING_UP && !transfer_to.resting && !transfer_to.buckled && !HAS_TRAIT(transfer_to, TRAIT_FLOORED))
-		transfer_to.get_up(TRUE)
 
 	transfer_organ_states(transfer_from, transfer_to)
+
+/datum/werewolf_holder/transformation/proc/on_revive(mob/living/carbon/C)
+	C.setOxyLoss(0)
+	C.update_sight()
+	C.get_up(TRUE)
 
 /**
  * Transfers the state of one form's organs to those in what they're
