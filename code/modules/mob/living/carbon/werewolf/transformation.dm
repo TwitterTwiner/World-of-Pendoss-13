@@ -145,14 +145,27 @@
 	if(!given_quirks)
 		given_quirks = TRUE
 		if(HAS_TRAIT(trans, TRAIT_DANCER))
-			var/datum/action/dance/DA = new()
-			DA.Grant(lupus_form)
-			var/datum/action/dance/NE = new()
-			NE.Grant(crinos_form)
-			var/datum/action/dance/DOOO = new()
-			DOOO.Grant(corax_form)
-			var/datum/action/dance/NEEE = new()
-			NEEE.Grant(corvid_form)
+
+			var/lupus_mob = lupus_form?.resolve()
+			if(lupus_mob)
+				var/datum/action/dance/DA = new()
+				DA.Grant(lupus_mob)
+
+			var/crinos_mob = crinos_form?.resolve()
+			if(crinos_mob)
+				var/datum/action/dance/NE = new()
+				NE.Grant(crinos_mob)
+
+			var/corax_mob = corax_form?.resolve()
+			if(corax_mob)
+				var/datum/action/dance/DOOO = new()
+				DOOO.Grant(corax_mob)
+
+			var/corvid_mob = corvid_form?.resolve()
+			if(corvid_mob)
+				var/datum/action/dance/NEEE = new()
+				NEEE.Grant(corvid_mob)
+
 	var/matrix/ntransform = matrix(trans.transform) //aka transform.Copy()
 	if(trans.auspice.rage == 0 && form != trans.auspice.breed_form)
 		to_chat(trans, "Not enough rage to transform into anything but [trans.auspice.breed_form].")
