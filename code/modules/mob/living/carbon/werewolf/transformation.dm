@@ -79,6 +79,7 @@
 	transfer_to.setOxyLoss(0)
 	transfer_to.updatehealth()
 	transfer_to.update_health_hud()
+	transfer_to.update_sight()
 
 	// Transfer resting or standing between forms
 	transfer_to.set_resting(transfer_from.resting)
