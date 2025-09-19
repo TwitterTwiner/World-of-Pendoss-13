@@ -177,7 +177,7 @@
 		var/mob/living/bumper = src
 		if(bumped.attributes.fortitude_bonus <= 0 && get_celerity_dices(bumper) >= 3)
 			var/chance = secret_vampireroll(get_a_dexterity(bumper)+get_celerity_dices(bumper), 6, bumper)
-			var/damage = secret_vampireroll(get_a_strength(bumper)+get_a_brawl(bumper), 6, bumper)
+			var/damage = secret_vampireroll(get_a_strength(bumper)+get_a_brawl(bumper), 6, bumper, TRUE)
 			var/atom/throw_bumped = get_edge_target_turf(bumped, get_dir(bumped, get_step_away(bumped, bumper)))
 			var/atom/throw_bumper = get_edge_target_turf(bumper, get_dir(bumper, get_step_away(bumper, bumped)))
 			if(get_celerity_dices(bumper) >= 5)
