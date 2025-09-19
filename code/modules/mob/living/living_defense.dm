@@ -318,7 +318,7 @@
 	if(modifikator == 0)
 		return FALSE
 	var/my_dodge_chances = get_a_dexterity(src) + get_a_alertness(src);
-	if(secret_vampireroll(my_dodge_chances, 6, src, TRUE) >= 3)
+	if(secret_vampireroll(my_dodge_chances, 6+src.get_health_difficulty(), src, TRUE) >= 3)
 		visible_message("<span class='danger'>[M]'s [M.attack_verb_simple] misses [src]!</span>", \
 							"<span class='danger'>You avoid [M]'s [M.attack_verb_simple]!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, src)
 		return FALSE
