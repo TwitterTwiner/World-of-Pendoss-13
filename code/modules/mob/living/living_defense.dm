@@ -231,12 +231,14 @@
 								visible_message("<span class='danger'>[user] tries to sever [src]'s [damaged_limb.name]!</span>",
 										"<span class='userdanger'>[user] tries to tear your [damaged_limb.name] off!</span>", "<span class='hear'>You hear a sickening tearing sound!</span>", null, user)
 								to_chat(user, "<span class='danger'>You attempt to sever [src]'s [damaged_limb.name]!</span>")
+								playsound(src, "sound/effects/wounds/crack2.ogg", 50)
 							else
 								var/datum/wound/blunt/critical/crit_wound = new
 								crit_wound.apply_wound(damaged_limb)
 								visible_message("<span class='danger'>[user] tries to wrench [src]'s [damaged_limb.name]!</span>",
 										"<span class='userdanger'>[user] tries to wrench your [damaged_limb.name]!</span>", "<span class='hear'>You hear a crunching sound!</span>", null, user)
 								to_chat(user, "<span class='danger'>You attempt to wrench [src]'s [damaged_limb.name]!</span>")
+								playsound(src, "sound/effects/wounds/crack2.ogg", 50)
 					else if(user.attributes?.potence_bonus >= 1)
 						var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user)
 						if(modifikator >= 3)
@@ -263,6 +265,7 @@
 							visible_message("<span class='danger'>[user] tries to wrench [src]'s [damaged_limb.name]!</span>",
 										"<span class='userdanger'>[user] tries to wrench your [damaged_limb.name]!</span>", "<span class='hear'>You hear a crunching sound!</span>", null, user)
 							to_chat(user, "<span class='danger'>You attempt to wrench [src]'s [damaged_limb.name]!</span>")
+							playsound(src, "sound/effects/wounds/crack2.ogg", 50)
 
 			if(GRAB_NECK)
 				log_combat(user, src, "grabbed", addition="neck grab")

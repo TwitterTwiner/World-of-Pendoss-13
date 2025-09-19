@@ -173,6 +173,7 @@
 			return TRUE
 
 	if(isliving(M) && isliving(src))
+		SEND_SIGNAL(src, COSMIG_MOB_RUN_INTO_SOMEONE, M)
 		var/mob/living/bumped = M
 		var/mob/living/bumper = src
 		if(bumped.attributes.fortitude_bonus <= 0 && get_celerity_dices(bumper) >= 3)
@@ -185,19 +186,23 @@
 					bumper.Knockdown(1 SECONDS)
 					bumper.adjustBruteLoss(clamp(damage*7, 10, 50))
 					bumper.throw_at(throw_bumper, 4, 4, bumper, TRUE)
+					playsound(bumper, "sound/effects/pop_expl.ogg", 75)
 				else
 					bumped.Knockdown(1 SECONDS)
 					bumped.adjustBruteLoss(clamp(damage*7, 10, 50))
 					bumped.throw_at(throw_bumped, 4, 4, bumped, TRUE)
+					playsound(bumped, "sound/effects/pop_expl.ogg", 75)
 			else if(get_celerity_dices(bumper) >= 3)
 				if(chance <= 0)
 					bumper.Knockdown(1 SECONDS)
 					bumper.adjustBruteLoss(clamp(damage*5, 5, 25))
 					bumper.throw_at(throw_bumper, 2, 2, bumper, TRUE)
+					playsound(bumper, "sound/effects/pop_expl.ogg", 75)
 				else
 					bumped.Knockdown(1 SECONDS)
 					bumped.adjustBruteLoss(clamp(damage*5, 5, 25))
 					bumped.throw_at(throw_bumped, 2, 2, bumped, TRUE)
+					playsound(bumped, "sound/effects/pop_expl.ogg", 75)
 
 	//If they're a human, and they're not in help intent, block pushing
 	if(ishuman(M) && (M.a_intent != INTENT_HELP))

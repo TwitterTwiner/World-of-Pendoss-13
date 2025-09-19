@@ -22,6 +22,7 @@
 		COMSIG_MOB_THREW_MOVABLE,
 		COMSIG_MOB_ATTACKING_MELEE,
 		COMSIG_MOB_ATTACKED_BY_MELEE,
+		COSMIG_MOB_RUN_INTO_SOMEONE,
 	)
 
 /datum/discipline_power/obfuscate/proc/on_combat_signal(datum/source)
@@ -338,7 +339,7 @@
 						continue
 				if(!gender_bender)
 					continue
-					
+
 	shapeshift()
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/choose_impersonating()
