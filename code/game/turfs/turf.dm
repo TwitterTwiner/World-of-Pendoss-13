@@ -161,6 +161,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	user.Move_Pulled(src)
+	if(isliving(user))
+		var/mob/living/Living = user
+		if(Living.attributes?.potence_bonus >= 1)
+			for(var/mob/living/L in get_turf(src))
+				if(L != user)
+					L.attack_hand(user)
 
 /turf/proc/multiz_turf_del(turf/T, dir)
 	SEND_SIGNAL(src, COMSIG_TURF_MULTIZ_DEL, T, dir)
