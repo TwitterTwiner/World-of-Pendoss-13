@@ -116,31 +116,35 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
+/obj/item/disk/design_disk/contract
+	name = "Сontract"
+	var/contract = list()
+
 /obj/item/disk/design_disk/contract/Initialize(mapload)
 	. = ..()
-	for(var/design in var/contract)
+	for(var/design in contract)
 		var/datum/design/new_design = design
 		blueprints += new new_design
 
 /obj/item/disk/design_disk/contract/breweriescontract
 	name = "King Breweries and Distilleries contract"
-	var/contract = list(/datum/design/beer, /datum/design/colabottle, /datum/design/colacan, /datum/design/bluedonut)
+	contract = list(/datum/design/beer, /datum/design/colabottle, /datum/design/colacan, /datum/design/bluedonut)
 
 /obj/item/disk/design_disk/contract/circinuscontract
 	name = "Circinus Brands contract"
-	var/contract = list(/datum/design/bluecigs)
+	contract = list(/datum/design/bluecigs)
 
 /obj/item/disk/design_disk/contract/avaloncontract
 	name = "Avalon Incorporated contract"
-	var/contract = list(/datum/design/carptoy, /datum/design/slimetoy)
+	contract = list(/datum/design/carptoy, /datum/design/slimetoy)
 
 /obj/item/disk/design_disk/contract/magadoncontract
 	name = "Magadon Incorporated contract"
-	var/contract = list(/datum/design/supplements)
+	contract = list(/datum/design/supplements)
 
 /obj/item/disk/design_disk/contract/herculeancontract
 	name = "Herculean Firearms Incorporated contract"
-	var/contract = list(/datum/design/glock21, /datum/design/glockmagazine, /datum/design/c45acp)
+	contract = list(/datum/design/glock21, /datum/design/glockmagazine, /datum/design/c45acp)
 
 /obj/item/disk/design_disk/contract/youngcontract
 	name = "Young and Smith Incorporated contract"
