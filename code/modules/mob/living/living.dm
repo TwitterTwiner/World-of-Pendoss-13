@@ -245,6 +245,9 @@
 
 		var/mob/living/user = src
 
+		if(user.a_intent != INTENT_HELP)
+			return
+
 		if(get_celerity_dices(user) < 3 || get_dist(T, user) >= 2)
 			return
 
