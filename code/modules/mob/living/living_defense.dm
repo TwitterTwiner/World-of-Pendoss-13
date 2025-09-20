@@ -243,8 +243,10 @@
 									to_chat(user, span_danger("There's no limbs left that you can target!"))
 									return
 
-								if(user.MyPath && user != C)
-									user.MyPath.trigger_morality("attackfirst")
+								if(iskindred(user))
+									var/mob/living/carbon/human/H = user
+									if(H.MyPath && H != C)
+										H.MyPath.trigger_morality("attackfirst")
 								C.dismembering_strike(user, damaged_limb.body_zone, TRUE)
 								visible_message(span_danger("[user] tries to sever [C]'s [damaged_limb.name]!"),
 										span_userdanger("[user] tries to tear your [damaged_limb.name] off!"), span_hear("You hear a sickening tearing sound!"), null, user)
@@ -267,8 +269,11 @@
 									to_chat(user, span_danger("There's no limbs left that you can target!"))
 									return
 
-								if(user.MyPath && user != C)
-									user.MyPath.trigger_morality("attackfirst")
+								if(iskindred(user))
+									var/mob/living/carbon/human/H = user
+									if(H.MyPath && H != C)
+										H.MyPath.trigger_morality("attackfirst")
+
 								var/datum/wound/blunt/critical/crit_wound = new
 								crit_wound.apply_wound(damaged_limb)
 								visible_message(span_danger("[user] tries to wrench [C]'s [damaged_limb.name]!"),
