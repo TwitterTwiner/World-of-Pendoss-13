@@ -436,6 +436,7 @@
 		clear_cuffs(I, INSTANT_CUFFBREAK)
 		visible_message("<span class='danger'>[src] smashes the [I] effortlessly!</span>")
 		I.item_flags &= ~BEING_REMOVED
+		Stun(3 SECONDS, TRUE)
 		return
 	if(!cuff_break)
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
