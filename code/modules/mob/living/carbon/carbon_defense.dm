@@ -225,7 +225,7 @@
 		return 1
 
 /mob/living/carbon/proc/dismembering_strike(mob/living/attacker, dam_zone, bypass_damage_check = FALSE)
-	if(attacker.limb_destroyer || attacker.attributes?.potence_bonus >= 1)
+	if(attacker.limb_destroyer || get_potence_dices(attacker) >= 1)
 		if(iskindred(attacker) || isgarou(attacker) || iswerewolf(attacker))
 			var/list/missing = get_missing_limbs()
 			var/list/needed = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)

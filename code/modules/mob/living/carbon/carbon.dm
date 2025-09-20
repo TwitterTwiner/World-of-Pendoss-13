@@ -432,7 +432,7 @@
 		return
 	I.item_flags |= BEING_REMOVED
 	breakouttime = I.breakouttime
-	if(src.attributes?.potence_bonus >= 5)
+	if(get_potence_dices(src) >= 5)
 		clear_cuffs(I, INSTANT_CUFFBREAK)
 		visible_message("<span class='danger'>[src] smashes the [I] effortlessly!</span>")
 		I.item_flags &= ~BEING_REMOVED

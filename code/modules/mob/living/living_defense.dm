@@ -223,12 +223,12 @@
 				if(iscarbon(src))
 					var/mob/living/carbon/C = src
 
-					if(user.attributes?.potence_bonus >= 1)
+					if(get_potence_dices(user) >= 1)
 						var/modifikator = secret_vampireroll(get_a_strength(user)+get_a_brawl(user), 6, user)
 						if(modifikator >= 3)
 							var/obj/item/bodypart/damaged_limb = C.get_bodypart(user.zone_selected)
 
-							if(user.attributes?.potence_bonus >= 5 && !get_fortitude_dices(C))
+							if(get_potence_dices(user) >= 5 && !get_fortitude_dices(C))
 								if(user.zone_selected == BODY_ZONE_HEAD || user.zone_selected == BODY_ZONE_CHEST || !damaged_limb)
 									var/list/available_cut_limbs = list()
 									for(var/obj/item/bodypart/B in C.bodyparts)
