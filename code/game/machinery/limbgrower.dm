@@ -5,15 +5,14 @@
 
 
 /obj/machinery/limbgrower
-	name = "limb grower"
-	desc = "It grows new limbs using Synthflesh."
+	name = "Endron corrupted machine"
+	desc = "Creates toxic corrupted goods."
 	icon = 'icons/obj/machines/limbgrower.dmi'
 	icon_state = "limbgrower_idleoff"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_usage = 20
 	active_power_usage = 100
-	circuit = /obj/item/circuitboard/machine/limbgrower
 
 	var/operating = FALSE
 	var/disabled = FALSE
@@ -24,12 +23,12 @@
 	var/selected_category
 	var/screen = 1
 	var/list/categories = list(
-							"human",
-							"lizard",
-							"moth",
-							"plasmaman",
-							"ethereal",
-							"other"
+							"King Breweries and Distilleries",
+							"Circinus Brands",
+							"Avalon Incorporated",
+							"Magadon Incorporated",
+							"Herculean Firearms Incorporated",
+							"Young and Smith Incorporated",
 							)
 
 /obj/machinery/limbgrower/Initialize(mapload)
@@ -52,29 +51,34 @@
 		if(LIMBGROWER_CHEMICAL_MENU)
 			dat = chemical_win(user)
 
-	var/datum/browser/popup = new(user, "Limb Grower", name, 400, 500)
+	var/datum/browser/popup = new(user, "Endron corrupted machine", name, 400, 500)
 	popup.set_content(dat)
 	popup.open()
 
-/obj/machinery/limbgrower/on_deconstruction()
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
-		reagents.trans_to(G, G.reagents.maximum_volume)
-	..()
-
 /obj/machinery/limbgrower/attackby(obj/item/O, mob/user, params)
 	if (busy)
-		to_chat(user, "<span class=\"alert\">The Limb Grower is busy. Please wait for completion of previous operation.</span>")
-		return
-
-	if(default_deconstruction_screwdriver(user, "limbgrower_panelopen", "limbgrower_idleoff", O))
-		updateUsrDialog()
-		return
-
-	if(panel_open && default_deconstruction_crowbar(O))
+		to_chat(user, "<span class=\"alert\">The machine is busy. Please wait for completion of previous operation.</span>")
 		return
 
 	if(user.a_intent == INTENT_HARM) //so we can hit the machine
 		return ..()
+
+/////////////////////////////////////////////////////////////////////////////
+
+	if (istype(O, /obj/item/disk/design_disk))
+		user.visible_message("<span class='notice'>[user] begins to load \the [O] in \the [src]...</span>",
+			"<span class='notice'>You begin to load a design from \the [O]...</span>",
+			"<span class='hear'>You hear the chatter of a floppy drive.</span>")
+		var/obj/item/disk/design_disk/D = O
+		if(do_after(user, 10, target = src))
+			for(var/B in D.blueprints)
+				if(B)
+					stored_research.add_design(B)
+		return TRUE
+	else
+		to_chat(user, "<span class='warning'>You cannot put this in [src.name]!</span>")
+
+/////////////////////////////////////////////////////////////////////////////
 
 /obj/machinery/limbgrower/Topic(href, href_list)
 	if(..())
@@ -98,10 +102,10 @@
 				return
 
 
-			var/synth_cost = being_built.reagents_list[/datum/reagent/medicine/c2/synthflesh]*prod_coeff
+			var/synth_cost = being_built.reagents_list[/datum/reagent/fuel/oil]*prod_coeff
 			var/power = max(2000, synth_cost/5)
 
-			if(reagents.has_reagent(/datum/reagent/medicine/c2/synthflesh, being_built.reagents_list[/datum/reagent/medicine/c2/synthflesh]*prod_coeff))
+			if(reagents.has_reagent(/datum/reagent/fuel/oil, being_built.reagents_list[/datum/reagent/fuel/oil]*prod_coeff))
 				busy = TRUE
 				use_power(power)
 				flick("limbgrower_fill",src)
@@ -109,14 +113,14 @@
 				addtimer(CALLBACK(src, PROC_REF(build_item)),32*prod_coeff)
 
 	else
-		to_chat(usr, "<span class=\"alert\">The limb grower is busy. Please wait for completion of previous operation.</span>")
+		to_chat(usr, "<span class=\"alert\">The machine is busy. Please wait for completion of previous operation.</span>")
 
 	updateUsrDialog()
 	return
 
 /obj/machinery/limbgrower/proc/build_item()
-	if(reagents.has_reagent(/datum/reagent/medicine/c2/synthflesh, being_built.reagents_list[/datum/reagent/medicine/c2/synthflesh]*prod_coeff))	//sanity check, if this happens we are in big trouble
-		reagents.remove_reagent(/datum/reagent/medicine/c2/synthflesh,being_built.reagents_list[/datum/reagent/medicine/c2/synthflesh]*prod_coeff)
+	if(reagents.has_reagent(/datum/reagent/fuel/oil, being_built.reagents_list[/datum/reagent/fuel/oil]*prod_coeff))	//sanity check, if this happens we are in big trouble
+		reagents.remove_reagent(/datum/reagent/fuel/oil,being_built.reagents_list[/datum/reagent/fuel/oil]*prod_coeff)
 		var/buildpath = being_built.build_path
 		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spatgheti code, but i need to initilise a limb somehow
 			build_limb(buildpath)
@@ -124,7 +128,7 @@
 			//Just build whatever it is
 			new buildpath(loc)
 	else
-		src.visible_message("<span class='warning'>Something went very wrong, there isn't enough synthflesh anymore!</span>")
+		src.visible_message("<span class='warning'>Something went very wrong, there isn't enough oil anymore!</span>")
 	busy = FALSE
 	flick("limbgrower_unfill",src)
 	icon_state = "limbgrower_idleoff"
@@ -165,10 +169,10 @@
 /obj/machinery/limbgrower/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Storing up to <b>[reagents.maximum_volume]u</b> of synthflesh.<br>Synthflesh consumption at <b>[prod_coeff*100]%</b>.</span>"
+		. += "<span class='notice'>The status display reads: Storing up to <b>[reagents.maximum_volume]u</b> of oil.<br>Oil consumption at <b>[prod_coeff*100]%</b>.</span>"
 
 /obj/machinery/limbgrower/proc/main_win(mob/user)
-	var/dat = "<div class='statusDisplay'><h3>Limb Grower Menu:</h3><br>"
+	var/dat = "<div class='statusDisplay'><h3>Machine Menu:</h3><br>"
 	dat += "<A href='byond://?src=[REF(src)];menu=[LIMBGROWER_CHEMICAL_MENU]'>Chemical Storage</A>"
 	dat += materials_printout()
 	dat += "<table style='width:100%' align='center'><tr>"
@@ -199,7 +203,6 @@
 	dat += "</div>"
 	return dat
 
-
 /obj/machinery/limbgrower/proc/chemical_win(mob/user)
 	var/dat = "<A href='byond://?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Browsing Chemical Storage:</h3><br>"
@@ -217,12 +220,12 @@
 	return dat
 
 /obj/machinery/limbgrower/proc/can_build(datum/design/D)
-	return (reagents.has_reagent(/datum/reagent/medicine/c2/synthflesh, D.reagents_list[/datum/reagent/medicine/c2/synthflesh]*prod_coeff)) //Return whether the machine has enough synthflesh to produce the design
+	return (reagents.has_reagent(/datum/reagent/fuel/oil, D.reagents_list[/datum/reagent/fuel/oil]*prod_coeff)) //Return whether the machine has enough synthflesh to produce the design
 
 /obj/machinery/limbgrower/proc/get_design_cost(datum/design/D)
 	var/dat
-	if(D.reagents_list[/datum/reagent/medicine/c2/synthflesh])
-		dat += "[D.reagents_list[/datum/reagent/medicine/c2/synthflesh] * prod_coeff] SynthFlesh"
+	if(D.reagents_list[/datum/reagent/fuel/oil])
+		dat += "[D.reagents_list[/datum/reagent/fuel/oil] * prod_coeff] Oil"
 	return dat
 
 /obj/machinery/limbgrower/emag_act(mob/user)

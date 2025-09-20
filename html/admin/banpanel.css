@@ -87,6 +87,10 @@
 	background-color: #B22222
 }
 
+.anarch {
+	background-color: #5d534f
+}
+
 .giovanni {
 	background-image: linear-gradient(to right, #009246,white,#CE2B37);
 	color: black
@@ -110,7 +114,8 @@
 }
 
 .citizen {
-	background-color: #ddf3f3
+	background-color: #ddf3f3;
+	color: black
 }
 
 .endron {

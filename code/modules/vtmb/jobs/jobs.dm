@@ -132,6 +132,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id6"
+	access = list(1,2)
 
 /obj/item/card/id/sheriff
 	name = "head security badge"
@@ -145,6 +146,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id4"
+	access = list(1,2)
 
 /obj/item/card/id/camarilla
 	name = "security badge"
@@ -158,6 +160,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id3"
+	access = list(2)
 
 /obj/item/card/id/clerk
 	name = "clerk badge"
@@ -171,6 +174,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id1"
+	access = list(2)
 
 /obj/item/card/id/anarch
 	name = "biker badge"
@@ -197,6 +201,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id2"
+	access = list(3)
 
 /obj/item/card/id/archive
 	name = "scholar badge"
@@ -236,6 +241,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id8"
+	access = list(4)
 
 /obj/item/card/id/graveyard
 	name = "keeper badge"
@@ -249,6 +255,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id8"
+	access = list(5)
 
 /obj/item/card/id/dealer
 	name = "business badge"
@@ -262,6 +269,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id9"
+	access = list(6)
 
 /obj/item/card/id/supplytech
 	name = "technician badge"
@@ -275,6 +283,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id10"
+	access = list(6)
 
 /obj/item/card/id/hunter
 	name = "cross"
@@ -301,6 +310,7 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id12"
+	access = list(2)
 
 /obj/item/card/id/police
 	name = "police officer badge"
@@ -314,18 +324,22 @@
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id13"
+	access = list(8)
 
 /obj/item/card/id/police/sergeant
 	name = "police sergeant badge"
 	desc = "Sponsored by the Government. This one seems slightly more worn down than all the others."
+	access = list(7,8)
 
 /obj/item/card/id/police/chief
 	name = "police chief badge"
 	desc = "Sponsored by the Government. This one has a chrome plated finish."
+	access = list(7,8)
 
 /obj/item/card/id/police/fbi
 	name = "fbi special agent badge"
 	desc = "Sponsored by the Government. This one has all the bells and whistles."
+	access = list(8)
 
 /obj/item/card/id/voivode
 	name = "ancient badge"
@@ -402,30 +416,36 @@
 /obj/item/card/id/garou/spiral/lead
 	name = "Endron Branch Leader card"
 	desc = "How bad can you possibly be?"
+	access = list(9,10)
 
 /obj/item/card/id/garou/spiral/executive
 	name = "Endron Executive card"
 	desc = "All the customers are buying."
+	access = list(9,10)
 
 /obj/item/card/id/garou/spiral/affairs
 	name = "Endron Internal Affairs card"
 	desc = "And the Lawyers are denying."
+	access = list(9,10)
 
 /obj/item/card/id/garou/spiral/secchief
 	name = "Endron Chief of Security badge"
 	icon_state = "id3"
 	worn_icon_state = "id3"
 	desc = "Its not illegal if nobody finds out about it. Now if only Endron would pay for a single tank for you."
+	access = list(9,10)
 
 /obj/item/card/id/garou/spiral/sec
 	name = "Endron Security Agent badge"
 	icon_state = "id3"
 	worn_icon_state = "id3"
 	desc = "Corporate Security, a step above a mall cop. Better paid than a real cop."
+	access = list(10)
 
 /obj/item/card/id/garou/spiral/employee
 	name = "Endron Employee card"
 	desc = "Congratulations, Wagie."
+	access = list(10)
 
 /datum/antagonist/ambitious
 	name = "Ambitious"

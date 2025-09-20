@@ -200,3 +200,5 @@ config/dbconfig.txt
 
 # User environment setup for building with specific versions of BYOND
 /tools/build/dm_versions.json
+config/config.txt
+config/dbconfig.txt
