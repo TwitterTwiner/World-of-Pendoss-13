@@ -115,6 +115,7 @@
 /datum/discipline_power/temporis/patience_of_the_norns/activate()
 	. = ..()
 	owner.temporis_visual = TRUE
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/temporis4)
 	var/matrix/initial_matrix = matrix(owner.transform)
 	var/matrix/secondary_matrix = matrix(owner.transform)
 	var/matrix/tertiary_matrix = matrix(owner.transform)
@@ -131,6 +132,7 @@
 /datum/discipline_power/temporis/patience_of_the_norns/deactivate()
 	. = ..()
 	owner.temporis_visual = FALSE
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/temporis4)
 	style.remove(owner)
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
@@ -157,6 +159,9 @@
 	. = ..()
 	spawn(0.5 SECONDS)
 		qdel(src)
+
+/datum/movespeed_modifier/temporis4
+	multiplicative_slowdown = -1.5
 
 //CLOTHO'S GIFT
 /datum/discipline_power/temporis/clothos_gift
