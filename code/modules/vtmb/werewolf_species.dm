@@ -4,7 +4,7 @@
 	default_color = "FFFFFF"
 	toxic_food = PINEAPPLE
 	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS, HAS_FLESH, HAS_BONE)
-	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_VIRUSIMMUNE, TRAIT_PERFECT_ATTACKER)
+	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_VIRUSIMMUNE, TRAIT_PERFECT_ATTACKER, TRAIT_NIGHT_VISION)
 	use_skintones = TRUE
 	limbs_id = "human"
 	wings_icon = "Dragon"
@@ -35,8 +35,9 @@
 	GH.Grant(C)
 	var/datum/action/gift/howling/howl = new()
 	howl.Grant(C)
-	var/datum/action/gift/guise_of_the_hound/guise = new()
-	guise.Grant(C)
+	if(!HAS_TRAIT(src, TRAIT_CORAX) || !iscorax(src))
+		var/datum/action/gift/guise_of_the_hound/guise = new()
+		guise.Grant(C)
 	C.grant_language(/datum/language/primal_tongue, TRUE, FALSE)
 	C.grant_language(/datum/language/garou_tongue, TRUE, TRUE)
 	C.transformator = new(C)
@@ -54,7 +55,8 @@
 	RegisterSignal(corvid, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_garou_bitten))
 	RegisterSignal(corax_crinos, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_garou_bitten))
 
-	ADD_TRAIT(src, TRAIT_NIGHT_VISION, SPECIES_TRAIT)
+	// Four more signals at transformation.dm
+	RegisterSignal(C, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), C)
 
 /datum/species/garou/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
@@ -78,6 +80,8 @@
 	UnregisterSignal(crinos, COMSIG_MOB_VAMPIRE_SUCKED)
 	UnregisterSignal(corvid, COMSIG_MOB_VAMPIRE_SUCKED)
 	UnregisterSignal(corax_crinos, COMSIG_MOB_VAMPIRE_SUCKED)
+
+	UnregisterSignal(C, COMSIG_LIVING_REVIVE)
 
 	REMOVE_TRAIT(src, TRAIT_NIGHT_VISION, SPECIES_TRAIT)
 

@@ -23,6 +23,7 @@
 
 	violates_masquerade = TRUE
 
+	toggled = TRUE
 	cancelable = TRUE
 	duration_length = 20 SECONDS
 	cooldown_length = 20 SECONDS
@@ -55,6 +56,7 @@
 
 	violates_masquerade = TRUE
 
+	toggled = TRUE
 	cancelable = TRUE
 	duration_length = 20 SECONDS
 	cooldown_length = 20 SECONDS

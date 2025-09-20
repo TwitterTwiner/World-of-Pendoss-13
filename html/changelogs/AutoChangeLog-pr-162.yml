@@ -1,0 +1,10 @@
+author: "Nokia2Student"
+delete-after: True
+changes:
+  - bugfix: "Фикс трансформации гару"
+  - qol: "Protean 1, 2 получили флаг toggled"
+  - qol: "Obteneration 3, 4 точки получили флаг toggled"
+  - balance: "Изменена длительность и перезарядка некоторых точек Obtenebration в большую сторону"
+  - balance: "Добавлен найт вижн волкам"
+  - bugfix: "У Corax убран Guise of the Hound"
+  - bugfix: "Фикс трейта Dancer"
