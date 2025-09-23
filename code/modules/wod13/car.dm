@@ -495,11 +495,39 @@ SUBSYSTEM_DEF(carpool)
 	name = "Toggle Engine"
 	desc = "Toggle engine on/off."
 	button_icon_state = "keys"
+	var/hack = 1    /// {T.WINER} - if driver didn't have any type of keys - he will be hotwire car
 
 /datum/action/carr/engine/Trigger()
 	if(istype(owner.loc, /obj/vampire_car))
 		var/obj/vampire_car/V = owner.loc
+		var/obj/item/vamp/keys/found_key = locate(/obj/item/vamp/keys) in owner.contents
+
+		if(found_key)
+			for(var/obj/item/vamp/keys/found_keys in owner.contents)
+				for(var/i in found_keys.accesslocks)
+					if(i == V.access)
+						hack = 0 /// if have key access - no hotwire, just on
+						break
+
 		if(!V.on)
+			if(hack)
+				var/mob/living/carbon/human/H = owner
+				to_chat(owner, "<span class='warning'>You attempt to hotwire [V]...</span>")
+				if(!do_after(owner, 5 SECONDS))
+					return
+				var/roll = secret_vampireroll(get_a_wits(owner)+get_a_security(owner), 6, owner)
+				if(roll <= -1)
+					to_chat(owner, "<span class='warning'>Wires exploude!!</span>")
+					H.apply_damage(10, BURN, BODY_ZONE_CHEST)
+					playsound(owner, 'code/modules/wod13/sounds/fix.ogg', 50, TRUE)
+					return
+				else if(roll >= 3)
+					to_chat(owner, "<span class='notice'>You managed to hotwire [V]'s engine.</span>")
+					V.on = TRUE
+					return
+				else
+					to_chat(owner, "<span class='warning'>You failed to hotwire [V]'s engine.</span>")
+					return
 			if(V.health == V.maxhealth)
 				V.on = TRUE
 				playsound(V, 'code/modules/wod13/sounds/start.ogg', 50, TRUE)
@@ -773,6 +801,11 @@ SUBSYSTEM_DEF(carpool)
 
 /obj/vampire_car/track/volkswagen
 	icon_state = "volkswagen"
+	lighticon = "lights3"
+	baggage_limit = 60
+
+/obj/vampire_car/track/volkswagen/buhanka
+	icon_state = "buhanka"
 	lighticon = "lights3"
 	baggage_limit = 60
 
