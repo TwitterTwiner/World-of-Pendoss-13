@@ -219,7 +219,9 @@
 	var/tone = H.skin_tone
 	if(tone == "albino")
 		return "Albino"
-	if(tone == "caucasian1" || tone == "caucasian2" || tone == "caucasian3" || tone == "asian1" || tone == "asian2")
+	if(tone == "caucasian1" || tone == "caucasian2" || tone == "caucasian3")
+		return "Caucasian"
+	if(tone == "asian1" || tone == "asian2")
 		return "Asian"
 	if(tone == "african1" || tone == "african2")
 		return "Negroid"
