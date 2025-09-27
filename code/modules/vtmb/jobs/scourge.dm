@@ -179,5 +179,3 @@
 /obj/effect/landmark/start/milleniumsecurity
 	name = "Millenium security"
 	icon_state = "Camarilla Agent"
-
-	
