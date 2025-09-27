@@ -37326,10 +37326,7 @@
 "hPV" = (
 /obj/effect/decal/pallet,
 /obj/structure/closet/crate/large,
-/obj/item/clothing/suit/armor/bone{
-	masquerade_violating = 1;
-	armor = list("bashing" = 4, "lethal" = 4, "aggravated" = 2, "melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 35, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "wound" = 10)
-	},
+/obj/item/clothing/suit/armor/bone
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "hPW" = (
