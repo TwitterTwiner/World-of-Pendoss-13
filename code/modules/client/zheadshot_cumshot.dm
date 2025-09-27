@@ -30,7 +30,7 @@
 
 
 /datum/preferences/proc/get_headshot_link(mob/user, old_link)
-	var/usr_input = input(user, "Вставьте ссылку на изображение: (Для дискорд ссылок попытайтесь в конце, после '&' вставить тип файла. Для примера '&.jpg/.png/.jpeg')", "Headshot Image", old_link) as text|null
+	var/usr_input = input(user, "Вставьте ссылку на изображение: (Для дискорд ссылок попытайтесь в конце, после \"&\"вставить тип файла. Для примера '&.jpg/.png/.jpeg')", "Headshot Image", old_link) as text|null
 	if(isnull(usr_input))
 		return ACTION_HEADSHOT_LINK_NOOP
 

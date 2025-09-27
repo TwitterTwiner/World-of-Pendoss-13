@@ -41,6 +41,7 @@ GLOBAL_LIST_INIT(citizen_positions, list(
 GLOBAL_LIST_INIT(police_positions, list(
 	"Police Chief",
 	"Police Sergeant",
+	"Police Coroner",
 	"Police Officer"
 
 ))
@@ -86,6 +87,8 @@ GLOBAL_LIST_INIT(tremere_positions, list(
 
 GLOBAL_LIST_INIT(church_positions, list(
 	"Priest",
+	"Reverend",
+	"Abbot"
 ))
 
 GLOBAL_LIST_INIT(gang_positions, list(

@@ -1057,6 +1057,10 @@ VENTORY!
 	grid_width = 8 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
+/obj/item/gun/ballistic/rifle/boltaction
+	grid_width = 7 GRID_BOXES
+	grid_height = 2 GRID_BOXES
+
 /obj/item/gun/ballistic/shotgun/vampire
 	grid_width = 6 GRID_BOXES
 	grid_height = 2 GRID_BOXES
@@ -1120,6 +1124,10 @@ VENTORY!
 /obj/item/melee/vampirearms/sledgehammer
 	grid_width = 7 GRID_BOXES
 	grid_height = 1 GRID_BOXES
+
+/obj/item/shield
+	grid_width = 4 GRID_BOXES
+	grid_height = 6 GRID_BOXES
 
 #undef CHECK_BITFIELD
 #undef STORAGE_NO_EQUIPPED_ACCESS

@@ -772,3 +772,28 @@
 	name = "rifle magazine (5.56mm)"
 	icon_state = "hunt556"
 	max_ammo = 20
+
+/obj/item/gun/ballistic/rifle/boltaction/vampire
+	name = "\improper hunting rifle"
+	desc = "A classic bolt-action hunting rifle. It takes 5.56mm rounds."
+	icon = 'code/modules/wod13/48x32weapons.dmi'
+	icon_state = "huntrifle"
+	inhand_icon_state = "huntrifle"
+	worn_icon_state = "huntrifle"
+	w_class = WEIGHT_CLASS_BULKY
+	mag_type = /obj/item/ammo_box/magazine/internal/vampshotgun
+	bolt_wording = "bolt"
+	bolt_type = BOLT_TYPE_STANDARD
+	fire_sound = 'code/modules/wod13/sounds/rifle.ogg'
+	fire_sound_volume = 90
+	vary_fire_sound = FALSE
+	rack_sound = 'sound/weapons/gun/rifle/bolt_out.ogg'
+	bolt_drop_sound = 'sound/weapons/gun/rifle/bolt_in.ogg'
+	tac_reloads = FALSE
+	fire_delay = 3
+	burst_size = 1
+	actions_types = list()
+	masquerade_violating = TRUE
+	cost = 250
+	jamming_chance = 10
+

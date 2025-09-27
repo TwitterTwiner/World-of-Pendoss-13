@@ -2,108 +2,152 @@
 //////////Limb Grower Designs ///////
 /////////////////////////////////////
 
-/datum/design/leftarm
-	name = "Left Arm"
-	id = "leftarm"
+/datum/design/beer
+	name = "Beer"
+	id = "beer"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 25)
-	build_path = /obj/item/bodypart/l_arm
-	category = list("initial","human","lizard","moth","plasmaman","ethereal")
+	reagents_list = list(/datum/reagent/fuel/oil = 25)
+	build_path = /obj/item/reagent_containers/food/drinks/beer/vampire/blue_stripe
+	category = list("initial", "King Breweries and Distilleries")
 
-/datum/design/rightarm
-	name = "Right Arm"
-	id = "rightarm"
+/datum/design/colabottle
+	name = "Cola bottle"
+	id = "colabottle"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 25)
-	build_path = /obj/item/bodypart/r_arm
-	category = list("initial","human","lizard","moth","plasmaman","ethereal")
+	reagents_list = list(/datum/reagent/fuel/oil = 25)
+	build_path = /obj/item/reagent_containers/food/drinks/bottle/vampirecola/blue
+	category = list("initial", "King Breweries and Distilleries")
 
-/datum/design/leftleg
-	name = "Left Leg"
-	id = "leftleg"
+/datum/design/colacan
+	name = "Cola can"
+	id = "colacan"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 25)
-	build_path = /obj/item/bodypart/l_leg
-	category = list("initial","human","lizard","moth","plasmaman","ethereal")
+	reagents_list = list(/datum/reagent/fuel/oil = 15)
+	build_path = /obj/item/reagent_containers/food/drinks/soda_cans/vampirecola/blue
+	category = list("initial", "King Breweries and Distilleries")
 
-/datum/design/rightleg
-	name = "Right Leg"
-	id = "rightleg"
+/datum/design/bluedonut
+	name = "Donut"
+	id = "bluedonut"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 25)
-	build_path = /obj/item/bodypart/r_leg
-	category = list("initial","human","lizard","moth","plasmaman","ethereal")
+	reagents_list = list(/datum/reagent/fuel/oil = 10)
+	build_path = /obj/item/food/donut/jelly/slimejelly
+	category = list("initial", "King Breweries and Distilleries")
 
-//Non-limb limb designs
-
-/datum/design/heart
-	name = "Heart"
-	id = "heart"
+/datum/design/bluecigs
+	name = "Carp Classic cigarettes"
+	id = "bluecigs"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 30)
-	build_path = /obj/item/organ/heart
-	category = list("other","initial")
+	reagents_list = list(/datum/reagent/fuel/oil = 10)
+	build_path = /obj/item/storage/fancy/cigarettes/cigpack_carp
+	category = list("initial", "Circinus Brands")
 
-/datum/design/lungs
-	name = "Lungs"
-	id = "lungs"
+/datum/design/slimetoy
+	name = "Slime toy"
+	id = "slimetoy"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 20)
-	build_path = /obj/item/organ/lungs
-	category = list("other","initial")
+	reagents_list = list(/datum/reagent/fuel/oil = 20)
+	build_path = /obj/item/toy/plush/slimeplushie
+	category = list("initial", "Avalon Incorporated")
 
-/datum/design/liver
-	name = "Liver"
-	id = "liver"
+/datum/design/carptoy
+	name = "Carp toy"
+	id = "carptoy"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 20)
-	build_path = /obj/item/organ/liver
-	category = list("other","initial")
+	reagents_list = list(/datum/reagent/fuel/oil = 20)
+	build_path = /obj/item/toy/plush/carpplushie
+	category = list("initial", "Avalon Incorporated")
 
-/datum/design/stomach
-	name = "Stomach"
-	id = "stomach"
+/datum/design/supplements
+	name = "Supplements pills"
+	id = "supplements"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 15)
-	build_path = /obj/item/organ/stomach
-	category = list("other","initial")
+	reagents_list = list(/datum/reagent/fuel/oil = 50)
+	build_path = /obj/item/storage/pill_bottle/probital
+	category = list("initial", "Magadon Incorporated")
 
-/datum/design/appendix
-	name = "Appendix"
-	id = "appendix"
+/datum/design/glock21
+	name = "Glock21"
+	id = "glock21"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 5) //why would you need this
-	build_path = /obj/item/organ/appendix
-	category = list("other","initial")
+	reagents_list = list(/datum/reagent/fuel/oil = 100)
+	build_path = /obj/item/gun/ballistic/automatic/vampire/glock21
+	category = list("initial", "Herculean Firearms Incorporated")
 
-/datum/design/eyes
-	name = "Eyes"
-	id = "eyes"
+/datum/design/glockmagazine
+	name = "Glock21 magazine"
+	id = "glockmagazine"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 10)
-	build_path = /obj/item/organ/eyes
-	category = list("other","initial")
+	reagents_list = list(/datum/reagent/fuel/oil = 50)
+	build_path = /obj/item/ammo_box/magazine/glock45acp
+	category = list("initial", "Herculean Firearms Incorporated")
 
-/datum/design/ears
-	name = "Ears"
-	id = "ears"
+/datum/design/c45acp
+	name = "Glock21 ammo"
+	id = "c45acp"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 10)
-	build_path = /obj/item/organ/ears
-	category = list("other","initial")
+	reagents_list = list(/datum/reagent/fuel/oil = 100)
+	build_path = /obj/item/ammo_box/vampire/c45acp
+	category = list("initial", "Herculean Firearms Incorporated")
 
-/datum/design/tongue
-	name = "Tongue"
-	id = "tongue"
+/datum/design/slimemeat
+	name = "Meat"
+	id = "slimemeat"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 10)
-	build_path = /obj/item/organ/tongue
-	category = list("other","initial")
+	reagents_list = list(/datum/reagent/fuel/oil = 10)
+	build_path = /obj/item/food/meat/slab/human/mutant/slime
+	category = list("initial", "Young and Smith Incorporated")
 
-/datum/design/armblade
-	name = "Arm Blade"
-	id = "armblade"
+/datum/design/slimecake
+	name = "Cake"
+	id = "slimecake"
 	build_type = LIMBGROWER
-	reagents_list = list(/datum/reagent/medicine/c2/synthflesh = 75)
-	build_path = /obj/item/melee/synthetic_arm_blade
-	category = list("other","emagged")
+	reagents_list = list(/datum/reagent/fuel/oil = 50)
+	build_path = /obj/item/food/cake/slimecake
+	category = list("initial", "Young and Smith Incorporated")
+
+/datum/design/blumpkin
+	name = "Blumpkin"
+	id = "blumpkin"
+	build_type = LIMBGROWER
+	reagents_list = list(/datum/reagent/fuel/oil = 20)
+	build_path = /obj/item/food/grown/blumpkin
+	category = list("initial", "Young and Smith Incorporated")
+
+/////////////////////////////////////////////////////////////////////////////
+
+/obj/item/disk/design_disk/contract
+	name = "Сontract"
+	var/contract = list()
+
+/obj/item/disk/design_disk/contract/Initialize(mapload)
+	. = ..()
+	for(var/design in contract)
+		var/datum/design/new_design = design
+		blueprints += new new_design
+
+/obj/item/disk/design_disk/contract/breweriescontract
+	name = "King Breweries and Distilleries contract"
+	contract = list(/datum/design/beer, /datum/design/colabottle, /datum/design/colacan, /datum/design/bluedonut)
+
+/obj/item/disk/design_disk/contract/circinuscontract
+	name = "Circinus Brands contract"
+	contract = list(/datum/design/bluecigs)
+
+/obj/item/disk/design_disk/contract/avaloncontract
+	name = "Avalon Incorporated contract"
+	contract = list(/datum/design/carptoy, /datum/design/slimetoy)
+
+/obj/item/disk/design_disk/contract/magadoncontract
+	name = "Magadon Incorporated contract"
+	contract = list(/datum/design/supplements)
+
+/obj/item/disk/design_disk/contract/herculeancontract
+	name = "Herculean Firearms Incorporated contract"
+	contract = list(/datum/design/glock21, /datum/design/glockmagazine, /datum/design/c45acp)
+
+/obj/item/disk/design_disk/contract/youngcontract
+	name = "Young and Smith Incorporated contract"
+	blueprints = list(/datum/design/slimemeat, /datum/design/slimecake, /obj/item/food/grown/blumpkin)
+
+

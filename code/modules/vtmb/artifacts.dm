@@ -305,7 +305,7 @@
 							playsound(get_turf(H), 'code/modules/wod13/sounds/CURSE.ogg', 70, TRUE)
 							to_chat(H, "<span class='warning'>Артефакт рассыпался в прах, ты чувствуешь некое беспокойство. Твой разум был не готов...</span>")
 							src.Destroy()
-							spawn( 10 SECONDS)
+							spawn(10 SECONDS)
 								switch(rand(1,4))
 									if(1)
 										arm.force_wound_upwards(/datum/wound/blunt/critical)

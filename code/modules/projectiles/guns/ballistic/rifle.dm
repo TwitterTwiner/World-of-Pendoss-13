@@ -21,13 +21,15 @@
 	. = ..()
 	. += "[icon_state]_bolt[bolt_locked ? "_locked" : ""]"
 
-/obj/item/gun/ballistic/rifle/rack(mob/user = null)
-	if (bolt_locked == FALSE)
+/obj/item/gun/ballistic/automatic/vampire/rifle/rack(mob/user = null)
+	if(bolt_locked == FALSE)
 		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 		process_chamber(FALSE, FALSE, FALSE)
 		bolt_locked = TRUE
 		update_icon()
+		if(get_a_firearms(user) > 3)
+			drop_bolt(user)
 		return
 	drop_bolt(user)
 
@@ -94,6 +96,8 @@
 		if(chambered.BB)
 			if(prob(jamming_chance))
 				jammed = TRUE
+			if(get_a_firearms(user) > 3)
+				jamming_increment /= 2
 			jamming_chance  += jamming_increment
 			jamming_chance = clamp (jamming_chance, 0, 100)
 	return ..()

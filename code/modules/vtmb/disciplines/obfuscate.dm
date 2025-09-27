@@ -338,7 +338,7 @@
 						continue
 				if(!gender_bender)
 					continue
-					
+
 	shapeshift()
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/choose_impersonating()
@@ -353,49 +353,36 @@
 	var/mob/living/carbon/human/victim = input(owner, "Who do you wish to impersonate?", name) as null|mob in potential_victims
 	if(!victim)
 		return
-	switch(roll)
-		if(-INFINITY to -1)
+	for(var/i=0, i<roll, i++)
+		if(roll <=  -1)
 			proval = 1
-			return
-		if(1)
-			impersonating_hairstyle = victim.hairstyle
-			impersonating_name = victim.real_name
-			impersonating_facialhair = victim.facial_hairstyle
-			impersonating_age = victim.age
-			impersonating_dna = new
-			owner.dna.copy_dna(impersonating_dna)
+			break
+		if(roll == 0)
+			break
+		switch(i)
+			if(1)
+				impersonating_hairstyle = victim.hairstyle
+				impersonating_name = victim.real_name
+				impersonating_facialhair = victim.facial_hairstyle
+				impersonating_age = victim.age
+				impersonating_dna = new
+				owner.dna.copy_dna(impersonating_dna)
+				impersonating_headshot = victim.headshot_link
 
-		if(2 to 3)
-			impersonating_dna = new
-			owner.dna.copy_dna(impersonating_dna)
-			impersonating_hairstyle = victim.hairstyle
-			impersonating_name = victim.real_name
-			impersonating_facialhair = victim.facial_hairstyle
-			impersonating_haircolor = victim.hair_color
-			impersonating_facialhaircolor = victim.facial_hair_color
-			impersonating_skintone = victim.skin_tone
-			impersonating_headshot = victim.headshot_link
-			if (victim.clane)
-				impersonating_alt_sprite = victim.clane.alt_sprite
-				impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
 
-		if(4 to INFINITY)
-			impersonating_dna = new
-			victim.dna.copy_dna(impersonating_dna)
-			impersonating_hairstyle = victim.hairstyle
-			impersonating_name = victim.real_name
-			impersonating_facialhair = victim.facial_hairstyle
-			impersonating_haircolor = victim.hair_color
-			impersonating_facialhaircolor = victim.facial_hair_color
-			impersonating_skintone = victim.skin_tone
-			impersonating_eyecolor = victim.eye_color
-			impresonating_phonevoicetag = victim.phonevoicetag
-			impersonating_body_mod = victim.base_body_mod
-			impersonating_gender = victim.gender
-			impersonating_headshot = victim.headshot_link
-			if (victim.clane)
-				impersonating_alt_sprite = victim.clane.alt_sprite
-				impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
+			if(2 to 3)
+				impersonating_haircolor = victim.hair_color
+				impersonating_facialhaircolor = victim.facial_hair_color
+				impersonating_skintone = victim.skin_tone
+				if (victim.clane)
+					impersonating_alt_sprite = victim.clane.alt_sprite
+					impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
+
+			if(4 to INFINITY)
+				impersonating_eyecolor = victim.eye_color
+				impresonating_phonevoicetag = victim.phonevoicetag
+				impersonating_body_mod = victim.base_body_mod
+				impersonating_gender = victim.gender
 
 	shapeshift()
 
@@ -486,6 +473,8 @@
 		owner.clane?.alt_sprite_greyscale = impersonating_alt_sprite_greyscale
 		owner.gender = impersonating_gender
 		owner.age = impersonating_age
+		if(owner.headshot_link == impersonating_headshot)
+			impersonating_headshot = null
 		owner.headshot_link = impersonating_headshot
 		is_shapeshifted = TRUE
 		owner.switch_masquerade(owner)

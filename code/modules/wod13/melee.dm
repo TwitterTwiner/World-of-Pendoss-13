@@ -717,6 +717,7 @@
 /obj/item/shield/door
 	name = "\improper door"
 	desc = "It opens and closes."
+	icon = 'code/modules/wod13/weapons.dmi'
 	icon_state = "door"
 	lefthand_file = 'code/modules/wod13/righthand.dmi'
 	righthand_file = 'code/modules/wod13/lefthand.dmi'
