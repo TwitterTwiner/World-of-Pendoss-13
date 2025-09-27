@@ -37326,7 +37326,7 @@
 "hPV" = (
 /obj/effect/decal/pallet,
 /obj/structure/closet/crate/large,
-/obj/item/clothing/suit/armor/bone
+/obj/item/clothing/suit/armor/bone,
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "hPW" = (
