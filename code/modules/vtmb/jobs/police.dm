@@ -42,7 +42,7 @@
 
 /datum/outfit/job/police_officer/post_equip(mob/living/carbon/human/H)
 	..()
-	var/datum/martial_art/MA = new /datum/martial/police_jiu
+	var/datum/martial_art/MA = new /datum/martial_art/police_jiu
 	H.ignores_warrant = TRUE
 	MA.teach(H)
 
@@ -144,7 +144,7 @@ obj/effect/landmark/start/police_coroner
 
 /datum/outfit/job/police_sergeant/post_equip(mob/living/carbon/human/H)
 	..()
-	var/datum/martial_art/MA = new /datum/martial/police_jiu
+	var/datum/martial_art/MA = new /datum/martial_art/police_jiu
 	H.ignores_warrant = TRUE
 	MA.teach(H)
 
@@ -195,7 +195,7 @@ obj/effect/landmark/start/police_sergeant
 
 /datum/outfit/job/police_chief/post_equip(mob/living/carbon/human/H)
 	..()
-	var/datum/martial_art/MA = new /datum/martial/police_jiu
+	var/datum/martial_art/MA = new /datum/martial_art/police_jiu
 	H.ignores_warrant = TRUE
 	MA.teach(H)
 
