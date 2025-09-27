@@ -152,3 +152,5 @@
 /obj/effect/landmark/start/abbot
 	name = "Abbot"
 	icon_state = "Prince"
+
+	
