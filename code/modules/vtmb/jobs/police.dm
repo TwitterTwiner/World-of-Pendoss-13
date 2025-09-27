@@ -46,7 +46,7 @@
 	H.ignores_warrant = TRUE
 	MA.teach(H)
 
-obj/effect/landmark/start/police_officer
+/obj/effect/landmark/start/police_officer
 	name = "Police Officer"
 	icon_state = "Camarilla Agent"
 
@@ -96,7 +96,7 @@ obj/effect/landmark/start/police_officer
 	..()
 	H.ignores_warrant = TRUE
 
-obj/effect/landmark/start/police_coroner
+/obj/effect/landmark/start/police_coroner
 	name = "Police Coroner"
 	icon_state = "Camarilla Agent"
 
@@ -148,7 +148,7 @@ obj/effect/landmark/start/police_coroner
 	H.ignores_warrant = TRUE
 	MA.teach(H)
 
-obj/effect/landmark/start/police_sergeant
+/obj/effect/landmark/start/police_sergeant
 	name = "Police Sergeant"
 	icon_state = "Camarilla Agent"
 
@@ -199,6 +199,6 @@ obj/effect/landmark/start/police_sergeant
 	H.ignores_warrant = TRUE
 	MA.teach(H)
 
-obj/effect/landmark/start/police_chief
+/obj/effect/landmark/start/police_chief
 	name = "Police Chief"
 	icon_state = "Camarilla Agent"
