@@ -25702,9 +25702,6 @@
 "cqx" = (
 /obj/effect/decal/pallet,
 /obj/structure/closet/crate/large,
-/obj/item/clothing/suit/hooded/cloak/drake{
-	armor = list("bashing" = 4, "lethal" = 4, "aggravated" = 2, "melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 50, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
-	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "cqE" = (
