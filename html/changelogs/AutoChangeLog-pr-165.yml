@@ -1,0 +1,6 @@
+author: "TwitterTwiner"
+delete-after: True
+changes:
+  - bugfix: "раздражающего сообщения при продаже чего-либо нелегального"
+  - bugfix: "Фикс доступов гару(БСД)"
+  - bugfix: "Фиксы на маапе"
