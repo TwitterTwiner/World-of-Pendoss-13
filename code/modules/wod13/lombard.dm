@@ -29,10 +29,6 @@
 				else
 					H.AdjustHumanity(-1, 2)
 				//
-				var/enlight = FALSE
-				if(H.clane)
-					if(H.clane.enlightenment)
-						enlight = TRUE
 			else if(illegal)
 				var/mob/living/carbon/human/H = user
 				if(H.MyPath)
