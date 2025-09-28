@@ -29,12 +29,6 @@
 				else
 					H.AdjustHumanity(-1, 2)
 				//
-				var/enlight = FALSE
-				if(H.clane)
-					if(H.clane.enlightenment)
-						enlight = TRUE
-				if(!enlight)
-					to_chat(user, "<span class='userdanger'><b>Selling organs is a depraved act! If I keep doing this I will become a wight.</b></span>")
 			else if(illegal)
 				var/mob/living/carbon/human/H = user
 				if(H.MyPath)
