@@ -66,12 +66,15 @@ SUBSYSTEM_DEF(job)
 
 	return TRUE
 
-/datum/controller/subsystem/job/proc/FreeRole(rank, mob/living/carbon/human/mob)
+/datum/controller/subsystem/job/proc/FreeRole(rank, mob/living/carbon/mob)
 	if(!rank)
 		return
 	var/datum/job/job = GetJob(rank)
 	if(!job)
 		return FALSE
+	if(isgarou(mob))
+		if(job.species_slots["Werewolf"] >= 0)  /// Временный костыль. Возможно стоит просто убрать dna. 
+		job.species_slots[mob.dna.species.name]++
 	if (job.species_slots[mob.dna.species.name] >= 0)
 		job.species_slots[mob.dna.species.name]++
 	job.current_positions = max(0, job.current_positions - 1)

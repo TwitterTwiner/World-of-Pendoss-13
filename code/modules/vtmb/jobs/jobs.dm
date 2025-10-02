@@ -331,6 +331,11 @@
 	desc = "Sponsored by the Government. This one seems slightly more worn down than all the others."
 	access = list(7,8)
 
+/obj/item/card/id/police/coroner
+	name = "police coroner badge"
+	icon_state = "id2"
+	access = list(7,8)
+
 /obj/item/card/id/police/chief
 	name = "police chief badge"
 	desc = "Sponsored by the Government. This one has a chrome plated finish."

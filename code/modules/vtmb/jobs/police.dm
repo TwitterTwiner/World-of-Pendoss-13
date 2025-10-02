@@ -87,10 +87,10 @@
 	suit = /obj/item/clothing/suit/vampire/labcoat
 	belt = /obj/item/defibrillator/compact/loaded
 	gloves = /obj/item/clothing/gloves/vampire/latex
-	id = /obj/item/card/id/police/sergeant
+	id = /obj/item/card/id/police/coroner
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/vamp/keys/police
-	backpack_contents = list(/obj/item/screwdriver=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/glock9mm=1, /obj/item/cockclock=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/firstaid=1)
+	backpack_contents = list(/obj/item/screwdriver=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/glock9mm=1, /obj/item/cockclock=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/firstaid/regular=1)
 
 /datum/outfit/job/police_coroner/post_equip(mob/living/carbon/human/H)
 	..()
