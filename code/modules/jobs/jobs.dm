@@ -13,7 +13,8 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Prince",
 	"Seneschal",
 	"Sheriff",
-	"Hound"))
+	"Hound",
+	"Millenium security"))
 
 GLOBAL_LIST_INIT(camarilla_council_positions, list(
 	"Primogen Malkavian",
