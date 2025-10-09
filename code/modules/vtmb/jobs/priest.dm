@@ -18,7 +18,7 @@
 	exp_type_department = EXP_TYPE_CHURCH
 
 	allowed_species = list("Vampire", "Ghoul", "Human")
-	max_generation = 10
+	max_generation = 11
 	allowed_bloodlines = list("Cappadocian", "Toreador", "Lasombra", "Salubri", "Salubri Warrior")
 
 	duty = "Pray salvation of mortal souls, obey the Abbot and seek wisdom of the Reverend."
@@ -41,11 +41,6 @@
 	backpack = /obj/item/storage/backpack
 	satchel = /obj/item/storage/backpack/satchel
 	duffelbag = /obj/item/storage/backpack/duffelbag
-
-/datum/outfit/job/priest/pre_equip(mob/living/carbon/human/H)
-	..()
-	if(H.gender == FEMALE)
-		suit = /obj/item/clothing/suit/vampire/nun
 
 /obj/effect/landmark/start/priest
 	name = "Priest"
@@ -73,7 +68,6 @@
 
 	allowed_species = list("Vampire", "Human")
 	allowed_bloodlines = list("Cappadocian", "Toreador", "Lasombra", "Salubri", "Salubri Warrior")
-	minimal_generation = 9
 
 	duty = "Be a symbol of piety and righteousness for those faithful."
 	minimal_masquerade = 5
