@@ -42,6 +42,11 @@
 	satchel = /obj/item/storage/backpack/satchel
 	duffelbag = /obj/item/storage/backpack/duffelbag
 
+/datum/outfit/job/priest/pre_equip(mob/living/carbon/human/H)
+	..()
+	if(H.gender == FEMALE)
+		suit = /obj/item/clothing/suit/vampire/nun
+
 /obj/effect/landmark/start/priest
 	name = "Priest"
 	icon_state = "Camarilla Agent"
