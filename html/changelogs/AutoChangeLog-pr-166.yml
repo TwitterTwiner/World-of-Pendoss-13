@@ -1,0 +1,5 @@
+author: "TwitterTwiner"
+delete-after: True
+changes:
+  - bugfix: "Бейджик коронера"
+  - bugfix: "Карта"
