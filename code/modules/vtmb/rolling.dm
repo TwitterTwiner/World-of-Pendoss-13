@@ -9,42 +9,7 @@ SUBSYSTEM_DEF(woddices)
 /datum/controller/subsystem/woddices/fire(resumed = FALSE)
 	if(MC_TICK_CHECK)
 		return
-	if(length(GLOB.vampireroll_numbers))
-		var/atom/a = pick(GLOB.vampireroll_numbers)
-		if(a)
-			GLOB.vampireroll_numbers -= a
-			qdel(a)
-	if(length(GLOB.vampireroll_numbers))
-		var/atom/a = pick(GLOB.vampireroll_numbers)
-		if(a)
-			GLOB.vampireroll_numbers -= a
-			qdel(a)
-	if(length(GLOB.vampireroll_numbers))
-		var/atom/a = pick(GLOB.vampireroll_numbers)
-		if(a)
-			GLOB.vampireroll_numbers -= a
-			qdel(a)
-	if(length(GLOB.vampireroll_numbers))
-		var/atom/a = pick(GLOB.vampireroll_numbers)
-		if(a)
-			GLOB.vampireroll_numbers -= a
-			qdel(a)
-	if(length(GLOB.vampireroll_numbers))
-		var/atom/a = pick(GLOB.vampireroll_numbers)
-		if(a)
-			GLOB.vampireroll_numbers -= a
-			qdel(a)
-	if(length(GLOB.vampireroll_numbers))
-		var/atom/a = pick(GLOB.vampireroll_numbers)
-		if(a)
-			GLOB.vampireroll_numbers -= a
-			qdel(a)
-	if(length(GLOB.vampireroll_numbers))
-		var/atom/a = pick(GLOB.vampireroll_numbers)
-		if(a)
-			GLOB.vampireroll_numbers -= a
-			qdel(a)
-	if(length(GLOB.vampireroll_numbers))
+	for(var/i=0, i < length(GLOB.vampireroll_numbers))
 		var/atom/a = pick(GLOB.vampireroll_numbers)
 		if(a)
 			GLOB.vampireroll_numbers -= a

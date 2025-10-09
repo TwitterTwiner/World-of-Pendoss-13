@@ -18,7 +18,7 @@
 	exp_type_department = EXP_TYPE_CHURCH
 
 	allowed_species = list("Vampire", "Ghoul", "Human")
-	max_generation = 10
+	max_generation = 11
 	allowed_bloodlines = list("Cappadocian", "Toreador", "Lasombra", "Salubri", "Salubri Warrior")
 
 	duty = "Pray salvation of mortal souls, obey the Abbot and seek wisdom of the Reverend."
@@ -73,7 +73,6 @@
 
 	allowed_species = list("Vampire", "Human")
 	allowed_bloodlines = list("Cappadocian", "Toreador", "Lasombra", "Salubri", "Salubri Warrior")
-	minimal_generation = 9
 
 	duty = "Be a symbol of piety and righteousness for those faithful."
 	minimal_masquerade = 5
