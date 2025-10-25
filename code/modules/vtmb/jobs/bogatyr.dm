@@ -18,7 +18,7 @@
 	exp_type_department = EXP_TYPE_TZIMISCE
 
 	allowed_species = list("Vampire")
-	allowed_bloodlines = list("Old Clan Tzimisce", "True Brujah", "Banu Haqim", "Followers of Set", "Baali")
+	allowed_bloodlines = list("Old Clan Tzimisce", "True Brujah")
 	minimal_generation = 13	//Uncomment when players get exp enough
 
 	v_duty = "Whether you are a Tal'Mahe'Ra survivor or Voivode's blood you are tasked to defend the Mansion and the sarcophagus at all costs. Only Molochim Baali are tolerated in the Mansion."

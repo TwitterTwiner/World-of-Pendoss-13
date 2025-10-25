@@ -19,13 +19,10 @@
 	allowed_species = list("Ghoul")
 	minimal_generation = 13
 
-	duty = "You are a ghoul servant of the powerful Voivode and his vassal warriors. Obey their commands."
+	duty = "Ты родился в услужении у хозяина поместья: твой отец служил воеводе, как и его отец. Теперь в тебе течет их кровь, а вместе с ней и их обязанности."
 	experience_addition = 0
 	minimal_masquerade = 2
 	known_contacts = list("Prince", "Baron", "Sheriff")
-
-
-
 
 /datum/outfit/job/zadruga
 	name = "zadruga"
