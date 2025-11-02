@@ -21,7 +21,7 @@
 	allowed_bloodlines = list("Old Clan Tzimisce", "True Brujah")
 	minimal_generation = 13	//Uncomment when players get exp enough
 
-	v_duty = "Whether you are a Tal'Mahe'Ra survivor or Voivode's blood you are tasked to defend the Mansion and the sarcophagus at all costs. Only Molochim Baali are tolerated in the Mansion."
+	v_duty = "Whether you are of Voivode-in-Waiting's blood or if you've been honored, you are one of the Kin of the Voivode. Protect your Family, as your Family would protect you."
 	experience_addition = 0
 	minimal_masquerade = 2
 	max_generation = 10
