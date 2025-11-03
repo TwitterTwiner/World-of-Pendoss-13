@@ -327,7 +327,7 @@
 	icon_state = "umbra"
 	blend_mode = BLEND_OVERLAY
 	absolute = TRUE //Status of seperation
-	speed = 0.6
+	speed = 0
 	layer = 3
 
 /atom/movable/screen/parallax_layer/umbra/update_status(mob/M)
@@ -335,6 +335,9 @@
 	if(!posobj)
 		return
 	invisibility = posobj.umbra? 0 : INVISIBILITY_ABSTRACT
+
+/atom/movable/screen/parallax_layer/umbra/update_o()
+	return
 
 /atom/movable/screen/parallax_layer/planet/update_o()
 	return //Shit won't move
