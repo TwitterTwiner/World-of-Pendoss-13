@@ -18,6 +18,10 @@
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
 			return TRUE
+		if(H.job)
+			var/pivo = H.job.get_access()   //// {T.WINER} This useful for some "Hunters" and etc. things
+			if(check_access_list(pivo))
+				return TRUE
 	else if(isalienadult(M))
 		var/mob/living/carbon/george = M
 		//they can only hold things :(

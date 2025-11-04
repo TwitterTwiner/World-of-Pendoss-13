@@ -119,7 +119,10 @@
 		update_icon()
 
 /obj/structure/extinguisher_cabinet/update_icon_state()
-	icon_state = "firehouse"
+	if(opened)
+		icon_state = "firehouse_open"
+	else
+		icon_state = "firehouse"
 
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
