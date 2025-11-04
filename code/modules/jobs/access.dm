@@ -15,11 +15,12 @@
 		return TRUE
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
+		var/datum/job/J = SSjob.GetJob(H.job)
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
 			return TRUE
-		if(H.job)
-			var/pivo = H.job.get_access()   //// {T.WINER} This useful for some "Hunters" and etc. things
+		if(J)
+			var/pivo = J.get_access()   //// {T.WINER} This useful for some "Hunters" and etc. things
 			if(check_access_list(pivo))
 				return TRUE
 	else if(isalienadult(M))
