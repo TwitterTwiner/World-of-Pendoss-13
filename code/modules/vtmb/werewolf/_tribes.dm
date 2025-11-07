@@ -78,3 +78,4 @@
 		/datum/action/gift/suns_guard = 3
 	)
 	tribe_trait = TRAIT_CORAX
+	whitelisted = TRUE
