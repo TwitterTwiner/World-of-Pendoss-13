@@ -4,6 +4,7 @@
 	var/list/tribal_gifts = list()
 	var/tribe_keys
 	var/tribe_trait
+	var/whitelisted = FALSE
 
 /datum/garou_tribe/wendigo
 	name = "Wendigo"
