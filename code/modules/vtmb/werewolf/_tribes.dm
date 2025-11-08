@@ -14,6 +14,7 @@
 		/datum/action/gift/freezing_wind = 2,
 		/datum/action/gift/bloody_feast = 3
 	)
+	whitelisted = TRUE
 
 /datum/garou_tribe/ghostcouncil
 	name = "Ghost Council"
@@ -60,6 +61,7 @@
 		/datum/action/gift/venom_claws = 2,
 		/datum/action/gift/burning_scars = 3
 	)
+	whitelisted = TRUE
 
 /datum/garou_tribe/ronin
 	name = "Ronin"
