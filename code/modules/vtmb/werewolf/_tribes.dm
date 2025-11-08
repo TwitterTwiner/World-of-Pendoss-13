@@ -4,7 +4,7 @@
 	var/list/tribal_gifts = list()
 	var/tribe_keys
 	var/tribe_trait
-	var/whitelisted = FALSE
+	var/whitelisted = TRUE
 
 /datum/garou_tribe/wendigo
 	name = "Wendigo"
@@ -14,7 +14,6 @@
 		/datum/action/gift/freezing_wind = 2,
 		/datum/action/gift/bloody_feast = 3
 	)
-	whitelisted = TRUE
 
 /datum/garou_tribe/ghostcouncil
 	name = "Ghost Council"
@@ -61,7 +60,6 @@
 		/datum/action/gift/venom_claws = 2,
 		/datum/action/gift/burning_scars = 3
 	)
-	whitelisted = TRUE
 
 /datum/garou_tribe/ronin
 	name = "Ronin"
@@ -81,4 +79,3 @@
 		/datum/action/gift/suns_guard = 3
 	)
 	tribe_trait = TRAIT_CORAX
-	whitelisted = TRUE
