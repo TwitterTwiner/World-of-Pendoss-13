@@ -29,6 +29,9 @@
 /obj/structure/stairs/west
 	dir = WEST
 
+/obj/structure/stairs/ship
+	icon = 'code/modules/wod13/ship/stairs.dmi'
+
 /obj/structure/stairs/Initialize(mapload)
 	if(force_open_above)
 		force_open_above()

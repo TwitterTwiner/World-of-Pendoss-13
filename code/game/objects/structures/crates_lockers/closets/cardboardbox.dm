@@ -2,6 +2,7 @@
 /obj/structure/closet/cardboard
 	name = "large cardboard box"
 	desc = "Just a box..."
+	icon = 'icons/obj/closet.dmi'
 	icon_state = "cardboard"
 	mob_storage_capacity = 1
 	resistance_flags = FLAMMABLE

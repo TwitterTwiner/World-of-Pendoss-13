@@ -94,6 +94,9 @@
 		var/obj/item/bodypart/BP = H.get_bodypart(target_zone)
 		if(BP)
 			BP.generic_bleedstacks -= 3
+	var/mob/living/carbon/human/H = user
+	if(target.stat != DEAD)
+		H.MyPath.trigger_morality("surgery")
 	return ..()
 
 
