@@ -127,14 +127,14 @@
 	base_icon_state = "redbrick"
 
 /turf/closed/wall/vampwall/ship
-    name = "ship wall"
-    desc = "A huge chunk of ship metal used to separate rooms."
-    icon_state = "ship-0"
-    base_icon_state = "ship"
+	name = "ship wall"
+	desc = "A huge chunk of ship metal used to separate rooms."
+	icon_state = "ship-0"
+	base_icon_state = "ship"
 
 /turf/closed/wall/vampwall/ship/alt
-    icon_state = "ship_alt-0"
-    base_icon_state = "ship_alt"
+	icon_state = "ship_alt-0"
+	base_icon_state = "ship_alt"
 
 
 /////////////// LOW WALLS ///////////////////
