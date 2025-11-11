@@ -28,6 +28,12 @@ SUBSYSTEM_DEF(whitelists)
 			possible_whitelists += species.id
 		qdel(species)
 
+	for (var/key in subtypesof(/datum/garou_tribe))
+		var/datum/garou_tribe/tribe = new key
+		if(tribe.whitelisted)
+			possible_whitelists += tribe.name
+		qdel(tribe)
+
 	//placeholder until a proper morality system is added
 	//possible_whitelists += "enlightenment"
 

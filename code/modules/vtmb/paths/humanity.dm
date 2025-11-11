@@ -1,17 +1,15 @@
 /datum/morality_path/humanity
 	name = "Humanity"
 	desc = "The Humanity score represents how close a Kindred remains to their human nature, to specific people vital to them, and how easily they slip away from human concerns and instead towards the whims of the Beast."
-	ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0, "massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0, "baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0, "deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0, "corpseitems" = 0, "friendmeet" = 0, "lovermeet" = 0)
-	bad_events = list("attackfirst", "steal", "robbery", "drugdealing", "organtrade", "drying", "kill", "massmurder", "diablerie")
+	ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0, 
+	"massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0, 
+	"baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0, 
+	"deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0, 
+	"corpseitems" = 0, "friendmeet" = 0, "lovermeet" = 0)
+	
 
 /datum/morality_path/humanity/trigger_morality(trig_event)
-	if(bad_events.Find(trig_event))
-		for(var/mob/living/carbon/human/H in viewers(7, owner))
-			if(H != owner && H.mind?.dharma)
-				if("judgement" in H.mind.dharma.tenets)
-					to_chat(H, "<span class='warning'>[owner] is doing something bad, I need to punish them!")
-					H.mind.dharma.judgement |= owner.real_name
-
+	. = ..()
 	var/special_role_name
 	if(owner.mind)
 		if(owner.mind.special_role)
@@ -21,10 +19,11 @@
 	if(is_special_character(owner) && special_role_name != "Ambitious")
 		return
 
+/*
 	if(ready_events[trig_event] == 1)
 		return FALSE
 	ready_events[trig_event] = 1
-
+*/
 	switch(trig_event)
 		//humanity lowers
 		if ("slur")
@@ -73,24 +72,12 @@
 			if(dot > 8)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
 				if(rolls > 2)
-					var/replic = rand(1, 3)
+					var/replic_fail = pick(" — За попытку спасения зачтётся конечно, хоть и не за самую успешную.", " — Да, не получилось, бывает. Ничего страшного, это ведь лучше, чем платная медицина, не так-ли?", " — По крайней мере эта смерть была в добрых, заботливых руках.")
 					ready_events -= "failing"
-					switch(replic)
-						if(1)
-							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — За попытку спасения зачтётся конечно, хоть и не за самую успешную.</span>")
-						if(2)
-							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — Да, не получилось, бывает. Ничего страшного, это ведь лучше, чем платная медицина, не так-ли?</span>")
-						if(3)
-							to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span> <span class='info'>Success</span> <span class='discosay'> — По крайней мере эта смерть была в добрых, заботливых руках.</span>")
+					to_chat(owner, "<font size=12>[icon2html('icons/conviction.png', owner)]</font> <span class='servradio'><b>CONVICTION</b></span></span> <span class='info'>Success</span> <span class='discosay'>[replic_fail]</span>")
 				else
-					var/replic = rand(1, 3)
-					switch(replic)
-						if(1)
-							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — О нет! Клиническая смерть! Доктор, звоните в ритуальные услуги.</span>")
-						if(2)
-							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Какими руками спасали, такими прийдётся и закапывать...</span>")
-						if(3)
-							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'> — Кажется, стоило позвонить более опытному специалисту, а не решать всё самостоятельно...</span>")
+					var/replic_fail_soft = pick(" — О нет! Клиническая смерть! Доктор, звоните в ритуальные услуги.", " — Какими руками спасали, такими прийдётся и закапывать...", " — Кажется, стоило позвонить более опытному специалисту, а не решать всё самостоятельно...")
+					to_chat(owner, "<font size=12>[icon2html('icons/instincts.png', owner)]</font> <span class='boldwarning'><b>INSTINCTS</b></span>'<b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_fail_soft]</span>")
 					adjust(min(0, 8-dot))
 			else
 				ready_events -= "failing"
@@ -296,6 +283,39 @@
 			else
 				ready_events["dance"] = 0
 
+		if("syrgery")
+			if(dot < 8)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic_syrgery = pick(" — Отличная операция! Таких асов, как ты ещё поискать надо!", " — Всё прошло успешно, можно расслабиться.", " — Прекрасная работа, ты настоящий профессионал!",
+					" — Вот это да! Ты просто гений хирургии!", " — Пациент в полном порядке, можно закрывать.")
+					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_syrgery]</span>")
+					adjust(1)
+				else
+					var/replic_syrgery_soft = pick(" — Ну... у него осталось не более, чем несколько дней. Впрочем, это уже не наша проблема.", " — Будь что будет. Свою работу мы уже сделали. Дальше - его заботы.", " — Сомневаюсь, что он долго проживет после этой операции. Однако это не наша забота.") 
+					ready_events["syrgery"] = 0
+					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_syrgery_soft]</span>")
+			else
+				ready_events["syrgery"] = 0
+
+		/*	
+		if("syrgery_fail")
+			if(dot > 6)
+				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
+				if(rolls > 2)
+					var/replic_syrgery = pick(" — Отличная операция! Таких асов, как ты ещё поискать надо!", " — Не повезло, что он попал к тебе.", " — Прекрасная работа, ты настоящий профессионал!",
+					" — Вот это да! Ты просто гений хирургии!", " — Пациент в полном порядке, можно закрывать.")
+					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_syrgery]</span>")
+				else
+					var/replic_syrgery_soft = pick(" — Ты что, вообще не умеешь оперировать?", " — Не повезло, что он попал к тебе.", " — Попасть тебе на стол равносильно алкоголизму - сам не поймешь, как умер.",)  
+
+					ready_events["syrgery"] = 0
+					adjust(min(0, 6-dot))
+					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_syrgery_soft]</span>")
+			else
+				ready_events["syrgery"] = 0
+*/
+
 		//BEAST
 		if ("animaldrink")
 			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Фу, ну и дрянь. Найди что-то поаппетитнее. Может ещё и крысами начнёшь питаться?</span>")
@@ -304,7 +324,7 @@
 		if("diablerie")
 			var/replic_diablerie = pick(" — СОЖРАТЬ. УБЕЙ. ОТДАЙ МНЕ.", " — МОЯ САМАЯ ДОРОГАЯ ДОБЫЧА.",  " — ВЫСОСАТЬ И ЗАБРАТЬ.",
 			" — ДО ПОСЛЕДНЕЙ КАПЛИ, ДАВАЙ ЖЕ, НЕПРИЛИЧНО ОСТАВЛЯТЬ ОБЪЕДКИ", " — ДАВИ, ДАВИ, ДАВИ ЕГО! ДАВАЙ ЕЩЕ, Я ХОЧУ ЕЩЕ!",
-			" — НУ НАКОНЕЦ-ТО ЧТО-ТО ДЕЙСТВИТЕЛЬНО СТОЯЩЕЕ, ПАРЕНЬ. Я ДАЖЕ ГОТОВ ПРОСТИТЬ ТЕБЕ ТОТ ПАКЕТИК", "— ПИРШЕСТВО КРОВИ И ДУШИ, ОСОБЕННО ДУШИ, ХЕХЕ")
+			" — НУ НАКОНЕЦ-ТО ЧТО-ТО ДЕЙСТВИТЕЛЬНО СТОЯЩЕЕ, [owner.gender == FEMALE ? "ПОДРУГА" : "ПАРЕНЬ"]. Я ДАЖЕ ГОТОВ ПРОСТИТЬ ТЕБЕ ТОТ ПАКЕТИК", "— ПИРШЕСТВО КРОВИ И ДУШИ, ОСОБЕННО ДУШИ, ХЕХЕ")
 			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_diablerie]</span>")
 			if(dot > 4)
 				adjust(min(0, 4-dot))
@@ -321,42 +341,61 @@
 		if("diablerie_jertva_uspeh")
 			var/replic_diablerie_jertva_uspeh = pick(" — Кто прийдет с мечом - от меча и погибнет.", " — Охотник стал жертвою.",  " — НИКТО НЕ ЗАБЕРЕТ МЕНЯ!")
 			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_diablerie_jertva_uspeh]</span>")
-	//	if("vampire_suck")
-	//		to_chat(owner, "")
+	/*	if("vampire_suck")
+			var/replic_vampire_suck = pick(" — ")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_vampire_suck]</span>")
+			*/
 		if ("packetdrink")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Из пакетика? А почему без слюнявчика и трубочки, [owner.gender == FEMALE ? "мадмуазель" : "миссье"]?</span>")
+			var/replic_packetdrink = pick(" — Хм, интересно... Из пакетика? Ну-ну...", " — Пакетик... Как мило. Ты что, ребёнок?", 
+			"Из пакетика? А почему без слюнявчика и трубочки, [owner.gender == FEMALE ? "мадмуазель" : "миссье"]?")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_packetdrink]]</span>")
 		if ("baddrink")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Меня сейчас вырвет от этого дерьма...</span>")
+			var/replic_baddrink = pick(" — Твою ж мать, это же просто отвратительно!", " — Меня сейчас вырвет от этого дерьма...", "  — Это что-то новенькое... Вкус как у тухлой рыбы с примесью бензина.","Фу, ну и дрянь. Найди что-то поаппетитнее.")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_baddrink]</span>")
 		if ("gooddrink")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — ВКУСНЯТИНА. ХОЧУ ЕЩЁ.</span>")
+			var/replic_gooddrink = pick(" — ВКУСНЯТИНА. ХОЧУ ЕЩЁ.", " — М-м-м... С этого и стоило начинать.", " — О, это просто божественно!", " — Ням-ням-ням! Ещё бы такого!")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_gooddrink]</span>")
 		if ("firstfeed")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — М-м-м... С этого и стоило начинать.</span>")
+			var/replic_firstfeed = pick(" — М-м-м... С этого и стоило начинать.", " — День начинается с кофе, а ночь с крови.", " — Хорошее начало хорошей ночи.")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_firstfeed]</span>")
 		if ("suncoming")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — ПРЯЧЬСЯ ОТ СОЛНЦА, ТУПИЦА!</span>")
+			var/replic_suncoming = pick(" — ПРЯЧЬСЯ ОТ СОЛНЦА, ТУПИЦА!", " — СОЛНЦЕ ЖЖЁТ! БЫСТРЕЕ УХОДИ КАК МОЖЕШЬ!", " — СВЕТ. СОЛНЦЕ. СПАСАЙСЯ.")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_suncoming]</span>")
 		if ("rotshreck")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — А-А-А! ОГОНЬ! ОГОНЬ! ГОРЯЧО! ПОЖАР!</span>")
-			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'> — Самое время сменить приоритеты в жизни и стать пожарным. Фортуна любит отважных!</span>")
+			var/replic_rotshreck_beast = pick(" — А-А-А! ОГОНЬ! ОГОНЬ! ГОРЯЧО! ПОЖАР!", " — ГОРЮ, ГОРЮ, СПАСАЙСЯ КТО КАК МОЖЕТ!", " — ОГОНЬ! БЕГИ, БЕГИ, СПАСАЙСЯ!")
+			var/replic_rotshreck_courage = pick(" — Самое время сменить приоритеты в жизни и стать пожарным. Фортуна любит отважных!", " — Не паникуй! Нужно срочно потушить огонь!", " — Спасение утопающих - дело рук самих утопающих. Или как там эта пословица?")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_rotshreck_beast]</span>")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'>[replic_rotshreck_courage]</span>")
 		if ("bloodhunger")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — НАСТАЛО ВРЕМЯ ПОДКРЕПИТЬСЯ. Я ГОЛОДЕН.</span>")
+			var/replic_bloodhunger = pick(" — НАСТАЛО ВРЕМЯ ПОДКРЕПИТЬСЯ. Я ГОЛОДЕН.", " — ГОЛОД ЗОВЁТ. ПОРА ЕГО УДОВЛЕТВОРИТЬ.", " — МОЁ ЧУВСТВО ГОЛОДА НЕПРЕСТАННО РАСТЁТ.", "Гарсон, я голоден!")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_bloodhunger]</span>")
 		if ("pretorpor")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Смерть? Нет, это блюдо в мой рацион не входит... А ну давай, вставай!</span>")
+			var/replic_pretorpor = pick(" — Смерть? Нет, это блюдо в мой рацион не входит... А ну давай, вставай!", " — Не в этот раз. Вставай.", " — Смерть - не для меня!")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_pretorpor]</span>")
 
 		//COURAGE
 		if ("jumpfail")
-			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Failure</span> <span class='discosay'> — А тут высоковато, не находишь? Наверное, не стоит даже пробовать.</span>")
+			var/replic_jumpfail = pick(" — А тут высоковато, не находишь? Наверное, не стоит даже пробовать", " — Ты что, с ума сошел? С такой высоты прыгать? Да ты себя не ценишь!", " — Слишком высоко. Лучше не рисковать своей шкурой.",
+			" — Нет, это слишком опасно. Лучше не надо.", " — Ты что, хочешь себе сломать ноги? Забудь об этой идее.")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_jumpfail]</span>")
 		if ("jumpsuccess")
-			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Success</span> <span class='discosay'> — Ты летишь! Летишь! Столько метров над землёй! Столько кинетического ускорения!</span>")
+			var/replic_jumpsuccess = pick(" — Ты летишь! Летишь! Столько метров над землёй! Столько кинетического ускорения!", "Полетел как птица! Чувствуешь свободу?", " — Ни граму страха, ни капли сомнения! Пархай!")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_jumpsuccess]</span>")
 		if ("deadexamine")
-			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'> — Спокойно. Это просто самый обычный мёртвый человек. Не зомби...</span>")
+			var/replic_deadexamine = pick(" — Спокойно. Это просто самый обычный мёртвый человек. Не зомби...", " — Покойник... Ничего страшного, просто тело без души.", " — Труп. Не волнуйся, он не встанет и не нападёт на тебя.")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'>[replic_deadexamine]</span>")
 		if ("onfire")
-			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'> — Это ерунда, ты ведь не сгоришь за секунды как стог сухого сена. Не обращай внимание, пока сильно печь не начнёт.</span>")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — ПОЛУНДРА! ОГОНЬ НА БОРТУ!!</span>")
+			var/replic_onfire_courage = pick(" — Это ерунда, ты ведь не сгоришь за секунды как стог сухого сена. Не обращай внимание, пока сильно печь не начнёт.", " — Спокойно, огонь - это просто химическая реакция. Ты справишься!", " — Главное - не паниковать и не раздувать пламя.")
+			var/replic_onfire_beast = pick(" — ПОЛУНДРА! ОГОНЬ НА БОРТУ!!", " — В ТОПКУ УГЛЯ ПОДКИНУЛИ!", "ГАСИ ОГОНЬ, ПОКА НЕ ПРОЖАРИЛОСЬ ВСЁ ДО КОСТЕЙ!")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'>[replic_onfire_courage]</span>")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_onfire_beast]</span>")
 		if ("highspeed")
-			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'> — Больше оборотов, выше скорость, сильнее ветер, и чтобы вдавливаться в столб было не так больно и мучительно!</span>")
+			var/replic_highspeed = pick(" — Больше оборотов, выше скорость, сильнее ветер, и чтобы вдавливаться в столб было не так больно и мучительно!", " — Педаль в пол и езжай на край земли!", " — Быстрее ветра, выше гор!")
+			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span><span class='discosay'>[replic_highspeed]</span>")
 		if ("attacked")
 			ready_events["attackedfail"] = 1
 			var/replic_attacked = pick(" — На тебя напали! Защищайся, как герой! Честь и отвага!", " — Драка! Перестрелка! Поножовщина! Порно!", " — Это твой звёздный час, чтобы показать свои боевые навыки.",
-			"", "")
+			" — Закон каменных джунглей: Убей и будь убитым!", " — Держись! Покажи им, кто тут главный!", " — Сверкай, как бабочка, жужжи, как комар и жаль, как пчела!")
 			to_chat(owner, "<font size=12>[icon2html('icons/courage.png', owner)]</font> <span class='sciradio'><b>COURAGE</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_attacked]</span>")
 
 		if ("attackedfail")
@@ -366,23 +405,31 @@
 
 		//SELF-CONTROL
 		if ("gettingdrunk")
-			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'> — Какое интересное ощущение... Хочется подружиться со всеми и спорить о политике до драки. Ты сейчас в розовых очках юности.</span>")
+			var/replic_gettingdrunk = pick(" — Какое интересное ощущение... Хочется подружиться со всеми и спорить о политике до драки. Ты сейчас в розовых очках юности", " — Пьяный не значит безотвественный. Главное - не переборщить.", " — Выпил - закусил, закусил - выпил. Главное не забыть, где твой дом.")
+			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'>[replic_gettingdrunk]</span>")
 		if ("talkenough")
-			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'> — Болтаешь половину ночи, язык скоро отвалится. Но, дикторские навыки нам не помешают, верно?</span>")
+			var/replic_talkenough = pick(" — Болтаешь половину ночи, язык скоро отвалится. Но, дикторские навыки нам не помешают, верно?", " — Язык без кости.", " — Иногда молчание - золото. Особенно когда ты уже все сказал.")
+			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'>[replic_talkenough]</span>")
 		if ("cleanenough")
-			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'> — Одни только кровь, ошмётки и моющее средство! Скажи, как давно швабра стала твоей новой конечностью?</span>")
+			var/replic_cleanenough = pick(" — Одни только кровь, ошмётки и моющее средство! Скажи, как давно швабра стала твоей новой конечностью?", " — У всего должна быть мера, даже, если это уборка.", " — Ты уже слишком много времени проводишь с тряпкой и ведром. Лучше вилкой чисти!")
+			to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span><span class='discosay'>[replic_cleanenough]</span>")
 
 		//CONSCIENCE
 		if ("gettinghigh")
-			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'> — Это состояние изменённого сознания, или сознательного изменения?...</span>")
+			var/replic_gettinghigh = pick(" — Ох... Как же это здорово... Всё такое яркое и красивое...", " — Это состояние изменённого сознания, или сознательного изменения?...")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_gettinghigh]</span>")
 		if ("corpseitems")
-			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'> — Вещи с трупа. Шикарно, но может не стоит грабить мёртвых?</span>")
+			var/replic_corpseitems = pick(" — Вещи с трупа. Шикарно, но может не стоит грабить мёртвых?", " — Ужасно некрасиво брать вещи у мёртвых...", " — Ты же не из тех, кто роется в вещах мертвых, верно?")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_corpseitems]</span>")
 		if ("friendmeet")
-			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'> — В друзьях есть что-то, что позволяет заземлиться, сбросить якорь, зацепиться за бревно в реке постоянных событий...</span>")
+			var/replic_friendmeet = pick(" — В друзьях есть что-то, что позволяет заземлиться, сбросить якорь, зацепиться за бревно в реке постоянных событий...", " — Друзья - это семья, которую мы выбираем сами.", " — Истинная дружба - это когда молчание между двумя людьми не кажется неловким.")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_friendmeet]</span>")
 		if ("lovermeet")
-			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'> — Любовь... Комарики в животе... Комарики?... В ЖИВОТЕ?!</span>")
+			var/replic_lovermeet = pick(" — Любовь... Комарики в животе... Комарики?... В ЖИВОТЕ?!", " — Любовь - это когда счастье другого важнее твоего собственного.", " — Искра, буря, безумие... Любовь, вот она какая.")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_lovermeet]</span>")
 		if ("diablerie_jertva")
-			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'> — Констатирую: Нас пожирают.</span>")
+			var/replic_diablerie_jertva = pick(" — Констатирую: Нас пожирают.", " — Меня кто-то ест... Чувствую это...", " — Почему я чувствую, что меня кто-то пожирает изнутри?")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_diablerie_jertva]</span>")
 
 	return TRUE
 //"slur" = 10, "attackfirst" = 9, "failing" = 8 "steal" = 7, "robbery" = 6, "drying" = 5, "drugdealing" = 4, "killparticipation" = 3, "killcommit" = 2, "sadism" = 1, "burningalive" = 1, "massmurder" = 0

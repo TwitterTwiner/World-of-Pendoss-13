@@ -328,6 +328,25 @@
 		else
 			searching = FALSE
 
+/obj/structure/bricks
+	name = "pile of bricks"
+	desc = "Building material."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "bricks"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+	density = TRUE
+
+/obj/structure/bricks/attack_hand(mob/living/user)
+	. = ..()
+	if(do_mob(user, src, 3 SECONDS))
+		var/i = pick(/obj/item/melee/vampirearms/brick)
+		var/obj/item/to_spawn = new i(get_turf(user))
+		to_chat(user, "<span class='notice'>You found [to_spawn].</span>")
+		user.put_in_active_hand(to_spawn)
+
+
 /obj/structure/trashbag
 	name = "trash bag"
 	desc = "Holds garbage inside."
@@ -461,6 +480,8 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
 
+///// PIPES ////////
+
 /obj/structure/vampipe
 	name = "pipes"
 	icon = 'code/modules/wod13/props.dmi'
@@ -468,6 +489,58 @@
 	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
+
+/obj/structure/vampipe/Initialize(mapload)	
+	. = ..()
+	icon_state = "piping[rand(1, 4)]"
+
+/obj/structure/vampipe/broken
+	name = "broken pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping6"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe/one
+	name = "single pipe"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping15"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe/one/Initialize(mapload)	
+	. = ..()
+	icon_state = "piping1[rand(15, 17)]"
+
+/obj/structure/vampipe/one/alt
+	name = "single pipe"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping14"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe/one/broken
+	name = "single pipe"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping25"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe/hard
+	name = "pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping9"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe/hard/Initialize(mapload)	
+	. = ..()
+	icon_state = "piping[rand(9, 12)]"
 
 /obj/structure/vamproofwall
 	name = "wall"
@@ -639,16 +712,6 @@
 /obj/structure/barrels/rand/Initialize(mapload)
 	. = ..()
 	icon_state = "barrel[rand(1, 12)]"
-
-/obj/structure/bricks
-	name = "bricks"
-	desc = "Building material."
-	icon = 'code/modules/wod13/props.dmi'
-	icon_state = "bricks"
-	plane = GAME_PLANE
-	layer = ABOVE_ALL_MOB_LAYER
-	anchored = TRUE
-	density = TRUE
 
 /obj/effect/decal/pallet
 	name = "pallet"
@@ -1850,3 +1913,66 @@
 
 /obj/structure/chair/lavochka/right
 	icon_state = "lavochka_right"
+
+
+
+/////////////////////// SHIP ////////////////////////////////
+/obj/structure/ship
+	icon = 'code/modules/wod13/ship/32x48.dmi'
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+	density = FALSE
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSGLASS | PASSCLOSEDTURF
+
+/obj/structure/ship/knecht
+	name = "knecht"
+	icon_state = "knecht_empty"
+
+/obj/structure/ship/knecht/full
+	name = "knecht with cable"
+	icon_state = "knecht_full"
+
+/obj/structure/ship/bollard
+	name = "bollard"
+	icon_state = "bollard_empty"
+
+/obj/structure/ship/bollard/alt
+	icon_state = "bollard"
+
+/obj/structure/ship/bollard/full
+	name = "bollard with cable"
+	icon_state = "bollard_full"
+
+/obj/structure/ship/cable
+	name = "ship cable"
+	desc = "Cable for mooring the ship."
+	icon_state = "cable"
+
+/obj/structure/ship/on_walls
+	name = "wall tankers"
+	icon_state = "green"
+	layer = CAR_LAYER
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	pixel_y = 32
+
+/obj/structure/ship/on_walls/circle
+	name = "lifebuoy"
+	desc = "Circle for saving people from water."
+	icon_state = "circle_1"
+	base_icon_state = "circle_1"
+
+/obj/structure/ship/on_walls/circle/Initialize(mapload)
+	. = ..()
+	icon_state = "circle_[rand(1, 3)]"
+
+/obj/structure/ship/on_walls/blinker
+	name = "blinker"
+	desc = "Blinker for ship."
+	icon_state = "lampa_3"
+
+/obj/structure/ship/on_walls/pipes
+	name = "some pipes"
+	desc = "pipes"
+	icon_state = "pipe"
