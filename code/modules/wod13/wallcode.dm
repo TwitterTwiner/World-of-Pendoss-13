@@ -1035,3 +1035,4 @@
 /turf/open/floor/plating/ship/empty
 	icon_state = "star-floor"
 	base_icon_state = " star-floor"
+
