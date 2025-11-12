@@ -44,7 +44,7 @@
 	yin_chi = min(max_yin_chi, yin_chi+yang_chi)
 	yang_chi = 0
 
-	if(iskindred(src))
+	if(iskindred(src) ||  iscathayan(src) || iszombie(src))
 		qdel(getorganslot(ORGAN_SLOT_BRAIN)) //NO REVIVAL EVER
 		if(in_frenzy)
 			exit_frenzymod()

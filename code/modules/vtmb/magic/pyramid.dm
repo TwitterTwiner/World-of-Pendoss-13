@@ -64,8 +64,6 @@
 	if(H.bloodpool < 2)
 		to_chat(H, span_warning("You need more <b>BLOOD</b> to do that!"))
 		return
-	if(drawing)
-		return
 
 	if(istype(H.get_active_held_item(), /obj/item/arcane_tome))
 		var/list/rune_names = list()
@@ -77,38 +75,37 @@
 				rune_names[R.name] = i
 			qdel(R)
 		var/ritual = tgui_input_list(owner, "Choose rune to draw:", "Thaumaturgy", rune_names)
-		if(ritual)
-			drawing = TRUE
-			if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
-				drawing = FALSE
+		if(!ritual)
+			return
+		if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
+			var/result = secret_vampireroll(get_a_intelligence(H)+get_a_occult(H), 6, H)
+			if(result > 1)
 				var/ritual_type = rune_names[ritual]
 				new ritual_type(H.loc)
 				H.bloodpool = max(H.bloodpool - 2, 0)
 				if(H.CheckEyewitness(H, H, 7, FALSE))
 					H.AdjustMasquerade(-1)
 			else
-				drawing = FALSE
+				if(result == -1)
+					H.AdjustKnockdown(3 SECONDS)
 	else
-		var/list/shit = list()
+		var/list/rune_names = list()
 		for(var/i in subtypesof(/obj/ritualrune))
 			var/obj/ritualrune/R = new i(owner)
 			if(R.clan_restricted_ritual.len && !(H.clane.type in R.clan_restricted_ritual))
 				continue
 			if(R.thaumlevel <= level)
-				shit += i
+				rune_names += i
 			qdel(R)
 		var/ritual = tgui_input_list(owner, "Choose rune to draw (You need an Arcane Tome to reduce random):", "Thaumaturgy", list("???"))
-		if(ritual)
-			drawing = TRUE
-			if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
-				drawing = FALSE
-				var/rune = pick(shit)
-				new rune(H.loc)
-				H.bloodpool = max(H.bloodpool - 2, 0)
-				if(H.CheckEyewitness(H, H, 7, FALSE))
-					H.AdjustMasquerade(-1)
-			else
-				drawing = FALSE
+		if(!ritual)
+			return
+		if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
+			var/rune = pick(rune_names)
+			new rune(H.loc)
+			H.bloodpool = max(H.bloodpool - 2, 0)
+			if(H.CheckEyewitness(H, H, 7, FALSE))
+				H.AdjustMasquerade(-1)
 
 /obj/ritualrune
 	name = "Tremere Rune"
@@ -583,7 +580,7 @@
 		message += "The blood is filled with the power of magic. The owner must be a thaumaturge."
 	else if(clan == "Baali")
 		message += "Tainted and corrupt. Vile and filthy. You see your reflection in the blood, but something else stares back."
-	else if(clan == "Banu Haqim")
+	else if(clan == "Banu Haqim" || clan == "Banu Haqim Sorcerer" || clan == "Banu Haqim Vizier")
 		message += "Potent... Deadly... And cursed. You know well the curse laid by Tremere on the assassins."
 	else if(clan == "True Brujah")
 		message += "The blood is cold and static... It's hard to feel any emotion within it."
