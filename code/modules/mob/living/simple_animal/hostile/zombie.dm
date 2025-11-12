@@ -19,7 +19,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	status_flags = CANPUSH
-	del_on_death = 1
 	bloodpool = 0
 	maxbloodpool = 0
 	speed = 1
@@ -143,7 +142,6 @@
 	harm_intent_damage = 10
 	melee_damage_lower = 15
 	melee_damage_upper = 15  // Keep in mind most characters will take up to half less damage from such mobs due to brutemods.
-	del_on_death = 1
 	emote_see = list("weeps silently", "groans", "mumbles")
 	attack_verb_continuous = "grips"
 	attack_verb_simple = "grip"
@@ -191,7 +189,7 @@
 	speak_emote = list("squeaks")
 	deathmessage = "rapidly shrivels up!"
 
-/mob/living/simple_animal/hostile/beastmaster/giovanni_zombie/level2/Initialize()
+/mob/living/simple_animal/hostile/beastmaster/giovanni_zombie/level2/Initialize(mapload)
 	. = ..()
 	pixel_w = rand(-8, 8)
 	pixel_z = rand(-8, 8)

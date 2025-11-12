@@ -287,7 +287,7 @@
 	var/repairing = FALSE
 	var/hacking = FALSE
 
-/obj/fusebox/proc/check_damage(mob/living/user)
+/obj/fusebox/proc/check_damage(mob/living/user, owner_immune = FALSE)
 	if(damaged > 100 && icon_state != "fusebox_open")
 		icon_state = "fusebox_open"
 		var/area/A = get_area(src)
@@ -299,7 +299,7 @@
 		for(var/obj/machinery/light/L in A)
 			L.update(FALSE)
 		playsound(loc, 'code/modules/wod13/sounds/explode.ogg', 100, TRUE)
-		if(user)
+		if(user && !owner_immune)
 			user.electrocute_act(50, src, siemens_coeff = 1, flags = NONE)
 
 /obj/fusebox/attackby(obj/item/I, mob/living/user, params)
