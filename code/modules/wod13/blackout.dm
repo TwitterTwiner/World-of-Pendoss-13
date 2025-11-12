@@ -313,7 +313,7 @@ SUBSYSTEM_DEF(witness_pool)
 
 	else if(isgarou(src))
 
-		if(auspice?.breed_form != FORM_HOMID || !(HAS_TRAIT(src, TRAIT_CORAX)))
+		if(auspice?.breed_form != FORM_HOMID && !(HAS_TRAIT(src, TRAIT_CORAX)))
 			if(client)
 				if(((last_rage_gain + RAGE_LIFE_COOLDOWN) < world.time) && (auspice.rage <= 6))
 					last_rage_gain = world.time
