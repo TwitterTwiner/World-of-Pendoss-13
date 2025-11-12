@@ -1,7 +1,7 @@
 /datum/discipline/thaumaturgy_path_of_levinbolt
 	name = "Path of the Levinbolt"
 	desc = "A rudimentary path of Thaumaturgy that allows the manipulation of lightning. Violates Masquerade."
-	icon_state = "levinbolt"
+	icon_state = "thaumaturgy_path_of_levinbolt"
 	learnable_by_clans = list(/datum/vampireclane/tremere)
 	power_type = /datum/discipline_power/thaumaturgy_path_of_levinbolt
 
