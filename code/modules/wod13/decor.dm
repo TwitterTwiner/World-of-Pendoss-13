@@ -492,7 +492,7 @@
 
 /obj/structure/vampipe/Initialize(mapload)	
 	. = ..()
-	icon_state = "piping[rand(1, 4)]"
+//	icon_state = "piping[rand(1, 4)]"
 
 /obj/structure/vampipe/broken
 	name = "broken pipes"
