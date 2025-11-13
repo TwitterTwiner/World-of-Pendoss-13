@@ -211,7 +211,7 @@ GENE SCANNER
 		var/datum/species/the_dudes_species = the_dude.dna.species
 		if (!(NOBLOOD in the_dudes_species.species_traits) && !the_dude.getorganslot(ORGAN_SLOT_HEART))
 			render_list += "<span class='alert ml-1'>Subject lacks a heart.</span>\n"
-		if (!(TRAIT_NOBREATH in the_dudes_species.species_traits) && !the_dude.getorganslot(ORGAN_SLOT_LUNGS))
+		if (!(TRAIT_NOBREATH in the_dudes_species.species_traits) && !the_dude.getorganslot(ORGAN_SLOT_LUNGS) && !the_dude.active_blush)
 			render_list += "<span class='alert ml-1'>Subject lacks lungs.</span>\n"
 		if (!(TRAIT_NOMETABOLISM in the_dudes_species.species_traits) && !the_dude.getorganslot(ORGAN_SLOT_LIVER))
 			render_list += "<span class='alert ml-1'>Subject lacks a liver.</span>\n"
@@ -410,7 +410,7 @@ GENE SCANNER
 			if(blood_id != /datum/reagent/blood) // special blood substance
 				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				blood_type = R ? R.name : blood_id
-			if(iskindred(C))
+			if(iskindred(C) && !C.active_blush)
 				render_list += "<span class='alert ml-1'>Blood level: LOW 0 %, 0 cl,</span> <span class='info'>type: [blood_type]</span>\n"
 			else if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
 				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>\n"
