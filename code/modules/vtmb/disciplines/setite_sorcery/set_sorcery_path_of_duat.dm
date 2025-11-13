@@ -52,6 +52,7 @@
 /datum/discipline_power/set_sorcery_path_of_duat/sending_the_snakes
 	name = "Sending the Snakes"
 	desc = "Curse the victim with visions of serpents born from Duat, filling their sight with endless slithering terrors."
+	level = 1
 
 	duration_length = 30 SECONDS
 	cooldown_length = 30 SECONDS
@@ -72,6 +73,7 @@
 /datum/discipline_power/set_sorcery_path_of_duat/darkness_of_duat
 	name = "Darkness of Duat"
 	desc = "Blind the victim with the eternal night, leaving them in complete darkness."
+	level = 2
 
 	grouped_powers = list(
 		/datum/discipline_power/set_sorcery_path_of_duat/sending_the_snakes,
@@ -85,6 +87,7 @@
 	ADD_TRAIT(target, TRAIT_BLIND, DISCIPLINE_TRAIT)
 	target.update_blindness()
 	to_chat(owner, span_warning("Don't move and stay concentrated in order to continue casting."))
+	to_chat(target, span_warning("You feel a pair of eyes on you."))
 	do_after_ref = do_after(owner, 15 SECONDS)
 	if(!do_after_ref)
 		deactivate(target)
@@ -99,6 +102,7 @@
 /datum/discipline_power/set_sorcery_path_of_duat/suffocation_of_tomb
 	name = "Suffocation of Tomb"
 	desc = "Take the breath and voice away from the victim, rendering them mute and breathless."
+	level = 3
 
 	grouped_powers = list(
 		/datum/discipline_power/set_sorcery_path_of_duat/sending_the_snakes,
@@ -112,6 +116,7 @@
 	ADD_TRAIT(target, TRAIT_MUTE, DISCIPLINE_TRAIT)
 	target.apply_status_effect(STATUS_EFFECT_SLOW_OXYLOSS)
 	to_chat(owner, span_warning("Don't move and stay concentrated in order to continue casting."))
+	to_chat(target, span_warning("You feel a pair of eyes on you."))
 	do_after_ref = do_after(owner, 15 SECONDS)
 	if(!do_after_ref)
 		deactivate(target)
@@ -126,6 +131,7 @@
 /datum/discipline_power/set_sorcery_path_of_duat/the_narrow_house
 	name = "The Narrow House"
 	desc = "Impose the terror of entombment, paralyzing the victim."
+	level = 4
 
 	grouped_powers = list(
 		/datum/discipline_power/set_sorcery_path_of_duat/darkness_of_duat,
@@ -139,6 +145,7 @@
 	. = ..()
 	ADD_TRAIT(target, TRAIT_IMMOBILIZED, DISCIPLINE_TRAIT)
 	to_chat(owner, span_warning("Don't move and stay concentrated in order to continue casting."))
+	to_chat(target, span_warning("You feel a pair of eyes on you."))
 	do_after_ref = do_after(owner, 15 SECONDS)
 	if(!do_after_ref)
 		deactivate(target)
@@ -152,6 +159,7 @@
 /datum/discipline_power/set_sorcery_path_of_duat/consignment_to_duat
 	name = "Consignment to Duat"
 	desc = "Send the victim’s mind into Duat, killing mortals and forcing vampires into torpor."
+	level = 5
 
 	duration_length = 1 MINUTES
 	cooldown_length = 30 SECONDS
@@ -166,8 +174,10 @@
 /datum/discipline_power/set_sorcery_path_of_duat/consignment_to_duat/activate(mob/living/target)
 	. = ..()
 	owner.MyPath?.willpower = max(owner.MyPath?.willpower-1, 0)
+	to_chat(owner, span_warning("You spend a willpower point in order to activate the discipline."))
 	target.apply_status_effect(STATUS_EFFECT_SLOW_DEATH)
 	to_chat(owner, span_warning("Don't move and stay concentrated in order to continue casting."))
+	to_chat(target, span_warning("You feel a pair of eyes on you."))
 	do_after_ref = do_after(owner, 1 MINUTES)
 	if(!do_after_ref)
 		deactivate(target)
@@ -175,6 +185,8 @@
 /datum/discipline_power/set_sorcery_path_of_duat/consignment_to_duat/deactivate(mob/living/target)
 	. = ..()
 	target.remove_status_effect(STATUS_EFFECT_SLOW_DEATH)
+	qdel(do_after_ref)
+	do_after_ref = null
 
 /datum/discipline_power/set_sorcery_path_of_duat/consignment_to_duat/pre_activation_checks(mob/living/target)
 	. = ..()
