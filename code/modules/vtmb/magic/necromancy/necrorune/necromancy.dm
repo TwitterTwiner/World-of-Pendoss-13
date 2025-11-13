@@ -76,7 +76,7 @@
 	is_magic = TRUE
 	var/list/rituals = list()
 
-/obj/item/necromancy_tome/Initialize()
+/obj/item/necromancy_tome/Initialize(mapload)
 	. = ..()
 	for(var/i in subtypesof(/obj/necrorune))
 		if(i)
