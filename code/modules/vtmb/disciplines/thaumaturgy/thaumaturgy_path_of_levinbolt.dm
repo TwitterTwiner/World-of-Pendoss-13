@@ -543,6 +543,8 @@
 /obj/item/lighter/conjured/levinbolt_arm
 	name = "Illuminate"
 	desc = "Your arm surges with electricity!"
+	lefthand_file = 'code/modules/wod13/icons/paths_inhand_lefthand.dmi'
+	righthand_file = 'code/modules/wod13/icons/paths_inhand_righthand.dmi'
 	icon_state = "illuminate"
 	inhand_icon_state = "illuminate"
 	force = 15
