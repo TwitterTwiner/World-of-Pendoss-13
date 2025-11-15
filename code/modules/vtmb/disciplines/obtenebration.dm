@@ -154,7 +154,6 @@
 	button_icon_state = "thaumaturgy"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
-	var/drawing = FALSE
 	var/level = 1
 
 /datum/action/mysticism/Trigger()
@@ -185,6 +184,7 @@
 				if(H.CheckEyewitness(H, H, 7, FALSE))
 					H.AdjustMasquerade(-1)
 			else
+				to_chat(owner, span_warning("You failed at rune drawing!"))
 				if(result == -1)
 					H.AdjustKnockdown(3 SECONDS)
 	else
@@ -197,7 +197,7 @@
 		var/ritual = input(owner, "Choose rune to draw (You need a Mystic Tome to reduce random):", "Mysticism") as null|anything in list("???")
 		if(!ritual)
 			return
-		if(do_after(H, 5 SECONDS, H))
+		if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
 			var/result = secret_vampireroll(get_a_intelligence(H)+get_a_occult(H), 6, H)
 			if(result > 1)
 				var/rune = pick(rune_names)
@@ -206,5 +206,6 @@
 				if(H.CheckEyewitness(H, H, 7, FALSE))
 					H.AdjustMasquerade(-1)
 			else
+				to_chat(owner, span_warning("You failed at rune drawing!"))
 				if(result == -1)
 					H.AdjustKnockdown(3 SECONDS)

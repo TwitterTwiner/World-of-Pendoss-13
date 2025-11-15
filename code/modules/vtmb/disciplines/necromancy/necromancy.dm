@@ -317,6 +317,7 @@
 				if(H.CheckEyewitness(H, H, 7, FALSE))
 					H.AdjustMasquerade(-1)
 			else
+				to_chat(owner, span_warning("You failed at rune drawing!"))
 				if(result == -1)
 					H.AdjustKnockdown(3 SECONDS)
 	else
@@ -338,5 +339,6 @@
 				if(H.CheckEyewitness(H, H, 7, FALSE))
 					H.AdjustMasquerade(-1)
 			else
+				to_chat(owner, span_warning("You failed at rune drawing!"))
 				if(result == -1)
 					H.AdjustKnockdown(3 SECONDS)

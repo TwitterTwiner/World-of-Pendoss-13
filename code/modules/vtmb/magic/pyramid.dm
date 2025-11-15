@@ -55,7 +55,6 @@
 	button_icon_state = "thaumaturgy"
 	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
 	vampiric = TRUE
-	var/drawing = FALSE
 	var/level = 1
 
 /datum/action/thaumaturgy/Trigger(trigger_flags)
@@ -86,6 +85,7 @@
 				if(H.CheckEyewitness(H, H, 7, FALSE))
 					H.AdjustMasquerade(-1)
 			else
+				to_chat(owner, span_warning("You failed at rune drawing!"))
 				if(result == -1)
 					H.AdjustKnockdown(3 SECONDS)
 	else
@@ -101,11 +101,17 @@
 		if(!ritual)
 			return
 		if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
-			var/rune = pick(rune_names)
-			new rune(H.loc)
-			H.bloodpool = max(H.bloodpool - 2, 0)
-			if(H.CheckEyewitness(H, H, 7, FALSE))
-				H.AdjustMasquerade(-1)
+			var/result = secret_vampireroll(get_a_intelligence(H)+get_a_occult(H), 6, H)
+			if(result > 1)
+				var/rune = pick(rune_names)
+				new rune(H.loc)
+				H.bloodpool = max(H.bloodpool - 2, 0)
+				if(H.CheckEyewitness(H, H, 7, FALSE))
+					H.AdjustMasquerade(-1)
+			else
+				to_chat(owner, span_warning("You failed at rune drawing!"))
+				if(result == -1)
+					H.AdjustKnockdown(3 SECONDS)
 
 /obj/ritualrune
 	name = "Tremere Rune"
