@@ -10,6 +10,7 @@
 
 /datum/morality_path/humanity/trigger_morality(trig_event)
 	. = ..()
+
 	var/special_role_name
 	if(owner.mind)
 		if(owner.mind.special_role)
@@ -19,11 +20,11 @@
 	if(is_special_character(owner) && special_role_name != "Ambitious")
 		return
 
-/*
+
 	if(ready_events[trig_event] == 1)
 		return FALSE
 	ready_events[trig_event] = 1
-*/
+
 	switch(trig_event)
 		//humanity lowers
 		if ("slur")
@@ -292,7 +293,7 @@
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_syrgery]</span>")
 					adjust(1)
 				else
-					var/replic_syrgery_soft = pick(" — Ну... у него осталось не более, чем несколько дней. Впрочем, это уже не наша проблема.", " — Будь что будет. Свою работу мы уже сделали. Дальше - его заботы.", " — Сомневаюсь, что он долго проживет после этой операции. Однако это не наша забота.") 
+					var/replic_syrgery_soft = pick(" — Ну... у него осталось не более, чем несколько дней. Впрочем, это уже не наша проблема.", " — Будь что будет. Свою работу мы уже сделали. Дальше - его заботы.", " — Сомневаюсь, что он долго проживет после этой операции. Так или иначе это не должно нас сильно волновать.") 
 					ready_events["syrgery"] = 0
 					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_syrgery_soft]</span>")
 			else
@@ -317,6 +318,10 @@
 */
 
 		//BEAST
+		if("frenzy")
+			var/replic_frenzy = pick(" — А вот и я. Кто не спрятался - я не виноват!", " — Ты слишком слаб[owner.gender == FEMALE ? "а" : ""]. Теперь мой черед играться.", " — Время поохотиться!", " — Пойдем поищем что-нибудь вкусненькое."
+			" — Ха-ха-ха! Пора устраивать веселье!", " — Ты больше не хозяин себе. Я возьму всё в свои клыки!", " — Ты лишь гость в этом теле.")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_frenzy]</span>")
 		if ("animaldrink")
 			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'> — Фу, ну и дрянь. Найди что-то поаппетитнее. Может ещё и крысами начнёшь питаться?</span>")
 		if ("ratdrink")
