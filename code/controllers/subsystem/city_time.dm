@@ -63,7 +63,9 @@ SUBSYSTEM_DEF(city_time)
 						if(P)
 //							P.old_enough_to_get_exp = TRUE
 							if(!iskindred(H) && !isghoul(H) && !iscathayan(H) && !isgarou(H))
-								P.add_experience(10)
+								P.add_experience(10) // Буст экспы хуманам
+							if(isghoul(H))
+								P.add_experience(5) // Буст экспы для гулей чтобы чаще на них играли
 //							P.add_experience(get_a_intelligence(H))
 							if(H.mind)
 								if("[H.mind.assigned_role]" == "Prince" || "[H.mind.assigned_role]" == "Baron")
