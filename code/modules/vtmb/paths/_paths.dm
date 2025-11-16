@@ -29,11 +29,12 @@
 				if("judgement" in H.mind.dharma.tenets)
 					to_chat(H, "<span class='warning'>[owner] is doing something bad, I need to punish them!")
 					H.mind.dharma.judgement |= owner.real_name
-				
+
+/*
 	if(ready_events[trig_event] == 1)
 		return
 	ready_events[trig_event] = 1
-
+*/
 
 /datum/morality_path/proc/adjust(point)
 	if(!iskindred(owner))
