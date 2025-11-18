@@ -13,7 +13,7 @@
 	var/courage = 1
 
 	var/list/ready_events = list()
-  
+
 /*
 	var/list/ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0, 
 	"massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "syrgery", "examination" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0, 
