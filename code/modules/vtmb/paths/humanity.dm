@@ -10,6 +10,10 @@
 
 /datum/morality_path/humanity/trigger_morality(trig_event)
 	. = ..()
+	
+	if(ready_events[trig_event] == 1)
+		return FALSE
+	ready_events[trig_event] = 1
 
 	var/special_role_name
 	if(owner.mind)
@@ -19,11 +23,6 @@
 
 	if(is_special_character(owner) && special_role_name != "Ambitious")
 		return
-
-
-	if(ready_events[trig_event] == 1)
-		return FALSE
-	ready_events[trig_event] = 1
 
 	switch(trig_event)
 		//humanity lowers
@@ -274,7 +273,7 @@
 				if(rolls > 2)
 					var/replic_dance = pick(" — Левой, правой, левой, правой. Так держать, суперзвезда", " — Танцевать так приятно, что хочется петь...", " — Зажги танцпол, детка!",
 					" — Давай, покажи этим зевакам, что такое Страсть, что такое Настоящий Танец!", " — ТАНЦУЙ! ПОЙ! ЛЮБИ! ЖИВИ!")
-					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_dance]]!</span>")
+					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_dance]!</span>")
 					adjust(1)
 				else
 					var/replic_dance_soft = pick(" — Хватит двигаться, это выглядит убого! Прекрати! Прошу!", " — Это вряд-ли можно назвать танцем. Скорее, предсмертной судорогой.", " — Убери чёртову улыбку с лица и прекрати танцевать, тебе уже не десять лет!",
@@ -319,7 +318,7 @@
 
 		//BEAST
 		if("frenzy")
-			var/replic_frenzy = pick(" — А вот и я. Кто не спрятался - я не виноват!", " — Ты слишком слаб[owner.gender == FEMALE ? "а" : ""]. Теперь мой черед играться.", " — Время поохотиться!", " — Пойдем поищем что-нибудь вкусненькое."
+			var/replic_frenzy = pick(" — А вот и я. Кто не спрятался - я не виноват!", " — Ты слишком слаб[owner.gender == FEMALE ? "а" : ""]. Теперь мой черед играться.", " — Время поохотиться!", " — Пойдем поищем что-нибудь вкусненькое.",
 			" — Ха-ха-ха! Пора устраивать веселье!", " — Ты больше не хозяин себе. Я возьму всё в свои клыки!", " — Ты лишь гость в этом теле.")
 			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_frenzy]</span>")
 		if ("animaldrink")
