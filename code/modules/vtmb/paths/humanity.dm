@@ -10,7 +10,10 @@
 
 /datum/morality_path/humanity/trigger_morality(trig_event)
 	. = ..()
-
+	
+	if(ready_events[trig_event] == 1)
+		return FALSE
+	ready_events[trig_event] = 1
 	var/special_role_name
 	if(owner.mind)
 		if(owner.mind.special_role)
@@ -19,11 +22,6 @@
 
 	if(is_special_character(owner) && special_role_name != "Ambitious")
 		return
-
-
-	if(ready_events[trig_event] == 1)
-		return FALSE
-	ready_events[trig_event] = 1
 
 	switch(trig_event)
 		//humanity lowers
@@ -353,7 +351,7 @@
 		if ("packetdrink")
 			var/replic_packetdrink = pick(" — Хм, интересно... Из пакетика? Ну-ну...", " — Пакетик... Как мило. Ты что, ребёнок?", 
 			"Из пакетика? А почему без слюнявчика и трубочки, [owner.gender == FEMALE ? "мадмуазель" : "миссье"]?")
-			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_packetdrink]]</span>")
+			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_packetdrink]</span>")
 		if ("baddrink")
 			var/replic_baddrink = pick(" — Твою ж мать, это же просто отвратительно!", " — Меня сейчас вырвет от этого дерьма...", "  — Это что-то новенькое... Вкус как у тухлой рыбы с примесью бензина.","Фу, ну и дрянь. Найди что-то поаппетитнее.")
 			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_baddrink]</span>")
