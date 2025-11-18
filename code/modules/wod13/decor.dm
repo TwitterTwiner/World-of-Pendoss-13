@@ -486,6 +486,7 @@
 	name = "pipes"
 	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "piping1"
+
 	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
@@ -494,6 +495,18 @@
 	. = ..()
 //	icon_state = "piping[rand(1, 4)]"
 
+/obj/structure/vampipe/corner
+	icon_state = "piping23"
+
+/obj/structure/vampipe/corner/alt
+	icon_state = "piping27"
+
+/obj/structure/vampipe/corner/down
+	icon_state = "piping26"
+
+/obj/structure/vampipe/down
+	icon_state = "piping19"
+
 /obj/structure/vampipe/broken
 	name = "broken pipes"
 	icon = 'code/modules/wod13/props.dmi'
@@ -501,6 +514,8 @@
 	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
+
+
 
 /obj/structure/vampipe/one
 	name = "single pipe"
@@ -516,27 +531,18 @@
 
 /obj/structure/vampipe/one/alt
 	name = "single pipe"
-	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "piping14"
-	plane = GAME_PLANE
-	layer = ABOVE_ALL_MOB_LAYER
-	anchored = TRUE
+
+/obj/structure/vampipe/one/alt/black
+	icon_state = "piping16"
 
 /obj/structure/vampipe/one/broken
 	name = "single pipe"
-	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "piping25"
-	plane = GAME_PLANE
-	layer = ABOVE_ALL_MOB_LAYER
-	anchored = TRUE
 
 /obj/structure/vampipe/hard
 	name = "pipes"
-	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "piping9"
-	plane = GAME_PLANE
-	layer = ABOVE_ALL_MOB_LAYER
-	anchored = TRUE
 
 /obj/structure/vampipe/hard/Initialize(mapload)	
 	. = ..()
