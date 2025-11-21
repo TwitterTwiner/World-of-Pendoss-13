@@ -21,7 +21,7 @@
 	. = ..()
 	. += "[icon_state]_bolt[bolt_locked ? "_locked" : ""]"
 
-/obj/item/gun/ballistic/automatic/vampire/rifle/rack(mob/user = null)
+/obj/item/gun/ballistic/automatic/vampire/rifle/rack(mob/living/user = null)
 	if(bolt_locked == FALSE)
 		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
@@ -91,7 +91,7 @@
 				return FALSE
 	..()
 
-/obj/item/gun/ballistic/rifle/boltaction/process_fire(mob/user)
+/obj/item/gun/ballistic/rifle/boltaction/process_fire(mob/living/user)
 	if(can_jam)
 		if(chambered.BB)
 			if(prob(jamming_chance))
