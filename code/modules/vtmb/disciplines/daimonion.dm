@@ -89,11 +89,11 @@
 
 	else if(isgarou(target) || iswerewolf(target))
 		to_chat(owner, span_notice("\nTheir flesh shivers at the touch of silver, a bane older than their memory."))
-		if(target.client?.prefs?.breed == "Homid")
+		if(target.client?.prefs?.breed == BREED_HOMID)
 			to_chat(owner, span_notice("Between the pulse of nature and the lull of mankind, their strength falters in hesitation."))
-		else if(target.client?.prefs?.breed == "Lupus")
+		else if(target.client?.prefs?.breed == BREED_LUPUS)
 			to_chat(owner, span_notice("They roam with the strength of the wilderness, but human artifice confounds their simple minds."))
-		else if(target.client?.prefs?.breed == "Metis")
+		else if(target.client?.prefs?.breed == BREED_METIS)
 			to_chat(owner, span_notice("Born of forbidden union, they walk in immense form, yet flaw and fury linger in every step."))
 
 		if(target.client?.prefs?.tribe == "Wendigo")
