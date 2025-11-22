@@ -117,11 +117,11 @@
 		if(hurt)
 			victim.take_bodypart_damage(10 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
 			take_bodypart_damage(10 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
-			victim.Paralyze(1 SECONDS)
-			Paralyze(1 SECONDS)
+			victim.Paralyze(1 SECONDS, TRUE)
+			Paralyze(1 SECONDS, TRUE)
 			visible_message("<span class='danger'>[src] crashes into [victim][extra_speed ? " really hard" : ""], knocking them both over!</span>",\
 				"<span class='userdanger'>You violently crash into [victim][extra_speed ? " extra hard" : ""]!</span>")
-			if(src.potential > 0)
+			if(src.a_intent == INTENT_HARM && get_potence_dices(src) > 0)
 				src.epic_fall()
 		playsound(src,'sound/weapons/punch1.ogg',50,TRUE)
 
@@ -281,7 +281,7 @@
 
 		var/travel_time = distance * 0.5
 		spawn(travel_time)
-			if(get_dist(loc, adjusted_target) <= 1 && H.potential > 0)
+			if(get_dist(loc, adjusted_target) <= 1 && get_potence_dices(H) > 0)
 				H.epic_fall()
 
 

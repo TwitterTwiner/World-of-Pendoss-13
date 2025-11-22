@@ -128,6 +128,12 @@
 
 #define STATUS_EFFECT_BURNING_TOUCH /datum/status_effect/burning_touch
 
+/////////////
+//  GAROU  //
+/////////////
+
+#define STATUS_EFFECT_DELIRIUM /datum/status_effect/delirium
+
 // Grouped effect sources, see also code/__DEFINES/traits.dm
 
 #define STASIS_MACHINE_EFFECT "stasis_machine"

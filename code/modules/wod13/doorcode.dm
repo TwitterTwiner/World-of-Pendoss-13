@@ -128,8 +128,8 @@
 		else
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
-				if(H.potential > 0)
-					if((H.potential * 2) >= lockpick_difficulty)
+				if(get_potence_dices(H) > 0)
+					if((get_potence_dices(H) * 2) >= lockpick_difficulty)
 						playsound(get_turf(src), 'code/modules/wod13/sounds/get_bent.ogg', 100, FALSE)
 						var/obj/item/shield/door/D = new(get_turf(src))
 						D.icon_state = baseicon

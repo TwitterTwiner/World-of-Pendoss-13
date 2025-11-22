@@ -149,12 +149,12 @@
 			caster.attributes.strength_bonus += 2
 			caster.dna.species.attack_sound = 'code/modules/wod13/sounds/heavypunch.ogg'
 			tackler = caster.AddComponent(/datum/component/tackler, stamina_cost=0, base_knockdown = 1 SECONDS, range = 2+level_casting, speed = 1, skill_mod = 0, min_distance = 0)
-			caster.potential = 4
+			caster.attributes.potence_bonus += 4
 			ADD_TRAIT(caster, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
 					caster.remove_overlay(PROTEAN_LAYER)
-					caster.potential = 0
+					caster.attributes.potence_bonus -= 4
 					caster.attributes.strength_bonus -= 2
 					caster.dna.species.attack_sound = initial(caster.dna.species.attack_sound)
 					qdel(tackler)

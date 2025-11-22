@@ -1578,7 +1578,7 @@
 					Aggro(H, FALSE)
 				if(H.masquerade < 3)
 					Aggro(H, FALSE)
-		for(var/mob/living/carbon/werewolf/W in oviewers(7, src))
+		for(var/mob/living/carbon/werewolf/crinos/W in oviewers(7, src))
 			if(W)
 				Aggro(W, FALSE)
 
@@ -1589,7 +1589,7 @@
 			if(H)
 				if(H.masquerade < 4)
 					Aggro(H, FALSE)
-		for(var/mob/living/carbon/werewolf/W in oviewers(7, src))
+		for(var/mob/living/carbon/werewolf/crinos/W in oviewers(7, src))
 			if(W)
 				Aggro(W, FALSE)
 
@@ -1602,7 +1602,7 @@
 					Aggro(H, FALSE)
 				if(H.masquerade < 2)
 					Aggro(H, FALSE)
-		for(var/mob/living/carbon/werewolf/W in oviewers(7, src))
+		for(var/mob/living/carbon/werewolf/crinos/W in oviewers(7, src))
 			if(W)
 				Aggro(W, FALSE)
 
