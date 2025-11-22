@@ -531,6 +531,7 @@
 	vampiric = TRUE
 	var/list/selected_upgrade = list()
 	var/mutable_appearance/upgrade_overlay
+	var/mutable_appearance/hands2_overlay
 	var/original_skin_tone
 	var/original_hairstyle
 	var/original_body_mod
@@ -562,7 +563,7 @@
 	if(!do_after(user, 10 SECONDS))
 		return
 //	if(selected_upgrade && owner.generation > 7)
-	if(length(selected_upgrade) > 4)
+	if(length(selected_upgrade) >= 4)
 		return
 	selected_upgrade += upgrade
 	ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
@@ -590,9 +591,9 @@
 			var/limbs = user.held_items.len
 			user.change_number_of_hands(limbs + 2)
 			user.remove_overlay(PROTEAN_LAYER)
-			upgrade_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "2hands", -PROTEAN_LAYER)
-			upgrade_overlay.color = "#[skintone2hex(user.skin_tone)]"
-			user.overlays_standing[PROTEAN_LAYER] = upgrade_overlay
+			hands2_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "2hands", -PROTEAN_LAYER)
+			hands2_overlay.color = "#[skintone2hex(user.skin_tone)]"
+			user.overlays_standing[PROTEAN_LAYER] = hands2_overlay
 			user.apply_overlay(PROTEAN_LAYER)
 		if("Leather wings")
 			user.dna.species.GiveSpeciesFlight(user)
@@ -603,15 +604,17 @@
 /datum/action/basic_vicissitude/proc/remove_upgrade()
 	var/razmer = length(selected_upgrade)
 	var/mob/living/carbon/human/user = owner
-	if(razmer < 1)
-		return
 	for(razmer, razmer>0, razmer--)
+	//	var/upgrade = selected_upgrade[razmer]
+		var/upgrade = input(owner, "What exactly you want to remove?", "Vicissitude Remove") as null|anything in selected_upgrade
+		if(!upgrade)
+			return
 
 		to_chat(user, span_notice("You begin surgically removing your enhancements..."))
 		if(!do_after(user, 10 SECONDS))
 			return
 		REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
-		switch(selected_upgrade)
+		switch(upgrade)
 			if("Skin armor")
 				user.unique_body_sprite = null
 				user.skin_tone = original_skin_tone
@@ -619,17 +622,21 @@
 				user.base_body_mod = original_body_mod
 				user.physiology.armor.melee -= 20
 				user.physiology.armor.bullet -= 20
+				selected_upgrade -= upgrade
 			if("Centipede legs")
 				user.remove_overlay(PROTEAN_LAYER)
 				QDEL_NULL(upgrade_overlay)
 				user.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
+				selected_upgrade -= upgrade
 			if("Second pair of arms")
 				var/limbs = user.held_items.len
 				user.change_number_of_hands(limbs - 2)
 				user.remove_overlay(PROTEAN_LAYER)
-				QDEL_NULL(upgrade_overlay)
+				QDEL_NULL(hands2_overlay)
+				selected_upgrade -= upgrade
 			if("Leather wings")
 				user.dna.species.RemoveSpeciesFlight(user)
+				selected_upgrade -= upgrade
 
 	user.do_jitter_animation(10)
 	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
