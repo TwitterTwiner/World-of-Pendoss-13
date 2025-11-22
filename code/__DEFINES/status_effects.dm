@@ -128,6 +128,9 @@
 
 #define STATUS_EFFECT_BURNING_TOUCH /datum/status_effect/burning_touch
 
+#define STATUS_EFFECT_SLOW_OXYLOSS /datum/status_effect/slow_oxyloss
+#define STATUS_EFFECT_SLOW_DEATH /datum/status_effect/slow_death
+
 /////////////
 //  GAROU  //
 /////////////
