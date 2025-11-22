@@ -270,6 +270,8 @@
 	AIStatus = AI_OFF
 	maxHealth = 300
 	health = 300
+	melee_damage_lower = 15
+	melee_damage_upper = 30
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
 
