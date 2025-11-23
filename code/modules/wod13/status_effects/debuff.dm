@@ -31,15 +31,16 @@
 	id = "delirium"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 15 SECONDS
-	tick_interval = 1 SECONDS
+	tick_interval = 2 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/delirium
 	var/rolled_successes
 	var/werewolf_source
+	var/active_callback = FALSE
 
 /atom/movable/screen/alert/status_effect/delirium
 	name = "УЖАС"
 	desc = "Каждое мгновение может стать последним."
-	icon_state = "delirium"
+	icon_state = "fear"
 
 /datum/status_effect/delirium/on_creation(mob/living/carbon/human/H, successes_count, source)
 	. = ..()
@@ -64,15 +65,18 @@
 			if(prob(50))
 				H.emote("cry")
 			if(prob(25))
-				H.Unconscious(5 SECONDS)
+				H.Unconscious(3 SECONDS)
 		if(2)
 			response = pick("Бегите... бегите...", "Нет... нет... нет!", "Помогите... пожалуйста!", "Оно идет... боже... оно идет!",
 			"Нет времени... нужно бежать!")
 			H.do_jitter_animation(3 SECONDS)
 			H.dizziness += 5
-			var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster), werewolf_source)
-			for(var/i in 1 to 30)
-				addtimer(cb, (i - 1) * H.total_multiplicative_slowdown())
+			if(!active_callback)
+				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster), werewolf_source)
+				for(var/i in 1 to 30)
+					addtimer(cb, (i - 1) * H.total_multiplicative_slowdown())
+					addtimer(CALLBACK(H, TYPE_PROC_REF(/datum/status_effect/delirium, reset_callback)), (i-1) * H.total_multiplicative_slowdown())
+				active_callback = TRUE
 			if(prob(25))
 				H.emote("scream")
 		if(3)
@@ -109,8 +113,11 @@
 			response = pick("Я вижу тебя, зверь.", "Вот ты какой.", "Ты мне не страшен.", "Я найду тебя потом, чудище.", "Запомнил. Теперь - ты мой.")
 		if(10)
 			response = pick("Понятно.", "Хм...", "Вот оно как...", "Все ясно.", "Я вижу. Продолжай...")
-	if(prob(25))
+	if(prob(50))
 		to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='discosay'>[response]</span>")
+
+/datum/status_effect/delirium/proc/reset_callback()
+	active_callback = FALSE
 
 /datum/status_effect/delirium/Destroy()
 	var/mob/living/carbon/human/H = owner
@@ -160,6 +167,7 @@
 	to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='discosay'>[last_message]</span>")
 	rolled_successes = null
 	werewolf_source = null
+	active_callback = null
 	return ..()
 
 /datum/status_effect/slow_oxyloss

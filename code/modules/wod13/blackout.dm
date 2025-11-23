@@ -141,8 +141,8 @@ SUBSYSTEM_DEF(witness_pool)
 	switch(skin_tone)
 		if("latino")
 			skin_bonus = 1
-	var/result = clamp(10-successes-skin_bonus, 1, 10)
-	src.apply_status_effect(STATUS_EFFECT_DELIRIUM, src, result, source)
+	var/result = clamp(successes+skin_bonus, 1, 10)
+	src.apply_status_effect(STATUS_EFFECT_DELIRIUM, result, source)
 
 
 
