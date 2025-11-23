@@ -137,6 +137,6 @@
 ///// NEW /////////////////////// 
 
 /obj/vampire_car/sportcar
-    name = "sportcar"
-    icon = 'code/modules/wod13/icons_newvechle/car_supercar.dmi'
-    icon_state = "supercar_neon"
+	name = "sportcar"
+	icon = 'code/modules/wod13/icons_newvechle/car_supercar.dmi'
+	icon_state = "supercar_neon"
