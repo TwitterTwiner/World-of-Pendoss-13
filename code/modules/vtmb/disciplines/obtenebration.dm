@@ -78,16 +78,16 @@
 		shadows -= old_shadow
 		for(var/turf/T in old_shadow.affected_tiles)
 			T.shadow_count -= 1
+			old_shadow.affected_tiles -= T
 			if(T.shadow_count <= 0)
 				T.shadow_count = 0
 				T.lumcount_override = TRUE
-				old_shadow.affected_tiles -= T
 		for(var/obj/effect/decal/lamplight/L in old_shadow.affected_lamp_decals)
 			L.shadow_count -= 1
+			old_shadow.affected_lamp_decals -= L
 			if(L.shadow_count <= 0)
 				L.shadow_count = 0
 				L.alpha = initial(L.alpha)
-				old_shadow.affected_lamp_decals -= L
 		qdel(old_shadow)
 
 	if(!length(shadows) && cbutton) // Remove the button if there are no shadows left
