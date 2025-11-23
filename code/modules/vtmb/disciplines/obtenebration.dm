@@ -142,7 +142,7 @@
 	violates_masquerade = TRUE
 	cooldown_length = 1 TURNS
 
-/datum/discipline_power/obtenebration/arms_of_the_abyss/activate(var/atom/target)
+/datum/discipline_power/obtenebration/arms_of_the_abyss/activate(atom/target)
 	. = ..()
 	var/turf/target_turf = get_turf(target)
 	var/dice = get_a_manipulation(owner)+get_a_occult(owner)
