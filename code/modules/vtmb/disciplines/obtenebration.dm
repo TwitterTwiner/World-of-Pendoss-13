@@ -31,6 +31,8 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	target_type = TARGET_TURF | TARGET_MOB | TARGET_OBJ | TARGET_SELF
 	range = 7
 
+	violates_masquerade = TRUE
+
 	multi_activate = TRUE
 	duration_length = 10 SECONDS
 	cooldown_length = 5 SECONDS
@@ -144,6 +146,8 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	violates_masquerade = TRUE
 	cooldown_length = 1 TURNS
 
+	var/datum/action/clear_tentacles/tbutton // The button to clear everything
+
 /datum/discipline_power/obtenebration/arms_of_the_abyss/activate(atom/target)
 	. = ..()
 	var/turf/target_turf = get_turf(target)
@@ -167,6 +171,10 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 			var/datum/action/aggro_mode/A = new()
 			A.Grant(owner)
 
+		if(!tbutton) // Grant the button if it doesn't exist
+			tbutton = new(src)
+			tbutton.Grant(owner)
+
 		// Create tentacles based on successes
 		for(var/i in 1 to roll)
 			// For the first tentacle, use the target turf
@@ -184,6 +192,15 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 		to_chat(usr, span_warning("The area is too bright for the shadows to manifest!"))
 		return FALSE
 
+/datum/discipline_power/obtenebration/arms_of_the_abyss/proc/remove_all_tentacles()
+	for(var/mob/living/simple_animal/hostile/abyss_tentacle/T in world)
+		if(T.owner == owner)
+			if(!length(T) && tbutton)
+				tbutton.Remove(owner)
+				QDEL_NULL(tbutton)
+			T.release_grabbed_mob()
+			qdel(T)
+
 //BLACK METAMORPHOSIS
 /datum/discipline_power/obtenebration/black_metamorphosis
 	name = "Black Metamorphosis"
@@ -194,6 +211,11 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	vitae_cost = 0
 
 	violates_masquerade = TRUE
+
+	grouped_powers = list(
+		/datum/discipline_power/obtenebration/tenebrous_form
+	)
+
 
 	toggled = TRUE
 	duration_length = 999 SCENES
@@ -263,6 +285,10 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	vitae_cost = 0
 
 	toggled = TRUE
+
+	grouped_powers = list(
+		/datum/discipline_power/obtenebration/black_metamorphosis
+	)
 
 	duration_length = 999 SCENES
 	cooldown_length = 1 TURNS
@@ -427,6 +453,23 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	. = ..()
 	if(.)
 		power.remove_all_shadows()
+
+// Tentacle removal button for Arms of the Abyss
+/datum/action/clear_tentacles
+	name = "Clear Tentacles"
+	desc = "Clears all currently active Arms of the Abyss tentacles"
+	icon_icon = 'icons/hud/actions.dmi'
+	button_icon_state = "tentacles"
+	var/datum/discipline_power/obtenebration/arms_of_the_abyss/power
+
+/datum/action/clear_tentacles/New(Target)
+	. = ..()
+	power = Target
+
+/datum/action/clear_tentacles/Trigger(trigger_flags)
+	. = ..()
+	if(.)
+		power.remove_all_tentacles()
 
 /mob/living/simple_animal/hostile/abyss_tentacle
 	name = "abyssal tentacle"

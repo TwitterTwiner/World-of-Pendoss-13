@@ -76,9 +76,9 @@
 	var/ritual
 
 	if(istype(H.get_active_held_item(), /obj/item/arcane_tome))
-		ritual = tgui_input_list(owner, "Choose rune to draw:", "Mysticism", rituals, null)
+		ritual = tgui_input_list(owner, "Choose rune to draw:", "Thaumaturgy", rituals, null)
 	else
-		ritual = tgui_input_list(owner, "Choose rune to draw (You need a Mystic Tome to reduce random):", "Mysticism", list("???"))
+		ritual = tgui_input_list(owner, "Choose rune to draw (You need a Mystic Tome to reduce random):", "Thaumaturgy", list("???"))
 		if(ritual)
 			ritual = pick(rituals)
 
