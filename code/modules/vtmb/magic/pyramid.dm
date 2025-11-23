@@ -97,7 +97,9 @@
 				new rname(H.loc)
 				H.bloodpool = max(H.bloodpool - rcost, 0)
 				if(H.CheckEyewitness(H, H, 7, FALSE))
-						H.AdjustMasquerade(-1)
+					H.AdjustMasquerade(-1)
+			else
+				to_chat(owner, span_warning("You <b>FAIL</b> at runedrawing!"))
 	else
 		to_chat(H, span_warning("You need more <b>BLOOD</b> to do that!"))
 		drawing = FALSE
