@@ -60,58 +60,50 @@
 /datum/action/thaumaturgy/Trigger(trigger_flags)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
-	if(H.bloodpool < 2)
-		to_chat(H, span_warning("You need more <b>BLOOD</b> to do that!"))
+	if(drawing)
 		return
 
+	var/list/rituals = list()
+	for(var/i in subtypesof(/obj/ritualrune))
+		var/obj/ritualrune/R = new i(owner)
+		if(R.clan_restricted_ritual.len && !(H.clane.type in R.clan_restricted_ritual))
+			continue
+		if(R.thaumlevel <= level)
+			rituals[R.name] = list("name" = i, "cost" = R.cost)
+		qdel(R)
+
+	var/ritual
+
 	if(istype(H.get_active_held_item(), /obj/item/arcane_tome))
-		var/list/rune_names = list()
-		for(var/i in subtypesof(/obj/ritualrune))
-			var/obj/ritualrune/R = new i(owner)
-			if(R.clan_restricted_ritual.len && !(H.clane.type in R.clan_restricted_ritual))
-				continue
-			if(R.thaumlevel <= level)
-				rune_names[R.name] = i
-			qdel(R)
-		var/ritual = tgui_input_list(owner, "Choose rune to draw:", "Thaumaturgy", rune_names)
-		if(!ritual)
-			return
-		if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
-			var/result = secret_vampireroll(get_a_intelligence(H)+get_a_occult(H), 6, H)
-			if(result > 1)
-				var/ritual_type = rune_names[ritual]
-				new ritual_type(H.loc)
-				H.bloodpool = max(H.bloodpool - 2, 0)
-				if(H.CheckEyewitness(H, H, 7, FALSE))
-					H.AdjustMasquerade(-1)
-			else
-				to_chat(owner, span_warning("You failed at rune drawing!"))
-				if(result == -1)
-					H.AdjustKnockdown(3 SECONDS)
+		ritual = tgui_input_list(owner, "Choose rune to draw:", "Mysticism", rituals, null)
 	else
-		var/list/rune_names = list()
-		for(var/i in subtypesof(/obj/ritualrune))
-			var/obj/ritualrune/R = new i(owner)
-			if(R.clan_restricted_ritual.len && !(H.clane.type in R.clan_restricted_ritual))
-				continue
-			if(R.thaumlevel <= level)
-				rune_names += i
-			qdel(R)
-		var/ritual = tgui_input_list(owner, "Choose rune to draw (You need an Arcane Tome to reduce random):", "Thaumaturgy", list("???"))
-		if(!ritual)
-			return
+		ritual = tgui_input_list(owner, "Choose rune to draw (You need a Mystic Tome to reduce random):", "Mysticism", list("???"))
+		if(ritual)
+			ritual = pick(rituals)
+
+	if(!ritual)
+		return
+
+	var/rtype = rituals[ritual]
+	var/rname = rtype["name"]
+	var/rcost = rtype["cost"]
+
+	if(H.bloodpool >= rcost)
+		drawing = TRUE
 		if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))
 			var/result = secret_vampireroll(get_a_intelligence(H)+get_a_occult(H), 6, H)
-			if(result > 1)
-				var/rune = pick(rune_names)
-				new rune(H.loc)
-				H.bloodpool = max(H.bloodpool - 2, 0)
+			if(result >= 3)
+				drawing = FALSE
+				new rname(H.loc)
+				H.bloodpool = max(H.bloodpool - rcost, 0)
 				if(H.CheckEyewitness(H, H, 7, FALSE))
-					H.AdjustMasquerade(-1)
-			else
-				to_chat(owner, span_warning("You failed at rune drawing!"))
-				if(result == -1)
-					H.AdjustKnockdown(3 SECONDS)
+						H.AdjustMasquerade(-1)
+	else
+		to_chat(H, span_warning("You need more <b>BLOOD</b> to do that!"))
+		drawing = FALSE
+		return
+
+	drawing = FALSE
 
 /obj/ritualrune
 	name = "Tremere Rune"
