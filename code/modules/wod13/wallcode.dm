@@ -492,7 +492,7 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/plating/vampcarpet
+/turf/open/floor/plating/vampcarpet/ship
 	icon = 'code/modules/wod13/ship/floor.dmi'
 	icon_state = "cover"
 
