@@ -57,7 +57,6 @@
 	for(var/turf/T in range(discipline.level * 2, new_shadow))
 		tiles += T
 		T.shadow_count += 1
-		T.shadow_owner = owner
 		if(T.shadow_count == 1)
 			T.lumcount_override = FALSE
 	for(var/obj/effect/decal/lamplight/L in range(discipline.level * 2, new_shadow))
@@ -81,7 +80,6 @@
 			T.shadow_count -= 1
 			if(T.shadow_count <= 0)
 				T.shadow_count = 0
-				T.shadow_owner = null
 				T.lumcount_override = TRUE
 				old_shadow.affected_tiles -= T
 		for(var/obj/effect/decal/lamplight/L in old_shadow.affected_lamp_decals)
@@ -100,7 +98,6 @@
 	for(var/atom/movable/shadow_area/all_shadows in shadows)
 		for(var/turf/T in all_shadows.affected_tiles)
 			T.shadow_count = 0
-			T.shadow_owner = null
 			T.lumcount_override = TRUE
 		all_shadows.affected_tiles.Cut()
 		all_shadows.affected_lamp_decals.Cut()
