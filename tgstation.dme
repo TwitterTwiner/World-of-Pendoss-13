@@ -3479,6 +3479,7 @@
 #include "code\modules\vtmb\disciplines\temporis.dm"
 #include "code\modules\vtmb\disciplines\vicissitude.dm"
 #include "code\modules\vtmb\disciplines\visceratika.dm"
+#include "code\__DEFINES\vtm\vtm_defines.dm"
 #include "code\modules\vtmb\disciplines\dark_thaumaturgy\dt_path_fires_inferno.dm"
 #include "code\modules\vtmb\disciplines\dark_thaumaturgy\dt_path_pain.dm"
 #include "code\modules\vtmb\disciplines\dark_thaumaturgy\dt_path_taking_spirit.dm"
