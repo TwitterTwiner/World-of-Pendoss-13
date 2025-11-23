@@ -17,6 +17,13 @@
 	anchored = TRUE
 	density = TRUE
 
+/obj/structure/vampfence/CanPass(atom/movable/mover, turf/target)
+	. = ..()
+	if(istype(mover, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = mover
+		if(HAS_TRAIT(H, TRAIT_PASSDOOR))
+			return TRUE
+
 /obj/structure/vampfence/corner
 	icon_state = "fence_corner"
 

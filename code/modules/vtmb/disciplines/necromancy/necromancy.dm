@@ -324,10 +324,12 @@
 		var/list/rune_names = list()
 		for(var/i in subtypesof(/obj/necrorune))
 			var/obj/necrorune/R = new i(owner)
+			if(R.clan_restricted_ritual.len && !(H.clane.type in R.clan_restricted_ritual))
+				continue
 			if(R.necrolevel <= level)
 				rune_names += i
 			qdel(R)
-		var/ritual = tgui_input_list(owner, "Choose rune to draw:", "necroritualism", list("???"))
+		var/ritual = tgui_input_list(owner, "Choose rune to draw (You need a Necromancy Tome to reduce random):", "Necromancy", list("???"))
 		if(!ritual)
 			return
 		if(do_after(H, 3 SECONDS * max(1, 5 - get_a_occult(H)), H))

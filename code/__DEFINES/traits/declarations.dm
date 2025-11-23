@@ -299,4 +299,7 @@
 //Trait for customizable reagent holder
 #define TRAIT_CUSTOMIZABLE_REAGENT_HOLDER "customizable_reagent_holder"
 
+// Allows the user to pass through doors
+#define TRAIT_PASSDOOR "trait_passdoor"
+
 // END TRAIT DEFINES
