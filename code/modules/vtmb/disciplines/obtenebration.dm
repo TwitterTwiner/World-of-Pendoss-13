@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(global_tentacle_grabs)
+
 /datum/discipline/obtenebration
 	name = "Obtenebration"
 	desc = "Controls the darkness around you."
@@ -426,9 +428,6 @@
 	if(.)
 		power.remove_all_shadows()
 
-// Global list to track mobs grabbed by any tentacle
-var/global/list/global_tentacle_grabs = list()
-
 /mob/living/simple_animal/hostile/abyss_tentacle
 	name = "abyssal tentacle"
 	desc = "A shadowy tentacle from the abyss that seeks to grab and crush its prey."
@@ -499,7 +498,7 @@ var/global/list/global_tentacle_grabs = list()
 		return FALSE
 	if(L == grabbed_mob)
 		return FALSE
-	if(L in global.global_tentacle_grabs)
+	if(L in GLOB.global_tentacle_grabs)
 		return FALSE
 	if(L in recently_released)
 		return FALSE
@@ -525,7 +524,7 @@ var/global/list/global_tentacle_grabs = list()
 				continue
 			if(istype(L, /mob/living/simple_animal/hostile/abyss_tentacle)) // Not another tentacle
 				continue
-			if(L in global.global_tentacle_grabs) // Not on The List tm
+			if(L in GLOB.global_tentacle_grabs) // Not on The List tm
 				continue
 			target_to_grab = L
 			break
@@ -544,7 +543,7 @@ var/global/list/global_tentacle_grabs = list()
 	// More checks
 	if(target == owner || istype(target, /mob/living/simple_animal/hostile/abyss_tentacle)) // Not owner, not another tentacle
 		return
-	if(target in global.global_tentacle_grabs) // Not grabbed by another tentacle
+	if(target in GLOB.global_tentacle_grabs) // Not grabbed by another tentacle
 		return
 	if(grabbed_mob) // Not already grabbing someone
 		return
@@ -564,14 +563,14 @@ var/global/list/global_tentacle_grabs = list()
 		to_chat(target, span_userdanger("The tentacle forces you to the ground!"))
 
 	grabbed_mob = target
-	global.global_tentacle_grabs += target
+	GLOB.global_tentacle_grabs += target
 
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_grabbed_mob_move))
 
 /mob/living/simple_animal/hostile/abyss_tentacle/proc/release_mob(mob/living/target, add_cooldown = TRUE)
 	if(target == grabbed_mob)
 		grabbed_mob = null
-		global.global_tentacle_grabs -= target
+		GLOB.global_tentacle_grabs -= target
 		target.Stun(0)
 		target.clear_tentacle_grab()
 
