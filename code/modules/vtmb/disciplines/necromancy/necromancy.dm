@@ -288,6 +288,7 @@
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
 	var/level = 1
+	var/drawing = FALSE
 
 /datum/action/necroritualism/Trigger(trigger_flags)
 	. = ..()
