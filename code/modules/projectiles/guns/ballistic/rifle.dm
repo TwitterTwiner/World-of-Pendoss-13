@@ -28,8 +28,8 @@
 		process_chamber(FALSE, FALSE, FALSE)
 		bolt_locked = TRUE
 		update_icon()
-		if(get_a_firearms(user) > 3)
-			drop_bolt(user)
+//		if(get_a_firearms(user) > 3)
+//			drop_bolt(user)
 		return
 	drop_bolt(user)
 
@@ -91,7 +91,7 @@
 				return FALSE
 	..()
 
-/obj/item/gun/ballistic/rifle/boltaction/process_fire(mob/user)
+/obj/item/gun/ballistic/rifle/boltaction/process_fire(mob/living/user)
 	if(can_jam)
 		if(chambered.BB)
 			if(prob(jamming_chance))
