@@ -3633,6 +3633,7 @@
 #include "code\modules\wod13\delevery_club\datums_delivery.dm"
 #include "code\modules\wod13\delevery_club\delivery_club.dm"
 #include "code\modules\wod13\delevery_club\delivery_obj.dm"
+#include "code\modules\wod13\lists\car_list.dm"
 #include "code\modules\wod13\lists\doors_list.dm"
 #include "code\modules\wod13\lists\keys_list.dm"
 #include "code\modules\wod13\lists\wall_list.dm"

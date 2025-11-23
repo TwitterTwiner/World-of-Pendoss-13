@@ -17,7 +17,6 @@
 	var/pincode
 	var/closed = TRUE
 	var/lock_id = ""
-	var/door_moving = FALSE
 	var/is_broken = FALSE
 	var/door_health = 100
 
@@ -76,9 +75,9 @@
 			to_chat(user, "<span class='warning'>[src] is locked!</span>")
 		return
 
-	if(closed && !door_moving)
+	if(closed)
 		open_door(user)
-	else if (!door_moving)
+	else
 		close_door(user)
 
 /obj/structure/vaultdoor/proc/break_open()
@@ -93,7 +92,6 @@
 
 /obj/structure/vaultdoor/proc/open_door(mob/user)
 	playsound(src, open_sound, 75, TRUE)
-	door_moving = TRUE
 	if(do_after(user, 4 SECONDS))
 		icon_state = "[baseicon]-0"
 		density = FALSE
@@ -101,7 +99,6 @@
 		layer = OPEN_DOOR_LAYER
 		to_chat(user, "<span class='notice'>You open [src].</span>")
 		closed = FALSE
-		door_moving = FALSE
 
 /obj/structure/vaultdoor/proc/close_door(mob/user)
 	for(var/atom/movable/door_blocker in src.loc)
@@ -109,14 +106,12 @@
 			to_chat(user, "<span class='warning'>[door_blocker] is preventing you from closing [src].</span>")
 			return
 	playsound(src, close_sound, 75, TRUE)
-	door_moving = TRUE
 	if(do_after(user, 4 SECONDS))
 		icon_state = "[baseicon]-1"
 		density = TRUE
 		layer = ABOVE_ALL_MOB_LAYER
 		to_chat(user, "<span class='notice'>You close [src].</span>")
 		closed = TRUE
-		door_moving = FALSE
 
 /obj/structure/vaultdoor/proc/is_locked()
 	return combination_locked || pincode_locked
