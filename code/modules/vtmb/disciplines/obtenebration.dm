@@ -71,7 +71,7 @@
 	if(!cbutton) // Grant the button if it doesn't exist
 		cbutton = new(src)
 		cbutton.Grant(owner)
-	addtimer(CALLBACK(src, .proc/remove_shadow, new_shadow), duration_length) // 3 minute timer per shadow
+	addtimer(CALLBACK(src, PROC_REF(remove_shadow), new_shadow), duration_length) // 3 minute timer per shadow
 
 /datum/discipline_power/obtenebration/shadow_play/proc/remove_shadow(atom/movable/shadow_area/old_shadow)
 	if(old_shadow && (old_shadow in shadows)) // Check if shadow still exists
