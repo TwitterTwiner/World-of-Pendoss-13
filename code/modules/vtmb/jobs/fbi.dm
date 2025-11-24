@@ -45,3 +45,6 @@
 /datum/outfit/job/fbi/post_equip(mob/living/carbon/human/H)
 	..()
 	H.ignores_warrant = TRUE
+	var/datum/martial_art/MA = new /datum/martial_art/police_jiu
+	MA.teach(H)
+
