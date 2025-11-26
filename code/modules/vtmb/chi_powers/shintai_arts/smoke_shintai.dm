@@ -33,29 +33,37 @@
 	icon_living = "smoke"
 	mob_biotypes = MOB_ORGANIC
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	speak_chance = 0
-	speed = 3
+	speed = -1
 	maxHealth = 100
 	health = 100
-	butcher_results = list(/obj/item/stack/human_flesh = 1)
-	harm_intent_damage = 5
-	melee_damage_lower = 1
-	melee_damage_upper = 1
-	attack_verb_continuous = "slashes"
-	attack_verb_simple = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	a_intent = INTENT_HARM
+	a_intent = INTENT_HELP
+	is_flying_animal = 1
+	movement_type = FLYING
+	damage_coeff = list(BRUTE = 0, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	bloodpool = 0
 	maxbloodpool = 0
 
+/mob/living/simple_animal/hostile/smokecrawler/Initialize(mapload)
+	.  = ..()
+	ADD_TRAIT(src, TRAIT_MOVE_FLYING, ELEMENT_TRAIT)
+
+/mob/living/simple_animal/hostile/smokecrawler/Move(NewLoc, direct)
+	. = ..()
+	var/obj/structure/vampdoor/V = locate() in NewLoc
+	var/obj/machinery/door/poddoor/shutters/S = locate() in NewLoc
+	if(V)
+		if(!V.magic_lock)
+			forceMove(get_turf(V))
+	if(S)
+		forceMove(get_turf(S))
+
 /mob/living/simple_animal/hostile/smokecrawler/hidden
 	alpha = 10
-	speed = 3
 
 /datum/chi_discipline/smoke_shintai/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
@@ -72,7 +80,7 @@
 					available_turfs += O
 			if(length(available_turfs))
 				var/turf/to_move = pick(available_turfs)
-				var/atom/movable/visual1 = new (get_turf(caster))
+				var/atom/movable/visual1 = new(get_turf(caster))
 				visual1.density = FALSE
 				visual1.anchored = TRUE
 				visual1.layer = ABOVE_ALL_MOB_LAYER
@@ -80,9 +88,9 @@
 				visual1.icon_state = "puff"
 				playsound(get_turf(caster), 'sound/effects/smoke.ogg', 50, TRUE)
 				caster.forceMove(to_move)
-				var/atom/movable/visual2 = new (to_move)
+				var/atom/movable/visual2 = new(to_move)
 				visual2.density = FALSE
-				visual1.anchored = TRUE
+				visual2.anchored = TRUE
 				visual2.layer = ABOVE_ALL_MOB_LAYER
 				visual2.icon = 'code/modules/wod13/icons.dmi'
 				visual2.icon_state = "puff"
@@ -90,19 +98,19 @@
 					qdel(visual1)
 					qdel(visual2)
 		if(3)
-			var/atom/movable/visual1 = new (get_step(caster, caster.dir))
+			var/atom/movable/visual1 = new(get_step(caster, caster.dir))
 			visual1.density = TRUE
 			visual1.anchored = TRUE
 			visual1.layer = ABOVE_ALL_MOB_LAYER
 			visual1.icon = 'icons/effects/effects.dmi'
 			visual1.icon_state = "smoke"
-			var/atom/movable/visual2 = new (get_step(get_step(caster, caster.dir), turn(caster.dir, 90)))
+			var/atom/movable/visual2 = new(get_step(get_step(caster, caster.dir), turn(caster.dir, 90)))
 			visual2.density = TRUE
 			visual2.anchored = TRUE
 			visual2.layer = ABOVE_ALL_MOB_LAYER
 			visual2.icon = 'icons/effects/effects.dmi'
 			visual2.icon_state = "smoke"
-			var/atom/movable/visual3 = new (get_step(get_step(caster, caster.dir), turn(caster.dir, -90)))
+			var/atom/movable/visual3 = new(get_step(get_step(caster, caster.dir), turn(caster.dir, -90)))
 			visual3.density = TRUE
 			visual3.anchored = TRUE
 			visual3.layer = ABOVE_ALL_MOB_LAYER
