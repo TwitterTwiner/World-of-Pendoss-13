@@ -483,70 +483,138 @@
 ///// PIPES ////////
 
 /obj/structure/vampipe
+	name = "pipe"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping12"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe/Initialize(mapload)
+	. = ..()
+	icon_state = "piping[rand(12,13)]"
+
+/obj/structure/vampipe_random
+	name = "pipe"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping14"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe_manifold
 	name = "pipes"
 	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "piping1"
-
 	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
 
-/obj/structure/vampipe/Initialize(mapload)	
+/obj/structure/vampipe_manifold/Initialize(mapload)
 	. = ..()
-//	icon_state = "piping[rand(1, 4)]"
+	icon_state = "piping[rand(1,2)]"
 
-/obj/structure/vampipe/corner
-	icon_state = "piping23"
-
-/obj/structure/vampipe/corner/alt
-	icon_state = "piping27"
-
-/obj/structure/vampipe/corner/down
-	icon_state = "piping26"
-
-/obj/structure/vampipe/down
-	icon_state = "piping19"
-
-/obj/structure/vampipe/broken
-	name = "broken pipes"
+/obj/structure/vampipe_manifold_fixed
+	name = "pipe"
 	icon = 'code/modules/wod13/props.dmi'
-	icon_state = "piping6"
+	icon_state = "piping3"
 	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
 
+/obj/structure/vampipe_manifold_node
+	name = "pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping4"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
 
+/obj/structure/vampipe_manifold_node/Initialize(mapload)
+	. = ..()
+	icon_state = "piping[rand(4,6)]"
 
-/obj/structure/vampipe/one
+/obj/structure/vampipe_manifold_node_alt
+	name = "pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping10"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe_manifold_node_alt/Initialize(mapload)
+	. = ..()
+	icon_state = "piping[rand(10,11)]"
+
+/obj/structure/vampipe_manifold_random
 	name = "single pipe"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping7"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe_manifold_random/Initialize(mapload)
+	. = ..()
+	icon_state = "piping[rand(7,9)]"
+
+/obj/structure/vampipe_end
+	name = "pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping16"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe_end_manifold
+	name = "pipes"
 	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "piping15"
 	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
 
-/obj/structure/vampipe/one/Initialize(mapload)	
-	. = ..()
-	icon_state = "piping1[rand(15, 17)]"
-
-/obj/structure/vampipe/one/alt
-	name = "single pipe"
-	icon_state = "piping14"
-
-/obj/structure/vampipe/one/alt/black
-	icon_state = "piping16"
-
-/obj/structure/vampipe/one/broken
-	name = "single pipe"
-	icon_state = "piping25"
-
-/obj/structure/vampipe/hard
+/obj/structure/vampipe_corner
 	name = "pipes"
-	icon_state = "piping9"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "piping17"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
 
-/obj/structure/vampipe/hard/Initialize(mapload)	
-	. = ..()
-	icon_state = "piping[rand(9, 12)]"
+/obj/structure/vampipe_damaged
+	name = "pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "pipingdamaged"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe_fixed
+	name = "pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "pipingfixed"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+
+/obj/structure/vampipe_pressure
+	name = "pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "pipingpressure1"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER+0.1
+	anchored = TRUE
+
+/obj/structure/vampipe_valve
+	name = "pipes"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "pipingvalve"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER+0.1
+	anchored = TRUE
+
+/////////////////////////////////////////
 
 /obj/structure/vamproofwall
 	name = "wall"
@@ -702,9 +770,9 @@
 	name = "crosswalk sign"
 	icon_state = "crosswalk"
 
-/obj/structure/barrels
+/obj/structure/barrel
 	name = "barrel"
-	desc = "Storage some liquids."
+	desc = "Storage for some liquids."
 	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "barrel1"
 	plane = GAME_PLANE
@@ -712,12 +780,23 @@
 	anchored = TRUE
 	density = TRUE
 
-/obj/structure/barrels/rand
-	icon_state = "barrel2"
-
-/obj/structure/barrels/rand/Initialize(mapload)
+/obj/structure/barrel/Initialize(mapload)
 	. = ..()
 	icon_state = "barrel[rand(1, 12)]"
+
+/obj/structure/barrels
+	name = "barrels"
+	desc = "Storage for some liquids."
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "barrels1"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+	density = TRUE
+
+/obj/structure/barrels/Initialize(mapload)
+	. = ..()
+	icon_state = "barrels[rand(1, 18)]"
 
 /obj/effect/decal/pallet
 	name = "pallet"
@@ -726,18 +805,62 @@
 
 /obj/effect/decal/pallet/Initialize(mapload)
 	. = ..()
-	icon_state = "under[rand(1, 2)]"
+	icon_state = "under[rand(1, 13)]"
 
 /obj/effect/decal/cleanable/trash
+	name = "trash"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "trash31"
+	clean_type = CLEAN_TYPE_HARD_DECAL
+	mergeable_decal = FALSE
+
+/obj/effect/decal/cleanable/trash/Initialize(mapload)
+	. = ..()
+	icon_state = "trash1"
+
+/obj/effect/decal/cleanable/trash_paper
 	name = "trash"
 	icon = 'code/modules/wod13/props.dmi'
 	icon_state = "trash1"
 	clean_type = CLEAN_TYPE_HARD_DECAL
 	mergeable_decal = FALSE
 
-/obj/effect/decal/cleanable/trash/Initialize(mapload)
+/obj/effect/decal/cleanable/trash_paper/Initialize(mapload)
 	. = ..()
-	icon_state = "trash[rand(1, 30)]"
+	icon_state = "trash[rand(1, 12)]"
+
+/obj/effect/decal/cleanable/trash_wood
+	name = "trash"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "trash13"
+	clean_type = CLEAN_TYPE_HARD_DECAL
+	mergeable_decal = FALSE
+
+/obj/effect/decal/cleanable/trash_wood/Initialize(mapload)
+	. = ..()
+	icon_state = "trash[rand(13, 18)]"
+
+/obj/effect/decal/cleanable/trash_bricks
+	name = "trash"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "trash19"
+	clean_type = CLEAN_TYPE_HARD_DECAL
+	mergeable_decal = FALSE
+
+/obj/effect/decal/cleanable/trash_bricks/Initialize(mapload)
+	. = ..()
+	icon_state = "trash[rand(19, 24)]"
+
+/obj/effect/decal/cleanable/trash_cardboard
+	name = "trash"
+	icon = 'code/modules/wod13/props.dmi'
+	icon_state = "trash25"
+	clean_type = CLEAN_TYPE_HARD_DECAL
+	mergeable_decal = FALSE
+
+/obj/effect/decal/cleanable/trash_cardboard/Initialize(mapload)
+	. = ..()
+	icon_state = "trash[rand(25, 30)]"
 
 /obj/cargotrain
 	name = "cargocrate"
@@ -1827,29 +1950,9 @@
 	anchored = TRUE
 	density = TRUE
 
-/obj/structure/boxes/two_down
-	name = "Box"
-	desc = "Storage some items."
-	icon = 'code/modules/wod13/props.dmi'
-	icon_state = "box2_1"
-
-/obj/structure/boxes/two_up
-	name = "Box"
-	desc = "Storage some items."
-	icon = 'code/modules/wod13/props.dmi'
-	icon_state = "box2_2"
-
-/obj/structure/boxes/three
-	name = "Box"
-	desc = "Storage some items."
-	icon = 'code/modules/wod13/props.dmi'
-	icon_state = "box3"
-
-/*
 /obj/structure/boxes/Initialize(mapload)
 	. = ..()
-	icon_state = "box[rand(1, 2)]"
-	*/
+	icon_state = "box[rand(1, 4)]"
 
 ////////////// VERSTAK /////////////////
 

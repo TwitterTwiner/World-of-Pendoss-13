@@ -2900,7 +2900,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.clane.enlightenment = FALSE
 		character.MyPath = new /datum/morality_path/humanity()
 		character.MyPath.dot = humanity
-		character.MyPath.willpower = humanity
+		character.MyPath.willpower = selfcontrol + courage
 		character.MyPath.owner = character
 		character.MyPath.consience = consience
 		character.MyPath.selfcontrol = selfcontrol

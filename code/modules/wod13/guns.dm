@@ -267,7 +267,7 @@
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "glock21"
-	ammo_type = /obj/item/ammo_casing/vampire/c9mm
+	ammo_type = /obj/item/ammo_casing/vampire/c45acp
 	caliber = CALIBER_45
 	max_ammo = 12
 	multiple_sprites = AMMO_BOX_FULL_EMPTY
@@ -775,7 +775,7 @@
 
 /obj/item/gun/ballistic/rifle/boltaction/vampire
 	name = "\improper hunting rifle"
-	desc = "A classic bolt-action hunting rifle. It takes 5.56mm rounds."
+	desc = "A classic bolt-action hunting rifle. It takes shotgun rounds."
 	icon = 'code/modules/wod13/48x32weapons.dmi'
 	icon_state = "huntrifle"
 	lefthand_file = 'code/modules/wod13/righthand.dmi'

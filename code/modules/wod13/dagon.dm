@@ -74,8 +74,8 @@
 	health = 250
 
 	bloodquality = BLOOD_QUALITY_LOW
-	melee_damage_lower = 35
-	melee_damage_upper = 40
+	melee_damage_lower = 15
+	melee_damage_upper = 30
 
 /mob/living/simple_animal/pet/cat/floppa/Initialize(mapload)
 	. = ..()

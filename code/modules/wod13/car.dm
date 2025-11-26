@@ -697,124 +697,7 @@ SUBSYSTEM_DEF(carpool)
 		get_damage(dam, , dam)
 	return
 
-/obj/vampire_car/retro
-	icon_state = "1"
-	max_passengers = 1
-	dir = WEST
-
-/obj/vampire_car/retro/rand
-	icon_state = "3"
-
-/obj/vampire_car/retro/rand/Initialize(mapload)
-	icon_state = "[pick(1, 3, 5)]"
-	if(access == "none")
-		access = "npc[rand(1, 20)]"
-	..()
-
-/obj/vampire_car/rand
-	icon_state = "4"
-	dir = WEST
-
-/obj/vampire_car/rand/Initialize(mapload)
-	icon_state = "[pick(2, 4, 6)]"
-	if(access == "none")
-		access = "npc[rand(1, 20)]"
-	..()
-
-/obj/vampire_car/rand/camarilla
-	access = "camarilla"
-	icon_state = "6"
-
-/obj/vampire_car/retro/rand/camarilla
-	access = "camarilla"
-	icon_state = "5"
-
-/obj/vampire_car/rand/anarch
-	access = "anarch"
-	icon_state = "6"
-
-/obj/vampire_car/retro/rand/anarch
-	access = "anarch"
-	icon_state = "5"
-
-/obj/vampire_car/rand/clinic
-	access = "clinic"
-	icon_state = "6"
-
-/obj/vampire_car/retro/rand/clinic
-	access = "clinic"
-	icon_state = "5"
-
-/obj/vampire_car/police
-	icon_state = "police"
-	max_passengers = 3
-	dir = WEST
-	beep_sound = 'code/modules/wod13/sounds/migalka.ogg'
-	access = "police"
-	baggage_limit = 45
-	baggage_max = WEIGHT_CLASS_BULKY
-	var/color_blue = FALSE
-	var/last_color_change = 0
-
-/obj/vampire_car/police/handle_caring()
-	if(fari_on)
-		if(last_color_change+10 <= world.time)
-			last_color_change = world.time
-			if(color_blue)
-				color_blue = FALSE
-				set_light(0)
-				set_light(4, 6, "#ff0000")
-			else
-				color_blue = TRUE
-				set_light(0)
-				set_light(4, 6, "#0000ff")
-	else
-		if(last_color_change+10 <= world.time)
-			last_color_change = world.time
-			set_light(0)
-	..()
-
-/obj/vampire_car/taxi
-	icon_state = "taxi"
-	max_passengers = 3
-	dir = WEST
-	access = "taxi"
-	baggage_limit = 40
-	baggage_max = WEIGHT_CLASS_BULKY
-
-/obj/vampire_car/track
-	icon_state = "track"
-	max_passengers = 6
-	lighticon = "lights2"
-	dir = WEST
-	access = "none"
-	baggage_limit = 100
-	baggage_max = WEIGHT_CLASS_BULKY
-	delivery_capacity = 15
-	component_type = /datum/component/storage/concrete/vtm/car/track
-
-/obj/vampire_car/track/Initialize(mapload)
-	if(access == "none")
-		access = "npc[rand(1, 20)]"
-	..()
-
-
-/obj/vampire_car/track/volkswagen
-	icon_state = "volkswagen"
-	lighticon = "lights3"
-	baggage_limit = 60
-
-/obj/vampire_car/track/volkswagen/buhanka
-	icon_state = "buhanka"
-	lighticon = "lights3"
-	baggage_limit = 60
-
-/obj/vampire_car/track/ambulance
-	icon_state = "ambulance"
-	lighticon = "lights2"
-	access = "clinic"
-	baggage_limit = 60
-	delivery_capacity = 5
+//// TRUCK ////
 
 /obj/vampire_car/track/attack_hand(mob/user)
 	. = ..()
@@ -844,18 +727,6 @@ SUBSYSTEM_DEF(carpool)
 		else
 			to_chat(user, span_warning("The special compartments in the back dont really fit anything other than delivery crates. Use a nomral truck for other cargo."))
 			return
-
-/obj/vampire_car/limuzini_bombini
-	icon_state = "limo"
-	lighticon = "lights5"
-	access = "camarilla"
-	max_passengers = 6
-
-
-/obj/vampire_car/limuzini_bombini/giovanie
-	icon_state = "giolimo"
-	lighticon = "lights4"
-	access = "giovanni"
 
 /proc/get_dist_in_pixels(pixel_starts_x, pixel_starts_y, pixel_ends_x, pixel_ends_y)
 	var/total_x = abs(pixel_starts_x-pixel_ends_x)
