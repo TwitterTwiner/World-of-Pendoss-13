@@ -91,7 +91,6 @@
 					caster.update_sight()
 		if(2)
 			var/chosen_z
-			var/umbra_z
 			var/obj/penumbra_ghost/ghost
 			var/in_umbra = FALSE
 
@@ -102,7 +101,6 @@
 			for(var/area/vtm/interior/penumbra/penumbra in world)
 				if(penumbra)
 					chosen_z = penumbra.z
-					umbra_z = penumbra.z
 
 			if(in_umbra)
 				chosen_z = prev_z
