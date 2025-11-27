@@ -21,26 +21,62 @@
 
 	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
 
-	violates_masquerade = TRUE
-
 	toggled = TRUE
 	cancelable = TRUE
-	duration_length = 20 SECONDS
-	cooldown_length = 20 SECONDS
+	vitae_cost = 0
+
+	var/original_eye_organ = null
+	var/original_eye_color = null
 
 
 /datum/discipline_power/protean/eyes_of_the_beast/activate()
 	. = ..()
-	owner.drop_all_held_items()
-	owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
-	owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
+	if(!  ishuman(owner))
+		return
+	
+	var/mob/living/carbon/human/H = owner
+	
+	original_eye_organ = H.getorganslot(ORGAN_SLOT_EYES)
+	original_eye_color = H.eye_color
+	
+	if(original_eye_organ)
+		var/obj/item/organ/eyes/O = original_eye_organ 
+		O.Remove(H, TRUE)
+	
+	var/obj/item/organ/eyes/night_vision/NV = new()
+	NV.Insert(H, TRUE, FALSE)
+	
+	H.eye_color = "cc0000"
+	H.regenerate_icons()
+	
 	owner.add_client_colour(/datum/client_colour/glass_colour/red)
+	owner.update_sight()
+
 
 /datum/discipline_power/protean/eyes_of_the_beast/deactivate()
 	. = ..()
-	for(var/obj/item/melee/vampirearms/knife/gangrel/G in owner.contents)
-		qdel(G)
+	if(! ishuman(owner))
+		return
+
+	var/mob/living/carbon/human/H = owner
+
+	var/obj/item/organ/eyes/current_eyes = H.getorganslot(ORGAN_SLOT_EYES)
+	if(current_eyes && istype(current_eyes, /obj/item/organ/eyes/night_vision))
+		current_eyes.Remove(H, TRUE)
+		qdel(current_eyes)
+
+	if(original_eye_organ)
+		var/obj/item/organ/eyes/O = original_eye_organ
+		O.Insert(H, TRUE, FALSE)
+		original_eye_organ = null 
+	
+	if(!   isnull(original_eye_color))
+		H.eye_color = original_eye_color
+		H.regenerate_icons()
+		original_eye_color = null
+
 	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
+	owner.update_sight()
 
 //FERAL CLAWS
 /datum/movespeed_modifier/protean2
