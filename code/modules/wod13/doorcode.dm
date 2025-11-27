@@ -263,6 +263,12 @@
 						to_chat(user, "[src] is now unlocked.")
 						locked = FALSE
 
+/obj/structure/vampdoor/CanPass(atom/movable/mover, turf/target)
+	. = ..()
+	if(istype(mover, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = mover
+		if(HAS_TRAIT(H, TRAIT_PASSDOOR))
+			return TRUE
 
 #undef LOCKDIFFICULTY_1
 #undef LOCKTIMER_1

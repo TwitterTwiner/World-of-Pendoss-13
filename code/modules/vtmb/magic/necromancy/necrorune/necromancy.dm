@@ -12,6 +12,7 @@
 	var/necrolevel = 1
 	var/list/sacrifices = list()
 	var/list/clan_restricted_ritual = list()
+	var/cost = 2
 
 /obj/necrorune/proc/complete()
 	return
