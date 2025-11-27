@@ -383,6 +383,9 @@
 ///from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"
 
+/// From base of /mob/proc/reset_perspective() : ()
+#define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"
+
 ///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
 #define COMSIG_MOB_APPLY_DAMGE	"mob_apply_damage"
 ///from base of /mob/throw_item(): (atom/target)

@@ -131,6 +131,12 @@
 #define STATUS_EFFECT_SLOW_OXYLOSS /datum/status_effect/slow_oxyloss
 #define STATUS_EFFECT_SLOW_DEATH /datum/status_effect/slow_death
 
+/////////////
+//  GAROU  //
+/////////////
+
+#define STATUS_EFFECT_DELIRIUM /datum/status_effect/delirium
+
 // Grouped effect sources, see also code/__DEFINES/traits.dm
 
 #define STASIS_MACHINE_EFFECT "stasis_machine"

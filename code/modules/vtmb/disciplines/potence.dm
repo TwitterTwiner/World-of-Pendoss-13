@@ -31,17 +31,14 @@
 		skill_mod = 1
 
 	tackler = owner.AddComponent(/datum/component/tackler, stamina_cost=0, base_knockdown = 1 SECONDS, range = 3+level, speed = speed_mod, skill_mod = skill_mod, min_distance = 0)
-	owner.potential = level
 	owner.attributes.potence_bonus += level
 	owner.dna.species.attack_sound = 'code/modules/wod13/sounds/heavypunch.ogg'
-	owner.potential = level
 
 /datum/discipline_power/potence/deactivate()
 	. = ..()
 	owner.attributes.potence_bonus -= level
 	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
 	owner.remove_overlay(POTENCE_LAYER)
-	owner.potential = 0
 	tackler.RemoveComponent()
 	qdel(tackler)
 
