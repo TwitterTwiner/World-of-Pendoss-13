@@ -1,0 +1,3 @@
+[submodule "our_secrets"]
+	path = our_secrets
+	url = https://github.com/TwitterTwiner/Secrets.git
