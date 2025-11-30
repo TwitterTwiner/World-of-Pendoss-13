@@ -173,6 +173,7 @@
 #include "code\__DEFINES\traits\vtm\declarations.dm"
 #include "code\__DEFINES\traits\vtm\sources.dm"
 #include "code\__DEFINES\vtm\signals_kindred.dm"
+#include "code\__DEFINES\vtm\vtm_defines.dm"
 #include "code\__DEFINES\vtm\werewolf_defines.dm"
 #include "code\__HELPERS\_lists.dm"
 #include "code\__HELPERS\_logging.dm"

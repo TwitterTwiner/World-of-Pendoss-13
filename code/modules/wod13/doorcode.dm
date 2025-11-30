@@ -128,8 +128,8 @@
 		else
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
-				if(H.potential > 0)
-					if((H.potential * 2) >= lockpick_difficulty)
+				if(get_potence_dices(H) > 0)
+					if((get_potence_dices(H) * 2) >= lockpick_difficulty)
 						playsound(get_turf(src), 'code/modules/wod13/sounds/get_bent.ogg', 100, FALSE)
 						var/obj/item/shield/door/D = new(get_turf(src))
 						D.icon_state = baseicon
@@ -263,6 +263,12 @@
 						to_chat(user, "[src] is now unlocked.")
 						locked = FALSE
 
+/obj/structure/vampdoor/CanPass(atom/movable/mover, turf/target)
+	. = ..()
+	if(istype(mover, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = mover
+		if(HAS_TRAIT(H, TRAIT_PASSDOOR))
+			return TRUE
 
 #undef LOCKDIFFICULTY_1
 #undef LOCKTIMER_1

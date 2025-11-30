@@ -113,6 +113,10 @@
 		var/turf/closed/wall/vampwall/vw = mover.loc
 		if(vw.low)
 			return TRUE
+	if(istype(mover, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = mover
+		if(HAS_TRAIT(H, TRAIT_PASSTABLE))
+			return TRUE
 
 /obj/structure/table/CanAStarPass(ID, dir, pathfinding_atom)
 	. = !density

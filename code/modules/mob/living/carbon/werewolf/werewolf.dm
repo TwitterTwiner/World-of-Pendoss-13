@@ -41,7 +41,7 @@
 
 	var/move_delay_add = 0 // movement delay to add
 
-	status_flags = CANUNCONSCIOUS|CANPUSH
+	status_flags = CANUNCONSCIOUS|CANPUSH|CANKNOCKDOWN
 
 	heat_protection = 0.5 // minor heat insulation
 
@@ -104,7 +104,7 @@
 			playsound(get_turf(src), 'code/modules/wod13/sounds/werewolf_step.ogg', 50, FALSE)
 	..()
 
-/mob/living/carbon/proc/epic_fall(apply_stun_self = TRUE, apply_stun_others = TRUE)
+/mob/living/carbon/proc/epic_fall(apply_stun_self = FALSE, apply_stun_others = FALSE)
 	var/damage = secret_vampireroll(get_a_strength(src)+get_a_brawl(src), 6, src, TRUE)
 	playsound(get_turf(src), 'code/modules/wod13/sounds/werewolf_fall.ogg', 100, FALSE)
 	new /obj/effect/temp_visual/dir_setting/crack_effect(get_turf(src))
