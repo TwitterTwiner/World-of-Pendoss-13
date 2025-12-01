@@ -21,26 +21,70 @@
 
 	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
 
-	violates_masquerade = TRUE
-
 	toggled = TRUE
 	cancelable = TRUE
-	duration_length = 20 SECONDS
-	cooldown_length = 20 SECONDS
+	vitae_cost = 0
+
+	var/original_eye_color = null
+	var/original_lighting_alpha = null
+	var/original_see_in_dark = null
 
 
 /datum/discipline_power/protean/eyes_of_the_beast/activate()
-	. = ..()
-	owner.drop_all_held_items()
-	owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
-	owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
+	. = .. ()
+	if(!ishuman(owner))
+		return
+	
+	original_eye_color = owner.eye_color
+	original_lighting_alpha = owner.lighting_alpha
+	original_see_in_dark = owner.see_in_dark
+	
+	owner.eye_color = "cc0000"
+	owner.regenerate_icons()
+	
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
+	owner.see_in_dark = max(owner.see_in_dark, 15)
+	owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	owner.sync_lighting_plane_alpha()
+	
 	owner.add_client_colour(/datum/client_colour/glass_colour/red)
+	
+	RegisterSignal(owner, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(reapply_sight))
+
 
 /datum/discipline_power/protean/eyes_of_the_beast/deactivate()
-	. = ..()
-	for(var/obj/item/melee/vampirearms/knife/gangrel/G in owner.contents)
-		qdel(G)
+	. = .. ()
+	if(!ishuman(owner))
+		return
+
+	UnregisterSignal(owner, COMSIG_MOB_UPDATE_SIGHT)
+
+	if(!isnull(original_eye_color))
+		owner.eye_color = original_eye_color
+		owner.regenerate_icons()
+
+	original_eye_color = null
+	
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
+	
+	if(!isnull(original_see_in_dark))
+		owner.see_in_dark = original_see_in_dark
+	
+	if(!isnull(original_lighting_alpha))
+		owner.lighting_alpha = original_lighting_alpha
+	
+	owner.sync_lighting_plane_alpha()
+	
 	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
+
+
+/datum/discipline_power/protean/eyes_of_the_beast/proc/reapply_sight()
+	if(!ishuman(owner))
+		return
+	
+	owner.see_in_dark = max(owner.see_in_dark, 15)
+	owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	owner.sync_lighting_plane_alpha()
 
 //FERAL CLAWS
 /datum/movespeed_modifier/protean2

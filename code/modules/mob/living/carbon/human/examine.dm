@@ -188,10 +188,15 @@
 
 	//eyes
 	if(!(obscured & ITEM_SLOT_EYES) )
-		if(glasses  && !(glasses.item_flags & EXAMINE_SKIP))
+		if(glasses && !(glasses.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
 		else if(eye_color == BLOODCULT_EYE && iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-			. += "<span class='warning'><B>[t_His] eyes are glowing an unnatural red!</B></span>"
+			. += "<span class='warning'><B>[t_his] eyes are glowing an unnatural red!</B></span>"
+		else if(!  glasses)
+			var/eyes_desc = get_beast_eyes_examine()
+			if(eyes_desc)
+				. += eyes_desc
+
 
 	//ears
 	if(ears && !(obscured & ITEM_SLOT_EARS) && !(ears.item_flags & EXAMINE_SKIP))
@@ -675,6 +680,22 @@
 	. += "*---------*</span>"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+//examine text for beast eyes
+/mob/living/carbon/human/proc/get_beast_eyes_examine()
+	if(!istype(dna.species, /datum/species/kindred))
+		return null
+	
+	var/datum/species/kindred/kindred_spec = dna.species
+	for(var/datum/discipline/protean_disc in kindred_spec.disciplines)
+		if(!istype(protean_disc, /datum/discipline/protean))
+			continue
+		
+		for(var/datum/discipline_power/protean/eyes_of_the_beast/E in protean_disc.known_powers)
+			if(E.active)
+				return "<span class='danger'>[p_their(TRUE)] eyes glow with an eerie red light. </span>"
+	
+	return null
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
