@@ -25,58 +25,66 @@
 	cancelable = TRUE
 	vitae_cost = 0
 
-	var/original_eye_organ = null
 	var/original_eye_color = null
+	var/original_lighting_alpha = null
+	var/original_see_in_dark = null
 
 
 /datum/discipline_power/protean/eyes_of_the_beast/activate()
-	. = ..()
-	if(!  ishuman(owner))
+	. = .. ()
+	if(!ishuman(owner))
 		return
 	
-	var/mob/living/carbon/human/H = owner
+	original_eye_color = owner.eye_color
+	original_lighting_alpha = owner.lighting_alpha
+	original_see_in_dark = owner.see_in_dark
 	
-	original_eye_organ = H.getorganslot(ORGAN_SLOT_EYES)
-	original_eye_color = H.eye_color
+	owner.eye_color = "cc0000"
+	owner.regenerate_icons()
 	
-	if(original_eye_organ)
-		var/obj/item/organ/eyes/O = original_eye_organ 
-		O.Remove(H, TRUE)
-	
-	var/obj/item/organ/eyes/night_vision/NV = new()
-	NV.Insert(H, TRUE, FALSE)
-	
-	H.eye_color = "cc0000"
-	H.regenerate_icons()
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
+	owner.see_in_dark = max(owner.see_in_dark, 15)
+	owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	owner.sync_lighting_plane_alpha()
 	
 	owner.add_client_colour(/datum/client_colour/glass_colour/red)
-	owner.update_sight()
+	
+	RegisterSignal(owner, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(reapply_sight))
 
 
 /datum/discipline_power/protean/eyes_of_the_beast/deactivate()
-	. = ..()
-	if(! ishuman(owner))
+	. = .. ()
+	if(!ishuman(owner))
 		return
 
-	var/mob/living/carbon/human/H = owner
+	UnregisterSignal(owner, COMSIG_MOB_UPDATE_SIGHT)
 
-	var/obj/item/organ/eyes/current_eyes = H.getorganslot(ORGAN_SLOT_EYES)
-	if(current_eyes && istype(current_eyes, /obj/item/organ/eyes/night_vision))
-		current_eyes.Remove(H, TRUE)
-		qdel(current_eyes)
+	if(!isnull(original_eye_color))
+		owner.eye_color = original_eye_color
+		owner.regenerate_icons()
 
-	if(original_eye_organ)
-		var/obj/item/organ/eyes/O = original_eye_organ
-		O.Insert(H, TRUE, FALSE)
-		original_eye_organ = null 
+	original_eye_color = null
 	
-	if(!   isnull(original_eye_color))
-		H.eye_color = original_eye_color
-		H.regenerate_icons()
-		original_eye_color = null
-
+	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
+	
+	if(!isnull(original_see_in_dark))
+		owner.see_in_dark = original_see_in_dark
+	
+	if(!isnull(original_lighting_alpha))
+		owner.lighting_alpha = original_lighting_alpha
+	
+	owner.sync_lighting_plane_alpha()
+	
 	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
-	owner.update_sight()
+
+
+/datum/discipline_power/protean/eyes_of_the_beast/proc/reapply_sight()
+	if(!ishuman(owner))
+		return
+	
+	owner.see_in_dark = max(owner.see_in_dark, 15)
+	owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	owner.sync_lighting_plane_alpha()
 
 //FERAL CLAWS
 /datum/movespeed_modifier/protean2
