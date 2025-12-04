@@ -164,7 +164,7 @@
 		/mob/living/simple_animal/hostile/bear/wod13/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift, \
-		/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire, \
+	//	/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire, \
 		/mob/living/simple_animal/pet/horse/vampire, \
 		/mob/living/simple_animal/pet/crow/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
