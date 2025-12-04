@@ -159,12 +159,11 @@
 	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
 	violates_masquerade = TRUE
 	var/shapeshift_type = null
-
+//	/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire, \
 	var/possible_shapes = list(
 		/mob/living/simple_animal/hostile/bear/wod13/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift, \
-	//	/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire, \
 		/mob/living/simple_animal/pet/horse/vampire, \
 		/mob/living/simple_animal/pet/crow/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
