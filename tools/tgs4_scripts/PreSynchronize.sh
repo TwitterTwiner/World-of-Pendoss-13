@@ -7,16 +7,6 @@ has_pip="$(command -v pip3)"
 
 set -e
 
-if ! { [ -x "$has_python" ] && [ -x "$has_pip" ] && [ -x "$has_git" ];  }; then
-    echo "Installing apt dependencies..."
-    if ! [ -x "$has_sudo" ]; then
-        apt update
-		rm -rf /var/lib/apt/lists/*
-    else
-        sudo apt update
-		sudo rm -rf /var/lib/apt/lists/*
-    fi
-fi
 
 echo "Installing pip dependencies..."
 pip3 install PyYaml beautifulsoup4
