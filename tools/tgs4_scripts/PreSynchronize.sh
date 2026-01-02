@@ -14,7 +14,6 @@ if ! { [ -x "$has_python" ] && [ -x "$has_pip" ] && [ -x "$has_git" ];  }; then
 		rm -rf /var/lib/apt/lists/*
     else
         sudo apt update
-        sudo apt install -y python3 python3-pip git
 		sudo rm -rf /var/lib/apt/lists/*
     fi
 fi
