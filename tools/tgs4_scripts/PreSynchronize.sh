@@ -11,7 +11,6 @@ if ! { [ -x "$has_python" ] && [ -x "$has_pip" ] && [ -x "$has_git" ];  }; then
     echo "Installing apt dependencies..."
     if ! [ -x "$has_sudo" ]; then
         apt update
-        apt install -y python3 python3-pip git
 		rm -rf /var/lib/apt/lists/*
     else
         sudo apt update
