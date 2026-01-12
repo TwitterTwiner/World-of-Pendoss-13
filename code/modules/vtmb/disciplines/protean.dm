@@ -159,12 +159,11 @@
 	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE
 	violates_masquerade = TRUE
 	var/shapeshift_type = null
-/*	/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire, \
-*/
 	var/possible_shapes = list(
 		/mob/living/simple_animal/hostile/bear/wod13/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift, \
+		/mob/living/simple_animal/hostile/beastmaster/shapeshift/cat/vampire, \
 		/mob/living/simple_animal/pet/horse/vampire, \
 		/mob/living/simple_animal/pet/crow/vampire, \
 		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
@@ -312,8 +311,8 @@
 	icon_state = "cat2"
 	melee_damage_type = CLONE
 	AIStatus = AI_OFF
-	maxHealth = 300
-	health = 300
+	maxHealth = 150
+	health = 150
 	melee_damage_lower = 15
 	melee_damage_upper = 30
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
@@ -344,8 +343,8 @@
 	vampiric = 1
 	AIStatus = AI_OFF
 	melee_damage_type = CLONE
-	maxHealth = 300
-	health = 300
+	maxHealth = 150
+	health = 150
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
 /mob/living/simple_animal/pet/crow/vampire
@@ -353,8 +352,8 @@
 	is_flying_animal = FALSE
 	melee_damage_type = CLONE
 	AIStatus = AI_OFF
-	maxHealth = 300
-	health = 300
+	maxHealth = 100
+	health = 100
 	icon_state = "crow"
 	damage_coeff = list(BRUTE = 0.5, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 0)
 
