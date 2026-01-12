@@ -125,10 +125,12 @@ SUBSYSTEM_DEF(witness_pool)
 
 /mob/living/carbon/werewolf/crinos/handle_witness()
 	. = ..()
+/*
 	for(var/mob/living/carbon/human/H in oviewers(7, src))
 		if(!iskindred(H) && !iscathayan(H) && !isghoul(H) && !isgarou(H))
-		//	if(!H.has_status_effect(STATUS_EFFECT_DELIRIUM))
-		//		H.delirium(src)
+			if(!H.has_status_effect(STATUS_EFFECT_DELIRIUM))
+				H.delirium(src)
+*/
 
 /mob/living/carbon/werewolf/corax/corax_crinos/handle_witness()
 	. = ..()
@@ -141,7 +143,7 @@ SUBSYSTEM_DEF(witness_pool)
 	switch(skin_tone)
 		if("latino")
 			skin_bonus = 1
-	var/result = clamp(successes+skin_bonus, 1, 10)
+//	var/result = clamp(successes+skin_bonus, 1, 10)
 //	src.apply_status_effect(STATUS_EFFECT_DELIRIUM, result, source)
 
 
