@@ -54,6 +54,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define iszomboid(A) (istype(A, /mob/living/simple_animal/hostile/zombie))
 
+#define isauspexavatar(A) (istype(A, /mob/dead/observer/avatar))
+
 //Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
 
@@ -84,6 +86,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscathayan(A) (is_species(A,/datum/species/kuei_jin))
 #define isghoul(A) (is_species(A,/datum/species/ghoul))
 #define isgarou(A) (is_species(A,/datum/species/garou))
+
 
 //more carbon mobs
 

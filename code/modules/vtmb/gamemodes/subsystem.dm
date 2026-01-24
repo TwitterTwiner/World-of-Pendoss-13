@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 	return jobs[rank]
 
 /datum/controller/subsystem/bad_guys_party/proc/set_badguys(new_setting)
-	if(new_setting in list("caitiff", "sabbat", "hunter", "kuei-jin", "noddist"))
+	if(new_setting in list("caitiff", "sabbat", "hunter", "noddist"))
 		SSbad_guys_party.setting = new_setting
 	else
 		setting = null
@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 				go_on_next_fire = TRUE
 				Next = new /datum/outfit/job/hunter()
 				setting = null
-			if("kuei-jin")
+		/*	if("kuei-jin")
 				if(Next)
 					qdel(Next)
 				threat = min(100, threat+60)
@@ -80,6 +80,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 				go_on_next_fire = TRUE
 				Next = new /datum/outfit/job/kuei_jin()
 				setting = null
+				*/
 			if("noddist")
 				if(Next)
 					qdel(Next)
@@ -114,7 +115,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 						species_restrict = list("Ghoul", "Vampire")
 						go_on_next_fire = TRUE
 						Next = new /datum/outfit/job/sabbatist()
-					if(3)
+			/*		if(3)
 						//kuei-jin
 						if(Next)
 							qdel(Next)
@@ -123,6 +124,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 						species_restrict = list("Kuei-Jin")
 						go_on_next_fire = TRUE
 						Next = new /datum/outfit/job/kuei_jin()
+						*/
 			if(2)
 				var/stuff = pick(list(1, 2))
 				if(prob(15))
@@ -146,7 +148,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 						species_restrict = list("Human")
 						go_on_next_fire = TRUE
 						Next = new /datum/outfit/job/hunter()
-					if(3)
+			/*		if(3)
 						//kuei-jin
 						if(Next)
 							qdel(Next)
@@ -155,6 +157,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 						species_restrict = list("Kuei-Jin")
 						go_on_next_fire = TRUE
 						Next = new /datum/outfit/job/kuei_jin()
+						*/
 			if(3)
 				var/stuff = pick(list(1, 2, 3))
 				switch(stuff)

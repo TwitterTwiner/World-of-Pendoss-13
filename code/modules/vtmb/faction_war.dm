@@ -239,7 +239,7 @@ SUBSYSTEM_DEF(factionwar)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/repainting = FALSE
 	var/permanent = FALSE
-//	invisibility = INVISIBILITY_FACTION
+	invisibility = INVISIBILITY_FACTION
 
 /obj/graffiti/Initialize(mapload)
 	. = ..()
@@ -394,3 +394,10 @@ SUBSYSTEM_DEF(factionwar)
 		if(faction == "Triad")
 			SSfactionwar.triad_power += D.amount
 			qdel(I)
+
+/mob/living/carbon/human/Initialize(mapload)
+	. = ..()
+	if(iskindred(src) || isghoul(src) || iscathayan(src))
+		var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+		E.see_invisible = INVISIBILITY_FACTION
+		see_invisible = INVISIBILITY_FACTION

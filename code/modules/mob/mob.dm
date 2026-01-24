@@ -717,6 +717,9 @@
 //				return
 //		else
 //			return
+	if(isauspexavatar(src))
+		to_chat(usr, "<span class='boldnotice'>Твоя душа не может быть упокоена... Ты проклят.</span>")
+		return
 
 	if(!usr.can_respawn())
 

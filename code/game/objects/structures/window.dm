@@ -32,6 +32,28 @@
 	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.5
 
+/obj/structure/window/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	var/someoneshere = FALSE
+	for(var/mob/living/L in get_turf(src))
+		if(L)
+			someoneshere = TRUE
+	if(!someoneshere)
+		alpha = 255
+	else
+		alpha = 128
+
+/obj/structure/window/Uncrossed(atom/movable/AM)
+	. = ..()
+	var/someoneshere = FALSE
+	for(var/mob/living/L in get_turf(src))
+		if(L)
+			someoneshere = TRUE
+	if(!someoneshere)
+		alpha = 255
+	else
+		alpha = 128
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	if(reinf)
