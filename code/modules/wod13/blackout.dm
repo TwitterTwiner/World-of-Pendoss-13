@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(witness_pool)
 		if(last_veil_restore == 0 || (last_veil_restore + UMBRA_VEIL_COOLDOWN) < world.time)
 			if(masquerade < 5)
 				check_veil_adjust()
-/*
+
 /mob/living/carbon/werewolf/crinos/handle_witness()
 	. = ..()
 /*
