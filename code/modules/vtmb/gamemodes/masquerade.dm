@@ -28,7 +28,6 @@ SUBSYSTEM_DEF(masquerade)
 		for(var/mob/living/L in GLOB.masquerade_breakers_list)
 			if(L)
 				masquerade_violators += (5-L.masquerade)*40
-				to_chat(world, "[masquerade_violators]")
 	if(length(GLOB.sabbatites))
 		sabbat = length(GLOB.sabbatites)*100
 
