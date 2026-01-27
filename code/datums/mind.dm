@@ -447,8 +447,8 @@
 		recipient = current
 	var/output = {"
 				<head>
- 					<meta charset="UTF-8">
-					"}
+					<meta charset="UTF-8">
+				"}
 
 	output += "<B>[current.real_name]'s Memories:</B><br>"
 	output += memory
