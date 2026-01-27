@@ -125,6 +125,7 @@ SUBSYSTEM_DEF(witness_pool)
 /*
 /mob/living/carbon/werewolf/crinos/handle_witness()
 	. = ..()
+/*
 	for(var/mob/living/carbon/human/H in oviewers(7, src))
 		if(!iskindred(H) && !iscathayan(H) && !isghoul(H) && !isgarou(H))
 			if(!H.has_status_effect(STATUS_EFFECT_DELIRIUM))
