@@ -131,21 +131,20 @@ SUBSYSTEM_DEF(witness_pool)
 			if(!H.has_status_effect(STATUS_EFFECT_DELIRIUM))
 				H.delirium(src)
 */
-
 /mob/living/carbon/werewolf/corax/corax_crinos/handle_witness()
 	. = ..()
 	if(CheckEyewitness(src, src, 5, FALSE))
 		adjust_veil(-1, honoradj = -1)
-
+/*
 /mob/living/carbon/human/proc/delirium(source)
 	var/skin_bonus = 0
 	var/successes = secret_vampireroll(get_a_wits(src)+get_a_occult(src), 9, src, FALSE, FALSE)
 	switch(skin_tone)
 		if("latino")
 			skin_bonus = 1
-//	var/result = clamp(successes+skin_bonus, 1, 10)
-//	src.apply_status_effect(STATUS_EFFECT_DELIRIUM, result, source)
-
+	var/result = clamp(successes+skin_bonus, 1, 10)
+	src.apply_status_effect(STATUS_EFFECT_DELIRIUM, result, source)
+*/
 
 
 // currently being in your caern restores veil to max because theres no other way of doing. remember to cap it to THREE once shame rituals are back

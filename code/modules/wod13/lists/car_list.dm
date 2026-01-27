@@ -47,8 +47,9 @@
 	icon_state = "5"
 
 /obj/vampire_car/police
+	icon = 'code/modules/wod13/icons_newvechle/car_police.dmi'
 	icon_state = "police"
-	max_passengers = 3
+	max_passengers = 4
 	dir = WEST
 	beep_sound = 'code/modules/wod13/sounds/migalka.ogg'
 	access = "police"
@@ -56,9 +57,10 @@
 	baggage_max = WEIGHT_CLASS_BULKY
 	var/color_blue = FALSE
 	var/last_color_change = 0
+	var/migalka = FALSE
 
 /obj/vampire_car/police/handle_caring()
-	if(fari_on)
+	if(migalka)
 		if(last_color_change+10 <= world.time)
 			last_color_change = world.time
 			if(color_blue)
@@ -75,6 +77,10 @@
 			set_light(0)
 	..()
 
+/obj/vampire_car/police/old
+	icon = 'code/modules/wod13/cars.dmi'
+	icon_state = "police"
+
 /obj/vampire_car/taxi
 	icon_state = "taxi"
 	max_passengers = 3
@@ -82,6 +88,8 @@
 	access = "taxi"
 	baggage_limit = 40
 	baggage_max = WEIGHT_CLASS_BULKY
+
+//////// TRUCK /////////////////
 
 /obj/vampire_car/track
 	icon_state = "track"
@@ -98,8 +106,6 @@
 	if(access == "none")
 		access = "npc[rand(1, 20)]"
 	..()
-
-//////// TRUCK /////////////////
 
 /obj/vampire_car/track/volkswagen
 	icon_state = "volkswagen"
@@ -119,7 +125,8 @@
 	delivery_capacity = 5
 
 
-/////// LIMUSINES ////////////////// 
+
+/////// LIMUSINES //////////////////
 
 /obj/vampire_car/limuzini_bombini
 	icon_state = "limo"
@@ -134,9 +141,55 @@
 	access = "giovanni"
 
 
-///// NEW /////////////////////// 
+///// NEW ///////////////////////
+
+
+////////// SPORTCAR //////////////
 
 /obj/vampire_car/sportcar
 	name = "sportcar"
 	icon = 'code/modules/wod13/icons_newvechle/car_supercar.dmi'
 	icon_state = "supercar_neon"
+	desc = "Some kind of modern and fast car"
+	car_type = "sportcar"
+
+//////// MINIVAN ////////////////////
+
+/obj/vampire_car/minivan
+	icon = 'code/modules/wod13/icons_newvechle/car_minivan.dmi'
+	icon_state = "minivan_white"
+	max_passengers = 5
+	car_type = "minivan"
+
+/obj/vampire_car/minivan/police
+	icon_state = "police"
+	maxhealth = 300
+	desc = "There's even a Mr Dog bed here!"
+	access = "police"
+
+/obj/vampire_car/minivan/yellow
+	icon_state = "minivan_yellow"
+
+/obj/vampire_car/blue
+	icon_state = "minivan_blue"
+
+/////// VAN //////////////////////
+/obj/vampire_car/van
+	icon = 'code/modules/wod13/icons_newvechle/car_van.dmi'
+	icon_state = "van_white"
+	max_passengers = 4
+	car_type = "van"
+
+/obj/vampire_car/van/swat
+	icon_state = "van_swat"
+	maxhealth = 400
+	desc = "A heavily armored van used by special police units."
+	max_passengers = 6
+	access = "swat"
+
+/obj/vampire_car/van/black
+	icon_state = "van_black"
+
+/obj/vampire_car/van/brown
+	icon_state = "van_brown"
+

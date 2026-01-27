@@ -48,6 +48,10 @@ SUBSYSTEM_DEF(humannpcpool)
 		var/NEPIS = pick(/mob/living/carbon/human/npc/police, /mob/living/carbon/human/npc/bandit, /mob/living/carbon/human/npc/hobo, /mob/living/carbon/human/npc/walkby, /mob/living/carbon/human/npc/business)
 		if(prob(3))
 			NEPIS = /mob/living/carbon/human/npc/hunter
+
+		if(SSmasquerade.last_level == "moderate")
+			NEPIS = pick(/mob/living/carbon/human/npc/police, /mob/living/carbon/human/npc/swat)
+
 		if(SSmasquerade.last_level == "breach")
 			NEPIS = pick(/mob/living/carbon/human/npc/police, /mob/living/carbon/human/npc/swat, /mob/living/carbon/human/npc/hunter)
 		new NEPIS(get_turf(kal))

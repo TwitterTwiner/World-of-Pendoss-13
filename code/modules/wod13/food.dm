@@ -500,6 +500,8 @@
 		new /datum/data/mining_equipment("9mm ammo",	/obj/item/ammo_box/vampire/c9mm,	600),
 		new /datum/data/mining_equipment(".44 ammo",	/obj/item/ammo_box/vampire/c44,	800),
 		new /datum/data/mining_equipment("5.56 ammo",	/obj/item/ammo_box/vampire/c556,	2000),
+		new /datum/data/mining_equipment(".45 ACP ammo",	/obj/item/ammo_box/vampire/c45acp,	500),
+		new /datum/data/mining_equipment(".45 ACP glock magazine",	/obj/item/ammo_box/magazine/glock45acp,	100),
 		new /datum/data/mining_equipment("shotgun",		/obj/item/gun/ballistic/shotgun/vampire, 1000),
 		new /datum/data/mining_equipment("hunt rifle",		/obj/item/gun/ballistic/rifle/boltaction/vampire, 1500),
 		new /datum/data/mining_equipment("12ga shotgun shells, buckshot",/obj/item/ammo_box/vampire/c12g/buck,	800),

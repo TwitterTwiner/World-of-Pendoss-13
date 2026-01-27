@@ -4,7 +4,7 @@
 	faction = "Vampire"
 	total_positions = 6
 	spawn_positions = 6
-	supervisors = "SFPD Chief and Sergeants"
+	supervisors = "Lieutenant and Sergeants"
 	selection_color = "#7e7e7e"
 
 	outfit = /datum/outfit/job/police_officer
@@ -23,7 +23,7 @@
 
 	duty = "Enforce the Law, obey the SFPD Chief and Sergeants. Gold in peace, iron in war."
 	minimal_masquerade = 4
-	known_contacts = list("Police Chief")
+	known_contacts = list("Lieutenant")
 
 /datum/outfit/job/police_officer
 	name = "Police Officer"
@@ -45,10 +45,11 @@
 	var/datum/martial_art/MA = new /datum/martial_art/police_jiu
 	H.ignores_warrant = TRUE
 	MA.teach(H)
+	H.add_police_codes()
 
 /obj/effect/landmark/start/police_officer
 	name = "Police Officer"
-	icon_state = "Camarilla Agent"
+	icon_state = "Officer"
 
 /datum/job/vamp/police_coroner
 	title = "Police Coroner"
@@ -56,7 +57,7 @@
 	faction = "Vampire"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "SFPD Chief"
+	supervisors = "Lieutenant"
 	selection_color = "#7e7e7e"
 
 	outfit = /datum/outfit/job/police_coroner
@@ -75,7 +76,7 @@
 
 	duty = "Investigate crimes. Obey the SFPD Chief. Gold in peace, iron in war."
 	minimal_masquerade = 4
-	known_contacts = list("Police Chief")
+	known_contacts = list("Lieutenant")
 
 /datum/outfit/job/police_coroner
 	name = "Police Coroner"
@@ -95,6 +96,7 @@
 /datum/outfit/job/police_coroner/post_equip(mob/living/carbon/human/H)
 	..()
 	H.ignores_warrant = TRUE
+	H.add_police_codes()
 
 /obj/effect/landmark/start/police_coroner
 	name = "Police Coroner"
@@ -106,7 +108,7 @@
 	faction = "Vampire"
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "SFPD Chief"
+	supervisors = "Lieutenant"
 	selection_color = "#7e7e7e"
 
 	outfit = /datum/outfit/job/police_sergeant
@@ -125,7 +127,7 @@
 
 	duty = "Enforce the law. Keep the officers in line. Obey the SFPD Chief. Gold in peace, iron in war."
 	minimal_masquerade = 4
-	known_contacts = list("Police Chief")
+	known_contacts = list("Lieutenant")
 
 /datum/outfit/job/police_sergeant
 	name = "Police Sergeant"
@@ -147,27 +149,28 @@
 	var/datum/martial_art/MA = new /datum/martial_art/police_jiu
 	H.ignores_warrant = TRUE
 	MA.teach(H)
+	H.add_police_codes()
 
 /obj/effect/landmark/start/police_sergeant
 	name = "Police Sergeant"
-	icon_state = "Camarilla Agent"
+	icon_state = "Sergeant"
 
-/datum/job/vamp/police_chief
-	title = "Police Chief"
+/datum/job/vamp/police_lieutenant
+	title = "Police Lieutenant"
 	department_head = list("Police Department")
 	faction = "Vampire"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "SF Police Commission"
+	supervisors = "SFPD Chief"
 	selection_color = "#7e7e7e"
 
-	outfit = /datum/outfit/job/police_chief
+	outfit = /datum/outfit/job/police_lieutenant
 
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_ARMORY, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
 	paycheck = PAYCHECK_COMMAND
 	paycheck_department = ACCOUNT_SRV
-	display_order = JOB_DISPLAY_ORDER_POLICE_CHIEF
+	display_order = JOB_DISPLAY_ORDER_POLICE_LIEUTENANT
 	exp_type_department = EXP_TYPE_POLICE
 
 	mind_traits = list(TRAIT_DONUT_LOVER)
@@ -178,27 +181,28 @@
 	duty = "Do your best to keep the order in San Francisco. Keep the officers in line. Gold in peace, iron in war."
 	minimal_masquerade = 4
 
-/datum/outfit/job/police_chief
-	name = "Police Chief"
-	jobtype = /datum/job/vamp/police_chief
+/datum/outfit/job/police_lieutenant
+	name = "Police Lieutenant"
+	jobtype = /datum/job/vamp/police_lieutenant
 
 	ears = /obj/item/p25radio/police/command
 	uniform = /obj/item/clothing/under/vampire/police
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
-	suit = /obj/item/clothing/suit/vampire/vest/police/chief
+	suit = /obj/item/clothing/suit/vampire/vest/police/chief/lieutenant
 	belt = /obj/item/storage/belt/holster/detective/vampire/police
 	gloves = /obj/item/cockclock
-	id = /obj/item/card/id/police/chief
+	id = /obj/item/card/id/police/lieutenant
 	l_pocket = /obj/item/vamp/phone
-	r_pocket = /obj/item/vamp/keys/police/secure/chief
+	r_pocket = /obj/item/vamp/keys/police/secure/lieutenant
 	backpack_contents = list(/obj/item/melee/classic_baton/vampire=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/glock9mm=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/box/handcuffs=1, /obj/item/food/donut/choco=1, /obj/item/storage/firstaid/ifak=1)
 
-/datum/outfit/job/police_chief/post_equip(mob/living/carbon/human/H)
+/datum/outfit/job/police_lieutenant/post_equip(mob/living/carbon/human/H)
 	..()
 	var/datum/martial_art/MA = new /datum/martial_art/police_jiu
 	H.ignores_warrant = TRUE
 	MA.teach(H)
+	H.add_police_codes()
 
-/obj/effect/landmark/start/police_chief
-	name = "Police Chief"
-	icon_state = "Camarilla Agent"
+/obj/effect/landmark/start/police_lieutenant
+	name = "Police Lieutenant"
+	icon_state = "Lieutenant"

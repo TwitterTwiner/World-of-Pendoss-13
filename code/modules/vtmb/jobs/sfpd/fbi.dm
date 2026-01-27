@@ -23,7 +23,7 @@
 
 	duty = "Enforce the Law."
 	minimal_masquerade = 0
-	known_contacts = list("Police Chief")
+	known_contacts = list("Lieutenant")
 
 /datum/outfit/job/fbi
 	name = "Federal Investigator"
@@ -40,11 +40,12 @@
 	r_pocket = /obj/item/radio/cop
 	l_hand = /obj/item/vamp/keys/police
 	r_hand = /obj/item/police_radio
-	backpack_contents = list(/obj/item/passport=1, /obj/item/implant/radio=1, /obj/item/camera/detective=1, /obj/item/camera_film=1, /obj/item/taperecorder=1, /obj/item/tape=1, /obj/item/vamp/creditcard=1, /obj/item/ammo_box/vampire/c45acp=1, /obj/item/storage/firstaid/ifak=1)
+	backpack_contents = list(/obj/item/passport=1, /obj/item/implant/radio=1, /obj/item/camera/detective=1, /obj/item/camera_film=1, /obj/item/taperecorder=1, /obj/item/tape=1, /obj/item/vamp/creditcard=1, /obj/item/ammo_box/vampire/c45acp=1, /obj/item/storage/firstaid/ifak=1, /obj/item/clothing/suit/vampire/vest/police/fbi=1)
 
 /datum/outfit/job/fbi/post_equip(mob/living/carbon/human/H)
 	..()
 	H.ignores_warrant = TRUE
 	var/datum/martial_art/MA = new /datum/martial_art/police_jiu
 	MA.teach(H)
+	H.add_police_codes()
 

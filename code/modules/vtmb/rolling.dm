@@ -144,6 +144,39 @@ SUBSYSTEM_DEF(woddices)
 	Linguistics = rand(0, 4)
 	Occult = rand(0, 4)
 
+/datum/attributes/proc/militrary_randomize()
+	strength = rand(2, 5)
+	dexterity = rand(1, 5)
+	stamina = rand(2, 5)
+
+	charisma = rand(1, 3)
+	manipulation = rand(1, 3)
+	appearance = rand(1, 3)
+
+	perception = rand(2, 4)
+	intelligence = rand(1, 3)
+	wits = rand(2, 5)
+
+	Alertness = rand(1, 4)
+	Athletics = rand(2, 4)
+	Brawl = rand(1, 5)
+	Empathy = rand(0, 4)
+	Intimidation = rand(1, 4)
+	Expression = rand(0, 3)
+
+	Crafts = rand(0, 4)
+	Melee = rand(1, 5)
+	Firearms = rand(2, 5)
+	Drive = rand(2, 5)
+	Security = rand(2, 4)
+	Performance = rand(0,3)
+
+	Finance = rand(0, 4)
+	Investigation = rand(1, 4)
+	Medicine = rand(1, 4)
+	Linguistics = rand(0, 4)
+	Occult = rand(0, 3)
+
 /proc/get_fortitude_dices(mob/living/Living)
 	if(Living.attributes)
 		return Living.attributes.fortitude_bonus+Living.attributes.passive_fortitude

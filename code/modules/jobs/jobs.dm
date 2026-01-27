@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(leader_positions, list(
 	"Prince",
 	"Baron",
 	"Chantry Regent",
-	"Police Chief",
+	"Police Lieutenant",
 	"Dealer",
 	"Capo",
 	"Red Dragon"
@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(citizen_positions, list(
 ))
 
 GLOBAL_LIST_INIT(police_positions, list(
-	"Police Chief",
+	"Police Lieutenant",
 	"Police Sergeant",
 	"Police Coroner",
 	"Police Officer"

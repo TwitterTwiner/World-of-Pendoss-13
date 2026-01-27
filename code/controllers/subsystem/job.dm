@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(job)
 	if(!job)
 		return FALSE
 	if(!mob.dna)
-		if(job.species_slots["Werewolf"] >= 0)  /// Временный костыль. Возможно стоит просто убрать dna. 
+		if(job.species_slots["Werewolf"] >= 0)  /// Временный костыль. Возможно стоит просто убрать dna.
 			job.species_slots["Werewolf"]++
 	else
 		if (job.species_slots[mob.dna.species.name] >= 0)
@@ -587,6 +587,11 @@ SUBSYSTEM_DEF(job)
 
 	SSfactionwar.adjust_members()
 
+/*	var/display_rank = rank
+	if(M?.client?.prefs?.alt_titles_preferences[rank])
+		display_rank = M.client.prefs.alt_titles_preferences[rank]
+		*/
+
 	to_chat(M, "<b>You are the [rank].</b>")
 	if(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)//silicons override this proc to return a mob
@@ -609,11 +614,11 @@ SUBSYSTEM_DEF(job)
 		var/mob/living/carbon/human/H = living_mob
 		if((iskindred(H) && H.clane))
 			if(job.v_duty && job.v_duty != "")
-				to_chat(M, "<span class='notice'><b>[job.v_duty]</b></span>")
+				to_chat(M, span_notice("<b>[job.v_duty]</b>"))
 			if(job.title != "Prince")
 				to_chat(M, "<span class='notice' style='color:red;'><b>The Camarilla rule the city. You should obey them, their laws and the Prince, at least in public.</b></span>")
 			if(job.title == "Chantry Archivist")
-				to_chat(M, "<span class='notice'><b>As a member of the Chantry, you are part of the Tremere Pyramid and are blood bonded to the Regent. Always be loyal.</b></span>")
+				to_chat(M, span_notice("<b>As a member of the Chantry, you are part of the Tremere Pyramid and are blood bonded to the Regent. Always be loyal.</b>"))
 		else if(job.duty && job.duty != "")
 			to_chat(M, "<span class='notice'><b>[job.duty]</b></span>")
 //		job.radio_help_message(M)
