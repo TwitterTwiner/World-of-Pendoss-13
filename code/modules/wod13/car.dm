@@ -396,7 +396,9 @@ SUBSYSTEM_DEF(carpool)
 		if(!exploded && prob(10))
 			exploded = TRUE
 			if(car_type)
-				icon_state = "[car_type]_dead"
+				cut_overlay(CarImage)
+				CarImage = image(icon = src.icon, icon_state = "[src.car_type]_dead", pixel_x = -32, pixel_y = -32)
+				add_overlay(CarImage)
 
 			for(var/mob/living/L in src)
 				L.forceMove(loc)
