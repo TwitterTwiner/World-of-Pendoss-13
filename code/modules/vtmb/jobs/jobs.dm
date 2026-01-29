@@ -336,8 +336,8 @@
 	icon_state = "id2"
 	access = list(7,8)
 
-/obj/item/card/id/police/chief
-	name = "police chief badge"
+/obj/item/card/id/police/lieutenant
+	name = "police lieutenant badge"
 	desc = "Sponsored by the Government. This one has a chrome plated finish."
 	access = list(7,8)
 

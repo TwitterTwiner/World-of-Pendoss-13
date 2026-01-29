@@ -41,5 +41,5 @@
 	backpack_contents = list(/obj/item/passport=1, /obj/item/vamp/creditcard=1, /obj/item/clothing/mask/vampire/balaclava =1, /obj/item/gun/ballistic/automatic/vampire/beretta,/obj/item/ammo_box/magazine/semi9mm, /obj/item/melee/vampirearms/knife)
 
 /obj/effect/landmark/start/monk
-	name = "Red Dragon"
+	name = "Monk"
 	icon_state = "china_power_3"

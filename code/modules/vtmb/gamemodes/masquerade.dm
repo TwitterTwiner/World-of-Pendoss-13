@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(masquerade)
 	var/dead_level = 0
 	var/last_level = "stable"
 	var/manual_adjustment = 0
+	var/can_raise = TRUE
 
 /datum/controller/subsystem/masquerade/proc/get_description()
 	switch(total_level)
@@ -26,11 +27,16 @@ SUBSYSTEM_DEF(masquerade)
 	if(length(GLOB.masquerade_breakers_list))
 		for(var/mob/living/L in GLOB.masquerade_breakers_list)
 			if(L)
-				masquerade_violators += (5-L.masquerade)*50
+				masquerade_violators += (5-L.masquerade)*40
 	if(length(GLOB.sabbatites))
 		sabbat = length(GLOB.sabbatites)*100
 
-	total_level = max(0, min(1000, 1000 + dead_level + manual_adjustment - masquerade_violators - sabbat))
+
+	if(can_raise)
+		total_level = max(0, min(1000, 1000 + dead_level + manual_adjustment - masquerade_violators - sabbat))
+	else
+		total_level = max(0, min(total_level, total_level + manual_adjustment))
+
 
 	var/shit_happens = "stable"
 	switch(total_level)
@@ -61,10 +67,12 @@ SUBSYSTEM_DEF(masquerade)
 			SEND_SOUND(world, sound('code/modules/wod13/sounds/curfew.ogg', 0, 0, 100))
 			to_chat(world, "<span class='userdanger'><b>EMERGENCY ALERT – CITY OF SAN FRANCISCO</b></span>")
 			to_chat(world, "<b>Due to a sharp rise in violence and reports of unknown threats, a citywide curfew is now in effect from 9:00 PM until 6:00 AM daily until further notice. All residents are required to remain indoors during curfew hours. Essential travel only will be permitted. Public safety agencies are actively investigating the situation and working to restore security. Please remain vigilant, avoid large gatherings, and report suspicious activity to 911 immediately. Updates will be provided through official city channels, local news, and emergency alerts.</b>")
+			can_raise = FALSE
 		if(last_level == "breach")
 			SEND_SOUND(world, sound('code/modules/wod13/sounds/curfew2.ogg', 0, 0, 100))
 			to_chat(world, "<span class='userdanger'><b>EMERGENCY ALERT – CITY OF SAN FRANCISCO</b></span>")
 			to_chat(world, "<b>Due to extreme violence and unknown widespread threats, the City of San Francisco is now under a total lockdown until further notice. All residents must remain indoors at all times. Travel, gatherings, and outdoor activity are strictly prohibited. Public safety agencies are fully mobilized to contain the danger. Remain alert, secure your home, and report urgent threats to 911 only. Updates will be provided through official city channels, emergency alerts, and local news.</b>")
+			can_raise = FALSE
 
 	if(total_level <= 250)
 		for(var/mob/living/carbon/H in GLOB.player_list)

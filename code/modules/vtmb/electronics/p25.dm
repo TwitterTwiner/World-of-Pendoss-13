@@ -605,6 +605,7 @@ GLOBAL_LIST_EMPTY(p25_radios)
 	var/dispatch_monitoring = TRUE
 	var/last_status_change = 0
 	var/status_cooldown = 100
+	var/police_comunication_sounds = list()
 
 /obj/item/p25radio/police/Initialize(mapload)
 	. = ..()
@@ -697,6 +698,7 @@ GLOBAL_LIST_EMPTY(p25_radios)
 		return
 	var/obj/machinery/p25transceiver/police/police_transceiver = linked_transceiver
 	police_transceiver.announce_crime(crime, location)
+
 
 // ==============================
 // police radio subtypes, special callsigns

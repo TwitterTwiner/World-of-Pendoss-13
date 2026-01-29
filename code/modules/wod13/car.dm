@@ -109,6 +109,8 @@ SUBSYSTEM_DEF(carpool)
 
 	var/last_vzhzh = 0
 
+	var/car_type = null
+
 	var/mutable_appearance/Fari
 	var/image/CarImage
 	var/mutable_appearance/CarLights
@@ -327,7 +329,9 @@ SUBSYSTEM_DEF(carpool)
 		var/datum/action/carr/baggage/G = locate() in L.actions
 		if(G)
 			qdel(G)
-
+		var/datum/action/carr/migalka/M = locate() in L.actions
+		if(M)
+			qdel(M)
 /obj/vampire_car/examine(mob/user)
 	. = ..()
 	if(user.loc == src)
@@ -391,6 +395,11 @@ SUBSYSTEM_DEF(carpool)
 		color = "#919191"
 		if(!exploded && prob(10))
 			exploded = TRUE
+			if(car_type)
+				cut_overlay(CarImage)
+				CarImage = image(icon = src.icon, icon_state = "[src.car_type]_dead", pixel_x = -32, pixel_y = -32)
+				add_overlay(CarImage)
+
 			for(var/mob/living/L in src)
 				L.forceMove(loc)
 				var/datum/action/carr/exit_car/E = locate() in L.actions
@@ -411,6 +420,9 @@ SUBSYSTEM_DEF(carpool)
 				var/datum/action/carr/baggage/G = locate() in L.actions
 				if(G)
 					qdel(G)
+				var/datum/action/carr/migalka/M = locate() in L.actions
+				if(M)
+					qdel(M)
 			explosion(loc,0,1,3,4)
 			GLOB.car_list -= src
 	return
@@ -586,6 +598,21 @@ SUBSYSTEM_DEF(carpool)
 			if(C)
 				qdel(C)
 
+/datum/action/carr/migalka
+	name = "Toggle Flashing Lights"
+	desc = "Toggle police flashing lights."
+	button_icon_state = "migalka"
+
+/datum/action/carr/migalka/Trigger()
+	if(istype(owner.loc, /obj/vampire_car))
+		var/obj/vampire_car/police/V = owner.loc  ///////////// AT THIS TIME ONLY FOR POLICE CAR !!!
+		if(!V.migalka)
+			V.migalka = TRUE
+			to_chat(owner, "<span class='notice'>You turn on [V]'s flashing lights.</span>")
+		else
+			V.migalka = FALSE
+			to_chat(owner, "<span class='notice'>You turn off [V]'s flashing lights.</span>")
+
 /mob/living/carbon/human/MouseDrop(atom/over_object)
 	. = ..()
 	if(istype(over_object, /obj/vampire_car) && get_dist(src, over_object) < 2)
@@ -618,6 +645,9 @@ SUBSYSTEM_DEF(carpool)
 				B.Grant(src)
 				var/datum/action/carr/baggage/G = new()
 				G.Grant(src)
+				if(istype(V, /obj/vampire_car/police))
+					var/datum/action/carr/migalka/M = new()
+					M.Grant(src)
 			else if(length(V.passengers) < V.max_passengers)
 				forceMove(over_object)
 				V.passengers += src
@@ -638,6 +668,11 @@ SUBSYSTEM_DEF(carpool)
 	var/cat = FALSE
 	if(!prev_speed)
 		return
+	if(istype(A, /obj/structure)) /// structure for future itereations
+		var/obj/structure/hit_obj = A
+		if(istype(hit_obj, /obj/structure/barrier_tape/police))
+			qdel(hit_obj)
+			return
 	if(istype(A, /mob/living))
 		var/mob/living/hit_mob = A
 		if(HAS_TRAIT(hit_mob, TRAIT_MOVE_FLYING))

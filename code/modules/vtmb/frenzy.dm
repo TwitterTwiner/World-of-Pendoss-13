@@ -29,7 +29,7 @@
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(H.MyPath)
-				check = secret_vampireroll(H.MyPath.consience+H.MyPath.selfcontrol, 10-H.humanity, H, TRUE, FALSE)
+				check = secret_vampireroll(H.MyPath.selfcontrol, 9-H.MyPath.consience, H, TRUE, FALSE)
 				switch(check)
 					if(-1)
 						enter_frenzymod()
@@ -103,7 +103,7 @@
 		SEND_SOUND(src, sound('code/modules/wod13/sounds/bloodneed.ogg', 0, 0, 50))
 		var/check
 		if(H.MyPath)
-			check = secret_vampireroll(H.MyPath.courage+H.MyPath.selfcontrol, 10-H.humanity, H, TRUE, FALSE)
+			check = secret_vampireroll(H.MyPath.courage, 10-H.humanity, H, TRUE, FALSE)
 			switch(check)
 				if(-1)
 					enter_frenzymod()

@@ -122,14 +122,13 @@
 		"police_secure"
 	)
 
-/obj/item/vamp/keys/police/secure/chief
-	name = "Chief of Police keys"
+/obj/item/vamp/keys/police/secure/lieutenant
+	name = "Lieutenant keys"
 	accesslocks = list(
 		"police",
 		"police_secure",
 		"police_chief"
 	)
-
 
 /obj/item/vamp/keys/strip
 	name = "Strip keys"
@@ -297,6 +296,18 @@
 		"wolftech"
 	)
 	color = "#466a72"
+
+/obj/item/vamp/keys/swat
+	name = "BadAss keys"
+	accesslocks = list(
+		"swat"
+	)
+	color = "#161616ff"
+
+/obj/item/vamp/keys/swat/Initialize(mapload)
+	. = ..()
+	if(prob(30))
+		name = "MrDog's keys"
 
 /obj/item/vamp/keys/hack
 	name = "\improper lockpick"
