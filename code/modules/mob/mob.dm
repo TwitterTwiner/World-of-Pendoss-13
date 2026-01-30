@@ -732,6 +732,7 @@
 		else
 			return
 
+
 	log_game("[key_name(usr)] respawned.")
 
 	to_chat(usr, "<span class='boldnotice'>Please roleplay correctly!</span>")
@@ -751,6 +752,7 @@
 		qdel(M)
 		return
 
+	usr << sound(null)
 	M.key = key
 
 
