@@ -777,6 +777,7 @@
 	name = "\improper hunting rifle"
 	desc = "A classic bolt-action hunting rifle. It takes shotgun rounds."
 	icon = 'code/modules/wod13/48x32weapons.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "huntrifle"
 	lefthand_file = 'code/modules/wod13/righthand.dmi'
 	righthand_file = 'code/modules/wod13/lefthand.dmi'
