@@ -5,7 +5,7 @@
 	name = "Stake"
 	time = 50
 	reqs = list(/obj/item/stack/sheet/mineral/wood = 5)
-	tools = list(TOOL_OSTROE)
+	tools = list(TOOL_KNIFE)
 	result = /obj/item/vampire_stake
 	always_available = TRUE
 	category = CAT_WEAPON
@@ -14,7 +14,7 @@
 	name = "Armatura Stake"
 	time = 50
 	reqs = list(/obj/item/stack/rods = 1)
-	tools = list(TOOL_OSTROE)
+	tools = list(TOOL_KNIFE)
 	result = /obj/item/vampire_stake/metal
 	always_available = TRUE
 	category = CAT_WEAPON
