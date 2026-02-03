@@ -28,7 +28,7 @@
 ///// realign the blood vessels so we can reweld them
 /datum/surgery_step/repair_innards
 	name = "realign blood vessels"
-	implements = list(TOOL_HEMOSTAT = 100, TOOL_SCALPEL = 85, TOOL_OSTROE = 85, TOOL_WIRECUTTER = 40)
+	implements = list(TOOL_HEMOSTAT = 100, TOOL_SCALPEL = 85, TOOL_KNIFE = 85, TOOL_WIRECUTTER = 40)
 	time = 3 SECONDS
 
 /datum/surgery_step/repair_innards/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
