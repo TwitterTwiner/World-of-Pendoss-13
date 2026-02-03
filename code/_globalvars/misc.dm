@@ -31,7 +31,7 @@ GLOBAL_PROTECT(poll_options)
 GLOBAL_VAR_INIT(internal_tick_usage, 0.2 * world.tick_lag)
 
 //IT'S CHRISTMAS TIME
-GLOBAL_VAR_INIT(winter, TRUE)
+GLOBAL_VAR_INIT(winter, FALSE)
 GLOBAL_VAR_INIT(sarcophagus_spawned, FALSE)
 GLOBAL_VAR_INIT(elders_joined, 0)
 
