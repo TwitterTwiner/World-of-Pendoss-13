@@ -97,9 +97,11 @@
 /datum/outfit/job/reverend/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.resistant_to_disciplines = TRUE
-	H.mind.holy_role = HOLY_ROLE_PRIEST
 	to_chat(H, "<span class='alertsyndie'>Your faith in God is made of iron. None could shake it, and even in the darkest moments it holds you up.</span>")
 
+/datum/outfit/job/reverend/post_equip(mob/living/carbon/human/H)
+	..()
+	H.mind.holy_role = HOLY_ROLE_PRIEST
 /obj/effect/landmark/start/reverend
 	name = "Reverend"
 	icon_state = "Sheriff"

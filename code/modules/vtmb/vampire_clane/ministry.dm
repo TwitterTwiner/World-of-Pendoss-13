@@ -14,8 +14,16 @@
 /datum/vampireclane/setite/on_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.add_quirk(/datum/quirk/lightophobia)
-*/
+
 /datum/vampireclane/setite/post_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/obj/item/organ/eyes/night_vision/NV = new()
 	NV.Insert(H, TRUE, FALSE)
+*/
+
+/datum/vampireclane/setite/on_gain(mob/living/carbon/human/H)
+	. = ..()
+	var/obj/item/organ/eyes/night_vision/NV = new()
+	NV.Insert(H, TRUE, FALSE)
+
+
