@@ -1304,7 +1304,7 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	gribi_hud.remove_hud_from(L)
 	L.see_invisible = initial(L.see_invisible)
 	L.crazy_screen(FALSE)
-	L.rotation_screen(FALSE)
+	L.rotation_screen(0,FALSE)
 	L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
 	to_chat(L, "<span class='notice'>Ты чувствуешь некое... просветвление.</span>")
 
@@ -1365,7 +1365,7 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	gribi_hud.remove_hud_from(L)
 	L.see_invisible = initial(L.see_invisible)
 	L.crazy_screen(FALSE)
-	L.rotation_screen(FALSE)
+	L.rotation_screen(0,FALSE)
 	L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
 	to_chat(L, "<span class='notice'>Ты чувствуешь, что ОНИ дали тебе... Просветвление.</span>")
 	..()
@@ -1404,8 +1404,8 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	L.attributes.perception_reagent = 0
 	if(L.client)
 		animate(L.client, color = null, time = 20)
-
 		L.crazy_screen(FALSE)
+		L.rotation_screen(0,FALSE)
 
 
 /datum/reagent/drug/Nzp/overdose_process(mob/living/M)
