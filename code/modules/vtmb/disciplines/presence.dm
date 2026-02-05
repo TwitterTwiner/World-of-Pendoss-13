@@ -75,7 +75,7 @@
 		target.awe_owner = owner
 
 		if(owner.client)
-			var/image/Io = image(icon = 'code/modules/wod13/icons.dmi', icon_state = "presence", layer = ABOVE_MOB_LAYER, loc = target)
+			var/image/Io = image(icon = 'code/modules/wod13/icons.dmi', icon_state = "presence_2", layer = ABOVE_MOB_LAYER, loc = target)
 			owner.client.images |= Io
 			owner_auras[target] = Io
 
