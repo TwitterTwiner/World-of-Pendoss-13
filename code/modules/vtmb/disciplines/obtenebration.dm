@@ -508,6 +508,7 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	var/mob/living/grabbed_mob = null
 	var/list/recently_released = list()
 	var/aggro_mode = "Aggressive"
+	var/light_exposure_time = 0
 	COOLDOWN_DECLARE(grab_cooldown)
 	COOLDOWN_DECLARE(damage_cooldown)
 
@@ -545,12 +546,22 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 		return FALSE
 	if(L in recently_released)
 		return FALSE
-	if(get_dist(src, L) > vision_range)
+	if(get_dist(src, L) > 1)
 		return FALSE
 
 	return ..()
 
 /mob/living/simple_animal/hostile/abyss_tentacle/process(delta_time)
+	var/turf/T = get_turf(src)
+	if(T.get_lumcount() >= 0.4)
+		light_exposure_time += delta_time
+		if(light_exposure_time >= 2 SECONDS)
+			if(grabbed_mob)
+				release_grabbed_mob()
+			qdel(src)
+			return
+	else
+		light_exposure_time = 0
 	if(aggro_mode == "Passive")
 		if(grabbed_mob)
 			release_grabbed_mob()
@@ -642,12 +653,12 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 		if(world.time >= source.escape_attempt)
 			source.escape_attempt = world.time + 5 SECONDS
 			var/rollcheck = secret_vampireroll(get_a_strength(source), 6, source)
-			if(rollcheck == ROLL_SUCCESS)
+			if(rollcheck >= 3)
 				to_chat(source, span_notice("You break free from the tentacle's grasp!"))
 				release_mob(source, TRUE) // Cooldown!
 				return
 
-			else if(rollcheck == ROLL_BOTCH || rollcheck == ROLL_FAILURE)
+			else
 				to_chat(source, span_warning("You struggle against the tentacle but can't break free!"))
 
 		source.visible_message(span_danger("The tentacle pulls [source] back!"))
