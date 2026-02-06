@@ -708,7 +708,7 @@
 
 
 /datum/preferences/proc/Character_List(mob/user, list/dat)
-	dat += "Experience rewarded: [true_experience]<BR>"
+	dat += "Awaibal points: [true_experience]<BR>"
 
 	dat += "<h2>[make_font_cool("ATTRIBUTES")]</h2>"
 

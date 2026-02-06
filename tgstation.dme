@@ -3560,6 +3560,8 @@
 #include "code\modules\vtmb\npc\defines.dm"
 #include "code\modules\vtmb\paths\_paths.dm"
 #include "code\modules\vtmb\paths\humanity.dm"
+#include "code\modules\vtmb\surgery\fleshcraft.dm"
+#include "code\modules\vtmb\surgery\fleshcraft\cosmetic_fleshcrafting.dm"
 #include "code\modules\vtmb\vampire_clane\baali.dm"
 #include "code\modules\vtmb\vampire_clane\banu_haqim.dm"
 #include "code\modules\vtmb\vampire_clane\banu_haqim_sorcerer.dm"
