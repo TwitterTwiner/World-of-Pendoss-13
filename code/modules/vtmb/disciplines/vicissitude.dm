@@ -522,6 +522,9 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_biter)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_fister)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_tanker)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/cattzi)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/axetzi)
+
 
 /datum/action/basic_vicissitude
 	name = "Vicissitude Upgrade"
@@ -664,6 +667,9 @@
 		return
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_heart)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_med)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzicreature)
+
+
 //BLOODFORM
 /datum/discipline_power/vicissitude/bloodform
 	name = "Bloodform"

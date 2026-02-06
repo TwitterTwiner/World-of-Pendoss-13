@@ -1718,16 +1718,19 @@
 	icon = 'code/modules/wod13/32x48.dmi'
 	icon_state = "cloakedstatue"
 
-/obj/structure/bath
+/obj/structure/bed/bath
 	name = "bath"
 	desc = "Not big enough for hiding in."
 	icon = 'code/modules/wod13/props.dmi'
-	icon_state = "tub"
+	icon_state = "bath"
 	plane = GAME_PLANE
-	layer = ABOVE_ALL_MOB_LAYER
+//	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+
+/obj/structure/bath/blood
+	icon_state = "bath_full_blood"
 
 /obj/weapon_showcase
 	name = "weapon showcase"
