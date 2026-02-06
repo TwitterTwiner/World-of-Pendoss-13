@@ -620,7 +620,7 @@
 	inhand_icon_state = "plushtzi"
 	attack_verb_continuous = list("tortures", "scourges")
 	attack_verb_simple = list("torture", "scourge")
-	squeak_override = list('code/modules/wod13/sounds/femurbreaker.ogg'=1)
+	squeak_override = list('code/modules/wod13/sounds/rastyagivanie_fimosa.ogg'=1)
 
 /obj/item/toy/plush/tzi/attack_self(mob/user)
 	. = ..()
