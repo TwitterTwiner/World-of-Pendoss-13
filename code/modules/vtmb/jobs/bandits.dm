@@ -6,6 +6,9 @@
 	supervisors = " Yourself and your consience"
 	selection_color = "#bb9e3d"
 
+	total_positions = 6
+	spawn_positions = 6
+
 	outfit = /datum/outfit/job/thug
 
 	paycheck = PAYCHECK_EASY
