@@ -17,8 +17,7 @@
 	exp_type_department = EXP_TYPE_GANG
 
 	allowed_species = list("Human", "Ghoul")
-	maximum_generation = 11
-	minimal_generation = 13
+	max_generation = 11
 
 	duty = "Воровская жизнь не легкая, но её надо придерживаться."
 	experience_addition = 0
@@ -56,22 +55,22 @@
 	/obj/item/reagent_containers/food/drinks/meth)
 
 
-	var/loadout_type = input(owner.current, "Choose your thug loadout:", "Loadout Selection") in loadouts
+	var/loadout_type = input(owner, "Choose your thug loadout:", "Loadout Selection") in loadouts
 	switch(loadout_type)
 		if("Junky")
-			owner.current.put_in_r_hand(new syrgines_types(owner.current))
-			owner.current.put_in_l_hand(new packet_type(owner.current))
+			owner.put_in_r_hand(new syrgines_types(owner))
+			owner.put_in_l_hand(new packet_type(owner))
 //		if("Robber")
-//			owner.current.put_in_r_hand(new (owner.current))
-//			owner.current.put_in_l_hand(new (owner.current))
+//			owner.put_in_r_hand(new (owner))
+//			owner.put_in_l_hand(new (owner))
 		if("Weeder")
-			owner.current.put_in_r_hand(new /obj/item/weedpack(owner.current))
+			owner.put_in_r_hand(new /obj/item/weedpack(owner))
 		if("Killer")
-			owner.current.put_in_r_hand(new /obj/item/gun/ballistic/automatic/vampire/sniper(owner.current))
-			owner.current.put_in_l_hand(new /obj/item/ammo_box/vampire/c556(owner.current))
+			owner.put_in_r_hand(new /obj/item/gun/ballistic/automatic/vampire/sniper(owner))
+			owner.put_in_l_hand(new /obj/item/ammo_box/vampire/c556(owner))
 		if("Sprortik")
-			owner.current.put_in_r_hand(new /obj/item/vamp/keys/hack(owner.current))
-			owner.current.put_in_l_hand(new /obj/item/clothing/mask/vampire/balaclava(owner.current))
+			owner.put_in_r_hand(new /obj/item/vamp/keys/hack(owner))
+			owner.put_in_l_hand(new /obj/item/clothing/mask/vampire/balaclava(owner))
 
 
 
