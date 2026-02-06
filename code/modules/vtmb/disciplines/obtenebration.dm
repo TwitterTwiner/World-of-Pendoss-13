@@ -508,6 +508,7 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	var/mob/living/grabbed_mob = null
 	var/list/recently_released = list()
 	var/aggro_mode = "Aggressive"
+	var/light_exposure_time = 0
 	COOLDOWN_DECLARE(grab_cooldown)
 	COOLDOWN_DECLARE(damage_cooldown)
 
@@ -551,9 +552,16 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	return ..()
 
 /mob/living/simple_animal/hostile/abyss_tentacle/process(delta_time)
-	if(get_lumcount() >= 0.4)
-		qdel(src)
-		return
+	var/turf/T = get_turf(src)
+	if(T.get_lumcount() >= 0.4)
+		light_exposure_time += delta_time
+		if(light_exposure_time >= 2 SECONDS)
+			if(grabbed_mob)
+				release_grabbed_mob()
+			qdel(src)
+			return
+	else
+		light_exposure_time = 0
 	if(aggro_mode == "Passive")
 		if(grabbed_mob)
 			release_grabbed_mob()
