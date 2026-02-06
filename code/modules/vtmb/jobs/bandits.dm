@@ -74,7 +74,7 @@
 
 /datum/outfit/job/thug/post_equip(mob/living/carbon/human/H)
 	..()
-
+	choose_side(H)
 
 
 
