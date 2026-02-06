@@ -2431,6 +2431,7 @@
 /area/vtm/interior/bianchiBank)
 "akR" = (
 /obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/vampirewater,
 /turf/open/floor/plating/toilet,
 /area/vtm/church)
 "akS" = (
@@ -2958,6 +2959,7 @@
 /area/vtm/interior/strip)
 "amP" = (
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/coffee/vampire,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/church)
 "amQ" = (
@@ -3712,14 +3714,6 @@
 	amount_of_bloodpoints = 8;
 	name = "Elder vitae pack (full)"
 	},
-/obj/item/drinkable_bloodpack/full/vitae{
-	amount_of_bloodpoints = 8;
-	name = "Elder vitae pack (full)"
-	},
-/obj/item/drinkable_bloodpack/full/vitae{
-	amount_of_bloodpoints = 8;
-	name = "Elder vitae pack (full)"
-	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior)
 "apI" = (
@@ -4246,7 +4240,7 @@
 	anchored = 1;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "up";
-	id = camarilla2;
+	id = 2;
 	pixel_y = 30
 	},
 /turf/open/floor/plating/parquetry,
@@ -5793,6 +5787,7 @@
 /obj/item/stack/medical/mesh,
 /obj/item/storage/pill_bottle/probital,
 /obj/item/storage/pill_bottle/multiver,
+/obj/item/storage/pill_bottle/epinephrine,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/freezer,
 /area/vtm/clinic)
@@ -6333,7 +6328,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating/shit,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "azK" = (
 /obj/effect/decal/pallet,
 /obj/structure/bed/maint{
@@ -6846,7 +6841,6 @@
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks/beer{
 	emagged_reagents = list(/datum/reagent/toxin/slimejelly);
-	recharge_amount = 5;
 	dispensable_reagents = list(/datum/reagent/consumable/ethanol/beer,/datum/reagent/consumable/ethanol/kahlua,/datum/reagent/consumable/ethanol/whiskey,/datum/reagent/consumable/ethanol/wine,/datum/reagent/consumable/ethanol/vodka,/datum/reagent/consumable/ethanol/gin,/datum/reagent/consumable/ethanol/rum,/datum/reagent/consumable/ethanol/tequila,/datum/reagent/consumable/ethanol/vermouth,/datum/reagent/consumable/ethanol/cognac,/datum/reagent/consumable/ethanol/ale,/datum/reagent/consumable/ethanol/absinthe,/datum/reagent/consumable/ethanol/hcider,/datum/reagent/consumable/ethanol/creme_de_menthe,/datum/reagent/consumable/ethanol/creme_de_cacao,/datum/reagent/consumable/ethanol/creme_de_coconut,/datum/reagent/consumable/ethanol/triple_sec,/datum/reagent/consumable/ethanol/sake,/datum/reagent/consumable/ethanol/applejack,/datum/reagent/consumable/ethanol/fernet)
 	},
 /turf/open/floor/carpet,
@@ -6855,8 +6849,7 @@
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks{
 	emagged_reagents = list(/datum/reagent/toxin,/datum/reagent/toxin/minttoxin);
-	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder);
-	recharge_amount = 5
+	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder)
 	},
 /turf/open/floor/carpet,
 /area/vtm/anarch)
@@ -7916,8 +7909,7 @@
 "aFG" = (
 /obj/machinery/chem_dispenser/drinks{
 	emagged_reagents = list(/datum/reagent/toxin,/datum/reagent/toxin/minttoxin);
-	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder);
-	recharge_amount = 5
+	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder)
 	},
 /obj/machinery/light/small{
 	pixel_y = 28
@@ -7959,7 +7951,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_cannabis,
 /obj/item/lighter,
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "aFM" = (
 /obj/effect/decal/bordur,
 /obj/effect/landmark/npcbeacon,
@@ -9355,11 +9347,6 @@
 /obj/effect/decal/wallpaper,
 /turf/closed/wall/vampwall/market,
 /area/vtm)
-"aLg" = (
-/obj/effect/turf_decal/siding/white,
-/obj/elevator_door/start_closed,
-/turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/wyrm_corrupted/pentex)
 "aLh" = (
 /obj/machinery/food_cart{
 	req_access = null
@@ -10111,6 +10098,10 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/jazzclub)
+"aNI" = (
+/obj/effect/decal/cleanable/trash_paper,
+/turf/open/floor/plating/concrete,
+/area/vtm/sewer)
 "aNJ" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -13427,8 +13418,7 @@
 /obj/elevator_button_up{
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
-	icon_state = "lift";
-	id = camarilla1
+	icon_state = "lift"
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/prince)
@@ -13516,14 +13506,6 @@
 "bak" = (
 /turf/open/floor/plating/concrete,
 /area/vtm/park)
-"bal" = (
-/obj/item/ammo_box/vampire/c12g,
-/obj/item/ammo_box/vampire/c12g/buck,
-/obj/structure/closet/crate/secure/weapon{
-	req_one_access = list(46,66)
-	},
-/turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior)
 "bap" = (
 /turf/closed/wall/vampwall/low/window,
 /area/vtm/hotel)
@@ -14700,10 +14682,6 @@
 /obj/effect/decal/graffiti,
 /turf/open/floor/plating/vampdirt,
 /area/vtm/pacificheights)
-"beS" = (
-/obj/structure/table,
-/turf/open/floor/plating/vampplating,
-/area/vtm/interior/wyrm_corrupted/pentex)
 "beT" = (
 /obj/effect/decal/bordur,
 /obj/structure/vampfence/rich{
@@ -15106,7 +15084,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/mime,
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "bgk" = (
 /obj/structure/chair/wood,
 /turf/open/floor/plating/rough,
@@ -15316,7 +15294,7 @@
 /obj/structure/table,
 /obj/structure/microscope,
 /obj/machinery/button/door{
-	id = "pentexhq_cell2";
+	id = "pentexhq_cell33";
 	name = "Cell door button";
 	pixel_y = 32;
 	req_access = list(8)
@@ -19449,7 +19427,7 @@
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "up";
 	pixel_y = 30;
-	id = endron2
+	id = 7
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -20209,6 +20187,7 @@
 /obj/structure/closet{
 	anchored = 1
 	},
+/obj/effect/turf_decal/bot_white,
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "bzQ" = (
@@ -24187,10 +24166,6 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/plating/vampgrass,
 /area/vtm/unionsquare)
-"cnT" = (
-/obj/structure/reagent_dispensers/water_cooler,
-/turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/wyrm_corrupted/pentex)
 "coc" = (
 /obj/structure/table,
 /obj/item/ammo_box/vampire/c44,
@@ -24478,7 +24453,7 @@
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "down";
 	pixel_y = 30;
-	id = endron1
+	id = 6
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -24653,6 +24628,17 @@
 /mob/living/carbon/human/npc/guard,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/bianchiBank)
+"cxB" = (
+/obj/effect/turf_decal/stripes/full,
+/obj/machinery/door/poddoor/shutters/radiation{
+	id = "pentexhq_cell2";
+	pixel_y = 1;
+	damage_deflection = 100
+	},
+/turf/open/floor/plasteel/elevatorshaft{
+	name = "advancedflooring"
+	},
+/area/vtm/interior/wyrm_corrupted/pentex)
 "cxD" = (
 /obj/machinery/door/poddoor/shutters{
 	damage_deflection = 60;
@@ -24809,6 +24795,10 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
+"cBo" = (
+/obj/fusebox,
+/turf/open/floor/plating/sidewalk/poor,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "cBD" = (
 /obj/structure/sign/warning,
 /turf/closed/wall/vampwall/metal/alt,
@@ -25227,7 +25217,7 @@
 /area/vtm/sewer/nosferatu_town)
 "cNF" = (
 /obj/elevator_button_up{
-	id = camarilla2;
+	id = 2;
 	pixel_y = 24;
 	icon_state = "lift";
 	icon = 'code/modules/wod13/icons.dmi'
@@ -25302,7 +25292,6 @@
 "cPj" = (
 /obj/machinery/chem_dispenser/drinks/beer{
 	emagged_reagents = list(/datum/reagent/toxin/slimejelly);
-	recharge_amount = 5;
 	dispensable_reagents = list(/datum/reagent/consumable/ethanol/beer,/datum/reagent/consumable/ethanol/kahlua,/datum/reagent/consumable/ethanol/whiskey,/datum/reagent/consumable/ethanol/wine,/datum/reagent/consumable/ethanol/vodka,/datum/reagent/consumable/ethanol/gin,/datum/reagent/consumable/ethanol/rum,/datum/reagent/consumable/ethanol/tequila,/datum/reagent/consumable/ethanol/vermouth,/datum/reagent/consumable/ethanol/cognac,/datum/reagent/consumable/ethanol/ale,/datum/reagent/consumable/ethanol/absinthe,/datum/reagent/consumable/ethanol/hcider,/datum/reagent/consumable/ethanol/creme_de_menthe,/datum/reagent/consumable/ethanol/creme_de_cacao,/datum/reagent/consumable/ethanol/creme_de_coconut,/datum/reagent/consumable/ethanol/triple_sec,/datum/reagent/consumable/ethanol/sake,/datum/reagent/consumable/ethanol/applejack,/datum/reagent/consumable/ethanol/fernet)
 	},
 /obj/structure/table/wood/bar,
@@ -25338,8 +25327,9 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
 "cQJ" = (
-/turf/open/floor/plating/shit,
-/area/vtm/interior/police)
+/obj/structure/table,
+/turf/open/floor/plating/concrete,
+/area/vtm/sewer)
 "cRe" = (
 /obj/item/vamp/keys/malkav,
 /obj/item/vamp/keys/malkav,
@@ -25662,6 +25652,12 @@
 	},
 /turf/open/floor/plating/vampcarpet,
 /area/vtm/interior/techshop)
+"cZU" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "dac" = (
 /turf/closed/wall/vampwall/city/low/window,
 /area/vtm/interior/vjanitor)
@@ -25902,8 +25898,7 @@
 	dispensable_reagents = list(/datum/reagent/iron,/datum/reagent/water,/datum/reagent/medicine/c2/probital,/datum/reagent/medicine/c2/multiver,/datum/reagent/medicine/potass_iodide,/datum/reagent/medicine/salglu_solution,/datum/reagent/medicine/epinephrine,/datum/reagent/medicine/ephedrine,/datum/reagent/medicine/morphine,/datum/reagent/consumable/nutriment/protein,/datum/reagent/consumable/nutriment/vitamin);
 	emagged_reagents = list(/datum/reagent/toxin/slimejelly,/datum/reagent/toxin,/datum/reagent/toxin/minttoxin,/datum/reagent/drug/cocaine,/datum/reagent/drug/methamphetamine,/datum/reagent/drug/mephedrone);
 	upgrade_reagents = null;
-	name = "Chemical Laboratory";
-	recharge_amount = 5
+	name = "Chemical Laboratory"
 	},
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/shop)
@@ -27674,7 +27669,6 @@
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks/beer{
 	emagged_reagents = list(/datum/reagent/toxin/slimejelly);
-	recharge_amount = 5;
 	dispensable_reagents = list(/datum/reagent/consumable/ethanol/beer,/datum/reagent/consumable/ethanol/kahlua,/datum/reagent/consumable/ethanol/whiskey,/datum/reagent/consumable/ethanol/wine,/datum/reagent/consumable/ethanol/vodka,/datum/reagent/consumable/ethanol/gin,/datum/reagent/consumable/ethanol/rum,/datum/reagent/consumable/ethanol/tequila,/datum/reagent/consumable/ethanol/vermouth,/datum/reagent/consumable/ethanol/cognac,/datum/reagent/consumable/ethanol/ale,/datum/reagent/consumable/ethanol/absinthe,/datum/reagent/consumable/ethanol/hcider,/datum/reagent/consumable/ethanol/creme_de_menthe,/datum/reagent/consumable/ethanol/creme_de_cacao,/datum/reagent/consumable/ethanol/creme_de_coconut,/datum/reagent/consumable/ethanol/triple_sec,/datum/reagent/consumable/ethanol/sake,/datum/reagent/consumable/ethanol/applejack,/datum/reagent/consumable/ethanol/fernet)
 	},
 /turf/open/floor/plating/vampplating,
@@ -28129,8 +28123,9 @@
 /turf/open/floor/carpet/green,
 /area/vtm/interior)
 "eck" = (
-/obj/structure/vampdoor/pentex{
-	dir = 4
+/obj/structure/vampdoor/anarch{
+	dir = 4;
+	lock_id = "pentex"
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -28919,7 +28914,7 @@
 /obj/structure/table,
 /obj/effect/decal/graffiti/large,
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "esT" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -29184,11 +29179,11 @@
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/delivery_garage/bar_office)
 "eAQ" = (
-/obj/machinery/light{
-	dir = 4
+/obj/machinery/door/poddoor/shutters/window{
+	id = "pentexhq_cell22";
+	damage_deflection = 100
 	},
-/obj/structure/coclock,
-/turf/open/floor/plating/vampplating/mono,
+/turf/closed/wall/vampwall/metal/glass,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "eBj" = (
 /obj/effect/turf_decal/siding/white,
@@ -30582,7 +30577,7 @@
 	},
 /obj/effect/decal/cleanable/trash_paper,
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "fgX" = (
 /obj/structure/trashcan,
 /turf/open/floor/plating/sidewalk/poor,
@@ -30773,7 +30768,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "flF" = (
 /obj/structure/chair,
 /turf/open/floor/carpet/royalblue,
@@ -31260,6 +31255,9 @@
 /obj/structure/chair/sofa/corp/corner{
 	dir = 4
 	},
+/obj/structure/sign/painting/library_secure{
+	pixel_y = 30
+	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "fzt" = (
@@ -31551,7 +31549,7 @@
 /obj/machinery/light/prince{
 	pixel_y = 32
 	},
-/obj/structure/reagent_dispensers/water_cooler,
+/obj/structure/closet/crate/bin,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/jazzclub)
 "fFN" = (
@@ -31627,7 +31625,11 @@
 /area/vtm/interior/laundromat)
 "fGR" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/beer/vampire,
+/obj/item/reagent_containers/food/drinks/beer/vampire{
+	pixel_y = 10;
+	pixel_x = 10
+	},
+/obj/item/food/burger/bigbite,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch)
 "fGS" = (
@@ -31853,8 +31855,7 @@
 /obj/elevator_button_down{
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
-	icon_state = "lift";
-	id = camarilla1
+	icon_state = "lift"
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/cabinet)
@@ -32009,7 +32010,7 @@
 /area/vtm/interior/shop)
 "fPd" = (
 /obj/elevator_button_down{
-	id = camarilla3;
+	id = 3;
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift"
@@ -32428,8 +32429,7 @@
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks{
 	emagged_reagents = list(/datum/reagent/toxin,/datum/reagent/toxin/minttoxin);
-	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder);
-	recharge_amount = 5
+	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder)
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/strip)
@@ -32527,10 +32527,6 @@
 	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
-"gcR" = (
-/obj/structure/stairs/east,
-/turf/open/floor/plating/vampplating,
-/area/vtm/interior/wyrm_corrupted/pentex)
 "gcS" = (
 /obj/item/clothing/under/rank/civilian/lawyer/black/skirt,
 /obj/structure/rack,
@@ -33829,8 +33825,8 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/theatre)
 "gGe" = (
-/obj/structure/coclock,
 /obj/structure/reagent_dispensers/water_cooler,
+/obj/structure/coclock,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "gGk" = (
@@ -33965,12 +33961,12 @@
 /turf/open/floor/plating/sidewalk,
 /area/vtm/pacificheights)
 "gJC" = (
+/obj/effect/turf_decal/stripes/full,
 /obj/machinery/door/poddoor/shutters/radiation{
-	id = "pentexhq_cell2";
+	id = "pentexhq_cell1";
 	pixel_y = 1;
 	damage_deflection = 100
 	},
-/obj/effect/turf_decal/stripes/full,
 /turf/open/floor/plasteel/elevatorshaft{
 	name = "advancedflooring"
 	},
@@ -34496,6 +34492,14 @@
 	},
 /turf/open/floor/plating/shit,
 /area/vtm/sewer)
+"gTZ" = (
+/obj/structure/closet/crate/freezer/fridge,
+/obj/item/reagent_containers/food/drinks/beer/vampire,
+/obj/item/reagent_containers/food/drinks/beer/vampire,
+/obj/item/reagent_containers/food/drinks/beer/vampire/blue_stripe,
+/obj/item/reagent_containers/food/drinks/beer/vampire/blue_stripe,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/anarch)
 "gUg" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -34609,8 +34613,6 @@
 /obj/structure/closet/crate,
 /obj/item/ammo_box/vampire/c9mm,
 /obj/item/ammo_box/vampire/c9mm,
-/obj/item/ammo_box/vampire/c9mm,
-/obj/item/ammo_box/vampire/c9mm,
 /turf/open/floor/plating/rough,
 /area/vtm/interior/shop)
 "gWw" = (
@@ -34639,7 +34641,7 @@
 "gXb" = (
 /obj/structure/table,
 /obj/machinery/button/door{
-	id = "pentexhq_cell2";
+	id = "pentexhq_cell3";
 	name = "Cell door button";
 	pixel_y = 32;
 	req_access = list(8)
@@ -34768,6 +34770,10 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
+"gZP" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/plating/vampplating/mono,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "hah" = (
 /obj/structure/closet/cardboard,
 /obj/item/clothing/mask/vampire/gasmask,
@@ -34900,6 +34906,12 @@
 /obj/structure/closet/cabinet,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
+"hdT" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_midori,
+/obj/item/lighter/greyscale,
+/turf/open/floor/plating/sidewalk/poor,
+/area/vtm)
 "hdZ" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 5
@@ -35524,6 +35536,7 @@
 /obj/structure/closet{
 	anchored = 1
 	},
+/obj/effect/turf_decal/bot_white,
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "hrd" = (
@@ -36410,9 +36423,9 @@
 /area/vtm)
 "hKj" = (
 /obj/structure/table,
-/obj/item/flashlight/lamp,
-/turf/open/floor/plating/sidewalk/poor,
-/area/vtm)
+/obj/item/food/cake/holy_cake,
+/turf/open/floor/plating/toilet,
+/area/vtm/church)
 "hKn" = (
 /obj/graffiti/triad,
 /turf/open/floor/plating/circled,
@@ -36456,6 +36469,12 @@
 	light_color = "#6488EA"
 	},
 /turf/open/floor/plating/vampplating,
+/area/vtm/interior/wyrm_corrupted/pentex)
+"hLd" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/turf/open/floor/plating/sidewalk/poor,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "hLk" = (
 /obj/structure/vampipe_manifold_fixed{
@@ -36986,7 +37005,8 @@
 /obj/machinery/light{
 	pixel_y = 32
 	},
-/obj/structure/faction_map/camarilla,
+/obj/structure/closet/crate/bin,
+/obj/item/vamp/keys/hack,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/prince)
 "hYl" = (
@@ -37018,7 +37038,7 @@
 	dir = 8;
 	lock_id = "prince";
 	locked = 1;
-	lockpick_difficulty = 18;
+	lockpick_difficulty = 10;
 	magic_lock = 1
 	},
 /turf/open/floor/plating/parquetry/rich,
@@ -38352,10 +38372,10 @@
 /area/vtm/interior)
 "iCp" = (
 /obj/elevator_button_down{
-	id = 2;
+	id = 5;
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
-	icon_state = "down"
+	icon_state = "lift"
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
@@ -38470,7 +38490,7 @@
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift";
-	id = endron2
+	id = 7
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -38579,6 +38599,13 @@
 	},
 /turf/open/floor/plating/sidewalk,
 /area/vtm/pacificheights)
+"iIe" = (
+/obj/machinery/light/prince{
+	pixel_y = 32
+	},
+/obj/structure/faction_map/camarilla,
+/turf/open/floor/plating/parquetry,
+/area/vtm/prince)
 "iIg" = (
 /obj/machinery/vending/boozeomat/all_access{
 	default_price = 0;
@@ -38907,9 +38934,6 @@
 /obj/item/radio/cop,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/police)
-"iOL" = (
-/turf/open/floor/plating/vampplating,
-/area/vtm/interior/wyrm_corrupted/pentex)
 "iOU" = (
 /obj/structure/vampdoor/shop,
 /turf/open/floor/plating/sidewalk,
@@ -39541,7 +39565,7 @@
 	},
 /obj/item/toy/cards/deck,
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "jby" = (
 /obj/effect/decal/bordur,
 /obj/structure/roadblock/alt,
@@ -40496,7 +40520,7 @@
 /area/vtm/sewer/nosferatu_town)
 "jwG" = (
 /obj/elevator_button_down{
-	id = endron1;
+	id = 6;
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift"
@@ -40976,7 +41000,7 @@
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "down";
 	pixel_y = 30;
-	id = endron2
+	id = 7
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -41386,6 +41410,15 @@
 	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
+"jTI" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/turf/open/floor/plating/rough,
+/area/vtm/anarch)
 "jTM" = (
 /obj/structure/vampdoor/graveyard{
 	dir = 8;
@@ -42823,7 +42856,7 @@
 	pixel_y = 28
 	},
 /turf/open/floor/plating/shit,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "kBJ" = (
 /obj/structure/chair{
 	dir = 4
@@ -43343,6 +43376,10 @@
 /obj/structure/bricks,
 /turf/open/floor/plating/rough,
 /area/vtm/sewer/nosferatu_town)
+"kNB" = (
+/obj/structure/table,
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "kNG" = (
 /obj/structure/railing{
 	dir = 8
@@ -43482,6 +43519,10 @@
 	},
 /turf/open/floor/plating/vampgrass,
 /area/vtm/park)
+"kRG" = (
+/obj/structure/table,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/anarch)
 "kSl" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/vampdirt,
@@ -43675,7 +43716,6 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/chem_dispenser/drinks/beer{
 	emagged_reagents = list(/datum/reagent/toxin/slimejelly);
-	recharge_amount = 5;
 	dispensable_reagents = list(/datum/reagent/consumable/ethanol/beer,/datum/reagent/consumable/ethanol/kahlua,/datum/reagent/consumable/ethanol/whiskey,/datum/reagent/consumable/ethanol/wine,/datum/reagent/consumable/ethanol/vodka,/datum/reagent/consumable/ethanol/gin,/datum/reagent/consumable/ethanol/rum,/datum/reagent/consumable/ethanol/tequila,/datum/reagent/consumable/ethanol/vermouth,/datum/reagent/consumable/ethanol/cognac,/datum/reagent/consumable/ethanol/ale,/datum/reagent/consumable/ethanol/absinthe,/datum/reagent/consumable/ethanol/hcider,/datum/reagent/consumable/ethanol/creme_de_menthe,/datum/reagent/consumable/ethanol/creme_de_cacao,/datum/reagent/consumable/ethanol/creme_de_coconut,/datum/reagent/consumable/ethanol/triple_sec,/datum/reagent/consumable/ethanol/sake,/datum/reagent/consumable/ethanol/applejack,/datum/reagent/consumable/ethanol/fernet)
 	},
 /turf/open/floor/plating/parquetry/rich,
@@ -43885,6 +43925,10 @@
 /area/vtm/anarch)
 "ldb" = (
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/meth/cocaine{
+	pixel_x = 6;
+	pixel_y = 8
+	},
 /obj/item/reagent_containers/food/drinks/meth/cocaine,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/cabinet)
@@ -44404,7 +44448,7 @@
 	dir = 8;
 	lock_id = "prince";
 	locked = 1;
-	lockpick_difficulty = 18;
+	lockpick_difficulty = 10;
 	magic_lock = 1
 	},
 /turf/open/floor/plating/parquetry/rich,
@@ -44808,6 +44852,10 @@
 /obj/item/reagent_containers/food/drinks/coffee/vampire/robust,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/cabinet)
+"lzL" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/plating/concrete,
+/area/vtm/sewer)
 "lzM" = (
 /obj/structure/stairs/north,
 /obj/machinery/light{
@@ -45036,7 +45084,7 @@
 	anchored = 1;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "up";
-	id = camarilla4;
+	id = 4;
 	pixel_y = 30
 	},
 /turf/open/floor/plating/parquetry,
@@ -46275,10 +46323,10 @@
 "mhm" = (
 /obj/elevator_button{
 	anchored = 1;
-	id = 2;
+	id = 5;
 	pixel_y = 30;
 	icon = 'code/modules/wod13/icons.dmi';
-	icon_state = "lift"
+	icon_state = "up"
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
@@ -46443,8 +46491,7 @@
 	dispensable_reagents = list(/datum/reagent/iron,/datum/reagent/water,/datum/reagent/medicine/c2/probital,/datum/reagent/medicine/c2/multiver,/datum/reagent/medicine/potass_iodide,/datum/reagent/medicine/salglu_solution,/datum/reagent/medicine/epinephrine,/datum/reagent/medicine/ephedrine,/datum/reagent/medicine/morphine,/datum/reagent/consumable/nutriment/protein,/datum/reagent/consumable/nutriment/vitamin,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/space_up,/datum/reagent/consumable/ethanol/beer);
 	emagged_reagents = list(/datum/reagent/toxin/slimejelly,/datum/reagent/toxin,/datum/reagent/toxin/minttoxin,/datum/reagent/drug/cocaine,/datum/reagent/drug/methamphetamine,/datum/reagent/drug/mephedrone);
 	upgrade_reagents = null;
-	name = "Endron Chemical Laboratory";
-	recharge_amount = 5
+	name = "Endron Chemical Laboratory"
 	},
 /turf/open/floor/plating/circled,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -46730,7 +46777,7 @@
 /area/vtm/unionsquare)
 "mtf" = (
 /obj/elevator_button_down{
-	id = camarilla4;
+	id = 4;
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift"
@@ -47004,6 +47051,11 @@
 	},
 /turf/open/floor/plating/vampwood,
 /area/vtm/interior)
+"mAa" = (
+/obj/effect/turf_decal/siding/white,
+/obj/elevator_door/start_closed,
+/turf/open/floor/plating/vampplating/mono,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "mAf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -47169,6 +47221,14 @@
 /obj/item/storage/fancy/egg_box,
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
+"mEl" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/effect/decal/pallet,
+/obj/structure/closet/crate/large,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/anarch)
 "mEq" = (
 /obj/structure/fluff/hedge{
 	pixel_y = 10
@@ -47282,6 +47342,7 @@
 /obj/machinery/light{
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/bot_white,
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "mHn" = (
@@ -47451,11 +47512,11 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm/graveyard)
 "mKK" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/table,
-/turf/open/floor/plating/vampplating/mono,
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/turf/open/floor/plating/vampplating,
 /area/vtm/interior/delivery_garage/mt_office)
 "mKO" = (
 /obj/effect/landmark/npcbeacon/directed{
@@ -47650,9 +47711,6 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/plating/rough,
 /area/vtm/interior/giovanni)
-"mQL" = (
-/turf/open/floor/plasteel/stairs,
-/area/vtm/interior/wyrm_corrupted/pentex)
 "mQW" = (
 /obj/effect/decal/bordur,
 /obj/effect/decal/bordur{
@@ -47997,6 +48055,18 @@
 	density = 0
 	},
 /area/vtm/interior)
+"mYU" = (
+/obj/structure/table,
+/obj/machinery/button/door{
+	id = "pentexhq_cell11";
+	name = "Cell door button";
+	pixel_y = 32;
+	req_access = list(8)
+	},
+/turf/open/floor/plasteel/elevatorshaft{
+	name = "advancedflooring"
+	},
+/area/vtm/interior/wyrm_corrupted/pentex)
 "mYY" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -48162,7 +48232,7 @@
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift";
-	id = endron1
+	id = 6
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -48340,6 +48410,7 @@
 /area/vtm/interior)
 "nhw" = (
 /obj/structure/chair/sofa/corp/left,
+/obj/structure/coclock,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "nhB" = (
@@ -48431,7 +48502,7 @@
 /area/vtm/interior/laundromat)
 "njI" = (
 /obj/elevator_button_up{
-	id = camarilla3;
+	id = 3;
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift"
@@ -49284,6 +49355,8 @@
 /obj/effect/decal/graffiti/large,
 /obj/item/gun/ballistic/vampire/revolver,
 /obj/item/gun/ballistic/vampire/revolver,
+/obj/item/gun/ballistic/vampire/revolver,
+/obj/item/gun/ballistic/vampire/revolver,
 /turf/open/floor/plating/rough,
 /area/vtm/interior/shop)
 "nDO" = (
@@ -49490,9 +49563,6 @@
 /turf/open/floor/plating/rough,
 /area/vtm/sewer/metro)
 "nIu" = (
-/obj/item/reagent_containers/food/drinks/beer/vampire{
-	list_reagents = list(/datum/reagent/consumable/ethanol/beer=0)
-	},
 /obj/structure/bed/maint{
 	pixel_y = 4
 	},
@@ -49577,6 +49647,15 @@
 	dir = 8
 	},
 /turf/open/floor/plating/parquetry/old,
+/area/vtm/interior/wyrm_corrupted/pentex)
+"nLd" = (
+/obj/structure/vampdoor/anarch{
+	lock_id = "pentex"
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/turf/open/floor/plating/vampplating,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "nLf" = (
 /obj/effect/turf_decal/stripes/line{
@@ -50236,10 +50315,10 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/cabinet)
 "nYt" = (
-/obj/flag/california{
-	pixel_y = 32
-	},
 /obj/structure/faction_map/anarch,
+/obj/flag/usa{
+	pixel_y = 30
+	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch)
 "nYw" = (
@@ -52106,8 +52185,7 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/chem_dispenser/drinks{
 	emagged_reagents = list(/datum/reagent/toxin,/datum/reagent/toxin/minttoxin);
-	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder);
-	recharge_amount = 5
+	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder)
 	},
 /turf/open/floor/plating/parquetry/rich,
 /area/vtm/jazzclub)
@@ -52201,6 +52279,13 @@
 "oRH" = (
 /turf/open/floor/plating/rough,
 /area/vtm/interior/techshop)
+"oRI" = (
+/obj/item/kirbyplants/random,
+/obj/structure/sign/painting/library_secure{
+	pixel_y = 30
+	},
+/turf/open/floor/plating/vampplating/mono,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "oRJ" = (
 /obj/structure/table,
 /obj/structure/noticeboard{
@@ -52479,6 +52564,18 @@
 /obj/effect/landmark/npcability,
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/financialdistrict)
+"oWT" = (
+/obj/structure/table,
+/obj/machinery/button/door{
+	id = "pentexhq_cell22";
+	name = "Cell door button";
+	pixel_y = 32;
+	req_access = list(8)
+	},
+/turf/open/floor/plasteel/elevatorshaft{
+	name = "advancedflooring"
+	},
+/area/vtm/interior/wyrm_corrupted/pentex)
 "oWW" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 4
@@ -52908,12 +53005,6 @@
 /obj/item/weedseed,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/laundromat)
-"pid" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plating/vampplating,
-/area/vtm/interior/wyrm_corrupted/pentex)
 "pig" = (
 /obj/effect/decal/pallet,
 /obj/structure/carving_block,
@@ -54067,7 +54158,7 @@
 	pixel_y = 28
 	},
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "pHi" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -54384,7 +54475,7 @@
 /area/vtm/park)
 "pNI" = (
 /obj/machinery/door/poddoor/shutters/window{
-	id = "pentexhq_cell2";
+	id = "pentexhq_cell33";
 	damage_deflection = 100
 	},
 /turf/closed/wall/vampwall/metal/glass,
@@ -54684,7 +54775,6 @@
 	},
 /obj/machinery/chem_dispenser/drinks/beer{
 	emagged_reagents = list(/datum/reagent/toxin/slimejelly);
-	recharge_amount = 5;
 	dispensable_reagents = list(/datum/reagent/consumable/ethanol/beer,/datum/reagent/consumable/ethanol/kahlua,/datum/reagent/consumable/ethanol/whiskey,/datum/reagent/consumable/ethanol/wine,/datum/reagent/consumable/ethanol/vodka,/datum/reagent/consumable/ethanol/gin,/datum/reagent/consumable/ethanol/rum,/datum/reagent/consumable/ethanol/tequila,/datum/reagent/consumable/ethanol/vermouth,/datum/reagent/consumable/ethanol/cognac,/datum/reagent/consumable/ethanol/ale,/datum/reagent/consumable/ethanol/absinthe,/datum/reagent/consumable/ethanol/hcider,/datum/reagent/consumable/ethanol/creme_de_menthe,/datum/reagent/consumable/ethanol/creme_de_cacao,/datum/reagent/consumable/ethanol/creme_de_coconut,/datum/reagent/consumable/ethanol/triple_sec,/datum/reagent/consumable/ethanol/sake,/datum/reagent/consumable/ethanol/applejack,/datum/reagent/consumable/ethanol/fernet)
 	},
 /turf/open/floor/plating/toilet,
@@ -55039,8 +55129,7 @@
 /obj/fusebox,
 /obj/machinery/chem_dispenser/drinks{
 	emagged_reagents = list(/datum/reagent/toxin,/datum/reagent/toxin/minttoxin);
-	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder);
-	recharge_amount = 5
+	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder)
 	},
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/laundromat)
@@ -55089,7 +55178,7 @@
 	anchored = 1;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "down";
-	id = camarilla2;
+	id = 2;
 	pixel_y = 30
 	},
 /turf/open/floor/plating/parquetry,
@@ -55296,12 +55385,8 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police)
 "qlW" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/coclock,
-/turf/open/floor/plating/parquetry/old,
-/area/vtm/interior/wyrm_corrupted/pentex)
+/turf/open/floor/plating/concrete,
+/area/vtm/sewer)
 "qlX" = (
 /obj/structure/closet/crate/freezer/fridge,
 /obj/machinery/light{
@@ -55777,7 +55862,7 @@
 /area/vtm/prince)
 "qwM" = (
 /obj/elevator_button_up{
-	id = camarilla4;
+	id = 4;
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift"
@@ -55951,6 +56036,9 @@
 	},
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/laundromat)
+"qAr" = (
+/turf/open/floor/plasteel/stairs,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "qAy" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1
@@ -56871,7 +56959,7 @@
 	dir = 8;
 	lock_id = "prince";
 	locked = 1;
-	lockpick_difficulty = 18;
+	lockpick_difficulty = 10;
 	magic_lock = 1
 	},
 /turf/open/floor/plating/parquetry/rich,
@@ -58509,7 +58597,7 @@
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift";
-	id = endron2
+	id = 7
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -58761,8 +58849,7 @@
 	anchored = 1;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "up";
-	pixel_y = 30;
-	id = camarilla1
+	pixel_y = 30
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/prince)
@@ -59926,10 +60013,10 @@
 "soP" = (
 /obj/elevator_button{
 	anchored = 1;
-	id = 2;
+	id = 5;
 	pixel_y = 30;
 	icon = 'code/modules/wod13/icons.dmi';
-	icon_state = "lift"
+	icon_state = "down"
 	},
 /turf/open/floor/plating/vampbeach,
 /area/vtm/interior)
@@ -59941,10 +60028,11 @@
 /turf/open/floor/plating/asphalt,
 /area/vtm/northbeach)
 "spk" = (
+/obj/item/kirbyplants/random,
 /obj/machinery/light{
-	dir = 4
+	pixel_y = 32
 	},
-/turf/open/floor/plating/vampplating/mono,
+/turf/open/floor/plating/vampplating,
 /area/vtm/interior/delivery_garage/mt_office)
 "spr" = (
 /obj/structure/vampdoor/simple{
@@ -60475,7 +60563,7 @@
 	tank_volume = 5000;
 	reagent_id = /datum/reagent/toxin/formaldehyde;
 	name = "formaldehyde dispenser";
-	desc = "A dispenser of corpse preservation substance."
+	desc = "A dispenser of a corpse preservation substance."
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/clinic)
@@ -60571,7 +60659,6 @@
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks/beer{
 	emagged_reagents = list(/datum/reagent/toxin/slimejelly);
-	recharge_amount = 5;
 	dispensable_reagents = list(/datum/reagent/consumable/ethanol/beer,/datum/reagent/consumable/ethanol/kahlua,/datum/reagent/consumable/ethanol/whiskey,/datum/reagent/consumable/ethanol/wine,/datum/reagent/consumable/ethanol/vodka,/datum/reagent/consumable/ethanol/gin,/datum/reagent/consumable/ethanol/rum,/datum/reagent/consumable/ethanol/tequila,/datum/reagent/consumable/ethanol/vermouth,/datum/reagent/consumable/ethanol/cognac,/datum/reagent/consumable/ethanol/ale,/datum/reagent/consumable/ethanol/absinthe,/datum/reagent/consumable/ethanol/hcider,/datum/reagent/consumable/ethanol/creme_de_menthe,/datum/reagent/consumable/ethanol/creme_de_cacao,/datum/reagent/consumable/ethanol/creme_de_coconut,/datum/reagent/consumable/ethanol/triple_sec,/datum/reagent/consumable/ethanol/sake,/datum/reagent/consumable/ethanol/applejack,/datum/reagent/consumable/ethanol/fernet)
 	},
 /turf/open/floor/light/colour_cycle/dancefloor_a,
@@ -61058,6 +61145,13 @@
 	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/police)
+"sRC" = (
+/obj/structure/chair/sofa,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/anarch)
 "sRG" = (
 /obj/structure/table,
 /obj/item/radio{
@@ -62588,6 +62682,18 @@
 /obj/item/melee/vampirearms/shovel,
 /turf/open/floor/plating/rough/cave,
 /area/vtm/interior/mansion)
+"tAE" = (
+/obj/structure/table,
+/obj/machinery/button/door{
+	id = "pentexhq_cell1";
+	name = "Cell door button";
+	pixel_y = 32;
+	req_access = list(8)
+	},
+/turf/open/floor/plasteel/elevatorshaft{
+	name = "advancedflooring"
+	},
+/area/vtm/interior/wyrm_corrupted/pentex)
 "tAK" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
@@ -62792,7 +62898,7 @@
 	pixel_y = -2
 	},
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "tGe" = (
 /obj/structure/curtain/cloth,
 /turf/open/floor/mineral/plastitanium,
@@ -62943,7 +63049,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "tJR" = (
 /obj/machinery/vending/boozeomat/all_access{
 	default_price = 0;
@@ -62989,7 +63095,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/plating/shit,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "tKD" = (
 /obj/structure/railing{
 	dir = 4
@@ -63056,7 +63162,7 @@
 	anchored = 1;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "up";
-	id = camarilla3;
+	id = 3;
 	pixel_y = 30
 	},
 /turf/open/floor/plating/parquetry,
@@ -63350,6 +63456,12 @@
 	},
 /turf/open/floor/plating/rough/cave,
 /area/vtm/interior/strip)
+"tTU" = (
+/obj/structure/chair/plastic{
+	dir = 8
+	},
+/turf/open/floor/plating/concrete,
+/area/vtm/sewer)
 "tUh" = (
 /obj/structure/railing{
 	dir = 8
@@ -64818,8 +64930,7 @@
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks{
 	emagged_reagents = list(/datum/reagent/toxin,/datum/reagent/toxin/minttoxin);
-	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder);
-	recharge_amount = 5
+	dispensable_reagents = list(/datum/reagent/water,/datum/reagent/consumable/ice,/datum/reagent/consumable/cream,/datum/reagent/consumable/space_cola,/datum/reagent/consumable/spacemountainwind,/datum/reagent/consumable/dr_gibb,/datum/reagent/consumable/space_up,/datum/reagent/consumable/tonic,/datum/reagent/consumable/sodawater,/datum/reagent/consumable/lemon_lime,/datum/reagent/consumable/shamblers,/datum/reagent/consumable/sugar,/datum/reagent/consumable/pineapplejuice,/datum/reagent/consumable/orangejuice,/datum/reagent/consumable/grenadine,/datum/reagent/consumable/limejuice,/datum/reagent/consumable/tomatojuice,/datum/reagent/consumable/lemonjuice,/datum/reagent/consumable/berryjuice,/datum/reagent/consumable/grapejuice,/datum/reagent/consumable/menthol,/datum/reagent/toxin/coffeepowder,/datum/reagent/toxin/teapowder)
 	},
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/vtm/interior)
@@ -65719,8 +65830,6 @@
 /obj/structure/closet/crate,
 /obj/item/ammo_box/vampire/c44,
 /obj/item/ammo_box/vampire/c44,
-/obj/item/ammo_box/vampire/c44,
-/obj/item/ammo_box/vampire/c44,
 /turf/open/floor/plating/rough,
 /area/vtm/interior/shop)
 "uVA" = (
@@ -66363,7 +66472,7 @@
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "up";
 	pixel_y = 30;
-	id = endron1
+	id = 6
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/wyrm_corrupted/pentex)
@@ -66428,8 +66537,7 @@
 	anchored = 1;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "down";
-	pixel_y = 30;
-	id = camarilla1
+	pixel_y = 30
 	},
 /turf/open/floor/plating/parquetry,
 /area/vtm/cabinet)
@@ -66882,6 +66990,17 @@
 /obj/item/trash/raisins,
 /turf/open/floor/plating/vampdirt,
 /area/vtm/park)
+"vvK" = (
+/obj/effect/turf_decal/stripes/full,
+/obj/machinery/door/poddoor/shutters/radiation{
+	id = "pentexhq_cell3";
+	pixel_y = 1;
+	damage_deflection = 100
+	},
+/turf/open/floor/plasteel/elevatorshaft{
+	name = "advancedflooring"
+	},
+/area/vtm/interior/wyrm_corrupted/pentex)
 "vvM" = (
 /obj/item/weedseed,
 /obj/item/weedseed,
@@ -67029,7 +67148,7 @@
 /obj/item/melee/vampirearms/knife/switchblade,
 /obj/item/bedsheet/mime,
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "vzq" = (
 /obj/effect/decal/coastline{
 	dir = 10
@@ -67086,7 +67205,8 @@
 "vAA" = (
 /obj/machinery/door/airlock{
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi';
-	req_access = list(8)
+	req_access = list(8);
+	damage_deflection = 100
 	},
 /obj/effect/turf_decal/stripes/full,
 /turf/open/floor/plating/vampplating,
@@ -67150,10 +67270,10 @@
 /area/vtm/interior)
 "vBp" = (
 /obj/elevator_button_up{
-	id = 2;
+	id = 5;
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
-	icon_state = "up"
+	icon_state = "lift"
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
@@ -67366,7 +67486,7 @@
 /area/vtm/interior)
 "vFU" = (
 /obj/elevator_button_down{
-	id = camarilla2;
+	id = 2;
 	pixel_y = 24;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "lift"
@@ -67403,6 +67523,12 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
+"vGp" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/open/floor/plating/rough,
+/area/vtm/anarch)
 "vGH" = (
 /obj/machinery/light/small{
 	pixel_y = 28
@@ -67897,6 +68023,10 @@
 /obj/structure/filingcabinet/filingcabinet,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/clinic)
+"vQU" = (
+/obj/structure/stairs/east,
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "vRd" = (
 /turf/open/floor/plating/asphalt,
 /area/vtm/graveyard)
@@ -68127,7 +68257,7 @@
 	anchored = 1;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "down";
-	id = camarilla3;
+	id = 3;
 	pixel_y = 30
 	},
 /turf/open/floor/plating/vampplating/mono,
@@ -68983,6 +69113,9 @@
 /obj/effect/decal/ventilation_system,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/shop)
+"wpr" = (
+/turf/open/floor/plating/vampplating,
+/area/vtm/interior/wyrm_corrupted/pentex)
 "wpt" = (
 /obj/structure/closet/cardboard,
 /obj/item/toy/crayon/spraycan,
@@ -69324,7 +69457,8 @@
 "wxo" = (
 /obj/machinery/door/airlock{
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi';
-	req_access = list(8)
+	req_access = list(8);
+	damage_deflection = 100
 	},
 /obj/effect/turf_decal/stripes/full,
 /turf/open/floor/plasteel/elevatorshaft{
@@ -69921,7 +70055,7 @@
 "wJU" = (
 /obj/effect/decal/cleanable/trash_bricks,
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "wKb" = (
 /obj/structure/chair/sofa/corp{
 	dir = 1
@@ -70351,6 +70485,14 @@
 	},
 /turf/open/floor/plating/rough,
 /area/vtm/anarch)
+"wUa" = (
+/obj/machinery/light{
+	pixel_y = 32
+	},
+/obj/structure/closet/crate/bin,
+/obj/item/vamp/keys/hack,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/anarch)
 "wUj" = (
 /obj/structure/delivery_dispenser/bar1,
 /obj/effect/turf_decal/stripes/white/line,
@@ -70571,7 +70713,7 @@
 	anchored = 1;
 	icon = 'code/modules/wod13/icons.dmi';
 	icon_state = "down";
-	id = camarilla4;
+	id = 4;
 	pixel_y = 30
 	},
 /turf/open/floor/plating/parquetry/old,
@@ -70732,7 +70874,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "xbX" = (
 /obj/effect/decal/ventilation_system{
 	dir = 9
@@ -71054,7 +71196,7 @@
 "xkB" = (
 /obj/structure/bricks,
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "xkO" = (
 /obj/structure/vampdoor/clerk{
 	lockpick_difficulty = 8;
@@ -71069,6 +71211,13 @@
 	pixel_y = 20
 	},
 /turf/open/floor/plating/parquetry/old,
+/area/vtm/interior/wyrm_corrupted/pentex)
+"xlm" = (
+/obj/machinery/door/poddoor/shutters/window{
+	id = "pentexhq_cell11";
+	damage_deflection = 100
+	},
+/turf/closed/wall/vampwall/metal/glass,
 /area/vtm/interior/wyrm_corrupted/pentex)
 "xlq" = (
 /obj/structure/chair/comfy/brown{
@@ -71819,7 +71968,7 @@
 "xEf" = (
 /obj/effect/decal/graffiti,
 /turf/open/floor/plating/shit,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "xEC" = (
 /obj/structure/vampdoor/simple,
 /obj/effect/turf_decal/siding/white{
@@ -72662,14 +72811,6 @@
 	amount_of_bloodpoints = 8;
 	name = "Elder vitae pack (full)"
 	},
-/obj/item/drinkable_bloodpack/full/vitae{
-	amount_of_bloodpoints = 8;
-	name = "Elder vitae pack (full)"
-	},
-/obj/item/drinkable_bloodpack/full/vitae{
-	amount_of_bloodpoints = 8;
-	name = "Elder vitae pack (full)"
-	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior)
 "xXu" = (
@@ -72887,7 +73028,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/concrete,
-/area/vtm/interior/police)
+/area/vtm/sewer)
 "ybe" = (
 /obj/structure/mirror{
 	pixel_y = 32
@@ -73122,6 +73263,11 @@
 /obj/item/stack/tile/carpet/blue/fifty,
 /turf/open/floor/plating/concrete,
 /area/vtm/supply)
+"ygf" = (
+/obj/effect/decal/pallet,
+/obj/structure/closet/crate/large,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/anarch)
 "ygt" = (
 /obj/effect/decal/pallet,
 /obj/structure/closet/crate/large,
@@ -75554,7 +75700,7 @@ aaa
 aaa
 aab
 eWV
-akR
+hKj
 eIV
 cYn
 bib
@@ -77097,7 +77243,7 @@ aab
 bnt
 bhk
 mkz
-amP
+bOU
 pcV
 bhk
 all
@@ -96283,7 +96429,7 @@ vFY
 qOz
 rxV
 rxV
-pNI
+xlm
 dKx
 dKx
 dKx
@@ -96535,7 +96681,7 @@ pFb
 oXW
 dwo
 lji
-kif
+tAE
 lwh
 rxV
 rxV
@@ -96792,7 +96938,7 @@ lji
 lji
 dDz
 lji
-kif
+mYU
 lrr
 lrr
 rxV
@@ -97042,10 +97188,10 @@ dKx
 lji
 eff
 pXo
-iOL
+wpr
 eff
-iOL
-iOL
+wpr
+wpr
 hLb
 pXo
 lji
@@ -97054,7 +97200,7 @@ wuN
 wuN
 rxV
 rxV
-pNI
+xlm
 aQy
 iuU
 aQy
@@ -97298,17 +97444,17 @@ qfb
 dKx
 vAA
 pXo
-iOL
+wpr
 kSL
 kSL
 kSL
 pXo
 pXo
-iOL
+wpr
 vAA
-mQL
-mQL
-mQL
+qAr
+qAr
+qAr
 rxV
 rxV
 lji
@@ -97555,20 +97701,20 @@ qfb
 dKx
 lji
 oDo
-iOL
+wpr
 tcq
 iSO
 rHC
 kuD
 pXo
-iOL
+wpr
 lji
 wuN
 wuN
 wuN
 rxV
 rxV
-pNI
+eAQ
 dKx
 dKx
 dKx
@@ -97816,16 +97962,16 @@ pXo
 ikt
 ikt
 ikt
-iOL
+wpr
 fnL
 xDm
 lji
-kif
+oWT
 lrr
 lrr
 rxV
 rxV
-gJC
+cxB
 dKx
 dKx
 dKx
@@ -98070,8 +98216,8 @@ dKx
 wuN
 bHg
 pXo
-iOL
-iOL
+wpr
+wpr
 pXo
 pXo
 tKF
@@ -98082,7 +98228,7 @@ aod
 rxV
 rxV
 rxV
-gJC
+cxB
 dKx
 iuU
 dKx
@@ -98330,7 +98476,7 @@ pXo
 ccZ
 dlE
 mIB
-iOL
+wpr
 hsx
 apj
 lji
@@ -98339,7 +98485,7 @@ vFY
 qOz
 rxV
 rxV
-pNI
+eAQ
 aQy
 iuU
 aQy
@@ -98840,7 +98986,7 @@ xIp
 lDL
 pFb
 gOw
-iOL
+wpr
 gOw
 pFb
 ike
@@ -99367,7 +99513,7 @@ vfw
 alz
 rxV
 rxV
-gJC
+vvK
 asq
 vTz
 bcf
@@ -99611,7 +99757,7 @@ lDL
 lDL
 vAA
 pXo
-iOL
+wpr
 pXo
 vAA
 lDL
@@ -99624,7 +99770,7 @@ gpD
 xBD
 xBD
 rxV
-gJC
+vvK
 vTz
 vTz
 vTz
@@ -100382,7 +100528,7 @@ xIp
 lDL
 pFb
 ajr
-iOL
+wpr
 ajr
 pFb
 mku
@@ -100651,7 +100797,7 @@ lji
 oHo
 rkk
 gsi
-iOL
+wpr
 ncX
 kUN
 jFs
@@ -100896,10 +101042,10 @@ bzP
 akO
 bIC
 pXo
-iOL
+wpr
 pXo
 lji
-cnT
+gZP
 lyl
 yky
 yky
@@ -101150,21 +101296,21 @@ pFb
 dKx
 dKx
 dKx
+nLd
+wpr
+pXo
+wpr
+wpr
 qyO
-iOL
+wpr
 pXo
-iOL
-iOL
-qyO
-iOL
-pXo
-iOL
+wpr
 pXo
 pXo
 qyO
 pXo
 pXo
-iOL
+wpr
 pXo
 pFT
 vox
@@ -101416,14 +101562,14 @@ lji
 iBT
 edr
 pXo
-iOL
+wpr
 hYG
 lji
 aiN
-iOL
-iOL
+wpr
+wpr
 pXo
-iOL
+wpr
 pXo
 pXo
 lji
@@ -101667,13 +101813,13 @@ lji
 akO
 tBz
 pXo
-iOL
-iOL
+wpr
+wpr
 wuN
 gdH
 lhx
 pXo
-iOL
+wpr
 pXo
 wuN
 gdu
@@ -101921,17 +102067,17 @@ aab
 pFb
 ndS
 pXo
-aLg
-iOL
-iOL
+nLH
+wpr
+wpr
 pXo
 pXo
 wuN
 sCr
-iOL
+wpr
 pXo
 bhK
-iOL
+wpr
 wuN
 dBx
 aMR
@@ -102178,15 +102324,15 @@ aab
 pFb
 slq
 pXo
-aLg
+nLH
 pXo
-iOL
-iOL
-iOL
+wpr
+wpr
+wpr
 wuN
 gdH
 jbC
-iOL
+wpr
 pXo
 pXo
 wuN
@@ -102437,23 +102583,23 @@ lji
 lji
 akO
 viR
-iOL
+wpr
 pXo
 mOE
 lji
 pxz
 edr
 pXo
-iOL
+wpr
 mOE
 lji
 rjg
-pid
+cZU
 pXo
 pXo
-iOL
+wpr
 uye
-iOL
+wpr
 lji
 aab
 aaa
@@ -102691,7 +102837,7 @@ aaa
 aab
 akO
 pXo
-iOL
+wpr
 akO
 bIC
 pXo
@@ -102950,10 +103096,10 @@ akO
 slq
 pXo
 qyO
-iOL
+wpr
 pXo
-iOL
-iOL
+wpr
+wpr
 lji
 wSe
 wSe
@@ -103204,18 +103350,18 @@ aaa
 aaa
 aab
 akO
-iOL
+wpr
 pXo
 akO
 bBB
 pXo
 pXo
-iOL
+wpr
 lji
-iOL
+wpr
 pXo
 pXo
-iOL
+wpr
 uvX
 lji
 aab
@@ -103461,18 +103607,18 @@ aaa
 aaa
 aab
 akO
-gcR
-gcR
+vQU
+vQU
 akO
 lhX
 gse
-iOL
+wpr
 pXo
 lji
 lKf
 kLU
-beS
-iOL
+kNB
+wpr
 uvX
 lji
 aab
@@ -103728,7 +103874,7 @@ lji
 lji
 slq
 pXo
-iOL
+wpr
 pXo
 hYG
 lji
@@ -109477,9 +109623,9 @@ aaa
 aaa
 aaa
 aab
-aag
-aag
-aag
+aPQ
+aPQ
+aPQ
 aPQ
 aRM
 jJf
@@ -109734,7 +109880,7 @@ aaa
 aaa
 aaa
 aab
-aag
+aPQ
 azK
 oRi
 rrg
@@ -109991,7 +110137,7 @@ aaa
 aaa
 aaa
 aab
-aag
+aPQ
 oRi
 oRi
 aPQ
@@ -110248,9 +110394,9 @@ aaa
 aaa
 aaa
 aab
-aag
-aag
-aag
+aPQ
+aPQ
+aPQ
 aPQ
 aPQ
 noU
@@ -110508,13 +110654,13 @@ aab
 aab
 aab
 aab
-aag
+aPQ
 aaf
 aaf
-aag
+aPQ
 oRi
 oRi
-aag
+aPQ
 aab
 aag
 aef
@@ -110765,13 +110911,13 @@ aaa
 aaa
 aaa
 aab
-aag
+aPQ
 iJw
 ghr
-aag
+aPQ
 azK
 oRi
-aag
+aPQ
 aab
 aag
 aef
@@ -111022,13 +111168,13 @@ aaa
 aaa
 aaa
 aab
-aag
-aag
-aag
-aag
-aag
-aag
-aag
+aPQ
+aPQ
+aPQ
+aPQ
+aPQ
+aPQ
+aPQ
 aab
 aag
 aJT
@@ -154163,8 +154309,8 @@ aki
 ibV
 oMM
 ldM
-aEJ
 ajD
+aEJ
 ajD
 vSr
 obj
@@ -154420,8 +154566,8 @@ wGs
 ibV
 erV
 ajD
-aEK
 ajD
+aEK
 ajD
 vSr
 obj
@@ -154677,8 +154823,8 @@ hFp
 ibV
 ajD
 ajD
-aEJ
 ajD
+aEJ
 ajD
 ajD
 wGs
@@ -154933,10 +155079,10 @@ fFw
 aaS
 xZD
 ajD
+ajD
 aFh
 aEI
 ajD
-bmh
 ajD
 hUV
 aoS
@@ -155191,8 +155337,8 @@ oVO
 ibV
 ajD
 ajD
-aEJ
 ajD
+aEJ
 ajD
 ajD
 wGs
@@ -155448,8 +155594,8 @@ sKs
 ibV
 erV
 ajD
-aEK
 ajD
+aEK
 ajD
 vSr
 obj
@@ -155705,8 +155851,8 @@ aPG
 ibV
 oMM
 ldM
-aEJ
 ajD
+aEJ
 ajD
 vSr
 obj
@@ -159243,8 +159389,8 @@ fJQ
 rHV
 aAt
 aEN
-eAP
-oXB
+aEN
+suT
 suT
 suT
 rHV
@@ -159501,8 +159647,8 @@ rHV
 qlz
 suT
 eAP
-eAP
-eAP
+oXB
+suT
 suT
 rHV
 aEN
@@ -159757,9 +159903,9 @@ fJQ
 rHV
 obX
 aEN
-aEN
-suT
-suT
+eAP
+eAP
+eAP
 suT
 rHV
 bwH
@@ -159813,7 +159959,7 @@ aes
 awb
 nYt
 aDa
-aDb
+syU
 aDb
 aDb
 aes
@@ -160320,12 +160466,12 @@ aoS
 aoS
 aoS
 awb
-vqe
+sRC
 phC
 aes
 aes
 awb
-ujV
+wUa
 nyu
 fSU
 aGR
@@ -160526,10 +160672,10 @@ nin
 nin
 nin
 aDL
-aDL
-aDL
 mis
 mis
+aDL
+aDL
 iFB
 aDL
 aDL
@@ -160580,7 +160726,7 @@ awb
 bri
 aeU
 aes
-aes
+gTZ
 awb
 hRJ
 aDb
@@ -160837,7 +160983,7 @@ awb
 wBG
 wBG
 aes
-aes
+kRG
 awb
 hzI
 aGR
@@ -161094,7 +161240,7 @@ awb
 dtG
 moT
 aeW
-aes
+kRG
 awb
 hJQ
 aDb
@@ -161348,7 +161494,7 @@ aAd
 apY
 apY
 awb
-axa
+vGp
 axa
 ars
 izQ
@@ -161605,10 +161751,10 @@ asy
 asX
 aoS
 awb
+jTI
 xWx
-xWx
-ars
-izQ
+mEl
+ygf
 awb
 awW
 foa
@@ -161864,8 +162010,8 @@ aoS
 awb
 jPn
 aBr
-ars
-izQ
+mEl
+ygf
 awb
 sNU
 aDb
@@ -162315,7 +162461,7 @@ ikB
 ikB
 ngF
 dRj
-nin
+cBo
 nin
 nin
 tuG
@@ -162572,7 +162718,7 @@ ikB
 ikB
 ngF
 dRj
-nin
+hLd
 nin
 nin
 tuG
@@ -167457,10 +167603,10 @@ aiy
 anC
 jwG
 pXo
-nLH
-iOL
-iOL
-iOL
+mAa
+wpr
+wpr
+wpr
 aiW
 fzl
 pDn
@@ -167572,7 +167718,7 @@ aGv
 aTV
 aGM
 aUb
-amb
+iIe
 aTW
 pJc
 uPp
@@ -167714,16 +167860,16 @@ aiy
 anC
 slq
 pXo
-nLH
-iOL
-iOL
+mAa
+wpr
+wpr
 pXo
 aiW
 nhw
 vOk
 pEZ
 pXo
-iOL
+wpr
 qOV
 dnx
 dnx
@@ -167973,13 +168119,13 @@ nrc
 nrc
 tFL
 cuh
-iOL
+wpr
 pXo
 aiW
-pXo
-iOL
-iOL
-iOL
+oRI
+wpr
+wpr
+wpr
 pXo
 vCe
 nku
@@ -168228,10 +168374,10 @@ aiy
 anC
 iFN
 pXo
-nLH
+mAa
 pXo
 pXo
-iOL
+wpr
 aiW
 slq
 qOo
@@ -168485,10 +168631,10 @@ aiy
 anC
 slq
 pXo
-nLH
-iOL
+mAa
+wpr
 pXo
-iOL
+wpr
 ubB
 pXo
 aOn
@@ -168745,13 +168891,13 @@ nrc
 tFL
 bwT
 pXo
-iOL
+wpr
 ubB
-iOL
+wpr
 aOn
 aiP
 amU
-iOL
+wpr
 maV
 dwo
 dwo
@@ -169000,15 +169146,15 @@ aLf
 alk
 alk
 aoB
-iOL
+wpr
 pXo
-iOL
+wpr
 aiW
 slq
 uVj
 cXm
 omB
-iOL
+wpr
 maV
 aoz
 aoz
@@ -169255,15 +169401,15 @@ aiy
 aiy
 aLf
 slq
-iOL
+wpr
 hvf
-iOL
-iOL
+wpr
+wpr
 pXo
 aiW
-iOL
+bBB
 pXo
-iOL
+wpr
 pXo
 pXo
 maV
@@ -169512,11 +169658,11 @@ aiy
 aiy
 aLf
 sSS
-gcR
+vQU
 aoB
 pXo
 pXo
-iOL
+wpr
 aiW
 eir
 aet
@@ -169775,11 +169921,11 @@ nrc
 jdz
 nrc
 aiW
-beS
+kNB
 rOX
 pXo
 pXo
-iOL
+wpr
 maV
 whb
 dwo
@@ -170032,8 +170178,8 @@ ngF
 ngF
 gpj
 aiW
-beS
-iOL
+kNB
+wpr
 pXo
 pXo
 pXo
@@ -170288,12 +170434,12 @@ gVB
 ngF
 ngF
 ngF
-qyO
+pCy
 pXo
-iOL
-iOL
+wpr
+wpr
 pXo
-iOL
+wpr
 maV
 dwo
 dwo
@@ -170546,11 +170692,11 @@ ngF
 ngF
 ngF
 aiW
-eAQ
-cnT
+uye
+gZP
 dGq
 hSR
-pid
+cZU
 maV
 jxN
 aoW
@@ -171060,7 +171206,7 @@ ngF
 ngF
 ngF
 aiW
-qlW
+iNs
 bSU
 qWG
 mNA
@@ -171670,8 +171816,8 @@ aGv
 xbg
 kGl
 vTQ
-jBT
 mKK
+aNE
 aNE
 bcG
 aPo
@@ -171927,7 +172073,7 @@ aKZ
 aGs
 uAf
 vTQ
-jBT
+mKK
 mvR
 aPo
 bcG
@@ -172184,7 +172330,7 @@ aGv
 aGr
 aGM
 vTQ
-aPo
+spk
 aPo
 aPo
 bcG
@@ -172699,7 +172845,7 @@ aGr
 aGM
 vTQ
 aMN
-spk
+bcG
 aPo
 aPo
 aPo
@@ -191924,8 +192070,8 @@ aiI
 aiI
 anb
 apu
-azT
-mWR
+qlW
+aNI
 uWM
 msw
 azT
@@ -192182,7 +192328,7 @@ aiI
 anb
 apu
 esE
-azT
+qlW
 apu
 aBH
 azT
@@ -192438,8 +192584,8 @@ aiI
 aiI
 anb
 apu
-gvv
-azT
+cQJ
+qlW
 jfL
 azT
 azT
@@ -192953,13 +193099,13 @@ aiI
 anb
 apu
 xbR
-azT
+qlW
 jfL
 azT
 mWR
 azT
 jfL
-azT
+qlW
 jbv
 aFL
 tGa
@@ -193210,7 +193356,7 @@ aiI
 anb
 apu
 azJ
-azT
+qlW
 apu
 woS
 azT
@@ -193218,8 +193364,8 @@ azT
 apu
 fgQ
 yaO
-nmm
-azT
+tTU
+qlW
 xkB
 azv
 nSi
@@ -193467,16 +193613,16 @@ aiI
 anb
 apu
 xEf
-cQJ
+aaf
 uWM
 gtv
 azT
 azT
 uWM
-azT
-azT
-azT
-azT
+qlW
+qlW
+qlW
+qlW
 wJU
 azv
 cnG
@@ -193730,11 +193876,11 @@ hCM
 gvv
 oCx
 uWM
-bDB
+lzL
 vyX
 bgj
 tJI
-azT
+qlW
 azv
 jKf
 aTK
@@ -225858,8 +226004,8 @@ aiA
 bxz
 aiD
 fKI
-hKj
 fco
+hdT
 fKI
 aiD
 aiD
@@ -232594,7 +232740,7 @@ aiA
 aiA
 aiA
 btC
-apH
+xQS
 xQS
 xQS
 xQS
@@ -232851,7 +232997,7 @@ aiA
 aiA
 aiA
 btC
-thD
+apH
 xQS
 fFw
 fFw
@@ -233108,7 +233254,7 @@ aiA
 aiA
 aiA
 btC
-bal
+thD
 fFw
 fFw
 fFw
@@ -233764,7 +233910,7 @@ aiD
 anC
 rIV
 pXo
-aLg
+nLH
 bpa
 bpa
 bpa
@@ -234021,7 +234167,7 @@ aiD
 anC
 slq
 pXo
-aLg
+nLH
 bpa
 gVB
 qAZ
@@ -235316,7 +235462,7 @@ aDI
 kIP
 bpa
 bpa
-mQL
+qAr
 bpa
 bpa
 bpa
@@ -235573,7 +235719,7 @@ aDI
 dhw
 bpa
 bpa
-mQL
+qAr
 bpa
 bpa
 bpa
@@ -294512,7 +294658,7 @@ acJ
 bgR
 bwy
 bxo
-tjB
+cXY
 buK
 buK
 bxl
@@ -294769,7 +294915,7 @@ acJ
 bgR
 njI
 bxo
-tjB
+cXY
 buK
 buK
 bxl
@@ -308659,7 +308805,7 @@ acJ
 bgR
 bwy
 bxo
-cXY
+tjB
 mZS
 wzo
 azd
@@ -308916,7 +309062,7 @@ acJ
 bgR
 fPd
 bxo
-cXY
+tjB
 mZS
 wzo
 azd
