@@ -467,6 +467,7 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_unicorn)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_eyes)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_implant)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_venom)
 
 //BONECRAFTING
 /datum/discipline_power/vicissitude/bonecrafting
@@ -538,6 +539,7 @@
 	var/original_skin_tone
 	var/original_hairstyle
 	var/original_body_mod
+	var/list/basic = list("Skin armor", "Centipede legs", "Second pair of arms", "Leather wings")
 
 /datum/action/basic_vicissitude/Trigger()
 	. = ..()
@@ -559,7 +561,7 @@
 
 /datum/action/basic_vicissitude/proc/give_upgrade()
 	var/mob/living/carbon/human/user = owner
-	var/upgrade = input(owner, "Choose basic upgrade:", "Vicissitude Upgrades") as null|anything in list("Skin armor", "Centipede legs", "Second pair of arms", "Leather wings")
+	var/upgrade = input(owner, "Choose basic upgrade:", "Vicissitude Upgrades") as null|anything in basic
 	if(!upgrade)
 		return
 	to_chat(user, span_notice("You begin molding your flesh and bone into a stronger form..."))
@@ -590,6 +592,7 @@
 			user.overlays_standing[PROTEAN_LAYER] = upgrade_overlay
 			user.apply_overlay(PROTEAN_LAYER)
 			user.add_movespeed_modifier(/datum/movespeed_modifier/centipede)
+			basic -= "Centipede legs"
 		if("Second pair of arms")
 			var/limbs = user.held_items.len
 			user.change_number_of_hands(limbs + 2)
@@ -631,6 +634,7 @@
 				QDEL_NULL(upgrade_overlay)
 				user.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
 				selected_upgrade -= upgrade
+				basic += "Centipede legs"
 			if("Second pair of arms")
 				var/limbs = user.held_items.len
 				user.change_number_of_hands(limbs - 2)
@@ -654,12 +658,32 @@
 	level = 4
 	vitae_cost = 2
 	violates_masquerade = TRUE
+	var/possible_shape = list(/mob/living/simple_animal/hostile/tzimisce_beast, \
+	/mob/living/simple_animal/hostile/tzimisce_beast/mouth)
+	var/shapeshift_type = null
+
+/datum/discipline_power/vicissitude/horrid_form/pre_activation_checks(mob/living/target)
+	if(!shapeshift_type)
+		var/list/animal_list = list()
+		var/list/display_shapes = list()
+		for(var/path in possible_shape)
+			var/mob/living/simple_animal/animal = path
+			animal_list[initial(animal.name)] = path
+			var/image/animal_image = image(icon = initial(animal.icon), icon_state = initial(animal.icon_state))
+			display_shapes += list(initial(animal.name) = animal_image)
+		sortList(display_shapes)
+		var/new_shapeshift_type = show_radial_menu(owner, owner, display_shapes, custom_check = CALLBACK(src, PROC_REF(check_menu), owner), radius = 38, require_near = TRUE)
+		if(!new_shapeshift_type)
+			return FALSE
+		shapeshift_type = new_shapeshift_type
+		shapeshift_type = animal_list[shapeshift_type]
+	return TRUE
 
 
 /datum/discipline_power/vicissitude/horrid_form/activate()
 	. = ..()
 	var/datum/warform/Warform = new
-	Warform.transform(/mob/living/simple_animal/hostile/tzimisce_beast, owner, TRUE)
+	Warform.transform(shapeshift_type, owner, TRUE)
 
 /datum/discipline_power/vicissitude/horrid_form/post_gain()
 	. = ..()
@@ -753,3 +777,55 @@
 	lefthand_file = 'code/modules/wod13/righthand.dmi'
 	righthand_file = 'code/modules/wod13/lefthand.dmi'
 	masquerade_violating = TRUE
+
+/obj/item/organ/cyberimp/arm/tzimisce
+	name = "armblade implant"
+	desc = "A concealed serrated bone blade."
+	icon = 'code/modules/wod13/weapons.dmi'
+	icon_state = "armblade"
+	zone = BODY_ZONE_L_ARM
+	contents = newlist(/obj/item/melee/vampirearms/tzimisce)
+
+/obj/item/organ/cyberimp/arm/tzimisce/venom
+	name = "nematocyst whip implant"
+	desc = "A concealed venomous whip."
+	icon_state = "lasombra"
+	contents = newlist(/obj/item/melee/vampirearms/tzimisce/venom)
+
+/obj/item/melee/vampirearms/tzimisce
+	name = "armblade"
+	desc = "A monstrous weapon, made out of sharpened bone."
+	icon = 'code/modules/wod13/weapons.dmi'
+	icon_state = "armblade"
+	force = 35
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 40
+	armour_penetration = 40
+	sharpness = SHARP_EDGED
+	attack_verb_continuous = list("slashes", "cuts")
+	attack_verb_simple = list("slash", "cut")
+	hitsound = 'sound/weapons/rapierhit.ogg'
+	wound_bonus = 5
+	bare_wound_bonus = 25
+	resistance_flags = FIRE_PROOF
+	masquerade_violating = TRUE
+
+/obj/item/melee/vampirearms/tzimisce/venom
+	name = "nematocyst whip"
+	desc = "An elongated tendril covered with stinging cells."
+	icon = 'code/modules/wod13/weapons.dmi'
+	icon_state = "lasombra"
+	damtype = TOX
+	force = 16
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 10
+	armour_penetration = 10
+	sharpness = SHARP_NONE
+	attack_verb_continuous = list("slashes", "cuts")
+	attack_verb_simple = list("slash", "cut")
+	hitsound = 'sound/weapons/rapierhit.ogg'
+	wound_bonus = 0
+	bare_wound_bonus = 0
+	resistance_flags = FIRE_PROOF
+	masquerade_violating = TRUE
+
