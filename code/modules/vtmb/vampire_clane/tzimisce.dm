@@ -515,7 +515,7 @@
 	G.petrify(50)
 
 /mob/living/simple_animal/hostile/tzimisce_beast
-	name = "Tzimisce Beast Form"
+	name = "Four hand creature"
 	desc = "The peak of abominations armor. Unbelievably undamagable..."
 	icon = 'code/modules/wod13/48x64.dmi'
 	icon_state = "4armstzi"
@@ -525,7 +525,7 @@
 	mob_size = MOB_SIZE_HUGE
 //	AIStatus = AI_OFF
 	speak_chance = 0
-	speed = -1
+	speed = -0.2
 	maxHealth = 575
 	health = 575
 	butcher_results = list(/obj/item/stack/human_flesh = 10)
@@ -541,6 +541,14 @@
 	bloodpool = 10
 	maxbloodpool = 10
 	dodging = TRUE
+
+/mob/living/simple_animal/hostile/tzimisce_beast/mouth
+	name = "Four claw creature"
+	icon = 'code/modules/wod13/64x64.dmi'
+	icon_state = "weretzi"
+	speed = -0.7
+	melee_damage_lower = 25
+	melee_damage_upper = 40
 
 /mob/living/simple_animal/hostile/bloodcrawler
 	name = "Tzimisce Blood Form"

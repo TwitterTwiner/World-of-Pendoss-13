@@ -137,7 +137,7 @@
 /datum/crafting_recipe/tzicreature
 	name = "Wretched Creature"
 	time = 50
-	reqs = list(/obj/item/stack/human_flesh = 10, /obj/item/organ/brain = 1, )
+	reqs = list(/obj/item/stack/human_flesh = 10, /obj/item/organ/brain = 1, /obj/item/organ/lungs = 1)
 	result = /obj/item/toy/plush/tzi
 	always_available = FALSE
 	category = CAT_TZIMISCE
@@ -155,6 +155,15 @@
 	time = 50
 	reqs = list(/obj/item/stack/human_flesh = 20, /obj/item/guts = 1, /obj/item/spine = 1, /obj/item/toy/plush/tzi = 1)
 	result = /mob/living/simple_animal/pet/cat/vampiretzi
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
+
+/datum/crafting_recipe/tzi_venom
+	name = "Nematocyst Whip"
+	time = 50
+	reqs = list(/obj/item/stack/human_flesh = 15, /obj/item/guts = 1, /obj/item/organ/stomach = 1, /obj/item/organ/liver = 1)
+	result = /obj/item/organ/cyberimp/arm/tzimisce/venom
 	always_available = FALSE
 	category = CAT_TZIMISCE
 
