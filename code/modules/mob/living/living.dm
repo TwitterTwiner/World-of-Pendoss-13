@@ -174,35 +174,48 @@
 
 	if(isliving(M) && isliving(src))
 		SEND_SIGNAL(src, COSMIG_MOB_RUN_INTO_SOMEONE, M)
-		var/mob/living/bumped = M
-		var/mob/living/bumper = src
-		if(bumped.attributes.fortitude_bonus <= 0 && get_celerity_dices(bumper) >= 3)
-			var/chance = secret_vampireroll(get_a_dexterity(bumper)+get_celerity_dices(bumper), 6, bumper)
-			var/damage = secret_vampireroll(get_a_strength(bumper)+get_a_brawl(bumper), 6, bumper, TRUE)
-			var/atom/throw_bumped = get_edge_target_turf(bumped, get_dir(bumped, get_step_away(bumped, bumper)))
-			var/atom/throw_bumper = get_edge_target_turf(bumper, get_dir(bumper, get_step_away(bumper, bumped)))
-			if(get_celerity_dices(bumper) >= 5)
-				if(chance <= 0)
+		if(last_mobbump == 0 || last_mobbump+1 SECONDS < world.time)
+			last_mobbump = world.time
+			var/mob/living/bumped = M
+			var/mob/living/bumper = src
+			if(get_celerity_dices(bumper) >= 3)
+				playsound(bumper, "sound/effects/pop_expl.ogg", 75)
+				var/chance = secret_vampireroll(get_a_dexterity(bumper)+get_celerity_dices(bumper), 6, bumper)
+				var/damage = secret_vampireroll(get_a_strength(bumper)+get_a_brawl(bumper), 6, bumper, TRUE)
+				var/atom/throw_bumped = get_edge_target_turf(bumped, get_dir(bumped, get_step_away(bumped, bumper)))
+				var/atom/throw_bumper = get_edge_target_turf(bumper, get_dir(bumper, get_step_away(bumper, bumped)))
+				var/throw_distance = 2
+				var/lower_limit = 5
+				var/upper_limit = 25
+				if(get_celerity_dices(bumper) >= 5)
+					damage = damage * 7
+					throw_distance = 4
+					lower_limit = 10
+					upper_limit = 50
+				else if(get_celerity_dices(bumper) >= 3)
+					damage = damage * 5
+				if(bumped.attributes.fortitude_bonus >= 0)
 					bumper.Knockdown(1 SECONDS)
-					bumper.adjustBruteLoss(clamp(damage*7, 10, 50))
-					bumper.throw_at(throw_bumper, 4, 4, bumper, TRUE)
-					playsound(bumper, "sound/effects/pop_expl.ogg", 75)
-				else
+					bumper.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
+					bumper.throw_at(throw_bumper, throw_distance, throw_distance, bumper, TRUE)
+					return
+				if(ishuman(bumped))
+					var/mob/living/carbon/human/human_bumped = bumped
+					if(human_bumped.blocking)
+						if(iskindred(human_bumped) || isgarou(human_bumped) || iscathayan(human_bumped) || isgarou(human_bumped))
+							human_bumped.SwitchBlocking()
+							bumper.Knockdown(1 SECONDS)
+							bumper.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
+							bumper.throw_at(throw_bumper, throw_distance, throw_distance, bumper, TRUE)
+						return
+				if(chance >= 3)
 					bumped.Knockdown(1 SECONDS)
-					bumped.adjustBruteLoss(clamp(damage*7, 10, 50))
-					bumped.throw_at(throw_bumped, 4, 4, bumped, TRUE)
-					playsound(bumped, "sound/effects/pop_expl.ogg", 75)
-			else if(get_celerity_dices(bumper) >= 3)
-				if(chance <= 0)
+					bumped.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
+					bumped.throw_at(throw_bumped, throw_distance, throw_distance, bumped, TRUE)
+				else
 					bumper.Knockdown(1 SECONDS)
-					bumper.adjustBruteLoss(clamp(damage*5, 5, 25))
-					bumper.throw_at(throw_bumper, 2, 2, bumper, TRUE)
-					playsound(bumper, "sound/effects/pop_expl.ogg", 75)
-				else
-					bumped.Knockdown(1 SECONDS)
-					bumped.adjustBruteLoss(clamp(damage*5, 5, 25))
-					bumped.throw_at(throw_bumped, 2, 2, bumped, TRUE)
-					playsound(bumped, "sound/effects/pop_expl.ogg", 75)
+					bumper.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
+					bumper.throw_at(throw_bumper, throw_distance, throw_distance, bumper, TRUE)
 
 	//If they're a human, and they're not in help intent, block pushing
 	if(ishuman(M) && (M.a_intent != INTENT_HELP))

@@ -1534,10 +1534,12 @@
 /mob/living/carbon/human/npc/police
 	vampire_faction = "City"
 	fights_anyway = TRUE
+//	var/nickname = "Delta-4"
 	max_stat = 4
 
 /mob/living/carbon/human/npc/police/Initialize(mapload)
 	..()
+
 	if(prob(66))
 		base_body_mod = "f"
 	if(prob(66) && SSmasquerade.last_level != "breach")

@@ -63,6 +63,7 @@
 	var/obj/item/organ/eyes/NV = new()
 	NV.Insert(H, TRUE, FALSE)
 	H.add_police_codes()
+	swat_team.choose_landmark()
 	var/obj/effect/landmark/start/D = swat_team.dislocation
 	H.forceMove(D.loc)
 

@@ -172,3 +172,16 @@
 		C.movement_type = prejnii
 		C.remove_movespeed_modifier(/datum/movespeed_modifier/fly)
 		owner.down()
+
+
+/mob/living/simple_animal/pet/cat/vampiretzi
+	name = "cat?"
+	icon = 'code/modules/wod13/mobs.dmi'
+	bloodpool = 5
+	maxbloodpool = 5
+	mob_size = MOB_SIZE_SMALL
+	icon_state = "cattzi"
+	icon_living = "cattzi"
+	icon_dead = "cattzi_dead"
+
+

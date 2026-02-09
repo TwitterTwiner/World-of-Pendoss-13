@@ -5,7 +5,7 @@
 	name = "Stake"
 	time = 50
 	reqs = list(/obj/item/stack/sheet/mineral/wood = 5)
-	tools = list(TOOL_OSTROE)
+	tools = list(TOOL_KNIFE)
 	result = /obj/item/vampire_stake
 	always_available = TRUE
 	category = CAT_WEAPON
@@ -14,7 +14,7 @@
 	name = "Armatura Stake"
 	time = 50
 	reqs = list(/obj/item/stack/rods = 1)
-	tools = list(TOOL_OSTROE)
+	tools = list(TOOL_KNIFE)
 	result = /obj/item/vampire_stake/metal
 	always_available = TRUE
 	category = CAT_WEAPON
@@ -131,6 +131,39 @@
 	time = 100
 	reqs = list(/obj/item/stack/human_flesh = 10, /obj/item/bodypart/r_arm = 1, /obj/item/bodypart/l_arm = 1, /obj/item/bodypart/r_leg = 1, /obj/item/bodypart/l_leg = 1, /obj/item/spine = 1, /obj/item/guts = 2)
 	result = /mob/living/simple_animal/hostile/tanker
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
+/datum/crafting_recipe/tzicreature
+	name = "Wretched Creature"
+	time = 50
+	reqs = list(/obj/item/stack/human_flesh = 10, /obj/item/organ/brain = 1, /obj/item/organ/lungs = 1)
+	result = /obj/item/toy/plush/tzi
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
+/datum/crafting_recipe/axetzi
+	name = "Living Axe"
+	time = 50
+	reqs = list(/obj/item/organ/eyes = 1, /obj/item/spine = 2, /obj/item/stack/human_flesh = 40)
+	result = /obj/item/melee/vampirearms/fireaxe/axetzi
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
+/datum/crafting_recipe/cattzi
+	name = "flesh cat"
+	time = 50
+	reqs = list(/obj/item/stack/human_flesh = 20, /obj/item/guts = 1, /obj/item/spine = 1, /obj/item/toy/plush/tzi = 1)
+	result = /mob/living/simple_animal/pet/cat/vampiretzi
+	always_available = FALSE
+	category = CAT_TZIMISCE
+
+
+/datum/crafting_recipe/tzi_venom
+	name = "Nematocyst Whip"
+	time = 50
+	reqs = list(/obj/item/stack/human_flesh = 15, /obj/item/guts = 1, /obj/item/organ/stomach = 1, /obj/item/organ/liver = 1)
+	result = /obj/item/organ/cyberimp/arm/tzimisce/venom
 	always_available = FALSE
 	category = CAT_TZIMISCE
 

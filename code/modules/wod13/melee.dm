@@ -60,7 +60,7 @@
 	force = 10
 	throwforce = 50
 	w_class = WEIGHT_CLASS_BULKY
-	tool_behaviour = TOOL_OSTROE
+	tool_behaviour = TOOL_KNIFE
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	attack_verb_continuous = list("attacks", "chops", "cleaves", "tears", "lacerates", "cuts")
 	attack_verb_simple = list("attack", "chop", "cleave", "tear", "lacerate", "cut")
@@ -109,6 +109,22 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
+/obj/item/melee/vampirearms/fireaxe/axetzi
+	icon = 'code/modules/wod13/48x32weapons.dmi'
+	icon_state = "axetzi0"
+	name = "living axe"
+	desc = "Truly, the weapon of a madman."
+	masquerade_violating = TRUE
+	base_icon_state = "axetzi1"
+
+/obj/item/melee/vampirearms/fireaxe/axetzi/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/butchering, 100, 80, 0 , hitsound)
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=40, icon_wielded="axetzi1")
+
+/obj/item/melee/vampirearms/fireaxe/axetzi/update_icon_state()
+	icon_state = "axetzi0"
+
 /obj/item/melee/vampirearms/katana
 	name = "katana"
 	desc = "An elegant weapon, its tiny edge is capable of cutting through flesh and bone with ease."
@@ -122,7 +138,7 @@
 	block_chance = 40
 	armour_penetration = 0
 	sharpness = SHARP_EDGED
-	tool_behaviour = TOOL_OSTROE
+	tool_behaviour = TOOL_KNIFE
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
@@ -165,7 +181,7 @@
 	block_chance = 45
 	armour_penetration = 0
 	sharpness = SHARP_POINTY
-	tool_behaviour = list(TOOL_OSTROE, TOOL_SAW)
+	tool_behaviour = TOOL_KNIFE
 	attack_verb_continuous = list("stabs", "pokes")
 	attack_verb_simple = list("stab", "poke")
 	hitsound = 'sound/weapons/rapierhit.ogg'
@@ -188,7 +204,7 @@
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 	block_chance = 40
 	armour_penetration = 0
-//	tool_behaviour = list(TOOL_OSTROE, TOOL_SAW)
+//	tool_behaviour = list(TOOL_KNIFE, TOOL_SAW)
 	sharpness = SHARP_EDGED
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
@@ -216,7 +232,7 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	wound_bonus = 5
 	bare_wound_bonus = 20
-	tool_behaviour = TOOL_OSTROE
+	tool_behaviour = TOOL_KNIFE
 	resistance_flags = FIRE_PROOF
 	masquerade_violating = FALSE
 	is_iron = TRUE
@@ -233,7 +249,7 @@
 	block_chance = 40
 	armour_penetration = 0
 	sharpness = SHARP_EDGED
-	tool_behaviour = TOOL_OSTROE
+	tool_behaviour = TOOL_KNIFE
 	attack_verb_continuous = list("slashes", "cuts")
 	attack_verb_simple = list("slash", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
@@ -403,7 +419,7 @@
 	armour_penetration = 0
 	block_chance = 5
 	sharpness = SHARP_EDGED
-	tool_behaviour = TOOL_OSTROE
+	tool_behaviour = TOOL_KNIFE
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FIRE_PROOF
@@ -506,7 +522,7 @@
 	hitsound = "swing_hit"
 	sharpness = SHARP_EDGED
 	actions_types = list(/datum/action/item_action/startchainsaw)
-	tool_behaviour = list(TOOL_OSTROE, TOOL_SAW)
+	tool_behaviour = list(TOOL_KNIFE, TOOL_SAW)
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF
 	is_iron = TRUE
@@ -614,7 +630,7 @@
 	force = 40
 	throwforce = 10
 	block_chance = 30
-	tool_behaviour = TOOL_OSTROE
+	tool_behaviour = TOOL_KNIFE
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("attacks", "chops", "tears", "beats")
 	attack_verb_simple = list("attack", "chop", "tear", "beat")

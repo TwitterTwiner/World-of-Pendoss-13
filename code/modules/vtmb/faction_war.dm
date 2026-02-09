@@ -407,7 +407,8 @@ SUBSYSTEM_DEF(factionwar)
 /mob/living/carbon/human/Login()
 	. = ..()
 	if(iskindred(src) || isghoul(src) || iscathayan(src))
-		var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
-		E.see_invisible = SEE_INVISIBLE_FACTION
-		see_invisible = SEE_INVISIBLE_FACTION
-		update_sight()
+		spawn(5 SECONDS)
+			var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+			E.see_invisible = SEE_INVISIBLE_FACTION
+			see_invisible = SEE_INVISIBLE_FACTION
+			update_sight()

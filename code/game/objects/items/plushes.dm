@@ -611,3 +611,24 @@
 	attack_verb_continuous = list("hugs", "squeezes")
 	attack_verb_simple = list("hug", "squeeze")
 	squeak_override = list('sound/weapons/thudswoosh.ogg'=1)
+
+/obj/item/toy/plush/tzi
+	name = "wretched creature"
+	desc = "A horrid flesh-thing with a still functioning brain. Perfect for working intricate meat contraptions!"
+	icon = 'code/modules/wod13/items.dmi'
+	icon_state = "plushtzi"
+	inhand_icon_state = "plushtzi"
+	attack_verb_continuous = list("tortures", "scourges")
+	attack_verb_simple = list("torture", "scourge")
+	squeak_override = list('code/modules/wod13/sounds/rastyagivanie_fimosa.ogg'=1)
+
+/obj/item/toy/plush/tzi/attack_self(mob/user)
+	. = ..()
+	var/replic = pick("Убейте меня...", "Пожалуйста, положите конец моим мукам...", "Госпожи как же больно...", "Почему... за что?...", "Мне больно...",
+	"Я не могу больше этого терпеть...", "Почему так... больно?", "Чем я заслужил эти муки?...", "Я полон страдания...", "Почему я?...", "Я не хочу жить",
+	"Я ИСПЫТЫВАЮ НЕВЫНОСИМУЮ БОЛЬ!!!", "Мама... это ты?... Мамочка ,прошу, забери меня....", "Я не могу больше это выносить...", "УБЕЙ УБЕЙ УБЕЙ, ПРИКОНЧИ МЕНЯ!!! ААААААААААА!!!",
+	"Я НЕ МОГУ, ПРЕКРАТИ, ХВАТИТ, ПРОШУ!!!", "Я не чувствую ног... не чувствую рук... ТОЛЬКО БОЛЬ!!!", "Ни рук, ни ног, только боль... ФАНТОМНАЯ БОЛЬ!!!",
+	"Оставь меня...", "Очередная боль.. Капля в море...")
+	say(replic)
+
+
