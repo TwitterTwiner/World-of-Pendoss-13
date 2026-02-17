@@ -166,7 +166,7 @@
 			log_combat(user, H, "beheaded", src)
 			H.regenerate_icons()
 			unbuckle_all_mobs()
-			if(P && !is_antagonist(H) && (H.diablerist || (H in GLOB.masquerade_breakers_list) || H.bloodhunted)) //Character will be resetted only if we have a reason for this, antags completely immune to it
+			if(P && !is_antagonist(H) && (H.diablerist || (H in GLOB.masquerade_breakers_list))) //Character will be resetted only if we have a reason for this, antags completely immune to it
 				P.reset_character()
 				P.reason_of_death = "Executed to sustain the Traditions ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 			var/blood_overlay = "bloody"
