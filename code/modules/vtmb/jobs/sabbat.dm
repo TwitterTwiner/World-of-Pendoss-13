@@ -242,7 +242,7 @@
 	A.team = src
 	RegisterSignal(new_member.current, COMSIG_KILL, PROC_REF(count_kills))
 
-	var/need_kills = CEILING(4 * length(members), 1)
+	var/need_kills = 4 * length(members)
 	for(var/datum/objective/sabbat/mass_murder/obj in objectives) //Do we have 1 objective? Good. Did admeme happen? No bugs
 		obj.needed = need_kills
 		obj.update_explanation_text()
