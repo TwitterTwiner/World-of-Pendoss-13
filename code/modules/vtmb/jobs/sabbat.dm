@@ -238,15 +238,15 @@
 /datum/team/sabbat_cainites/add_member(datum/mind/new_member)
 	. = ..()
 	var/datum/antagonist/sabbatist/A = new_member.has_antag_datum(/datum/antagonist/sabbatist)
+	if(!A) return //Say NO to admeme!
 	A.team = src
 	RegisterSignal(new_member.current, COMSIG_KILL, PROC_REF(count_kills))
 
-	var/need_kills = CEILING(4 * sqrt(length(members)), 1)
+	var/need_kills = CEILING(4 * length(members), 1)
 	for(var/datum/objective/sabbat/mass_murder/obj in objectives) //Do we have 1 objective? Good. Did admeme happen? No bugs
 		obj.needed = need_kills
 		obj.update_explanation_text()
 
-		if(!A) return //Say NO to admeme!
 		A.objectives += obj
 
 	for(var/datum/mind/M in members)
@@ -255,5 +255,7 @@
 /datum/team/sabbat_cainites/proc/count_kills()
 	for(var/datum/objective/sabbat/mass_murder/obj in objectives)
 		obj.kills++
+		if(obj.needed < obj.kills)
+			return
 		for(var/datum/mind/M in members)
-			to_chat(M.current, "<span class='notice'> We [obj.kills == obj.needed ? "acheived" : "need to kill [obj.needed - obj.kills] more to achive"] our goals in blood.</span>")
+			to_chat(M.current, "<span class='notice'> We [obj.kills == obj.needed ? "achieved" : "need to kill [obj.needed - obj.kills] more to achieve"] our goals in blood.</span>")
