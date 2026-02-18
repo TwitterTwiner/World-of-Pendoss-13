@@ -2045,9 +2045,23 @@
 	density = FALSE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSGLASS | PASSCLOSEDTURF
 
+/obj/structure/ship/mooring_lines
+	name = "mooring line"
+	icon_state = "line"
+	layer = BELOW_MOB_LAYER
+
+/obj/structure/ship/radar
+	name = "radar"
+	icon_state = "radar"
+
+/obj/structure/ship/monitor
+	name = "radar monitor"
+	icon_state = "computer"
+
 /obj/structure/ship/knecht
 	name = "knecht"
 	icon_state = "knecht_empty"
+	density = TRUE
 
 /obj/structure/ship/knecht/full
 	name = "knecht with cable"
@@ -2056,9 +2070,12 @@
 /obj/structure/ship/bollard
 	name = "bollard"
 	icon_state = "bollard_empty"
+	density = TRUE
 
 /obj/structure/ship/bollard/alt
 	icon_state = "bollard"
+	density = FALSE
+	layer = BELOW_MOB_LAYER
 
 /obj/structure/ship/bollard/full
 	name = "bollard with cable"
@@ -2068,6 +2085,7 @@
 	name = "ship cable"
 	desc = "Cable for mooring the ship."
 	icon_state = "cable"
+	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/structure/ship/on_walls
 	name = "wall tankers"
