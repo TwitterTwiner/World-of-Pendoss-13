@@ -244,7 +244,7 @@
 									if(K.client)
 										var/datum/brain_trauma/special/imaginary_friend/trauma = gain_trauma(/datum/brain_trauma/special/imaginary_friend)
 										trauma.friend.key = K.key
-									if(P2 && !is_antagonist(target)) //Antags wont loose characters if blyaderized
+									if(P2)
 										P2.reset_character()
 										P2.reason_of_death =  "Diablerized by [true_real_name ? true_real_name : real_name] ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 					if(client)
