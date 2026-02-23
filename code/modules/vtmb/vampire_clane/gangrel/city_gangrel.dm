@@ -1,7 +1,6 @@
-/datum/vampireclane/city_gangrel
+/datum/vampireclane/gangrel/city
 	name = "Cite Gangrel"
-	desc = "Often closer to beasts than other vampires, the Gangrel style themselves apex predators. These Ferals prowl the wilds as easily as the urban jungle, and no clan of vampires can match their ability to endure, survive, and thrive in any environment. Often fiercely territorial, their shapeshifting abilities even give the undead pause."
-	curse = "Start with lower humanity."
+	desc = "Гангрелы приспособленные к городской среде. Антитрибу шабаша. Городские Гангрелы – великолепные городские хищники, они оттачивают свои инстинкты для удовлетворения своей жажды."
 	clane_disciplines = list(
 		/datum/discipline/celerity,
 		/datum/discipline/obfuscate,
