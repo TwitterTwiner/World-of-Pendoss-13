@@ -79,6 +79,15 @@
 	bare_wound_bonus = -5
 	wound_bonus = 5
 
+/obj/projectile/beam/beam_rifle/vampire/vamp556mm/hp
+	name = "5.56mm hollow-point bullet"
+	damage = 60
+	armour_penetration = -60
+	sharpness = SHARP_EDGED
+	bare_wound_bonus = 25
+	wound_bonus = 10
+	wound_falloff_tile = -8
+
 /obj/projectile/beam/beam_rifle/vampire/vamp545mm
 	name = "5.45mm bullet"
 	damage = 40
@@ -209,6 +218,11 @@
 /obj/item/ammo_casing/vampire/c556mm/incendiary
 	projectile_type = /obj/projectile/beam/beam_rifle/vampire/vamp556mm/incendiary
 
+/obj/item/ammo_casing/vampire/c556mm/hp
+	name = "5.56mm hollow-point bullet casing"
+	desc = "A 5.56mm hollow-point bullet casing."
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/vamp556mm/hp
+
 /obj/item/ammo_casing/vampire/c12g
 	name = "12g shell casing"
 	desc = "A 12g shell casing."
@@ -312,6 +326,11 @@
 	name = "incendiary ammo box (5.56)"
 	icon_state = "incendiary"
 	ammo_type = /obj/item/ammo_casing/vampire/c556mm/incendiary
+
+/obj/item/ammo_box/vampire/c556/hp
+	name = "ammo box (5.56 HP)"
+	desc = "A box of 5.56mm hollow-point ammo."
+	ammo_type = /obj/item/ammo_casing/vampire/c556mm/hp
 
 /obj/item/ammo_box/vampire/c12g
 	name = "ammo box (12g)"
