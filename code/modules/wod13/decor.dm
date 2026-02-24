@@ -1644,6 +1644,18 @@
 	icon = 'code/modules/wod13/64x64.dmi'
 	icon_state = "kopatich"
 
+/obj/structure/vampgrass
+	name = "grass"
+	desc = "Some grass. It doesn't look very healthy."
+	icon = 'code/modules/wod13/32x48.dmi'
+	icon_state = "grass"
+	plane = GAME_PLANE
+	layer = SPACEVINE_LAYER
+	anchored = TRUE
+	pixel_w = -16
+	pixel_z = -16
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+
 /obj/structure/vamptree
 	name = "tree"
 	desc = "Cute and tall flora."
