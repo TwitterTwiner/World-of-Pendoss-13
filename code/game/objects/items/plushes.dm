@@ -627,7 +627,7 @@
 	"Я ИСПЫТЫВАЮ НЕВЫНОСИМУЮ БОЛЬ!!!", "Мама... это ты?... Мамочка ,прошу, забери меня....", "Я не могу больше это выносить...", "УБЕЙ УБЕЙ УБЕЙ, ПРИКОНЧИ МЕНЯ!!! ААААААААААА!!!",
 	"Я НЕ МОГУ, ПРЕКРАТИ, ХВАТИТ, ПРОШУ!!!", "Я не чувствую ног... не чувствую рук... ТОЛЬКО БОЛЬ!!!", "Ни рук, ни ног, только боль... ФАНТОМНАЯ БОЛЬ!!!",
 	"Оставь меня...", "Очередная боль.. Капля в море...")
-	var/somerest = 10
+	var/somerest = 0
 
 /obj/item/toy/plush/tzi/Initialize(mapload)
 	. = ..()
@@ -635,9 +635,10 @@
 
 /obj/item/toy/plush/tzi/attack_self(mob/user)
 	. = ..()
-	if((somerest + 5 SECONDS) >= world.time)
+	if(somerest >= world.time)
 		to_chat(user, "<span class='notice'>[src] is too exhausted to moan again.</span>")
 		return
+	somerest = world.time + 5 SECONDS
 	say(pick(replic))
 
 
