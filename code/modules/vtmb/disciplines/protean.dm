@@ -105,13 +105,36 @@
 	duration_length = 20 SECONDS
 	cooldown_length = 20 SECONDS
 
+/*
+			playsound(get_turf(owner), 'code/modules/wod13/sounds/razor_claws.ogg', 75, FALSE)
+			var/mob/living/carbon/human/H = owner
+			H.dna.species.attack_verb = "slash"
+			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+			H.dna.species.punchdamagelow += 5
+			H.dna.species.punchdamagehigh += 5
+			H.dna.species.attack_type = CLONE
+			to_chat(owner, "<span class='notice'>You feel your claws sharpening...</span>")
+			if(H.CheckEyewitness(H, H, 7, FALSE))
+				H.adjust_veil(-1)
+			spawn(20 SECONDS)
+				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
+				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
+				H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
+				H.dna.species.punchdamagelow = initial(H.dna.species.punchdamagelow)
+				H.dna.species.punchdamagehigh = initial(H.dna.species.punchdamagehigh)
+				H.dna.species.attack_type = initial(H.dna.species.attack_type)
+				to_chat(owner, "<span class='warning'>Your claws are not sharp anymore...</span>")
+				*/
+
 
 /datum/discipline_power/protean/feral_claws/activate()
 	. = ..()
 	owner.drop_all_held_items()
-	owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
-	owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
-	owner.add_client_colour(/datum/client_colour/glass_colour/red)
+	claws(owner)
+//	owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
+//	owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
+//	owner.add_client_colour(/datum/client_colour/glass_colour/red)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/protean2)
 
 /datum/discipline_power/protean/feral_claws/deactivate()
@@ -120,6 +143,38 @@
 		qdel(G)
 	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/protean2)
+
+/datum/discipline_power/protean/proc/claws(mob/living/owner, activate=TRUE)
+/*
+Задел на будущее с заменой симпл анималов на карбонов
+	if(iscarbon(owner))
+		var/mob/living/carbon/human/H = owner
+		H.dna.species.attack_verb = "slash"
+		H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+		H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+		H.dna.species.punchdamagelow += 5
+		H.dna.species.punchdamagehigh += 5
+		H.dna.species.attack_type = CLONE
+*/
+	switch(activate)
+		if(TRUE)
+			var/mob/living/carbon/human/H = owner
+			H.dna.species.attack_verb = "slash"
+			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+			H.dna.species.punchdamagelow += 10
+			H.dna.species.punchdamagehigh += 10
+			H.dna.species.attack_type = CLONE
+			to_chat(owner, "<span class='notice'>Твои ногти превращаются в острые когти...</span>")
+		if(FALSE)
+			var/mob/living/carbon/human/H = owner
+			H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
+			H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
+			H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
+			H.dna.species.punchdamagelow = initial(H.dna.species.punchdamagelow)
+			H.dna.species.punchdamagehigh = initial(H.dna.species.punchdamagehigh)
+			H.dna.species.attack_type = initial(H.dna.species.attack_type)
+			to_chat(owner, "<span class='warning'>Твои когти возвращаются к обычным ногтям...</span>")
 
 //EARTH MELD
 /datum/discipline_power/protean/earth_meld
