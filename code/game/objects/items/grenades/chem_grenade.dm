@@ -424,7 +424,7 @@
 	stage = GRENADE_READY
 	icon = 'code/modules/wod13/grenade.dmi'
 	icon_state = "teargas"
-	onfloor_icon_state = "smoke"
+	onflooricon_state = "smoke"
 
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
 	. = ..()
