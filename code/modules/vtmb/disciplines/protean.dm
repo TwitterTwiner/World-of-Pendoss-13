@@ -104,28 +104,8 @@
 	cancelable = TRUE
 	duration_length = 20 SECONDS
 	cooldown_length = 20 SECONDS
-
-/*
-			playsound(get_turf(owner), 'code/modules/wod13/sounds/razor_claws.ogg', 75, FALSE)
-			var/mob/living/carbon/human/H = owner
-			H.dna.species.attack_verb = "slash"
-			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
-			H.dna.species.punchdamagelow += 5
-			H.dna.species.punchdamagehigh += 5
-			H.dna.species.attack_type = CLONE
-			to_chat(owner, "<span class='notice'>You feel your claws sharpening...</span>")
-			if(H.CheckEyewitness(H, H, 7, FALSE))
-				H.adjust_veil(-1)
-			spawn(20 SECONDS)
-				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
-				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
-				H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
-				H.dna.species.punchdamagelow = initial(H.dna.species.punchdamagelow)
-				H.dna.species.punchdamagehigh = initial(H.dna.species.punchdamagehigh)
-				H.dna.species.attack_type = initial(H.dna.species.attack_type)
-				to_chat(owner, "<span class='warning'>Your claws are not sharp anymore...</span>")
-				*/
+	var/mutable_appearance/clasw_left
+	var/mutable_appearance/clasw_right
 
 
 /datum/discipline_power/protean/feral_claws/activate()
@@ -139,12 +119,13 @@
 
 /datum/discipline_power/protean/feral_claws/deactivate()
 	. = ..()
-	for(var/obj/item/melee/vampirearms/knife/gangrel/G in owner.contents)
-		qdel(G)
-	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
+	claws(owner, FALSE)
+//	for(var/obj/item/melee/vampirearms/knife/gangrel/G in owner.contents)
+//		qdel(G)
+//	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/protean2)
 
-/datum/discipline_power/protean/proc/claws(mob/living/owner, activate=TRUE)
+/datum/discipline_power/protean/feral_claws/proc/claws(mob/living/owner, activate=TRUE)
 /*
 Задел на будущее с заменой симпл анималов на карбонов
 	if(iscarbon(owner))
@@ -156,9 +137,17 @@
 		H.dna.species.punchdamagehigh += 5
 		H.dna.species.attack_type = CLONE
 */
+
+	var/mob/living/carbon/human/H = owner
 	switch(activate)
 		if(TRUE)
-			var/mob/living/carbon/human/H = owner
+			clasw_left = mutable_appearance('code/modules/wod13/lefthand.dmi', "claws", -PROTEAN_LAYER)
+			clasw_right = mutable_appearance('code/modules/wod13/righthand.dmi', "claws", -PROTEAN_LAYER)
+			H.overlays_standing[PROTEAN_LAYER] = clasw_left
+			H.apply_overlay(PROTEAN_LAYER)
+			H.overlays_standing[UNICORN_LAYER] = clasw_right
+			H.apply_overlay(UNICORN_LAYER)
+		//	var/mob/living/carbon/human/H = owner
 			H.dna.species.attack_verb = "slash"
 			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
 			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -167,7 +156,12 @@
 			H.dna.species.attack_type = CLONE
 			to_chat(owner, "<span class='notice'>Твои ногти превращаются в острые когти...</span>")
 		if(FALSE)
-			var/mob/living/carbon/human/H = owner
+			QDEL_NULL(clasw_left)
+			QDEL_NULL(clasw_right)
+			H.remove_overlay(PROTEAN_LAYER)
+		//	QDEL_NULL(clasw_left)
+			H.remove_overlay(UNICORN_LAYER)
+		//	QDEL_NULL(clasw_right)
 			H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
 			H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
 			H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
