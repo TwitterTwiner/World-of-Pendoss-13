@@ -112,17 +112,11 @@
 	. = ..()
 	owner.drop_all_held_items()
 	claws(owner)
-//	owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
-//	owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
-//	owner.add_client_colour(/datum/client_colour/glass_colour/red)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/protean2)
 
 /datum/discipline_power/protean/feral_claws/deactivate()
 	. = ..()
 	claws(owner, FALSE)
-//	for(var/obj/item/melee/vampirearms/knife/gangrel/G in owner.contents)
-//		qdel(G)
-//	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/protean2)
 
 /datum/discipline_power/protean/feral_claws/proc/claws(mob/living/owner, activate=TRUE)
@@ -147,7 +141,6 @@
 			H.apply_overlay(PROTEAN_LAYER)
 			H.overlays_standing[UNICORN_LAYER] = clasw_right
 			H.apply_overlay(UNICORN_LAYER)
-		//	var/mob/living/carbon/human/H = owner
 			H.dna.species.attack_verb = "slash"
 			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
 			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -159,9 +152,7 @@
 			QDEL_NULL(clasw_left)
 			QDEL_NULL(clasw_right)
 			H.remove_overlay(PROTEAN_LAYER)
-		//	QDEL_NULL(clasw_left)
 			H.remove_overlay(UNICORN_LAYER)
-		//	QDEL_NULL(clasw_right)
 			H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
 			H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
 			H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
