@@ -295,6 +295,8 @@
 	. += "<span class='notice'>Laying</span>: Disarm Disarm Harm. Carefully lay the criminal on the ground without any consequences..</span>"
 	. += "<span class='notice'>Kick</span>: Harm Harm Harm. Kick your opponent. Or put your knees on his stomach if he's lying down.</span>"
 
+//h
+
 #undef BRUSH_CLIP
 #undef WRUNG_HAND
 #undef RESTRAIN_COMBO
