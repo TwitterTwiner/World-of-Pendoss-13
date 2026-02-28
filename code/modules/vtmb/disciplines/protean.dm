@@ -139,8 +139,8 @@
 			clasw_right = mutable_appearance('code/modules/wod13/righthand.dmi', "claws", -PROTEAN_LAYER)
 			H.overlays_standing[PROTEAN_LAYER] = clasw_left
 			H.apply_overlay(PROTEAN_LAYER)
-			H.overlays_standing[UNICORN_LAYER] = clasw_right
-			H.apply_overlay(UNICORN_LAYER)
+			H.overlays_standing[DECAPITATION_BLOOD_LAYER] = clasw_right
+			H.apply_overlay(DECAPITATION_BLOOD_LAYER)
 			H.dna.species.attack_verb = "slash"
 			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
 			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
