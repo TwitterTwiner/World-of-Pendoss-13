@@ -232,7 +232,7 @@
 
 /datum/discipline_power/obfuscate/mask_of_a_thousand_faces/proc/make_original()
 	initialize_original()
-	var/roll = secret_vampireroll(get_a_intelligence(owner)+get_a_empathy(owner), 6, owner)
+	var/roll = secret_vampireroll(get_a_manipulation(owner)+get_a_expression(owner), 6, owner)
 	var/list/vibori = list()
 	switch(roll)
 		if(-INFINITY to -1)
