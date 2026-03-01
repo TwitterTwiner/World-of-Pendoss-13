@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(witness_pool)
 		for(var/obj/structure/werewolf_totem/W in GLOB.totems)
 			if(W)
 				if(W.totem_health)
-					if(W.tribe == auspice.tribe.name)
+					if(W.tribe == auspice?.tribe.name)
 						if(get_area(W) == get_area(src) && client)
 							gaining_rage = FALSE
 							if(last_gnosis_buff+300 < world.time)
@@ -82,12 +82,12 @@ SUBSYSTEM_DEF(witness_pool)
 		if(iscoraxcrinos(src))
 			gaining_rage = TRUE // Corax have no Metis, Crinos is uneasy no matter your breed, no "buts" about it.
 		if(iscrinos(src))
-			if(auspice.breed_form == FORM_CRINOS)
+			if(auspice?.breed_form == FORM_CRINOS)
 				gaining_rage = FALSE
 			if(CheckEyewitness(src, src, 5, FALSE))
 				adjust_veil(-1, honoradj = -1)
 		if(islupus(src))
-			if(auspice.breed_form == FORM_LUPUS)
+			if(auspice?.breed_form == FORM_LUPUS)
 				gaining_rage = FALSE
 			var/mob/living/carbon/werewolf/lupus/Lupus = src
 			if(Lupus.hispo)
@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(witness_pool)
 					if(CheckEyewitness(src, src, 4, FALSE))
 						src.adjust_veil(-1,threshold = 4)
 		if(gaining_rage && client)
-			if(((last_rage_gain + RAGE_LIFE_COOLDOWN) < world.time) && (auspice.rage <= 6))
+			if(((last_rage_gain + RAGE_LIFE_COOLDOWN) < world.time) && (auspice?.rage <= 6))
 				last_rage_gain = world.time
 				adjust_rage(1, src, TRUE)
 

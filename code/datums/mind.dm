@@ -86,6 +86,8 @@
 	//Dharma path
 	var/datum/dharma/dharma
 
+	var/willpower_auto = FALSE
+
 /datum/mind/New(_key)
 	key = _key
 	martial_art = default_martial_art

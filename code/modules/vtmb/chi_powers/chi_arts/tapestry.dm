@@ -83,12 +83,13 @@
 	switch(level_casting)
 		if(1)
 			caster.client.prefs.chat_toggles ^= CHAT_DEAD
-			caster.see_invisible = SEE_INVISIBLE_OBSERVER
+			var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+			ghost_hud.add_hud_to(caster)
 			notify_ghosts("All ghosts are being called by [caster]!", source = caster, action = NOTIFY_ORBIT, header = "Ghost Summoning")
 			spawn(30 SECONDS)
 				if(caster)
 					caster.client?.prefs.chat_toggles &= ~CHAT_DEAD
-					caster.update_sight()
+					ghost_hud.remove_hud_from(caster)
 		if(2)
 			var/chosen_z
 			var/obj/penumbra_ghost/ghost

@@ -262,8 +262,6 @@
 		DAWOF.update_icons()
 		DAWOF2.update_icons()
 		dat += "[icon2html(getFlatIcon(DAWOF), user)][icon2html(getFlatIcon(DAWOF2), user)]<BR>"
-		qdel(DAWOF)
-		qdel(DAWOF2)
 
 		dat += "<b>Breed:</b> <a href='byond://?_src_=prefs;preference=breed;task=input'>[breed]</a><BR>"
 		dat += "<b>Tribe:</b> <a href='byond://?_src_=prefs;preference=tribe;task=input'>[tribe.name]</a><BR>"

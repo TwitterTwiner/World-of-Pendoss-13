@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 
 /datum/discipline_power/auspex/telepathy/pre_activation_checks(mob/living/target)
 	if(iskindred(target) || iscathayan(target) || iswerewolf(target))
-		if(owner.willpower_auto)
+		if(owner.mind?.willpower_auto)
 			return TRUE
 		to_chat(owner, "<span class='boldnotice'> Мысли слишком сложны для понимания... Тебе придеться потратить много усилий и Воли, чтобы проникнуть в разум [target].</span>")
 		return FALSE

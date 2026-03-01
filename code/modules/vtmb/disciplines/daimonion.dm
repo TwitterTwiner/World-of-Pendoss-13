@@ -29,11 +29,10 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		selfcontrol = H.MyPath?.selfcontrol
-	var/success_chance = secret_vampireroll(get_a_perception(target)+get_a_empathy(target), selfcontrol+4, owner)
+	var/success_chance = secret_vampireroll(get_a_perception(target)+get_a_empathy(target), selfcontrol+4, owner, TRUE)
 	if(success_chance <= 0)
 		to_chat(owner, span_notice("Твоя магия угасла!"))
 		owner.Stun(3 SECONDS)
-		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
 

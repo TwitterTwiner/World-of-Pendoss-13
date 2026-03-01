@@ -98,6 +98,7 @@
 
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
+	M.lastattacked_time = world.time
 	user.lastattacked = M
 
 	if(force && M == user && user.client)

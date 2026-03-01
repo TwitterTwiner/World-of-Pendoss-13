@@ -10,6 +10,7 @@
 #define TRAIT_DOGWOLF			"dogwolf"
 #define TRAIT_WYRMTAINTED		"wyrm_tainted"
 #define TRAIT_CORAX				"corax" // this is used to apply the Corax Crinos/Corvid, as well as make being in "corvid" not veil-damaging
+#define TRAIT_BONE_GNAWER		"bone_gnawer"
 
 #define ATTACK_RAGE_COOLDOWN 3 SECONDS
 
