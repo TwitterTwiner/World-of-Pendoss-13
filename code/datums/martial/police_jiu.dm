@@ -170,9 +170,9 @@
 		var/mob/living/carbon/C = D
 		for(var/i=0, i<15, i++)
 			sleep(20)
-				C.adjustStaminaLoss(10)
+				D.adjustStaminaLoss(10)
 			sleep(10)
-				C.adjustStaminaLoss(2)
+				D.adjustStaminaLoss(2)
 
 		C.vomit()
 	return TRUE
