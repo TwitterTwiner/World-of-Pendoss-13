@@ -171,7 +171,7 @@
 		for(var/i=0, i<15, i++)
 			D.adjustStaminaLoss(10)
 
-		C.vomit()
+		C.vomit(15)
 	return TRUE
 
 /datum/martial_art/police_jiu/proc/Laying(mob/living/A, mob/living/D)
