@@ -174,7 +174,7 @@
 			sleep(10)
 				D.adjustStaminaLoss(2)
 
-		D.vomit()
+		vomit(D)
 	return TRUE
 
 /datum/martial_art/police_jiu/proc/Laying(mob/living/A, mob/living/D)
