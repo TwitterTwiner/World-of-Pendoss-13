@@ -169,12 +169,10 @@
 	if(!iskindred(D) && !iscathayan(D))
 		var/mob/living/carbon/C = D
 		for(var/i=0, i<15, i++)
-			if(i<4)
-				sleep(20)
-					C.adjustStaminaLoss(10)
-			else
-				sleep(10)
-					C.adjustStaminaLoss(2)
+			sleep(20)
+				C.adjustStaminaLoss(10)
+			sleep(10)
+				C.adjustStaminaLoss(2)
 
 		C.vomit()
 	return TRUE
