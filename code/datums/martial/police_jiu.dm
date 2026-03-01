@@ -167,14 +167,14 @@
 	log_combat(A, D, "punched liver(Police_Jiu)")
 	D.adjustStaminaLoss(10)
 	if(!iskindred(D) && !iscathayan(D))
-		var/mob/living/carbon/C = D
+	//	var/mob/living/carbon/C = D
 		for(var/i=0, i<15, i++)
 			sleep(20)
 				D.adjustStaminaLoss(10)
 			sleep(10)
 				D.adjustStaminaLoss(2)
 
-		C.vomit()
+		D.vomit()
 	return TRUE
 
 /datum/martial_art/police_jiu/proc/Laying(mob/living/A, mob/living/D)
