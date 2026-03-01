@@ -1381,7 +1381,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else
 				target.MyPath.trigger_morality("attackedfail")
 				target.caster = user
-				var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+				var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living, step_away_caster))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1)*target.total_multiplicative_slowdown())
 //				target.emote("scream")
@@ -1497,6 +1497,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
+		target.lastattacked_time = world.time
 		user.lastattacked = target
 		user.dna.species.spec_unarmedattacked(user, target)
 
@@ -1601,7 +1602,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else
 				H.MyPath.trigger_morality("attackedfail")
 				H.caster = user
-				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living, step_away_caster))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1)*H.total_multiplicative_slowdown())
 //				H.emote("scream")

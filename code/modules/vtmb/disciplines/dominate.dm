@@ -22,8 +22,8 @@
 	if(iscathayan(target))
 		if(target.mind.dharma?.Po == "Legalist")
 			target.mind.dharma?.roll_po(owner, target)
-	var/mob/living/carbon/human/TRGT
-	if(ishuman(target))
+	var/mob/living/carbon/TRGT
+	if(iscarbon(target))
 		TRGT = target
 		TRGT.remove_overlay(MUTATIONS_LAYER)
 		var/mutable_appearance/dominate_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "dominate", -MUTATIONS_LAYER)
@@ -175,17 +175,17 @@
 	level = 5
 
 	check_flags = DISC_CHECK_CAPABLE|DISC_CHECK_SPEAK|DISC_CHECK_SEE
-	target_type = TARGET_HUMAN
+	target_type = TARGET_LIVING
 
 	multi_activate = TRUE
 	cooldown_length = 15 SECONDS
 	range = 7
 
-/datum/discipline_power/dominate/possession/activate(mob/living/carbon/human/target)
+/datum/discipline_power/dominate/possession/activate(mob/living/target)
 	. = ..()
 	to_chat(target, "<span class='userdanger'><b>YOU SHOULD KILL YOURSELF NOW</b></span>")
 	owner.say("YOU SHOULD KILL YOURSELF NOW!!")
-	var/datum/cb = CALLBACK(target, /mob/living/carbon/human/proc/attack_myself_command)
+	var/datum/cb = CALLBACK(target, /mob/living/proc/attack_myself_command)
 	for(var/i in 1 to 20)
 		addtimer(cb, (i - 1) * 1.5 SECONDS)
 	target.Immobilize(5 SECONDS, TRUE)
@@ -194,7 +194,7 @@
 				var/mob/living/carbon/human/suicider = target
 				suicider.suicide()
 */
-/mob/living/carbon/human/proc/attack_myself_command()
+/mob/living/proc/attack_myself_command()
 	if(!CheckFrenzyMove())
 		a_intent = INTENT_HARM
 		var/obj/item/I = get_active_held_item()

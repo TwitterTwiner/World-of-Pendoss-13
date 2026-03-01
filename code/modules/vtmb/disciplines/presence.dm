@@ -14,11 +14,12 @@
 	activate_sound = 'code/modules/wod13/sounds/presence_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/presence_deactivate.ogg'
 
-/datum/discipline_power/presence/activate(mob/living/carbon/human/target)
+/datum/discipline_power/presence/activate(mob/living/target)
 	. = ..()
 	if(iscathayan(target))
-		if(target.mind.dharma?.Po == "Legalist")
-			target.mind.dharma?.roll_po(owner, target)
+		var/mob/living/carbon/human/cathayan_target = target
+		if(cathayan_target.mind.dharma?.Po == "Legalist")
+			cathayan_target.mind.dharma?.roll_po(owner, cathayan_target)
 
 /datum/discipline_power/presence/awe
 	name = "Awe"
@@ -246,7 +247,7 @@
 				npc_target.danger_source = null
 		target.mass_presencer = owner
 
-		var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster), owner)
+		var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living, step_away_caster), owner)
 		for(var/i in 1 to 30)
 			addtimer(cb, (i - 1) * target.total_multiplicative_slowdown())
 
@@ -322,7 +323,7 @@
 	level = 3
 
 	check_flags = DISC_CHECK_CAPABLE|DISC_CHECK_SPEAK
-	target_type = TARGET_HUMAN
+	target_type = TARGET_LIVING
 	range = 7
 
 	multi_activate = TRUE
@@ -344,13 +345,15 @@
 
 	return TRUE
 
-/datum/discipline_power/presence/entrancement/activate(mob/living/carbon/human/target)
+/datum/discipline_power/presence/entrancement/activate(mob/living/target)
 	. = ..()
-	target.remove_overlay(MUTATIONS_LAYER)
-	var/mutable_appearance/presence_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "presence", -MUTATIONS_LAYER)
-	presence_overlay.pixel_z = 1
-	target.overlays_standing[MUTATIONS_LAYER] = presence_overlay
-	target.apply_overlay(MUTATIONS_LAYER)
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.remove_overlay(MUTATIONS_LAYER)
+		var/mutable_appearance/presence_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "presence", -MUTATIONS_LAYER)
+		presence_overlay.pixel_z = 1
+		carbon_target.overlays_standing[MUTATIONS_LAYER] = presence_overlay
+		carbon_target.apply_overlay(MUTATIONS_LAYER)
 
 
 	if(istype(target, /mob/living/carbon/human/npc) && owner.puppets.len < get_a_charisma(owner)+get_a_empathy(owner))
@@ -382,9 +385,11 @@
 		if(I2)
 			I2.throw_at(get_turf(owner), 3, 1, target)
 
-/datum/discipline_power/presence/entrancement/deactivate(mob/living/carbon/human/target)
+/datum/discipline_power/presence/entrancement/deactivate(mob/living/target)
 	. = ..()
-	target.remove_overlay(MUTATIONS_LAYER)
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.remove_overlay(MUTATIONS_LAYER)
 
 //SUMMON
 /datum/discipline_power/presence/summon
@@ -394,7 +399,7 @@
 	level = 4
 
 	check_flags = DISC_CHECK_CAPABLE|DISC_CHECK_SPEAK
-	target_type = TARGET_HUMAN
+	target_type = TARGET_LIVING
 	range = 7
 
 	multi_activate = TRUE
@@ -416,27 +421,31 @@
 
 	return TRUE
 
-/datum/discipline_power/presence/summon/activate(mob/living/carbon/human/target)
+/datum/discipline_power/presence/summon/activate(mob/living/target)
 	. = ..()
-	target.remove_overlay(MUTATIONS_LAYER)
-	var/mutable_appearance/presence_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "presence", -MUTATIONS_LAYER)
-	presence_overlay.pixel_z = 1
-	target.overlays_standing[MUTATIONS_LAYER] = presence_overlay
-	target.apply_overlay(MUTATIONS_LAYER)
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.remove_overlay(MUTATIONS_LAYER)
+		var/mutable_appearance/presence_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "presence", -MUTATIONS_LAYER)
+		presence_overlay.pixel_z = 1
+		carbon_target.overlays_standing[MUTATIONS_LAYER] = presence_overlay
+		carbon_target.apply_overlay(MUTATIONS_LAYER)
 
 	to_chat(target, "<span class='userlove'><b>FEAR ME</b></span>")
 	owner.say("FEAR ME!!")
-	var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster), owner)
+	var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living, step_away_caster), owner)
 	for(var/i in 1 to 30)
 		addtimer(cb, (i - 1) * target.total_multiplicative_slowdown())
 	target.emote("scream")
 	target.do_jitter_animation(3 SECONDS)
 
-/datum/discipline_power/presence/summon/deactivate(mob/living/carbon/human/target)
+/datum/discipline_power/presence/summon/deactivate(mob/living/target)
 	. = ..()
-	target.remove_overlay(MUTATIONS_LAYER)
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.remove_overlay(MUTATIONS_LAYER)
 
-/mob/living/carbon/human/proc/step_away_caster(mob/living/step_from)
+/mob/living/proc/step_away_caster(mob/living/step_from)
 	walk(src, 0)
 	if(!CheckFrenzyMove())
 		set_glide_size(DELAY_TO_GLIDE_SIZE(total_multiplicative_slowdown()))
@@ -450,7 +459,7 @@
 	level = 5
 
 	check_flags = DISC_CHECK_CAPABLE|DISC_CHECK_SPEAK
-	target_type = TARGET_HUMAN
+	target_type = TARGET_LIVING
 	range = 7
 
 	multi_activate = TRUE
@@ -472,13 +481,15 @@
 
 	return TRUE
 
-/datum/discipline_power/presence/majesty/activate(mob/living/carbon/human/target)
+/datum/discipline_power/presence/majesty/activate(mob/living/target)
 	. = ..()
-	target.remove_overlay(MUTATIONS_LAYER)
-	var/mutable_appearance/presence_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "presence", -MUTATIONS_LAYER)
-	presence_overlay.pixel_z = 1
-	target.overlays_standing[MUTATIONS_LAYER] = presence_overlay
-	target.apply_overlay(MUTATIONS_LAYER)
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.remove_overlay(MUTATIONS_LAYER)
+		var/mutable_appearance/presence_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "presence", -MUTATIONS_LAYER)
+		presence_overlay.pixel_z = 1
+		carbon_target.overlays_standing[MUTATIONS_LAYER] = presence_overlay
+		carbon_target.apply_overlay(MUTATIONS_LAYER)
 
 	to_chat(target, "<span class='userlove'><b>UNDRESS YOURSELF</b></span>")
 	owner.say("UNDRESS YOURSELF!!")
@@ -486,9 +497,11 @@
 	for(var/obj/item/clothing/W in target.contents)
 		target.dropItemToGround(W, TRUE)
 
-/datum/discipline_power/presence/majesty/deactivate(mob/living/carbon/human/target)
+/datum/discipline_power/presence/majesty/deactivate(mob/living/target)
 	. = ..()
-	target.remove_overlay(MUTATIONS_LAYER)
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.remove_overlay(MUTATIONS_LAYER)
 
 /mob/living/carbon/human/npc/proc/handle_presence_movement()
 	if(!presence_master || stat >= DEAD)

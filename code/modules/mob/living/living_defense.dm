@@ -16,7 +16,7 @@
 			if(HAS_TRAIT(src, TRAIT_LETHALNIGGA))
 				total_cubes += get_a_stamina(src)
 			else
-				if(((iskindred(src) || iscathayan(src) || isghoul(src)) && (def_zone != get_bodypart(BODY_ZONE_HEAD) && def_zone != BODY_ZONE_HEAD)))
+				if(((iskindred(src) || iscathayan(src) || isghoul(src)) && (def_zone != get_bodypart(BODY_ZONE_HEAD) && def_zone != BODY_ZONE_HEAD)) || isgarou(src) || iswerewolf(src))
 					total_cubes += get_a_stamina(src)
 		if(AGGRAVATED)
 			if(isgarou(src) || iswerewolf(src))

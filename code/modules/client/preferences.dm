@@ -395,6 +395,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(load_character())
 			return
 	//we couldn't load character data so just randomize the character appearance + name
+	if(!length(GLOB.roundstart_races))
+		generate_selectable_species()
 	random_species()
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	reset_character()
@@ -1961,6 +1963,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/newtype = GLOB.tribes_list[new_tribe]
 						new_tribe = new newtype()
 						tribe = new_tribe
+						if(tribe.name == "Bone Gnawers")
+							ADD_TRAIT(user, TRAIT_BONE_GNAWER, tribe)
 						if(tribe.name == "Corax")
 							ADD_TRAIT(user, TRAIT_CORAX, tribe) //This might be redundant considering we also add this trait in auspice.dm
 							// Convert Lupus to Corvid, and default Metis to Corvid since Corax don't have them
@@ -1970,6 +1974,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						else
 							if(breed == BREED_CORVID)
 								breed = BREED_LUPUS
+							if(HAS_TRAIT(user, TRAIT_BONE_GNAWER))
+								REMOVE_TRAIT(user, TRAIT_BONE_GNAWER, tribe)
 							if(HAS_TRAIT(user, TRAIT_CORAX))
 								REMOVE_TRAIT(user, TRAIT_CORAX, tribe)
 				if("breed")
@@ -3057,6 +3063,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.auspice.tribe = tribe
 		character.auspice.on_gain(character)
 		character.auspice.set_breed(breed, character)
+		character.auspice.willpower = 6+auspice_level
 		if(character.transformator?.crinos_form && character.transformator?.lupus_form && !HAS_TRAIT(character, TRAIT_CORAX))
 			var/mob/living/carbon/werewolf/crinos/crinos = character.transformator.crinos_form?.resolve()
 			var/mob/living/carbon/werewolf/lupus/lupus = character.transformator.lupus_form?.resolve()

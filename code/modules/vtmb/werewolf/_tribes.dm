@@ -42,6 +42,7 @@
 		/datum/action/gift/infest = 2,
 		/datum/action/gift/gift_of_the_termite = 3
 	)
+	tribe_trait = TRAIT_BONE_GNAWER
 
 /datum/garou_tribe/silverfangs
 	name = "Silver Fangs"
