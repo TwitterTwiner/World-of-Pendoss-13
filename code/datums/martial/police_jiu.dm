@@ -66,7 +66,7 @@
 	if(!iskindred(D) && !iscathayan(D))
 		D.Paralyze(5)
 		D.adjustStaminaLoss(50)
- 	D.Knockdown(30)
+	D.Knockdown(30)
 	if(D.body_position == STANDING_UP)
 		D.toggle_resting()
 	log_combat(A, D, "hand clipped (Police_Jiu)")
