@@ -61,6 +61,12 @@
 	*/
 	var/list/cooldowns
 
+	/// List for handling persistent filters.
+	var/list/filter_data_datum
+
+	var/list/filter_cache
+
+
 #ifdef TESTING
 	var/running_find_references
 	var/last_find_references = 0
@@ -264,3 +270,41 @@
 		return
 	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
 	TIMER_COOLDOWN_END(source, index)
+
+/datum/proc/get_filter_data(name)
+	for (var/list/filter_info as anything in filter_data_datum)
+		if (filter_info["name"] == name)
+			return filter_info.Copy()
+
+
+/** Update a filter's parameter to the new one. If the filter doesn't exist we won't do anything.
+ *
+ * Arguments:
+ * * name - Filter name
+ * * new_params - New parameters of the filter
+ * * overwrite - TRUE means we replace the parameter list completely. FALSE means we only replace the things on new_params.
+ * * update - If we should apply our filter cache to our actual filters
+ */
+/datum/proc/modify_filter(name, list/new_params, overwrite = FALSE, update = TRUE)
+	ASSERT(isatom(src) || isimage(src))
+	var/atom/atom_cast = src // filters only work with images or atoms.
+	for (var/index in 1 to length(filter_data_datum))
+		var/list/filter_info = filter_data_datum[index]
+		if (filter_info["name"] != name)
+			continue
+
+		if (overwrite)
+			filter_data_datum[index] = new_params
+		else
+			for (var/thing in new_params)
+				filter_info[thing] = new_params[thing]
+
+		var/list/arguments = filter_info.Copy()
+		arguments -= "priority"
+		filter_cache[index] = filter(arglist(arguments))
+
+		if (update)
+			atom_cast.filters = filter_cache
+		return
+
+
