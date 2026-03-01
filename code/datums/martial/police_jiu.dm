@@ -158,7 +158,7 @@
 	return TRUE
 
 /datum/martial_art/police_jiu/proc/Footboard(mob/living/A, mob/living/D)
-	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
+//	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
 	D.visible_message("<span class='warning'>[A] punches liver [D]!</span>", \
 					"<span class='userdanger'>Your liver blowed by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
 	to_chat(A, "<span class='danger'>You liver punch[D]!</span>")
