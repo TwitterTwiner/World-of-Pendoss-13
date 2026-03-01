@@ -72,7 +72,7 @@
 		return
 	if(!user.mind)
 		return
-	if(user.mind.holy_role != HOLY_ROLE_PRIEST)
+	if(user.mind.holy_role != HOLY_ROLE_PRIEST && get_trufaith_level(user) < 1)
 		return
 	last_detonated = world.time
 	do_sparks(rand(5, 9), FALSE, user)
@@ -90,17 +90,20 @@
 		for(var/obj/item/card/id/hunter/HUNT in H.contents)
 			if(HUNT)
 				if(H.mind)
-					if(H.mind.holy_role == HOLY_ROLE_PRIEST)
+					if(H.mind.holy_role == HOLY_ROLE_PRIEST || get_trufaith_level(H) >= 1)
 						return
 		if(iskindred(H))
 			if(H.clane)
 				if(H.clane.name == "Baali")
 					H.emote("scream")
 					H.pointed(user)
-	M.show_message("<span class='warning'><b>GOD SEES YOU!</b></span>", MSG_AUDIBLE)
+
+	var/affected_by_faith = (ishuman(M) && (iskindred(M) || isghoul(M) || isgarou(M) || iscathayan(M))) || iswerewolf(M)
+	if(affected_by_faith)
+		M.show_message("<span class='warning'><b>GOD SEES YOU!</b></span>", MSG_AUDIBLE)
 	var/distance = max(0,get_dist(get_turf(src),T))
 
-	if(M.flash_act(affect_silicon = 1))
+	if(affected_by_faith && M.flash_act(affect_silicon = 1))
 		M.Immobilize(max(10/max(1,distance), 5))
 
 /obj/item/card/id/hunter/attack(mob/living/target, mob/living/user)
@@ -111,14 +114,13 @@
 		return
 	if(iskindred(target))
 		var/mob/living/carbon/human/H = target
-		if(H.clane)
-			if(H.clane.name == "Baali")
-				last_detonated = world.time
-				var/turf/lightning_source = get_step(get_step(H, NORTH), NORTH)
-				lightning_source.Beam(H, icon_state="lightning[rand(1,12)]", time = 5)
-				H.adjustFireLoss(100)
-				H.electrocution_animation(50)
-				to_chat(H, "<span class='userdanger'>The God has punished you for your sins!</span>", confidential = TRUE)
+		if(H.clane && H.clane.name == "Baali" && (user.mind?.holy_role || get_trufaith_level(user) >= 1))
+			last_detonated = world.time
+			var/turf/lightning_source = get_step(get_step(H, NORTH), NORTH)
+			lightning_source.Beam(H, icon_state="lightning[rand(1,12)]", time = 5)
+			H.adjustFireLoss(100)
+			H.electrocution_animation(50)
+			to_chat(H, "<span class='userdanger'>The God has punished you for your sins!</span>", confidential = TRUE)
 
 /obj/item/card/id/prince
 	name = "leader badge"
@@ -467,7 +469,7 @@
 	var/max_objective = 3
 
 	if(iskindred(owner) || isghoul(owner))
-		max_objective = 4
+		max_objective = 5
 
 	// Fourth if is for the vampire/ghouls since it is only their factions there
 
@@ -531,6 +533,29 @@
 				artefact_objective.owner = owner
 				objectives += artefact_objective
 				artefact_objective.update_explanation_text()
+		if(5)
+			var/datum/objective/secret/toknow
+			for(var/datum/objective/secret/S in GLOB.secrets_list)
+				if(S)
+					toknow = S
+			if(toknow)
+				var/datum/objective/reveal/secret_objective = new
+				secret_objective.owner = owner
+				secret_objective.secret_keeper = toknow.owner.current
+				owner.current.reveal_objective = secret_objective
+				secret_objective.secret_keeper_name = toknow.owner.current.true_real_name
+				objectives += secret_objective
+				secret_objective.update_explanation_text()
+			else
+				var/datum/objective/secret/secret_objective = new
+				secret_objective.owner = owner
+				secret_objective.thetruth = pick("Эпштейн связан с Камарильей.", "Анархи затевают захват города.", "Князь убил собственного Сира.", "В этом городе затерян саркофаг с Патриархом.", "Кланы против правления Князя.", "Гуй-дзин планируют саботаж всего города.", "Шабаш ожидает возвращение Каина.", "Власти начинают подозревать о сверхъестественном, скоро будет глобальная зачистка.")
+				objectives += secret_objective
+				GLOB.secrets_list += secret_objective
+				secret_objective.update_explanation_text()
+				var/datum/action/reveal_secret/infor = new()
+				infor.secret_objective = secret_objective
+				infor.Grant(owner.current)
 	return ..()
 
 /datum/antagonist/ambitious/on_removal()
@@ -543,6 +568,21 @@
 	owner.announce_objectives()
 //TZIMISCE ROLES
 
+/mob/living
+	var/datum/objective/reveal/reveal_objective
 
+/datum/action/reveal_secret
+	name = "Reveal Secret"
+	desc = "Reveal the truth..."
+	button_icon_state = "secret"
+	check_flags = AB_CHECK_CONSCIOUS
+	var/datum/objective/secret/secret_objective
 
-
+/datum/action/reveal_secret/Trigger()
+	if(owner.say("[secret_objective.thetruth]"))
+		secret_objective.truthkept = FALSE
+		for(var/mob/living/L in oviewers(7, owner))
+			if(L.reveal_objective)
+				if(L.reveal_objective.secret_keeper == owner)
+					to_chat(L, "<span class='alertsyndie'>Now you know the secret... [secret_objective.thetruth]</span>")
+					L.reveal_objective.truthrevealed = TRUE

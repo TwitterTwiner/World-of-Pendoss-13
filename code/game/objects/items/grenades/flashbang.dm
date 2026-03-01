@@ -1,10 +1,12 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
 	icon_state = "flashbang"
+	icon = 'code/modules/wod13/grenade.dmi'
 	inhand_icon_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	var/flashbang_range = 7 //how many tiles away the mob will be stunned.
+	bomb_sound = list('code/modules/wod13/sounds/flashbang.ogg')
 
 /obj/item/grenade/flashbang/detonate(mob/living/lanced_by)
 	. = ..()

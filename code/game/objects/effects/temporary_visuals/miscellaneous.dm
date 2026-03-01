@@ -379,10 +379,11 @@
 
 /obj/effect/temp_visual/explosion
 	name = "explosion"
-	icon = 'icons/effects/96x96.dmi'
+//	icon = 'icons/effects/96x96.dmi'
+	icon = 'code/modules/wod13/48x48.dmi'
 	icon_state = "explosion"
-	pixel_x = -32
-	pixel_y = -32
+//	pixel_x = -32
+//	pixel_y = -32
 	duration = 8
 
 /obj/effect/temp_visual/explosion/fast

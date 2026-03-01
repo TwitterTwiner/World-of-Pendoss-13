@@ -34,11 +34,11 @@
 	icon = 'code/modules/wod13/32x48.dmi'
 
 /obj/structure/vampfence/Initialize(mapload)
-	.=..()
+	. = ..()
 	AddElement(/datum/element/climbable)
 
 /obj/structure/vampfence/rich/Initialize(mapload)
-	.=..()
+	. =..()
 	RemoveElement(/datum/element/climbable)
 
 
@@ -931,7 +931,34 @@
 		M3.opacity = TRUE
 	M3.anchored = TRUE
 
-/proc/get_nearest_free_turf(turf/start)
+/obj/cargocrate/stand
+	name = "cargocrate"
+	desc = "It delivers a lot of things."
+	icon = 'code/modules/wod13/containers.dmi'
+	icon_state = "2_stand"
+	plane = GAME_PLANE
+	layer = CAR_LAYER
+	anchored = TRUE
+	opacity = TRUE
+	density = TRUE
+
+/obj/cargocrate/stand/Initialize(mapload)
+	. = ..()
+	icon_state = "[rand(2, 5)]_stand"
+
+
+/proc/get_nearest_free_turf(turf/start, dir = EAST, distance = 20)
+	var/turf/current = start
+	var/turf/last = null
+	for(var/i = 0; i < distance; i++)
+		current = get_step(current, dir)
+		if(isopenturf(current))
+			last = current
+		else
+			break
+	return last || start
+/*
+РАКЕТА - В С Ё
 	if(isopenturf(get_step(start, EAST)))
 		if(isopenturf(get_step(get_step(start, EAST), EAST)))
 			if(isopenturf(get_step(get_step(get_step(start, EAST), EAST), EAST)))
@@ -955,6 +982,9 @@
 			return get_step(get_step(start, EAST), EAST)
 		return get_step(start, EAST)
 	return start
+
+*/
+
 
 /obj/structure/marketplace
 	name = "stock market"
@@ -2044,9 +2074,23 @@
 	density = FALSE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSGLASS | PASSCLOSEDTURF
 
+/obj/structure/ship/mooring_lines
+	name = "mooring line"
+	icon_state = "line"
+	layer = BELOW_MOB_LAYER
+
+/obj/structure/ship/radar
+	name = "radar"
+	icon_state = "radar"
+
+/obj/structure/ship/monitor
+	name = "radar monitor"
+	icon_state = "computer"
+
 /obj/structure/ship/knecht
 	name = "knecht"
 	icon_state = "knecht_empty"
+	density = TRUE
 
 /obj/structure/ship/knecht/full
 	name = "knecht with cable"
@@ -2055,9 +2099,12 @@
 /obj/structure/ship/bollard
 	name = "bollard"
 	icon_state = "bollard_empty"
+	density = TRUE
 
 /obj/structure/ship/bollard/alt
 	icon_state = "bollard"
+	density = FALSE
+	layer = BELOW_MOB_LAYER
 
 /obj/structure/ship/bollard/full
 	name = "bollard with cable"
@@ -2067,6 +2114,7 @@
 	name = "ship cable"
 	desc = "Cable for mooring the ship."
 	icon_state = "cable"
+	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/structure/ship/on_walls
 	name = "wall tankers"

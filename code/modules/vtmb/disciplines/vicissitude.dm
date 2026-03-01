@@ -105,6 +105,9 @@
 	var/original_gender
 	var/original_headshot
 
+	var/original_isdwarf
+	var/original_istower
+
 	var/datum/dna/impersonating_dna
 	var/impersonating_name
 	var/impersonating_skintone
@@ -120,6 +123,14 @@
 	var/impersonating_age
 	var/impersonating_gender
 	var/impersonating_headshot
+
+	var/impersonating_clane
+	var/impersonating_faction
+	var/impersonating_job
+	var/impersonating_info
+
+	var/impersonating_isdwarf
+	var/impersonating_istower
 
 	var/is_shapeshifted = FALSE
 
@@ -239,8 +250,8 @@
 					impersonating_eyecolor = sanitize_hexcolor(new_eyes)
 				continue
 			if("Телосложени")
-				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in list("Эндоморф", "Мезоморф", "Эктоморф")
-
+				var/list/body_types = list("Эндоморф", "Мезоморф", "Эктоморф")
+				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in body_types
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
@@ -293,7 +304,13 @@
 				owner.dna.copy_dna(impersonating_dna)
 				impersonating_headshot = victim.headshot_link
 
+				impersonating_clane = victim.clane
+				impersonating_faction = victim.vampire_faction
+				impersonating_job = victim.job
+				impersonating_info = victim.info_known
 
+				impersonating_isdwarf = victim.isdwarfy
+				impersonating_istower = victim.istower
 			if(2 to 3)
 				impersonating_haircolor = victim.hair_color
 				impersonating_facialhaircolor = victim.facial_hair_color
@@ -301,7 +318,6 @@
 				if (victim.clane)
 					impersonating_alt_sprite = victim.clane.alt_sprite
 					impersonating_alt_sprite_greyscale = victim.clane.alt_sprite_greyscale
-
 			if(4 to INFINITY)
 				impersonating_eyecolor = victim.eye_color
 				impresonating_phonevoicetag = victim.phonevoicetag
@@ -333,6 +349,8 @@
 	original_headshot = owner.headshot_link
 	original_gender = owner.gender
 
+	original_isdwarf = owner.isdwarfy
+	original_istower = owner.istower
 
 	impersonating_hairstyle = owner.hairstyle
 	impersonating_name = owner.real_name
@@ -347,6 +365,14 @@
 	impersonating_headshot = owner.headshot_link
 	impersonating_alt_sprite = owner.clane.alt_sprite
 	impersonating_alt_sprite_greyscale = owner.clane.alt_sprite_greyscale
+
+	impersonating_clane = null
+	impersonating_faction = null
+	impersonating_job = null
+	impersonating_info = null
+
+	impersonating_isdwarf = owner.isdwarfy
+	impersonating_istower = owner.istower
 
 /datum/discipline_power/vicissitude/malleable_visage/proc/shapeshift(to_original = FALSE, instant = FALSE)
 	var/fleshcrafting = get_a_fleshcraft(owner)
@@ -391,6 +417,17 @@
 		owner.headshot_link = original_headshot
 		is_shapeshifted = FALSE
 		owner.switch_masquerade(owner)
+
+		if(owner.isdwarfy)
+			owner.RemoveElement(/datum/element/dwarfism)
+		if(owner.istower)
+			owner.RemoveElement(/datum/element/giantism)
+		owner.isdwarfy = original_isdwarf
+		owner.istower = original_istower
+		if(owner.isdwarfy)
+			owner.AddElement(/datum/element/dwarfism)
+		if(owner.istower)
+			owner.AddElement(/datum/element/giantism)
 	else
 		//Nosferatu, Cappadocians, Gargoyles, Kiasyd, etc. will revert instead of being indefinitely without their curse
 		if(original_alt_sprite)
@@ -414,6 +451,17 @@
 		owner.headshot_link = impersonating_headshot
 		is_shapeshifted = TRUE
 		owner.switch_masquerade(owner)
+
+		if(owner.isdwarfy)
+			owner.RemoveElement(/datum/element/dwarfism)
+		if(owner.istower)
+			owner.RemoveElement(/datum/element/giantism)
+		owner.isdwarfy = impersonating_isdwarf
+		owner.istower = impersonating_istower
+		if(owner.isdwarfy)
+			owner.AddElement(/datum/element/dwarfism)
+		if(owner.istower)
+			owner.AddElement(/datum/element/giantism)
 
 	owner.update_body()
 
@@ -525,6 +573,7 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_tanker)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/cattzi)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/axetzi)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_blade)
 
 
 /datum/action/basic_vicissitude
@@ -692,6 +741,7 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_heart)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_med)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzicreature)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_venom)
 
 
 //BLOODFORM
@@ -713,6 +763,8 @@
 /obj/item/organ/cyberimp/arm/surgery/vicissitude
 	icon_state = "toolkit_implant_vic"
 	contents = newlist(/obj/item/retractor/augment/vicissitude, /obj/item/hemostat/augment/vicissitude, /obj/item/cautery/augment/vicissitude, /obj/item/surgicaldrill/augment/vicissitude, /obj/item/scalpel/augment/vicissitude, /obj/item/circular_saw/augment/vicissitude, /obj/item/surgical_drapes/vicissitude)
+	implant_sound = 'code/modules/wod13/sounds/Tzim_Organ.ogg'
+
 
 /obj/item/retractor/augment/vicissitude
 	name = "retracting appendage"
@@ -785,11 +837,13 @@
 	icon_state = "armblade"
 	zone = BODY_ZONE_L_ARM
 	contents = newlist(/obj/item/melee/vampirearms/tzimisce)
+	implant_sound = 'code/modules/wod13/sounds/Tzim_Organ.ogg'
 
 /obj/item/organ/cyberimp/arm/tzimisce/venom
 	name = "nematocyst whip implant"
 	desc = "A concealed venomous whip."
-	icon_state = "lasombra"
+	icon = 'code/modules/wod13/48x32weapons.dmi'
+	icon_state = "zhalo"
 	contents = newlist(/obj/item/melee/vampirearms/tzimisce/venom)
 
 /obj/item/melee/vampirearms/tzimisce
@@ -813,10 +867,10 @@
 /obj/item/melee/vampirearms/tzimisce/venom
 	name = "nematocyst whip"
 	desc = "An elongated tendril covered with stinging cells."
-	icon = 'code/modules/wod13/weapons.dmi'
-	icon_state = "lasombra"
+	icon = 'code/modules/wod13/48x32weapons.dmi'
+	icon_state = "zhalo"
 	damtype = TOX
-	force = 16
+	force = 20
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 10
 	armour_penetration = 10

@@ -396,6 +396,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["exper"], exper)
 	READ_FILE(S["exper_plus"], exper_plus)
 	READ_FILE(S["true_experience"], true_experience)
+	READ_FILE(S["trufaith_level"], trufaith_level)
 
 	READ_FILE(S["a_priorities"], priorities)
 
@@ -482,6 +483,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["eye_color"], eye_color)
 	READ_FILE(S["skin_tone"], skin_tone)
 	READ_FILE(S["hairstyle_name"], hairstyle)
+	READ_FILE(S["blood_type"], blood_type)
 	READ_FILE(S["facial_style_name"], facial_hairstyle)
 	READ_FILE(S["underwear"], underwear)
 	READ_FILE(S["underwear_color"], underwear_color)
@@ -602,6 +604,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		underwear		= sanitize_inlist(underwear, GLOB.underwear_list)
 		undershirt 		= sanitize_inlist(undershirt, GLOB.undershirt_list)
 
+	blood_type		= sanitize_inlist(blood_type, GLOB.blood_types)
+
 	breed			= sanitize_inlist(breed, list(BREED_HOMID, BREED_LUPUS, BREED_METIS, BREED_CORVID))
 	werewolf_color	= sanitize_inlist(werewolf_color, list("black", "gray", "red", "white", "ginger", "brown"))
 	werewolf_scar	= sanitize_integer(werewolf_scar, 0, 7, initial(werewolf_scar))
@@ -629,6 +633,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	exper				= sanitize_integer(exper, 0, 99999999, initial(exper))
 	exper_plus				= sanitize_integer(exper_plus, 0, 99999999, initial(exper_plus))
 	true_experience				= sanitize_integer(true_experience, 0, 99999999, initial(true_experience))
+	trufaith_level				= sanitize_integer(trufaith_level, 0, 3, initial(trufaith_level))
 	priorities = sanitize_islist(priorities, list())
 	if(length(languages) > Linguistics)
 		languages = list()
@@ -803,6 +808,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["exper"]			, exper)
 	WRITE_FILE(S["exper_plus"]			, exper_plus)
 	WRITE_FILE(S["true_experience"]			, true_experience)
+	WRITE_FILE(S["trufaith_level"]			, trufaith_level)
 	WRITE_FILE(S["auspice_level"]			, auspice_level)
 
 	WRITE_FILE(S["a_priorities"], priorities)
@@ -888,6 +894,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["total_age"]	, total_age)
 	WRITE_FILE(S["hair_color"]			, hair_color)
 	WRITE_FILE(S["facial_hair_color"]			, facial_hair_color)
+	WRITE_FILE(S["blood_type"]			, blood_type)
 	WRITE_FILE(S["eye_color"]			, eye_color)
 	WRITE_FILE(S["skin_tone"]			, skin_tone)
 	WRITE_FILE(S["hairstyle_name"]			, hairstyle)

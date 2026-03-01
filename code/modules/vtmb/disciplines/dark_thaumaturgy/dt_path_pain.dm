@@ -39,7 +39,7 @@
 /datum/discipline_power/dt_path_pain/proc/pain_botch_effect()
 	if(maxlevel <= 2)
 		return
-	if(!owner.has_status_effect(/datum/status_effect/pain_botch) && owner.willpower_auto != TRUE)
+	if(!owner.has_status_effect(/datum/status_effect/pain_botch) && owner.mind?.willpower_auto != TRUE)
 		owner.apply_status_effect(/datum/status_effect/pain_botch)
 		use_counter = 0
 	to_chat(owner, span_warning("You scratch your own skin, thirsting for pain."))
@@ -220,12 +220,13 @@
 	total_brute = clamp(25*success_needed, 25, 200)
 	var/mob/living/tar = target
 	tar.adjustCloneLoss(total_brute)
-	var/mob/living/carbon/human/H = tar
-	if(H.willpower_auto != TRUE)
-		H.apply_status_effect(/datum/status_effect/hundred_deaths)
-	playsound(H, "sound/effects/wounds/crack1.ogg", 50)
+	if(iscarbon(tar))
+		var/mob/living/carbon/C = tar
+		if(C.mind?.willpower_auto != TRUE)
+			C.apply_status_effect(/datum/status_effect/hundred_deaths)
+	playsound(tar, "sound/effects/wounds/crack1.ogg", 50)
 	if(HAS_TRAIT(owner, TRAIT_PAIN_BOTCH))
 		owner.adjustCloneLoss(total_brute)
-		if(owner.willpower_auto != TRUE)
+		if(owner.mind?.willpower_auto != TRUE)
 			owner.apply_status_effect(/datum/status_effect/hundred_deaths)
 		playsound(owner, "sound/effects/wounds/crack2.ogg", 50)

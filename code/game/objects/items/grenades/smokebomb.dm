@@ -6,8 +6,9 @@
 /obj/item/grenade/smokebomb
 	name = "smoke grenade"
 	desc = "Real bruh moment if you ever see this. Probably tell a c*der or something."
-	icon = 'icons/obj/grenade.dmi'
-	icon_state = "smokewhite"
+//	icon = 'icons/obj/grenade.dmi'
+	icon = 'code/modules/wod13/grenade.dmi'
+	icon_state = "smoke"
 	inhand_icon_state = "smoke"
 	slot_flags = ITEM_SLOT_BELT
 	///It's extremely important to keep this list up to date. It helps to generate the insightful description of the smokebomb

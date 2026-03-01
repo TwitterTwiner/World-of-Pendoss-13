@@ -239,7 +239,7 @@
 			break
 	if(all_required_missing)
 		var/obj/item/bodypart/head_part = get_bodypart(BODY_ZONE_HEAD)
-		if(head_part)
+		if(head_part && attacker.zone_selected == BODY_ZONE_HEAD)
 			head_part.dismember()
 			return null
 
@@ -262,6 +262,14 @@
 	if((affecting.body_zone == BODY_ZONE_HEAD || affecting.body_zone == BODY_ZONE_CHEST) && !all_required_missing)
 		return dam_zone
 	if((affecting.get_damage(include_clone = TRUE) >= affecting.max_damage) || bypass_damage_check)
+		if(affecting.body_zone == BODY_ZONE_HEAD)
+			var/obj/item/bodypart/head_part = get_bodypart(BODY_ZONE_HEAD)
+			if(!head_part)
+				return dam_zone
+			if(attacker.zone_selected != BODY_ZONE_HEAD)
+				return dam_zone
+			head_part.dismember()
+			return null
 		affecting.dismember()
 		return null
 
@@ -356,7 +364,7 @@
 					if(obj_content.flags_1 & ON_BORDER_1 && obj_content.dir == turn(shove_dir, 180) && obj_content.density)
 						directional_blocked = TRUE
 						break
-		if((!target_table && !target_collateral_carbon && !target_disposal_bin) || directional_blocked)
+		if((!target_table && !target_collateral_carbon && !target_disposal_bin) || (directional_blocked & check_zone(src.zone_selected) == BODY_ZONE_HEAD))
 			target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			target.visible_message("<span class='danger'>[name] shoves [target.name], knocking [target.p_them()] down!</span>",
 							"<span class='userdanger'>You're knocked down from a shove by [name]!</span>", "<span class='hear'>You hear aggressive shuffling followed by a loud thud!</span>", COMBAT_MESSAGE_RANGE, src)

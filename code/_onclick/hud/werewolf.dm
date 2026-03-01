@@ -201,6 +201,13 @@
 	using.hud = src
 	static_inventory += using
 
+	using = new /atom/movable/screen/will_power
+	using.icon = 'code/modules/wod13/UI/buttons32.dmi'
+	using.icon_state = "will0"
+	using.screen_loc = ui_will
+	using.hud = src
+	static_inventory += using
+
 	if(iscrinos(owner))
 		using = new /atom/movable/screen/swap_hand()
 		using.icon = 'code/modules/wod13/UI/buttons32.dmi'

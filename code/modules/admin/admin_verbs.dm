@@ -384,6 +384,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			ghost.icon_state = null
 			ghost.overlays = null
 			ghost.client.color = null
+			var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+			ghost_hud.remove_from_hud(ghost)
 	else if (isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or Observe first.</font>", confidential = TRUE)
 		return FALSE
@@ -405,7 +407,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		ghost.overlays = null
 		ghost.client.color = null
 		ghost.aghosted = TRUE
-
+		var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+		ghost_hud.remove_from_hud(ghost)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin Ghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/invisimin()
@@ -596,6 +599,11 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			return
 		var/whitelist = input("Whitelist to give:") as null|anything in whitelist_pool
 		if (whitelist)
+			if (whitelist == "trufaith")
+				var/char_name = trim(input("Character name (exact, as in Character List):") as null|text)
+				if (!char_name)
+					return
+				whitelist = "trufaith:[char_name]"
 			var/ticket_link = input("Link to whitelist request ticket:") as null|text
 			if (ticket_link)
 				var/approval_reason = input("Reason for whitelist approval:") as null|text

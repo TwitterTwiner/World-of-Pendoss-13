@@ -266,7 +266,6 @@
 	speed = -0.50
 	maxHealth = 200
 	health = 200
-	harm_intent_damage = 20
 	melee_damage_lower = 24
 	melee_damage_upper = 42
 	melee_damage_type = CLONE
@@ -281,6 +280,7 @@
 	icon_state = "black"
 	icon_living = "black"
 	icon_dead = "black_rest"
+	see_in_dark = 6
 
 /mob/living/simple_animal/hostile/bear/wod13/vampire
 	bloodquality = BLOOD_QUALITY_HIGH

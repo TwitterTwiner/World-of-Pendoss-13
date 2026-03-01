@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 
 /datum/discipline_power/auspex/telepathy/pre_activation_checks(mob/living/target)
 	if(iskindred(target) || iscathayan(target) || iswerewolf(target))
-		if(owner.willpower_auto)
+		if(owner.mind?.willpower_auto)
 			return TRUE
 		to_chat(owner, "<span class='boldnotice'> Мысли слишком сложны для понимания... Тебе придеться потратить много усилий и Воли, чтобы проникнуть в разум [target].</span>")
 		return FALSE
@@ -460,6 +460,34 @@ GLOBAL_LIST_EMPTY(auspex_users)
 	owner.soul_state = SOUL_PROJECTING
 
 /* ATOM */
+/atom/proc/auspex_moment(mob/user)
+	for(var/mob/living/carbon/C in GLOB.auspex_users)
+		if(!HAS_TRAIT(C, AUSPEX_TRAIT))
+			return
+
+
+/atom/proc/get_direction(mob/user)
+	var/dir = get_dir(user, src)
+	var/napravlenie = ""
+	switch(dir)
+		if(NORTH)
+			napravlenie = "севера"
+		if(NORTHWEST)
+			napravlenie = "северо-запада"
+		if(NORTHEAST)
+			napravlenie = "северо-востока"
+		if(SOUTH)
+			napravlenie = "юга"
+		if(SOUTHEAST)
+			napravlenie = "юго-востока"
+		if(SOUTHWEST)
+			napravlenie = "юго-запада"
+		if(WEST)
+			napravlenie = "запада"
+		if(EAST)
+			napravlenie = "востока"
+
+	return napravlenie
 
 /atom
 	var/last_investigated = 0

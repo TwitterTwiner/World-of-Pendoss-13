@@ -11,6 +11,10 @@
 	icon_state = "reinf-1"
 	baseicon = "reinf"
 
+/obj/structure/vampdoor/reinf/ship
+	icon_state = "gateway-1"
+	baseicon = "gateway"
+
 /obj/structure/vampdoor/prison
 	icon_state = "prison-1"
 	opacity = FALSE

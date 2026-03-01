@@ -1381,7 +1381,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else
 				target.MyPath.trigger_morality("attackedfail")
 				target.caster = user
-				var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+				var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living, step_away_caster))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1)*target.total_multiplicative_slowdown())
 //				target.emote("scream")
@@ -1497,6 +1497,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
+		target.lastattacked_time = world.time
 		user.lastattacked = target
 		user.dna.species.spec_unarmedattacked(user, target)
 
@@ -1516,7 +1517,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			target.visible_message("<span class='danger'>[user] knocks [target] down!</span>", \
 							"<span class='userdanger'>You're knocked down by [user]!</span>", "<span class='hear'>You hear aggressive shuffling followed by a loud thud!</span>", COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, "<span class='danger'>You knock [target] down!</span>")
-			var/knockdown_duration = 40 + (target.getStaminaLoss() + (target.getBruteLoss()*0.5))*0.8 //50 total damage = 40 base stun + 40 stun modifier = 80 stun duration, which is the old base duration
+			var/knockdown_duration = 40 + (target.getStaminaLoss() + (target.getBruteLoss()*0.5))*0.4 //50 total damage = 40 base stun + 40 stun modifier = 80 stun duration, which is the old base duration
 			target.apply_effect(knockdown_duration, EFFECT_KNOCKDOWN, armor_block)
 			log_combat(user, target, "got a stun punch with their previous punch")
 
@@ -1601,7 +1602,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else
 				H.MyPath.trigger_morality("attackedfail")
 				H.caster = user
-				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living, step_away_caster))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1)*H.total_multiplicative_slowdown())
 //				H.emote("scream")

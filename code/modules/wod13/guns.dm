@@ -1,3 +1,7 @@
+/obj/item/gun
+
+	var/difficult = 0  // For semi-automatic and automatic weapons and rolls
+
 /obj/item/gun/ballistic/vampire
 	icon = 'code/modules/wod13/weapons.dmi'
 	lefthand_file = 'code/modules/wod13/righthand.dmi'
@@ -244,7 +248,6 @@
 	mag_type = /obj/item/ammo_box/magazine/glock9mm
 	burst_size = 3
 	fire_delay = 1
-	actions_types = list()
 	bolt_type = BOLT_TYPE_LOCKING
 	fire_sound = 'code/modules/wod13/sounds/glock.ogg'
 	dry_fire_sound = 'sound/weapons/gun/pistol/dry_fire.ogg'
@@ -282,7 +285,6 @@
 	mag_type = /obj/item/ammo_box/magazine/glock45acp
 	burst_size = 3
 	fire_delay = 1
-	actions_types = list()
 	bolt_type = BOLT_TYPE_LOCKING
 	fire_sound = 'code/modules/wod13/sounds/glock.ogg'
 	dry_fire_sound = 'sound/weapons/gun/pistol/dry_fire.ogg'
@@ -669,6 +671,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	masquerade_violating = TRUE
 	var/oil = 1000
+	var/fire_cooldown = 0
+	var/fire_cooldown_time = 2 SECONDS
 
 /obj/item/vampire_flamethrower/attackby(obj/item/W, mob/user, params)
 	. = ..()
@@ -697,6 +701,12 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You can't bring yourself to fire \the [src]! You don't want to risk harming anyone...</span>")
 		return
+	if(fire_cooldown > world.time)
+		return
+	fire_cooldown = world.time + fire_cooldown_time
+	if(!oil)
+		to_chat(user, "<span class='warning'>\The [src] is out of fuel!</span>")
+		return
 	playsound(get_turf(user), 'code/modules/wod13/sounds/flamethrower.ogg', 50, TRUE)
 	visible_message("<span class='warning'>[user] fires [src]!</span>", "<span class='warning'>You fire [src]!</span>")
 	if(user && user.get_active_held_item() == src) // Make sure our user is still holding us
@@ -709,11 +719,13 @@
 				if(F)
 					if(F != user.loc)
 						if(oil)
-							new /obj/effect/decal/cleanable/gasoline(F)
+							if(!locate(/obj/effect/decal/cleanable/gasoline) in F)
+								new /obj/effect/decal/cleanable/gasoline(F)
+							if(!locate(/obj/effect/fire) in F)
+								new /obj/effect/fire(F)
 							oil = max(0, oil-10)
 							if(oil == 0)
 								icon_state = "flamethrower1"
-						new /obj/effect/fire(F)
 
 /obj/item/gun/ballistic/automatic/vampire/beretta
 	name = "\improper Elite 92G"

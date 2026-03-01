@@ -621,14 +621,23 @@
 	attack_verb_continuous = list("tortures", "scourges")
 	attack_verb_simple = list("torture", "scourge")
 	squeak_override = list('code/modules/wod13/sounds/rastyagivanie_fimosa.ogg'=1)
-
-/obj/item/toy/plush/tzi/attack_self(mob/user)
-	. = ..()
-	var/replic = pick("Убейте меня...", "Пожалуйста, положите конец моим мукам...", "Госпожи как же больно...", "Почему... за что?...", "Мне больно...",
+	var/list/moans = list('code/modules/wod13/sounds/rastyagivanie_fimosa.ogg'=1, 'code/modules/wod13/sounds/toy_scream2.ogg'=1, 'code/modules/wod13/sounds/toy_scream.ogg'=1)
+	var/list/replic = list("Убейте меня...", "Пожалуйста, положите конец моим мукам...", "Госпожи как же больно...", "Почему... за что?...", "Мне больно...",
 	"Я не могу больше этого терпеть...", "Почему так... больно?", "Чем я заслужил эти муки?...", "Я полон страдания...", "Почему я?...", "Я не хочу жить",
 	"Я ИСПЫТЫВАЮ НЕВЫНОСИМУЮ БОЛЬ!!!", "Мама... это ты?... Мамочка ,прошу, забери меня....", "Я не могу больше это выносить...", "УБЕЙ УБЕЙ УБЕЙ, ПРИКОНЧИ МЕНЯ!!! ААААААААААА!!!",
 	"Я НЕ МОГУ, ПРЕКРАТИ, ХВАТИТ, ПРОШУ!!!", "Я не чувствую ног... не чувствую рук... ТОЛЬКО БОЛЬ!!!", "Ни рук, ни ног, только боль... ФАНТОМНАЯ БОЛЬ!!!",
 	"Оставь меня...", "Очередная боль.. Капля в море...")
-	say(replic)
+	var/somerest = 10
+
+/obj/item/toy/plush/tzi/Initialize(mapload)
+	. = ..()
+	squeak_override  = pick(moans)
+
+/obj/item/toy/plush/tzi/attack_self(mob/user)
+	. = ..()
+	if((somerest + 5 SECONDS) >= world.time)
+		to_chat(user, "<span class='notice'>[src] is too exhausted to moan again.</span>")
+		return
+	say(pick(replic))
 
 

@@ -76,6 +76,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/gender = MALE					//gender of character (well duh)
 	var/age = 30						//age of character
 	var/total_age = 30
+	var/blood_type = "A+"
 	var/underwear = "Nude"				//underwear type
 	var/underwear_color = "000"			//underwear color
 	var/undershirt = "Nude"				//undershirt type
@@ -187,6 +188,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//Character sheet stats
 	var/true_experience = 50
+	var/trufaith_level = 0 // 0-3, bought with experience in Character List (20/30/40)
 	var/torpor_count = 0
 
 	//linked lists determining known Disciplines and their known ranks
@@ -365,6 +367,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	random_character()
 	body_model = rand(1, 3)
 	true_experience = 50
+	trufaith_level = 0
 	real_name = random_unique_name(gender)
 	save_character()
 
@@ -392,6 +395,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(load_character())
 			return
 	//we couldn't load character data so just randomize the character appearance + name
+	if(!length(GLOB.roundstart_races))
+		generate_selectable_species()
 	random_species()
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	reset_character()
@@ -1346,6 +1351,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							age = total_age
 						update_preview_icon()
 
+				if("blood_type")
+					if(slotlocked)
+						return
+					var/list/blood_types = list("A+", "A-", "B+", "B-", "O+", "O-")
+					var/bloods = input(user, "Choose your character's blood type:", "Character Preference")  as null|anything in blood_types
+					if(bloods)
+						blood_type = bloods
+
 				if("info_choose")
 					var/new_info_known = input(user, "Choose who knows your character:", "Fame")  as null|anything in list(INFO_KNOWN_UNKNOWN,INFO_KNOWN_CLAN_ONLY,INFO_KNOWN_FACTION,INFO_KNOWN_PUBLIC)
 					if(new_info_known)
@@ -1738,7 +1751,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						return
 					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
 						return
-					var/new_priorities = input(user, "Select a Discipline", "Discipline Selection") as null|anything in list("Physical, Social, Mental", "Physical, Mental, Social", "Social, Physical, Mental", "Social, Mental, Physical", "Mental, Social, Physical", "Mental, Physical, Social")
+					var/new_priorities = input(user, "Select a Priority Order", "Priority Selection") as null|anything in list("Physical, Social, Mental", "Physical, Mental, Social", "Social, Physical, Mental", "Social, Mental, Physical", "Mental, Social, Physical", "Mental, Physical, Social")
 					if(new_priorities)
 						switch(new_priorities)
 							if("Physical, Social, Mental")
@@ -1950,6 +1963,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/newtype = GLOB.tribes_list[new_tribe]
 						new_tribe = new newtype()
 						tribe = new_tribe
+						if(tribe.name == "Bone Gnawers")
+							ADD_TRAIT(user, TRAIT_BONE_GNAWER, tribe)
 						if(tribe.name == "Corax")
 							ADD_TRAIT(user, TRAIT_CORAX, tribe) //This might be redundant considering we also add this trait in auspice.dm
 							// Convert Lupus to Corvid, and default Metis to Corvid since Corax don't have them
@@ -1959,6 +1974,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						else
 							if(breed == BREED_CORVID)
 								breed = BREED_LUPUS
+							if(HAS_TRAIT(user, TRAIT_BONE_GNAWER))
+								REMOVE_TRAIT(user, TRAIT_BONE_GNAWER, tribe)
 							if(HAS_TRAIT(user, TRAIT_CORAX))
 								REMOVE_TRAIT(user, TRAIT_CORAX, tribe)
 				if("breed")
@@ -2142,6 +2159,25 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if (dharma_level >= 6)
 						hun += 1
 						po += 1
+
+				if("trufaith_buy")
+					if(pref_species.name != "Human" && pref_species.id != "kindred")
+						return
+					if(!SSwhitelists.is_whitelisted(user?.client?.ckey, "trufaith", real_name))
+						return
+					var/cost = 0
+					if(trufaith_level == 0)
+						cost = 20
+					else if(trufaith_level == 1)
+						cost = 30
+					else if(trufaith_level == 2)
+						cost = 40
+					else
+						return
+					if(true_experience < cost)
+						return
+					true_experience -= cost
+					trufaith_level = min(3, trufaith_level + 1)
 
 				/*
 				if("torpor_restore")
@@ -3013,6 +3049,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/datum/species/chosen_species
 	chosen_species = pref_species.type
 
+	character.dna.blood_type = blood_type
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
 	character.dna.real_name = character.real_name
@@ -3026,6 +3063,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.auspice.tribe = tribe
 		character.auspice.on_gain(character)
 		character.auspice.set_breed(breed, character)
+		character.auspice.willpower = 6+auspice_level
 		if(character.transformator?.crinos_form && character.transformator?.lupus_form && !HAS_TRAIT(character, TRAIT_CORAX))
 			var/mob/living/carbon/werewolf/crinos/crinos = character.transformator.crinos_form?.resolve()
 			var/mob/living/carbon/werewolf/lupus/lupus = character.transformator.lupus_form?.resolve()

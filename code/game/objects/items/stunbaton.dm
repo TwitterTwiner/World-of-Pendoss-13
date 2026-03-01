@@ -237,6 +237,7 @@
 	if(user)
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey
+		L.lastattacked_time = world.time
 		if(isliving(user))
 			var/mob/living/V = user
 			V.lastattacked = L

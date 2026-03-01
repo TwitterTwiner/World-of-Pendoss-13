@@ -10,6 +10,7 @@
 	var/resize = 1 ///Badminnery resize
 	var/lastattacker = null
 	var/lastattackerckey = null
+	var/lastattacked_time
 
 	var/mob/living/lastattacked = null
 
@@ -257,6 +258,7 @@
 	var/datum/weakref/conditioner
 	var/conditioned = FALSE
 	var/last_masquerade_violation = 0
+	var/last_hunt_offer = 0
 	var/last_nonraid = 0
 	var/warrant = FALSE
 	var/ignores_warrant = FALSE

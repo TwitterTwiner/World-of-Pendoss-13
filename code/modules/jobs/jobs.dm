@@ -65,8 +65,9 @@ GLOBAL_LIST_INIT(neutral_positions, list())
 
 GLOBAL_LIST_INIT(giovanni_positions, list(
 	"Capo",
-	"La Squadra",
-	"La Famiglia"
+	"Consiglieri",
+	"Sgarrista",
+	"Famiglia"
 ))
 
 GLOBAL_LIST_INIT(tzimisce_positions, list(
@@ -101,8 +102,7 @@ GLOBAL_LIST_INIT(gang_positions, list(
 
 GLOBAL_LIST_INIT(spiral_positions, list(
 	"Endron Branch Lead",
-	"Endron Executive",
-	"Endron Internal Affairs Agent",
+	"Endron Branch Executive",
 	"Endron Chief of Security",
 	"Endron Security Agent",
 	"Endron Employee"

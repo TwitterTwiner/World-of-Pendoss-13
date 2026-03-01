@@ -89,12 +89,12 @@
 	verb_exclaim = "squawks"
 	verb_yell = "shrieks"
 
-/mob/living/carbon/werewolf/update_resting()
+/*/mob/living/carbon/werewolf/update_resting()
 	if(resting)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	else
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	return ..()
+	return ..()*/
 
 /mob/living/carbon/werewolf/crinos/Move(NewLoc, direct)
 	if(isturf(loc))
@@ -124,9 +124,6 @@
 	GH.Grant(src)
 	var/datum/action/gift/howling/howl = new()
 	howl.Grant(src)
-	if(!HAS_TRAIT(src, TRAIT_CORAX) || !iscorax(src))
-		var/datum/action/gift/guise_of_the_hound/guise = new()
-		guise.Grant(src)
 	add_verb(src, /mob/living/proc/mob_sleep)
 	add_verb(src, /mob/living/proc/toggle_resting)
 

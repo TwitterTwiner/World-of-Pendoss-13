@@ -262,8 +262,6 @@
 		DAWOF.update_icons()
 		DAWOF2.update_icons()
 		dat += "[icon2html(getFlatIcon(DAWOF), user)][icon2html(getFlatIcon(DAWOF2), user)]<BR>"
-		qdel(DAWOF)
-		qdel(DAWOF2)
 
 		dat += "<b>Breed:</b> <a href='byond://?_src_=prefs;preference=breed;task=input'>[breed]</a><BR>"
 		dat += "<b>Tribe:</b> <a href='byond://?_src_=prefs;preference=tribe;task=input'>[tribe.name]</a><BR>"
@@ -519,6 +517,14 @@
 //		dat += "<a href='byond://?_src_=prefs;preference=toggle_random;random_type=[RANDOM_FACIAL_HAIR_COLOR]'>[(randomise[RANDOM_FACIAL_HAIR_COLOR]) ? "Lock" : "Unlock"]</A>"
 		dat += "<br></td>"
 
+
+	if(pref_species.id != "kuei-jin" && pref_species.id != "kindred")
+		dat += APPEARANCE_CATEGORY_COLUMN
+		dat += "<h3>[make_font_cool("BLOOD TYPE")]</h3>"
+		dat += "<br><a href='byond://?_src_=prefs;preference=blood_type;task=input'>[blood_type]</a>"
+
+		dat += "<br></td>"
+
 			//Mutant stuff
 	var/mutant_category = 0
 
@@ -651,7 +657,7 @@
 		if(mutant_category >= MAX_MUTANT_ROWS)
 			dat += "</td>"
 			mutant_category = 0
-// ТАБУЛЯЦИИ УДАЛЯТЬ ВЫШЕ
+
 	if(pref_species.mutant_bodyparts["tail_human"])
 		if(pref_species.id != "kindred" && pref_species.id != "ghoul")
 			if(!mutant_category)
@@ -714,6 +720,20 @@
 
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=priorities;task=input'>Change Priorities</a><BR>"
+
+	if((pref_species.name == "Human" || pref_species.id == "kindred") && SSwhitelists.is_whitelisted(user?.client?.ckey, "trufaith", real_name))
+		dat += "<b>True Faith:</b> "
+		for(var/a in 1 to trufaith_level)
+			dat += "•"
+		for(var/c in 1 to (3 - trufaith_level))
+			dat += "o"
+		if(trufaith_level < 1 && true_experience >= 20)
+			dat += " <a href='byond://?_src_=prefs;preference=trufaith_buy;task=input'>Increase (20)</a>"
+		else if(trufaith_level == 1 && true_experience >= 30)
+			dat += " <a href='byond://?_src_=prefs;preference=trufaith_buy;task=input'>Increase (30)</a>"
+		else if(trufaith_level == 2 && true_experience >= 40)
+			dat += " <a href='byond://?_src_=prefs;preference=trufaith_buy;task=input'>Increase (40)</a>"
+		dat += "<BR>"
 
 	var/datum/species/kindred/K = pref_species
 	var/datum/species/ghoul/G = pref_species

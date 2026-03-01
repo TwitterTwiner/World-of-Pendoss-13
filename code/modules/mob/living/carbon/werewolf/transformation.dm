@@ -35,11 +35,6 @@
 	crinos?.moveToNullspace()
 	lupus?.moveToNullspace()
 
-	RegisterSignal(crinos, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), crinos)
-	RegisterSignal(corax, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), corax)
-	RegisterSignal(corvid, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), corvid)
-	RegisterSignal(lupus, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/werewolf_holder/transformation, on_revive), lupus)
-
 /datum/werewolf_holder/transformation/Destroy()
 	var/mob/h = human_form?.resolve()
 	var/mob/c = crinos_form?.resolve()
@@ -69,31 +64,43 @@
 /datum/werewolf_holder/transformation/proc/transfer_damage_and_traits(mob/living/carbon/transfer_from, mob/living/carbon/transfer_to)
 	transfer_to.masquerade = transfer_from.masquerade
 
-	var/percentage = (100 / transfer_from.maxHealth) * transfer_to.maxHealth
+	var/old_hp = transfer_from.maxHealth - HEALTH_THRESHOLD_DEAD
+	var/new_hp = transfer_to.maxHealth - HEALTH_THRESHOLD_DEAD
+	var/percentage = new_hp / old_hp
 
-	transfer_to.adjustBruteLoss(round((transfer_from.getBruteLoss() / 100) * percentage) - transfer_to.getBruteLoss())
-	transfer_to.adjustFireLoss(round((transfer_from.getFireLoss() / 100) * percentage) - transfer_to.getFireLoss())
-	transfer_to.adjustToxLoss(round((transfer_from.getToxLoss() / 100) * percentage) - transfer_to.getToxLoss())
-	transfer_to.adjustCloneLoss(round((transfer_from.getCloneLoss() / 100) * percentage) - transfer_to.getCloneLoss())
+	transfer_to.adjustBruteLoss(round(transfer_from.getBruteLoss() * percentage) - transfer_to.getBruteLoss())
+	transfer_to.adjustFireLoss(round(transfer_from.getFireLoss() * percentage) - transfer_to.getFireLoss())
+	transfer_to.adjustToxLoss(round(transfer_from.getToxLoss() * percentage) - transfer_to.getToxLoss())
+	transfer_to.adjustCloneLoss(round(transfer_from.getCloneLoss() * percentage) - transfer_to.getCloneLoss())
+	transfer_to.adjustOxyLoss(round(transfer_from.getOxyLoss() * percentage) - transfer_to.getOxyLoss())
 
-	transfer_from.fire_stacks = transfer_to.fire_stacks
-	transfer_from.on_fire = transfer_to.on_fire
+	if(transfer_from.on_fire)
+		transfer_to.fire_stacks = transfer_from.fire_stacks
+		transfer_to.IgniteMob()
+	else
+		transfer_to.fire_stacks = 0
+		transfer_to.extinguish_mob()
 
 	// Will kill or revive forms on transformation as necessary
 	transfer_to.set_stat(transfer_from.stat)
-	transfer_to.setOxyLoss(0)
 	transfer_to.updatehealth()
 	transfer_to.update_health_hud()
+	transfer_to.update_sight()
 
-	// Transfer resting or standing between forms
 	transfer_to.set_resting(transfer_from.resting)
+	if(transfer_from.body_position == LYING_DOWN)
+		transfer_to.set_body_position(LYING_DOWN)
+		transfer_to.set_lying_angle(transfer_from.lying_angle)
+	else
+		transfer_to.set_body_position(STANDING_UP)
+		transfer_to.set_lying_angle(0)
+
+	if(transfer_from.reagents)
+		transfer_to.reagents.clear_reagents()
+		for(var/datum/reagent/R in transfer_from.reagents.reagent_list)
+			transfer_to.reagents.add_reagent(R.type, R.volume)
 
 	transfer_organ_states(transfer_from, transfer_to)
-
-/datum/werewolf_holder/transformation/proc/on_revive(mob/living/carbon/C)
-	C.setOxyLoss(0)
-	C.update_sight()
-	C.get_up(TRUE)
 
 /**
  * Transfers the state of one form's organs to those in what they're
@@ -374,6 +381,7 @@
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	lupus.update_icons()
 	lupus.mind.current = lupus
+	lupus.mind.current.update_willpower_icon()
 	if(lupus.hispo)
 		lupus.remove_movespeed_modifier(/datum/movespeed_modifier/lupusform)
 		lupus.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
@@ -414,6 +422,7 @@
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	crinos.update_icons()
 	crinos.mind.current = crinos
+	crinos.mind.current.update_willpower_icon()
 
 /datum/werewolf_holder/transformation/proc/transform_cor_crinos(mob/living/carbon/trans, mob/living/carbon/werewolf/corax/corax_crinos/cor_crinos, bypass)
 	PRIVATE_PROC(TRUE)
@@ -452,6 +461,7 @@
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	cor_crinos.update_icons()
 	cor_crinos.mind.current = cor_crinos
+	cor_crinos.mind.current.update_willpower_icon()
 
 /datum/werewolf_holder/transformation/proc/transform_homid(mob/living/carbon/trans, mob/living/carbon/human/homid, bypass)
 	PRIVATE_PROC(TRUE)
@@ -488,6 +498,7 @@
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	homid.update_body()
 	homid.mind.current = homid
+	homid.mind.current.update_willpower_icon()
 
 /datum/werewolf_holder/transformation/proc/transform_corvid(mob/living/carbon/trans, mob/living/carbon/werewolf/lupus/corvid/corvid, bypass)
 	PRIVATE_PROC(TRUE)
@@ -525,6 +536,7 @@
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	corvid.update_icons()
 	corvid.mind.current = corvid
+	corvid.mind.current.update_willpower_icon()
 	if(corvid.hispo) // shouldn't ever be called, but you know..
 		corvid.remove_movespeed_modifier(/datum/movespeed_modifier/lupusform)
 		corvid.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
@@ -564,6 +576,8 @@
 		warform.bloodpool = humanform.bloodpool
 		warform.maxbloodpool = humanform.maxbloodpool
 		warform.generation = humanform.generation
+		if(H.mind?.current)
+			H.mind.current.update_willpower_icon()
 
 		var/datum/action/end_warform/R = new
 		R.Grant(H)
@@ -585,6 +599,8 @@
 //	var/matrix/ntransform = matrix()
 //	ntransform.Scale(0.75, 0.5)
 	Shapeshift.Restore(Shapeshift.myshape)
+	if(humanform.mind?.current)
+		humanform.mind.current.update_willpower_icon()
 	for(var/datum/action/end_warform/W in humanform.actions)
 		if(W)
 			W.Remove(humanform)

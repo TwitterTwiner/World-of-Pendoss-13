@@ -50,8 +50,8 @@
 	wall_rating = HIGH_WALL_RATING
 
 /area/vtm/interior/laundromat
-	name = "Laundromat"
-	icon_state = "shop"
+	name = "Chinatown Interior"
+	icon_state = "restaurant"
 	zone_owner = "Triad"
 	upper = FALSE
 	fire_controled = TRUE
@@ -216,7 +216,7 @@
 
 /area/vtm/jazzclub
 	name = "Jazz Club"
-	icon_state = "camarilla"
+	icon_state = "jazz"
 	ambience_index = AMBIENCE_INTERIOR
 	upper = FALSE
 	zone_type = "elysium"
@@ -259,6 +259,9 @@
 	ambience_index = AMBIENCE_INTERIOR
 	upper = FALSE
 	wall_rating = HIGH_WALL_RATING
+
+/area/vtm/supply/ship
+	name = "Cargo Ship"
 
 /area/vtm/anarch
 	name = "Bar"
@@ -387,7 +390,7 @@
 	teleportable = TRUE
 
 /area/vtm/interior/glasswalker
-	name = "Glasswalker's Lab"
+	name = "Nightwolf Labs"
 	icon_state = "supply"
 	upper = FALSE
 	zone_type = "battle"
@@ -396,7 +399,7 @@
 	wall_rating = LOW_WALL_RATING
 
 /area/vtm/interior/wyrm_corrupted
-	name = "Corrupted by Wyrm"
+	name = "Poisoned Shore"
 	icon_state = "graveyard"
 	upper = FALSE
 	zone_type = "battle"
@@ -406,9 +409,22 @@
 	yin_chi = 2
 	wall_rating = LOW_WALL_RATING
 
-/area/vtm/interior/wyrm_corrupted/pentex
-	name = "Pentex Facility"
-	icon_state = "supply"
+/area/vtm/interior/endronfacility
+	name = "Endron Facility"
+	icon_state = "endronfacility"
+	music = /datum/vampiremusic/nosferatu
+
+/area/vtm/interior/endronoffice
+	name = "Endron Office"
+	icon_state = "endronoffice"
+	upper = FALSE
+	music = /datum/vampiremusic/nosferatu
+
+/area/vtm/interior/endronlaboratory
+	name = "Endron Laboratory"
+	icon_state = "endronlaboratory"
+	zone_type = "battle"
+	upper = FALSE
 	music = /datum/vampiremusic/nosferatu
 
 /area/vtm/interior/penumbra

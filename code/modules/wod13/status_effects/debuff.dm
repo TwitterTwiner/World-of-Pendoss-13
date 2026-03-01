@@ -72,7 +72,7 @@
 			H.do_jitter_animation(3 SECONDS)
 			H.dizziness += 5
 			if(!active_callback)
-				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster), werewolf_source)
+				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living, step_away_caster), werewolf_source)
 				for(var/i in 1 to 30)
 					addtimer(cb, (i - 1) * H.total_multiplicative_slowdown())
 					addtimer(CALLBACK(H, TYPE_PROC_REF(/datum/status_effect/delirium, reset_callback)), (i-1) * H.total_multiplicative_slowdown())
@@ -216,25 +216,20 @@
 
 /datum/status_effect/slow_death/tick()
 	owner.apply_status_effect(STATUS_EFFECT_SLOW_DEATH, owner)
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		if(H.willpower_auto != TRUE)
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		if(C.mind?.willpower_auto != TRUE)
 			to_chat(owner, span_danger("Your soul trembles as Duat begins to consume it..."))
 			if(!timer_active)
 				addtimer(CALLBACK(src, PROC_REF(check_willpower_auto)), 15 SECONDS)
 				timer_active = TRUE
-	else
-		to_chat(owner, span_danger("Your soul trembles as Duat begins to consume it..."))
-		if(!timer_active)
-			addtimer(CALLBACK(src, PROC_REF(check_willpower_auto)), 15 SECONDS)
-			timer_active = TRUE
 
 /datum/status_effect/slow_death/proc/check_willpower_auto()
-	if(!ishuman(owner))
+	if(!iscarbon(owner))
 		to_chat(owner, span_bolddanger("Duat takes your soul..."))
 		owner.death()
-	var/mob/living/carbon/human/H = owner
-	if(H.willpower_auto != TRUE)
+	var/mob/living/carbon/C = owner
+	if(C.mind?.willpower_auto != TRUE)
 		to_chat(owner, span_bolddanger("Duat takes your soul..."))
 		if(iskindred(owner) || iscathayan(owner))
 			owner.torpor("curse_of_ra")

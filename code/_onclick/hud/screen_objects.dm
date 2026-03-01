@@ -392,41 +392,95 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "will0"
 
+/datum/mind/proc/activate_willpower(mob/user)
+	if(willpower_auto)
+		return
+	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/werewolf/W = null
+	if(ishuman(user))
+		H = user
+	else if(iswerewolf(user))
+		W = user
+	else
+		to_chat(user, span_warning("You cannot use willpower."))
+		return
+
+	if(H && iskindred(H) && H.MyPath)
+		if(!H.MyPath.willpower)
+			to_chat(user, span_warning("You don't have any willpower."))
+			return
+		H.MyPath.willpower--
+	else if(H && iscathayan(H) && dharma)
+		if(!dharma.willpower)
+			to_chat(user, span_warning("You don't have any willpower."))
+			return
+		dharma.willpower--
+	else if(H && isgarou(H) && H.auspice)
+		if(!H.auspice.willpower)
+			to_chat(user, span_warning("You don't have any willpower."))
+			return
+		H.auspice.willpower--
+	else if(W && W.auspice)
+		if(!W.auspice.willpower)
+			to_chat(user, span_warning("You don't have any willpower."))
+			return
+		W.auspice.willpower--
+	else
+		to_chat(user, span_warning("You cannot use willpower."))
+		return
+
+	willpower_auto = TRUE
+	if(current)
+		current.update_willpower_icon()
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if(HAS_TRAIT(C, TRAIT_PAIN_BOTCH))
+			C.remove_status_effect(/datum/status_effect/pain_botch)
+		if(HAS_TRAIT(C, TRAIT_PAIN_CANT_HEAL))
+			C.remove_status_effect(/datum/status_effect/hundred_deaths)
+	addtimer(CALLBACK(src, PROC_REF(deactivate_willpower), user), 1 MINUTES, TIMER_STOPPABLE)
+	if(H && iskindred(H) && H.MyPath)
+		to_chat(user, span_notice("You spend 1 dot of your willpower. [H.MyPath.willpower] willpower remains."))
+	else if(H && iscathayan(H) && src.dharma)
+		to_chat(user, span_notice("You spend 1 dot of your willpower. [src.dharma.willpower] willpower remains."))
+	else if(H && isgarou(H) && H.auspice)
+		to_chat(user, span_notice("You spend 1 dot of your willpower. [H.auspice.willpower] willpower remains."))
+	else if(W && W.auspice)
+		to_chat(user, span_notice("You spend 1 dot of your willpower. [W.auspice.willpower] willpower remains."))
+
+/datum/mind/proc/deactivate_willpower(mob/user)
+	willpower_auto = FALSE
+	if(current)
+		current.update_willpower_icon()
+	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/werewolf/W = null
+	if(ishuman(user))
+		H = user
+	else if(iswerewolf(user))
+		W = user
+	if(H && iskindred(user) && H.MyPath)
+		to_chat(user, span_notice("Your willpower fades. [H.MyPath.willpower] willpower remains."))
+	else if(H && iscathayan(H) && src.dharma)
+		to_chat(user, span_notice("You willpower fades. [src.dharma.willpower] willpower remains."))
+	else if(H && isgarou(H) && H.auspice)
+		to_chat(user, span_notice("Your willpower fades. [H.auspice.willpower] willpower remains."))
+	else if(W && W.auspice)
+		to_chat(user, span_notice("Your willpower fades. [W.auspice.willpower] willpower remains."))
+
+/mob/proc/update_willpower_icon()
+	if(!client)
+		return
+	for(var/atom/movable/screen/will_power/W in client.screen)
+		W.icon_state = mind?.willpower_auto ? "will1" : "will0"
+
 /atom/movable/screen/will_power/Click()
-	if(ishuman(usr))
-		var/mob/living/carbon/human/ohvampire = usr
-		if(ohvampire.MyPath)
-			if(icon_state != "will1")
-				if(!ohvampire.MyPath.willpower)
-					to_chat(usr, "<span class='warning'>You don't have any willpower.</span>")
-					return
-				ohvampire.MyPath.willpower = max(0, ohvampire.MyPath.willpower-1)
-				to_chat(usr, "<span class='notice'>You spend 1 dot of your willpower, and now will get best roll results for 1 minute. [ohvampire.MyPath.willpower] willpower dots remain.</span>")
-				icon_state = "will1"
-				ohvampire.willpower_auto = TRUE
-				if(HAS_TRAIT(ohvampire, TRAIT_PAIN_BOTCH))
-					ohvampire.remove_status_effect(/datum/status_effect/pain_botch)
-				if(HAS_TRAIT(ohvampire, TRAIT_PAIN_CANT_HEAL))
-					ohvampire.remove_status_effect(/datum/status_effect/hundred_deaths)
-				spawn(1 MINUTES)
-					to_chat(usr, "<span class='warning'>You no longer feel the willpower inside. [ohvampire.MyPath.willpower] willpower dots remain.</span>")
-					icon_state = "will0"
-					ohvampire.willpower_auto = FALSE
-		else if(ohvampire.mind?.dharma)
-			if(icon_state != "will1")
-				if(!ohvampire.mind.dharma.willpower)
-					to_chat(usr, "<span class='warning'>You don't have any willpower.</span>")
-					return
-				ohvampire.mind.dharma.willpower = max(0, ohvampire.mind.dharma.willpower-1)
-				to_chat(usr, "<span class='notice'>You spend 1 dot of your willpower, and now will get best roll results for 1 minute. [ohvampire.mind.dharma.willpower] willpower dots remain.</span>")
-				icon_state = "will1"
-				ohvampire.willpower_auto = TRUE
-				if(HAS_TRAIT(ohvampire, TRAIT_PAIN_CANT_HEAL))
-					ohvampire.remove_status_effect(/datum/status_effect/hundred_deaths)
-				spawn(1 MINUTES)
-					to_chat(usr, "<span class='warning'>You no longer feel the willpower inside. [ohvampire.mind.dharma.willpower] willpower dots remain.</span>")
-					icon_state = "will0"
-					ohvampire.willpower_auto = FALSE
+	if(!iscarbon(usr))
+		return
+	var/mob/living/carbon/carbon_owner = usr
+	if(carbon_owner.mind?.willpower_auto)
+		to_chat(carbon_owner, span_warning("Your willpower is already active."))
+		return
+	carbon_owner.mind.activate_willpower(carbon_owner)
 
 /atom/movable/screen/pull
 	name = "stop pulling"

@@ -1139,7 +1139,6 @@
 	del_on_death = 1
 	maxHealth = 200
 	health = 200
-	harm_intent_damage = 10
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	speed = 0
@@ -1177,7 +1176,6 @@
 	del_on_death = 1
 	maxHealth = 20
 	health = 20
-	harm_intent_damage = 10
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	speed = 0
@@ -1417,6 +1415,7 @@
 	uniforms = list(/obj/item/clothing/under/vampire/police)
 	hats = list(/obj/item/clothing/head/vampire/police)
 	suits = list(/obj/item/clothing/suit/vampire/vest/police)
+	id_type = /obj/item/card/id/police
 	pockets = list(/obj/item/stack/dollar/rand)
 
 	male_phrases = list("Я наблюдаю за тобой.",

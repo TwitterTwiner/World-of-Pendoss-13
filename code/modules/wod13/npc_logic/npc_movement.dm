@@ -37,6 +37,7 @@
 	GLOB.npc_list += src
 	GLOB.alive_npc_list += src
 	organschecklist = length(get_all_organs())
+	src.dna.blood_type = random_blood_type()
 	add_movespeed_modifier(/datum/movespeed_modifier/npc)
 
 /mob/living/carbon/human/npc/death()
@@ -296,7 +297,7 @@
 				var/reqsteps = round((SShumannpcpool.next_fire-world.time)/total_multiplicative_slowdown())
 				set_glide_size(DELAY_TO_GLIDE_SIZE(total_multiplicative_slowdown()))
 				walk_away(src, danger_source, reqsteps, total_multiplicative_slowdown())
-			if(my_weapon || fights_anyway)
+			if((my_weapon || fights_anyway) && isliving(danger_source))         ///////////  Какой-то ушуй(рантайм) от гранат и пытается получить от них id, хотя danger_source определен, как мобик
 				var/obj/item/card/id/id_card = danger_source.get_idcard(FALSE)
 				if(!istype(id_card, /obj/item/card/id/police))
 					if(!spawned_weapon && my_weapon)

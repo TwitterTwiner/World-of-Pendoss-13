@@ -145,28 +145,28 @@ SUBSYSTEM_DEF(woddices)
 	Occult = rand(0, 4)
 
 /datum/attributes/proc/militrary_randomize()
-	strength = rand(2, 5)
-	dexterity = rand(1, 5)
-	stamina = rand(2, 5)
+	strength = rand(3, 5)
+	dexterity = rand(3, 5)
+	stamina = rand(3, 5)
 
 	charisma = rand(1, 3)
 	manipulation = rand(1, 3)
 	appearance = rand(1, 3)
 
-	perception = rand(2, 4)
+	perception = rand(2, 5)
 	intelligence = rand(1, 3)
 	wits = rand(2, 5)
 
-	Alertness = rand(1, 4)
-	Athletics = rand(2, 4)
-	Brawl = rand(1, 5)
+	Alertness = rand(3, 5)
+	Athletics = rand(3, 5)
+	Brawl = rand(3, 5)
 	Empathy = rand(0, 4)
 	Intimidation = rand(1, 4)
 	Expression = rand(0, 3)
 
 	Crafts = rand(0, 4)
-	Melee = rand(1, 5)
-	Firearms = rand(2, 5)
+	Melee = rand(3, 5)
+	Firearms = rand(3, 5)
 	Drive = rand(2, 5)
 	Security = rand(2, 4)
 	Performance = rand(0,3)
@@ -388,17 +388,13 @@ SUBSYSTEM_DEF(woddices)
 			return ohvampire.MyPath.willpower
 		else if(ohvampire.mind?.dharma)
 			return ohvampire.mind.dharma.willpower
-		else if(isgarou(Living) || iswerewolf(Living))
-			var/mob/living/carbon/C = Living
-			switch(C.client.prefs.auspice_level)
-				if(1)
-					return 7
-				if(2)
-					return 8
-				if(3)
-					return 9
+		else if(ohvampire.auspice)
+			return ohvampire.auspice.willpower
 		else
 			return ceil(ohvampire.humanity/2)
+	else if(iswerewolf(Living))
+		var/mob/living/carbon/werewolf/furry = Living
+		return furry.auspice.willpower
 	else
 		return 2
 
@@ -447,8 +443,8 @@ SUBSYSTEM_DEF(woddices)
 	var/clan_difficulty = 0
 	if(ishuman(rollperformer))
 		var/mob/living/carbon/human/Roller = rollperformer
-		if(Roller.willpower_auto)
-			autosuccesses += 3
+		if(Roller.mind?.willpower_auto)
+			autosuccesses += 2
 		if(Roller.clane?.name == "Followers of Set")
 			var/datum/vampireclane/setite/Setite = Roller.clane
 			var/turf/T = get_turf(Roller)
@@ -459,6 +455,10 @@ SUBSYSTEM_DEF(woddices)
 						Setite.last_setite_warning = world.time + 3 SECONDS
 						to_chat(Roller, "<span class='warning'>The light around is making everything difficult...</span>")
 					clan_difficulty = 1
+	if(iswerewolf(rollperformer))
+		var/mob/living/carbon/werewolf/WW_Roller = rollperformer
+		if(WW_Roller.mind?.willpower_auto)
+			autosuccesses += 2
 	hardness = clamp(hardness+rollperformer.attributes.diff_curse+clan_difficulty, 1, 10)
 	var/dices_decap = 0
 	if(decap_rolls && !autosuccesses)
@@ -485,6 +485,8 @@ SUBSYSTEM_DEF(woddices)
 	if(wins < 0)
 		if(!stealthy)
 			create_number_on_mob(rollperformer, "#ff0000", "Botch!")
+			if(isgarou(rollperformer) || iswerewolf(rollperformer))
+				adjust_rage(1, rollperformer)
 		return -1
 	if(wins == 0)
 		if(!stealthy)
