@@ -21,6 +21,8 @@
 /datum/filter_editor/ui_data()
 	var/list/data = list()
 	data["target_name"] = target.name
+	data["target_filter_data"] = target.filter_data
+	/*
 	var/list/target_filter_data = list()
 	for (var/list/filter_info as anything in target.filter_data)
 		filter_info = deepCopyList(filter_info)
@@ -29,9 +31,10 @@
 			filter_info["transform"] = list("a" = filter_transform.a, "b" = filter_transform.b, "c" = filter_transform.c, "d" = filter_transform.d, "e" = filter_transform.e, "f" = filter_transform.f)
 		target_filter_data += list(filter_info)
 	data["target_filter_data"] = target_filter_data
+	*/
 	return data
 
-/datum/filter_editor/ui_act(action, list/params)
+/datum/filter_editor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -39,7 +42,7 @@
 	switch(action)
 		if("add_filter")
 			var/target_name = params["name"]
-			while(target.filter_data && target.filter_data[target_name])
+			while(target.get_filter(target_name))
 				target_name = "[target_name]-dupe"
 			target.add_filter(target_name, params["priority"], list("type" = params["type"]))
 			. = TRUE
@@ -47,9 +50,9 @@
 			target.remove_filter(params["name"])
 			. = TRUE
 		if("rename_filter")
-			var/list/filter_data = target.filter_data[params["name"]]
+			var/list/filter_info = target.get_filter_data(params["name"])
 			target.remove_filter(params["name"])
-			target.add_filter(params["new_name"], filter_data["priority"], filter_data)
+			target.add_filter(params["new_name"], filter_data_datum["priority"], filter_info)
 			. = TRUE
 		if("edit_filter")
 			target.remove_filter(params["name"])
@@ -60,29 +63,20 @@
 			target.change_filter_priority(params["name"], new_priority)
 			. = TRUE
 		if("transition_filter_value")
-			target.transition_filter(params["name"], 4, params["new_data"])
+			target.transition_filter(params["name"], params["new_data"], 4)
 			. = TRUE
 		if("modify_filter_value")
-			var/list/old_filter_data = target.filter_data[params["name"]]
-			var/list/new_filter_data = old_filter_data.Copy()
-			for(var/entry in params["new_data"])
-				new_filter_data[entry] = params["new_data"][entry]
-			for(var/entry in new_filter_data)
-				if(entry == GLOB.master_filter_info[old_filter_data["type"]]["defaults"][entry])
-					new_filter_data.Remove(entry)
-			target.remove_filter(params["name"])
-			target.add_filter(params["name"], old_filter_data["priority"], new_filter_data)
+			target.modify_filter(params["name"], params["new_data"])
 			. = TRUE
 		if("modify_color_value")
-			var/new_color = input(usr, "Pick new filter color", "Filteriffic Colors!") as color|null
+			var/new_color = input(usr, "Pick new filter color", "Filterrific Colors!") as color|null
 			if(new_color)
-				target.transition_filter(params["name"], 4, list("color" = new_color))
+				target.transition_filter(params["name"], list("color" = new_color), 4)
 				. = TRUE
 		if("modify_icon_value")
 			var/icon/new_icon = input("Pick icon:", "Icon") as null|icon
 			if(new_icon)
-				target.filter_data[params["name"]]["icon"] = new_icon
-				target.update_filters()
+				target.modify_filter(params["name"], list("icon" = new_icon))
 				. = TRUE
 		if("modify_transform_value")
 			var/list/filter_info = target.get_filter_data(params["name"])
@@ -96,20 +90,19 @@
 			. = TRUE
 		if("mass_apply")
 			if(!check_rights_for(usr.client, R_FUN))
-				to_chat(usr, "<span class='userdanger>Stay in your lane, jannie.</span>'")
+				to_chat(usr, span_userdanger("Stay in your lane, jannie."))
 				return
 			var/target_path = text2path(params["path"])
 			if(!target_path)
 				return
-			var/filters_to_copy = target.filters
-			var/filter_data_to_copy = target.filter_data
+			var/list/filter_data_to_copy = target.filter_data
 			var/count = 0
-			for(var/thing in world.contents)
-				if(istype(thing, target_path))
-					var/atom/thing_at = thing
-					thing_at.filters = filters_to_copy
-					thing_at.filter_data = filter_data_to_copy
-					count += 1
+			for(var/atom/thing_at as anything in world.contents)
+				if(!istype(thing_at, target_path))
+					continue
+				thing_at.filter_data = filter_data_to_copy.Copy()
+				thing_at.update_filters()
+				count += 1
 			message_admins("LOCAL CLOWN [usr.ckey] JUST MASS FILTER EDITED [count] WITH PATH OF [params["path"]]!")
 			log_admin("LOCAL CLOWN [usr.ckey] JUST MASS FILTER EDITED [count] WITH PATH OF [params["path"]]!")
 
