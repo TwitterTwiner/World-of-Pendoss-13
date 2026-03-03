@@ -98,7 +98,7 @@
 
 /datum/discipline_power/dt_path_pain/anguish/activate(atom/target)
 	. = ..()
-	var/stamina_loss = min(success_roll * 25, 200)
+	var/stamina_loss = min(success_roll * 12.5, 75)
 	var/mob/living/tar = target
 	tar.adjustStaminaLoss(stamina_loss)
 	tar.visible_message(span_notice("[target] grabs by the heart!"), span_danger("You grab by your heart, feeling burning pain!"))
@@ -125,9 +125,9 @@
 
 /datum/discipline_power/dt_path_pain/shattering/activate(atom/target)
 	. = ..()
-	brute_loss = clamp(success_roll * 25, 25, 200)
+	brute_loss = clamp(success_roll * 12.5, 12.5, 75)
 	willpower_resist = secret_vampireroll(get_a_willpower(target), 6, target)
-	owner.adjustBruteLoss(25)
+	owner.adjustBruteLoss(12.5)
 	var/mob/living/tar = target
 	tar.adjustBruteLoss(brute_loss/willpower_resist)
 	tar.visible_message(span_warning("You hear [tar]'s bones crunch!"), span_danger("You hear your bones crunch!"))
@@ -178,7 +178,7 @@
 
 	var/mob/living/tar = target
 
-	tar.adjustBruteLoss(25*success_roll_total)
+	tar.adjustBruteLoss(12.5*success_roll_total)
 
 	tar.visible_message(span_warning("You hear [tar]'s spine snap!"), span_danger("You hear your spine snap!"))
 
@@ -188,7 +188,7 @@
 
 		success_roll_total = max(0, success_roll_buff - floor(max(0, success_roll_defender/2)))
 
-		owner.adjustBruteLoss(25*success_roll_total)
+		owner.adjustBruteLoss(12.5*success_roll_total)
 
 		owner.visible_message(span_warning("You hear [owner]'s spine snap!"), span_danger("You hear your spine snap!"))
 
@@ -216,8 +216,8 @@
 		to_chat(owner, span_warning("You fail to inflict enough wounds to yourself to use that ability!"))
 		owner.do_jitter_animation(3 SECONDS)
 		return
-	owner.adjustCloneLoss(25)
-	total_brute = clamp(25*success_needed, 25, 200)
+	owner.adjustCloneLoss(12.5)
+	total_brute = clamp(12.5*success_needed, 12.5, 75)
 	var/mob/living/tar = target
 	tar.adjustCloneLoss(total_brute)
 	if(iscarbon(tar))

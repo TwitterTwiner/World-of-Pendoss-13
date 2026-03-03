@@ -27,6 +27,7 @@
 
 	level = 1
 	check_flags = DISC_CHECK_CONSCIOUS
+	target_type = TARGET_LIVING | TARGET_SELF
 	range = 7
 	duration_length = 15 SECONDS
 	cooldown_length = 15 SECONDS
@@ -36,7 +37,7 @@
 	var/list/target_auras = list()
 
 
-/datum/discipline_power/presence/awe/activate()
+/datum/discipline_power/presence/awe/activate(mob/living/target)
 	. = ..()
 
 	if(owner.client)
@@ -56,38 +57,51 @@
 		deactivate()
 		return
 
-	for(var/mob/living/target in view(range, owner))
-		if(target == owner)
+	var/list/targets_to_check = list()
+
+	if(target == owner)
+		for(var/mob/living/living_target in view(range, owner))
+			if(living_target != owner)
+				targets_to_check += living_target
+	else
+		if(get_dist(owner, target) <= range)
+			targets_to_check += target
+
+	for(var/mob/living/living_target in targets_to_check)
+		if(living_target.mass_presencer)
 			continue
-		if(target.mass_presencer)
-			continue
-		if(get_trufaith_level(target) >= 3)
+		if(get_trufaith_level(living_target) >= 3)
 			continue
 		var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_performance(owner), 7, owner, TRUE)
 		if(success_chance >= 3)
-			affected_mobs += target
+			affected_mobs += living_target
 
 	if(!affected_mobs.len)
 		to_chat(owner, span_warning("Тебе не удаётся ни на кого произвести впечатление."))
 		deactivate()
 		return
 
-	for(var/mob/living/target in affected_mobs)
-		if(isnpc(target))
-			var/mob/living/carbon/human/npc/npc_target = target
+	for(var/mob/living/living_target in affected_mobs)
+		if(isnpc(living_target))
+			var/mob/living/carbon/human/npc/npc_target = living_target
 			if(npc_target.danger_source == owner)
 				npc_target.danger_source = null
-		target.mass_presencer = owner
+		living_target.mass_presencer = owner
+
+		if(owner.a_intent == INTENT_HARM)
+			var/datum/cb = CALLBACK(living_target, TYPE_PROC_REF(/mob/living, walk_to_caster), owner)
+			for(var/i in 1 to 30)
+				addtimer(cb, (i - 1) * living_target.total_multiplicative_slowdown())
 
 		if(owner.client)
-			var/image/Io = image(icon = 'code/modules/wod13/icons.dmi', icon_state = "presence_2", layer = ABOVE_MOB_LAYER, loc = target)
+			var/image/Io = image(icon = 'code/modules/wod13/icons.dmi', icon_state = "presence_2", layer = ABOVE_MOB_LAYER, loc = living_target)
 			owner.client.images |= Io
-			owner_auras[target] = Io
+			owner_auras[living_target] = Io
 
-		if(target.client)
+		if(living_target.client)
 			var/image/It = image(icon = 'code/modules/wod13/icons.dmi', icon_state = "presence", layer = ABOVE_MOB_LAYER, loc = owner)
-			target.client.images |= It
-			target_auras[target] = It
+			living_target.client.images |= It
+			target_auras[living_target] = It
 
 			var/text_sent = pick(
 				"Ты невольно обращаешь своё внимание на [owner.name].",
@@ -95,11 +109,11 @@
 				"Среди окружающих [owner.name] начинает притягивать твоё внимание.",
 				"Тебе сложно не обращать внимания на [owner.name].",
 				"[owner.name] внезапно будто бы становится центром твоего внимания.")
-			to_chat(target, span_userlove(text_sent))
-			target.presence_text(text_sent)
+			to_chat(living_target, span_userlove(text_sent))
+			living_target.presence_text(text_sent)
 
-			if(iscarbon(target))
-				var/mob/living/carbon/C = target
+			if(iscarbon(living_target))
+				var/mob/living/carbon/C = living_target
 				if(C.has_trauma_type(/datum/brain_trauma/magic/presence_awe, TRAUMA_RESILIENCE_ABSOLUTE))
 					C.cure_trauma_type(/datum/brain_trauma/magic/presence_awe, TRAUMA_RESILIENCE_ABSOLUTE)
 				C.gain_trauma(new /datum/brain_trauma/magic/presence_awe(owner), TRAUMA_RESILIENCE_ABSOLUTE)
@@ -118,16 +132,16 @@
 			T.client.images -= target_auras[T]
 	target_auras.Cut()
 
-	for(var/mob/living/target in affected_mobs)
-		if(iscarbon(target))
-			var/mob/living/carbon/C = target
+	for(var/mob/living/living_target in affected_mobs)
+		if(iscarbon(living_target))
+			var/mob/living/carbon/C = living_target
 			if(C.has_trauma_type(/datum/brain_trauma/magic/presence_awe, TRAUMA_RESILIENCE_ABSOLUTE))
 				var/obj/item/organ/brain/B = C.getorganslot(ORGAN_SLOT_BRAIN)
 				for(var/datum/brain_trauma/magic/presence_awe/T in B.get_traumas_type(/datum/brain_trauma/magic/presence_awe, TRAUMA_RESILIENCE_ABSOLUTE))
 					if(T.trauma_caster == owner)
 						C.cure_trauma_type(T, TRAUMA_RESILIENCE_ABSOLUTE)
 
-		target.mass_presencer = null
+		living_target.mass_presencer = null
 
 	affected_mobs.Cut()
 
@@ -179,7 +193,7 @@
 			client.screen -= A
 			qdel(A)
 
-/mob/living/carbon/human/proc/walk_to_caster(mob/living/step_to)
+/mob/living/proc/walk_to_caster(mob/living/step_to)
 	walk(src, 0)
 	if(!CheckFrenzyMove())
 		set_glide_size(DELAY_TO_GLIDE_SIZE(total_multiplicative_slowdown()))
@@ -195,6 +209,7 @@
 
 	check_flags = DISC_CHECK_CAPABLE
 	range = 7
+	target_type = TARGET_LIVING | TARGET_SELF
 
 	cooldown_length = 15 SECONDS
 	duration_length = 15 SECONDS
@@ -202,7 +217,7 @@
 	var/list/owner_auras = list()
 	var/list/target_auras = list()
 
-/datum/discipline_power/presence/dread_gaze/activate()
+/datum/discipline_power/presence/dread_gaze/activate(mob/living/target)
 	. = ..()
 
 	if(owner.client)
@@ -217,50 +232,58 @@
 
 	affected_mobs.Cut()
 
-	for(var/mob/living/L in view(range, owner))
-		if(L == owner)
+	var/list/targets_to_check = list()
+
+	if(target == owner)
+		for(var/mob/living/living_target in view(range, owner))
+			if(living_target != owner)
+				targets_to_check += living_target
+	else
+		if(get_dist(owner, target) <= range)
+			targets_to_check += target
+
+	for(var/mob/living/living_target in targets_to_check)
+		if(living_target.mass_presencer)
 			continue
-		if(L.mass_presencer)
-			continue
-		if(get_trufaith_level(L) >= 3)
+		if(get_trufaith_level(living_target) >= 3)
 			continue
 		var/consience = 0
-		if(ishuman(L))
-			var/mob/living/carbon/human/human_target = L
+		if(ishuman(living_target))
+			var/mob/living/carbon/human/human_target = living_target
 			consience = human_target.MyPath?.consience
-		var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_intimidation(owner), get_a_wits(L)+consience, owner, TRUE)
+		var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_intimidation(owner), get_a_wits(living_target)+consience, owner, TRUE)
 		if(success_chance >= 3)
-			affected_mobs += L
+			affected_mobs += living_target
 
 	if(!affected_mobs.len)
 		to_chat(owner, span_warning("Тебе не удаётся ни кого запугать."))
 		deactivate()
 		return
 
-	for(var/mob/living/target in affected_mobs)
-		target.emote(("scream"))
-		target.blur_eyes(7.5)
-		target.do_jitter_animation(15 SECONDS)
-		if(isnpc(target))
-			var/mob/living/carbon/human/npc/npc_target = target
+	for(var/mob/living/living_target in affected_mobs)
+		living_target.emote(("scream"))
+		living_target.blur_eyes(7.5)
+		living_target.do_jitter_animation(15 SECONDS)
+		if(isnpc(living_target))
+			var/mob/living/carbon/human/npc/npc_target = living_target
 			if(npc_target.danger_source)
 				npc_target.danger_source = null
-		target.mass_presencer = owner
+		living_target.mass_presencer = owner
 
-		var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living, step_away_caster), owner)
+		var/datum/cb = CALLBACK(living_target, TYPE_PROC_REF(/mob/living, step_away_caster), owner)
 		for(var/i in 1 to 30)
-			addtimer(cb, (i - 1) * target.total_multiplicative_slowdown())
+			addtimer(cb, (i - 1) * living_target.total_multiplicative_slowdown())
 
 		if(owner.client)
-			var/image/Io = image(icon = 'code/modules/wod13/icons.dmi', icon_state = "presence_2", layer = ABOVE_MOB_LAYER, loc = target)
+			var/image/Io = image(icon = 'code/modules/wod13/icons.dmi', icon_state = "presence_2", layer = ABOVE_MOB_LAYER, loc = living_target)
 			owner.client.images |= Io
-			owner_auras[target] = Io
+			owner_auras[living_target] = Io
 
-		if(target.client)
+		if(living_target.client)
 			var/image/It = image(icon = 'code/modules/wod13/icons.dmi', icon_state = "presence", layer = ABOVE_MOB_LAYER, loc = owner)
-			target.client.images |= It
-			target_auras[target] = It
-			target.overlay_fullscreen("fear", /atom/movable/screen/fullscreen/fear, 1)
+			living_target.client.images |= It
+			target_auras[living_target] = It
+			living_target.overlay_fullscreen("fear", /atom/movable/screen/fullscreen/fear, 1)
 
 		var/name_to_use = owner.name
 
@@ -273,25 +296,25 @@
 			"Одного присутствия [name_to_use] хватает, чтобы ты дрогнул!",
 			"От одного взгляда [name_to_use] ты срываешься в бег!",
 			"Паника из-за [name_to_use] становится невыносимой!")
-		to_chat(target, span_cult(text_sent))
-		target.presence_text(text_sent, color="#bf2020", shadow="#c14c4c")
+		to_chat(living_target, span_cult(text_sent))
+		living_target.presence_text(text_sent, color="#bf2020", shadow="#c14c4c")
 
 /datum/discipline_power/presence/dread_gaze/deactivate()
 	. = ..()
 
 	if(owner.client)
-		for(var/mob/living/T in owner_auras)
-			owner.client.images -= owner_auras[T]
+		for(var/mob/living/living_target in owner_auras)
+			owner.client.images -= owner_auras[living_target]
 	owner_auras.Cut()
 
-	for(var/mob/living/T in target_auras)
-		if(T.client)
-			T.client.images -= target_auras[T]
-			T.clear_fullscreen("fear")
+	for(var/mob/living/living_target in target_auras)
+		if(living_target.client)
+			living_target.client.images -= target_auras[living_target]
+			living_target.clear_fullscreen("fear")
 	target_auras.Cut()
 
-	for(var/mob/living/target in affected_mobs)
-		target.mass_presencer = null
+	for(var/mob/living/living_target in affected_mobs)
+		living_target.mass_presencer = null
 
 	affected_mobs.Cut()
 
