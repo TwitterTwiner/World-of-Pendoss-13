@@ -143,6 +143,19 @@
 
 ///// NEW ///////////////////////
 
+/obj/vampire_car/chevrolet
+	name = "chevrolet"
+	icon = 'code/modules/wod13/icons_newvechle/car_chevrolet.dmi'
+	icon_state = "chevrolet_black"
+	desc = "Blast from the past"
+	car_type = "chevrolet"
+	lighticon = "chevrolet_lights"
+	max_passengers = 4
+	dir = WEST
+	access = "church"
+	baggage_limit = 45
+	baggage_max = WEIGHT_CLASS_BULKY
+
 
 ////////// SPORTCAR //////////////
 
