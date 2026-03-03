@@ -166,10 +166,11 @@
 	D.Knockdown(80)
 	log_combat(A, D, "punched liver(Police_Jiu)")
 	D.adjustStaminaLoss(5)
+	var/mob/living/carbon/C = D  /// 
 	for(var/i=0, i<15, i++)
 		sleep(10)
 		D.adjustStaminaLoss(5)
-	D.vomit(15)
+	C.vomit(15)
 	return TRUE
 
 /datum/martial_art/police_jiu/proc/Laying(mob/living/A, mob/living/D)
