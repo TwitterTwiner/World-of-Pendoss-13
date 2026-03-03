@@ -152,7 +152,7 @@
 			QDEL_NULL(clasw_left)
 			QDEL_NULL(clasw_right)
 			H.remove_overlay(PROTEAN_LAYER)
-			H.remove_overlay(UNICORN_LAYER)
+			H.remove_overlay(DECAPITATION_BLOOD_LAYER)
 			H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
 			H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
 			H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
