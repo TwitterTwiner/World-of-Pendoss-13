@@ -150,15 +150,17 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 
 /datum/discipline_power/obtenebration/arms_of_the_abyss/activate(atom/target)
 	. = ..()
+	var/dice = get_a_manipulation(owner)+get_a_occult(owner)
+	var/roll = secret_vampireroll(dice, 7, owner)
 	if(target == owner)
-		for(var/obj/item/melee/vampirearms/knife/gangrel/lasombra/arm in owner.contents)
-			qdel(arm)
-		owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
-		owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
-		owner.apply_status_effect(/datum/status_effect/arms_of_the_abyss)
+		if(roll >= 3)
+			for(var/obj/item/melee/vampirearms/knife/gangrel/lasombra/arm in owner.contents)
+				qdel(arm)
+			owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
+			owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
+			owner.apply_status_effect(/datum/status_effect/arms_of_the_abyss)
 	else
 		var/turf/target_turf = get_turf(target)
-		var/dice = get_a_manipulation(owner)+get_a_occult(owner)
 
 		if(target_turf && target_turf.get_lumcount() <= 0.4) // Only works if the area is dark enough. Modify as needed.
 			// Remove any existing tentacles first
@@ -166,7 +168,6 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 				if(T.owner == owner)
 					T.release_grabbed_mob()
 					qdel(T)
-			var/roll = secret_vampireroll(dice, 7, owner)
 			var/has_action = FALSE
 			for(var/datum/action/A in owner.actions)
 				if(istype(A, /datum/action/aggro_mode))
