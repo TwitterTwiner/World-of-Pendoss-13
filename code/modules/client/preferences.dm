@@ -554,7 +554,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/leftover_circles = max_number - attribute //5 is the default number of blank circles
 	for(var/c in 1 to leftover_circles)
 		dat += "o"
-	var/real_price = attribute ? (attribute*price) : price //In case we have an attribute of 0, we don't multiply by 0
+	var/real_price = 1 //attribute ? (attribute*price) : price //In case we have an attribute of 0, we don't multiply by 0
 	if(attribute < max_number)
 		if(leftover_circles)
 			if(freepoints > 0)
@@ -1841,111 +1841,111 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						verify_attributes()
 
 				if("strength")
-					if(handle_upgrade(Strength, Strength * 5, get_gen_attribute_limit("Strength"), "Physical"))
+					if(handle_upgrade(Strength, 1, get_gen_attribute_limit("Strength"), "Physical"))
 						Strength++
 
 				if("dexterity")
-					if(handle_upgrade(Dexterity, Dexterity * 5, get_gen_attribute_limit("Dexterity"), "Physical"))
+					if(handle_upgrade(Dexterity, 1, get_gen_attribute_limit("Dexterity"), "Physical"))
 						Dexterity++
 
 				if("stamina")
-					if(handle_upgrade(Stamina, Stamina * 5, get_gen_attribute_limit("Stamina"), "Physical"))
+					if(handle_upgrade(Stamina, 1, get_gen_attribute_limit("Stamina"), "Physical"))
 						Stamina++
 
 				if("charisma")
-					if(handle_upgrade(Charisma, Charisma * 5, get_gen_attribute_limit("Charisma"), "Social"))
+					if(handle_upgrade(Charisma, 1, get_gen_attribute_limit("Charisma"), "Social"))
 						Charisma++
 
 				if("manipulation")
-					if(handle_upgrade(Manipulation, Manipulation * 5, get_gen_attribute_limit("Manipulation"), "Social"))
+					if(handle_upgrade(Manipulation, 1, get_gen_attribute_limit("Manipulation"), "Social"))
 						Manipulation++
 
 				if("appearance")
-					if(handle_upgrade(Appearance, Appearance * 5, get_gen_attribute_limit("Appearance"), "Social"))
+					if(handle_upgrade(Appearance, 1, get_gen_attribute_limit("Appearance"), "Social"))
 						Appearance++
 
 				if("perception")
-					if(handle_upgrade(Perception, Perception * 5, get_gen_attribute_limit("Perception"), "Mental"))
+					if(handle_upgrade(Perception, 1, get_gen_attribute_limit("Perception"), "Mental"))
 						Perception++
 
 				if("intelligence")
-					if(handle_upgrade(Intelligence, Intelligence * 5, get_gen_attribute_limit("Intelligence"), "Mental"))
+					if(handle_upgrade(Intelligence, 1, get_gen_attribute_limit("Intelligence"), "Mental"))
 						Intelligence++
 
 				if("wits")
-					if(handle_upgrade(Wits, Wits * 5, get_gen_attribute_limit("Wits"), "Mental"))
+					if(handle_upgrade(Wits, 1, get_gen_attribute_limit("Wits"), "Mental"))
 						Wits++
 
 				if("alertness")
-					if(handle_upgrade(Alertness, Alertness * 3, 5))
+					if(handle_upgrade(Alertness, 1, 5))
 						Alertness++
 
 				if("athletics")
-					if(handle_upgrade(Athletics, Athletics * 3, 5))
+					if(handle_upgrade(Athletics, 1, 5))
 						Athletics++
 
 				if("brawl")
-					if(handle_upgrade(Brawl, Brawl * 3, 5))
+					if(handle_upgrade(Brawl, 1, 5))
 						Brawl++
 
 				if("empathy")
-					if(handle_upgrade(Empathy, Empathy * 3, 5))
+					if(handle_upgrade(Empathy, 1, 5))
 						Empathy++
 
 				if("intimidation")
-					if(handle_upgrade(Intimidation, Intimidation * 3, 5))
+					if(handle_upgrade(Intimidation, 1, 5))
 						Intimidation++
 
 				if("expression")
-					if(handle_upgrade(Expression, Expression * 3, 5))
+					if(handle_upgrade(Expression, 1, 5))
 						Expression++
 
 				if("crafts")
-					if(handle_upgrade(Crafts, Crafts * 3, 5))
+					if(handle_upgrade(Crafts, 1, 5))
 						Crafts++
 
 				if("melee")
-					if(handle_upgrade(Melee, Melee * 3, 5))
+					if(handle_upgrade(Melee, 1, 5))
 						Melee++
 
 				if("firearms")
-					if(handle_upgrade(Firearms, Firearms * 3, 5))
+					if(handle_upgrade(Firearms, 1, 5))
 						Firearms++
 
 				if("drive")
-					if(handle_upgrade(Drive, Drive * 3, 5))
+					if(handle_upgrade(Drive, 1, 5))
 						Drive++
 
 				if("security")
-					if(handle_upgrade(Security, Security * 3, 5))
+					if(handle_upgrade(Security, 1, 5))
 						Security++
 
 				if("performance")
-					if(handle_upgrade(Performance, Performance * 3, 5))
+					if(handle_upgrade(Performance, 1, 5))
 						Performance++
 
 				if("fleshcraft")
-					if(handle_upgrade(Fleshcraft, Fleshcraft * 3, 5))
+					if(handle_upgrade(Fleshcraft, 1, 5))
 						Fleshcraft++
 
 				if("finance")
-					if(handle_upgrade(Finance, Finance * 3, 5))
+					if(handle_upgrade(Finance, 1, 5))
 						Finance++
 
 				if("investigation")
-					if(handle_upgrade(Investigation, Investigation * 3, 5))
+					if(handle_upgrade(Investigation, 1, 5))
 						Investigation++
 
 				if("medicine")
-					if(handle_upgrade(Medicine, Medicine * 3, 5))
+					if(handle_upgrade(Medicine, 1, 5))
 						Medicine++
 
 				if("linguistics")
-					if(handle_upgrade(Linguistics, Linguistics * 3, 5))
+					if(handle_upgrade(Linguistics, 1, 5))
 						Linguistics++
 
 				if("occult")
-					if(handle_upgrade(Occult, Occult * 3, 5))
+					if(handle_upgrade(Occult, 1, 5))
 						Occult++
 
 				if("tribe")
@@ -2097,6 +2097,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("languages_reset")
 					languages = list()
+
+				if("crafts_specialisation")
+					var/list/specialisation_craft  = list("Woodworking", "shitie")
+					var/result = input(user, "Select a Craft to specialise in", "Craft Specialisation") as null|anything in specialisation_craft
+					if(result)
+						to_chat(world, "[result]")
 
 				if("languages")
 					if(length(languages) >= Linguistics)
