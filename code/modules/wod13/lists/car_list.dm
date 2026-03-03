@@ -53,6 +53,7 @@
 	dir = WEST
 	beep_sound = 'code/modules/wod13/sounds/migalka.ogg'
 	access = "police"
+	lighticon = "lights"
 	baggage_limit = 45
 	baggage_max = WEIGHT_CLASS_BULKY
 	var/color_blue = FALSE
