@@ -1,16 +1,16 @@
 /datum/morality_path/humanity
 	name = "Humanity"
 	desc = "The Humanity score represents how close a Kindred remains to their human nature, to specific people vital to them, and how easily they slip away from human concerns and instead towards the whims of the Beast."
-	ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0, 
-	"massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0, 
-	"baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0, 
-	"deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0, 
+	ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0,
+	"massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0,
+	"baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0,
+	"deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0,
 	"corpseitems" = 0, "friendmeet" = 0, "lovermeet" = 0)
-	
+
 
 /datum/morality_path/humanity/trigger_morality(trig_event)
 	. = ..()
-	
+
 	if(ready_events[trig_event] == 1)
 		return FALSE
 	ready_events[trig_event] = 1
@@ -171,8 +171,8 @@
 							to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='discosay'> — Не надо надо мной работать!</span>")
 				else
 					var/replic_drying_soft = pick(" — О-ох... Какой бред, это всё сон. Нет, нет, нельзя сосать до потери пульса! Но было так.... Так вкусно!", " — Боже мой. Труп.", "— Чёртов голод. Я тут бессилен, это всё вина чёртового голода. Мне что, глистов тоже учиться контролировать?",
-					" — Это было необходимо вкусно. Вкусно и точка.", " — ")
-					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_drying_soft]</span>")
+					" — Это было необходимо вкусно. Вкусно и точка.", " — Голод не тётка. Чего уж поделать, когда голоден?")
+					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_drying_soft]</span>")
 					adjust(min(0, 4-dot))
 			else
 				ready_events["drying"] = 0
@@ -292,13 +292,13 @@
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_syrgery]</span>")
 					adjust(1)
 				else
-					var/replic_syrgery_soft = pick(" — Ну... у него осталось не более, чем несколько дней. Впрочем, это уже не наша проблема.", " — Будь что будет. Свою работу мы уже сделали. Дальше - его заботы.", " — Сомневаюсь, что он долго проживет после этой операции. Так или иначе это не должно нас сильно волновать.") 
+					var/replic_syrgery_soft = pick(" — Ну... у него осталось не более, чем несколько дней. Впрочем, это уже не наша проблема.", " — Будь что будет. Свою работу мы уже сделали. Дальше - его заботы.", " — Сомневаюсь, что он долго проживет после этой операции. Так или иначе это не должно нас сильно волновать.")
 					ready_events["syrgery"] = 0
 					to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span> <span class='info'>Failure</span> <span class='discosay'>[replic_syrgery_soft]</span>")
 			else
 				ready_events["syrgery"] = 0
 
-		/*	
+		/*
 		if("syrgery_fail")
 			if(dot > 6)
 				var/rolls = secret_vampireroll(consience+selfcontrol, 6, owner, TRUE, FALSE)
@@ -307,7 +307,7 @@
 					" — Вот это да! Ты просто гений хирургии!", " — Пациент в полном порядке, можно закрывать.")
 					to_chat(owner, "<font size=12>[icon2html('icons/self-control.png', owner)]</font> <span class='medradio'><b>SELF-CONTROL</b></span> <span class='info'>Success</span> <span class='discosay'>[replic_syrgery]</span>")
 				else
-					var/replic_syrgery_soft = pick(" — Ты что, вообще не умеешь оперировать?", " — Не повезло, что он попал к тебе.", " — Попасть тебе на стол равносильно алкоголизму - сам не поймешь, как умер.",)  
+					var/replic_syrgery_soft = pick(" — Ты что, вообще не умеешь оперировать?", " — Не повезло, что он попал к тебе.", " — Попасть тебе на стол равносильно алкоголизму - сам не поймешь, как умер.",)
 
 					ready_events["syrgery"] = 0
 					adjust(min(0, 6-dot))
@@ -350,7 +350,7 @@
 			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_vampire_suck]</span>")
 			*/
 		if ("packetdrink")
-			var/replic_packetdrink = pick(" — Хм, интересно... Из пакетика? Ну-ну...", " — Пакетик... Как мило. Ты что, ребёнок?", 
+			var/replic_packetdrink = pick(" — Хм, интересно... Из пакетика? Ну-ну...", " — Пакетик... Как мило. Ты что, ребёнок?",
 			"Из пакетика? А почему без слюнявчика и трубочки, [owner.gender == FEMALE ? "мадмуазель" : "миссье"]?")
 			to_chat(owner, "<font size=12>[icon2html('icons/beast.png', owner)]</font> <span class='secradio'><b>BEAST</b></span><span class='discosay'>[replic_packetdrink]</span>")
 		if ("baddrink")

@@ -249,19 +249,19 @@
 				if(new_eyes)
 					impersonating_eyecolor = sanitize_hexcolor(new_eyes)
 				continue
-			if("Телосложени")
+			if("Телосложение")
 				var/list/body_types = list("Эндоморф", "Мезоморф", "Эктоморф")
 				var/telo = input(owner, "Измени своё телосложение", "Изменчивость") as null|anything in body_types
 				switch(telo)
 					if("Эндоморф")
 						impersonating_body_mod = "f"
-						continue
+					//	continue
 					if("Мезоморф")
 						impersonating_body_mod = ""
-						continue
+					//	continue
 					if("Эктоморф")
 						impersonating_body_mod = "s"
-						continue
+					//	continue
 			if("Пол")
 				var/gender_bender = input(owner, "Измени свой пол", "Изменчивость") as null|anything in list("Мужской", "Женский")
 				switch(gender_bender)

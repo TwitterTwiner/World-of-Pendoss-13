@@ -104,22 +104,62 @@
 	cancelable = TRUE
 	duration_length = 20 SECONDS
 	cooldown_length = 20 SECONDS
+	var/mutable_appearance/clasw_left
+	var/mutable_appearance/clasw_right
 
 
 /datum/discipline_power/protean/feral_claws/activate()
 	. = ..()
 	owner.drop_all_held_items()
-	owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
-	owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel(owner))
-	owner.add_client_colour(/datum/client_colour/glass_colour/red)
+	claws(owner)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/protean2)
 
 /datum/discipline_power/protean/feral_claws/deactivate()
 	. = ..()
-	for(var/obj/item/melee/vampirearms/knife/gangrel/G in owner.contents)
-		qdel(G)
-	owner.remove_client_colour(/datum/client_colour/glass_colour/red)
+	claws(owner, FALSE)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/protean2)
+
+/datum/discipline_power/protean/feral_claws/proc/claws(mob/living/owner, activate=TRUE)
+/*
+Задел на будущее с заменой симпл анималов на карбонов
+	if(iscarbon(owner))
+		var/mob/living/carbon/human/H = owner
+		H.dna.species.attack_verb = "slash"
+		H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+		H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+		H.dna.species.punchdamagelow += 5
+		H.dna.species.punchdamagehigh += 5
+		H.dna.species.attack_type = CLONE
+*/
+
+	var/mob/living/carbon/human/H = owner
+	switch(activate)
+		if(TRUE)
+			clasw_left = mutable_appearance('code/modules/wod13/lefthand.dmi', "claws", -PROTEAN_LAYER)
+			clasw_right = mutable_appearance('code/modules/wod13/righthand.dmi', "claws", -PROTEAN_LAYER)
+			H.overlays_standing[PROTEAN_LAYER] = clasw_left
+			H.apply_overlay(PROTEAN_LAYER)
+			H.overlays_standing[DECAPITATION_BLOOD_LAYER] = clasw_right
+			H.apply_overlay(DECAPITATION_BLOOD_LAYER)
+			H.dna.species.attack_verb = "slash"
+			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+			H.dna.species.punchdamagelow += 10
+			H.dna.species.punchdamagehigh += 10
+			H.dna.species.attack_type = CLONE
+			to_chat(owner, "<span class='notice'>Твои ногти превращаются в острые когти...</span>")
+		if(FALSE)
+			QDEL_NULL(clasw_left)
+			QDEL_NULL(clasw_right)
+			H.remove_overlay(PROTEAN_LAYER)
+			H.remove_overlay(DECAPITATION_BLOOD_LAYER)
+			H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
+			H.dna.species.attack_sound = initial(H.dna.species.attack_sound)
+			H.dna.species.miss_sound = initial(H.dna.species.miss_sound)
+			H.dna.species.punchdamagelow = initial(H.dna.species.punchdamagelow)
+			H.dna.species.punchdamagehigh = initial(H.dna.species.punchdamagehigh)
+			H.dna.species.attack_type = initial(H.dna.species.attack_type)
+			to_chat(owner, "<span class='warning'>Твои когти возвращаются к обычным ногтям...</span>")
 
 //EARTH MELD
 /datum/discipline_power/protean/earth_meld

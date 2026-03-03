@@ -1644,6 +1644,64 @@
 	icon = 'code/modules/wod13/64x64.dmi'
 	icon_state = "kopatich"
 
+/obj/structure/vampgrass
+	name = "grass"
+	desc = "Some grass. It doesn't look very healthy."
+	icon = 'code/modules/wod13/32x48.dmi'
+	icon_state = "tallgrass_4"
+	var/icon_tomap = "tallgrass"
+	plane = GAME_PLANE
+	layer = SPACEVINE_LAYER
+	anchored = TRUE
+	pixel_w = -16
+	pixel_z = -16
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	var/left = 4
+	var/right = -4
+
+/obj/structure/vampgrass/Initialize(mapload)
+	. = ..()
+	icon_state = "[icon_tomap]_[rand(1, 4)]"
+
+/obj/structure/vampgrass/process(delta_time)
+	. = ..()
+	if(istype(get_area(src), /area/vtm))
+		var/area/vtm/V = get_area(src)
+		if(V.upper)
+			if(prob(50))
+				var/matrix/M1 = matrix()
+				M1.Turn(left)
+				var/matrix/M2 = matrix()
+				M2.Turn(right)
+				animate(src, transform = M1, time = 4 SECONDS, loop = -1, easing = SINE_EASING, delay = rand(1, 15))
+				animate(transform = M2, time = 4 SECONDS)
+			else
+				var/matrix/M1 = matrix()
+				M1.Turn(left)
+				var/matrix/M2 = matrix()
+				M2.Turn(right)
+				animate(src, transform = M2, time = 4 SECONDS, loop = -1, easing = SINE_EASING, delay = rand(1, 15))
+				animate(transform = M1, time = 4 SECONDS)
+
+/obj/structure/vampgrass/dry
+	name = "dry grass"
+	desc = "Some dry grass."
+	icon_state = "drytallgrass_4"
+	icon_tomap = "drytallgrass"
+
+/obj/structure/vampgrass/red_plant
+	name = "red plant"
+	desc = "Some red plant. It looks poisonous."
+	icon_state = "redplant_4"
+	icon_tomap = "redplant"
+
+/obj/structure/vampgrass/yong
+	name = "some grass"
+	desc = "Some grass. It looks very healthy."
+	icon_state = "grass_4"
+	icon_tomap = "grass"
+
+
 /obj/structure/vamptree
 	name = "tree"
 	desc = "Cute and tall flora."
@@ -1657,6 +1715,7 @@
 	pixel_z = -96
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/burned = FALSE
+
 
 /obj/structure/vamptree/Initialize(mapload)
 	. = ..()

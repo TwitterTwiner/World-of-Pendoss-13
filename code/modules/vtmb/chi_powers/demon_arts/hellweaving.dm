@@ -3,7 +3,7 @@
 	desc = "Translate the view of Hell to someone."
 	icon_state = "hellweaving"
 	ranged = TRUE
-	delay = 12 SECONDS
+	delay = 20 SECONDS
 	cost_demon = 1
 	activate_sound = 'code/modules/wod13/sounds/hellweaving_activate.ogg'
 	discipline_type = "Demon"
