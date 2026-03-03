@@ -33543,9 +33543,7 @@
 /turf/open/floor/plating/rough,
 /area/vtm/anarch)
 "goN" = (
-/obj/vampire_car/retro/rand{
-	access = "church"
-	},
+/obj/vampire_car/chevrolet,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/pacificheights)
 "goR" = (

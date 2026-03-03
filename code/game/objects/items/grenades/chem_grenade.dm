@@ -422,6 +422,9 @@
 	name = "teargas grenade"
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
 	stage = GRENADE_READY
+	icon = 'code/modules/wod13/grenade.dmi'
+	icon_state = "teargas"
+	onflooricon_state = "smoke"
 
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
 	. = ..()

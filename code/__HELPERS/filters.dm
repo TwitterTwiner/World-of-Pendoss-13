@@ -8,7 +8,7 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 			"y" = 0,
 			"icon" = ICON_NOT_SET,
 			"render_source" = "",
-			"flags" = 0
+			"flags" = NONE
 		),
 		"flags" = list(
 			"MASK_INVERSE" = MASK_INVERSE,
@@ -22,22 +22,34 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 			"size" = 1
 		)
 	),
-	/* Not supported because making a proper matrix editor on the frontend would be a huge dick pain.
-		Uncomment if you ever implement it
+	// Not supported because making a proper matrix editor on the frontend would be a huge dick pain.
+	//	Uncomment if you ever implement it
 	"color" = list(
 		"defaults" = list(
 			"color" = matrix(),
 			"space" = FILTER_COLOR_RGB
+		),
+		"options" = list(
+			"space" = list(
+				"FILTER_COLOR_RGB" = FILTER_COLOR_RGB,
+				"FILTER_COLOR_HSV" = FILTER_COLOR_HSV,
+				"FILTER_COLOR_HSL" = FILTER_COLOR_HSL,
+				"FILTER_COLOR_HCY" = FILTER_COLOR_HCY
+			)
 		)
 	),
-	*/
+
 	"displace" = list(
 		"defaults" = list(
 			"x" = 0,
 			"y" = 0,
 			"size" = null,
 			"icon" = ICON_NOT_SET,
-			"render_source" = ""
+			"render_source" = "",
+			"flags" = NONE
+		),
+		"flags" = list(
+			"FILTER_OVERLAY" = FILTER_OVERLAY
 		)
 	),
 	"drop_shadow" = list(
@@ -61,9 +73,22 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 			"icon" = ICON_NOT_SET,
 			"render_source" = "",
 			"flags" = FILTER_OVERLAY,
-			"color" = "",
+			"color" = COLOR_WHITE,
 			"transform" = null,
 			"blend_mode" = BLEND_DEFAULT
+		),
+		"flags" = list(
+			"FILTER_OVERLAY" = FILTER_OVERLAY,
+		),
+		"options" = list(
+			"blend_mode" = list(
+				"BLEND_DEFAULT" = BLEND_DEFAULT,
+				"BLEND_OVERLAY" = BLEND_OVERLAY,
+				"BLEND_ADD" = BLEND_ADD,
+				"BLEND_SUBTRACT" = BLEND_SUBTRACT,
+				"BLEND_MULTIPLY" = BLEND_MULTIPLY,
+				"BLEND_INSET_OVERLAY" = BLEND_INSET_OVERLAY
+			)
 		)
 	),
 	"motion_blur" = list(
@@ -312,6 +337,8 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 		animate(offset = random_roll - 1, time = rand() * 20 + 10)
 
 /proc/remove_wibbly_filters(atom/in_atom)
+	if(QDELETED(in_atom))
+		return
 	var/filter
 	for(var/i in 1 to 7)
 		filter = in_atom.get_filter("wibbly-[i]")

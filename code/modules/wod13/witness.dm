@@ -91,9 +91,8 @@
 			holder.color = "#0000ff"
 
 	if (iskindred(src))
-		if(!active_blush)
 			//pale aura for vampires
-			holder.color = "#ffffff"
+		holder.color = "#ffffff"
 		//only Baali can get antifrenzy through selling their soul, so this gives them the unholy halo (MAKE THIS BETTER)
 		if (antifrenzy)
 			holder.icon = 'icons/effects/32x64.dmi'

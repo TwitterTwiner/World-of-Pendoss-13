@@ -34,6 +34,8 @@ And it also helps for the character set panel
 	var/current_accessory
 	var/clan_keys //Keys to your hideout
 
+//	var/list/bloodline = list() //Bloodline datums, for clans that have them
+
 /datum/vampireclane/proc/on_gain(mob/living/carbon/human/H)
 	SHOULD_CALL_PARENT(TRUE)
 
