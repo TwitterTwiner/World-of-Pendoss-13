@@ -144,8 +144,8 @@
 			H.dna.species.attack_verb = "slash"
 			H.dna.species.attack_sound = 'sound/weapons/slash.ogg'
 			H.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
-			H.dna.species.punchdamagelow += 10
-			H.dna.species.punchdamagehigh += 10
+			H.dna.species.punchdamagelow += 5
+			H.dna.species.punchdamagehigh += 5
 			H.dna.species.attack_type = CLONE
 			to_chat(owner, "<span class='notice'>Твои ногти превращаются в острые когти...</span>")
 		if(FALSE)
