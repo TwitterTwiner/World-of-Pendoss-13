@@ -312,12 +312,12 @@
 				H.voted_for |= dna.real_name
 				if(masquerade_votes >= 1)
 					masquerade_votes = 0
-					for(var/mob/living/LivingSpotters in masquerade_voters)
-						if(LivingSpotters)
-							if(LivingSpotters.key)
-								var/datum/preferences/P = GLOB.preferences_datums[ckey(LivingSpotters.key)]
-								if(P)
-									P.add_experience(5)
+				//	for(var/mob/living/LivingSpotters in masquerade_voters)
+					//	if(LivingSpotters)
+						//	if(LivingSpotters.key)
+						//		var/datum/preferences/P = GLOB.preferences_datums[ckey(LivingSpotters.key)]
+						//		if(P)
+						//			P.add_experience(5)
 					masquerade_voters = list()
 					last_masquerade_violation = 0
 					AdjustMasquerade(-1)

@@ -571,7 +571,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			if(reason)
 				for(var/client/C in GLOB.clients)
 					if("[C.ckey]" == "[exper]")
-						to_chat(C, "<b>You've been rewarded with [amount] experience points. Reason: \"[reason]\"</b>")
+						to_chat(C, "<b>You've been rewarded with [amount] points. Reason: \"[reason]\"</b>")
 
 						C.prefs.add_experience(amount)
 						C.prefs.save_character()
