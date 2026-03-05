@@ -222,7 +222,7 @@
 
 
 /datum/discipline_power/protean/shape_of_the_beast/pre_activation_checks(mob/living/target)
-	if(owner.clane.name == "Gangrel")
+	if(owner.clane.name == "Gangrel" || owner.clane.name == "City Gangrel")
 		is_gangrel = TRUE
 	if(!shapeshift_type)
 		var/list/animal_list = list()

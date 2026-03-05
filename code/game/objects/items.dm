@@ -532,6 +532,38 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 	user.update_equipment_speed_mods()
 
+/obj/item/clothing/suit/equipped(mob/user)
+	. = ..()
+	if(iskindred(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/vampireclane/clan = H.clane
+		if(clan.current_accessory)
+			clan.update_accessory_overlays(H)
+
+/obj/item/clothing/suit/dropped(mob/user)
+	. = ..()
+	if(iskindred(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/vampireclane/clan = H.clane
+		if(clan.current_accessory)
+			clan.update_accessory_overlays(H)
+
+/obj/item/clothing/shoes/equipped(mob/user)
+	. = ..()
+	if(iskindred(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/vampireclane/clan = H.clane
+		if(clan.current_accessory)
+			clan.update_accessory_overlays(H)
+
+/obj/item/clothing/shoes/dropped(mob/user)
+	. = ..()
+	if(iskindred(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/vampireclane/clan = H.clane
+		if(clan.current_accessory)
+			clan.update_accessory_overlays(H)
+
 ///sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_BACKPACK || slot == ITEM_SLOT_LEGCUFFED) //these aren't true slots, so avoid granting actions there

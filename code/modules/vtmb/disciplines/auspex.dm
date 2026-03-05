@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 
 							else if(target1.clane.name == "Daughters of Cacophony")
 								return "Ты слышишь некоторую мелодию на границах твоего разума... Ты начинаешь ощущаеть каждый звук и каждый звук отражается в твоей голове музокой."
-							else if(target1.clane.name == "Gangrel")
+							else if(target1.clane.name == "Gangrel" || target1.clane.name == "City Gangrel")
 								return "Ты слышишь чей-то шепот. Ты видишь два красных глаза, клыки, хизный оскал <span class='secradio'><b>ЗВЕРЯ...</b></span>... Кажется кто-то заметил твоё прибывание в чужом разуме... "
 							else if(target1.clane.name == "Gargoyle")
 								clane_info = 1

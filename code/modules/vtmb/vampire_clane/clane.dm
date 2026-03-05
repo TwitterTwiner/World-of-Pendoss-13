@@ -36,15 +36,35 @@ And it also helps for the character set panel
 
 //	var/list/bloodline = list() //Bloodline datums, for clans that have them
 
+/datum/vampireclane/proc/update_accessory_overlays(mob/living/carbon/human/H)
+	if(length(accessories))
+		if(current_accessory)
+			var/list/accs = list()
+			switch(current_accessory)
+				if("beast_tail")
+					accs += "beast_tail"
+				if("beast_legs")
+					accs += "beast_legs"
+				if("beast_tail_and_legs")
+					accs += "beast_tail"
+					accs += "beast_legs"
+			for(var/acc in accs)
+				H.remove_overlay(accessories_layers[acc])
+				var/draw = TRUE
+				if(acc == "beast_tail" && H.wear_suit)
+					draw = FALSE
+				if(acc == "beast_legs" && H.shoes)
+					draw = FALSE
+				if(draw)
+					var/mutable_appearance/acc_overlay = mutable_appearance('code/modules/wod13/icons.dmi', acc, -accessories_layers[acc])
+					H.overlays_standing[accessories_layers[acc]] = acc_overlay
+					H.apply_overlay(accessories_layers[acc])
+
 /datum/vampireclane/proc/on_gain(mob/living/carbon/human/H)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(length(accessories))
-		if(current_accessory)
-			H.remove_overlay(accessories_layers[current_accessory])
-			var/mutable_appearance/acc_overlay = mutable_appearance('code/modules/wod13/icons.dmi', current_accessory, -accessories_layers[current_accessory])
-			H.overlays_standing[accessories_layers[current_accessory]] = acc_overlay
-			H.apply_overlay(accessories_layers[current_accessory])
+	update_accessory_overlays(H)
+
 	if(alt_sprite)
 		if (!alt_sprite_greyscale)
 			H.skin_tone = "albino"
