@@ -13,7 +13,7 @@
 	current_accessory = "none"
 	accessories = list("beast_legs", "beast_tail", "beast_tail_and_legs", "none")
 //	bloodline = (/datum/vampireclane/gangrel/city)
-	accessories_layers = list("beast_legs" = UNICORN_LAYER, "beast_tail" = UNICORN_LAYER, "beast_tail_and_legs" = UNICORN_LAYER, "none" = UNICORN_LAYER)
+	accessories_layers = list("beast_legs" = UNICORN_LAYER+1, "beast_tail" = UNICORN_LAYER, "beast_tail_and_legs" = UNICORN_LAYER, "none" = UNICORN_LAYER)
 
 /mob/living/simple_animal/hostile/werewolf
 	name = "Werewolf"
