@@ -271,8 +271,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				if(char_sheet)
 					// char_sheet.add_experience(3)
 
-					var/role = H.mind?.assigned_role
-					var/special_role = H.mind?.special_role
+		//			var/role = H.mind?.assigned_role
+		//			var/special_role = H.mind?.special_role
 
 				//	if(H.total_erp > 1500)
 				//		char_sheet.add_experience(5)

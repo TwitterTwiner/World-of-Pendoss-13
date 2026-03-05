@@ -1203,12 +1203,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							to_chat(user, "<span class='warning'>You don't have enough balance to gain this quirk!</span>")
 							return
 						all_quirks += quirk
-					SetQuirks(user)
+			//		SetQuirks(user)
+					Set_Story(user)
 				if("reset")
 					all_quirks = list()
-					SetQuirks(user)
+				//	SetQuirks(user)
+					Set_Story(user)
 				else
-					SetQuirks(user)
+				//	SetQuirks(user)
+					Set_Story(user)
 			return TRUE
 
 		if("loadout")
@@ -1350,6 +1353,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (total_age < age)
 							age = total_age
 						update_preview_icon()
+
+		//		if("Story")
+		//			if(slotlocked)
+		//				return
+
+
 
 				if("blood_type")
 					if(slotlocked)
@@ -2318,7 +2327,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(randomise[RANDOM_NAME])
 							real_name = pref_species.random_name(gender)
 						all_quirks = list()
-						SetQuirks(user)
+					//	SetQuirks(user)
+						Set_Story(user)
 						reset_attributes()
 
 				if("mutant_color")

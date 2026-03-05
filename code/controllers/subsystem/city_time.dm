@@ -85,7 +85,7 @@ SUBSYSTEM_DEF(city_time)
 					//			if(H.total_erp > 4500)
 					//				P.add_experience(5)
 					//				H.total_erp = 0
-								if(H.total_cleaned > 25)
+							if(H.total_cleaned > 25)
 					//				P.add_experience(5)
 								H.total_cleaned = 0
 								call_dharma("cleangrow", H)
@@ -147,8 +147,8 @@ SUBSYSTEM_DEF(city_time)
 				//					H.total_erp = 0
 							if(H.total_cleaned > 25)
 				//					P.add_experience(5)
-							H.total_cleaned = 0
-									call_dharma("cleangrow", H)
+								H.total_cleaned = 0
+								call_dharma("cleangrow", H)
 			//					if(H.mind)
 			//						if(H.mind.assigned_role == "Graveyard Keeper")
 			//							if(SSgraveyard.total_good > SSgraveyard.total_bad)
