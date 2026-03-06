@@ -61,21 +61,26 @@
 	owner.beastmaster |= rat
 	rat.beastmaster = owner
 
-//SUMMON CAT
-/datum/discipline_power/animalism/summon_cat
-	name = "Clawing Felines"
-	desc = "Summons very cute cats to accompany you in the night."
+/datum/discipline_power/animalism/beckoning
+	name = "Beckoning"
+	desc = "A call that mystically summons animals of the chosen species."
 
-	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE | DISC_CHECK_LYING
+	check_flags = DISC_CHECK_CAPABLE
 
 	level = 2
-	violates_masquerade = FALSE
+	violates_masquerade = TRUE
 
-	cooldown_length = 8 SECONDS
+	cooldown_length = 15 SECONDS
 
-/datum/discipline_power/animalism/summon_cat/activate()
+/datum/discipline_power/animalism/beckoning/activate()
 	. = ..()
+	var/roll = secret_vampireroll(get_a_charisma(owner)+get_a_alertness(owner), 6, owner)
+	if(roll == -1)
+		return
 	var/limit = get_a_charisma(owner)+get_a_empathy(owner)
+	var/count = clamp(roll, 1, 5)
+	var/mob_type
+	var/sound_file
 	if(length(owner.beastmaster) >= limit)
 		var/mob/living/simple_animal/hostile/beastmaster/beast = pick(owner.beastmaster)
 		beast.death()
@@ -84,12 +89,49 @@
 		stay.Grant(owner)
 		var/datum/action/beastmaster_deaggro/deaggro = new()
 		deaggro.Grant(owner)
-
-	var/mob/living/simple_animal/hostile/beastmaster/cat/cat = new(get_turf(owner))
-	cat.my_creator = owner
-	owner.beastmaster |= cat
-	cat.beastmaster = owner
-
+	var/area/A = get_area(owner)
+	if(istype(A, /area/vtm/forest))
+		switch(rand(1, 100))
+			if(1 to 90)
+				mob_type = /mob/living/simple_animal/hostile/beastmaster/wolf
+				sound_file = 'code/modules/wod13/sounds/animalism/wolf_howl.ogg'
+				owner.emote("howl")
+			if(91 to 100)
+				mob_type = /mob/living/simple_animal/hostile/beastmaster/bear
+				sound_file = 'code/modules/wod13/sounds/animalism/bear_growl.ogg'
+				owner.emote("growl")
+	else if(istype(A, /area/vtm/sewer))
+		switch(rand(1, 100))
+			if(1 to 75)
+				mob_type = /mob/living/simple_animal/hostile/beastmaster/rat
+				sound_file = 'code/modules/wod13/sounds/animalism/rat_squeak.ogg'
+				owner.emote("squeak")
+			if(76 to 100)
+				mob_type = /mob/living/simple_animal/hostile/beastmaster/rat/flying
+				sound_file = 'code/modules/wod13/sounds/animalism/rat_squeak.ogg'
+				owner.emote("squeak")
+	else
+		switch(rand(1, 100))
+			if(1 to 50)
+				mob_type = /mob/living/simple_animal/hostile/beastmaster/rat
+				sound_file = 'code/modules/wod13/sounds/animalism/rat_squeak.ogg'
+				owner.emote("squeak")
+			if(51 to 75)
+				mob_type = /mob/living/simple_animal/hostile/beastmaster
+				sound_file = 'code/modules/wod13/sounds/animalism/dog_bark.ogg'
+				owner.emote("bark")
+			if(76 to 100)
+				mob_type = /mob/living/simple_animal/hostile/beastmaster/cat
+				sound_file = 'code/modules/wod13/sounds/animalism/cat_meow.ogg'
+				owner.emote("meow")
+	var/obj/effect/temp_visual/animalism_summon/animal = new /obj/effect/temp_visual/animalism_summon(owner.loc, "summoning")
+	QDEL_IN(animal, 35)
+	for(var/i = 1, i <= count, i++)
+		var/mob/living/simple_animal/hostile/beastmaster/beast = new mob_type(get_turf(owner))
+		beast.my_creator = owner
+		owner.beastmaster |= beast
+		beast.beastmaster = owner
+	playsound(owner.loc, sound_file, 75, TRUE)
 //SUMMON WOLF
 /*
 /obj/effect/spectral_wolf
