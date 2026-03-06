@@ -1,4 +1,6 @@
 GLOBAL_LIST_EMPTY(preferences_datums)
+#define POINTS 30
+
 
 /datum/preferences
 	var/client/parent
@@ -187,7 +189,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/discipline4type
 
 	//Character sheet stats
-	var/true_experience = 50
+	var/true_experience = POINTS
 	var/trufaith_level = 0 // 0-3, bought with experience in Character List (20/30/40)
 	var/torpor_count = 0
 
@@ -366,7 +368,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	random_species()
 	random_character()
 	body_model = rand(1, 3)
-	true_experience = 50
+	true_experience = POINTS
 	trufaith_level = 0
 	real_name = random_unique_name(gender)
 	save_character()
@@ -568,6 +570,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/physical_priorities = 0
 	var/social_priorities = 0
 	var/mental_priorities = 0
+	var/back_priorities = 0
 	for(var/i in priorities)
 		if(i == "Physical")
 			switch(priorities[i])
@@ -597,6 +600,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/used_physical = max(0, Strength - 1) + max(0, Dexterity - 1) + max(0, Stamina - 1)
 	var/used_social = max(0, Charisma - 1) + max(0, Manipulation - 1) + max(0, Appearance - 1)
 	var/used_mental = max(0, Perception - 1) + max(0, Intelligence - 1) + max(0, Wits - 1)
+//	var/used_back =
 
 	physical_priorities = max(0, physical_priorities - used_physical)
 	social_priorities = max(0, social_priorities - used_social)
@@ -609,6 +613,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return social_priorities
 		if("Mental")
 			return mental_priorities
+	//	if("Soldier")
+	//		return soldier_priorities
 	return 0
 
 /datum/preferences/proc/get_gen_attribute_limit(attribute)
@@ -1777,6 +1783,29 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								priorities = list("Mental" = 1, "Physical" = 2, "Social" = 3)
 						reset_stats(TRUE)
 
+
+				if("abl_priorities")
+			//		if(slotlocked)
+			//			return
+					if (alert("Are you sure you want to change your Priorities? This will reset your Abilities.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/new_priorities = input(user, "Select a Priority Order", "Priority Selection") as null|anything in list("Talents, Skills, Knowledges", "Talents, Knowledges, Skills", "Skills, Talents, Knowledges", "Skills, Knowledges, Talents", "Knowledges, Skills, Talents", "Knowledges, Talents, Skills")
+					if(new_priorities)
+						switch(new_priorities)
+							if("Talents, Skills, Knowledges")
+								priorities = list("Talents" = 1, "Skills" = 2, "Knowledges" = 3)
+							if("Talents, Knowledges, Skills")
+								priorities = list("Talents" = 1, "Knowledges" = 2, "Skills" = 3)
+							if("Skills, Talents, Knowledges")
+								priorities = list("Skills" = 1, "Talents" = 2, "Knowledges" = 3)
+							if("Skills, Knowledges, Talents")
+								priorities = list("Skills" = 1, "Knowledges" = 2, "Talents" = 3)
+							if("Knowledges, Skills, Talents")
+								priorities = list("Knowledges" = 1, "Skills" = 2, "Talents" = 3)
+							if("Knowledges, Talents, Skills")
+								priorities = list("Knowledges" = 1, "Talents" = 2, "Skills" = 3)
+						reset_stats(TRUE)
+
 				if("main_physical")
 					if(slotlocked)
 						return
@@ -2180,15 +2209,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						return
 					if(!SSwhitelists.is_whitelisted(user?.client?.ckey, "trufaith", real_name))
 						return
-					var/cost = 0
-					if(trufaith_level == 0)
-						cost = 20
+					var/cost = 2
+	/*				if(trufaith_level == 0)
+						cost = 2
 					else if(trufaith_level == 1)
 						cost = 30
 					else if(trufaith_level == 2)
 						cost = 40
 					else
 						return
+						*/
 					if(true_experience < cost)
 						return
 					true_experience -= cost

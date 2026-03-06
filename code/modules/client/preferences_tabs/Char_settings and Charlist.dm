@@ -2,7 +2,6 @@
 #define MAX_MUTANT_ROWS 4
 #define ATTRIBUTE_BASE_LIMIT 5 //Highest level that a base attribute can be upgraded to. Bonus attributes can increase the actual amount past the limit.
 
-
 /datum/preferences/proc/Character_Settings(mob/user, list/dat)
 	if(path)
 		var/savefile/S = new /savefile(path)
@@ -727,12 +726,14 @@
 			dat += "•"
 		for(var/c in 1 to (3 - trufaith_level))
 			dat += "o"
-		if(trufaith_level < 1 && true_experience >= 20)
-			dat += " <a href='byond://?_src_=prefs;preference=trufaith_buy;task=input'>Increase (20)</a>"
-		else if(trufaith_level == 1 && true_experience >= 30)
+	//	if(trufaith_level < 1 && true_experience >= 2)
+		if(trufaith_level < 3 && true_experience >= 2)
+			dat += " <a href='byond://?_src_=prefs;preference=trufaith_buy;task=input'>Increase (2)</a>"
+/*		else if(trufaith_level == 1 && true_experience >= 30)
 			dat += " <a href='byond://?_src_=prefs;preference=trufaith_buy;task=input'>Increase (30)</a>"
 		else if(trufaith_level == 2 && true_experience >= 40)
 			dat += " <a href='byond://?_src_=prefs;preference=trufaith_buy;task=input'>Increase (40)</a>"
+			*/
 		dat += "<BR>"
 
 	var/datum/species/kindred/K = pref_species
@@ -741,6 +742,12 @@
 	var/physical_priorities = get_freebie_points("Physical")
 	var/social_priorities = get_freebie_points("Social")
 	var/mental_priorities = get_freebie_points("Mental")
+
+	var/talent_priorities = get_adbl_points("Talents")
+	var/skills_priorities = get_adbl_points("Skills")
+	var/knowledge_priorities = get_adbl_points("Knowledges")
+
+	var/back_points = 0
 	dat += "<b>PHYSICAL</b>"
 	if(physical_priorities)
 		dat += "([physical_priorities])"
@@ -794,31 +801,39 @@
 	dat += "Wits: [build_attribute_score(Wits, get_gen_attribute_limit("Wits"), 1, "wits", mental_priorities)]"
 
 	dat += "<h2>[make_font_cool("ABILITIES")]</h2>"
+	dat += "<a href='byond://?_src_=prefs;preference=abl_priorities;task=input'>Change Priorities</a><BR>"
 
 	dat += "<b>TALENTS</b><BR>"
-	dat += "Alertness: [build_attribute_score(Alertness, 5, 1, "alertness")]"
-	dat += "Athletics: [build_attribute_score(Athletics, 5, 1, "athletics")]"
-	dat += "Brawl: [build_attribute_score(Brawl, 5, 1, "brawl")]"
-	dat += "Empathy: [build_attribute_score(Empathy, 5, 1, "empathy")]"
-	dat += "Intimidation: [build_attribute_score(Intimidation, 5, 1, "intimidation")]"
-	dat += "Expression: [build_attribute_score(Expression, 5, 1, "expression")]"
+	if(talent_priorities)
+		dat += "[talent_priorities]"
+		dat += "<br>"
+	dat += "Alertness: [build_attribute_score(Alertness, 5, 1, "alertness", talent_priorities+back_points)]"
+	dat += "Athletics: [build_attribute_score(Athletics, 5, 1, "athletics",  talent_priorities+back_points)]"
+	dat += "Brawl: [build_attribute_score(Brawl, 5, 1, "brawl",  talent_priorities+back_points)]"
+	dat += "Empathy: [build_attribute_score(Empathy, 5, 1, "empathy",  talent_priorities+back_points)]"
+	dat += "Intimidation: [build_attribute_score(Intimidation, 5, 1, "intimidation",  talent_priorities+back_points)]"
+	dat += "Expression: [build_attribute_score(Expression, 5, 1, "expression",  talent_priorities+back_points)]"
 	dat += "<b>SKILLS</b><BR>"
-	dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts")]"
+	if(skills_priorities)
+		dat += "[skills_priorities]"
+	dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts", skills_priorities+back_points)]"
 	if(Crafts >= 4)
-		dat += "<a href='byond://?_src_=prefs;preference=crafts_specialisation;task=input'>Select specialisation:</a><BR>"
-	dat += "Melee: [build_attribute_score(Melee, 5, 1, "melee")]"
-	dat += "Firearms: [build_attribute_score(Firearms, 5, 1, "firearms")]"
-	dat += "Drive: [build_attribute_score(Drive, 5, 1, "drive")]"
-	dat += "Security: [build_attribute_score(Security, 5, 1, "security")]"
+		dat += "<a href='byond://?_src_=prefs;preference=crafts_specialisation;task=input'>Select specialisation: </a><BR>"
+	dat += "Melee: [build_attribute_score(Melee, 5, 1, "melee", skills_priorities+back_points)]"
+	dat += "Firearms: [build_attribute_score(Firearms, 5, 1, "firearms", skills_priorities+back_points)]"
+	dat += "Drive: [build_attribute_score(Drive, 5, 1, "drive", skills_priorities+back_points)]"
+	dat += "Security: [build_attribute_score(Security, 5, 1, "security", skills_priorities+back_points)]"
 //	dat += "Performance: [build_attribute_score(Performance, 5, 1, "performance")]"
 	if(clane.name == "Tzimisce" || (clane.name == "Old Clan Tzimisce" && K.get_discipline("Vicissitude" )) || (pref_species.name == "Ghoul" && G.get_discipline("Vicissitude")) )
-		dat += "Fleshcraft: [build_attribute_score(Fleshcraft, 5, 1, "fleshcraft")]"
+		dat += "Fleshcraft: [build_attribute_score(Fleshcraft, 5, 1, "fleshcraft", skills_priorities+back_points)]"
 	dat += "<b>KNOWLEDGES</b><BR>"
-	dat += "Finance: [build_attribute_score(Finance, 5, 1, "finance")]"
-	dat += "Investigation: [build_attribute_score(Investigation, 5, 1, "investigation")]"
-	dat += "Medicine: [build_attribute_score(Medicine, 5, 1, "medicine")]"
-	dat += "Linguistics: [build_attribute_score(Linguistics, 5, 1, "linguistics")]"
-	dat += "Occult: [build_attribute_score(Occult, 5, 1, "occult")]"
+	if(knowledge_priorities)
+		dat += "[knowledge_priorities]"
+	dat += "Finance: [build_attribute_score(Finance, 5, 1, "finance", knowledge_priorities+back_points)]"
+	dat += "Investigation: [build_attribute_score(Investigation, 5, 1, "investigation", knowledge_priorities+back_points)]"
+	dat += "Medicine: [build_attribute_score(Medicine, 5, 1, "medicine", knowledge_priorities+back_points)]"
+	dat += "Linguistics: [build_attribute_score(Linguistics, 5, 1, "linguistics", knowledge_priorities+back_points)]"
+	dat += "Occult: [build_attribute_score(Occult, 5, 1, "occult", knowledge_priorities+back_points)]"
 	// if(clane.name == "Old Clan Tzimiscee" || (clane.name == "Tzimisce" && K.get_discipline("Koldunstvo" )) || (pref_species.name == "Ghoul" && G.get_discipline("Koldunstvo")) )
 	//	dat += "Koldun Sorcery: [build_attribute_score(Koldunt, 5, 1, "koldun")]"
 
