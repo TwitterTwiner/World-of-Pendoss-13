@@ -173,32 +173,60 @@
 
 //SUMMON BAT
 /datum/discipline_power/animalism/summon_bat
-	name = "Bloodsucker's Communion"
-	desc = "Summons a swarm of bats to drain blood from the victim and transfer it to you."
+	name = "Subsume the Spirit"
+	desc = "Take control of a beast."
 
-	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE | DISC_CHECK_LYING
+	target_type = TARGET_LIVING
+	range = 7
+	check_flags = DISC_CHECK_CAPABLE
 
 	level = 4
-	violates_masquerade = TRUE
 
-	cooldown_length = 8 SECONDS
+	cooldown_length = 15 SECONDS
 
-/datum/discipline_power/animalism/summon_bat/activate()
+/datum/discipline_power/animalism/summon_bat/activate(mob/living/simple_animal/hostile/beastmaster/target)
 	. = ..()
-	var/limit = get_a_charisma(owner)+get_a_empathy(owner)
-	if(length(owner.beastmaster) >= limit)
-		var/mob/living/simple_animal/hostile/beastmaster/beast = pick(owner.beastmaster)
-		beast.death()
-	if(!length(owner.beastmaster))
-		var/datum/action/beastmaster_stay/stay = new()
-		stay.Grant(owner)
-		var/datum/action/beastmaster_deaggro/deaggro = new()
-		deaggro.Grant(owner)
+	if(!istype(target, /mob/living/simple_animal/hostile/beastmaster))
+		to_chat(owner, span_warning("Над этим существом нельзя взять контроль."))
+		return POWER_CANCEL_ACTIVATION
+	var/roll = secret_vampireroll(get_a_manipulation(owner)+get_a_performance(owner), 8, owner)
+	if(roll < 1)
+		to_chat(owner, span_warning("Не удалось взять зверя под контроль!"))
+		return POWER_CANCEL_ACTIVATION
+	target.animalism_controller = owner
+	target.ckey = owner.client.ckey
+	target.client.init_verbs()
+	addtimer(CALLBACK(src, PROC_REF(give_end_action), target), 1)
+	to_chat(owner, span_notice("Теперь ты контролируешь зверя. Используй 'Выход из формы' чтобы вернуться в тело."))
+	log_game("[key_name(owner)] захватил контроль над зверем [target].")
+	return POWER_DEA
 
-	var/mob/living/simple_animal/hostile/beastmaster/rat/flying/bat = new(get_turf(owner))
-	bat.my_creator = owner
-	owner.beastmaster |= bat
-	bat.beastmaster = owner
+/datum/discipline_power/animalism/summon_bat/proc/give_end_action(mob/living/simple_animal/hostile/beastmaster/target)
+	if(target.client)
+		var/datum/action/end_animal/leave = new()
+		leave.Grant(target)
+
+/datum/action/end_animal
+	name = "Выход из формы"
+	desc = "Возвращение в исходное тело."
+	button_icon_state = "bloodcrawler"
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+
+/datum/action/end_animal/Trigger()
+	. = ..()
+	if(!istype(usr, /mob/living/simple_animal/hostile/beastmaster))
+		return
+	var/mob/living/simple_animal/hostile/beastmaster/animal = usr
+	var/mob/living/carbon/human/initial = animal.animalism_controller
+	var/dam_percentage = animal.health / animal.maxHealth
+	var/percent_carbon = initial.maxHealth * dam_percentage
+	var/blago_damage = clamp(initial.maxHealth - percent_carbon, 0, 100)
+	initial.apply_damage(blago_damage, BRUTE, forced = TRUE, wound_bonus = CANT_WOUND)
+	animal.animalism_controller = null
+	initial.ckey = animal.client.ckey
+	initial.client.init_verbs()
+	log_game("[key_name(initial)] покинул тело зверя и вернулся обратно.")
+	qdel(src)
 
 //RAT SHAPESHIFT
 /obj/effect/proc_holder/spell/targeted/shapeshift/animalism
