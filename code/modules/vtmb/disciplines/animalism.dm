@@ -197,7 +197,6 @@
 	target.ckey = owner.client.ckey
 	target.client.init_verbs()
 	addtimer(CALLBACK(src, PROC_REF(give_end_action), target), 1)
-	to_chat(owner, span_notice("Теперь ты контролируешь зверя. Используй 'Выход из формы' чтобы вернуться в тело."))
 	log_game("[key_name(owner)] захватил контроль над зверем [target].")
 	return POWER_DEA
 
@@ -205,6 +204,7 @@
 	if(target.client)
 		var/datum/action/end_animal/leave = new()
 		leave.Grant(target)
+		to_chat(target, span_notice("Теперь ты контролируешь зверя. Используй 'Выход из формы' чтобы вернуться в тело."))
 
 /datum/action/end_animal
 	name = "Выход из формы"
