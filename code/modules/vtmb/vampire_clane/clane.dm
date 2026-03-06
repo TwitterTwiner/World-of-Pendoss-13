@@ -41,13 +41,11 @@ And it also helps for the character set panel
 		if(current_accessory)
 			var/list/accs = list()
 			switch(current_accessory)
-				if("beast_tail")
-					accs += "beast_tail"
-				if("beast_legs")
-					accs += "beast_legs"
 				if("beast_tail_and_legs")
 					accs += "beast_tail"
 					accs += "beast_legs"
+				else
+					accs += current_accessory
 			for(var/acc in accs)
 				H.remove_overlay(accessories_layers[acc])
 				var/draw = TRUE
