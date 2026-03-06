@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 	var/back_priorities = 0
 	for(var/i in abl_prior)
 		if(i == "Talents")
-			switch(priorities[i])
+			switch(abl_prior[i])
 				if(1)
 					talent_priorities = 6
 				if(2)
@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 				if(3)
 					talent_priorities = 2
 		if(i == "Skills")
-			switch(priorities[i])
+			switch(abl_prior[i])
 				if(1)
 					skills_priorities = 6
 				if(2)
@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 				if(3)
 					skills_priorities = 2
 		if(i == "Knowledges")
-			switch(priorities[i])
+			switch(abl_prior[i])
 				if(1)
 					knowledge_priorities = 6
 				if(2)
@@ -68,9 +68,9 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 				if(3)
 					knowledge_priorities = 2
 
-	var/used_talents = max(0, Alertness - 1) + max(0, Athletics - 1) + max(0, Brawl - 1) + max(0, Empathy - 1) + max(0, Intimidation - 1) + max(0, Expression - 1)
-	var/used_skills = max(0, Crafts - 1) + max(0, Melee - 1) + max(0, Firearms - 1) + max(0, Drive - 1) + max(0, Security - 1) + max(0, Fleshcraft - 1) + max(0, Performance - 1)
-	var/used_know = max(0, Finance - 1) + max(0, Investigation - 1) + max(0, Medicine - 1) + max(0, Linguistics - 1) + max(0, Occult - 1)
+	var/used_talents = max(0, Alertness) + max(0, Athletics) + max(0, Brawl) + max(0, Empathy) + max(0, Intimidation) + max(0, Expression)
+	var/used_skills = max(0, Crafts) + max(0, Melee) + max(0, Firearms) + max(0, Drive) + max(0, Security) + max(0, Fleshcraft) + max(0, Performance)
+	var/used_know = max(0, Finance) + max(0, Investigation) + max(0, Medicine) + max(0, Linguistics) + max(0, Occult)
 //	var/used_back =
 
 	talent_priorities = max(0,  talent_priorities - used_talents)

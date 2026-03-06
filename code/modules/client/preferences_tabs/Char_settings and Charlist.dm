@@ -60,7 +60,8 @@
 	dat += "<BR><b>Shape:</b> <a href='byond://?_src_=prefs;preference=body_model'>[body_m]</a>"
 
 	dat += "<br><b>Biological Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[age]</a>"
-	dat += "<br><b>Actual Age:</b> <a href='byond://?_src_=prefs;preference=total_age;task=input'>[max(age, total_age)]</a>"
+	if(pref_species.name != "Human")
+		dat += "<br><b>Actual Age:</b> <a href='byond://?_src_=prefs;preference=total_age;task=input'>[max(age, total_age)]</a>"
 	dat += "<br><b>Known Languages:</b> <br>English"
 	for(var/i in languages)
 		var/datum/language/L = i
@@ -807,11 +808,11 @@
 	if(talent_priorities)
 		dat += "[talent_priorities]"
 		dat += "<br>"
-	dat += "Alertness: [build_attribute_score(Alertness, 5, 1, "alertness", talent_priorities+back_points)]"
-	dat += "Athletics: [build_attribute_score(Athletics, 5, 1, "athletics",  talent_priorities+back_points)]"
+	dat += "Alertness: [build_attribute_score(Alertness, 5, 1, "alertness", talent_priorities)]"
+	dat += "Athletics: [build_attribute_score(Athletics, 5, 1, "athletics",  talent_priorities)]"
 	dat += "Brawl: [build_attribute_score(Brawl, 5, 1, "brawl",  talent_priorities+back_points)]"
 	dat += "Empathy: [build_attribute_score(Empathy, 5, 1, "empathy",  talent_priorities+back_points)]"
-	dat += "Intimidation: [build_attribute_score(Intimidation, 5, 1, "intimidation",  talent_priorities+back_points)]"
+	dat += "Intimidation: [build_attribute_score(Intimidation, 5, 1, "intimidation",  talent_priorities)]"
 	dat += "Expression: [build_attribute_score(Expression, 5, 1, "expression",  talent_priorities+back_points)]"
 	dat += "<b>SKILLS</b><BR>"
 	if(skills_priorities)

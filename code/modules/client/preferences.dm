@@ -1,5 +1,5 @@
 GLOBAL_LIST_EMPTY(preferences_datums)
-#define POINTS 30
+#define POINTS 20
 
 
 /datum/preferences
@@ -303,16 +303,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/add_experience(amount)
 	true_experience = clamp(true_experience + amount, 0, 1000)
 
-/datum/preferences/proc/reset_stats(attributes_only = FALSE)
-	Strength = 1
-	Dexterity = 1
-	Stamina = 1
-	Manipulation = 1
-	Charisma = 1
-	Appearance = 1
-	Perception = 1
-	Intelligence = 1
-	Wits = 1
+/datum/preferences/proc/reset_stats(attributes_only = FALSE, abilities_only = FALSE)
+	if(!abilities_only)
+		Strength = 1
+		Dexterity = 1
+		Stamina = 1
+		Manipulation = 1
+		Charisma = 1
+		Appearance = 1
+		Perception = 1
+		Intelligence = 1
+		Wits = 1
 	if(!attributes_only)
 		Alertness = 0
 		Athletics = 0
@@ -1239,6 +1240,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(pref_species.name == "Ghoul")
 						max_age = 500
 					total_age = rand(age, age+max_age)
+					reset_stats()
+
 				if("hair")
 					hair_color = random_short_color()
 				if("hairstyle")
@@ -1352,13 +1355,34 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("total_age")
 					if(slotlocked)
 						return
-
-					var/new_age = input(user, "Choose your character's actual age:\n([age]-[age+1000])", "Character Preference") as num|null
+					var/max_age = 0
+					if(pref_species.name == "Vampire")
+						max_age = 1000
+					if(pref_species.name == "Ghoul")
+						max_age = 500
+					if(pref_species.name == "Werewolf")
+						max_age = 150
+					var/new_age = input(user, "Choose your character's actual age:\n([age]-[age+max_age])", "Character Preference") as num|null
 					if(new_age)
-						total_age = max(min(round(text2num(new_age)), age+1000), age)
+						total_age = max(min(round(text2num(new_age)), age+max_age), age)
 						if (total_age < age)
 							age = total_age
-						update_preview_icon()
+
+						true_experience = POINTS
+						reset_stats()
+					switch(total_age)
+						if(80 to 100)
+							true_experience += 5
+						if(101 to 200)
+							true_experience += 8
+						if(201 to 300)
+							true_experience += 12
+						if(301 to 500)
+							true_experience += 15
+						if(501 to INFINITY)
+							true_experience += 20
+
+					update_preview_icon()
 
 		//		if("Story")
 		//			if(slotlocked)
@@ -1793,18 +1817,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_priorities)
 						switch(new_priorities)
 							if("Talents, Skills, Knowledges")
-								priorities = list("Talents" = 1, "Skills" = 2, "Knowledges" = 3)
+								abl_prior = list("Talents" = 1, "Skills" = 2, "Knowledges" = 3)
 							if("Talents, Knowledges, Skills")
-								priorities = list("Talents" = 1, "Knowledges" = 2, "Skills" = 3)
+								abl_prior = list("Talents" = 1, "Knowledges" = 2, "Skills" = 3)
 							if("Skills, Talents, Knowledges")
-								priorities = list("Skills" = 1, "Talents" = 2, "Knowledges" = 3)
+								abl_prior = list("Skills" = 1, "Talents" = 2, "Knowledges" = 3)
 							if("Skills, Knowledges, Talents")
-								priorities = list("Skills" = 1, "Knowledges" = 2, "Talents" = 3)
+								abl_prior = list("Skills" = 1, "Knowledges" = 2, "Talents" = 3)
 							if("Knowledges, Skills, Talents")
-								priorities = list("Knowledges" = 1, "Skills" = 2, "Talents" = 3)
+								abl_prior = list("Knowledges" = 1, "Skills" = 2, "Talents" = 3)
 							if("Knowledges, Talents, Skills")
-								priorities = list("Knowledges" = 1, "Talents" = 2, "Skills" = 3)
-						reset_stats(TRUE)
+								abl_prior = list("Knowledges" = 1, "Talents" = 2, "Skills" = 3)
+						reset_stats(FALSE, TRUE)
 
 				if("main_physical")
 					if(slotlocked)
@@ -1915,75 +1939,75 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						Wits++
 
 				if("alertness")
-					if(handle_upgrade(Alertness, 1, 5))
+					if(handle_upgrade(Alertness, 1, 5, "Talents"))
 						Alertness++
 
 				if("athletics")
-					if(handle_upgrade(Athletics, 1, 5))
+					if(handle_upgrade(Athletics, 1, 5, "Talents"))
 						Athletics++
 
 				if("brawl")
-					if(handle_upgrade(Brawl, 1, 5))
+					if(handle_upgrade(Brawl, 1, 5, "Talents"))
 						Brawl++
 
 				if("empathy")
-					if(handle_upgrade(Empathy, 1, 5))
+					if(handle_upgrade(Empathy, 1, 5, "Talents"))
 						Empathy++
 
 				if("intimidation")
-					if(handle_upgrade(Intimidation, 1, 5))
+					if(handle_upgrade(Intimidation, 1, 5, "Talents"))
 						Intimidation++
 
 				if("expression")
-					if(handle_upgrade(Expression, 1, 5))
+					if(handle_upgrade(Expression, 1, 5, "Talents"))
 						Expression++
 
 				if("crafts")
-					if(handle_upgrade(Crafts, 1, 5))
+					if(handle_upgrade(Crafts, 1, 5, "Skills"))
 						Crafts++
 
 				if("melee")
-					if(handle_upgrade(Melee, 1, 5))
+					if(handle_upgrade(Melee, 1, 5, "Skills"))
 						Melee++
 
 				if("firearms")
-					if(handle_upgrade(Firearms, 1, 5))
+					if(handle_upgrade(Firearms, 1, 5, "Skills"))
 						Firearms++
 
 				if("drive")
-					if(handle_upgrade(Drive, 1, 5))
+					if(handle_upgrade(Drive, 1, 5, "Skills"))
 						Drive++
 
 				if("security")
-					if(handle_upgrade(Security, 1, 5))
+					if(handle_upgrade(Security, 1, 5, "Skills"))
 						Security++
 
 				if("performance")
-					if(handle_upgrade(Performance, 1, 5))
+					if(handle_upgrade(Performance, 1, 5, "Skills"))
 						Performance++
 
 				if("fleshcraft")
-					if(handle_upgrade(Fleshcraft, 1, 5))
+					if(handle_upgrade(Fleshcraft, 1, 5, "Skills"))
 						Fleshcraft++
 
 				if("finance")
-					if(handle_upgrade(Finance, 1, 5))
+					if(handle_upgrade(Finance, 1, 5, "Knowledges"))
 						Finance++
 
 				if("investigation")
-					if(handle_upgrade(Investigation, 1, 5))
+					if(handle_upgrade(Investigation, 1, 5, "Knowledges"))
 						Investigation++
 
 				if("medicine")
-					if(handle_upgrade(Medicine, 1, 5))
+					if(handle_upgrade(Medicine, 1, 5, "Knowledges"))
 						Medicine++
 
 				if("linguistics")
-					if(handle_upgrade(Linguistics, 1, 5))
+					if(handle_upgrade(Linguistics, 1, 5, "Knowledges"))
 						Linguistics++
 
 				if("occult")
-					if(handle_upgrade(Occult, 1, 5))
+					if(handle_upgrade(Occult, 1, 5, "Knowledges"))
 						Occult++
 
 				if("tribe")
@@ -2887,9 +2911,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(cost <= 0)
 		if(!catgr)
 			cost = 3
-	if (((true_experience < cost) && !get_freebie_points(catgr)) || (number >= numlimit))
+	if (((true_experience < cost) && (!get_freebie_points(catgr)) && !get_adbl_points(catgr)) || (number >= numlimit))
 		return FALSE
-	if(!get_freebie_points(catgr))
+	if(!get_freebie_points(catgr) && !get_adbl_points(catgr))
 		true_experience -= cost
 	return TRUE
 
