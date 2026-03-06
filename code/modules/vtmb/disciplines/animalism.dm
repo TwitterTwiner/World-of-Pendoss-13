@@ -198,7 +198,6 @@
 	target.client.init_verbs()
 	addtimer(CALLBACK(src, PROC_REF(give_end_action), target), 1)
 	log_game("[key_name(owner)] захватил контроль над зверем [target].")
-	return POWER_DEA
 
 /datum/discipline_power/animalism/summon_bat/proc/give_end_action(mob/living/simple_animal/hostile/beastmaster/target)
 	if(target.client)
