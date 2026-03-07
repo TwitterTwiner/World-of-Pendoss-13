@@ -570,6 +570,9 @@
 	maxbloodpool = 20
 	see_in_dark = 6
 
+/mob/living/simple_animal/hostile/bloodcrawler/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	return
+
 /mob/living/simple_animal/hostile/biter/hostile
 	faction = list("hostile")
 
