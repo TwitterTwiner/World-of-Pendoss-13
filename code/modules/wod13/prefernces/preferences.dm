@@ -32,6 +32,11 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 	dat += "<center><b>Current backs:</b> [back_story]</center>"
 //	dat += "<center>[GetPositiveQuirkCount()] / [MAX_QUIRKS] max positive quirks<br>\
 
+	for(var/BACK in backstory)
+		var/your_back
+		var/back_name = backstory[BACK]
+		dat += "[back_name], [BACK]"
+
 	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Quirk Preferences</div>", 900, 600) //no reason not to reuse the occupation window, as it's cleaner that way
 	popup.set_window_options("can_close=0")
 	popup.set_content(dat.Join())
