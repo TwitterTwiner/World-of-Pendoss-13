@@ -189,7 +189,7 @@
 
 
 /obj/item/gun/auspex_moment(mob/living/user)
-	. = ..()
+//	. = ..()
 	for(var/mob/living/carbon/C in GLOB.auspex_users)
 		var/dist = get_dist(C, src)
 		var/napravlenie = get_direction(C)
