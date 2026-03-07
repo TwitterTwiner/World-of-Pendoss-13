@@ -47,29 +47,32 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 	var/skills_priorities = 0
 	var/knowledge_priorities = 0
 	var/back_priorities = 0
+	var/mortal = 0
+	if(pref_species.name == "Human" || pref_species.name == "Ghoul")
+		mortal = 1
 	for(var/i in abl_prior)
 		if(i == "Talents")
 			switch(abl_prior[i])
 				if(1)
-					talent_priorities = 6
+					talent_priorities = 6 - mortal
 				if(2)
-					talent_priorities = 4
+					talent_priorities = 4 - mortal
 				if(3)
 					talent_priorities = 2
 		if(i == "Skills")
 			switch(abl_prior[i])
 				if(1)
-					skills_priorities = 6
+					skills_priorities = 6 - mortal
 				if(2)
-					skills_priorities = 4
+					skills_priorities = 4 - mortal
 				if(3)
 					skills_priorities = 2
 		if(i == "Knowledges")
 			switch(abl_prior[i])
 				if(1)
-					knowledge_priorities = 6
+					knowledge_priorities = 6 - mortal
 				if(2)
-					knowledge_priorities = 4
+					knowledge_priorities = 4 - mortal
 				if(3)
 					knowledge_priorities = 2
 

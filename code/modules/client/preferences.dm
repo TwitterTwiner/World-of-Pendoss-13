@@ -1,5 +1,6 @@
 GLOBAL_LIST_EMPTY(preferences_datums)
 #define POINTS 20
+// #define SPRNTRL_POINTS 15  // free points for Supernatural
 
 
 /datum/preferences
@@ -572,29 +573,32 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/social_priorities = 0
 	var/mental_priorities = 0
 	var/back_priorities = 0
+	var/mortal = 0
+	if(pref_species.name == "Human" || pref_species.name == "Ghoul")
+		mortal = 1
 	for(var/i in priorities)
 		if(i == "Physical")
 			switch(priorities[i])
 				if(1)
-					physical_priorities = 7
+					physical_priorities = 7 - mortal
 				if(2)
-					physical_priorities = 5
+					physical_priorities = 5 - mortal
 				if(3)
 					physical_priorities = 3
 		if(i == "Social")
 			switch(priorities[i])
 				if(1)
-					social_priorities = 7
+					social_priorities = 7 - mortal
 				if(2)
-					social_priorities = 5
+					social_priorities = 5 - mortal
 				if(3)
 					social_priorities = 3
 		if(i == "Mental")
 			switch(priorities[i])
 				if(1)
-					mental_priorities = 7
+					mental_priorities = 7 - mortal
 				if(2)
-					mental_priorities = 5
+					mental_priorities = 5 - mortal
 				if(3)
 					mental_priorities = 3
 
@@ -618,139 +622,36 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//		return soldier_priorities
 	return 0
 
-/datum/preferences/proc/get_gen_attribute_limit(attribute)
+/datum/preferences/proc/get_gen_attribute_limit()
 	var/level
 
 	if(pref_species.name == "Vampire")
 		level = generation - generation_bonus
-	else if(pref_species.name == "Werewolf")
-		level = auspice_level
+//	else if(pref_species.name == "Werewolf")
+//		level = auspice_level
 	else if(pref_species.name == "Kuei-Jin")
 		level = dharma_level
 	else
 		level = 13
 
-	if(pref_species.name == "Vampire")
-		switch(level)
-			if(9)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 6
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(8)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 7
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 5
-				else
-					return 3
-			if(7)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 8
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 6
-				else
-					return 4
-			if(6)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 9
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 7
-				else
-					return 5
-		if(level > 9)
-			if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-				return 5
-			else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-				return 4
-			else
-				return 3
-		if(level < 6)
-			if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-				return 10
-			else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-				return 8
-			else
-				return 6
+	if(pref_species.name == "Vampire")   ///////// This is strange, that if() here and above the same, but let everything remain as it was for now
+		if(level <= 7)
+			return 13-level
+
+		if(level > 7)
+			return 5
 
 	if(pref_species.name == "Kuei-Jin")
 		switch(level)
-			if(1)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 5
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(2)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 6
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(3)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 7
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 5
-				else
-					return 3
-			if(4)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 8
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 6
-				else
-					return 4
-			if(5)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 9
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 7
-				else
-					return 5
+			if(1 to 5)
+				return 5
+
 			if(6)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 10
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 8
-				else
-					return 6
+				return 6
 
-	if(pref_species.name == "Werewolf")
-		switch(level)
-			if(1)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 5
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(2)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 6
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(3)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 7
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 5
-				else
-					return 3
-
-	if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-		return 5
-	else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-		return 4
-	else
-		return 3
-
+//	if(pref_species.name == "Werewolf")
+//		return 5
+	return 5
 
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
@@ -1829,7 +1730,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							if("Knowledges, Talents, Skills")
 								abl_prior = list("Knowledges" = 1, "Talents" = 2, "Skills" = 3)
 						reset_stats(FALSE, TRUE)
-
+/*
 				if("main_physical")
 					if(slotlocked)
 						return
@@ -1901,7 +1802,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_secondary_mental)
 						secondary_mental_attribute = new_secondary_mental
 						verify_attributes()
-
+*/
 				if("strength")
 					if(handle_upgrade(Strength, 1, get_gen_attribute_limit("Strength"), "Physical"))
 						Strength++

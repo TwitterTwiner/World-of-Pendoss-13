@@ -753,23 +753,26 @@
 	if(physical_priorities)
 		dat += "([physical_priorities])"
 	dat += "<BR>"
-	dat += "Main physical attribute: <b>[uppertext(main_physical_attribute)]</b> "
-	if(!slotlocked)
-		dat += "<a href='byond://?_src_=prefs;preference=main_physical;task=input'>Change</a><BR>"
-	else
-		dat += "<BR>"
-	dat += "Secondary physical attribute: <b>[uppertext(secondary_physical_attribute)]</b> "
-	if(!slotlocked)
-		dat += "<a href='byond://?_src_=prefs;preference=secondary_physical;task=input'>Change</a><BR>"
-	else
-		dat += "<BR>"
-	dat += "Strength: [build_attribute_score(Strength, get_gen_attribute_limit("Strength"), 1, "strength", physical_priorities)]"
-	dat += "Dexterity: [build_attribute_score(Dexterity, get_gen_attribute_limit("Dexterity"), 1, "dexterity", physical_priorities)]"
-	dat += "Stamina: [build_attribute_score(Stamina, get_gen_attribute_limit("Stamina"), 1, "stamina", physical_priorities)]"
+//	dat += "Main physical attribute: <b>[uppertext(main_physical_attribute)]</b> "
+//	if(!slotlocked)
+//		dat += "<a href='byond://?_src_=prefs;preference=main_physical;task=input'>Change</a><BR>"
+//	else
+//		dat += "<BR>"
+//	dat += "Secondary physical attribute: <b>[uppertext(secondary_physical_attribute)]</b> "
+//	if(!slotlocked)
+//		dat += "<a href='byond://?_src_=prefs;preference=secondary_physical;task=input'>Change</a><BR>"
+//	else
+//		dat += "<BR>"
+	dat += "Strength: [build_attribute_score(Strength, get_gen_attribute_limit(), 1, "strength", physical_priorities)]"
+	dat += "Dexterity: [build_attribute_score(Dexterity, get_gen_attribute_limit(), 1, "dexterity", physical_priorities)]"
+	dat += "Stamina: [build_attribute_score(Stamina, get_gen_attribute_limit(), 1, "stamina", physical_priorities)]"
 	dat += "<b>SOCIAL</b>"
+
 	if(social_priorities)
 		dat += "([social_priorities])"
-	dat += "<BR>"
+
+//	dat += "<BR>"
+	/*
 	dat += "Main social attribute: <b>[uppertext(main_social_attribute)]</b> "
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=main_social;task=input'>Change</a><BR>"
@@ -779,15 +782,16 @@
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=secondary_social;task=input'>Change</a><BR>"
 	else
-		dat += "<BR>"
-	dat += "Charisma: [build_attribute_score(Charisma, get_gen_attribute_limit("Charisma"), 1, "charisma", social_priorities)]"
-	dat += "Manipulation: [build_attribute_score(Manipulation, get_gen_attribute_limit("Manipulation"), 1, "manipulation", social_priorities)]"
-	dat += "Appearance: [build_attribute_score(Appearance, get_gen_attribute_limit("Appearance"), 1, "appearance", social_priorities)]"
+	*/
+	dat += "<BR>"
+	dat += "Charisma: [build_attribute_score(Charisma, get_gen_attribute_limit(), 1, "charisma", social_priorities)]"
+	dat += "Manipulation: [build_attribute_score(Manipulation, get_gen_attribute_limit(), 1, "manipulation", social_priorities)]"
+	dat += "Appearance: [build_attribute_score(Appearance, get_gen_attribute_limit(), 1, "appearance", social_priorities)]"
 	dat += "<b>MENTAL</b>"
 	if(mental_priorities)
 		dat += "([mental_priorities])"
 	dat += "<BR>"
-	dat += "Main mental attribute: <b>[uppertext(main_mental_attribute)]</b> "
+/*	dat += "Main mental attribute: <b>[uppertext(main_mental_attribute)]</b> "
 	if(!slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=main_mental;task=input'>Change</a><BR>"
 	else
@@ -797,29 +801,31 @@
 		dat += "<a href='byond://?_src_=prefs;preference=secondary_mental;task=input'>Change</a><BR>"
 	else
 		dat += "<BR>"
-	dat += "Perception: [build_attribute_score(Perception, get_gen_attribute_limit("Perception"), 1, "perception", mental_priorities)]"
-	dat += "Intelligence: [build_attribute_score(Intelligence, get_gen_attribute_limit("Intelligence"), 1, "intelligence", mental_priorities)]"
-	dat += "Wits: [build_attribute_score(Wits, get_gen_attribute_limit("Wits"), 1, "wits", mental_priorities)]"
+		*/
+	dat += "Perception: [build_attribute_score(Perception, get_gen_attribute_limit(), 1, "perception", mental_priorities)]"
+	dat += "Intelligence: [build_attribute_score(Intelligence, get_gen_attribute_limit(), 1, "intelligence", mental_priorities)]"
+	dat += "Wits: [build_attribute_score(Wits, get_gen_attribute_limit(), 1, "wits", mental_priorities)]"
 
 	dat += "<h2>[make_font_cool("ABILITIES")]</h2>"
 	dat += "<a href='byond://?_src_=prefs;preference=abl_priorities;task=input'>Change Priorities</a><BR>"
 
-	dat += "<b>TALENTS</b><BR>"
+	dat += "<b>TALENTS</b>"
 	if(talent_priorities)
 		dat += "[talent_priorities]"
-		dat += "<br>"
+	dat += "<BR>"
 	dat += "Alertness: [build_attribute_score(Alertness, 5, 1, "alertness", talent_priorities)]"
 	dat += "Athletics: [build_attribute_score(Athletics, 5, 1, "athletics",  talent_priorities)]"
 	dat += "Brawl: [build_attribute_score(Brawl, 5, 1, "brawl",  talent_priorities+back_points)]"
 	dat += "Empathy: [build_attribute_score(Empathy, 5, 1, "empathy",  talent_priorities+back_points)]"
 	dat += "Intimidation: [build_attribute_score(Intimidation, 5, 1, "intimidation",  talent_priorities)]"
 	dat += "Expression: [build_attribute_score(Expression, 5, 1, "expression",  talent_priorities+back_points)]"
-	dat += "<b>SKILLS</b><BR>"
+	dat += "<b>SKILLS</b>"
 	if(skills_priorities)
 		dat += "[skills_priorities]"
+	dat += "<BR>"
 	dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts", skills_priorities+back_points)]"
 	if(Crafts >= 4)
-		dat += "<a href='byond://?_src_=prefs;preference=crafts_specialisation;task=input'>Select specialisation: </a><BR>"
+		dat += "<a href='byond://?_src_=prefs;preference=crafts_specialisation;task=input'>Select specialisation: </a>"
 	dat += "Melee: [build_attribute_score(Melee, 5, 1, "melee", skills_priorities+back_points)]"
 	dat += "Firearms: [build_attribute_score(Firearms, 5, 1, "firearms", skills_priorities+back_points)]"
 	dat += "Drive: [build_attribute_score(Drive, 5, 1, "drive", skills_priorities+back_points)]"
@@ -827,9 +833,10 @@
 //	dat += "Performance: [build_attribute_score(Performance, 5, 1, "performance")]"
 	if(clane.name == "Tzimisce" || (clane.name == "Old Clan Tzimisce" && K.get_discipline("Vicissitude" )) || (pref_species.name == "Ghoul" && G.get_discipline("Vicissitude")) )
 		dat += "Fleshcraft: [build_attribute_score(Fleshcraft, 5, 1, "fleshcraft", skills_priorities+back_points)]"
-	dat += "<b>KNOWLEDGES</b><BR>"
+	dat += "<b>KNOWLEDGES</b>"
 	if(knowledge_priorities)
 		dat += "[knowledge_priorities]"
+	dat += "<BR>"
 	dat += "Finance: [build_attribute_score(Finance, 5, 1, "finance", knowledge_priorities+back_points)]"
 	dat += "Investigation: [build_attribute_score(Investigation, 5, 1, "investigation", knowledge_priorities+back_points)]"
 	dat += "Medicine: [build_attribute_score(Medicine, 5, 1, "medicine", knowledge_priorities+back_points)]"

@@ -550,6 +550,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Quirks
 	READ_FILE(S["all_quirks"], all_quirks)
 
+//	READ_FILE(S["back_story"], back_story)
+
 	//try to fix any outdated data if necessary
 	//preference updating will handle saving the updated data for us.
 	if(needs_update >= 0)
@@ -650,14 +652,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	main_mental_attribute = sanitize_text(main_mental_attribute, initial(main_mental_attribute))
 	secondary_mental_attribute = sanitize_text(secondary_mental_attribute, initial(secondary_mental_attribute))
 
-	Strength				= sanitize_integer(Strength, 1, get_gen_attribute_limit("Strength"), initial(Strength))
-	Dexterity				= sanitize_integer(Dexterity, 1, get_gen_attribute_limit("Dexterity"), initial(Dexterity))
-	Stamina					= sanitize_integer(Stamina, 1, get_gen_attribute_limit("Stamina"), initial(Stamina))
-	Charisma				= sanitize_integer(Charisma, 1, get_gen_attribute_limit("Charisma"), initial(Charisma))
-	Manipulation				= sanitize_integer(Manipulation, 1, get_gen_attribute_limit("Manipulation"), initial(Manipulation))
-	Appearance				= sanitize_integer(Appearance, 1, get_gen_attribute_limit("Appearance"), initial(Appearance))
-	Perception				= sanitize_integer(Perception, 1, get_gen_attribute_limit("Perception"), initial(Perception))
-	Intelligence				= sanitize_integer(Intelligence, 1, get_gen_attribute_limit("Intelligence"), initial(Intelligence))
+	Strength				= sanitize_integer(Strength, 1, get_gen_attribute_limit(), initial(Strength))
+	Dexterity				= sanitize_integer(Dexterity, 1, get_gen_attribute_limit(), initial(Dexterity))
+	Stamina					= sanitize_integer(Stamina, 1, get_gen_attribute_limit(), initial(Stamina))
+	Charisma				= sanitize_integer(Charisma, 1, get_gen_attribute_limit(), initial(Charisma))
+	Manipulation				= sanitize_integer(Manipulation, 1, get_gen_attribute_limit(), initial(Manipulation))
+	Appearance				= sanitize_integer(Appearance, 1, get_gen_attribute_limit(), initial(Appearance))
+	Perception				= sanitize_integer(Perception, 1, get_gen_attribute_limit(), initial(Perception))
+	Intelligence				= sanitize_integer(Intelligence, 1, get_gen_attribute_limit(), initial(Intelligence))
 	Wits				= sanitize_integer(Wits, 1, get_gen_attribute_limit("Wits"), initial(Wits))
 	Alertness				= sanitize_integer(Alertness, 0, 5, initial(Alertness))
 	Athletics				= sanitize_integer(Athletics, 0, 5, initial(Athletics))
@@ -743,6 +745,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			job_preferences -= j
 
 	all_quirks = SANITIZE_LIST(all_quirks)
+
+	back_story = features[back_story]
 	validate_quirks()
 
 	//Convert jank old Discipline system to new Discipline system
@@ -952,6 +956,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	//Quirks
 	WRITE_FILE(S["all_quirks"]			, all_quirks)
+
+//	WRITE_FILE(S["back_story"]			, back_story)
 
 	return TRUE
 
