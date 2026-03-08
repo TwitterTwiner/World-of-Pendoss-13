@@ -71,7 +71,7 @@
 	name = "Stovetop"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	level = 2
-	fire_damage = 50
+	fire_damage = 35
 	fortitude_hardness = 4
 	grouped_powers = list(
 		/datum/discipline_power/dt_path_fires_of_inferno/lighter,
@@ -84,7 +84,7 @@
 	name = "Blowtorch"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	level = 3
-	fire_damage = 75
+	fire_damage = 45
 	fortitude_hardness = 5
 	grouped_powers = list(
 		/datum/discipline_power/dt_path_fires_of_inferno/stovetop,
@@ -97,7 +97,7 @@
 	name = "Flame-thrower"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	level = 4
-	fire_damage = 100
+	fire_damage = 55
 	fortitude_hardness = 7
 	grouped_powers = list(
 		/datum/discipline_power/dt_path_fires_of_inferno/stovetop,
@@ -110,7 +110,7 @@
 	name = "Conflagration"
 	desc = "Control supernatural flames summoned from the depths of Hades"
 	level = 5
-	fire_damage = 125
+	fire_damage = 65
 	fortitude_hardness = 9
 	grouped_powers = list(
 		/datum/discipline_power/dt_path_fires_of_inferno/stovetop,
