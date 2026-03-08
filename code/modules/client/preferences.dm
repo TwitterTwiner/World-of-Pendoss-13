@@ -1283,6 +1283,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 						true_experience = POINTS
 						reset_stats()
+						reset_discipline()
 					switch(total_age)
 						if(150 to 200)
 							true_experience += 5
