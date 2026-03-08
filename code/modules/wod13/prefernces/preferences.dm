@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 
 
 /datum/preferences
+	var/list/specialisation = list()
 	var/list/specialisation_craft = list("Woodworking", "shitie")
 	var/back_story = "Nobody"
 	var/list/abl_prior = list("Talents" = 1, "Skills" = 2, "Knowledges" = 3)

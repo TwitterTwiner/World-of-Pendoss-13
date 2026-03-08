@@ -21,6 +21,9 @@ SUBSYSTEM_DEF(city_time)
 	else
 		return "[number]"
 
+/datum/controller/subsystem/city_time
+	var/won
+
 /datum/controller/subsystem/city_time/fire()
 	if(minutes == 59)
 		minutes = 0
@@ -31,7 +34,7 @@ SUBSYSTEM_DEF(city_time)
 	timeofnight = "[get_watch_number(hour)]:[get_watch_number(minutes)]"
 
 	if(hour == 0 && minutes == 0)
-		var/won
+//		var/won
 		var/last_winner_points = 0
 		if(length(SSfactionwar.marks_camarilla) > last_winner_points)
 			last_winner_points = length(SSfactionwar.marks_camarilla)
@@ -97,7 +100,7 @@ SUBSYSTEM_DEF(city_time)
 							P.save_character()
 
 	if(hour == 3 && minutes == 0)
-		var/won
+//		var/won
 		var/last_winner_points = 0
 		if(length(SSfactionwar.marks_camarilla) > last_winner_points)
 			last_winner_points = length(SSfactionwar.marks_camarilla)

@@ -116,8 +116,8 @@
 //		dat += "<b>Path of [enlightenment ? "Enlightenment" : "Humanity"]:</b> [humanity]/10"
 		dat += "<b>Humanity:</b> [humanity]/10"
 		//if(SSwhitelists.is_whitelisted(parent.ckey, "enlightenment") && !slotlocked)
-		if ((true_experience >= (humanity * 2)) && (humanity < 10))
-			dat += " <a href='byond://?_src_=prefs;preference=path;task=input'>Restore Humanity ([humanity * 2])</a>"
+//		if ((true_experience >= (humanity * 2)) && (humanity < 10))
+//			dat += " <a href='byond://?_src_=prefs;preference=path;task=input'>Restore Humanity ([humanity * 2])</a>"
 		dat += "<br>"
 		dat += "Consience: [consience]/5 <a href='byond://?_src_=prefs;preference=consience;task=input'>Adjust</a><br>"
 		dat += "Self-Control: [selfcontrol]/5 <a href='byond://?_src_=prefs;preference=selfcontrol;task=input'>Adjust</a><br>"
@@ -308,7 +308,7 @@
 
 			dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"]([discipline_level])"
 			if((true_experience >= cost) && (discipline_level != 5))
-				dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn ([cost])</a><BR>"
+				dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn (1 point)</a><BR>"
 			else
 				dat += "<BR>"
 			dat += "-[discipline.desc]<BR>"
@@ -823,9 +823,14 @@
 	if(skills_priorities)
 		dat += "[skills_priorities]"
 	dat += "<BR>"
-	dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts", skills_priorities+back_points)]"
+
 	if(Crafts >= 4)
-		dat += "<a href='byond://?_src_=prefs;preference=crafts_specialisation;task=input'>Select specialisation: </a>"
+		dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts", skills_priorities+back_points)]"
+		dat += "	Select specialisation:"
+		dat += "<a href='byond://?_src_=prefs;preference=crafts_specialisation;task=input'>[specialisation != list() ? specialisation : "Nothing"] </a>"
+		dat += "<BR>"
+	else
+		dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts", skills_priorities+back_points)]"
 	dat += "Melee: [build_attribute_score(Melee, 5, 1, "melee", skills_priorities+back_points)]"
 	dat += "Firearms: [build_attribute_score(Firearms, 5, 1, "firearms", skills_priorities+back_points)]"
 	dat += "Drive: [build_attribute_score(Drive, 5, 1, "drive", skills_priorities+back_points)]"

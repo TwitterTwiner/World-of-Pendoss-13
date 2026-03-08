@@ -1997,7 +1997,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
-						true_experience -= cost
+					//	true_experience -= cost
+						true_experience -= 1
 						discipline_levels[i] = min(5, max(1, discipline_levels[i] + 1))
 
 					if(pref_species.id == "kuei-jin")
@@ -2011,7 +2012,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
-						true_experience -= cost
+					//	true_experience -= cost
+						true_experience -= 1
 						discipline_levels[a] = min(5, max(1, discipline_levels[a] + 1))
 
 				if("path")
