@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
 	var/max_save_slots = 20
 
-	//non-preference stuff
+	//non-preference stuffupgradediscipline
 	var/muted = 0
 	var/last_ip
 	var/last_id
@@ -2025,7 +2025,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 
-						if ((true_experience < cost) || (discipline_level >= 5))
+					//	if ((true_experience < cost) || (discipline_level >= 5))
+					//		return
+						if(discipline_level >= 5)
 							return
 
 					//	true_experience -= cost
