@@ -308,6 +308,8 @@
 			else
 				cost = discipline_level * 7
 
+
+			cost = 1
 			dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"]([discipline_level])"
 			if((true_experience >= cost) && (discipline_level != 5))
 				dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn (1 point)</a><BR>"

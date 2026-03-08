@@ -331,6 +331,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		Linguistics = 0
 		Occult = 0
 
+/datum/preferences/proc/reset_discipline()
+	discipline_types = list()
+	discipline_levels = list()
+	for (var/i in 1 to clane.clane_disciplines.len)
+		discipline_types += clane.clane_disciplines[i]
+		discipline_levels += 1
+
 /datum/preferences/proc/reset_character()
 	slotlocked = 0
 	diablerist = 0
@@ -356,11 +363,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	wisdom = initial(wisdom)
 	qdel(clane)
 	clane = new /datum/vampireclane/brujah()
-	discipline_types = list()
-	discipline_levels = list()
-	for (var/i in 1 to clane.clane_disciplines.len)
-		discipline_types += clane.clane_disciplines[i]
-		discipline_levels += 1
+	reset_discipline()
+//	discipline_types = list()
+//	discipline_levels = list()
+//	for (var/i in 1 to clane.clane_disciplines.len)
+//		discipline_types += clane.clane_disciplines[i]
+//		discipline_levels += 1
 	humanity = clane.start_humanity
 	enlightenment = clane.enlightenment
 	equipped_gear = list()
@@ -1275,6 +1283,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 						true_experience = POINTS
 						reset_stats()
+						reset_discipline()
 					switch(total_age)
 						if(150 to 200)
 							true_experience += 5
@@ -2007,7 +2016,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						else if (discipline.learnable_by_clans.Find(clane.type))
 							cost = discipline_level * 6
 
-						if ((true_experience < cost) || (discipline_level >= 5))
+
+					//	if ((true_experience < cost) || (discipline_level >= 5))
+					//		return
+						if(discipline_level >= 5)
 							return
 
 					//	true_experience -= cost
@@ -2022,7 +2034,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 
-						if ((true_experience < cost) || (discipline_level >= 5))
+					//	if ((true_experience < cost) || (discipline_level >= 5))
+					//		return
+						if(discipline_level >= 5)
 							return
 
 					//	true_experience -= cost
