@@ -11,10 +11,10 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 	var/back_story = "Nobody"
 	var/list/abl_prior = list("Talents" = 1, "Skills" = 2, "Knowledges" = 3)
 
-
+/*
 /datum/preferences/proc/character_creation(mob/user)
 	real_name = input(user, "What is your character's name?", "Character Creation") as text|null
-
+*/
 /datum/preferences/proc/Set_Story(mob/user)
 	if(slotlocked)
 		return

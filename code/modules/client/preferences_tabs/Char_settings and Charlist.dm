@@ -128,8 +128,8 @@
 		var/datum/dharma/D = new dharma_type()
 		dat += "<b>Dharma:</b> [D.name] [dharma_level]/6 <a href='byond://?_src_=prefs;preference=dharmatype;task=input'>Switch</a><BR>"
 		dat += "[D.desc]<BR>"
-		if(true_experience >= 20 && (dharma_level < 6))
-			dat += " <a href='byond://?_src_=prefs;preference=dharmarise;task=input'>Learn (20)</a><BR>"
+	//	if(true_experience >= 20 && (dharma_level < 6))
+	//		dat += " <a href='byond://?_src_=prefs;preference=dharmarise;task=input'>Learn (2)</a><BR>"
 		dat += "<b>P'o Personality</b>: [po_type] <a href='byond://?_src_=prefs;preference=potype;task=input'>Switch</a><BR>"
 		dat += "<b>Awareness:</b> [masquerade]/5<BR>"
 		dat += "<b>Yin/Yang</b>: [yin]/[yang] <a href='byond://?_src_=prefs;preference=chibalance;task=input'>Adjust</a><BR>"
@@ -207,8 +207,10 @@
 		dat += "<b>Auspice:</b> <a href='byond://?_src_=prefs;preference=auspice;task=input'>[auspice.name]</a><BR>"
 		dat += "Description: [auspice.desc]<BR>"
 		dat += "<b>Power:</b> •[auspice_level > 1 ? "•" : "o"][auspice_level > 2 ? "•" : "o"]([auspice_level])"
-		if(true_experience >= 10*auspice_level && auspice_level != 3)
+	//	if(true_experience >= 10*auspice_level && auspice_level != 3)
 			dat += "<a href='byond://?_src_=prefs;preference=auspice_level;task=input'>Increase ([10*auspice_level])</a>"
+		if(true_experience >= 1 && auspice_level != 3)
+			dat += "<a href='byond://?_src_=prefs;preference=auspice_level;task=input'>Increase ([1])</a>"
 		dat += "<b>Initial Rage:</b> •[auspice.start_rage > 1 ? "•" : "o"][auspice.start_rage > 2 ? "•" : "o"][auspice.start_rage > 3 ? "•" : "o"][auspice.start_rage > 4 ? "•" : "o"]([auspice.start_rage])<BR>"
 		var/gifts_text = ""
 		var/num_of_gifts = 0
@@ -331,7 +333,7 @@
 			qdel(discipline)
 
 		if (possible_new_disciplines.len && (true_experience >= 10))
-			dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline (10)</a><BR>"
+			dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline (1 point)</a><BR>"
 
 	if(pref_species.name == "Ghoul")
 		for (var/i in 1 to discipline_types.len)
@@ -343,7 +345,7 @@
 
 		var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types
 		if (possible_new_disciplines.len && (true_experience >= 10))
-			dat += "<a href='byond://?_src_=prefs;preference=newghouldiscipline;task=input'>Learn a new Discipline (10)</a><BR>"
+			dat += "<a href='byond://?_src_=prefs;preference=newghouldiscipline;task=input'>Learn a new Discipline (1 point)</a><BR>"
 
 	if (pref_species.name == "Kuei-Jin")
 		dat += "<h2>[make_font_cool("DISCIPLINES")]</h2><BR>"
@@ -352,11 +354,13 @@
 			var/datum/chi_discipline/discipline = new discipline_type
 			var/discipline_level = discipline_levels[i]
 
-			var/cost
-			if (discipline_level <= 0)
-				cost = 10
-			else
-				cost = discipline_level * 6
+			var/cost = 1
+	//		if (discipline_level <= 0)
+	//			cost = 10
+	//		else
+	//			cost = discipline_level * 6
+
+
 
 			dat += "<b>[discipline.name]</b> ([discipline.discipline_type]): [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"]([discipline_level])"
 			if((true_experience >= cost) && (discipline_level != 5))
@@ -391,10 +395,10 @@
 					if(has_chi_one)
 						possible_new_disciplines -= i
 		if (possible_new_disciplines.len && (true_experience >= 10))
-			dat += "<a href='byond://?_src_=prefs;preference=newchidiscipline;task=input'>Learn a new Discipline (10)</a><BR>"
+			dat += "<a href='byond://?_src_=prefs;preference=newchidiscipline;task=input'>Learn a new Discipline (1)</a><BR>"
 
 	if(true_experience >= 3 && slotlocked)
-		dat += "<a href='byond://?_src_=prefs;preference=change_appearance;task=input'>Change Appearance (3)</a><BR>"
+		dat += "<a href='byond://?_src_=prefs;preference=change_appearance;task=input'>Change Appearance</a><BR>"
 
 	dat += "<BR><b>Flavor Text:</b> [flavor_text] <a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Change</a><BR>"
 	dat += "<br><br>"
@@ -811,7 +815,7 @@
 
 	dat += "<b>TALENTS</b>"
 	if(talent_priorities)
-		dat += "[talent_priorities]"
+		dat += " ([talent_priorities])"
 	dat += "<BR>"
 	dat += "Alertness: [build_attribute_score(Alertness, 5, 1, "alertness", talent_priorities)]"
 	dat += "Athletics: [build_attribute_score(Athletics, 5, 1, "athletics",  talent_priorities)]"
@@ -821,16 +825,17 @@
 	dat += "Expression: [build_attribute_score(Expression, 5, 1, "expression",  talent_priorities+back_points)]"
 	dat += "<b>SKILLS</b>"
 	if(skills_priorities)
-		dat += "[skills_priorities]"
+		dat += " ([skills_priorities])"
 	dat += "<BR>"
 
-	if(Crafts >= 4)
+/*	if(Crafts >= 4)
 		dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts", skills_priorities+back_points)]"
 		dat += "	Select specialisation:"
 		dat += "<a href='byond://?_src_=prefs;preference=crafts_specialisation;task=input'>[specialisation != list() ? specialisation : "Nothing"] </a>"
 		dat += "<BR>"
 	else
-		dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts", skills_priorities+back_points)]"
+	*/
+	dat += "Crafts: [build_attribute_score(Crafts, 5, 1, "crafts", skills_priorities+back_points)]"
 	dat += "Melee: [build_attribute_score(Melee, 5, 1, "melee", skills_priorities+back_points)]"
 	dat += "Firearms: [build_attribute_score(Firearms, 5, 1, "firearms", skills_priorities+back_points)]"
 	dat += "Drive: [build_attribute_score(Drive, 5, 1, "drive", skills_priorities+back_points)]"
@@ -840,7 +845,7 @@
 		dat += "Fleshcraft: [build_attribute_score(Fleshcraft, 5, 1, "fleshcraft", skills_priorities+back_points)]"
 	dat += "<b>KNOWLEDGES</b>"
 	if(knowledge_priorities)
-		dat += "[knowledge_priorities]"
+		dat += " ([knowledge_priorities])"
 	dat += "<BR>"
 	dat += "Finance: [build_attribute_score(Finance, 5, 1, "finance", knowledge_priorities+back_points)]"
 	dat += "Investigation: [build_attribute_score(Investigation, 5, 1, "investigation", knowledge_priorities+back_points)]"

@@ -1111,15 +1111,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							to_chat(user, "<span class='warning'>You don't have enough balance to gain this quirk!</span>")
 							return
 						all_quirks += quirk
-			//		SetQuirks(user)
-					Set_Story(user)
+					SetQuirks(user)
 				if("reset")
 					all_quirks = list()
-				//	SetQuirks(user)
-					Set_Story(user)
+					SetQuirks(user)
 				else
-				//	SetQuirks(user)
-					Set_Story(user)
+					SetQuirks(user)
 			return TRUE
 
 		if("loadout")
@@ -1459,7 +1456,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						eye_color = sanitize_hexcolor(new_eyes)
 
 				if("newdiscipline")
-					if((true_experience < 10) || !(pref_species.id == "kindred"))
+				//	if((true_experience < 10) || !(pref_species.id == "kindred"))
+				//		return
+					if(!(pref_species.id == "kindred"))
 						return
 
 					var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types - /datum/discipline/bloodheal
@@ -1491,12 +1490,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/selected_discipline = discipline_names[new_discipline]
 						discipline_types += selected_discipline
 						discipline_levels += 1
-						true_experience -= 10
+					//	true_experience -= 10
+						true_experience -= 1
 
 				if("newghouldiscipline")
-					if((true_experience < 10) || !(pref_species.id == "ghoul"))
+			//		if((true_experience < 10) || !(pref_species.id == "ghoul"))
+			//			return
+					if(!(pref_species.id == "ghoul"))
 						return
-
 					// [ChillRaccoon] - hot-patched shit for specify which disces should be able to be taken
 					var/list/possible_new_disciplines = list(/datum/discipline/obfuscate, /datum/discipline/auspex, /datum/discipline/celerity, /datum/discipline/fortitude, /datum/discipline/potence, /datum/discipline/dementation) - discipline_types - /datum/discipline/bloodheal //subtypesof(/datum/discipline) - discipline_types
 
@@ -1504,12 +1505,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_discipline)
 						discipline_types += new_discipline
 						discipline_levels += 1
-						true_experience -= 10
+					//	true_experience -= 10
+						true_experience -= 1
 
 				if("newchidiscipline")
-					if((true_experience < 10) || !(pref_species.id == "kuei-jin"))
+				//	if((true_experience < 10) || !(pref_species.id == "kuei-jin"))
+				//		return
+					if(!(pref_species.id == "kuei-jin"))
 						return
-
 					var/list/possible_new_disciplines = subtypesof(/datum/chi_discipline) - discipline_types
 					var/how_much_usual_chi = 0
 					var/how_much_usual_demon = 0
@@ -1539,7 +1542,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_discipline)
 						discipline_types += new_discipline
 						discipline_levels += 1
-						true_experience -= 10
+					//	true_experience -= 10
+						true_experience -= 1
 
 				if("werewolf_color")
 					if(slotlocked || !(pref_species.id == "garou"))
@@ -1683,6 +1687,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if ((true_experience < cost) || (auspice_level >= 3))
 						return
 
+					cost = 1
 					true_experience -= cost
 					auspice_level = max(1, auspice_level + 1)
 
@@ -2238,11 +2243,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							flavor_text = trim(copytext_char(sanitize(new_flavor), 1, 512))
 
 				if("change_appearance")
-					if((true_experience < 3) || !slotlocked)
-						return
+				//	if((true_experience < 3) || !slotlocked)
+				//		return
 
 					slotlocked = FALSE
-					true_experience -= 3
+				//	true_experience -= 3
 
 				if("species")
 					if(slotlocked)
