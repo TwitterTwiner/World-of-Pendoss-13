@@ -112,6 +112,24 @@
 	tribe = "Black Spiral Dancers"
 	totem_overlay_color = "#ff5235"
 
+/obj/structure/werewolf_totem/kweidjin
+	name = "Dragon Nest Totem"
+	desc = "A spiritual anchor for the Kuei-jin, marking a Dragon Line nexus."
+	icon = 'code/modules/wod13/kuei_totem.dmi'
+	icon_state = "kweidjin"
+	tribe = "Kuei-jin"
+	totem_overlay_color = "#FFFFFF"
+
+/obj/structure/werewolf_totem/kweidjin/adjust_totem_health(amount)
+	var/was_alive = totem_health > 0
+	. = ..()
+	if(amount > 0 && was_alive && totem_health == 0)
+		set_light(0)
+		var/obj/umbra_portal/prev = locate() in get_step(src, SOUTH)
+		if(prev)
+			qdel(prev.exit)
+			qdel(prev)
+
 /obj/effect/landmark/teleport_mark
 	name = "Teleport"
 	icon_state = "x"
