@@ -39,8 +39,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_CLERK
 
-	minimal_generation = 11	//Uncomment when players get exp enough
-	max_generation = 9
 	minimal_masquerade = 5
 
 	known_contacts = list("Prince","Sheriff","Tremere Regent","Dealer","Primogens")

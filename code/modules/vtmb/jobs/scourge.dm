@@ -24,7 +24,6 @@
 
 	v_duty = "You are the Prince's enforcer. You report to the Sheriff and uphold the Traditions."
 	minimal_masquerade = 4
-	max_generation = 10
 	experience_addition = 0
 	allowed_bloodlines = list("True Brujah", "Daughters of Cacophony", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Banu Haqim Sorcerer", "Banu Haqim Vizier", "Giovanni", "Followers of Set", "Lasombra", "Gargoyle", "Kiasyd", "Cappadocian")
 

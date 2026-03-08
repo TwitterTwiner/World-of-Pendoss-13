@@ -33,8 +33,7 @@
 	display_order = JOB_DISPLAY_ORDER_SHERIFF
 	bounty_types = CIV_JOB_SEC
 
-	minimal_generation = 9	//Uncomment when players get exp enough
-	max_generation = 7
+	minimal_generation = 10
 	minimal_masquerade = 5
 	allowed_species = list("Vampire")
 	allowed_bloodlines = list("True Brujah", "Brujah", "Tremere", "Ventrue", "Nosferatu", "Gangrel", "Toreador", "Malkavian", "Banu Haqim", "Banu Haqim Sorcerer", "Banu Haqim Vizier", "Giovanni", "Followers of Set", "Lasombra")
