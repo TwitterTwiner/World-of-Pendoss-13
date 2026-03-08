@@ -2007,7 +2007,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						else if (discipline.learnable_by_clans.Find(clane.type))
 							cost = discipline_level * 6
 
-						if ((true_experience < cost) || (discipline_level >= 5))
+
+					//	if ((true_experience < cost) || (discipline_level >= 5))
+					//		return
+						if(discipline_level >= 5)
 							return
 
 					//	true_experience -= cost
