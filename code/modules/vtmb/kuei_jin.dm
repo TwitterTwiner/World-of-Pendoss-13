@@ -295,7 +295,16 @@
 
 	var/mob/living/carbon/human/kueijin = usr
 
-	to_chat(usr, "<span class='notify'>You begin to gather <b>Chi</b> from your environment...</span>")
+	var/obj/structure/werewolf_totem/nearby_totem
+	for(var/obj/structure/werewolf_totem/W in GLOB.totems)
+		if(W.totem_health > 0 && get_dist(kueijin, W) <= 5)
+			nearby_totem = W
+			break
+	if(!nearby_totem)
+		to_chat(kueijin, "<span class='warning'>You need to be near a spiritual anchor to gather Chi from the environment...</span>")
+		return
+
+	to_chat(usr, "<span class='notify'>You begin to gather <b>Chi</b> from the totem's spiritual energy...</span>")
 	if (do_after(kueijin, 15 SECONDS))
 		COOLDOWN_START(src, use, cooldown)
 		var/area/draining_area = get_area(kueijin)
