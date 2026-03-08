@@ -253,8 +253,7 @@
 		carbon_target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
 		carbon_target.apply_overlay(MUTATIONS_LAYER)
 
-	//change this to something better than an 8 second instastun
-	new /datum/hallucination/death/malkavian(caster, TRUE)
+	new /datum/hallucination/death/malkavian(owner, TRUE)
 	new /datum/hallucination/death/malkavian(target, TRUE)
 
 /datum/discipline_power/dementation/voice_of_madness/deactivate(mob/living/target)
