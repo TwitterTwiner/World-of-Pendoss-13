@@ -90,6 +90,6 @@ SUBSYSTEM_DEF(masquerade)
 //Masquerade violation -50
 //Masquerade reinforcement +25
 //Final death +50
+
 /mob/living
 	var/was_spoted = 0
-

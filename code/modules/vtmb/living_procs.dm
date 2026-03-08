@@ -1,3 +1,6 @@
+/mob/living
+	var/was_spoted = 0
+
 /mob/living/proc/kislota_trip()
 	if(client)
 		animate(client, color = GLOB.hapi_palaci, time = 10, delay=1)

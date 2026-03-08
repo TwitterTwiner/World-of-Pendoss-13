@@ -111,6 +111,8 @@ SUBSYSTEM_DEF(woddices)
 
 	var/diff_curse = 0
 
+	var/list/specialisation = list()
+
 /datum/attributes/proc/randomize()
 	strength = rand(1, 3)
 	dexterity = rand(1, 3)
