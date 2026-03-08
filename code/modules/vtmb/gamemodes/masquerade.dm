@@ -27,7 +27,9 @@ SUBSYSTEM_DEF(masquerade)
 	if(length(GLOB.masquerade_breakers_list))
 		for(var/mob/living/L in GLOB.masquerade_breakers_list)
 			if(L)
-				masquerade_violators += (5-L.masquerade)*40
+				if(!L.was_spoted)
+					masquerade_violators += (5-L.masquerade)*40
+					L.was_spoted = 1
 	if(length(GLOB.sabbatites))
 		sabbat = length(GLOB.sabbatites)*100
 
@@ -88,3 +90,6 @@ SUBSYSTEM_DEF(masquerade)
 //Masquerade violation -50
 //Masquerade reinforcement +25
 //Final death +50
+/mob/living
+	var/was_spoted = 0
+

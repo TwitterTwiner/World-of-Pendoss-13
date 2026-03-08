@@ -43,7 +43,14 @@
 
 /datum/discipline_power/bloodheal/activate()
 	adjust_vitae_cost()
-
+	var/in_coffin = 0
+	var/mob/living/carbon/human/H = owner
+	if(istype(H.loc, /obj/structure/closet/crate/coffin))
+		in_coffin = 1
+	if(HAS_TRAIT(H, TRAIT_COFFIN_THERAPY))
+		if(!in_coffin)
+			to_chat(usr, "<span class='warning'>You need to be in a coffin to use that!</span>")
+			return
 	. = ..()
 
 	//normal bashing/lethal damage

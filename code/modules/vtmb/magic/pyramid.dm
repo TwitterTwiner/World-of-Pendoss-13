@@ -569,7 +569,7 @@
 		message += "Cold and dark, this blood has a mystical connection to the Abyss."
 	else if(clan == "Tzimisce")
 		message += "The vitae is mutable and twisted. Is there any doubt to the cursed line it belongs to?"
-	else if(clan == "Gangrel")
+	else if(clan == "Gangrel" || clan == "City Gangrel")
 		message += "The blood emits a primal and feral aura. The same is likely of the owner."
 	else if(clan == "Malkavian")
 		message += "You can sense chaos and madness within this blood. It's owner must be maddened too."
