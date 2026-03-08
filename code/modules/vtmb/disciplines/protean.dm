@@ -212,7 +212,7 @@
 	)
 	var/non_gangrel_shapes = list(
 		/mob/living/simple_animal/hostile/beastmaster/rat/flying, \
-		/mob/living/simple_animal/hostile/beastmaster/cat
+		/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf
 	)
 
 	var/is_gangrel = FALSE
@@ -319,6 +319,10 @@
 	icon_living = "black"
 	icon_dead = "black_rest"
 	see_in_dark = 6
+
+/mob/living/simple_animal/hostile/beastmaster/shapeshift/wolf/Initialize(mapload)
+	. = ..()
+	icon_state = pick("black", "ginger", "gray", "red", "white", "brown")
 
 /mob/living/simple_animal/hostile/bear/wod13/vampire
 	maxHealth = 200
