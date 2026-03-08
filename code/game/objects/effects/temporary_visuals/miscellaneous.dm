@@ -370,6 +370,11 @@
 	pixel_x = rand(-12, 12)
 	pixel_y = rand(-9, 0)
 
+/obj/effect/temp_visual/animalism_summon
+	icon = 'code/modules/wod13/icons.dmi'
+	icon_state = "summoning"
+	duration = 35
+
 /obj/effect/temp_visual/kinetic_blast
 	name = "kinetic explosion"
 	icon = 'icons/obj/projectiles.dmi'
@@ -379,10 +384,11 @@
 
 /obj/effect/temp_visual/explosion
 	name = "explosion"
-	icon = 'icons/effects/96x96.dmi'
+//	icon = 'icons/effects/96x96.dmi'
+	icon = 'code/modules/wod13/48x48.dmi'
 	icon_state = "explosion"
-	pixel_x = -32
-	pixel_y = -32
+//	pixel_x = -32
+//	pixel_y = -32
 	duration = 8
 
 /obj/effect/temp_visual/explosion/fast

@@ -28,6 +28,7 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	light_power = 2
 	light_on = FALSE
 	sight = 0
+	hud_possible = list(GHOST_HUD)
 	var/can_reenter_corpse
 	var/datum/hud/living/carbon/hud = null // hud
 	var/bootime = 0
@@ -139,6 +140,14 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 
 	. = ..()
 
+	var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+	ghost_hud.add_to_hud(src)
+	update_ghost_hud()
+
+	grant_all_languages()
+	show_data_huds()
+	data_huds_on = 1
+
 	grant_all_languages()
 	show_data_huds()
 	data_huds_on = 1
@@ -169,6 +178,9 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	QDEL_NULL(ghostimage_simple)
 
 	updateallghostimages()
+
+	var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+	ghost_hud.remove_from_hud(src)
 
 	QDEL_NULL(orbit_menu)
 	QDEL_NULL(spawners_menu)
@@ -941,3 +953,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.images += t_ray_images
 		else
 			client.images -= stored_t_ray_images
+
+/mob/dead/observer/proc/update_ghost_hud()
+	if(!hud_list || !hud_list[GHOST_HUD])
+		return
+	var/image/holder = hud_list[GHOST_HUD]
+	holder.icon = icon
+	holder.icon_state = icon_state
+	holder.alpha = 180
+	holder.color = "#ffffff"
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size

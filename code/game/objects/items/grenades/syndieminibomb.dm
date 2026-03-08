@@ -26,6 +26,7 @@
 /obj/item/grenade/frag
 	name = "frag grenade"
 	desc = "An anti-personnel fragmentation grenade, this weapon excels at killing soft targets by shredding them with metal shrapnel."
+	icon = 'code/modules/wod13/grenade.dmi'
 	icon_state = "frag"
 	shrapnel_type = /obj/projectile/bullet/shrapnel
 	shrapnel_radius = 4

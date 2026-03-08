@@ -10,6 +10,7 @@
 	var/resize = 1 ///Badminnery resize
 	var/lastattacker = null
 	var/lastattackerckey = null
+	var/lastattacked_time
 
 	var/mob/living/lastattacked = null
 

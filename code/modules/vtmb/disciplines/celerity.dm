@@ -52,10 +52,12 @@
 /datum/discipline_power/celerity/activate()
 	. = ..()
 	owner.attributes.celerity_bonus += level
+	owner.next_move_modifier -= 0.1*level
 
 /datum/discipline_power/celerity/deactivate()
 	. = ..()
 	owner.attributes.celerity_bonus -= level
+	owner.next_move_modifier += 0.1*level
 
 //CELERITY 1
 /datum/movespeed_modifier/celerity

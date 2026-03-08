@@ -1305,7 +1305,7 @@ GLOBAL_LIST_INIT(dpr, list(0.3,0.3,0.3,0,\
 	L.see_invisible = initial(L.see_invisible)
 	L.crazy_screen(FALSE)
 	L.rotation_screen(0,FALSE)
-	L.reagents.add_reagent(/datum/reagent/drug/Nzp, 0.1)
+	L.reagents.add_reagent(/datum/reagent/drug/Nzp, 1)
 	to_chat(L, "<span class='notice'>Ты чувствуешь некое... просветвление.</span>")
 
 //////////////////////DMT/////////////////////

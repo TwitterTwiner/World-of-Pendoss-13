@@ -21,6 +21,9 @@ SUBSYSTEM_DEF(city_time)
 	else
 		return "[number]"
 
+/datum/controller/subsystem/city_time
+	var/won
+
 /datum/controller/subsystem/city_time/fire()
 	if(minutes == 59)
 		minutes = 0
@@ -31,7 +34,7 @@ SUBSYSTEM_DEF(city_time)
 	timeofnight = "[get_watch_number(hour)]:[get_watch_number(minutes)]"
 
 	if(hour == 0 && minutes == 0)
-		var/won
+//		var/won
 		var/last_winner_points = 0
 		if(length(SSfactionwar.marks_camarilla) > last_winner_points)
 			last_winner_points = length(SSfactionwar.marks_camarilla)
@@ -55,6 +58,7 @@ SUBSYSTEM_DEF(city_time)
 //						var/datum/preferences/P = GLOB.preferences_datums[ckey(W.key)]
 //						if(P)
 //							P.add_experience(get_a_intelligence(W))
+
 		for(var/mob/living/carbon/human/H in GLOB.human_list)
 			if(H)
 				if(H.stat != DEAD)
@@ -62,18 +66,18 @@ SUBSYSTEM_DEF(city_time)
 						var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]
 						if(P)
 //							P.old_enough_to_get_exp = TRUE
-							if(!iskindred(H) && !isghoul(H) && !iscathayan(H) && !isgarou(H))
-								P.add_experience(10) // Буст экспы хуманам
-							if(isghoul(H))
-								P.add_experience(5) // Буст экспы для гулей чтобы чаще на них играли
+					//		if(!iskindred(H) && !isghoul(H) && !iscathayan(H) && !isgarou(H))
+					//			P.add_experience(10) // Буст экспы хуманам
+					//		if(isghoul(H))
+					//			P.add_experience(5) // Буст экспы для гулей чтобы чаще на них играли
 //							P.add_experience(get_a_intelligence(H))
-							if(H.mind)
-								if("[H.mind.assigned_role]" == "Prince" || "[H.mind.assigned_role]" == "Baron")
-									P.add_experience(5)
-							if(!HAS_TRAIT(H, TRAIT_NON_INT))
-								if(won)
-									if(H.vampire_faction == won)
-										P.add_experience(5)
+					//		if(H.mind)
+					//			if("[H.mind.assigned_role]" == "Prince" || "[H.mind.assigned_role]" == "Baron")
+					//				P.add_experience(5)
+					//		if(!HAS_TRAIT(H, TRAIT_NON_INT))
+					//			if(won)
+					//				if(H.vampire_faction == won)
+					//					P.add_experience(5)
 //								if(H.total_contracted > 1)
 //									P.add_experience(1)
 //									H.total_contracted = 0
@@ -81,22 +85,22 @@ SUBSYSTEM_DEF(city_time)
 								if(iskindred(H) && H.clane)
 									if(H.clane.name == "Toreador")
 										toreador_bonus = 1*/
-								if(H.total_erp > 4500)
-									P.add_experience(5)
-									H.total_erp = 0
-								if(H.total_cleaned > 25)
-									P.add_experience(5)
-									H.total_cleaned = 0
-									call_dharma("cleangrow", H)
-								if(H.mind)
-									if(H.mind.assigned_role == "Graveyard Keeper")
-										if(SSgraveyard.total_good > SSgraveyard.total_bad)
-											P.add_experience(5)
+					//			if(H.total_erp > 4500)
+					//				P.add_experience(5)
+					//				H.total_erp = 0
+							if(H.total_cleaned > 25)
+					//				P.add_experience(5)
+								H.total_cleaned = 0
+								call_dharma("cleangrow", H)
+					//			if(H.mind)
+					//				if(H.mind.assigned_role == "Graveyard Keeper")
+					//					if(SSgraveyard.total_good > SSgraveyard.total_bad)
+					//						P.add_experience(5)
 							P.save_preferences()
 							P.save_character()
 
 	if(hour == 3 && minutes == 0)
-		var/won
+//		var/won
 		var/last_winner_points = 0
 		if(length(SSfactionwar.marks_camarilla) > last_winner_points)
 			last_winner_points = length(SSfactionwar.marks_camarilla)
@@ -127,13 +131,13 @@ SUBSYSTEM_DEF(city_time)
 						var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]
 						if(P)
 //							P.add_experience(get_a_intelligence(H))
-							if(H.mind)
-								if("[H.mind.assigned_role]" == "Prince" || "[H.mind.assigned_role]" == "Baron")
-									P.add_experience(5)
-							if(!HAS_TRAIT(H, TRAIT_NON_INT))
-								if(won)
-									if(H.vampire_faction == won)
-										P.add_experience(5)
+						//	if(H.mind)
+						//		if("[H.mind.assigned_role]" == "Prince" || "[H.mind.assigned_role]" == "Baron")
+						//			P.add_experience(5)
+					//		if(!HAS_TRAIT(H, TRAIT_NON_INT))
+					//			if(won)
+					//				if(H.vampire_faction == won)
+					//					P.add_experience(5)
 //								if(H.total_contracted > 1)
 //									P.add_experience(3)
 //									H.total_contracted = 0
@@ -141,17 +145,17 @@ SUBSYSTEM_DEF(city_time)
 								if(iskindred(H) && H.clane)
 									if(H.clane.name == "Toreador")
 										toreador_bonus = 1*/
-								if(H.total_erp > 4500)
-									P.add_experience(5)
-									H.total_erp = 0
-								if(H.total_cleaned > 25)
-									P.add_experience(5)
-									H.total_cleaned = 0
-									call_dharma("cleangrow", H)
-								if(H.mind)
-									if(H.mind.assigned_role == "Graveyard Keeper")
-										if(SSgraveyard.total_good > SSgraveyard.total_bad)
-											P.add_experience(5)
+				//				if(H.total_erp > 4500)
+				//					P.add_experience(5)
+				//					H.total_erp = 0
+							if(H.total_cleaned > 25)
+				//					P.add_experience(5)
+								H.total_cleaned = 0
+								call_dharma("cleangrow", H)
+			//					if(H.mind)
+			//						if(H.mind.assigned_role == "Graveyard Keeper")
+			//							if(SSgraveyard.total_good > SSgraveyard.total_bad)
+			//								P.add_experience(5)
 							P.save_preferences()
 							P.save_character()
 

@@ -227,7 +227,7 @@
 /mob/living/carbon/proc/dismembering_strike(mob/living/attacker, dam_zone, bypass_damage_check = FALSE)
 	if(!(attacker.limb_destroyer || get_potence_dices(attacker) >= 1))
 		return dam_zone
-	if(!(iskindred(attacker) || isgarou(attacker) || iswerewolf(attacker)))
+	if(!(iskindred(attacker) || iscathayan(attacker) || isgarou(attacker) || iswerewolf(attacker)))
 		return dam_zone
 
 	var/list/missing_zones = get_missing_limbs()
@@ -239,7 +239,7 @@
 			break
 	if(all_required_missing)
 		var/obj/item/bodypart/head_part = get_bodypart(BODY_ZONE_HEAD)
-		if(head_part)
+		if(head_part && attacker.zone_selected == BODY_ZONE_HEAD)
 			head_part.dismember()
 			return null
 
@@ -262,6 +262,14 @@
 	if((affecting.body_zone == BODY_ZONE_HEAD || affecting.body_zone == BODY_ZONE_CHEST) && !all_required_missing)
 		return dam_zone
 	if((affecting.get_damage(include_clone = TRUE) >= affecting.max_damage) || bypass_damage_check)
+		if(affecting.body_zone == BODY_ZONE_HEAD)
+			var/obj/item/bodypart/head_part = get_bodypart(BODY_ZONE_HEAD)
+			if(!head_part)
+				return dam_zone
+			if(attacker.zone_selected != BODY_ZONE_HEAD)
+				return dam_zone
+			head_part.dismember()
+			return null
 		affecting.dismember()
 		return null
 
@@ -497,18 +505,18 @@
 			call_dharma("meet", M)
 			if(!human.Myself.got_lovero)
 				human.Myself.got_lovero = TRUE
-				if(M.key)
-					var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
-					if(P)
-						P.add_experience(5)
+			//	if(M.key)
+			//		var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
+			//		if(P)
+			//			P.add_experience(5)
 		if(human.Myself?.Friend?.owner == src)
 			call_dharma("meet", M)
 			if(!human.Myself.got_friendo)
 				human.Myself.got_friendo = TRUE
-				if(M.key)
-					var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
-					if(P)
-						P.add_experience(5)
+			//	if(M.key)
+			//		var/datum/preferences/P = GLOB.preferences_datums[ckey(M.key)]
+			//		if(P)
+			//			P.add_experience(5)
 
 	if(body_position == LYING_DOWN)
 		if(buckled)

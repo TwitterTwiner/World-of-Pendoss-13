@@ -34,7 +34,9 @@
 /datum/discipline_power/necromancy/shroudsight/activate()
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, NECROMANCY_TRAIT)
-	ADD_TRAIT(owner, TRAIT_GHOST_VISION, NECROMANCY_TRAIT)
+
+	var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+	ghost_hud.add_hud_to(owner)
 
 	owner.update_sight()
 
@@ -44,9 +46,10 @@
 	. = ..()
 
 	REMOVE_TRAIT(owner, TRAIT_NIGHT_VISION, NECROMANCY_TRAIT)
-	REMOVE_TRAIT(owner, TRAIT_GHOST_VISION, NECROMANCY_TRAIT)
 
-	owner.see_override = initial(owner.see_override)
+	var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+	ghost_hud.remove_hud_from(owner)
+
 	owner.update_sight()
 
 	to_chat(owner, span_warning("Your vision returns to the mortal realm."))

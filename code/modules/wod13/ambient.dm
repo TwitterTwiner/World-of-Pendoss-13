@@ -260,6 +260,9 @@
 	upper = FALSE
 	wall_rating = HIGH_WALL_RATING
 
+/area/vtm/supply/ship
+	name = "Cargo Ship"
+
 /area/vtm/anarch
 	name = "Bar"
 	icon_state = "anarch"

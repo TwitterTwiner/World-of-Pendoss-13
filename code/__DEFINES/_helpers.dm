@@ -7,3 +7,7 @@
 //Returns an integer given a hex input, supports negative values "-ff"
 //skips preceding invalid characters
 #define hex2num(X) text2num(X, 16)
+
+#define isimage(thing) (istype(thing, /image))
+
+

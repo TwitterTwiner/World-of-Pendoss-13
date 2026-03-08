@@ -1381,7 +1381,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else
 				target.MyPath.trigger_morality("attackedfail")
 				target.caster = user
-				var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+				var/datum/cb = CALLBACK(target, TYPE_PROC_REF(/mob/living, step_away_caster))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1)*target.total_multiplicative_slowdown())
 //				target.emote("scream")
@@ -1394,7 +1394,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 	if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 		add_hard = 1
 	if(user.zone_selected == BODY_ZONE_HEAD)
-		add_hard = 2
+		add_hard = 3
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		add_hard = 3
 
@@ -1491,12 +1491,9 @@ GLOBAL_LIST_EMPTY(selectable_races)
 						"<span class='userdanger'>You're [atk_verb]ed by [user]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, "<span class='danger'>You [atk_verb] [target]!</span>")
 
-		if(get_potence_dices(user) >= 5 || modifikator > 5)
-			var/atom/throw_target = get_edge_target_turf(target, user.dir)
-			target.throw_at(throw_target, rand(5, 7), 4, user, gentle = TRUE)
-
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
+		target.lastattacked_time = world.time
 		user.lastattacked = target
 		user.dna.species.spec_unarmedattacked(user, target)
 
@@ -1601,7 +1598,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else
 				H.MyPath.trigger_morality("attackedfail")
 				H.caster = user
-				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, step_away_caster))
+				var/datum/cb = CALLBACK(H, TYPE_PROC_REF(/mob/living, step_away_caster))
 				for(var/i in 1 to 20)
 					addtimer(cb, (i - 1)*H.total_multiplicative_slowdown())
 //				H.emote("scream")
@@ -1614,7 +1611,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 	if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 		add_hard = 1
 	if(user.zone_selected == BODY_ZONE_HEAD)
-		add_hard = 2
+		add_hard = 3
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		add_hard = 3
 	var/modifikator

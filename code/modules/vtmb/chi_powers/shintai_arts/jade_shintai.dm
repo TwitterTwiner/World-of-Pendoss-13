@@ -3,7 +3,7 @@
 	desc = "Manipulate own weight and capabilities."
 	icon_state = "jade"
 	ranged = FALSE
-	delay = 12 SECONDS
+	delay = 20 SECONDS
 	cost_yang = 1
 	activate_sound = 'code/modules/wod13/sounds/jadeshintai_activate.ogg'
 

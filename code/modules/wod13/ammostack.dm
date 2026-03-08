@@ -79,6 +79,15 @@
 	bare_wound_bonus = -5
 	wound_bonus = 5
 
+/obj/projectile/beam/beam_rifle/vampire/vamp556mm/hp
+	name = "5.56mm hollow-point bullet"
+	damage = 60
+	armour_penetration = -60
+	sharpness = SHARP_EDGED
+	bare_wound_bonus = 25
+	wound_bonus = 10
+	wound_falloff_tile = -8
+
 /obj/projectile/beam/beam_rifle/vampire/vamp545mm
 	name = "5.45mm bullet"
 	damage = 40
@@ -209,6 +218,11 @@
 /obj/item/ammo_casing/vampire/c556mm/incendiary
 	projectile_type = /obj/projectile/beam/beam_rifle/vampire/vamp556mm/incendiary
 
+/obj/item/ammo_casing/vampire/c556mm/hp
+	name = "5.56mm hollow-point bullet casing"
+	desc = "A 5.56mm hollow-point bullet casing."
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/vamp556mm/hp
+
 /obj/item/ammo_casing/vampire/c12g
 	name = "12g shell casing"
 	desc = "A 12g shell casing."
@@ -313,6 +327,11 @@
 	icon_state = "incendiary"
 	ammo_type = /obj/item/ammo_casing/vampire/c556mm/incendiary
 
+/obj/item/ammo_box/vampire/c556/hp
+	name = "ammo box (5.56 HP)"
+	desc = "A box of 5.56mm hollow-point ammo."
+	ammo_type = /obj/item/ammo_casing/vampire/c556mm/hp
+
 /obj/item/ammo_box/vampire/c12g
 	name = "ammo box (12g)"
 	icon_state = "12box"
@@ -355,18 +374,12 @@
 	. = ..()
 	if(iswerewolf(target) || isgarou(target))
 		var/mob/living/carbon/M = target
-		if(M.auspice.gnosis)
-			if(prob(50))
-				adjust_gnosis(-1, M)
-		else
-			M.Stun(1 SECONDS)
-			M.Immobilize(1 SECONDS)
-			M.adjustBruteLoss(50, TRUE)
-			M.adjustCloneLoss(20, TRUE)
-		if(!M.has_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown))
-			M.add_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
-			spawn(7 SECONDS)
-			M.remove_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
+		if(!M.is_base_breed() || M.auspice?.breed_form == FORM_CRINOS)
+			M.adjustCloneLoss(25, TRUE)
+			if(!M.has_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown))
+				M.add_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
+				spawn(7 SECONDS)
+				M.remove_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
 
 /obj/projectile/beam/beam_rifle/vampire/vamp9mm/silver
 	name = "9mm silver bullet"
@@ -376,16 +389,11 @@
 	. = ..()
 	if(iswerewolf(target) || isgarou(target))
 		var/mob/living/carbon/M = target
-		if(M.auspice.gnosis)
-			if(prob(50))
-				adjust_gnosis(-1, M)
-		else
-			M.Stun(1 SECONDS)
-			M.adjustBruteLoss(25, TRUE)
-			M.adjustCloneLoss(10, TRUE)
-		if(!M.has_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown))
-			M.add_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
-			spawn(5 SECONDS)
+		if(!M.is_base_breed() || M.auspice?.breed_form == FORM_CRINOS)
+			M.adjustCloneLoss(25, TRUE)
+			if(!M.has_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown))
+				M.add_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
+				spawn(5 SECONDS)
 				M.remove_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
 
 /obj/projectile/beam/beam_rifle/vampire/vamp45acp/silver
@@ -396,16 +404,11 @@
 	. = ..()
 	if(iswerewolf(target) || isgarou(target))
 		var/mob/living/carbon/M = target
-		if(M.auspice.gnosis)
-			if(prob(50))
-				adjust_gnosis(-1, M)
-		else
-			M.Stun(1 SECONDS)
-			M.adjustBruteLoss(30, TRUE)
-			M.adjustCloneLoss(15, TRUE)
-		if(!M.has_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown))
-			M.add_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
-			spawn(5 SECONDS)
+		if(!M.is_base_breed() || M.auspice?.breed_form == FORM_CRINOS)
+			M.adjustCloneLoss(25, TRUE)
+			if(!M.has_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown))
+				M.add_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
+				spawn(5 SECONDS)
 				M.remove_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
 
 /obj/projectile/beam/beam_rifle/vampire/vamp44/silver
@@ -418,17 +421,11 @@
 	. = ..()
 	if(iswerewolf(target) || isgarou(target))
 		var/mob/living/carbon/M = target
-		if(M.auspice.gnosis)
-			if(prob(50))
-				adjust_gnosis(-1, M)
-		else
-			M.Stun(2 SECONDS)
-			M.Immobilize(1 SECONDS)
-			M.adjustBruteLoss(40, TRUE)
+		if(!M.is_base_breed() || M.auspice?.breed_form == FORM_CRINOS)
 			M.adjustCloneLoss(25, TRUE)
-		if(!M.has_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown))
-			M.add_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
-			spawn(7 SECONDS)
+			if(!M.has_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown))
+				M.add_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
+				spawn(7 SECONDS)
 				M.remove_movespeed_modifier(/datum/movespeed_modifier/silver_slowdown)
 
 /obj/item/ammo_casing/vampire/c9mm/silver

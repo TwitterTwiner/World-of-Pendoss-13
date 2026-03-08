@@ -496,6 +496,31 @@
 	if(C)
 		C.frenzy_hardness = initial(C.frenzy_hardness)
 
+/datum/status_effect/cauldron_of_blood
+	id = "caudron_of_blood"
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/cauldron_of_blood
+
+/datum/status_effect/cauldron_of_blood/on_creation(mob/living/new_owner)
+	. = ..()
+
+/datum/status_effect/cauldron_of_blood/on_remove()
+	. = ..()
+	var/mob/living/L = owner
+	if(L)
+		if(L.stat != DEAD)
+			L.death()
+		var/list/items = list()
+		items |= L.get_equipped_items(TRUE)
+		for(var/obj/item/I in items)
+			L.dropItemToGround(I)
+		L.drop_all_held_items()
+		L.spawn_gibs()
+		L.spawn_gibs()
+		L.spawn_gibs()
+		qdel(L)
+
 /datum/status_effect/hundred_deaths
 	id = "hundred_deaths"
 	duration = 1 SCENES
@@ -524,6 +549,22 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_PAIN_BOTCH, DISCIPLINE_TRAIT)
 
+/datum/status_effect/arms_of_the_abyss
+	id = "arms_of_the_abyss"
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/arms_of_the_abyss
+
+/datum/status_effect/arms_of_the_abyss/on_creation(mob/living/new_owner)
+	. = ..()
+
+/datum/status_effect/arms_of_the_abyss/on_remove()
+	. = ..()
+	var/mob/living/L = owner
+	if(L)
+		for(var/obj/item/melee/vampirearms/knife/gangrel/lasombra/arm in L.contents)
+			qdel(arm)
+
 /atom/movable/screen/alert/status_effect/blood_of_potency
 	name = "Blood of Potency"
 	desc = "You can feel your blood being stronger!"
@@ -532,6 +573,11 @@
 /atom/movable/screen/alert/status_effect/blood_rage
 	name = "Blood Rage"
 	desc = "You feel like you're going to lose it at any moment!"
+	icon_state = "blooddrunk"
+
+/atom/movable/screen/alert/status_effect/cauldron_of_blood
+	name = "Cauldron of Blood"
+	desc = "Your blood is being boiled! It is over!"
 	icon_state = "blooddrunk"
 
 /atom/movable/screen/alert/status_effect/hundred_deaths
@@ -543,6 +589,11 @@
 	name = "Thirst for Pain"
 	desc = "You can't seem to use your pain path abilities without harming yourself first!"
 	icon_state = "blooddrunk"
+
+/atom/movable/screen/alert/status_effect/arms_of_the_abyss
+	name = "Arms of The Abyss"
+	desc = "You used the shadows to manifest the Arms of Abyss. They'll vanish soon."
+	icon_state = "arms_abyss"
 
 /atom/movable/screen/alert/status_effect/crucible_soul
 	name = "Blessing of Crucible Soul"

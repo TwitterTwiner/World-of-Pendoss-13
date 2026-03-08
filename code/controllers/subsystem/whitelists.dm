@@ -35,6 +35,9 @@ SUBSYSTEM_DEF(whitelists)
 		qdel(tribe)
 
 	possible_whitelists += "trufaith"
+	possible_whitelists += "gen7"
+	possible_whitelists += "gen8"
+	possible_whitelists += "gen9"
 
 	//placeholder until a proper morality system is added
 	//possible_whitelists += "enlightenment"
@@ -54,8 +57,8 @@ SUBSYSTEM_DEF(whitelists)
 		if (admin.ckey == checked_ckey)
 			return TRUE
 
-	//trufaith:CharacterName entries are valid for "trufaith" whitelist type
-	var/whitelist_exists = possible_whitelists.Find(checked_whitelist) || (length(checked_whitelist) >= 9 && copytext(checked_whitelist, 1, 10) == "trufaith:")
+	//trufaith:CharacterName and gen7/gen8/gen9:CharacterName entries are valid for their whitelist types
+	var/whitelist_exists = possible_whitelists.Find(checked_whitelist) || (length(checked_whitelist) >= 9 && copytext(checked_whitelist, 1, 10) == "trufaith:") || (length(checked_whitelist) >= 5 && (copytext(checked_whitelist, 1, 6) == "gen7:" || copytext(checked_whitelist, 1, 6) == "gen8:" || copytext(checked_whitelist, 1, 6) == "gen9:"))
 	//return as whitelisted if the given whitelist doesn't exist
 	if (!whitelist_exists)
 		return TRUE
@@ -67,6 +70,16 @@ SUBSYSTEM_DEF(whitelists)
 			if (current_whitelist.whitelist == "trufaith")
 				return TRUE
 			if (current_whitelist.whitelist == "trufaith:[character_name]")
+				return TRUE
+		return FALSE
+
+	if (character_name != null && (checked_whitelist == "gen7" || checked_whitelist == "gen8" || checked_whitelist == "gen9"))
+		for (var/datum/whitelist/current_whitelist in whitelist_entries)
+			if (current_whitelist.ckey != checked_ckey)
+				continue
+			if (current_whitelist.whitelist == checked_whitelist)
+				return TRUE
+			if (current_whitelist.whitelist == "[checked_whitelist]:[character_name]")
 				return TRUE
 		return FALSE
 

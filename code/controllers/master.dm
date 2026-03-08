@@ -271,23 +271,27 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				if(char_sheet)
 					// char_sheet.add_experience(3)
 
-					var/role = H.mind?.assigned_role
-					var/special_role = H.mind?.special_role
+		//			var/role = H.mind?.assigned_role
+		//			var/special_role = H.mind?.special_role
 
-					if(H.total_erp > 1500)
-						char_sheet.add_experience(5)
+				//	if(H.total_erp > 1500)
+				//		char_sheet.add_experience(5)
 					if(H.total_cleaned > 25)
-						char_sheet.add_experience(5)
+				//		char_sheet.add_experience(5)
 						call_dharma("cleangrow", H)
-					if(role == "Graveyard Keeper")
+				/*	if(role == "Graveyard Keeper")
 						if(SSgraveyard.total_good > SSgraveyard.total_bad)
 							char_sheet.add_experience(5)
+
 					if(special_role)
 						var/datum/antagonist/A = special_role
 						for(var/datum/objective/obj in A.objectives) //We get 5 exp for each completed objective
 							if(obj.check_completion())
 								char_sheet.add_experience(5)
 
+						if(A.check_completed())
+							char_sheet.add_experience(5)
+						*/
 					char_sheet.save_preferences()
 					char_sheet.save_character()
 		// TFN EDIT REFACTOR END

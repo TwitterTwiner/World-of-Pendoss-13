@@ -169,51 +169,8 @@
 			playsound(src, 'sound/magic/lightningshock.ogg', 70, TRUE, extrarange = 5)
 		else
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
-		for(var/mob/living/carbon/C in GLOB.auspex_users)
-			var/dist = get_dist(C, src)
-			var/dir = get_dir(C, src)
-			var/napravlenie = ""
-			if(HAS_TRAIT(C, AUSPEX_TRAIT))
-				switch(dir)
-					if(NORTH)
-						napravlenie = "севера"
-					if(NORTHWEST)
-						napravlenie = "северо-запада"
-					if(NORTHEAST)
-						napravlenie = "северо-востока"
-					if(SOUTH)
-						napravlenie = "юга"
-					if(SOUTHEAST)
-						napravlenie = "юго-востока"
-					if(SOUTHWEST)
-						napravlenie = "юго-запада"
-					if(WEST)
-						napravlenie = "запада"
-					if(EAST)
-						napravlenie = "востока"
-				switch(dist)
-					if(0 to 6)
-						C.playsound_local(user, fire_sound, 100, vary_fire_sound)
-						C.soundbang_act(1, 100-dist, 5, 10)
-						to_chat(C, "<span class='danger'>Выстрелы совсем близко! Вашим ушам очень больно!</span>")
-					if(7 to 20)
-						C.playsound_local(user, fire_sound, 90, vary_fire_sound)
-						C.soundbang_act(1, 50-dist, 1, 5)
-						to_chat(C, "<span class='danger'>Выстрелы примерно на расстоянии в пару десятков метров в направлении [napravlenie]! В ушах начинает гудеть...</span>")
-					if(21 to 39)
-						C.playsound_local(user, fire_sound, 80, vary_fire_sound)
-						C.soundbang_act(1, 20, 1, 5)
-						to_chat(C, "<span class='danger'>Пальба примерно на расстоянии в несколько метров в направлении [napravlenie]! В ушах начинает гудеть...</span>")
-					if(40 to 50)
-						C.playsound_local(user, fire_sound, 70, vary_fire_sound)
-						to_chat(C, "<span class='danger'> Вы слышите выстрелы! Кажется они доносятся по направлению [napravlenie]...</span>")
-					if(51 to 60)
-						C.playsound_local(user, fire_sound, fire_sound_volume, vary_fire_sound)
-						to_chat(C, "<span class='danger'>Вы слышите выстрелы, что доносятся откуда-то издалека, по направлению [napravlenie]!</span>")
-					if(61 to INFINITY)
-						C.playsound_local(user, fire_sound, 30, vary_fire_sound)
-						to_chat(C, "<span class='danger'>До вас доходят редкие и плохо различимые звуки... Кажется это выстрелы? Они в направлении [napravlenie].</span>")
 
+		auspex_moment(user)
 
 		if(message)
 			if(pointblank)
@@ -229,6 +186,38 @@
 				user.visible_message("<span class='danger'>[user] fires [src]!</span>", \
 								"<span class='danger'>You fire [src]!</span>", \
 								"<span class='hear'>You hear a gunshot!</span>", COMBAT_MESSAGE_RANGE)
+
+
+/obj/item/gun/auspex_moment(mob/living/user)
+//	. = ..()
+	for(var/mob/living/carbon/C in GLOB.auspex_users)
+		var/dist = get_dist(C, src)
+		var/napravlenie = get_direction(C)
+		if(!HAS_TRAIT(C, AUSPEX_TRAIT))
+			return
+		switch(dist)
+			if(0 to 6)
+				C.playsound_local(user, fire_sound, 100, vary_fire_sound)
+				C.soundbang_act(1, 100-dist, 5, 10)
+				to_chat(C, "<span class='danger'>Выстрелы совсем близко! Вашим ушам очень больно!</span>")
+			if(7 to 20)
+				C.playsound_local(user, fire_sound, 90, vary_fire_sound)
+				C.soundbang_act(1, 50-dist, 1, 5)
+				to_chat(C, "<span class='danger'>Выстрелы примерно на расстоянии в пару десятков метров в направлении [napravlenie]! В ушах начинает гудеть...</span>")
+			if(21 to 39)
+				C.playsound_local(user, fire_sound, 80, vary_fire_sound)
+				C.soundbang_act(1, 20, 1, 5)
+				to_chat(C, "<span class='danger'>Пальба примерно на расстоянии в несколько метров в направлении [napravlenie]! В ушах начинает гудеть...</span>")
+			if(40 to 50)
+				C.playsound_local(user, fire_sound, 70, vary_fire_sound)
+				to_chat(C, "<span class='danger'> Вы слышите выстрелы! Кажется они доносятся по направлению [napravlenie]...</span>")
+			if(51 to 60)
+				C.playsound_local(user, fire_sound, fire_sound_volume, vary_fire_sound)
+				to_chat(C, "<span class='danger'>Вы слышите выстрелы, что доносятся откуда-то издалека, по направлению [napravlenie]!</span>")
+			if(61 to INFINITY)
+				C.playsound_local(user, fire_sound, 30, vary_fire_sound)
+				to_chat(C, "<span class='danger'>До вас доходят редкие и плохо различимые звуки... Кажется это выстрелы? Они в направлении [napravlenie].</span>")
+
 
 /obj/item/gun/emp_act(severity)
 	. = ..()
@@ -336,7 +325,7 @@
 		if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 			add_hard = 1
 		if(user.zone_selected == BODY_ZONE_HEAD)
-			add_hard = 2
+			add_hard = 3
 		if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			add_hard = 3
 		if(target == user)
@@ -414,7 +403,7 @@
 			if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM || user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG)
 				add_hard = 1
 			if(user.zone_selected == BODY_ZONE_HEAD)
-				add_hard = 2
+				add_hard = 3
 			if(user.zone_selected == BODY_ZONE_PRECISE_EYES || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 				add_hard = 3
 			if(target == user)

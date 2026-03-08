@@ -1,6 +1,5 @@
-/mob/living/carbon/human
+/mob/living/carbon
 	var/datum/morality_path/MyPath
-	var/willpower_auto = FALSE
 
 /datum/morality_path
 	var/mob/living/carbon/human/owner
@@ -15,14 +14,14 @@
 	var/list/ready_events = list()
 
 /*
-	var/list/ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0, 
-	"massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "syrgery", "examination" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0, 
-	"baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0, 
-	"deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0, 
+	var/list/ready_events = list("slur" = 0, "attackfirst" = 0, "steal" = 0, "robbery" = 0, "drugdealing" = 0, "organtrade" = 0, "drying" = 0, "kill" = 0,
+	"massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "syrgery", "examination" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0,
+	"baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0,
+	"deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0,
 	"corpseitems" = 0, "friendmeet" = 0, "lovermeet" = 0)
 	*/
 
-	var/list/bad_events = list("attackfirst", "steal", "robbery", "drugdealing", 
+	var/list/bad_events = list("attackfirst", "steal", "robbery", "drugdealing",
 	"organtrade", "drying", "kill", "massmurder", "diablerie")
 	var/murder_victms = 0	//So when it hits 5 it's confirmed mass murder
 

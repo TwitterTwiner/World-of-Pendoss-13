@@ -5,6 +5,7 @@
 		"prince",
 		"clerk",
 		"milleniumCommon",
+		"millenium_delivery",
 		"theatre"
 	)
 	color = "#70202f"
@@ -15,6 +16,7 @@
 		"camarilla",
 		"prince",
 		"milleniumCommon",
+		"millenium_delivery",
 		"theatre"
 	)
 	color = "#70202f"
@@ -25,6 +27,7 @@
 		"camarilla",
 		"clerk",
 		"milleniumCommon",
+		"millenium_delivery",
 		"theatre"
 	)
 	color = "#70202f"
@@ -33,6 +36,7 @@
 	name = "Millenium Tower Personnel keys"
 	accesslocks = list(
 		"milleniumCommon",
+		"millenium_delivery",
 		"camarilla",
 		"theatre"
 	)
@@ -94,7 +98,8 @@
 /obj/item/vamp/keys/supply
 	name = "Supply keys"
 	accesslocks = list(
-		"supply"
+		"supply",
+		"oops"
 	)
 	color = "#6c6860"
 
@@ -143,20 +148,30 @@
 		"strip"
 	)
 
-/obj/item/vamp/keys/giovanni
+/obj/item/vamp/keys/giovannimafia
 	name = "Bianchi Associate keys"
 	accesslocks = list(
-		"giovanni",
-		"bianchiBank"
+		"bianchi",
+		"giovanni"
 	)
 	color = "#99FF99"
 
-/obj/item/vamp/keys/capo
+/obj/item/vamp/keys/giovanni
+	name = "Bianchi Personnel keys"
+	accesslocks = list(
+		"bianchi",
+		"giovanni",
+		"nigrimancy"
+	)
+	color = "#99FF99"
+
+/obj/item/vamp/keys/giovanniboss
 	name = "Bianchi Executive keys"
 	accesslocks = list(
-		"bankboss",
-		"bianchiBank",
-		"giovanni"
+		"bianchi",
+		"bianchiboss",
+		"giovanni",
+		"nigrimancy"
 	)
 	color = "#66AA66"
 
@@ -268,7 +283,8 @@
 	name = "Businessy keys"
 	accesslocks = list(
 		"ventrue",
-		"milleniumCommon"
+		"milleniumCommon",
+		"millenium_delivery"
 	)
 	color = "#f6ffa7"
 
@@ -277,7 +293,8 @@
 	accesslocks = list(
 		"primVentrue",
 		"ventrue",
-		"milleniumCommon"
+		"milleniumCommon",
+		"millenium_delivery"
 	)
 	color = "#e8ff29"
 
@@ -299,7 +316,8 @@
 /obj/item/vamp/keys/pentex
 	name = "Endron Personnel keys"
 	accesslocks = list(
-		"pentex"
+		"pentex",
+		"bar_delivery"
 	)
 	color = "#337852"
 
@@ -307,7 +325,8 @@
 	name = "Endron Executive keys"
 	accesslocks = list(
 		"pentex",
-		"pentextop"
+		"pentextop",
+		"bar_delivery"
 	)
 	color = "#225d3c"
 

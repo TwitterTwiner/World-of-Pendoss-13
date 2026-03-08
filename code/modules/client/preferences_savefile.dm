@@ -483,6 +483,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["eye_color"], eye_color)
 	READ_FILE(S["skin_tone"], skin_tone)
 	READ_FILE(S["hairstyle_name"], hairstyle)
+	READ_FILE(S["blood_type"], blood_type)
 	READ_FILE(S["facial_style_name"], facial_hairstyle)
 	READ_FILE(S["underwear"], underwear)
 	READ_FILE(S["underwear_color"], underwear_color)
@@ -549,6 +550,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Quirks
 	READ_FILE(S["all_quirks"], all_quirks)
 
+//	READ_FILE(S["back_story"], back_story)
+
 	//try to fix any outdated data if necessary
 	//preference updating will handle saving the updated data for us.
 	if(needs_update >= 0)
@@ -603,6 +606,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		underwear		= sanitize_inlist(underwear, GLOB.underwear_list)
 		undershirt 		= sanitize_inlist(undershirt, GLOB.undershirt_list)
 
+	blood_type		= sanitize_inlist(blood_type, GLOB.blood_types)
+
 	breed			= sanitize_inlist(breed, list(BREED_HOMID, BREED_LUPUS, BREED_METIS, BREED_CORVID))
 	werewolf_color	= sanitize_inlist(werewolf_color, list("black", "gray", "red", "white", "ginger", "brown"))
 	werewolf_scar	= sanitize_integer(werewolf_scar, 0, 7, initial(werewolf_scar))
@@ -647,14 +652,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	main_mental_attribute = sanitize_text(main_mental_attribute, initial(main_mental_attribute))
 	secondary_mental_attribute = sanitize_text(secondary_mental_attribute, initial(secondary_mental_attribute))
 
-	Strength				= sanitize_integer(Strength, 1, get_gen_attribute_limit("Strength"), initial(Strength))
-	Dexterity				= sanitize_integer(Dexterity, 1, get_gen_attribute_limit("Dexterity"), initial(Dexterity))
-	Stamina					= sanitize_integer(Stamina, 1, get_gen_attribute_limit("Stamina"), initial(Stamina))
-	Charisma				= sanitize_integer(Charisma, 1, get_gen_attribute_limit("Charisma"), initial(Charisma))
-	Manipulation				= sanitize_integer(Manipulation, 1, get_gen_attribute_limit("Manipulation"), initial(Manipulation))
-	Appearance				= sanitize_integer(Appearance, 1, get_gen_attribute_limit("Appearance"), initial(Appearance))
-	Perception				= sanitize_integer(Perception, 1, get_gen_attribute_limit("Perception"), initial(Perception))
-	Intelligence				= sanitize_integer(Intelligence, 1, get_gen_attribute_limit("Intelligence"), initial(Intelligence))
+	Strength				= sanitize_integer(Strength, 1, get_gen_attribute_limit(), initial(Strength))
+	Dexterity				= sanitize_integer(Dexterity, 1, get_gen_attribute_limit(), initial(Dexterity))
+	Stamina					= sanitize_integer(Stamina, 1, get_gen_attribute_limit(), initial(Stamina))
+	Charisma				= sanitize_integer(Charisma, 1, get_gen_attribute_limit(), initial(Charisma))
+	Manipulation				= sanitize_integer(Manipulation, 1, get_gen_attribute_limit(), initial(Manipulation))
+	Appearance				= sanitize_integer(Appearance, 1, get_gen_attribute_limit(), initial(Appearance))
+	Perception				= sanitize_integer(Perception, 1, get_gen_attribute_limit(), initial(Perception))
+	Intelligence				= sanitize_integer(Intelligence, 1, get_gen_attribute_limit(), initial(Intelligence))
 	Wits				= sanitize_integer(Wits, 1, get_gen_attribute_limit("Wits"), initial(Wits))
 	Alertness				= sanitize_integer(Alertness, 0, 5, initial(Alertness))
 	Athletics				= sanitize_integer(Athletics, 0, 5, initial(Athletics))
@@ -705,6 +710,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	honor = sanitize_integer(honor, 0, 10, initial(honor))
 	renownrank = sanitize_integer(renownrank, 0, 5, initial(renownrank))
 	generation				= sanitize_integer(generation, 1, 13, initial(generation))
+	var/min_gen = 10
+	if(parent?.ckey)
+		if(SSwhitelists.is_whitelisted(parent.ckey, "gen9", real_name))
+			min_gen = 9
+		if(SSwhitelists.is_whitelisted(parent.ckey, "gen8", real_name))
+			min_gen = 8
+		if(SSwhitelists.is_whitelisted(parent.ckey, "gen7", real_name))
+			min_gen = 7
+	if(generation < min_gen)
+		generation = min_gen
 	generation_bonus				= sanitize_integer(generation_bonus, 0, 6, initial(generation_bonus))
 	hair_color			= sanitize_hexcolor(hair_color, 3, 0)
 	facial_hair_color			= sanitize_hexcolor(facial_hair_color, 3, 0)
@@ -740,6 +755,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			job_preferences -= j
 
 	all_quirks = SANITIZE_LIST(all_quirks)
+
+	back_story = features[back_story]
 	validate_quirks()
 
 	//Convert jank old Discipline system to new Discipline system
@@ -891,6 +908,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["total_age"]	, total_age)
 	WRITE_FILE(S["hair_color"]			, hair_color)
 	WRITE_FILE(S["facial_hair_color"]			, facial_hair_color)
+	WRITE_FILE(S["blood_type"]			, blood_type)
 	WRITE_FILE(S["eye_color"]			, eye_color)
 	WRITE_FILE(S["skin_tone"]			, skin_tone)
 	WRITE_FILE(S["hairstyle_name"]			, hairstyle)
@@ -948,6 +966,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	//Quirks
 	WRITE_FILE(S["all_quirks"]			, all_quirks)
+
+//	WRITE_FILE(S["back_story"]			, back_story)
 
 	return TRUE
 

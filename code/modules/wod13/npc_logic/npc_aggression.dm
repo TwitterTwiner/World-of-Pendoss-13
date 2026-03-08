@@ -11,7 +11,7 @@
 			return
 	if(CheckMove(hardlock = TRUE))
 		return
-	if(danger_source != M)
+	if(danger_source != M && isliving(M))  ///////////  Какой-то ушуй(рантайм) от гранат и пытается получить от них id, хотя danger_source определен, как мобик
 		var/theirpower = secret_vampireroll(max(get_a_manipulation(M), get_a_strength(M))+get_a_intimidation(M), get_a_willpower(src), M, TRUE)
 		if(theirpower == -1)
 			fights_anyway = TRUE

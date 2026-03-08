@@ -25,17 +25,27 @@
 
 /obj/effect/explosion
 	name = "fire"
-	icon = 'icons/effects/96x96.dmi'
+//	icon = 'icons/effects/96x96.dmi'
+	icon = 'code/modules/wod13/48x48.dmi'
 	icon_state = "explosion"
 	opacity = TRUE
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	pixel_x = -32
-	pixel_y = -32
+	var/obj/effect/explosion_light/L
+	var/obj/effect/particle_effect/smoke/dust/D
+	var/obj/effect/temp_visual/dir_setting/crack_effect/C
+//	pixel_x = -32
+//	pixel_y = -32
 
 /obj/effect/explosion/Initialize(mapload)
 	. = ..()
-	QDEL_IN(src, 10)
+	L = new (loc)
+	C = new (loc)
+	set_light(4, 3, "#fffc97")
+	QDEL_IN(L, 3)
+	QDEL_IN(src, 7)
+	D = new (loc)
+
 
 /datum/effect_system/explosion
 
@@ -60,3 +70,13 @@
 /datum/effect_system/explosion/smoke/start()
 	..()
 	addtimer(CALLBACK(src, PROC_REF(create_smoke)), 5)
+
+
+/obj/effect/explosion_light
+	name = "explosion light"
+	icon_state = "explosion"
+	icon = 'code/modules/wod13/lighting_extended.dmi'
+	opacity = TRUE
+	anchored = TRUE
+	pixel_x = -16
+	pixel_y = -16

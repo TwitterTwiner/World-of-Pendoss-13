@@ -145,6 +145,7 @@
 	var/inspired = FALSE
 
 	var/wolf_recov = FALSE
+	var/last_wake = 0
 
 	var/melee_damage_type
 

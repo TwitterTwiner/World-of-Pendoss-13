@@ -389,6 +389,7 @@
 	M.lastattacker = user.real_name
 	user.lastattacked = M
 	M.lastattackerckey = user.ckey
+	M.lastattacked_time = world.time
 
 /obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity)
 	. = ..()

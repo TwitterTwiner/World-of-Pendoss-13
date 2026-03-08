@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/discipline4type
 
 	//Character sheet stats
-	var/true_experience = 50
+	var/true_experience = POINTS
 	var/trufaith_level = 0 // 0-3, bought with experience in Character List (20/30/40)
 	var/torpor_count = 0
 
@@ -301,16 +301,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/add_experience(amount)
 	true_experience = clamp(true_experience + amount, 0, 1000)
 
-/datum/preferences/proc/reset_stats(attributes_only = FALSE)
-	Strength = 1
-	Dexterity = 1
-	Stamina = 1
-	Manipulation = 1
-	Charisma = 1
-	Appearance = 1
-	Perception = 1
-	Intelligence = 1
-	Wits = 1
+/datum/preferences/proc/reset_stats(attributes_only = FALSE, abilities_only = FALSE)
+	if(!abilities_only)
+		Strength = 1
+		Dexterity = 1
+		Stamina = 1
+		Manipulation = 1
+		Charisma = 1
+		Appearance = 1
+		Perception = 1
+		Intelligence = 1
+		Wits = 1
 	if(!attributes_only)
 		Alertness = 0
 		Athletics = 0
@@ -366,7 +367,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	random_species()
 	random_character()
 	body_model = rand(1, 3)
-	true_experience = 50
+	true_experience = POINTS
 	trufaith_level = 0
 	real_name = random_unique_name(gender)
 	save_character()
@@ -395,6 +396,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(load_character())
 			return
 	//we couldn't load character data so just randomize the character appearance + name
+	if(!length(GLOB.roundstart_races))
+		generate_selectable_species()
 	random_species()
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	reset_character()
@@ -552,7 +555,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/leftover_circles = max_number - attribute //5 is the default number of blank circles
 	for(var/c in 1 to leftover_circles)
 		dat += "o"
-	var/real_price = attribute ? (attribute*price) : price //In case we have an attribute of 0, we don't multiply by 0
+	var/real_price = 1 //attribute ? (attribute*price) : price //In case we have an attribute of 0, we don't multiply by 0
 	if(attribute < max_number)
 		if(leftover_circles)
 			if(freepoints > 0)
@@ -566,35 +569,40 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/physical_priorities = 0
 	var/social_priorities = 0
 	var/mental_priorities = 0
+//	var/back_priorities = 0
+	var/mortal = 0
+	if(pref_species.name == "Human" || pref_species.name == "Ghoul")
+		mortal = 1
 	for(var/i in priorities)
 		if(i == "Physical")
 			switch(priorities[i])
 				if(1)
-					physical_priorities = 7
+					physical_priorities = 7 - mortal
 				if(2)
-					physical_priorities = 5
+					physical_priorities = 5 - mortal
 				if(3)
 					physical_priorities = 3
 		if(i == "Social")
 			switch(priorities[i])
 				if(1)
-					social_priorities = 7
+					social_priorities = 7 - mortal
 				if(2)
-					social_priorities = 5
+					social_priorities = 5 - mortal
 				if(3)
 					social_priorities = 3
 		if(i == "Mental")
 			switch(priorities[i])
 				if(1)
-					mental_priorities = 7
+					mental_priorities = 7 - mortal
 				if(2)
-					mental_priorities = 5
+					mental_priorities = 5 - mortal
 				if(3)
 					mental_priorities = 3
 
 	var/used_physical = max(0, Strength - 1) + max(0, Dexterity - 1) + max(0, Stamina - 1)
 	var/used_social = max(0, Charisma - 1) + max(0, Manipulation - 1) + max(0, Appearance - 1)
 	var/used_mental = max(0, Perception - 1) + max(0, Intelligence - 1) + max(0, Wits - 1)
+//	var/used_back =
 
 	physical_priorities = max(0, physical_priorities - used_physical)
 	social_priorities = max(0, social_priorities - used_social)
@@ -607,141 +615,40 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return social_priorities
 		if("Mental")
 			return mental_priorities
+	//	if("Soldier")
+	//		return soldier_priorities
 	return 0
 
-/datum/preferences/proc/get_gen_attribute_limit(attribute)
+/datum/preferences/proc/get_gen_attribute_limit()
 	var/level
 
 	if(pref_species.name == "Vampire")
 		level = generation - generation_bonus
-	else if(pref_species.name == "Werewolf")
-		level = auspice_level
+//	else if(pref_species.name == "Werewolf")
+//		level = auspice_level
 	else if(pref_species.name == "Kuei-Jin")
 		level = dharma_level
 	else
 		level = 13
 
-	if(pref_species.name == "Vampire")
-		switch(level)
-			if(9)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 6
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(8)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 7
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 5
-				else
-					return 3
-			if(7)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 8
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 6
-				else
-					return 4
-			if(6)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 9
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 7
-				else
-					return 5
-		if(level > 9)
-			if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-				return 5
-			else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-				return 4
-			else
-				return 3
-		if(level < 6)
-			if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-				return 10
-			else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-				return 8
-			else
-				return 6
+	if(pref_species.name == "Vampire")   ///////// This is strange, that if() here and above the same, but let everything remain as it was for now
+		if(level <= 7)
+			return 13-level
+
+		if(level > 7)
+			return 5
 
 	if(pref_species.name == "Kuei-Jin")
 		switch(level)
-			if(1)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 5
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(2)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 6
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(3)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 7
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 5
-				else
-					return 3
-			if(4)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 8
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 6
-				else
-					return 4
-			if(5)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 9
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 7
-				else
-					return 5
+			if(1 to 5)
+				return 5
+
 			if(6)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 10
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 8
-				else
-					return 6
+				return 6
 
-	if(pref_species.name == "Werewolf")
-		switch(level)
-			if(1)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 5
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(2)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 6
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 4
-				else
-					return 3
-			if(3)
-				if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-					return 7
-				else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-					return 5
-				else
-					return 3
-
-	if(attribute == main_physical_attribute || attribute == main_social_attribute || attribute == main_mental_attribute)
-		return 5
-	else if(attribute == secondary_physical_attribute || attribute == secondary_social_attribute || attribute == secondary_mental_attribute)
-		return 4
-	else
-		return 3
-
+//	if(pref_species.name == "Werewolf")
+//		return 5
+	return 5
 
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
@@ -1228,6 +1135,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(pref_species.name == "Ghoul")
 						max_age = 500
 					total_age = rand(age, age+max_age)
+					reset_stats()
+
 				if("hair")
 					hair_color = random_short_color()
 				if("hairstyle")
@@ -1341,13 +1250,50 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("total_age")
 					if(slotlocked)
 						return
+					var/max_age = 0
+					var/white_list_age = 0
+					if(SSwhitelists.is_whitelisted(parent.ckey, "gen9", real_name))
+						white_list_age = 100
 
-					var/new_age = input(user, "Choose your character's actual age:\n([age]-[age+1000])", "Character Preference") as num|null
+					if(SSwhitelists.is_whitelisted(parent.ckey, "gen8", real_name))
+						white_list_age = 300
+
+					if(SSwhitelists.is_whitelisted(parent.ckey, "gen7", real_name))
+						white_list_age = 1000
+
+					if(pref_species.name == "Vampire")
+						max_age = 100 + white_list_age
+					if(pref_species.name == "Ghoul")
+						max_age = 400
+					if(pref_species.name == "Werewolf")
+						max_age = 150
+					var/new_age = input(user, "Choose your character's actual age:\n([age]-[age+max_age])", "Character Preference") as num|null
 					if(new_age)
-						total_age = max(min(round(text2num(new_age)), age+1000), age)
+						total_age = max(min(round(text2num(new_age)), age+max_age), age)
 						if (total_age < age)
 							age = total_age
-						update_preview_icon()
+
+						true_experience = POINTS
+						reset_stats()
+					switch(total_age)
+						if(150 to 200)
+							true_experience += 5
+						if(201 to 300)
+							true_experience += 8
+						if(301 to 500)
+							true_experience += 12
+						if(501 to 700)
+							true_experience += 15
+						if(701 to INFINITY)
+							true_experience += 20
+
+					update_preview_icon()
+
+		//		if("Story")
+		//			if(slotlocked)
+		//				return
+
+
 
 				if("blood_type")
 					if(slotlocked)
@@ -1517,7 +1463,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						eye_color = sanitize_hexcolor(new_eyes)
 
 				if("newdiscipline")
-					if((true_experience < 10) || !(pref_species.id == "kindred"))
+				//	if((true_experience < 10) || !(pref_species.id == "kindred"))
+				//		return
+					if(!(pref_species.id == "kindred"))
 						return
 
 					var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types - /datum/discipline/bloodheal
@@ -1549,12 +1497,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/selected_discipline = discipline_names[new_discipline]
 						discipline_types += selected_discipline
 						discipline_levels += 1
-						true_experience -= 10
+					//	true_experience -= 10
+						true_experience -= 1
 
 				if("newghouldiscipline")
-					if((true_experience < 10) || !(pref_species.id == "ghoul"))
+			//		if((true_experience < 10) || !(pref_species.id == "ghoul"))
+			//			return
+					if(!(pref_species.id == "ghoul"))
 						return
-
 					// [ChillRaccoon] - hot-patched shit for specify which disces should be able to be taken
 					var/list/possible_new_disciplines = list(/datum/discipline/obfuscate, /datum/discipline/auspex, /datum/discipline/celerity, /datum/discipline/fortitude, /datum/discipline/potence, /datum/discipline/dementation) - discipline_types - /datum/discipline/bloodheal //subtypesof(/datum/discipline) - discipline_types
 
@@ -1562,12 +1512,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_discipline)
 						discipline_types += new_discipline
 						discipline_levels += 1
-						true_experience -= 10
+					//	true_experience -= 10
+						true_experience -= 1
 
 				if("newchidiscipline")
-					if((true_experience < 10) || !(pref_species.id == "kuei-jin"))
+				//	if((true_experience < 10) || !(pref_species.id == "kuei-jin"))
+				//		return
+					if(!(pref_species.id == "kuei-jin"))
 						return
-
 					var/list/possible_new_disciplines = subtypesof(/datum/chi_discipline) - discipline_types
 					var/how_much_usual_chi = 0
 					var/how_much_usual_demon = 0
@@ -1597,7 +1549,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_discipline)
 						discipline_types += new_discipline
 						discipline_levels += 1
-						true_experience -= 10
+					//	true_experience -= 10
+						true_experience -= 1
 
 				if("werewolf_color")
 					if(slotlocked || !(pref_species.id == "garou"))
@@ -1720,7 +1673,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 									clane.clane_disciplines += new_discipline
 									discipline_types += new_discipline
 									discipline_levels += 1
-									true_experience -= 10
+								//	true_experience -= 10
+									true_experience -= 1
 						else //Separate this fucking shit, otherwise we can encounter with some trouble. This is a bug. [ChillRaccoon]
 							for (var/i in 1 to clane.clane_disciplines.len)
 								discipline_types += clane.clane_disciplines[i]
@@ -1741,6 +1695,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if ((true_experience < cost) || (auspice_level >= 3))
 						return
 
+					cost = 1
 					true_experience -= cost
 					auspice_level = max(1, auspice_level + 1)
 
@@ -1749,7 +1704,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						return
 					if (alert("Are you sure you want to change your Priorities? This will reset your Attributes.", "Confirmation", "Yes", "No") != "Yes")
 						return
-					var/new_priorities = input(user, "Select a Discipline", "Discipline Selection") as null|anything in list("Physical, Social, Mental", "Physical, Mental, Social", "Social, Physical, Mental", "Social, Mental, Physical", "Mental, Social, Physical", "Mental, Physical, Social")
+					var/new_priorities = input(user, "Select a Priority Order", "Priority Selection") as null|anything in list("Physical, Social, Mental", "Physical, Mental, Social", "Social, Physical, Mental", "Social, Mental, Physical", "Mental, Social, Physical", "Mental, Physical, Social")
 					if(new_priorities)
 						switch(new_priorities)
 							if("Physical, Social, Mental")
@@ -1766,6 +1721,29 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								priorities = list("Mental" = 1, "Physical" = 2, "Social" = 3)
 						reset_stats(TRUE)
 
+
+				if("abl_priorities")
+			//		if(slotlocked)
+			//			return
+					if (alert("Are you sure you want to change your Priorities? This will reset your Abilities.", "Confirmation", "Yes", "No") != "Yes")
+						return
+					var/new_priorities = input(user, "Select a Priority Order", "Priority Selection") as null|anything in list("Talents, Skills, Knowledges", "Talents, Knowledges, Skills", "Skills, Talents, Knowledges", "Skills, Knowledges, Talents", "Knowledges, Skills, Talents", "Knowledges, Talents, Skills")
+					if(new_priorities)
+						switch(new_priorities)
+							if("Talents, Skills, Knowledges")
+								abl_prior = list("Talents" = 1, "Skills" = 2, "Knowledges" = 3)
+							if("Talents, Knowledges, Skills")
+								abl_prior = list("Talents" = 1, "Knowledges" = 2, "Skills" = 3)
+							if("Skills, Talents, Knowledges")
+								abl_prior = list("Skills" = 1, "Talents" = 2, "Knowledges" = 3)
+							if("Skills, Knowledges, Talents")
+								abl_prior = list("Skills" = 1, "Knowledges" = 2, "Talents" = 3)
+							if("Knowledges, Skills, Talents")
+								abl_prior = list("Knowledges" = 1, "Skills" = 2, "Talents" = 3)
+							if("Knowledges, Talents, Skills")
+								abl_prior = list("Knowledges" = 1, "Talents" = 2, "Skills" = 3)
+						reset_stats(FALSE, TRUE)
+/*
 				if("main_physical")
 					if(slotlocked)
 						return
@@ -1837,113 +1815,113 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_secondary_mental)
 						secondary_mental_attribute = new_secondary_mental
 						verify_attributes()
-
+*/
 				if("strength")
-					if(handle_upgrade(Strength, Strength * 5, get_gen_attribute_limit("Strength"), "Physical"))
+					if(handle_upgrade(Strength, 1, get_gen_attribute_limit("Strength"), "Physical"))
 						Strength++
 
 				if("dexterity")
-					if(handle_upgrade(Dexterity, Dexterity * 5, get_gen_attribute_limit("Dexterity"), "Physical"))
+					if(handle_upgrade(Dexterity, 1, get_gen_attribute_limit("Dexterity"), "Physical"))
 						Dexterity++
 
 				if("stamina")
-					if(handle_upgrade(Stamina, Stamina * 5, get_gen_attribute_limit("Stamina"), "Physical"))
+					if(handle_upgrade(Stamina, 1, get_gen_attribute_limit("Stamina"), "Physical"))
 						Stamina++
 
 				if("charisma")
-					if(handle_upgrade(Charisma, Charisma * 5, get_gen_attribute_limit("Charisma"), "Social"))
+					if(handle_upgrade(Charisma, 1, get_gen_attribute_limit("Charisma"), "Social"))
 						Charisma++
 
 				if("manipulation")
-					if(handle_upgrade(Manipulation, Manipulation * 5, get_gen_attribute_limit("Manipulation"), "Social"))
+					if(handle_upgrade(Manipulation, 1, get_gen_attribute_limit("Manipulation"), "Social"))
 						Manipulation++
 
 				if("appearance")
-					if(handle_upgrade(Appearance, Appearance * 5, get_gen_attribute_limit("Appearance"), "Social"))
+					if(handle_upgrade(Appearance, 1, get_gen_attribute_limit("Appearance"), "Social"))
 						Appearance++
 
 				if("perception")
-					if(handle_upgrade(Perception, Perception * 5, get_gen_attribute_limit("Perception"), "Mental"))
+					if(handle_upgrade(Perception, 1, get_gen_attribute_limit("Perception"), "Mental"))
 						Perception++
 
 				if("intelligence")
-					if(handle_upgrade(Intelligence, Intelligence * 5, get_gen_attribute_limit("Intelligence"), "Mental"))
+					if(handle_upgrade(Intelligence, 1, get_gen_attribute_limit("Intelligence"), "Mental"))
 						Intelligence++
 
 				if("wits")
-					if(handle_upgrade(Wits, Wits * 5, get_gen_attribute_limit("Wits"), "Mental"))
+					if(handle_upgrade(Wits, 1, get_gen_attribute_limit("Wits"), "Mental"))
 						Wits++
 
 				if("alertness")
-					if(handle_upgrade(Alertness, Alertness * 3, 5))
+					if(handle_upgrade(Alertness, 1, 5, "Talents"))
 						Alertness++
 
 				if("athletics")
-					if(handle_upgrade(Athletics, Athletics * 3, 5))
+					if(handle_upgrade(Athletics, 1, 5, "Talents"))
 						Athletics++
 
 				if("brawl")
-					if(handle_upgrade(Brawl, Brawl * 3, 5))
+					if(handle_upgrade(Brawl, 1, 5, "Talents"))
 						Brawl++
 
 				if("empathy")
-					if(handle_upgrade(Empathy, Empathy * 3, 5))
+					if(handle_upgrade(Empathy, 1, 5, "Talents"))
 						Empathy++
 
 				if("intimidation")
-					if(handle_upgrade(Intimidation, Intimidation * 3, 5))
+					if(handle_upgrade(Intimidation, 1, 5, "Talents"))
 						Intimidation++
 
 				if("expression")
-					if(handle_upgrade(Expression, Expression * 3, 5))
+					if(handle_upgrade(Expression, 1, 5, "Talents"))
 						Expression++
 
 				if("crafts")
-					if(handle_upgrade(Crafts, Crafts * 3, 5))
+					if(handle_upgrade(Crafts, 1, 5, "Skills"))
 						Crafts++
 
 				if("melee")
-					if(handle_upgrade(Melee, Melee * 3, 5))
+					if(handle_upgrade(Melee, 1, 5, "Skills"))
 						Melee++
 
 				if("firearms")
-					if(handle_upgrade(Firearms, Firearms * 3, 5))
+					if(handle_upgrade(Firearms, 1, 5, "Skills"))
 						Firearms++
 
 				if("drive")
-					if(handle_upgrade(Drive, Drive * 3, 5))
+					if(handle_upgrade(Drive, 1, 5, "Skills"))
 						Drive++
 
 				if("security")
-					if(handle_upgrade(Security, Security * 3, 5))
+					if(handle_upgrade(Security, 1, 5, "Skills"))
 						Security++
 
 				if("performance")
-					if(handle_upgrade(Performance, Performance * 3, 5))
+					if(handle_upgrade(Performance, 1, 5, "Skills"))
 						Performance++
 
 				if("fleshcraft")
-					if(handle_upgrade(Fleshcraft, Fleshcraft * 3, 5))
+					if(handle_upgrade(Fleshcraft, 1, 5, "Skills"))
 						Fleshcraft++
 
 				if("finance")
-					if(handle_upgrade(Finance, Finance * 3, 5))
+					if(handle_upgrade(Finance, 1, 5, "Knowledges"))
 						Finance++
 
 				if("investigation")
-					if(handle_upgrade(Investigation, Investigation * 3, 5))
+					if(handle_upgrade(Investigation, 1, 5, "Knowledges"))
 						Investigation++
 
 				if("medicine")
-					if(handle_upgrade(Medicine, Medicine * 3, 5))
+					if(handle_upgrade(Medicine, 1, 5, "Knowledges"))
 						Medicine++
 
 				if("linguistics")
-					if(handle_upgrade(Linguistics, Linguistics * 3, 5))
+					if(handle_upgrade(Linguistics, 1, 5, "Knowledges"))
 						Linguistics++
 
 				if("occult")
-					if(handle_upgrade(Occult, Occult * 3, 5))
+					if(handle_upgrade(Occult, 1, 5, "Knowledges"))
 						Occult++
 
 				if("tribe")
@@ -1961,6 +1939,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/newtype = GLOB.tribes_list[new_tribe]
 						new_tribe = new newtype()
 						tribe = new_tribe
+						if(tribe.name == "Bone Gnawers")
+							ADD_TRAIT(user, TRAIT_BONE_GNAWER, tribe)
 						if(tribe.name == "Corax")
 							ADD_TRAIT(user, TRAIT_CORAX, tribe) //This might be redundant considering we also add this trait in auspice.dm
 							// Convert Lupus to Corvid, and default Metis to Corvid since Corax don't have them
@@ -1970,6 +1950,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						else
 							if(breed == BREED_CORVID)
 								breed = BREED_LUPUS
+							if(HAS_TRAIT(user, TRAIT_BONE_GNAWER))
+								REMOVE_TRAIT(user, TRAIT_BONE_GNAWER, tribe)
 							if(HAS_TRAIT(user, TRAIT_CORAX))
 								REMOVE_TRAIT(user, TRAIT_CORAX, tribe)
 				if("breed")
@@ -2028,7 +2010,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
-						true_experience -= cost
+					//	true_experience -= cost
+						true_experience -= 1
 						discipline_levels[i] = min(5, max(1, discipline_levels[i] + 1))
 
 					if(pref_species.id == "kuei-jin")
@@ -2042,7 +2025,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
-						true_experience -= cost
+					//	true_experience -= cost
+						true_experience -= 1
 						discipline_levels[a] = min(5, max(1, discipline_levels[a] + 1))
 
 				if("path")
@@ -2091,6 +2075,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("languages_reset")
 					languages = list()
+
+				if("crafts_specialisation")
+					var/list/specialisation_craft  = list("Woodworking", "shitie")
+					var/result = input(user, "Select a Craft to specialise in", "Craft Specialisation") as null|anything in specialisation_craft
+					if(result)
+						to_chat(world, "[result]")
 
 				if("languages")
 					if(length(languages) >= Linguistics)
@@ -2143,10 +2133,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					humanity = consience+selfcontrol
 
 				if("dharmarise")
-					if ((true_experience < 20) || (dharma_level >= 6) || !(pref_species.id == "kuei-jin"))
-						return
+			//		if ((true_experience < 20) || (dharma_level >= 6) || !(pref_species.id == "kuei-jin"))
+			//			return
 
-					true_experience -= 20
+				//	true_experience -= 20
+					true_experience -= 1
 					dharma_level = clamp(dharma_level + 1, 1, 6)
 					yin = min(10, yin += 1)
 					yang = min(10, yang += 1)
@@ -2159,15 +2150,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						return
 					if(!SSwhitelists.is_whitelisted(user?.client?.ckey, "trufaith", real_name))
 						return
-					var/cost = 0
-					if(trufaith_level == 0)
-						cost = 20
+					var/cost = 2
+	/*				if(trufaith_level == 0)
+						cost = 2
 					else if(trufaith_level == 1)
 						cost = 30
 					else if(trufaith_level == 2)
 						cost = 40
 					else
 						return
+						*/
 					if(true_experience < cost)
 						return
 					true_experience -= cost
@@ -2231,9 +2223,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((clane?.name == "Caitiff") || slotlocked)
 						return
 
-					var/new_gen = input(user, "Select your generation (LOWER GENERATION MEANS LESS JOB SLOTS):", "Character Preference") as num|null
+					var/min_gen = 10
+					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen9", real_name))
+						min_gen = 9
+					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen8", real_name))
+						min_gen = 8
+					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen7", real_name))
+						min_gen = 7
+					var/new_gen = input(user, "Select your generation ([min_gen]-13, lower = fewer job slots):", "Character Preference") as num|null
 					if(new_gen)
-						generation = clamp(new_gen, 7, 13)
+						new_gen = clamp(new_gen, min_gen, 13)
+						generation = new_gen
 						generation_bonus = 0
 						diablerist = FALSE
 						verify_attributes()
@@ -2260,11 +2260,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							flavor_text = trim(copytext_char(sanitize(new_flavor), 1, 512))
 
 				if("change_appearance")
-					if((true_experience < 3) || !slotlocked)
-						return
+				//	if((true_experience < 3) || !slotlocked)
+				//		return
 
 					slotlocked = FALSE
-					true_experience -= 3
+				//	true_experience -= 3
 
 				if("species")
 					if(slotlocked)
@@ -2835,9 +2835,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(cost <= 0)
 		if(!catgr)
 			cost = 3
-	if (((true_experience < cost) && !get_freebie_points(catgr)) || (number >= numlimit))
+	if (((true_experience < cost) && (!get_freebie_points(catgr)) && !get_adbl_points(catgr)) || (number >= numlimit))
 		return FALSE
-	if(!get_freebie_points(catgr))
+	if(!get_freebie_points(catgr) && !get_adbl_points(catgr))
 		true_experience -= cost
 	return TRUE
 
@@ -3057,6 +3057,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.auspice.tribe = tribe
 		character.auspice.on_gain(character)
 		character.auspice.set_breed(breed, character)
+		character.auspice.willpower = 6+auspice_level
 		if(character.transformator?.crinos_form && character.transformator?.lupus_form && !HAS_TRAIT(character, TRAIT_CORAX))
 			var/mob/living/carbon/werewolf/crinos/crinos = character.transformator.crinos_form?.resolve()
 			var/mob/living/carbon/werewolf/lupus/lupus = character.transformator.lupus_form?.resolve()

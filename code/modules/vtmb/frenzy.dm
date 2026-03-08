@@ -165,7 +165,7 @@
 	remove_client_colour(/datum/client_colour/glass_colour/red)
 	GLOB.frenzy_list -= src
 
-/mob/living/carbon/proc/CheckFrenzyMove()
+/mob/living/proc/CheckFrenzyMove()
 	if(stat >= SOFT_CRIT)
 		return TRUE
 	if(IsSleeping())

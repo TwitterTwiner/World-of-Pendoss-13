@@ -6,6 +6,7 @@
 	icon_state = "grenade"
 	inhand_icon_state = "flashbang"
 	worn_icon_state = "grenade"
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throw_speed = 3
@@ -35,6 +36,9 @@
 	/// the higher this number, the more projectiles are created as shrapnel
 	var/shrapnel_radius
 	var/shrapnel_initialized
+
+	var/bomb_sound = list('code/modules/wod13/sounds/frag.ogg')
+	var/bomb_sound_far = list('code/modules/wod13/sounds/frag_distant1.ogg', 'code/modules/wod13/sounds/frag_distant2.ogg', 'code/modules/wod13/sounds/frag_distant3.ogg')
 
 /obj/item/grenade/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] primes [src], then eats it! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -107,7 +111,7 @@
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
 	SEND_SIGNAL(src, COMSIG_GRENADE_ARMED, det_time, delayoverride)
-	addtimer(CALLBACK(src, PROC_REF(detonate)), isnull(delayoverride)? det_time : delayoverride)
+//	addtimer(CALLBACK(src, PROC_REF(detonate)), isnull(delayoverride)? det_time : delayoverride)
 
 /**
  * detonate (formerly prime) refers to when the grenade actually delivers its payload (whether or not a boom/bang/detonation is involved)
@@ -123,6 +127,8 @@
 	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	if(ex_dev || ex_heavy || ex_light || ex_flame)
 		explosion(loc, ex_dev, ex_heavy, ex_light, flame_range = ex_flame)
+	playsound(src, bomb_sound, 100, TRUE)
+	auspex_moment(lanced_by)
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
@@ -180,3 +186,50 @@
 	. = ..()
 	if(active)
 		user.throw_item(target)
+
+/////// [T.WINER] - По просьбе Флава сделал так, что инициация взрыва происходит только при взрыве, в руке не идет
+
+/obj/item/grenade/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
+	. = ..()
+	if(active)
+		addtimer(CALLBACK(src, PROC_REF(detonate)), det_time)
+
+/obj/item/grenade/dropped(mob/M)
+	. = ..()
+	if(active)
+		addtimer(CALLBACK(src, PROC_REF(detonate)), det_time)
+
+/obj/item/grenade/equipped(mob/M, slot)
+	. = ..()
+	if(active && !(slot == ITEM_SLOT_HANDS))
+		addtimer(CALLBACK(src, PROC_REF(detonate)), det_time)
+
+/obj/item/grenade/auspex_moment(mob/living/user)
+	. = ..()
+	for(var/mob/living/carbon/C in GLOB.auspex_users)
+		var/dist = get_dist(C, src)
+		var/napravlenie = get_direction(C)
+		if(!HAS_TRAIT(C, AUSPEX_TRAIT))
+			return
+		switch(dist)
+			if(0 to 7)
+				C.playsound_local(user, bomb_sound, 100, FALSE)
+				C.soundbang_act(1, 100-dist, 5, 10)
+				to_chat(C, "<span class='danger'>Взрыв совсем близко! Вашим ушам очень больно!</span>")
+			if(7 to 20)
+				C.playsound_local(user, bomb_sound, 90, FALSE)
+				C.soundbang_act(1, 50-dist, 1, 5)
+				to_chat(C, "<span class='danger'>Взрыв примерно на расстоянии в пару десятков метров в направлении [napravlenie]! В ушах начинает гудеть...</span>")
+			if(21 to 39)
+				C.playsound_local(user, bomb_sound, 80, FALSE)
+				C.soundbang_act(1, 20, 1, 5)
+				to_chat(C, "<span class='danger'>Взрыв примерно на расстоянии в несколько метров в направлении [napravlenie]! В ушах начинает гудеть...</span>")
+			if(40 to 50)
+				C.playsound_local(user, pick(bomb_sound_far), 70, FALSE)
+				to_chat(C, "<span class='danger'> Вы слышите взрыв! Кажется они доносятся по направлению [napravlenie]...</span>")
+			if(51 to 60)
+				C.playsound_local(user, pick(bomb_sound_far), 50, FALSE)
+				to_chat(C, "<span class='danger'>Вы слышите взрыв, что доносятся откуда-то издалека, по направлению [napravlenie]!</span>")
+			if(61 to INFINITY)
+				C.playsound_local(user, pick(bomb_sound_far), 30, FALSE)
+				to_chat(C, "<span class='danger'>До вас доходят редкие и плохо различимые звуки... Кажется это взрыв? Они в направлении [napravlenie].</span>")

@@ -66,8 +66,8 @@
 			owner.current.put_in_r_hand(new /obj/item/gun/ballistic/automatic/vampire/sniper(owner.current))
 			owner.current.put_in_l_hand(new /obj/item/ammo_box/vampire/c556(owner.current))
 		if("Ammo Carrier")
-			owner.current.put_in_r_hand(new /obj/item/ammo_box/vampire/c556/incendiary(owner.current))
-			owner.current.put_in_l_hand(new /obj/item/ammo_box/vampire/c556/incendiary(owner.current))
+			owner.current.put_in_r_hand(new /obj/item/ammo_box/vampire/c556/hp(owner.current))
+			owner.current.put_in_l_hand(new /obj/item/ammo_box/vampire/c556/hp(owner.current))
 
 /obj/effect/landmark/start/national_guard
 	name = "National Guard"

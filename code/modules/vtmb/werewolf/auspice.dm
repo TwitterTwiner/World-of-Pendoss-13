@@ -6,6 +6,7 @@
 	var/rage = 1
 	var/start_gnosis = 1
 	var/gnosis = 1
+	var/willpower = 1
 	var/breed_form = FORM_HOMID
 	var/datum/garou_tribe/tribe = new /datum/garou_tribe/wendigo()
 	var/list/gifts = list()
@@ -59,6 +60,10 @@
 
 	if(tribe.tribe_keys)
 		C.put_in_hands(new tribe.tribe_keys(C))
+	if(tribe.tribe_trait == TRAIT_BONE_GNAWER)
+		ADD_TRAIT(C, TRAIT_BONE_GNAWER, tribe)
+		var/datum/action/gift/guise_of_the_hound/guise = new()
+		guise.Grant(C)
 	if(tribe.tribe_trait == TRAIT_CORAX)
 		ADD_TRAIT(C, TRAIT_CORAX, tribe)
 

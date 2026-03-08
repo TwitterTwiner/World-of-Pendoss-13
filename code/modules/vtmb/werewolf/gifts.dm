@@ -307,10 +307,12 @@
 /datum/action/gift/spirit_speech/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/C = owner
-		C.see_invisible = SEE_INVISIBLE_OBSERVER
+		var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+		ghost_hud.add_hud_to(owner)
+		to_chat(owner, span_notice("You open your senses to the spirit world."))
 		spawn(20 SECONDS)
-			C.update_sight()
+			ghost_hud.remove_hud_from(owner)
+			to_chat(owner, span_warning("Your connection to the spirit world fades."))
 
 /datum/action/gift/blur_of_the_milky_eye
 	name = "Blur Of The Milky Eye"
@@ -637,7 +639,7 @@
 			var/howl_details
 			var/final_message
 			for(var/mob/living/carbon/Garou in GLOB.player_list)
-				if((isgarou(Garou) || iswerewolf(Garou) || HAS_TRAIT(Garou, TRAIT_CORAX)) && Garou != owner && Garou.auspice?.tribe == C.auspice?.tribe)
+				if((isgarou(Garou) || iswerewolf(Garou) || HAS_TRAIT(Garou, TRAIT_CORAX)) && Garou != owner)
 					if(!sound_hearers.Find(Garou))
 						if(!HAS_TRAIT(C, TRAIT_CORAX))
 							Garou.playsound_local(get_turf(Garou), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 25, FALSE)

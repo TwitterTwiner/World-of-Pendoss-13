@@ -153,7 +153,7 @@
 	if(..())
 		return
 	var/datum/species/kindred/kindred_species = target.dna.species // Get the vampire's species
-	for(var/i in 1 to success_count)
+	for(var/i in 1 to clamp(success_count, 0, 3))
 		var/datum/discipline/random_discipline = pick(kindred_species.disciplines) //Choose a random discipline that they have
 		var/datum/discipline_power/random_discipline_power = pick(random_discipline.known_powers) //Choose a random level of that discipline
 		random_discipline_power.activate(target) //Activate it at themselves.
@@ -247,6 +247,8 @@
 	if(..())
 		return
 
+	owner.bloodpool = min(owner.bloodpool + 1, owner.maxbloodpool) // На юз нужно минимум 1 кровь по причине баланса но она восполняется после каста
+
 	owner.Beam(BeamTarget = target, icon_state = "drainbeam", time = 1 SECONDS)
 	target.visible_message(span_danger("[target]'s blood streams out in a torrent towards [owner]!"), span_userdanger("Your blood streams out in a torrent towards [owner]!"))
 	var/blood_taken = clamp(success_count, 0, target.bloodpool)
@@ -282,8 +284,11 @@
 	var/zashita = get_fortitude_dices(target)
 	target.visible_message(span_danger("As [owner] touches [target], their body seems to boil!"), span_userdanger("As [owner] touches you, your body feels like it's boiling in a pool of lava!"))
 	playsound(target, pick('sound/effects/wounds/sizzle1.ogg', 'sound/effects/wounds/sizzle2.ogg'), 50, TRUE)
+	new /obj/effect/temp_visual/tremere(target.loc, "gib")
+	animate(target, pixel_y = 16, color = "#ff0000", time = 50, loop = 1)
 	target.bloodpool = max(target.bloodpool - success_count, 0)
-	if(isnpc(target))
-		target.apply_damage(success_count * 200 + owner.thaum_damage_plus, CLONE) //A single success kills any mortal
+	if(!iskindred(target) && !iscathayan(target) && !isgarou(target) && !iswerewolf(target) && success_count >= 1)
+		target.Stun(5 SECONDS, TRUE)
+		target.apply_status_effect(/datum/status_effect/cauldron_of_blood)
 	else
-		target.apply_damage((success_count - zashita) * 40 + owner.thaum_damage_plus, CLONE) //8 successes = 320 aggravated damage, however this is diffulty 8 so more than 2 successes is rare.
+		target.apply_damage(clamp(((success_count - zashita) * 12.5) + owner.thaum_damage_plus, 12.5 + owner.thaum_damage_plus, 75), CLONE)

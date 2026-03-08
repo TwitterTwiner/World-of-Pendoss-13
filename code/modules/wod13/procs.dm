@@ -106,6 +106,7 @@
 					SEND_SOUND(src, sound('code/modules/wod13/sounds/masquerade_violation.ogg', 0, 0, 75))
 					to_chat(src, "<span class='userdanger'><b>MASQUERADE VIOLATION!</b></span>")
 				SSbad_guys_party.next_fire = max(world.time, SSbad_guys_party.next_fire - 2 MINUTES)
+				was_spoted = 0
 			if(value > 0)
 				if(clane?.enlightenment && !forced)
 					AdjustHumanity(1, 10)

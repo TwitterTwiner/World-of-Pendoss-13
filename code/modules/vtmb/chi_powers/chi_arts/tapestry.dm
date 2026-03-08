@@ -9,6 +9,7 @@
 	discipline_type = "Chi"
 	activate_sound = 'code/modules/wod13/sounds/tapestry.ogg'
 	var/prev_z
+	var/totem_targeting = FALSE
 
 
 /obj/penumbra_ghost
@@ -78,59 +79,75 @@
 		affected_mob.throw_at(target, 5, 1)
 		boing = FALSE
 
+/datum/chi_discipline/tapestry/check_activated(mob/living/target, mob/living/carbon/human/caster)
+	if(level_casting == 2 || level_casting == 4)
+		if(caster.stat >= HARD_CRIT || caster.IsSleeping() || caster.IsUnconscious() || caster.IsParalyzed() || caster.IsStun() || HAS_TRAIT(caster, TRAIT_RESTRAINED))
+			return FALSE
+		if(level_casting == 2 && totem_targeting)
+			return TRUE
+		if(caster.yin_chi < cost_yin)
+			SEND_SOUND(caster, sound('code/modules/wod13/sounds/need_blood.ogg', 0, 0, 75))
+			to_chat(caster, "<span class='warning'>You don't have enough <b>Yin Chi</b> to use [src].</span>")
+			return FALSE
+		if(caster.yang_chi < cost_yang)
+			SEND_SOUND(caster, sound('code/modules/wod13/sounds/need_blood.ogg', 0, 0, 75))
+			to_chat(caster, "<span class='warning'>You don't have enough <b>Yang Chi</b> to use [src].</span>")
+			return FALSE
+		return TRUE
+	return ..()
+
 /datum/chi_discipline/tapestry/activate(mob/living/target, mob/living/carbon/human/caster)
+	if(level_casting == 2)
+		if(totem_targeting)
+			UnregisterSignal(caster, COMSIG_MOB_CLICKON)
+			totem_targeting = FALSE
+			to_chat(caster, "<span class='warning'>You cancel the Dragon Gate ritual.</span>")
+			return
+		to_chat(caster, "<span class='notice'>Use the totem to open or close the Dragon Gate.</span>")
+		totem_targeting = TRUE
+		RegisterSignal(caster, COMSIG_MOB_CLICKON, PROC_REF(handle_totem_click))
+		return
+
+	if(level_casting == 4)
+		var/list/portal_destinations = list()
+		for(var/obj/structure/werewolf_totem/W in GLOB.totems)
+			if(W.totem_health > 0)
+				var/obj/umbra_portal/portal = locate() in get_step(W, SOUTH)
+				if(portal?.exit)
+					portal_destinations["[W.name] ([W.tribe])"] = portal
+		if(!length(portal_destinations))
+			to_chat(caster, "<span class='warning'>You sense no open Dragon Lines...</span>")
+			return
+		var/choice = input(caster, "Choose a Dragon Gate to travel to:", "Dragon Lines") as null|anything in portal_destinations
+		if(!choice)
+			return
+		var/obj/umbra_portal/chosen_portal = portal_destinations[choice]
+		if(QDELETED(chosen_portal))
+			to_chat(caster, "<span class='warning'>The Dragon Gate has closed!</span>")
+			return
+		if(do_mob(caster, caster, delay))
+			caster.yin_chi = max(0, caster.yin_chi - cost_yin)
+			caster.yang_chi = max(0, caster.yang_chi - cost_yang)
+			caster.update_chi_hud()
+			var/datum/effect_system/smoke_spread/smoke = new
+			smoke.set_up(2, caster.loc)
+			smoke.attach(caster)
+			smoke.start()
+			caster.forceMove(get_turf(chosen_portal))
+			playsound(get_turf(caster), 'code/modules/wod13/sounds/portal.ogg', 75, FALSE)
+		return
+
 	..()
 	switch(level_casting)
 		if(1)
 			caster.client.prefs.chat_toggles ^= CHAT_DEAD
-			caster.see_invisible = SEE_INVISIBLE_OBSERVER
+			var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
+			ghost_hud.add_hud_to(caster)
 			notify_ghosts("All ghosts are being called by [caster]!", source = caster, action = NOTIFY_ORBIT, header = "Ghost Summoning")
 			spawn(30 SECONDS)
 				if(caster)
 					caster.client?.prefs.chat_toggles &= ~CHAT_DEAD
-					caster.update_sight()
-		if(2)
-			var/chosen_z
-			var/obj/penumbra_ghost/ghost
-			var/in_umbra = FALSE
-
-			if(istype(caster.loc, /obj/penumbra_ghost))
-				ghost = caster.loc
-				in_umbra = TRUE
-
-			for(var/area/vtm/interior/penumbra/penumbra in world)
-				if(penumbra)
-					chosen_z = penumbra.z
-
-			if(in_umbra)
-				chosen_z = prev_z
-			else
-				prev_z = caster.z
-
-			var/turf/caster_turf = get_turf(caster)
-			var/turf/to_wall = locate(caster_turf.x, caster_turf.y, chosen_z)
-			var/area/cross_area = get_area(to_wall)
-			if(cross_area && cross_area.wall_rating > 1)
-				to_chat(caster, span_warning("<b>GAUNTLET</b> rating there is too high!"))
-				caster.yin_chi++
-				caster.yang_chi++
-				return
-
-			if(do_mob(caster, caster, delay))
-				if(in_umbra)
-					var/atom/myloc = caster.loc
-					caster.forceMove(locate(myloc.x, myloc.y, chosen_z))
-					qdel(ghost)
-					prev_z = null
-				else
-					caster.z = chosen_z
-					ghost = new (get_turf(caster))
-					ghost.appearance = caster.appearance
-					ghost.name = caster.name
-					ghost.alpha = 128
-					caster.forceMove(ghost)
-
-				playsound(get_turf(caster), 'code/modules/wod13/sounds/portal.ogg', 100, TRUE)
+					ghost_hud.remove_hud_from(caster)
 		if(3)
 			ADD_TRAIT(caster, TRAIT_SUPERNATURAL_LUCK, "tapestry 3")
 			to_chat(caster, "<b>You feel insanely lucky!</b>")
@@ -138,32 +155,71 @@
 				if(caster)
 					REMOVE_TRAIT(caster, TRAIT_SUPERNATURAL_LUCK, "tapestry 3")
 					to_chat(caster, "<span class='warning'>Your luck wanes...</span>")
-		if(4)
-			var/teleport_to
-			teleport_to = input(caster, "Dragon Nest to travel to:", "BOOYEA", teleport_to) as null|anything in GLOB.teleportlocs
-			if(teleport_to)
-				if(do_mob(caster, caster, delay))
-					var/area/thearea = GLOB.teleportlocs[teleport_to]
-
-					var/datum/effect_system/smoke_spread/smoke = new
-					smoke.set_up(2, caster.loc)
-					smoke.attach(caster)
-					smoke.start()
-					var/list/available_turfs = list()
-					for(var/turf/area_turf in get_area_turfs(thearea.type))
-						if(!area_turf.is_blocked_turf())
-							available_turfs += area_turf
-
-					if(!available_turfs.len)
-						to_chat(caster, "<span class='warning'>There are no available destinations in that area!</span>")
-						return
-
-					if(do_teleport(caster, pick(available_turfs), forceMove = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
-						smoke.start()
-					else
-						to_chat(caster, "<span class='warning'>Something disrupted your travel!</span>")
 		if(5)
 			var/obj/effect/anomaly/grav_kuei/grav_anomaly = new (get_turf(caster))
 			grav_anomaly.owner = caster
 			spawn(30 SECONDS)
 				qdel(grav_anomaly)
+
+/datum/chi_discipline/tapestry/proc/handle_totem_click(mob/source, atom/clicked, click_parameters)
+	SIGNAL_HANDLER
+
+	var/list/modifiers = params2list(click_parameters)
+	var/mob/living/carbon/human/caster = source
+
+	if(modifiers["right"])
+		UnregisterSignal(source, COMSIG_MOB_CLICKON)
+		totem_targeting = FALSE
+		to_chat(source, "<span class='warning'>You cancel the Dragon Gate ritual.</span>")
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	if(!istype(clicked, /obj/structure/werewolf_totem))
+		return
+
+	var/obj/structure/werewolf_totem/totem = clicked
+
+	if(!caster.Adjacent(totem))
+		to_chat(caster, "<span class='warning'>You need to be closer to the totem!</span>")
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	if(totem.totem_health <= 0)
+		to_chat(caster, "<span class='warning'>[totem] is broken!</span>")
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	UnregisterSignal(source, COMSIG_MOB_CLICKON)
+	totem_targeting = FALSE
+
+	var/obj/umbra_portal/prev = locate() in get_step(totem, SOUTH)
+	if(prev)
+		caster.yin_chi = max(0, caster.yin_chi - cost_yin)
+		caster.yang_chi = max(0, caster.yang_chi - cost_yang)
+		caster.update_chi_hud()
+		playsound(totem.loc, 'code/modules/wod13/sounds/portal.ogg', 75, FALSE)
+		qdel(prev.exit)
+		qdel(prev)
+		to_chat(caster, "<span class='notice'>You close the Dragon Gate.</span>")
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	if(!totem.teleport_turf)
+		to_chat(caster, "<span class='warning'>This totem has no destination linked!</span>")
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	if(totem.opening)
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	totem.opening = TRUE
+	spawn()
+		if(do_mob(caster, totem, delay))
+			caster.yin_chi = max(0, caster.yin_chi - cost_yin)
+			caster.yang_chi = max(0, caster.yang_chi - cost_yang)
+			caster.update_chi_hud()
+			playsound(totem.loc, 'code/modules/wod13/sounds/portal.ogg', 75, FALSE)
+			var/obj/umbra_portal/U = new (get_step(totem, SOUTH))
+			U.id = "[totem.tribe][rand(1, 999)]"
+			U.later_initialize()
+			var/obj/umbra_portal/P = new (totem.teleport_turf)
+			P.id = U.id
+			P.later_initialize()
+			to_chat(caster, "<span class='notice'>You open the Dragon Gate!</span>")
+		totem.opening = FALSE
+	return COMSIG_MOB_CANCEL_CLICKON

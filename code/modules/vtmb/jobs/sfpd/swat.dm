@@ -63,9 +63,6 @@
 	var/obj/item/organ/eyes/NV = new()
 	NV.Insert(H, TRUE, FALSE)
 	H.add_police_codes()
-	swat_team.choose_landmark()
-	var/obj/effect/landmark/start/D = swat_team.dislocation
-	H.forceMove(D.loc)
 
 /datum/antagonist/swat/on_gain()
 	randomize_appearance()
@@ -74,6 +71,7 @@
 	owner.special_role = src
 	equip_swat()
 	give_alias()
+	pick_car()
 	return ..()
 
 /datum/antagonist/swat/on_removal()
@@ -98,6 +96,12 @@
 		my_name = pick(GLOB.first_names_female)
 	var/my_surname = pick(GLOB.last_names)
 	owner.current.fully_replace_character_name(null,"[selected_rank] [my_name] [my_surname]")
+
+/datum/antagonist/swat/proc/pick_car()
+	if(swat_team)
+		swat_team.choose_landmark()
+		var/obj/effect/landmark/start/D = swat_team.dislocation
+		owner.current.forceMove(D.loc)
 
 /datum/antagonist/swat/proc/forge_objectives()
 	spawn(2 SECONDS)

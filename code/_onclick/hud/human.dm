@@ -97,7 +97,7 @@
 			static_inventory += transform_werewolf
 
 		else
-		
+
 			transform_werewolf = new /atom/movable/screen/transform_lupus()
 			transform_werewolf.screen_loc = ui_werewolf_lupus
 			transform_werewolf.hud = src
@@ -173,9 +173,10 @@
 	using.hud = src
 	static_inventory += using
 
-	if(iskindred(owner) || iscathayan(owner))
+	if(iskindred(owner) || iscathayan(owner) || isgarou(owner))
 		using = new /atom/movable/screen/will_power
 		using.icon = 'code/modules/wod13/UI/buttons32.dmi'
+		using.icon_state = "will0"
 		using.screen_loc = ui_will
 		using.hud = src
 		static_inventory += using

@@ -29,11 +29,10 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		selfcontrol = H.MyPath?.selfcontrol
-	var/success_chance = secret_vampireroll(get_a_perception(target)+get_a_empathy(target), selfcontrol+4, owner)
+	var/success_chance = secret_vampireroll(get_a_perception(target)+get_a_empathy(target), selfcontrol+4, owner, TRUE)
 	if(success_chance <= 0)
-		to_chat(owner, span_notice("Your magic fizzles out!"))
+		to_chat(owner, span_notice("Твоя магия угасла!"))
 		owner.Stun(3 SECONDS)
-		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
 
@@ -43,91 +42,91 @@
 		ADD_TRAIT(target, TRAIT_SENSE_THE_SIN, DISCIPLINE_TRAIT)
 		addtimer(CALLBACK(src, PROC_REF(timer_deactivation), target), 60 SECONDS)
 	if(get_a_strength(target) <= 4)
-		to_chat(owner, span_notice("Weak arms betray their lack of might."))
+		to_chat(owner, span_notice("Слабые руки выдают их немощь."))
 	if(get_a_dexterity(target) <= 4)
-		to_chat(owner, span_notice("They stumble where others glide, awkward and unbalanced."))
+		to_chat(owner, span_notice("Они спотыкаются там, где другие скользят — неуклюжи и неуравновешенны."))
 	if(get_a_stamina(target) <= 4)
-		to_chat(owner, span_notice("Their vigor is spent before the struggle even begins."))
+		to_chat(owner, span_notice("Их силы иссякают ещё до начала борьбы."))
 	if(get_a_charisma(target) <= 4)
-		to_chat(owner, span_notice("Their words drip with dullness, falling dead to the ground."))
+		to_chat(owner, span_notice("Их слова капают тусклостью и падают мёртвыми на землю."))
 	if(get_a_manipulation(target) <= 4)
-		to_chat(owner, span_notice("Schemes fall apart in their hands, for none heed their deceit."))
+		to_chat(owner, span_notice("Интриги рассыпаются в их руках — никто не верит их обману."))
 	if(get_a_appearance(target) <= 4)
-		to_chat(owner, span_notice("The sight of them is a burden, not a blessing."))
+		to_chat(owner, span_notice("Вид их — бремя, а не благословение."))
 	if(get_a_perception(target) <= 4)
-		to_chat(owner, span_notice("Blind to subtleties, the world whispers past them."))
+		to_chat(owner, span_notice("Слепы к тонкостям — мир шепчет мимо них."))
 	if(get_a_intelligence(target ) <= 4)
-		to_chat(owner, span_notice("Their mind is a barren field, yielding no harvest of thought."))
+		to_chat(owner, span_notice("Их разум — пустое поле, не дающее урожая мыслей."))
 	if(get_a_wits(target) <= 4)
-		to_chat(owner, span_notice("The spark of insight eludes them."))
+		to_chat(owner, span_notice("Искра проницательности ускользает от них."))
 	if(get_a_willpower(target) <= 4)
-		to_chat(owner, span_notice("Their spirit bends like reed before the storm."))
+		to_chat(owner, span_notice("Их дух гнётся, как тростник перед бурей."))
 
 	if(iskindred(target))
-		to_chat(owner, span_notice("\nThe fear of fire coils tightly in their soul.\n"))
+		to_chat(owner, span_notice("\nСтрах огня плотно обвивает их душу.\n"))
 		if(target.MyPath)
 			if(target.MyPath.willpower <= 5)
-				to_chat(owner, span_notice("Their resolve falters, like a candle struggling against the wind."))
+				to_chat(owner, span_notice("Их решимость колеблется, как свеча на ветру."))
 			if(target.MyPath.consience <= 2)
-				to_chat(owner, span_notice("Moral compass shattered, they wander in shadows of doubt."))
+				to_chat(owner, span_notice("Моральный компас разбит — они бредут в тенях сомнения."))
 			if(target.MyPath.selfcontrol <= 2)
-				to_chat(owner, span_notice("Impulse reigns within them, chains of restraint broken."))
+				to_chat(owner, span_notice("Импульс правит в них — оковы сдержанности разорваны."))
 			if(target.MyPath.courage <= 2)
-				to_chat(owner, span_notice("Fear grips their heart, and even whispers seem like roars."))
+				to_chat(owner, span_notice("Страх сжимает их сердце — даже шёпот кажется рёвом."))
 		baali_get_moral_failings(target)
 		baali_get_stolen_disciplines(target)
 		if(target.generation >= 10)
-			to_chat(owner, span_notice("Their blood is shallow, hollow before the might of the ancients."))
+			to_chat(owner, span_notice("Их кровь мелка и пуста перед могуществом древних."))
 		else
-			to_chat(owner, span_notice("Their blood hums with primal force, resisting dilution."))
+			to_chat(owner, span_notice("Их кровь гудит первобытной силой, сопротивляясь разбавлению."))
 
 	else if(isghoul(target))
 		if(target.mind.enslaved_to)
-			to_chat(owner, span_notice("Bound to vampiric vitae, their will is chained to a power beyond themselves."))
+			to_chat(owner, span_notice("Привязаны к вампирской витэ — их воля скована силой, превосходящей их."))
 		else
-			to_chat(owner, span_notice("Their hunger for vampiric blood flows freely, guided only by their own will."))
+			to_chat(owner, span_notice("Их жажда вампирской крови течёт свободно, ведома лишь собственной волей."))
 
 	else if(isgarou(target) || iswerewolf(target))
-		to_chat(owner, span_notice("\nTheir flesh shivers at the touch of silver, a bane older than their memory."))
+		to_chat(owner, span_notice("\nИх плоть содрогается от прикосновения серебра — проклятие древнее их памяти."))
 		if(target.client?.prefs?.breed == BREED_HOMID)
-			to_chat(owner, span_notice("Between the pulse of nature and the lull of mankind, their strength falters in hesitation."))
+			to_chat(owner, span_notice("Между пульсом природы и усыплением человечества их сила колеблется в нерешительности."))
 		else if(target.client?.prefs?.breed == BREED_LUPUS)
-			to_chat(owner, span_notice("They roam with the strength of the wilderness, but human artifice confounds their simple minds."))
+			to_chat(owner, span_notice("Они бродят с силой дикой природы, но человеческая хитрость сбивает их простые умы."))
 		else if(target.client?.prefs?.breed == BREED_METIS)
-			to_chat(owner, span_notice("Born of forbidden union, they walk in immense form, yet flaw and fury linger in every step."))
+			to_chat(owner, span_notice("Рождённые запретным союзом, они идут в огромном облике — но изъян и ярость таятся в каждом шаге."))
 
 		if(target.client?.prefs?.tribe == "Wendigo")
-			to_chat(owner, span_notice("Steeped in the cold and stealth of their totem, they falter when drawn from the purity of the wild."))
+			to_chat(owner, span_notice("Пропитанные холодом и скрытностью тотема, они слабеют, оторванные от чистоты дикой природы."))
 		else if(target.client?.prefs?.tribe == "Glasswalkers")
-			to_chat(owner, span_notice("Their strength grows with each passing innovation, but the comfort of progress dulls their instincts."))
+			to_chat(owner, span_notice("Их сила растёт с каждым новшеством, но комфорт прогресса притупляет инстинкты."))
 		else if(target.client?.prefs?.tribe == "Black Spiral Dancers")
-			to_chat(owner, span_notice("Twisted by darkness and rage, their power is immense, yet the seed of madness gnaws at every thought."))
+			to_chat(owner, span_notice("Искажённые тьмой и яростью, их сила огромна — но семя безумия точит каждую мысль."))
 
 	else if(iscathayan(target))
-		to_chat(owner, span_notice("\nTheir once fallen soul drifts between vitality and rot."))
+		to_chat(owner, span_notice("\nИх некогда падшая душа дрейфует между жизненной силой и тлением."))
 		if(target.mind.dharma?.name == "Devil Tiger (P'o)")
-			to_chat(owner, span_notice("Quick to act and driven by hidden hunger, their movements betray a restless, dangerous intent."))
+			to_chat(owner, span_notice("Быстры в действии, ведомы скрытым голодом — их движения выдают беспокойный, опасный умысел."))
 		else if(target.mind.dharma?.name == "Song of the Shadow (Yin)")
-			to_chat(owner, span_notice("Cold as bone and drifting through darkness, their presence leaves hearts unsettled and minds unheeding."))
+			to_chat(owner, span_notice("Холодны как кость, дрейфуют во тьме — их присутствие тревожит сердца и отключает умы."))
 		else if(target.mind.dharma?.name == "Resplendent Crane (Hun)")
-			to_chat(owner, span_notice("Shadows of past transgressions cling tightly, shaping every step with a weight unseen yet ever felt."))
+			to_chat(owner, span_notice("Тени прошлых прегрешений цепко держатся — невидимая тяжесть формирует каждый шаг."))
 		else if(target.mind.dharma?.name == "Thrashing Dragon (Yang)")
-			to_chat(owner, span_notice("Hunger drives every act, a restless fire that consumes both self and others, masking the doubt that gnaws beneath."))
+			to_chat(owner, span_notice("Голод движет каждым поступком — беспокойный огонь пожирает и себя, и других, скрывая грызущее сомнение."))
 		else if(target.mind.dharma?.name == "Flame of the Rising Phoenix (Yang+Hun)")
-			to_chat(owner, span_notice("Whispers of hunger and imbalance shadow every step, leaving even the most devoted to falter and vanish into silent ruin."))
+			to_chat(owner, span_notice("Шёпот голода и дисбаланса омрачает каждый шаг — даже самых преданных ведёт к падению и тихой гибели."))
 
 		if(target.mind.dharma?.Po == "Legalist")
-			to_chat(owner, span_notice("Order imposed upon them twists their soul into silent rebellion."))
+			to_chat(owner, span_notice("Наложенный порядок искривляет их душу в безмолвный бунт."))
 		else if(target.mind.dharma?.Po == "Rebel")
-			to_chat(owner, span_notice("They flinch at touch, guarding freedom like a sacred flame."))
+			to_chat(owner, span_notice("Они вздрагивают от прикосновения, охраняя свободу как священное пламя."))
 		else if(target.mind.dharma?.Po == "Monkey")
-			to_chat(owner, span_notice("Fleeting joys and easy profits tug at them like mischievous strings."))
+			to_chat(owner, span_notice("Мимолётные радости и лёгкая выгода дёргают их, как шаловливые нити."))
 		else if(target.mind.dharma?.Po == "Demon")
-			to_chat(owner, span_notice("Pain enthralls them, both inflicted and endured, addiction in their veins."))
+			to_chat(owner, span_notice("Боль пленяет их — нанесённая и переносимая, зависимость в жилах."))
 		else if(target.mind.dharma?.Po == "Fool")
-			to_chat(owner, span_notice("They shrink from attention, laughter turning their gaze inward in discomfort."))
+			to_chat(owner, span_notice("Они съёживаются от внимания — смех обращает их взгляд внутрь с неловкостью."))
 	else
-		to_chat(owner, span_notice("Fragile creature, neither mighty nor marked by weakness."))
+		to_chat(owner, span_notice("Хрупкое создание — ни могучее, ни отмеченное слабостью."))
 
 /datum/discipline_power/daimonion/sense_the_sin/proc/timer_deactivation(mob/living/target)
 	if(HAS_TRAIT(target, TRAIT_SENSE_THE_SIN))
@@ -136,34 +135,35 @@
 /datum/discipline_power/daimonion/sense_the_sin/proc/baali_get_moral_failings(target)
 	var/mob/living/carbon/human/H = target
 	var/clan_messages = list(
-		"Toreador" = "Obsessive to a fault, their thoughts circling endlessly.",
-		"Daughters of Cacophony" = "Their mind is drowned in ceaseless music.",
-		"Ventrue" = "Blood of the poor brings no stir to their spirit.",
-		"Lasombra" = "Fear of change grips them tightly, refusing release.",
-		"Tzimisce" = "They have a singular desire that burns like fire, consuming all else.",
-		"Old Clan Tzimisce" = "Steeped in ancient pride, their bonds run deep and possessive, yet their vision is clouded by millennia-old grudges.",
-		"Gangrel" = "Impulses surge unchecked, their reason slipping away.",
-		"Malkavian" = "Their presence unsettles all nearby, twisting perception.",
-		"Brujah" = "Their anger festers, born of shame long buried.",
-		"Nosferatu" = "They are drawn irresistibly to hidden truths and unknown paths.",
-		"Tremere" = "Their perfectionism in every act drives relentless pursuit.",
-		"Baali" = "They tremble beneath unseen powers, ever fearful.",
-		"Banu Haqim" = "Their judgement is absolute, unyielding in every thought.",
-		"Banu Haqim Sorcerer" = "Magic clings to their soul, a stain that no veil can hide.",
-		"Banu Haqim Vizier" = "Knowledge consumes them as fire consumes parchment.",
-		"True Brujah" = "Their emotions are locked deep, impossible to unveil.",
-		"Salubri" = "They are bound by consent, every choice weighed heavily.",
-		"Salubri Warrior" = "Bound by sacred duty, their resolve is unshakable, yet every step carries the weight of fallen battles.",
-		"Giovanni" = "They think no act too great if it serves the family.",
-		"Cappadocian" = "They are haunted endlessly by death's reflection.",
-		"Kiasyd" = "Cold iron chills them more than flesh, striking fear.",
-		"Gargoyle" = "Their mind is a fortress with gates open and unbarred.",
-		"Followers of Set" = "Every stain of sin they twist into virtue."
+		"Toreador" = "Одержимы до крайности — мысли кружатся бесконечно.",
+		"Daughters of Cacophony" = "Их разум тонет в нескончаемой музыке.",
+		"Ventrue" = "Кровь бедняков не трогает их дух.",
+		"Lasombra" = "Страх перемен сжимает их, не отпуская.",
+		"Tzimisce" = "В них одно желание, пылающее как огонь и пожирающее всё остальное.",
+		"Old Clan Tzimisce" = "Пропитаны древней гордыней, связи глубоки и цепки — но зрение затуманено тысячелетними обидами.",
+		"Gangrel" = "Импульсы бьют без удержу, разум ускользает.",
+		"City Gangrel" = "Импульсы бьют без удержу, разум ускользает.",
+		"Malkavian" = "Их присутствие тревожит всех вокруг, искажая восприятие.",
+		"Brujah" = "Их гнев тлеет — рождён давно похоронным стыдом.",
+		"Nosferatu" = "Их неудержимо тянет к сокрытым истинам и неведомым путям.",
+		"Tremere" = "Перфекционизм в каждом действии гонит неумолимую погоню.",
+		"Baali" = "Они трепещут перед незримыми силами, вечно в страхе.",
+		"Banu Haqim" = "Их суждение абсолютно и неумолимо в каждой мысли.",
+		"Banu Haqim Sorcerer" = "Магия прилипла к душе — пятно, которое не скрыть завесой.",
+		"Banu Haqim Vizier" = "Знание пожирает их, как огонь — пергамент.",
+		"True Brujah" = "Их эмоции заперты глубоко — раскрыть невозможно.",
+		"Salubri" = "Связаны согласием — каждый выбор даётся тяжело.",
+		"Salubri Warrior" = "Связаны священным долгом — решимость неколебима, но каждый шаг несёт груз проигранных битв.",
+		"Giovanni" = "Для них нет поступка слишком великого, если он служит семье.",
+		"Cappadocian" = "Их бесконечно преследует отражение смерти.",
+		"Kiasyd" = "Холодное железо леденит их сильнее плоти, вселяя страх.",
+		"Gargoyle" = "Их разум — крепость с распахнутыми воротами.",
+		"Followers of Set" = "Любое пятно греха они обращают в добродетель."
 	)
 
 	var/message = clan_messages[H.clane?.name]
 	if(!message)
-		message = "They've been abandoned by the cold ocean of the night with nobody to keep them afloat."
+		message = "Их бросил холодный океан ночи — некому удержать на плаву."
 	to_chat(owner, span_notice(message))
 
 /datum/discipline_power/daimonion/sense_the_sin/proc/baali_get_stolen_disciplines(target)
@@ -171,7 +171,7 @@
 	var/datum/species/kindred/clan = H.dna.species
 	var/discipline_owners = list(
 		"Quietus" = list("Banu Haqim"),
-		"Protean" = list("Gangrel"),
+		"Protean" = list("Gangrel", "City Gangrel"),
 		"Serpentis" = list("Followers of Set"),
 		"Necromancy" = list("Giovanni", "Cappadocian"),
 		"Obtenebration" = list("Lasombra"),
@@ -197,7 +197,7 @@
 	)
 	for(var/discipline in discipline_owners)
 		if(clan.get_discipline(discipline) && !(H.clane?.name in discipline_owners[discipline]))
-			to_chat(owner, span_notice("[H] fears that the fact they stole [discipline_owners[discipline][1]]'s [discipline] will be known."))
+			to_chat(owner, span_notice("[H] боится, что станет известно, что они украли [discipline] у [discipline_owners[discipline][1]]."))
 
 
 //FEAR OF THE VOID BELOW
@@ -212,7 +212,7 @@
 
 /datum/discipline_power/daimonion/fear_of_the_void_below/pre_activation_checks(mob/living/target)
 	if(!HAS_TRAIT(target, TRAIT_SENSE_THE_SIN))
-		to_chat(owner, span_notice("You need to Sense the Sin in them first!"))
+		to_chat(owner, span_notice("Сначала нужно применить Чувствовать грех на них!"))
 		return FALSE
 	var/courage = 3
 	if(ishuman(target))
@@ -220,7 +220,7 @@
 		courage = H.MyPath?.courage
 	var/success_chance = secret_vampireroll(get_a_wits(target)+get_a_intimidation(target), courage+4, owner)
 	if(success_chance <= 0)
-		to_chat(owner, span_notice("Your magic fizzles out!"))
+		to_chat(owner, span_notice("Твоя магия угасла!"))
 		owner.Stun(3 SECONDS)
 		owner.do_jitter_animation(10)
 		return FALSE
@@ -285,7 +285,7 @@
 
 /datum/discipline_power/daimonion/psychomachia/pre_activation_checks(mob/living/target)
 	if(!HAS_TRAIT(target, TRAIT_SENSE_THE_SIN))
-		to_chat(owner, span_notice("You need to Sense the Sin in them first!"))
+		to_chat(owner, span_notice("Сначала нужно применить Чувствовать грех на них!"))
 		return FALSE
 	var/lowest_stat = 2
 	if(ishuman(target))
@@ -293,7 +293,7 @@
 		lowest_stat = min(H.MyPath?.consience, H.MyPath?.courage, H.MyPath?.selfcontrol)
 	var/success_chance = secret_vampireroll(lowest_stat, 6, target)
 	if(success_chance <= 0)
-		to_chat(owner, span_notice("Your magic fizzles out!"))
+		to_chat(owner, span_notice("Твоя магия угасла!"))
 		owner.Stun(3 SECONDS)
 		owner.do_jitter_animation(10)
 		return FALSE

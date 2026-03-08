@@ -37,6 +37,8 @@ SUBSYSTEM_DEF(ticker)
 
 	var/timeLeft						//pregame timer
 	var/start_at
+	/// world.time when setup() last failed; used to enforce 30s between retries
+	var/last_failed_setup_time = 0
 
 	var/gametime_offset = 432000		//Deciseconds to add to world.time for station time.
 	var/station_time_rate_multiplier = 1		//factor of station time progressal vs real time.
@@ -185,6 +187,11 @@ SUBSYSTEM_DEF(ticker)
 				tipped = TRUE
 
 			if(timeLeft <= 0)
+
+				if((world.time - last_failed_setup_time) < (30 * 10))
+					start_at = world.time + (30 * 10)
+					timeLeft = 300
+					return
 				current_state = GAME_STATE_SETTING_UP
 				Master.SetRunLevel(RUNLEVEL_SETUP)
 				if(start_immediately)
@@ -192,10 +199,11 @@ SUBSYSTEM_DEF(ticker)
 
 		if(GAME_STATE_SETTING_UP)
 			if(!setup())
-				//setup failed
-				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
-				timeLeft = null
+
+				last_failed_setup_time = world.time
+				current_state = GAME_STATE_PREGAME
+				start_at = world.time + (30 * 10)
+				timeLeft = 300
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
 
 		if(GAME_STATE_PLAYING)
@@ -256,9 +264,10 @@ SUBSYSTEM_DEF(ticker)
 
 	if(!GLOB.Debug2)
 		if(!can_continue)
-			log_game("[mode.name] failed pre_setup, cause: [mode.setup_error]")
+			var/setup_err = mode?.setup_error
+			log_game("[mode.name] failed pre_setup, cause: [setup_err]")
 			QDEL_NULL(mode)
-			to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
+			to_chat(world, "<B>Error setting up [GLOB.master_mode].</B>[setup_err ? " [setup_err]" : ""] Reverting to pre-game lobby.")
 			SSjob.ResetOccupations()
 			return FALSE
 	else
@@ -502,6 +511,7 @@ SUBSYSTEM_DEF(ticker)
 	selected_tip = SSticker.selected_tip
 
 	timeLeft = SSticker.timeLeft
+	last_failed_setup_time = SSticker.last_failed_setup_time
 
 	totalPlayers = SSticker.totalPlayers
 	totalPlayersReady = SSticker.totalPlayersReady

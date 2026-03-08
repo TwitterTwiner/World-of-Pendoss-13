@@ -262,7 +262,12 @@ SUBSYSTEM_DEF(explosions)
 
 					if(HAS_TRAIT(M, AUSPEX_TRAIT))
 						far_volume = clamp(far_dist/1.2, FAR_LOWER, FAR_UPPER)
-
+						if(get_dist(M, epicenter)> 80)
+							to_chat(M, "<span class='danger'>Вы слышите взрыв! Кажется он доносится откуда-то издалека, по направлению [epicenter.get_direction(M)]...</span>")
+						else
+							to_chat(M, "<span class='danger'Твои барабанные перепонки лопаются от взрыва!</span>")
+							var/mob/living/carbon/C = M
+							C.soundbang_act(1, 80, 5, 10)
 						// Volume is based on explosion size and dist
 					if(creaking_explosion)
 						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
