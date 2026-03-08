@@ -1,4 +1,3 @@
-//#define POINTS 30  // The total level of free points to
 
 GLOBAL_LIST_INIT(BackstoryCommon, list("Солдат", "Архитектор", "Историк"))
 GLOBAL_LIST_INIT(BackstoryTeen, list("Ребенок", "Идеалист"))
