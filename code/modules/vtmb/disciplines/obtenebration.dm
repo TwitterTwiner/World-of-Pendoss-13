@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 
 	level = 1
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE
-	target_type = TARGET_TURF | TARGET_MOB | TARGET_OBJ | TARGET_SELF
+	target_type = TARGET_TURF
 	range = 7
 
 	violates_masquerade = TRUE
@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 
 	vitae_cost = 0
 
-	target_type = TARGET_TURF
+	target_type = TARGET_TURF | TARGET_SELF
 	range = 7
 	violates_masquerade = TRUE
 	cooldown_length = 1 TURNS
@@ -150,47 +150,55 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 
 /datum/discipline_power/obtenebration/arms_of_the_abyss/activate(atom/target)
 	. = ..()
-	var/turf/target_turf = get_turf(target)
 	var/dice = get_a_manipulation(owner)+get_a_occult(owner)
-
-	if(target_turf && target_turf.get_lumcount() <= 0.4) // Only works if the area is dark enough. Modify as needed.
-		// Remove any existing tentacles first
-		for(var/mob/living/simple_animal/hostile/abyss_tentacle/T in world)
-			if(T.owner == owner)
-				T.release_grabbed_mob()
-				qdel(T)
-		var/roll = secret_vampireroll(dice, 7, owner)
-		var/has_action = FALSE
-		for(var/datum/action/A in owner.actions)
-			if(istype(A, /datum/action/aggro_mode))
-				has_action = TRUE
-				break
-
-		// Grant the aggro mode button if it doesn't exist
-		if(!has_action)
-			var/datum/action/aggro_mode/A = new()
-			A.Grant(owner)
-
-		if(!tbutton) // Grant the button if it doesn't exist
-			tbutton = new(src)
-			tbutton.Grant(owner)
-
-		// Create tentacles based on successes
-		for(var/i in 1 to roll)
-			// For the first tentacle, use the target turf
-			if(i == 1 && !target_turf.is_blocked_turf(exclude_mobs = TRUE))
-				new /mob/living/simple_animal/hostile/abyss_tentacle(target_turf, owner)
-			else
-				// For additional tentacles, find nearby valid turfs
-				var/list/open_turfs = list()
-				for(var/turf/T in orange(3, target_turf))
-					if(!T.is_blocked_turf(exclude_mobs = TRUE) && T.get_lumcount() <= 0.4)
-						open_turfs += T
-				if(open_turfs.len)
-					new /mob/living/simple_animal/hostile/abyss_tentacle(pick(open_turfs), owner)
+	var/roll = secret_vampireroll(dice, 7, owner)
+	if(target == owner)
+		if(roll >= 3)
+			for(var/obj/item/melee/vampirearms/knife/gangrel/lasombra/arm in owner.contents)
+				qdel(arm)
+			owner.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
+			owner.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
+			owner.apply_status_effect(/datum/status_effect/arms_of_the_abyss)
 	else
-		to_chat(usr, span_warning("The area is too bright for the shadows to manifest!"))
-		return FALSE
+		var/turf/target_turf = get_turf(target)
+
+		if(target_turf && target_turf.get_lumcount() <= 0.4) // Only works if the area is dark enough. Modify as needed.
+			// Remove any existing tentacles first
+			for(var/mob/living/simple_animal/hostile/abyss_tentacle/T in world)
+				if(T.owner == owner)
+					T.release_grabbed_mob()
+					qdel(T)
+			var/has_action = FALSE
+			for(var/datum/action/A in owner.actions)
+				if(istype(A, /datum/action/aggro_mode))
+					has_action = TRUE
+					break
+
+			// Grant the aggro mode button if it doesn't exist
+			if(!has_action)
+				var/datum/action/aggro_mode/A = new()
+				A.Grant(owner)
+
+			if(!tbutton) // Grant the button if it doesn't exist
+				tbutton = new(src)
+				tbutton.Grant(owner)
+
+			// Create tentacles based on successes
+			for(var/i in 1 to roll)
+				// For the first tentacle, use the target turf
+				if(i == 1 && !target_turf.is_blocked_turf(exclude_mobs = TRUE))
+					new /mob/living/simple_animal/hostile/abyss_tentacle(target_turf, owner)
+				else
+					// For additional tentacles, find nearby valid turfs
+					var/list/open_turfs = list()
+					for(var/turf/T in orange(3, target_turf))
+						if(!T.is_blocked_turf(exclude_mobs = TRUE) && T.get_lumcount() <= 0.4)
+							open_turfs += T
+					if(open_turfs.len)
+						new /mob/living/simple_animal/hostile/abyss_tentacle(pick(open_turfs), owner)
+		else
+			to_chat(usr, span_warning("The area is too bright for the shadows to manifest!"))
+			return FALSE
 
 /datum/discipline_power/obtenebration/arms_of_the_abyss/proc/remove_all_tentacles()
 	for(var/mob/living/simple_animal/hostile/abyss_tentacle/T in world)

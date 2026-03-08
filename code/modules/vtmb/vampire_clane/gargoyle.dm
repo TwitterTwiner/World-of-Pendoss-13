@@ -27,8 +27,8 @@
 		"Cornrow Tail"
 	)
 	current_accessory = "gargoyle_full"
-	accessories = list("gargoyle_full", "gargoyle_left", "gargoyle_right", "gargoyle_broken", "gargoyle_round", "none")
-	accessories_layers = list("gargoyle_full" = UNICORN_LAYER, "gargoyle_left" = UNICORN_LAYER, "gargoyle_right" = UNICORN_LAYER, "gargoyle_broken" = UNICORN_LAYER, "gargoyle_round" = UNICORN_LAYER, "none" = UNICORN_LAYER)
+	accessories = list("gargoyle_full", "gargoyle_left", "gargoyle_right", "gargoyle_broken", "gargoyle_round", "gargoyle_full_legs1", "gargoyle_left_legs1", "gargoyle_right_legs1", "gargoyle_broken_legs1", "gargoyle_round_legs1", "gargoyle_full_legs2", "gargoyle_left_legs2", "gargoyle_right_legs2", "gargoyle_broken_legs2", "gargoyle_round_legs2", "gargoyle_legs1", "gargoyle_legs2", "none")
+	accessories_layers = list("gargoyle_full" = UNICORN_LAYER, "gargoyle_left" = UNICORN_LAYER, "gargoyle_right" = UNICORN_LAYER, "gargoyle_broken" = UNICORN_LAYER, "gargoyle_round" = UNICORN_LAYER, "gargoyle_full_legs1" = UNICORN_LAYER, "gargoyle_left_legs1" = UNICORN_LAYER, "gargoyle_right_legs1" = UNICORN_LAYER, "gargoyle_broken_legs1" = UNICORN_LAYER, "gargoyle_round_legs1" = UNICORN_LAYER, "gargoyle_full_legs2" = UNICORN_LAYER, "gargoyle_left_legs2" = UNICORN_LAYER, "gargoyle_right_legs2" = UNICORN_LAYER, "gargoyle_broken_legs2" = UNICORN_LAYER, "gargoyle_round_legs2" = UNICORN_LAYER, "gargoyle_legs1" = UNICORN_LAYER, "gargoyle_legs2" = UNICORN_LAYER, "none" = UNICORN_LAYER)
 	whitelisted = TRUE
 
 /datum/vampireclane/gargoyle/on_gain(mob/living/carbon/human/H)

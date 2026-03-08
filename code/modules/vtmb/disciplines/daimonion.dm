@@ -142,6 +142,7 @@
 		"Tzimisce" = "В них одно желание, пылающее как огонь и пожирающее всё остальное.",
 		"Old Clan Tzimisce" = "Пропитаны древней гордыней, связи глубоки и цепки — но зрение затуманено тысячелетними обидами.",
 		"Gangrel" = "Импульсы бьют без удержу, разум ускользает.",
+		"City Gangrel" = "Импульсы бьют без удержу, разум ускользает.",
 		"Malkavian" = "Их присутствие тревожит всех вокруг, искажая восприятие.",
 		"Brujah" = "Их гнев тлеет — рождён давно похоронным стыдом.",
 		"Nosferatu" = "Их неудержимо тянет к сокрытым истинам и неведомым путям.",
@@ -170,7 +171,7 @@
 	var/datum/species/kindred/clan = H.dna.species
 	var/discipline_owners = list(
 		"Quietus" = list("Banu Haqim"),
-		"Protean" = list("Gangrel"),
+		"Protean" = list("Gangrel", "City Gangrel"),
 		"Serpentis" = list("Followers of Set"),
 		"Necromancy" = list("Giovanni", "Cappadocian"),
 		"Obtenebration" = list("Lasombra"),

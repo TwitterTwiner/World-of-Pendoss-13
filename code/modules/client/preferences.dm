@@ -2214,9 +2214,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((clane?.name == "Caitiff") || slotlocked)
 						return
 
-					var/new_gen = input(user, "Select your generation (LOWER GENERATION MEANS LESS JOB SLOTS):", "Character Preference") as num|null
+					var/min_gen = 10
+					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen9", real_name))
+						min_gen = 9
+					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen8", real_name))
+						min_gen = 8
+					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen7", real_name))
+						min_gen = 7
+					var/new_gen = input(user, "Select your generation ([min_gen]-13, lower = fewer job slots):", "Character Preference") as num|null
 					if(new_gen)
-						generation = clamp(new_gen, 7, 13)
+						new_gen = clamp(new_gen, min_gen, 13)
+						generation = new_gen
 						generation_bonus = 0
 						diablerist = FALSE
 						verify_attributes()
