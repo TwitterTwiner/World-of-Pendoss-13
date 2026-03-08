@@ -470,7 +470,7 @@ SUBSYSTEM_DEF(woddices)
 	if(iswerewolf(rollperformer))
 		var/mob/living/carbon/werewolf/WW_Roller = rollperformer
 		if(WW_Roller.mind?.willpower_auto)
-			autosuccesses += 21
+			autosuccesses += 1
 	hardness = clamp(hardness+rollperformer.attributes.diff_curse+clan_difficulty, 1, 10)
 	var/dices_decap = 0
 	if(decap_rolls && !autosuccesses)

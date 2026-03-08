@@ -39,7 +39,7 @@
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/celerity3)
 			caster.celerity_visual = TRUE
 			caster.attributes.celerity_bonus += 3
-			caster.next_move_modifier -= 0.31
+			caster.next_move_modifier -= 0.3
 			spawn((delay)+caster.discipline_time_plus)
 				if(caster)
 					caster.playsound_local(caster.loc, 'code/modules/wod13/sounds/blackwind_deactivate.ogg', 50, FALSE)
