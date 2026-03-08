@@ -708,6 +708,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	honor = sanitize_integer(honor, 0, 10, initial(honor))
 	renownrank = sanitize_integer(renownrank, 0, 5, initial(renownrank))
 	generation				= sanitize_integer(generation, 1, 13, initial(generation))
+	var/min_gen = 10
+	if(parent?.ckey)
+		if(SSwhitelists.is_whitelisted(parent.ckey, "gen9", real_name))
+			min_gen = 9
+		if(SSwhitelists.is_whitelisted(parent.ckey, "gen8", real_name))
+			min_gen = 8
+		if(SSwhitelists.is_whitelisted(parent.ckey, "gen7", real_name))
+			min_gen = 7
+	if(generation < min_gen)
+		generation = min_gen
 	generation_bonus				= sanitize_integer(generation_bonus, 0, 6, initial(generation_bonus))
 	hair_color			= sanitize_hexcolor(hair_color, 3, 0)
 	facial_hair_color			= sanitize_hexcolor(facial_hair_color, 3, 0)
