@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 	var/talent_priorities = 0
 	var/skills_priorities = 0
 	var/knowledge_priorities = 0
-	var/back_priorities = 0
+//	var/back_priorities = 0
 	var/mortal = 0
 	if(pref_species.name == "Human" || pref_species.name == "Ghoul")
 		mortal = 1

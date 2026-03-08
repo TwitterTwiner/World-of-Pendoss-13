@@ -699,7 +699,7 @@
 
 		visible_message("<span class='notice'>[teacher] begins mentoring [student] in [giving_discipline].</span>")
 		if (do_after(teacher, 30 SECONDS, student))
-			teacher_prefs.true_experience -= 50
+			teacher_prefs.true_experience -= 5
 
 			student_prefs.discipline_types += teaching_discipline
 			student_prefs.discipline_levels += 0

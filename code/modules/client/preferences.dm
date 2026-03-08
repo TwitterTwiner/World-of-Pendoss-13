@@ -1254,10 +1254,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(slotlocked)
 						return
 					var/max_age = 0
+					var/white_list_age = 0
+					if(SSwhitelists.is_whitelisted(parent.ckey, "gen9", real_name))
+						white_list_age = 100
+
+					if(SSwhitelists.is_whitelisted(parent.ckey, "gen8", real_name))
+						white_list_age = 300
+
+					if(SSwhitelists.is_whitelisted(parent.ckey, "gen7", real_name))
+						white_list_age = 1000
+
 					if(pref_species.name == "Vampire")
-						max_age = 1000
+						max_age = 100 + white_list_age
 					if(pref_species.name == "Ghoul")
-						max_age = 500
+						max_age = 400
 					if(pref_species.name == "Werewolf")
 						max_age = 150
 					var/new_age = input(user, "Choose your character's actual age:\n([age]-[age+max_age])", "Character Preference") as num|null
@@ -1269,15 +1279,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						true_experience = POINTS
 						reset_stats()
 					switch(total_age)
-						if(80 to 100)
+						if(150 to 200)
 							true_experience += 5
-						if(101 to 200)
-							true_experience += 8
 						if(201 to 300)
-							true_experience += 12
+							true_experience += 8
 						if(301 to 500)
+							true_experience += 12
+						if(501 to 700)
 							true_experience += 15
-						if(501 to INFINITY)
+						if(701 to INFINITY)
 							true_experience += 20
 
 					update_preview_icon()
@@ -1666,7 +1676,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 									clane.clane_disciplines += new_discipline
 									discipline_types += new_discipline
 									discipline_levels += 1
-									true_experience -= 10
+								//	true_experience -= 10
+									true_experience -= 1
 						else //Separate this fucking shit, otherwise we can encounter with some trouble. This is a bug. [ChillRaccoon]
 							for (var/i in 1 to clane.clane_disciplines.len)
 								discipline_types += clane.clane_disciplines[i]
@@ -2125,10 +2136,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					humanity = consience+selfcontrol
 
 				if("dharmarise")
-					if ((true_experience < 20) || (dharma_level >= 6) || !(pref_species.id == "kuei-jin"))
-						return
+			//		if ((true_experience < 20) || (dharma_level >= 6) || !(pref_species.id == "kuei-jin"))
+			//			return
 
-					true_experience -= 20
+				//	true_experience -= 20
+					true_experience -= 1
 					dharma_level = clamp(dharma_level + 1, 1, 6)
 					yin = min(10, yin += 1)
 					yang = min(10, yang += 1)

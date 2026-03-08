@@ -332,7 +332,8 @@
 
 			qdel(discipline)
 
-		if (possible_new_disciplines.len && (true_experience >= 10))
+	//	if (possible_new_disciplines.len && (true_experience >= 10))
+		if (possible_new_disciplines.len)
 			dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline (1 point)</a><BR>"
 
 	if(pref_species.name == "Ghoul")
@@ -344,7 +345,8 @@
 			qdel(discipline)
 
 		var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types
-		if (possible_new_disciplines.len && (true_experience >= 10))
+	//	if (possible_new_disciplines.len && (true_experience >= 10))
+		if (possible_new_disciplines.len)
 			dat += "<a href='byond://?_src_=prefs;preference=newghouldiscipline;task=input'>Learn a new Discipline (1 point)</a><BR>"
 
 	if (pref_species.name == "Kuei-Jin")
@@ -394,10 +396,12 @@
 				if(initial(C.discipline_type) == "Chi")
 					if(has_chi_one)
 						possible_new_disciplines -= i
-		if (possible_new_disciplines.len && (true_experience >= 10))
+//		if (possible_new_disciplines.len && (true_experience >= 10))
+		if (possible_new_disciplines.len)
 			dat += "<a href='byond://?_src_=prefs;preference=newchidiscipline;task=input'>Learn a new Discipline (1)</a><BR>"
 
-	if(true_experience >= 3 && slotlocked)
+//	if(true_experience >= 3 && slotlocked)
+	if(slotlocked)
 		dat += "<a href='byond://?_src_=prefs;preference=change_appearance;task=input'>Change Appearance</a><BR>"
 
 	dat += "<BR><b>Flavor Text:</b> [flavor_text] <a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Change</a><BR>"
