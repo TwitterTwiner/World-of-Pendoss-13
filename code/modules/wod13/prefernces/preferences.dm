@@ -15,6 +15,7 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 /datum/preferences/proc/character_creation(mob/user)
 	real_name = input(user, "What is your character's name?", "Character Creation") as text|null
 */
+/*
 /datum/preferences/proc/Set_Story(mob/user)
 	if(slotlocked)
 		return
@@ -42,7 +43,7 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 	popup.set_window_options("can_close=0")
 	popup.set_content(dat.Join())
 	popup.open(FALSE)
-
+*/
 /datum/preferences/proc/get_adbl_points(categor)
 	var/talent_priorities = 0
 	var/skills_priorities = 0

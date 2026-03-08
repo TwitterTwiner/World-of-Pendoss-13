@@ -572,7 +572,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/physical_priorities = 0
 	var/social_priorities = 0
 	var/mental_priorities = 0
-	var/back_priorities = 0
+//	var/back_priorities = 0
 	var/mortal = 0
 	if(pref_species.name == "Human" || pref_species.name == "Ghoul")
 		mortal = 1
@@ -2297,8 +2297,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(randomise[RANDOM_NAME])
 							real_name = pref_species.random_name(gender)
 						all_quirks = list()
-					//	SetQuirks(user)
-						Set_Story(user)
+						SetQuirks(user)
 						reset_attributes()
 
 				if("mutant_color")
