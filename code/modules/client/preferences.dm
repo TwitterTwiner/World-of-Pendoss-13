@@ -1,7 +1,4 @@
 GLOBAL_LIST_EMPTY(preferences_datums)
-#define POINTS 20
-// #define SPRNTRL_POINTS 15  // free points for Supernatural
-
 
 /datum/preferences
 	var/client/parent
