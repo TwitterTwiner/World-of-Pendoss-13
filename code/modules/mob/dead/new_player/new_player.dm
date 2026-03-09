@@ -58,7 +58,7 @@
 		client.prefs.ShowChoices(src)
 		return TRUE
 	if(href_list["ready"])
-		if(client?.prefs?.validate_disciplines() && client?.prefs?.blocked_slot)
+		if(client?.prefs?.validate_stats() && client?.prefs?.blocked_slot)
 			to_chat(client, span_boldwarning("Слот заблокирован так как использовано слишком много очков, кол-во которых превышает лимит, на дисциплины"))
 		SSbad_guys_party.candidates -= src
 		late_ready = FALSE
@@ -66,7 +66,7 @@
 		GLOB.lobby_screen.update(client)
 		return TRUE
 	if(href_list["late_party"])
-		if(client?.prefs?.validate_disciplines() && client?.prefs?.blocked_slot)
+		if(client?.prefs?.validate_stats() && client?.prefs?.blocked_slot)
 			to_chat(client, span_boldwarning("Слот заблокирован так как использовано слишком много очков, кол-во которых превышает лимит, на дисциплины"))
 		if (!can_respawn())
 			to_chat(src, "<span class='boldwarning'>You cannot respawn yet.</span>")
@@ -86,7 +86,7 @@
 		make_me_an_observer()
 		return TRUE
 	if(href_list["late_join"])
-		if(client?.prefs?.validate_disciplines() && client?.prefs?.blocked_slot)
+		if(client?.prefs?.validate_stats() && client?.prefs?.blocked_slot)
 			to_chat(client, span_boldwarning("Слот заблокирован так как использовано слишком много очков, кол-во которых превышает лимит, на дисциплины"))
 		if (!can_respawn())
 			to_chat(usr, "<span class='boldwarning'>You cannot respawn yet.</span>")

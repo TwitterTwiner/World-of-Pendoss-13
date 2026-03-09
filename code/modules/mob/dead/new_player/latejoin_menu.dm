@@ -66,7 +66,7 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 		return FALSE
 	switch(action)
 		if("select_job")
-			if(player?.client?.prefs?.validate_disciplines() && player?.client?.prefs?.blocked_slot)
+			if(player?.client?.prefs?.validate_stats() && player?.client?.prefs?.blocked_slot)
 				to_chat(player, span_boldwarning("Слот заблокирован так как использовано слишком много очков, кол-во которых превышает лимит, на дисциплины"))
 			if(!SSticker?.IsRoundInProgress())
 				to_chat(player, "<span class='danger'>The round is either not ready, or has already finished...</span>")

@@ -861,7 +861,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		to_chat(parent, "<span class='userdanger'>You tried to load a character slot with [true_experience] experience. It has been reset.</span>")
 		reset_character()
 
-	if(parent?.prefs?.validate_disciplines() && parent?.prefs?.blocked_slot)
+	if(parent?.prefs?.validate_stats() && parent?.prefs?.blocked_slot)
 		to_chat(parent, span_boldwarning("Слот заблокирован так как использовано слишком много очков, кол-во которых превышает лимит, на дисциплины"))
 	return TRUE
 

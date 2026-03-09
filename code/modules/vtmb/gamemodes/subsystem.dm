@@ -193,6 +193,9 @@ SUBSYSTEM_DEF(bad_guys_party)
 	if(SSticker.late_join_disabled)
 		alert(src, "An administrator has disabled late join spawning.")
 		return FALSE
+	if(client?.prefs?.validate_stats() && client?.prefs?.blocked_slot)
+		to_chat(client, span_boldwarning("Слот заблокирован так как использовано слишком много очков, кол-во которых превышает лимит, на дисциплины"))
+		return FALSE
 
 	//Remove the player from the join queue if he was in one and reset the timer
 	SSticker.queued_players -= src
