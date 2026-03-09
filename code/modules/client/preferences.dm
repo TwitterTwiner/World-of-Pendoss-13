@@ -2018,13 +2018,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							cost = discipline_level * 6
 
 
-					//	if ((true_experience < cost) || (discipline_level >= 5))
-					//		return
-						if(discipline_level >= 5)
+						cost = 2
+						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
-					//	true_experience -= cost
-						true_experience -= 1
+						true_experience -= cost
 						discipline_levels[i] = min(5, max(1, discipline_levels[i] + 1))
 
 					if(pref_species.id == "kuei-jin")
@@ -2035,13 +2033,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 
-					//	if ((true_experience < cost) || (discipline_level >= 5))
-					//		return
-						if(discipline_level >= 5)
+						cost = 7
+						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
-					//	true_experience -= cost
-						true_experience -= 1
+						true_experience -= cost
 						discipline_levels[a] = min(5, max(1, discipline_levels[a] + 1))
 
 				if("path")
