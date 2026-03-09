@@ -1710,7 +1710,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += selected_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= 1
+						true_experience -= KNDR_NEW_DISCPILINE_COST
 
 				if("newghouldiscipline")
 			//		if((true_experience < 10) || !(pref_species.id == "ghoul"))
@@ -1725,7 +1725,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += new_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= 1
+						true_experience -= GHL_DISCIPLINE_COST
 
 				if("newchidiscipline")
 				//	if((true_experience < 10) || !(pref_species.id == "kuei-jin"))
@@ -1762,7 +1762,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += new_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= 2
+						true_experience -= CTHN_NEW_DISCPILINE_COST
 
 				if("werewolf_color")
 					if(slotlocked || !(pref_species.id == "garou"))
@@ -2301,7 +2301,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							cost = discipline_level * 6
 
 
-						cost = 2
+						cost = KNDR_DISCPILINE_COST
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
@@ -2316,7 +2316,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 
-						cost = 2
+						cost = CTHN_DISCPILINE_COST
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
