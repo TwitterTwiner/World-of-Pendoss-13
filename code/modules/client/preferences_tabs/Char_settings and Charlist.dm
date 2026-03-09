@@ -207,8 +207,6 @@
 		dat += "<b>Auspice:</b> <a href='byond://?_src_=prefs;preference=auspice;task=input'>[auspice.name]</a><BR>"
 		dat += "Description: [auspice.desc]<BR>"
 		dat += "<b>Power:</b> •[auspice_level > 1 ? "•" : "o"][auspice_level > 2 ? "•" : "o"]([auspice_level])"
-	//	if(true_experience >= 10*auspice_level && auspice_level != 3)
-		dat += "<a href='byond://?_src_=prefs;preference=auspice_level;task=input'>Increase ([1*auspice_level])</a>"
 		if(true_experience >= 1 && auspice_level != 3)
 			dat += "<a href='byond://?_src_=prefs;preference=auspice_level;task=input'>Increase ([1])</a>"
 		dat += "<b>Initial Rage:</b> •[auspice.start_rage > 1 ? "•" : "o"][auspice.start_rage > 2 ? "•" : "o"][auspice.start_rage > 3 ? "•" : "o"][auspice.start_rage > 4 ? "•" : "o"]([auspice.start_rage])<BR>"

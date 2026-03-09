@@ -442,6 +442,39 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["s_linguistics"], Linguistics)
 	READ_FILE(S["s_occult"], Occult)
 
+	READ_FILE(S["free_strength"], free_strength)
+	READ_FILE(S["free_dexterity"], free_dexterity)
+	READ_FILE(S["free_stamina"], free_stamina)
+
+	READ_FILE(S["free_charisma"], free_charisma)
+	READ_FILE(S["free_manipulation"], free_manipulation)
+	READ_FILE(S["free_appearance"], free_appearance)
+
+	READ_FILE(S["free_perception"], free_perception)
+	READ_FILE(S["free_intelligence"], free_intelligence)
+	READ_FILE(S["free_wits"], free_wits)
+
+	READ_FILE(S["free_alertness"], free_alertness)
+	READ_FILE(S["free_athletics"], free_athletics)
+	READ_FILE(S["free_brawl"], free_brawl)
+	READ_FILE(S["free_empathy"], free_empathy)
+	READ_FILE(S["free_intimidation"], free_intimidation)
+	READ_FILE(S["free_expression"], free_expression)
+
+	READ_FILE(S["free_crafts"], free_crafts)
+	READ_FILE(S["free_melee"], free_melee)
+	READ_FILE(S["free_firearms"], free_firearms)
+	READ_FILE(S["free_drive"], free_drive)
+	READ_FILE(S["free_security"], free_security)
+	READ_FILE(S["free_performance"], free_performance)
+	READ_FILE(S["free_fleshcraft"], free_fleshcraft)
+
+	READ_FILE(S["free_finance"], free_finance)
+	READ_FILE(S["free_investigation"], free_investigation)
+	READ_FILE(S["free_medicine"], free_medicine)
+	READ_FILE(S["free_linguistics"], free_linguistics)
+	READ_FILE(S["free_occult"], free_occult)
+
 	READ_FILE(S["discipline1level"], discipline1level)
 	READ_FILE(S["discipline2level"], discipline2level)
 	READ_FILE(S["discipline3level"], discipline3level)
@@ -678,6 +711,40 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	Medicine				= sanitize_integer(Medicine, 0, 5, initial(Medicine))
 	Linguistics				= sanitize_integer(Linguistics, 0, 5, initial(Linguistics))
 	Occult				= sanitize_integer(Occult, 0, 5, initial(Occult))
+
+	var/max_free_attr = get_gen_attribute_limit() - 1
+
+	free_strength     = sanitize_integer(free_strength, 0, max_free_attr, 0)
+	free_dexterity    = sanitize_integer(free_dexterity, 0, max_free_attr, 0)
+	free_stamina      = sanitize_integer(free_stamina, 0, max_free_attr, 0)
+	free_charisma     = sanitize_integer(free_charisma, 0, max_free_attr, 0)
+	free_manipulation = sanitize_integer(free_manipulation, 0, max_free_attr, 0)
+	free_appearance   = sanitize_integer(free_appearance, 0, max_free_attr, 0)
+	free_perception   = sanitize_integer(free_perception, 0, max_free_attr, 0)
+	free_intelligence = sanitize_integer(free_intelligence, 0, max_free_attr, 0)
+	free_wits         = sanitize_integer(free_wits, 0, max_free_attr, 0)
+
+	free_alertness     = sanitize_integer(free_alertness, 0, 5, 0)
+	free_athletics     = sanitize_integer(free_athletics, 0, 5, 0)
+	free_brawl         = sanitize_integer(free_brawl, 0, 5, 0)
+	free_empathy       = sanitize_integer(free_empathy, 0, 5, 0)
+	free_intimidation  = sanitize_integer(free_intimidation, 0, 5, 0)
+	free_expression    = sanitize_integer(free_expression, 0, 5, 0)
+
+	free_crafts        = sanitize_integer(free_crafts, 0, 5, 0)
+	free_melee         = sanitize_integer(free_melee, 0, 5, 0)
+	free_firearms      = sanitize_integer(free_firearms, 0, 5, 0)
+	free_drive         = sanitize_integer(free_drive, 0, 5, 0)
+	free_security      = sanitize_integer(free_security, 0, 5, 0)
+	free_performance   = sanitize_integer(free_performance, 0, 5, 0)
+	free_fleshcraft    = sanitize_integer(free_fleshcraft, 0, 5, 0)
+
+	free_finance       = sanitize_integer(free_finance, 0, 5, 0)
+	free_investigation = sanitize_integer(free_investigation, 0, 5, 0)
+	free_medicine      = sanitize_integer(free_medicine, 0, 5, 0)
+	free_linguistics   = sanitize_integer(free_linguistics, 0, 5, 0)
+	free_occult        = sanitize_integer(free_occult, 0, 5, 0)
+
 	auspice_level			= sanitize_integer(auspice_level, 1, 5, initial(auspice_level))
 	discipline1level				= sanitize_integer(discipline1level, 1, 5, initial(discipline1level))
 	discipline2level				= sanitize_integer(discipline2level, 1, 5, initial(discipline2level))
@@ -758,6 +825,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	back_story = features[back_story]
 	validate_quirks()
+
+	validate_disciplines()
+	validate_stats()
 
 	//Convert jank old Discipline system to new Discipline system
 	if ((istype(pref_species, /datum/species/kindred) || istype(pref_species, /datum/species/ghoul)) && !discipline_types.len)
@@ -868,6 +938,39 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["s_medicine"], Medicine)
 	WRITE_FILE(S["s_linguistics"], Linguistics)
 	WRITE_FILE(S["s_occult"], Occult)
+
+	WRITE_FILE(S["free_strength"], free_strength)
+	WRITE_FILE(S["free_dexterity"], free_dexterity)
+	WRITE_FILE(S["free_stamina"], free_stamina)
+
+	WRITE_FILE(S["free_charisma"], free_charisma)
+	WRITE_FILE(S["free_manipulation"], free_manipulation)
+	WRITE_FILE(S["free_appearance"], free_appearance)
+
+	WRITE_FILE(S["free_perception"], free_perception)
+	WRITE_FILE(S["free_intelligence"], free_intelligence)
+	WRITE_FILE(S["free_wits"], free_wits)
+
+	WRITE_FILE(S["free_alertness"], free_alertness)
+	WRITE_FILE(S["free_athletics"], free_athletics)
+	WRITE_FILE(S["free_brawl"], free_brawl)
+	WRITE_FILE(S["free_empathy"], free_empathy)
+	WRITE_FILE(S["free_intimidation"], free_intimidation)
+	WRITE_FILE(S["free_expression"], free_expression)
+
+	WRITE_FILE(S["free_crafts"], free_crafts)
+	WRITE_FILE(S["free_melee"], free_melee)
+	WRITE_FILE(S["free_firearms"], free_firearms)
+	WRITE_FILE(S["free_drive"], free_drive)
+	WRITE_FILE(S["free_security"], free_security)
+	WRITE_FILE(S["free_performance"], free_performance)
+	WRITE_FILE(S["free_fleshcraft"], free_fleshcraft)
+
+	WRITE_FILE(S["free_finance"], free_finance)
+	WRITE_FILE(S["free_investigation"], free_investigation)
+	WRITE_FILE(S["free_medicine"], free_medicine)
+	WRITE_FILE(S["free_linguistics"], free_linguistics)
+	WRITE_FILE(S["free_occult"], free_occult)
 
 	WRITE_FILE(S["discipline1level"]			, discipline1level)
 	WRITE_FILE(S["discipline2level"]			, discipline2level)

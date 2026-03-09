@@ -277,6 +277,41 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/Fleshcraft = 0
 	var/Performance = 0
 
+////// FREE SHIT ATTRIBUTES
+	var/free_strength = 0
+	var/free_dexterity = 0
+	var/free_stamina = 0
+
+	var/free_charisma = 0
+	var/free_manipulation = 0
+	var/free_appearance = 0
+
+	var/free_perception = 0
+	var/free_intelligence = 0
+	var/free_wits = 0
+
+////// FREE SHIT ABILITIES
+	var/free_alertness = 0
+	var/free_athletics = 0
+	var/free_brawl = 0
+	var/free_empathy = 0
+	var/free_intimidation = 0
+	var/free_expression = 0
+
+	var/free_crafts = 0
+	var/free_melee = 0
+	var/free_firearms = 0
+	var/free_drive = 0
+	var/free_security = 0
+	var/free_performance = 0
+	var/free_fleshcraft = 0
+
+	var/free_finance = 0
+	var/free_investigation = 0
+	var/free_medicine = 0
+	var/free_linguistics = 0
+	var/free_occult = 0
+
 //// KNOWELEDGE
 	var/Finance = 0
 	var/Investigation = 0
@@ -312,6 +347,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		Perception = 1
 		Intelligence = 1
 		Wits = 1
+
+		free_strength = 0
+		free_dexterity = 0
+		free_stamina = 0
+		free_charisma = 0
+		free_manipulation = 0
+		free_appearance = 0
+		free_perception = 0
+		free_intelligence = 0
+		free_wits = 0
 	if(!attributes_only)
 		Alertness = 0
 		Athletics = 0
@@ -330,6 +375,24 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		Medicine = 0
 		Linguistics = 0
 		Occult = 0
+
+		free_alertness = 0
+		free_athletics = 0
+		free_brawl = 0
+		free_empathy = 0
+		free_intimidation = 0
+		free_expression = 0
+		free_fleshcraft = 0
+		free_crafts = 0
+		free_melee = 0
+		free_firearms = 0
+		free_drive = 0
+		free_security = 0
+		free_finance = 0
+		free_investigation = 0
+		free_medicine = 0
+		free_linguistics = 0
+		free_occult = 0
 
 /datum/preferences/proc/reset_discipline()
 	discipline_types = list()
@@ -1028,6 +1091,145 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(GetQuirkBalance() < 0)
 		all_quirks = list()
 
+/datum/preferences/proc/validate_disciplines()
+	if(!(pref_species.id == "kindred" || pref_species.id == "kuei-jin" || pref_species.id == "ghoul"))
+		return 0
+	var/total = POINTS
+	var/spent = 0
+	var/cost = 0
+	switch(pref_species.id)
+		if("kindred")
+			cost = 2
+		if("kuei-jin")
+			cost = 2
+		if("ghoul")
+			cost = 3
+	switch(total_age)
+		if(150 to 200)
+			total += 5
+		if(201 to 300)
+			total += 8
+		if(301 to 500)
+			total += 12
+		if(501 to 700)
+			total += 15
+		if(701 to INFINITY)
+			total += 20
+	for(var/i in 1 to discipline_levels.len)
+		var/lvl = discipline_levels[i]
+		var/type = discipline_types[i]
+		if(type in clane?.clane_disciplines)
+			spent += max(lvl - 1, 0) * cost
+		else
+			spent += max(lvl, 0) * cost
+	if(spent > total)
+		for(var/i in 1 to discipline_levels.len)
+			if(discipline_levels[i] > 0)
+				discipline_levels[i] = 1
+	spent = 0
+	for(var/i in 1 to discipline_levels.len)
+		var/lvl = discipline_levels[i]
+		var/type = discipline_types[i]
+		if(type in clane?.clane_disciplines)
+			spent += max(lvl - 1, 0) * cost
+		else
+			spent += max(lvl, 0) * cost
+	if(spent > total)
+		message_admins("[key_name(src)] has too many level 1 disciplines exceeding the limit! spent=[spent], total=[total]")
+		log_game("[key_name(src)] exceeds discipline point limit! spent=[spent], total=[total]")
+	return spent
+
+/datum/preferences/proc/validate_stats()
+	var/discipline_spent = validate_disciplines()
+	var/total = POINTS
+	switch(total_age)
+		if(150 to 200)
+			total += 5
+		if(201 to 300)
+			total += 8
+		if(301 to 500)
+			total += 12
+		if(501 to 700)
+			total += 15
+		if(701 to INFINITY)
+			total += 20
+	var/current_spent = discipline_spent
+	current_spent += max(Strength - 1 - free_strength, 0)
+	current_spent += max(Dexterity - 1 - free_dexterity, 0)
+	current_spent += max(Stamina - 1 - free_stamina, 0)
+	current_spent += max(Charisma - 1 - free_charisma, 0)
+	current_spent += max(Manipulation - 1 - free_manipulation, 0)
+	current_spent += max(Appearance - 1 - free_appearance, 0)
+	current_spent += max(Perception - 1 - free_perception, 0)
+	current_spent += max(Intelligence - 1 - free_intelligence, 0)
+	current_spent += max(Wits - 1 - free_wits, 0)
+	if(current_spent > total)
+		Strength = clamp(free_strength + 1, 1, 5)
+		Dexterity = clamp(free_dexterity + 1, 1, 5)
+		Stamina = clamp(free_stamina + 1, 1, 5)
+		Charisma = clamp(free_charisma + 1, 1, 5)
+		Manipulation = clamp(free_manipulation + 1, 1, 5)
+		Appearance = clamp(free_appearance + 1, 1, 5)
+		Perception = clamp(free_perception + 1, 1, 5)
+		Intelligence = clamp(free_intelligence + 1, 1, 5)
+		Wits = clamp(free_wits + 1, 1, 5)
+		current_spent = discipline_spent
+	current_spent += max(Alertness - free_alertness, 0)
+	current_spent += max(Athletics - free_athletics, 0)
+	current_spent += max(Brawl - free_brawl, 0)
+	current_spent += max(Empathy - free_empathy, 0)
+	current_spent += max(Intimidation - free_intimidation, 0)
+	current_spent += max(Expression - free_expression, 0)
+	if(current_spent > total)
+		Alertness = free_alertness
+		Athletics = free_athletics
+		Brawl = free_brawl
+		Empathy = free_empathy
+		Intimidation = free_intimidation
+		Expression = free_expression
+		current_spent = discipline_spent
+	current_spent += max(Crafts - free_crafts, 0)
+	current_spent += max(Melee - free_melee, 0)
+	current_spent += max(Firearms - free_firearms, 0)
+	current_spent += max(Drive - free_drive, 0)
+	current_spent += max(Security - free_security, 0)
+	current_spent += max(Performance - free_performance, 0)
+	current_spent += max(Fleshcraft - free_fleshcraft, 0)
+	if(current_spent > total)
+		Crafts = free_crafts
+		Melee = free_melee
+		Firearms = free_firearms
+		Drive = free_drive
+		Security = free_security
+		Performance = free_performance
+		Fleshcraft = free_fleshcraft
+		current_spent = discipline_spent
+	current_spent += max(Finance - free_finance, 0)
+	current_spent += max(Investigation - free_investigation, 0)
+	current_spent += max(Medicine - free_medicine, 0)
+	current_spent += max(Linguistics - free_linguistics, 0)
+	current_spent += max(Occult - free_occult, 0)
+	if(current_spent > total)
+		Finance = free_finance
+		Investigation = free_investigation
+		Medicine = free_medicine
+		Linguistics = free_linguistics
+		Occult = free_occult
+		current_spent = discipline_spent
+	if(auspice_level)
+		current_spent += auspice_level
+	if(current_spent > total)
+		auspice_level = 1
+		current_spent = discipline_spent
+	if(trufaith_level > 0)
+		current_spent += trufaith_level * 2
+	if(current_spent > total)
+		trufaith_level = 0
+		current_spent = discipline_spent
+	var/remaining = total - current_spent
+	true_experience = max(0, remaining)
+	return
+
 /datum/preferences/Topic(href, href_list, hsrc)			//yeah, gotta do this I guess..
 	. = ..()
 	if(href_list["close"])
@@ -1560,7 +1762,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += new_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= 1
+						true_experience -= 2
 
 				if("werewolf_color")
 					if(slotlocked || !(pref_species.id == "garou"))
@@ -1827,111 +2029,192 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						verify_attributes()
 */
 				if("strength")
+					var/free = get_freebie_points("Physical")
 					if(handle_upgrade(Strength, 1, get_gen_attribute_limit("Strength"), "Physical"))
+						if(free > 0)
+							free_strength++
 						Strength++
 
 				if("dexterity")
+					var/free = get_freebie_points("Physical")
 					if(handle_upgrade(Dexterity, 1, get_gen_attribute_limit("Dexterity"), "Physical"))
+						if(free > 0)
+							free_dexterity++
 						Dexterity++
 
 				if("stamina")
+					var/free = get_freebie_points("Physical")
 					if(handle_upgrade(Stamina, 1, get_gen_attribute_limit("Stamina"), "Physical"))
+						if(free > 0)
+							free_stamina++
 						Stamina++
 
 				if("charisma")
+					var/free = get_freebie_points("Social")
 					if(handle_upgrade(Charisma, 1, get_gen_attribute_limit("Charisma"), "Social"))
+						if(free > 0)
+							free_charisma++
 						Charisma++
 
 				if("manipulation")
+					var/free = get_freebie_points("Social")
 					if(handle_upgrade(Manipulation, 1, get_gen_attribute_limit("Manipulation"), "Social"))
+						if(free > 0)
+							free_manipulation++
 						Manipulation++
 
 				if("appearance")
+					var/free = get_freebie_points("Social")
 					if(handle_upgrade(Appearance, 1, get_gen_attribute_limit("Appearance"), "Social"))
+						if(free > 0)
+							free_appearance++
 						Appearance++
 
 				if("perception")
+					var/free = get_freebie_points("Mental")
 					if(handle_upgrade(Perception, 1, get_gen_attribute_limit("Perception"), "Mental"))
+						if(free > 0)
+							free_perception++
 						Perception++
 
 				if("intelligence")
+					var/free = get_freebie_points("Mental")
 					if(handle_upgrade(Intelligence, 1, get_gen_attribute_limit("Intelligence"), "Mental"))
+						if(free > 0)
+							free_intelligence++
 						Intelligence++
 
 				if("wits")
+					var/free = get_freebie_points("Mental")
 					if(handle_upgrade(Wits, 1, get_gen_attribute_limit("Wits"), "Mental"))
+						if(free > 0)
+							free_wits++
 						Wits++
 
 				if("alertness")
+					var/free = get_adbl_points("Talents")
 					if(handle_upgrade(Alertness, 1, 5, "Talents"))
+						if(free > 0)
+							free_alertness++
 						Alertness++
 
 				if("athletics")
+					var/free = get_adbl_points("Talents")
 					if(handle_upgrade(Athletics, 1, 5, "Talents"))
+						if(free > 0)
+							free_athletics++
 						Athletics++
 
 				if("brawl")
+					var/free = get_adbl_points("Talents")
 					if(handle_upgrade(Brawl, 1, 5, "Talents"))
+						if(free > 0)
+							free_brawl++
 						Brawl++
 
 				if("empathy")
+					var/free = get_adbl_points("Talents")
 					if(handle_upgrade(Empathy, 1, 5, "Talents"))
+						if(free > 0)
+							free_empathy++
 						Empathy++
 
 				if("intimidation")
+					var/free = get_adbl_points("Talents")
 					if(handle_upgrade(Intimidation, 1, 5, "Talents"))
+						if(free > 0)
+							free_intimidation++
 						Intimidation++
 
 				if("expression")
+					var/free = get_adbl_points("Talents")
 					if(handle_upgrade(Expression, 1, 5, "Talents"))
+						if(free > 0)
+							free_expression++
 						Expression++
 
 				if("crafts")
+					var/free = get_adbl_points("Skills")
 					if(handle_upgrade(Crafts, 1, 5, "Skills"))
+						if(free > 0)
+							free_crafts++
 						Crafts++
 
 				if("melee")
+					var/free = get_adbl_points("Skills")
 					if(handle_upgrade(Melee, 1, 5, "Skills"))
+						if(free > 0)
+							free_melee++
 						Melee++
 
 				if("firearms")
+					var/free = get_adbl_points("Skills")
 					if(handle_upgrade(Firearms, 1, 5, "Skills"))
+						if(free > 0)
+							free_firearms++
 						Firearms++
 
 				if("drive")
+					var/free = get_adbl_points("Skills")
 					if(handle_upgrade(Drive, 1, 5, "Skills"))
+						if(free > 0)
+							free_drive++
 						Drive++
 
 				if("security")
+					var/free = get_adbl_points("Skills")
 					if(handle_upgrade(Security, 1, 5, "Skills"))
+						if(free > 0)
+							free_security++
 						Security++
 
 				if("performance")
+					var/free = get_adbl_points("Skills")
 					if(handle_upgrade(Performance, 1, 5, "Skills"))
+						if(free > 0)
+							free_performance++
 						Performance++
 
 				if("fleshcraft")
+					var/free = get_adbl_points("Skills")
 					if(handle_upgrade(Fleshcraft, 1, 5, "Skills"))
+						if(free > 0)
+							free_fleshcraft++
 						Fleshcraft++
 
 				if("finance")
+					var/free = get_adbl_points("Knowledges")
 					if(handle_upgrade(Finance, 1, 5, "Knowledges"))
+						if(free > 0)
+							free_finance++
 						Finance++
 
 				if("investigation")
+					var/free = get_adbl_points("Knowledges")
 					if(handle_upgrade(Investigation, 1, 5, "Knowledges"))
+						if(free > 0)
+							free_investigation++
 						Investigation++
 
 				if("medicine")
+					var/free = get_adbl_points("Knowledges")
 					if(handle_upgrade(Medicine, 1, 5, "Knowledges"))
+						if(free > 0)
+							free_medicine++
 						Medicine++
 
 				if("linguistics")
+					var/free = get_adbl_points("Knowledges")
 					if(handle_upgrade(Linguistics, 1, 5, "Knowledges"))
+						if(free > 0)
+							free_linguistics++
 						Linguistics++
 
 				if("occult")
+					var/free = get_adbl_points("Knowledges")
 					if(handle_upgrade(Occult, 1, 5, "Knowledges"))
+						if(free > 0)
+							free_occult++
 						Occult++
 
 				if("tribe")
@@ -2033,7 +2316,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 
-						cost = 7
+						cost = 2
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
@@ -3542,6 +3825,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	Empathy = 0
 	Intimidation = 0
 	Expression = 0
+	Fleshcraft = 0
 
 	Crafts = 0
 	Melee = 0
@@ -3554,3 +3838,35 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	Medicine = 0
 	Linguistics = 0
 	Occult = 0
+
+	free_strength = 0
+	free_dexterity = 0
+	free_stamina = 0
+
+	free_charisma = 0
+	free_manipulation = 0
+	free_appearance = 0
+
+	free_perception = 0
+	free_intelligence = 0
+	free_wits = 0
+
+	free_alertness = 0
+	free_athletics = 0
+	free_brawl = 0
+	free_empathy = 0
+	free_intimidation = 0
+	free_expression = 0
+	free_fleshcraft = 0
+
+	free_crafts = 0
+	free_melee = 0
+	free_firearms = 0
+	free_drive = 0
+	free_security = 0
+
+	free_finance = 0
+	free_investigation = 0
+	free_medicine = 0
+	free_linguistics = 0
+	free_occult = 0
