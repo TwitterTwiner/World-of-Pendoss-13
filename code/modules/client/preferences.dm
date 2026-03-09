@@ -1151,7 +1151,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		log_game("[key_name(parent)]/[real_name] exceeds discipline point limit! spent=[spent], total=[total]")
 		blocked_slot = TRUE
 	return spent
-
+//
 /datum/preferences/proc/validate_stats()
 	var/discipline_spent = validate_disciplines()
 	var/total = POINTS
