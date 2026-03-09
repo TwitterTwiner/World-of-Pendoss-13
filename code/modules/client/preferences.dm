@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
 	var/max_save_slots = 20
 
-	//non-preference stuffupgradediscipline
+	//non-preference stuff
 	var/muted = 0
 	var/last_ip
 	var/last_id
@@ -1282,7 +1282,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							age = total_age
 
 						true_experience = POINTS
-						reset_stats()
+					//	reset_stats()
+						reset_attributes()
 						reset_discipline()
 					switch(total_age)
 						if(150 to 200)
@@ -2016,11 +2017,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						else if (discipline.learnable_by_clans.Find(clane.type))
 							cost = discipline_level * 6
 
-						cost = 7
-						if ((true_experience < cost) || (discipline_level >= 5))
+
+					//	if ((true_experience < cost) || (discipline_level >= 5))
+					//		return
+						if(discipline_level >= 5)
 							return
 
-						true_experience -= cost
+					//	true_experience -= cost
+						true_experience -= 1
 						discipline_levels[i] = min(5, max(1, discipline_levels[i] + 1))
 
 					if(pref_species.id == "kuei-jin")
@@ -2030,11 +2034,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/cost = discipline_level * 6
 						if (discipline_level <= 0)
 							cost = 10
-						cost = 7
-						if ((true_experience < cost) || (discipline_level >= 5))
+
+					//	if ((true_experience < cost) || (discipline_level >= 5))
+					//		return
+						if(discipline_level >= 5)
 							return
 
-						true_experience -= cost
+					//	true_experience -= cost
+						true_experience -= 1
 						discipline_levels[a] = min(5, max(1, discipline_levels[a] + 1))
 
 				if("path")
@@ -2316,6 +2323,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						all_quirks = list()
 						SetQuirks(user)
 						reset_attributes()
+						true_experience = POINTS
+						total_age = age
 
 				if("mutant_color")
 					if(slotlocked)
