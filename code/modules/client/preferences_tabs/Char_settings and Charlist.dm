@@ -309,7 +309,7 @@
 				cost = discipline_level * 7
 
 
-			cost = 1
+			cost = KNDR_DISCPILINE_COST
 			dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"]([discipline_level])"
 			if((true_experience >= cost) && (discipline_level != 5))
 				dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn (1 point)</a><BR>"
@@ -358,7 +358,7 @@
 			var/datum/chi_discipline/discipline = new discipline_type
 			var/discipline_level = discipline_levels[i]
 
-			var/cost = 1
+			var/cost = CTHN_DISCPILINE_COST
 	//		if (discipline_level <= 0)
 	//			cost = 10
 	//		else
