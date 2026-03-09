@@ -1282,7 +1282,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							age = total_age
 
 						true_experience = POINTS
-						reset_stats()
+					//	reset_stats()
+						reset_attributes()
 						reset_discipline()
 					switch(total_age)
 						if(150 to 200)
@@ -1507,7 +1508,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += selected_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= 1
+						true_experience -= KNDR_NEW_DISCPILINE_COST
 
 				if("newghouldiscipline")
 			//		if((true_experience < 10) || !(pref_species.id == "ghoul"))
@@ -1522,7 +1523,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += new_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= 1
+						true_experience -= GHL_DISCIPLINE_COST
 
 				if("newchidiscipline")
 				//	if((true_experience < 10) || !(pref_species.id == "kuei-jin"))
@@ -1559,7 +1560,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += new_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= 1
+						true_experience -= CTHN_NEW_DISCPILINE_COST
 
 				if("werewolf_color")
 					if(slotlocked || !(pref_species.id == "garou"))
@@ -2017,13 +2018,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							cost = discipline_level * 6
 
 
-					//	if ((true_experience < cost) || (discipline_level >= 5))
-					//		return
-						if(discipline_level >= 5)
+						cost = KNDR_DISCPILINE_COST
+						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
-					//	true_experience -= cost
-						true_experience -= 1
+						true_experience -= cost
 						discipline_levels[i] = min(5, max(1, discipline_levels[i] + 1))
 
 					if(pref_species.id == "kuei-jin")
@@ -2034,13 +2033,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 
-					//	if ((true_experience < cost) || (discipline_level >= 5))
-					//		return
-						if(discipline_level >= 5)
+						cost = CTHN_DISCPILINE_COST
+						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
-					//	true_experience -= cost
-						true_experience -= 1
+						true_experience -= cost
 						discipline_levels[a] = min(5, max(1, discipline_levels[a] + 1))
 
 				if("path")
@@ -2322,6 +2319,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						all_quirks = list()
 						SetQuirks(user)
 						reset_attributes()
+						true_experience = POINTS
+						total_age = age
 
 				if("mutant_color")
 					if(slotlocked)

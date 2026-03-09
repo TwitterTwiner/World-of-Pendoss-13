@@ -96,3 +96,20 @@ GLOBAL_LIST_INIT(BackstoryElder, list("Опекун", "Гуру"))
 	//	if("Soldier")
 	//		return soldier_priorities
 	return 0
+
+/datum/preferences/proc/cout_down()
+	var/counter = 0
+
+	var/list/attributes = list(Strength, Dexterity, Stamina, Manipulation, Charisma, Appearance, Perception, Intelligence, Wits )
+	var/list/abilities = list(Alertness, Athletics, Brawl, Empathy, Intimidation, Expression,  Crafts,  Melee,  Firearms,
+	Drive,  Security,  Fleshcraft,  Performance, Finance, Investigation, Medicine, Linguistics, Occult)
+
+	for(var/v in 1 to attributes.len)
+		counter += attributes[v]
+	for(var/z in 1 to abilities.len)
+		counter += abilities[z]
+	for(var/o in 1 to discipline_types.len)
+		counter += discipline_levels[o]
+		counter *= 2
+	return counter
+

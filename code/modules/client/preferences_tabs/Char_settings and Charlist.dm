@@ -309,7 +309,7 @@
 				cost = discipline_level * 7
 
 
-			cost = 1
+			cost = KNDR_DISCPILINE_COST
 			dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"]([discipline_level])"
 			if((true_experience >= cost) && (discipline_level != 5))
 				dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn (1 point)</a><BR>"
@@ -335,8 +335,8 @@
 			qdel(discipline)
 
 	//	if (possible_new_disciplines.len && (true_experience >= 10))
-		if (possible_new_disciplines.len)
-			dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline (1 point)</a><BR>"
+		if (possible_new_disciplines.len && (true_experience >= KNDR_NEW_DISCPILINE_COST))
+			dat += "<a href='byond://?_src_=prefs;preference=newdiscipline;task=input'>Learn a new Discipline ([KNDR_NEW_DISCPILINE_COST] point)</a><BR>"
 
 	if(pref_species.name == "Ghoul")
 		for (var/i in 1 to discipline_types.len)
@@ -348,8 +348,8 @@
 
 		var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types
 	//	if (possible_new_disciplines.len && (true_experience >= 10))
-		if (possible_new_disciplines.len)
-			dat += "<a href='byond://?_src_=prefs;preference=newghouldiscipline;task=input'>Learn a new Discipline (1 point)</a><BR>"
+		if (possible_new_disciplines.len  && (true_experience >= GHL_DISCIPLINE_COST))
+			dat += "<a href='byond://?_src_=prefs;preference=newghouldiscipline;task=input'>Learn a new Discipline ([GHL_DISCIPLINE_COST] point)</a><BR>"
 
 	if (pref_species.name == "Kuei-Jin")
 		dat += "<h2>[make_font_cool("DISCIPLINES")]</h2><BR>"
@@ -358,7 +358,7 @@
 			var/datum/chi_discipline/discipline = new discipline_type
 			var/discipline_level = discipline_levels[i]
 
-			var/cost = 1
+			var/cost = CTHN_DISCPILINE_COST
 	//		if (discipline_level <= 0)
 	//			cost = 10
 	//		else
@@ -399,8 +399,8 @@
 					if(has_chi_one)
 						possible_new_disciplines -= i
 //		if (possible_new_disciplines.len && (true_experience >= 10))
-		if (possible_new_disciplines.len)
-			dat += "<a href='byond://?_src_=prefs;preference=newchidiscipline;task=input'>Learn a new Discipline (1)</a><BR>"
+		if (possible_new_disciplines.len  && (true_experience >= CTHN_DISCPILINE_COST))
+			dat += "<a href='byond://?_src_=prefs;preference=newchidiscipline;task=input'>Learn a new Discipline ([CTHN_DISCPILINE_COST])</a><BR>"
 
 //	if(true_experience >= 3 && slotlocked)
 	if(slotlocked)
