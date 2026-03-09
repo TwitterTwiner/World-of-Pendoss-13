@@ -197,6 +197,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	///Ranks of the Disciplines this character knows, corresponding to discipline_types.
 	var/list/discipline_levels = list()
 
+	var/blocked_slot = FALSE
+
 	//Skills
 	var/lockpicking = 0
 	var/athletics = 0
@@ -394,6 +396,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		free_linguistics = 0
 		free_occult = 0
 
+	trufaith_level = 0
+	auspice_level = 1
+
 /datum/preferences/proc/reset_discipline()
 	discipline_types = list()
 	discipline_levels = list()
@@ -405,6 +410,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	slotlocked = 0
 	diablerist = 0
 	know_diablerie = 0
+	blocked_slot = FALSE
 	torpor_count = 0
 	generation_bonus = 0
 	reset_stats()
@@ -1096,14 +1102,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		return 0
 	var/total = POINTS
 	var/spent = 0
-	var/cost = 0
+	var/cost_normal = 0
+	var/cost_new = 0
 	switch(pref_species.id)
 		if("kindred")
-			cost = 2
+			cost_normal = KNDR_DISCIPLINE_COST
+			cost_new = KNDR_NEW_DISCIPLINE_COST
 		if("kuei-jin")
-			cost = 2
+			cost_normal = CTHN_DISCIPLINE_COST
+			cost_new = CTHN_NEW_DISCIPLINE_COST
 		if("ghoul")
-			cost = 3
+			cost_normal = GHL_DISCIPLINE_COST
+			cost_new = GHL_DISCIPLINE_COST
 	switch(total_age)
 		if(150 to 200)
 			total += 5
@@ -1119,9 +1129,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/lvl = discipline_levels[i]
 		var/type = discipline_types[i]
 		if(type in clane?.clane_disciplines)
-			spent += max(lvl - 1, 0) * cost
+			spent += max(lvl - 1, 0) * cost_normal
 		else
-			spent += max(lvl, 0) * cost
+			spent += cost_new
+			spent += max(lvl - 1, 0) * cost_normal
 	if(spent > total)
 		for(var/i in 1 to discipline_levels.len)
 			if(discipline_levels[i] > 0)
@@ -1131,12 +1142,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/lvl = discipline_levels[i]
 		var/type = discipline_types[i]
 		if(type in clane?.clane_disciplines)
-			spent += max(lvl - 1, 0) * cost
+			spent += max(lvl - 1, 0) * cost_normal
 		else
-			spent += max(lvl, 0) * cost
+			spent += cost_new
+			spent += max(lvl - 1, 0) * cost_normal
 	if(spent > total)
-		message_admins("[key_name(src)] has too many level 1 disciplines exceeding the limit! spent=[spent], total=[total]")
-		log_game("[key_name(src)] exceeds discipline point limit! spent=[spent], total=[total]")
+		message_admins("[key_name(parent)]/ [real_name] has too many level 1 disciplines exceeding the limit! spent=[spent], total=[total]")
+		log_game("[key_name(parent)]/[real_name] exceeds discipline point limit! spent=[spent], total=[total]")
+		blocked_slot = TRUE
 	return spent
 
 /datum/preferences/proc/validate_stats()
@@ -1710,7 +1723,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += selected_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= KNDR_NEW_DISCPILINE_COST
+						true_experience -= KNDR_NEW_DISCIPLINE_COST
 
 				if("newghouldiscipline")
 			//		if((true_experience < 10) || !(pref_species.id == "ghoul"))
@@ -1762,7 +1775,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						discipline_types += new_discipline
 						discipline_levels += 1
 					//	true_experience -= 10
-						true_experience -= CTHN_NEW_DISCPILINE_COST
+						true_experience -= CTHN_NEW_DISCIPLINE_COST
 
 				if("werewolf_color")
 					if(slotlocked || !(pref_species.id == "garou"))
@@ -2301,7 +2314,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							cost = discipline_level * 6
 
 
-						cost = KNDR_DISCPILINE_COST
+						cost = KNDR_DISCIPLINE_COST
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
@@ -2316,7 +2329,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 
-						cost = CTHN_DISCPILINE_COST
+						cost = CTHN_DISCIPLINE_COST
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 

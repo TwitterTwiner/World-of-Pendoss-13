@@ -66,6 +66,8 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 		return FALSE
 	switch(action)
 		if("select_job")
+			if(player?.client?.prefs?.validate_disciplines() && player?.client?.prefs?.blocked_slot)
+				to_chat(player, span_boldwarning("Слот заблокирован так как использовано слишком много очков, кол-во которых превышает лимит, на дисциплины"))
 			if(!SSticker?.IsRoundInProgress())
 				to_chat(player, "<span class='danger'>The round is either not ready, or has already finished...</span>")
 				return TRUE
@@ -119,4 +121,6 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 			return "Your species cannot be [jobtitle]."
 		if(JOB_UNAVAILABLE_SPECIES_LIMITED)
 			return "Your species has a limit on how many can be [jobtitle]."
+		if(JOB_BLOCKED_SLOT)
+			return "Слот заблокирован."
 	return "Error: Unknown job availability."

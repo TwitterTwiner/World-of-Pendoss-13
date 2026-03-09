@@ -485,6 +485,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["discipline4type"], discipline4type)
 	READ_FILE(S["discipline_types"], discipline_types)
 	READ_FILE(S["discipline_levels"], discipline_levels)
+	READ_FILE(S["blocked_slot"], blocked_slot)
 	READ_FILE(S["info_known"], info_known)
 	READ_FILE(S["friend"], friend)
 	READ_FILE(S["enemy"], enemy)
@@ -653,6 +654,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	diablerist				= sanitize_integer(diablerist, 0, 1, initial(diablerist))
 	know_diablerie			= sanitize_integer(know_diablerie, 0, 1, initial(know_diablerie))
+	blocked_slot			= sanitize_integer(blocked_slot, 0, 1, initial(blocked_slot))
 	friend_text		= sanitize_text(friend_text)
 	enemy_text		= sanitize_text(enemy_text)
 	lover_text		= sanitize_text(lover_text)
@@ -859,6 +861,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		to_chat(parent, "<span class='userdanger'>You tried to load a character slot with [true_experience] experience. It has been reset.</span>")
 		reset_character()
 
+	if(parent?.prefs?.validate_disciplines() && parent?.prefs?.blocked_slot)
+		to_chat(parent, span_boldwarning("Слот заблокирован так как использовано слишком много очков, кол-во которых превышает лимит, на дисциплины"))
 	return TRUE
 
 /datum/preferences/proc/save_character()
@@ -982,6 +986,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["discipline4type"]			, discipline4type)
 	WRITE_FILE(S["discipline_types"], discipline_types)
 	WRITE_FILE(S["discipline_levels"], discipline_levels)
+	WRITE_FILE(S["blocked_slot"], blocked_slot)
 	WRITE_FILE(S["info_known"]		, info_known)
 	WRITE_FILE(S["friend"]			, friend)
 	WRITE_FILE(S["enemy"]			, enemy)
