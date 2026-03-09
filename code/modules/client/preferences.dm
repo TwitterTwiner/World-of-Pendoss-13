@@ -2018,7 +2018,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							cost = discipline_level * 6
 
 
-						cost = 2
+						cost = KNDR_DISCPILINE_COST
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
@@ -2033,7 +2033,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if (discipline_level <= 0)
 							cost = 10
 
-						cost = 7
+						cost = CTHN_DISCPILINE_COST
 						if ((true_experience < cost) || (discipline_level >= 5))
 							return
 
