@@ -313,7 +313,7 @@
 			cost = KNDR_DISCIPLINE_COST
 			dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"]([discipline_level])"
 			if((true_experience >= cost) && (discipline_level != 5))
-				dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn (KNDR_DISCIPLINE_COST point)</a><BR>"
+				dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn ([KNDR_DISCIPLINE_COST] point)</a><BR>"
 			else
 				dat += "<BR>"
 			dat += "-[discipline.desc]<BR>"

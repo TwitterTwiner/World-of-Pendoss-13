@@ -399,6 +399,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["trufaith_level"], trufaith_level)
 
 	READ_FILE(S["a_priorities"], priorities)
+	READ_FILE(S["abl_prior"], abl_prior)
 
 	READ_FILE(S["main_physical_attribute"], main_physical_attribute)
 	READ_FILE(S["secondary_physical_attribute"], secondary_physical_attribute)
@@ -672,6 +673,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	true_experience				= sanitize_integer(true_experience, 0, 99999999, initial(true_experience))
 	trufaith_level				= sanitize_integer(trufaith_level, 0, 3, initial(trufaith_level))
 	priorities = sanitize_islist(priorities, list())
+	abl_prior = sanitize_islist(abl_prior, list())
 	if(length(languages) > Linguistics)
 		languages = list()
 	else
@@ -900,6 +902,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["auspice_level"]			, auspice_level)
 
 	WRITE_FILE(S["a_priorities"], priorities)
+	WRITE_FILE(S["abl_prior"], abl_prior)
 
 	WRITE_FILE(S["main_physical_attribute"], main_physical_attribute)
 	WRITE_FILE(S["secondary_physical_attribute"], secondary_physical_attribute)
