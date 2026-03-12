@@ -399,6 +399,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	trufaith_level = 0
 	auspice_level = 1
 
+	validate_stats()
+
 /datum/preferences/proc/reset_discipline()
 	discipline_types = list()
 	discipline_levels = list()
@@ -1151,7 +1153,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		log_game("[key_name(parent)]/[real_name] exceeds discipline point limit! spent=[spent], total=[total]")
 		blocked_slot = TRUE
 	return spent
-
+//
 /datum/preferences/proc/validate_stats()
 	var/discipline_spent = validate_disciplines()
 	var/total = POINTS
@@ -1166,82 +1168,41 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			total += 15
 		if(701 to INFINITY)
 			total += 20
-	var/current_spent = discipline_spent
-	current_spent += max(Strength - 1 - free_strength, 0)
-	current_spent += max(Dexterity - 1 - free_dexterity, 0)
-	current_spent += max(Stamina - 1 - free_stamina, 0)
-	current_spent += max(Charisma - 1 - free_charisma, 0)
-	current_spent += max(Manipulation - 1 - free_manipulation, 0)
-	current_spent += max(Appearance - 1 - free_appearance, 0)
-	current_spent += max(Perception - 1 - free_perception, 0)
-	current_spent += max(Intelligence - 1 - free_intelligence, 0)
-	current_spent += max(Wits - 1 - free_wits, 0)
-	if(current_spent > total)
-		Strength = clamp(free_strength + 1, 1, 5)
-		Dexterity = clamp(free_dexterity + 1, 1, 5)
-		Stamina = clamp(free_stamina + 1, 1, 5)
-		Charisma = clamp(free_charisma + 1, 1, 5)
-		Manipulation = clamp(free_manipulation + 1, 1, 5)
-		Appearance = clamp(free_appearance + 1, 1, 5)
-		Perception = clamp(free_perception + 1, 1, 5)
-		Intelligence = clamp(free_intelligence + 1, 1, 5)
-		Wits = clamp(free_wits + 1, 1, 5)
-		current_spent = discipline_spent
-	current_spent += max(Alertness - free_alertness, 0)
-	current_spent += max(Athletics - free_athletics, 0)
-	current_spent += max(Brawl - free_brawl, 0)
-	current_spent += max(Empathy - free_empathy, 0)
-	current_spent += max(Intimidation - free_intimidation, 0)
-	current_spent += max(Expression - free_expression, 0)
-	if(current_spent > total)
-		Alertness = free_alertness
-		Athletics = free_athletics
-		Brawl = free_brawl
-		Empathy = free_empathy
-		Intimidation = free_intimidation
-		Expression = free_expression
-		current_spent = discipline_spent
-	current_spent += max(Crafts - free_crafts, 0)
-	current_spent += max(Melee - free_melee, 0)
-	current_spent += max(Firearms - free_firearms, 0)
-	current_spent += max(Drive - free_drive, 0)
-	current_spent += max(Security - free_security, 0)
-	current_spent += max(Performance - free_performance, 0)
-	current_spent += max(Fleshcraft - free_fleshcraft, 0)
-	if(current_spent > total)
-		Crafts = free_crafts
-		Melee = free_melee
-		Firearms = free_firearms
-		Drive = free_drive
-		Security = free_security
-		Performance = free_performance
-		Fleshcraft = free_fleshcraft
-		current_spent = discipline_spent
-	current_spent += max(Finance - free_finance, 0)
-	current_spent += max(Investigation - free_investigation, 0)
-	current_spent += max(Medicine - free_medicine, 0)
-	current_spent += max(Linguistics - free_linguistics, 0)
-	current_spent += max(Occult - free_occult, 0)
-	if(current_spent > total)
-		Finance = free_finance
-		Investigation = free_investigation
-		Medicine = free_medicine
-		Linguistics = free_linguistics
-		Occult = free_occult
-		current_spent = discipline_spent
-	if(auspice_level)
-		current_spent += auspice_level
-	if(current_spent > total)
-		auspice_level = 1
-		current_spent = discipline_spent
-	if(trufaith_level > 0)
-		current_spent += trufaith_level * 2
-	if(current_spent > total)
-		trufaith_level = 0
-		current_spent = discipline_spent
-	var/remaining = total - current_spent
-	true_experience = max(0, remaining)
-	return
+
+	var/available = total - discipline_spent
+	var/list/all_stats = list(
+		"Strength", "Dexterity", "Stamina",
+		"Charisma", "Manipulation", "Appearance",
+		"Perception", "Intelligence", "Wits",
+		"Alertness", "Athletics", "Brawl", "Empathy", "Intimidation", "Expression",
+		"Crafts", "Melee", "Firearms", "Drive", "Security", "Performance", "Fleshcraft",
+		"Finance", "Investigation", "Medicine", "Linguistics", "Occult"
+	)
+	var/spent_total = 0
+	for(var/stat in all_stats)
+		var/value = vars[stat]
+		var/free = vars["free_" + lowertext(stat)]
+		var/base = 0
+		if(stat in list("Strength", "Dexterity", "Stamina", "Charisma", "Manipulation", "Appearance", "Perception", "Intelligence", "Wits"))
+			base = 1
+		spent_total += value - free - base
+	if(spent_total > available)
+		reset_stats()
+		available = total - validate_disciplines()
+	spent_total = 0
+	for(var/stat in all_stats)
+		var/value = vars[stat]
+		var/free = vars["free_" + lowertext(stat)]
+		var/base = 0
+		if(stat in list("Strength", "Dexterity", "Stamina", "Charisma", "Manipulation", "Appearance", "Perception", "Intelligence", "Wits"))
+			base = 1
+		spent_total += value - free - base
+	if(spent_total > available)
+		message_admins("[key_name(parent)]/ [real_name] has too many points in stats exceeding the limit! spent=[spent_total], total=[available]")
+		log_game("[key_name(parent)]/[real_name] exceeds statpoints limit! spent=[spent_total], total=[available]")
+		blocked_slot = TRUE
+	true_experience = available - spent_total
+
 
 /datum/preferences/Topic(href, href_list, hsrc)			//yeah, gotta do this I guess..
 	. = ..()
@@ -1948,8 +1909,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 				if("abl_priorities")
-			//		if(slotlocked)
-			//			return
+					if(slotlocked)
+						return
 					if (alert("Are you sure you want to change your Priorities? This will reset your Abilities.", "Confirmation", "Yes", "No") != "Yes")
 						return
 					var/new_priorities = input(user, "Select a Priority Order", "Priority Selection") as null|anything in list("Talents, Skills, Knowledges", "Talents, Knowledges, Skills", "Skills, Talents, Knowledges", "Skills, Knowledges, Talents", "Knowledges, Skills, Talents", "Knowledges, Talents, Skills")

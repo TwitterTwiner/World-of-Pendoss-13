@@ -128,4 +128,4 @@
 		if(5)
 			playsound(get_turf(caster), 'sound/effects/smoke.ogg', 50, TRUE)
 			var/datum/warform/Warform = new
-			Warform.transform(/mob/living/simple_animal/hostile/smokecrawler/hidden, caster, TRUE)
+			Warform.transform(/mob/living/simple_animal/hostile/smokecrawler/hidden, caster, FALSE)

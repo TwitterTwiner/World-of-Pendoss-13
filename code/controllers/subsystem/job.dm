@@ -516,7 +516,7 @@ SUBSYSTEM_DEF(job)
 				break
 		if(group_ok)
 			return TRUE
-	SSticker.mode.setup_error = "Required jobs not present."
+	SSticker.mode.setup_error = "Required jobs not present. At least one player must be ready with Prince and one with Sheriff selected."
 	return FALSE
 
 //We couldn't find a job from prefs for this guy.
