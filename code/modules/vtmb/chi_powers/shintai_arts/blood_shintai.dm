@@ -155,6 +155,9 @@
 				sprayer.spray(sprayed_at_turf, caster)
 				qdel(sprayer)
 		if(3)
+			if(buckled)
+				to_chat(caster, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
+				return FALSE
 			var/datum/warform/Warform = new
 			Warform.transform(/mob/living/simple_animal/hostile/bloodcrawler/kuei_jin, caster, TRUE)
 		if(4)

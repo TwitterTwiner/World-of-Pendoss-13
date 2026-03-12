@@ -249,6 +249,9 @@
 
 /datum/discipline_power/protean/shape_of_the_beast/activate()
 	. = ..()
+	if(buckled)
+		to_chat(owner, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
+		return FALSE
 	var/datum/warform/Warform = new
 	Warform.transform(shapeshift_type, owner, FALSE)
 

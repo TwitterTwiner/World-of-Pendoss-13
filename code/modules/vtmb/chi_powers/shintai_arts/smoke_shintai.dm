@@ -122,10 +122,16 @@
 				qdel(visual2)
 				qdel(visual3)
 		if(4)
+			if(buckled)
+				to_chat(caster, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
+				return FALSE
 			playsound(get_turf(caster), 'sound/effects/smoke.ogg', 50, TRUE)
 			var/datum/warform/Warform = new
 			Warform.transform(/mob/living/simple_animal/hostile/smokecrawler, caster, TRUE)
 		if(5)
+			if(buckled)
+				to_chat(caster, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
+				return FALSE
 			playsound(get_turf(caster), 'sound/effects/smoke.ogg', 50, TRUE)
 			var/datum/warform/Warform = new
 			Warform.transform(/mob/living/simple_animal/hostile/smokecrawler/hidden, caster, TRUE)
