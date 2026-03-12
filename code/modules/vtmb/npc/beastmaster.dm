@@ -161,6 +161,13 @@ SUBSYSTEM_DEF(beastmastering)
 		else
 			walk(src, 0)
 
+/mob/living/simple_animal/hostile/beastmaster/handle_witness()
+	if(my_creator && !animalism_controller)
+		if(CheckEyewitness(src, src, 5, FALSE))
+			SEND_SOUND(src, sound('code/modules/wod13/sounds/masquerade_violation.ogg', 0, 0, 75))
+			to_chat(src, "<span class='userdanger'><b>MASQUERADE VIOLATION</b></span>")
+			my_creator.AdjustMasquerade(-1)
+
 /mob/living/simple_animal/hostile/beastmaster/proc/add_beastmaster_enemies(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/beastmaster))
 		var/mob/living/simple_animal/hostile/beastmaster/M = L

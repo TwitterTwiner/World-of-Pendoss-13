@@ -32,6 +32,10 @@
 			var/obj/structure/bury_pit/burial_pit = new (get_turf(caster))
 			burial_pit.icon_state = "pit1"
 			caster.forceMove(burial_pit)
+			spawn((delay+caster.discipline_time_plus)-12 SECONDS)
+				if(caster)
+					caster.forceMove(burial_pit.loc)
+					qdel(burial_pit)
 		if(2)
 			caster.pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 			ADD_TRAIT(caster, TRAIT_SUPERNATURAL_DEXTERITY, "jade shintai 2")

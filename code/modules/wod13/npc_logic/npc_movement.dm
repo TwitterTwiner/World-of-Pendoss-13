@@ -211,6 +211,8 @@
 	if(pulledby && !hardlock)
 		if(HAS_TRAIT(pulledby, TRAIT_CHARMER))
 			return TRUE
+		if(pulledby == presence_master)
+			return TRUE
 		if(prob(30))
 			resist()
 			return TRUE
