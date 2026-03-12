@@ -2617,6 +2617,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						reset_attributes()
 						true_experience = POINTS
 						total_age = age
+						generation = initial(generation)
 
 				if("mutant_color")
 					if(slotlocked)

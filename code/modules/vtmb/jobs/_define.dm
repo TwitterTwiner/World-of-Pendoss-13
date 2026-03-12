@@ -1,0 +1,11 @@
+GLOBAL_LIST_EMPTY(camarilla_autoritories)
+
+GLOBAL_LIST_EMPTY(anarchy_autoritories)
+
+GLOBAL_LIST_EMPTY(triads_autoritories)
+
+GLOBAL_LIST_EMPTY(giovanie_autoritories)
+
+GLOBAL_LIST_EMPTY(primogens)
+
+GLOBAL_LIST_EMPTY(sabbat_autoritories)
