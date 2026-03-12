@@ -32,7 +32,7 @@
 			var/obj/structure/bury_pit/burial_pit = new (get_turf(caster))
 			burial_pit.icon_state = "pit1"
 			caster.forceMove(burial_pit)
-			spawn((delay+caster.discipline_time_plus)-12 SECONDS)
+			spawn((delay+caster.discipline_time_plus)-10 SECONDS)
 				if(caster)
 					caster.forceMove(burial_pit.loc)
 					qdel(burial_pit)
