@@ -85,7 +85,7 @@
 			caster.beastmaster |= bat
 			bat.beastmaster = caster
 		if(5)
-			if(buckled)
+			if(caster.buckled)
 				to_chat(caster, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
 				return FALSE
 			var/datum/warform/Warform = new

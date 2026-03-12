@@ -155,7 +155,7 @@
 				sprayer.spray(sprayed_at_turf, caster)
 				qdel(sprayer)
 		if(3)
-			if(buckled)
+			if(caster.buckled)
 				to_chat(caster, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
 				return FALSE
 			var/datum/warform/Warform = new

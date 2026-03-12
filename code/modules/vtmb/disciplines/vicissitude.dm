@@ -731,8 +731,8 @@
 
 /datum/discipline_power/vicissitude/horrid_form/activate()
 	. = ..()
-	if(buckled)
-		to_chat(owner, span_warning("Нельзя превращаться будучи пристегнутым!"))
+	if(owner.buckled)
+		to_chat(owner, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
 		return FALSE
 	var/datum/warform/Warform = new
 	Warform.transform(shapeshift_type, owner, TRUE)
@@ -760,7 +760,7 @@
 
 /datum/discipline_power/vicissitude/bloodform/activate()
 	. = ..()
-	if(buckled)
+	if(owner.buckled)
 		to_chat(owner, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
 		return FALSE
 	Warform = new
