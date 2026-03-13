@@ -9,3 +9,8 @@ GLOBAL_LIST_EMPTY(giovanie_autoritories)
 GLOBAL_LIST_EMPTY(primogens)
 
 GLOBAL_LIST_EMPTY(sabbat_autoritories)
+
+GLOBAL_LIST_EMPTY(chantry_autoritories)
+
+GLOBAL_LIST_EMPTY(tZIMISCE_autoritories)
+
