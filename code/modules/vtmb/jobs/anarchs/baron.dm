@@ -48,7 +48,7 @@
 
 /datum/outfit/job/barkeeper/pre_equip(mob/living/carbon/human/H)
 	..()
-	add_to_sect("Anarchs")
+	H.add_to_sect("Anarchs")
 //	H.vampire_faction = "Anarchs"
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/vampire/bar/female

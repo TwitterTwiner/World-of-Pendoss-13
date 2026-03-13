@@ -41,7 +41,7 @@
 
 /datum/outfit/job/bruiser/pre_equip(mob/living/carbon/human/H)
 	..()
-	add_to_sect("Anarchs")
+	H.add_to_sect("Anarchs")
 //	H.vampire_faction = "Anarchs"
 
 /obj/effect/landmark/start/bruiser
