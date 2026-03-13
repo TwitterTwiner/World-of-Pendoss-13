@@ -39870,7 +39870,7 @@
 "iTc" = (
 /obj/structure/safe{
 	pixel_x = 4;
-	tumblers = list(08,19)
+	tumblers = list(8,19)
 	},
 /turf/open/floor/carpet/lone,
 /area/vtm/interior/ranger)
