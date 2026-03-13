@@ -12,5 +12,5 @@ GLOBAL_LIST_EMPTY(sabbat_autoritories)
 
 GLOBAL_LIST_EMPTY(chantry_autoritories)
 
-GLOBAL_LIST_EMPTY(tZIMISCE_autoritories)
+GLOBAL_LIST_EMPTY(tzimisce_autoritories)
 
