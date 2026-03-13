@@ -135,8 +135,8 @@
 			GLOB.giovanie_autoritories += src
 			src.vampire_faction = "Giovanni"
 		if("Chantry")
-			GLOB.hantry_autoritories += src
-			src.vampire_fraction = "Chantry"
+			GLOB.chantry_autoritories += src
+			src.vampire_faction = "Chantry"
 		if("Sabbat")
 			GLOB.sabbat_autoritories -= src
 			src.vampire_faction = "Sabbat"
