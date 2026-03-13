@@ -1125,7 +1125,7 @@
 //	clothing_traits = list(TRAIT_UNMASQUERADE)
 	masquerade_violating = TRUE
 
-	/obj/item/clothing/head/vampire/swat
+	/obj/item/clothing/head/vampire/swathelm
 	name = "swat helmet"
 	desc = "Looks dangerous. Provides great protection against blunt force."
 	icon_state = "swathelm"
