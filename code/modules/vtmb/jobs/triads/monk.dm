@@ -26,6 +26,7 @@
 /datum/outfit/job/monk/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.grant_language(/datum/language/cantonese)
+	H.add_to_sect("Triad")
 	H.vampire_faction = "Triad"
 
 /datum/outfit/job/monk
