@@ -27,7 +27,7 @@
 	..()
 	H.grant_language(/datum/language/cantonese)
 	H.add_to_sect("Triad")
-	H.vampire_faction = "Triad"
+//	H.vampire_faction = "Triad"
 
 /datum/outfit/job/monk
 	name = "Monk"
