@@ -449,6 +449,11 @@
 	desc = "Robust-looking boots."
 	icon_state = "jackboots"
 
+/obj/item/clothing/shoes/vampire/jackboots/swat
+	name = "armored boots"
+	desc = "Robust-looking boots."
+	icon_state = "swatboots"
+
 /obj/item/clothing/shoes/vampire/jackboots/high
 	name = "high boots"
 	desc = "High boots. What else did you expect?"
@@ -879,6 +884,7 @@
 	masquerade_violating = TRUE
 
 /obj/item/clothing/suit/vampire/vest/swat
+	name = "SWAT vest"
 	desc = "SWAT equipment. Provides great protection against blunt force."
 	icon_state = "swarmor"
 	armor = list(BASHING = 2, LETHAL = 4, AGGRAVATED = 2, MELEE = 60, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 0, RAD = 0, FIRE = 40, ACID = 10, WOUND = 20)
@@ -990,7 +996,7 @@
 	icon_state = "redg"
 	inhand_icon_state = "glasses"
 
-	/obj/item/clothing/glasses/vampire/ballisticgoggles
+	/obj/item/clothing/glasses/vampire/swat
 	name = "ballistic goggles"
 	desc = "Protects your eyes."
 	icon_state = "ballisticgoggles"
@@ -1125,7 +1131,7 @@
 //	clothing_traits = list(TRAIT_UNMASQUERADE)
 	masquerade_violating = TRUE
 
-	/obj/item/clothing/head/vampire/swathelm
+	/obj/item/clothing/head/vampire/swat
 	name = "swat helmet"
 	desc = "Looks dangerous. Provides great protection against blunt force."
 	icon_state = "swathelm"
