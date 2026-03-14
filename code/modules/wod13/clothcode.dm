@@ -996,14 +996,6 @@
 	icon_state = "redg"
 	inhand_icon_state = "glasses"
 
-/obj/item/clothing/glasses/vampire/swat
-	name = "ballistic goggles"
-	desc = "Protects your eyes."
-	icon_state = "ballisticgoggles"
-	inhand_icon_state = "glasses"
-	darkness_view = 1
-	flash_protect = FLASH_PROTECTION_FLASH
-
 /obj/item/clothing/glasses/vampire/sun
 	name = "sunglasses"
 	desc = "For looking cool."
