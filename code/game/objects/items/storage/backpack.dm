@@ -232,6 +232,7 @@
 /obj/item/storage/backpack/satchel
 	name = "satchel"
 	desc = "A trendy looking satchel."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "satchel-norm"
 	inhand_icon_state = "satchel-norm"
 	component_type = /datum/component/storage/concrete/vtm/satchel
@@ -256,6 +257,7 @@
 /obj/item/storage/backpack/satchel/swat
 	name = "MOLLE satchel"
 	desc = "It's a very robust-looking satchel made with fine materials."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "satchelmolle"
 	inhand_icon_state = "satchel"
 

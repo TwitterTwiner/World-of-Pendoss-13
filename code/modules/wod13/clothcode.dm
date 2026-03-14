@@ -996,6 +996,13 @@
 	icon_state = "redg"
 	inhand_icon_state = "glasses"
 
+/obj/item/clothing/glasses/vampire/swat
+	name = "ballistic goggles"
+	desc = "Protects your eyes."
+	icon_state = "ballisticgoggles"
+	inhand_icon_state = "glasses"
+	flash_protect = FLASH_PROTECTION_FLASH
+
 /obj/item/clothing/glasses/vampire/sun
 	name = "sunglasses"
 	desc = "For looking cool."
@@ -1420,6 +1427,8 @@
 	name = "swat gas mask"
 	icon_state = "gasmask4"
 	flash_protect = FLASH_PROTECTION_FLASH
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 
 /obj/item/clothing/mask/vampire/tragedy
 	name = "tragedy"
