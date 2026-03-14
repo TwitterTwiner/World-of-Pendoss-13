@@ -54,7 +54,7 @@
 
 	var/datum/action/blood_power/bloodpower = new()
 	bloodpower.Grant(C)
-	add_verb(C, /mob/living/carbon/human/verb/teach_discipline)
+	//add_verb(C, /mob/living/carbon/human/verb/teach_discipline)
 
 	C.yang_chi = 0
 	C.max_yang_chi = 0
@@ -618,7 +618,7 @@
  * Arguments:
  * * student - human who this Discipline is being taught to.
  */
-/mob/living/carbon/human/verb/teach_discipline(mob/living/carbon/human/student in (range(1, src) - src))
+/*/mob/living/carbon/human/verb/teach_discipline(mob/living/carbon/human/student in (range(1, src) - src))
 	set name = "Teach Discipline"
 	set category = "IC"
 	set desc ="Teach a Discipline to a Kindred who has recently drank your blood. Costs 50 experience points."
@@ -724,7 +724,7 @@
 			message_admins("[ADMIN_LOOKUPFLW(teacher)] taught [ADMIN_LOOKUPFLW(student)] the Discipline [giving_discipline.name].")
 			log_game("[key_name(teacher)] taught [key_name(student)] the Discipline [giving_discipline.name].")
 
-		qdel(giving_discipline)
+		qdel(giving_discipline)*/
 
 /**
  * Checks a vampire for whitelist access to a Discipline.

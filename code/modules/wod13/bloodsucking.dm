@@ -203,7 +203,7 @@
 									message_admins("[ADMIN_LOOKUPFLW(src)] tried to Diablerize [ADMIN_LOOKUPFLW(target)] and was overtaken.")
 									log_attack("[key_name(src)] tried to Diablerize [key_name(target)] and was overtaken.")
 									death()
-									P2.add_experience(5)
+									// P2.add_experience(5)
 									if(P)
 										P.reset_character()
 										P.reason_of_death = "Failed the Diablerie ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
@@ -234,7 +234,7 @@
 											P.diablerist = 1
 											P.generation_bonus = generation-target.generation
 											generation = target.generation
-											P.add_experience(5)
+											// P.add_experience(5)
 											var/list/disciplinesPP = P2.discipline_types - P.discipline_types
 											var/new_discipline = input(user, "Select your new Discipline", "Discipline Selection") as null|anything in disciplinesPP
 											if(prob(15-modifikator_disc))
