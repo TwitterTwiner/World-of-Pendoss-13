@@ -996,7 +996,7 @@
 	icon_state = "redg"
 	inhand_icon_state = "glasses"
 
-	/obj/item/clothing/glasses/vampire/swat
+/obj/item/clothing/glasses/vampire/swat
 	name = "ballistic goggles"
 	desc = "Protects your eyes."
 	icon_state = "ballisticgoggles"
@@ -1131,7 +1131,7 @@
 //	clothing_traits = list(TRAIT_UNMASQUERADE)
 	masquerade_violating = TRUE
 
-	/obj/item/clothing/head/vampire/swat
+/obj/item/clothing/head/vampire/swat
 	name = "swat helmet"
 	desc = "Looks dangerous. Provides great protection against blunt force."
 	icon_state = "swathelm"
