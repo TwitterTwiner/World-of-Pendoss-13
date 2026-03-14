@@ -26333,13 +26333,6 @@
 /obj/item/reagent_containers/food/drinks/beer/vampire/blue_stripe,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/endronlaboratory)
-"dlN" = (
-/obj/vampire_car/sportcar{
-	dir = 8;
-	access = "primToreador"
-	},
-/turf/open/floor/plating/asphalt,
-/area/vtm/prince)
 "dlP" = (
 /obj/structure/toilet{
 	dir = 4;
@@ -28784,13 +28777,6 @@
 	},
 /turf/open/floor/plating/sidewalk,
 /area/vtm/pacificheights)
-"elw" = (
-/obj/vampire_car/limuzini_bombini{
-	dir = 8;
-	access = "primVentrue"
-	},
-/turf/open/floor/plating/asphalt,
-/area/vtm/prince)
 "elz" = (
 /obj/transfer_point_vamp/umbral/earth{
 	pixel_x = -8;
@@ -176397,7 +176383,7 @@ bbB
 bbB
 ogO
 bbB
-elw
+bbB
 bbB
 fYS
 bbB
@@ -177423,7 +177409,7 @@ aXH
 bbB
 bbB
 ufj
-dlN
+bbB
 bbB
 tQN
 bbB
