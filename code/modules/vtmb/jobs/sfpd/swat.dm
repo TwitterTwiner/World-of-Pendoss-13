@@ -8,6 +8,7 @@
 	l_pocket = /obj/item/ammo_box/magazine/vamp556
 	shoes = /obj/item/clothing/shoes/vampire/jackboots/swat
 	belt = /obj/item/gun/ballistic/automatic/vampire/ar15
+	gloves = /obj/item/clothing/gloves/vampire/work
 	suit = /obj/item/clothing/suit/vampire/vest/swat
 	head = /obj/item/clothing/head/vampire/swat
 	id = /obj/item/card/id/police
