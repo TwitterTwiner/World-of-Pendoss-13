@@ -285,10 +285,5 @@
 	target.visible_message(span_danger("As [owner] touches [target], their body seems to boil!"), span_userdanger("As [owner] touches you, your body feels like it's boiling in a pool of lava!"))
 	playsound(target, pick('sound/effects/wounds/sizzle1.ogg', 'sound/effects/wounds/sizzle2.ogg'), 50, TRUE)
 	new /obj/effect/temp_visual/tremere(target.loc, "gib")
-	animate(target, pixel_y = 16, color = "#ff0000", time = 50, loop = 1)
 	target.bloodpool = max(target.bloodpool - success_count, 0)
-	if(!iskindred(target) && !iscathayan(target) && !isgarou(target) && !iswerewolf(target) && success_count >= 1)
-		target.Stun(5 SECONDS, TRUE)
-		target.apply_status_effect(/datum/status_effect/cauldron_of_blood)
-	else
-		target.apply_damage(clamp(((success_count - zashita) * 12.5) + owner.thaum_damage_plus, 12.5 + owner.thaum_damage_plus, 75), CLONE)
+	target.apply_status_effect(/datum/status_effect/cauldron_of_blood, success_count, zashita, owner.thaum_damage_plus)

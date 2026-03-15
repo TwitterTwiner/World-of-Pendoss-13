@@ -85,7 +85,6 @@
 		to_chat(owner, span_warning("Цель уже под эффектом!"))
 		return
 	addtimer(CALLBACK(src, PROC_REF(lapse_activation), target, roll), 1 TURNS)
-	to_chat(target, span_boldwarning("Мир вокруг тебя начинает ускоряться - ты ощущаешь, что всё начинается двигаться слишком быстро!"))
 
 /datum/discipline_power/temporis/lapse/proc/lapse_activation(mob/living/target, dices)
 	target.temporis_lapse = TRUE
@@ -95,7 +94,6 @@
 /datum/discipline_power/temporis/lapse/proc/lapse_deactivation(mob/living/target)
 	target.temporis_lapse = FALSE
 	target.remove_movespeed_modifier(/datum/movespeed_modifier/temporis)
-	to_chat(target, span_boldwarning("Время возвращается в норму. Ты снова двигаешься в обычном ритме."))
 
 /datum/movespeed_modifier/temporis
 	multiplicative_slowdown = 7.5
@@ -113,7 +111,7 @@
 	toggled = TRUE
 	cancelable = TRUE
 
-	duration_length = 10 SECONDS
+	duration_length = 15 SECONDS
 	cooldown_length = 15 SECONDS
 
 	grouped_powers = list(
@@ -189,7 +187,7 @@
 	toggled = TRUE
 	cancelable = TRUE
 
-	duration_length = 10 SECONDS
+	duration_length = 15 SECONDS
 	cooldown_length = 15 SECONDS
 
 	grouped_powers = list(

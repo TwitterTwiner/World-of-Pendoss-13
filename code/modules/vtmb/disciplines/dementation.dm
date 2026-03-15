@@ -13,6 +13,8 @@
 	name = "Dementation power name"
 	desc = "Dementation power description"
 
+	vitae_cost = 0
+
 	activate_sound = 'code/modules/wod13/sounds/insanity.ogg'
 
 /datum/discipline_power/dementation/pre_activation_checks(mob/living/target)
@@ -88,9 +90,10 @@
 		//what the fuck
 		carbon_target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
 		carbon_target.apply_overlay(MUTATIONS_LAYER)
+		new /datum/hallucination/oh_yeah(carbon_target, TRUE)
+
 
 	target.hallucination += 50
-	new /datum/hallucination/oh_yeah(target, TRUE)
 
 /datum/discipline_power/dementation/the_haunting/deactivate(mob/living/target)
 	. = ..()
@@ -247,20 +250,28 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
 		carbon_target.remove_overlay(MUTATIONS_LAYER)
-		var/mutable_appearance/dementation_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
-		dementation_overlay.pixel_z = 1
+		var/mutable_appearance/dementation_overlay1 = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
+		dementation_overlay1.pixel_z = 1
 		//what the fuck
-		carbon_target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay
+		carbon_target.overlays_standing[MUTATIONS_LAYER] = dementation_overlay1
 		carbon_target.apply_overlay(MUTATIONS_LAYER)
+		new /datum/hallucination/death_malkavian(carbon_target, TRUE)
 
-	new /datum/hallucination/death/malkavian(owner, TRUE)
-	new /datum/hallucination/death/malkavian(target, TRUE)
+		var/mob/living/carbon/human/human_owner = owner // Под ифом чтобы не было приколов где ты попытался застанить мр дога и застанился ток сам)
+		human_owner.remove_overlay(MUTATIONS_LAYER)
+		var/mutable_appearance/dementation_overlay2 = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
+		dementation_overlay2.pixel_z = 1
+		human_owner.overlays_standing[MUTATIONS_LAYER] = dementation_overlay2
+		human_owner.apply_overlay(MUTATIONS_LAYER)
+		new /datum/hallucination/death_malkavian(human_owner, TRUE)
 
 /datum/discipline_power/dementation/voice_of_madness/deactivate(mob/living/target)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
 		carbon_target.remove_overlay(MUTATIONS_LAYER)
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.remove_overlay(MUTATIONS_LAYER)
 
 //TOTAL INSANITY
 /datum/discipline_power/dementation/total_insanity

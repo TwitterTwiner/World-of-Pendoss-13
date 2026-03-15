@@ -1460,9 +1460,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		target.silent = FALSE
 	qdel(src)
 
-/datum/hallucination/death/malkavian
+/datum/hallucination/death_malkavian
 
-/datum/hallucination/death/malkavian/New(mob/living/carbon/C, forced = TRUE)
+/datum/hallucination/death_malkavian/New(mob/living/carbon/C, forced = TRUE)
 	set waitfor = FALSE
 	..()
 	target.set_screwyhud(SCREWYHUD_DEAD)
@@ -1489,7 +1489,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	addtimer(CALLBACK(src, PROC_REF(cleanup)), 2 SECONDS)
 
-/datum/hallucination/death/malkavian/cleanup()
+/datum/hallucination/death_malkavian/proc/cleanup()
 	if (target)
 		target.set_screwyhud(SCREWYHUD_NONE)
 		target.SetImmobilized(0)

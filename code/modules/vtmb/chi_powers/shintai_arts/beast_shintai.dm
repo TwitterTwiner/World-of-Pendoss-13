@@ -25,11 +25,12 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	speak_chance = 0
 	speed = -1
-	maxHealth = 575
-	health = 575
+	maxHealth = 400
+	health = 400
+	melee_damage_type = CLONE
 	butcher_results = list(/obj/item/stack/human_flesh = 10)
 	melee_damage_lower = 35
-	melee_damage_upper = 50
+	melee_damage_upper = 35
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
@@ -84,5 +85,8 @@
 			caster.beastmaster |= bat
 			bat.beastmaster = caster
 		if(5)
+			if(caster.buckled)
+				to_chat(caster, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
+				return FALSE
 			var/datum/warform/Warform = new
 			Warform.transform(/mob/living/simple_animal/hostile/crinos_beast, caster, TRUE)

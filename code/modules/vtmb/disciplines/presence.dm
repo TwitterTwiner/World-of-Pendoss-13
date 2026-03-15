@@ -11,6 +11,8 @@
 	name = "Presence power name"
 	desc = "Presence power description"
 
+	vitae_cost = 0
+
 	activate_sound = 'code/modules/wod13/sounds/presence_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/presence_deactivate.ogg'
 
@@ -36,10 +38,8 @@
 	var/list/owner_auras = list()
 	var/list/target_auras = list()
 
-
-/datum/discipline_power/presence/awe/activate(mob/living/target)
+/datum/discipline_power/presence/awe/pre_activation_checks(atom/target)
 	. = ..()
-
 	if(owner.client)
 		for(var/mob/living/T in owner_auras)
 			owner.client.images -= owner_auras[T]
@@ -54,8 +54,7 @@
 
 	if((owner.wear_mask && (owner.wear_mask.flags_inv & HIDEFACE) || (owner.head && (owner.head.flags_inv & HIDEFACE))))
 		to_chat(owner, span_warning("Твое лицо скрыто - ты никого не заворажил."))
-		deactivate()
-		return
+		return FALSE
 
 	var/list/targets_to_check = list()
 
@@ -72,15 +71,17 @@
 			continue
 		if(get_trufaith_level(living_target) >= 3)
 			continue
-		var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_performance(owner), 7, owner, TRUE)
-		if(success_chance >= 3)
-			affected_mobs += living_target
+		/*var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_performance(owner), 7, owner, TRUE)
+		if(success_chance >= 3)*/
+		affected_mobs += living_target
 
 	if(!affected_mobs.len)
 		to_chat(owner, span_warning("Тебе не удаётся ни на кого произвести впечатление."))
-		deactivate()
-		return
+		return FALSE
+	return TRUE
 
+/datum/discipline_power/presence/awe/activate(mob/living/target)
+	. = ..()
 	for(var/mob/living/living_target in affected_mobs)
 		if(isnpc(living_target))
 			var/mob/living/carbon/human/npc/npc_target = living_target
@@ -213,13 +214,13 @@
 
 	cooldown_length = 15 SECONDS
 	duration_length = 15 SECONDS
+
 	var/list/affected_mobs = list()
 	var/list/owner_auras = list()
 	var/list/target_auras = list()
 
-/datum/discipline_power/presence/dread_gaze/activate(mob/living/target)
+/datum/discipline_power/presence/dread_gaze/pre_activation_checks(atom/target)
 	. = ..()
-
 	if(owner.client)
 		for(var/mob/living/T in owner_auras)
 			owner.client.images -= owner_auras[T]
@@ -247,19 +248,21 @@
 			continue
 		if(get_trufaith_level(living_target) >= 3)
 			continue
-		var/consience = 0
+		/*var/consience = 0
 		if(ishuman(living_target))
 			var/mob/living/carbon/human/human_target = living_target
-			consience = human_target.MyPath?.consience
-		var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_intimidation(owner), get_a_wits(living_target)+consience, owner, TRUE)
-		if(success_chance >= 3)
-			affected_mobs += living_target
+			consience = human_target.MyPath?.consience*/
+		/*var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_intimidation(owner), get_a_wits(living_target)+consience, owner, TRUE)
+		if(success_chance >= 3)*/
+		affected_mobs += living_target
 
 	if(!affected_mobs.len)
 		to_chat(owner, span_warning("Тебе не удаётся ни кого запугать."))
-		deactivate()
-		return
+		return FALSE
+	return TRUE
 
+/datum/discipline_power/presence/dread_gaze/activate(mob/living/target)
+	. = ..()
 	for(var/mob/living/living_target in affected_mobs)
 		living_target.emote(("scream"))
 		living_target.blur_eyes(7.5)
@@ -392,7 +395,7 @@
 			N.remove_movespeed_modifier(/datum/movespeed_modifier/npc)
 			owner.puppets |= N
 			N.fights_anyway = TRUE
-			owner.say("Come with me...")
+			owner.whisper("Пойдем со мной...")
 
 	else
 		var/obj/item/I1 = target.get_active_held_item()
@@ -568,7 +571,10 @@
 			// flip “following” on or off
 		following = !following
 		if(following)
-			H.whisper(pick("Следуй.", "За мной.", "Сюда.", "Идем."))
+			if(H.puppets.len == 1)
+				H.whisper(pick("Следуй.", "За мной.", "Сюда.", "Идем.", "Пошли."))
+			else if(H.puppets.len > 1)
+				H.whisper(pick("Следуйте.", "За мной.", "Сюда.", "Идемте.", "Пошли."))
 			to_chat(H, "Ты приказываешь своим подчиненным следовать за тобой.")
 			for(var/mob/living/carbon/human/npc/HPC in H.puppets)
 				if(HPC)
@@ -576,7 +582,10 @@
 						HPC.staying = FALSE
 						HPC.forceMove(get_turf(H))
 		else
-			H.whisper(pick("Подожди.", "Стой.", "Замри.", "Стоп."))
+			if(H.puppets.len == 1)
+				H.whisper(pick("Подожди.", "Стой.", "Замри.", "Стоп."))
+			else if(H.puppets.len > 1)
+				H.whisper(pick("Подождите.", "Стойте.", "Замрите.", "Стоп."))
 			to_chat(H, "Ты приказываешь своим подчиненным отстаться на месте.")
 			for(var/mob/living/carbon/human/npc/HPC in H.puppets)
 				if(HPC)

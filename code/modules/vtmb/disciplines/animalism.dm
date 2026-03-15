@@ -172,7 +172,7 @@
 	dog.beastmaster = owner
 
 //SUMMON BAT
-/datum/discipline_power/animalism/summon_bat
+/datum/discipline_power/animalism/subsume_the_spirit
 	name = "Subsume the Spirit"
 	desc = "Take control of a beast."
 
@@ -184,22 +184,28 @@
 
 	cooldown_length = 15 SECONDS
 
-/datum/discipline_power/animalism/summon_bat/activate(mob/living/simple_animal/hostile/beastmaster/target)
+/datum/discipline_power/animalism/subsume_the_spirit/pre_activation_checks(mob/living/simple_animal/hostile/beastmaster/target)
 	. = ..()
-	if(!istype(target, /mob/living/simple_animal/hostile/beastmaster))
+	if(!istype(target, /mob/living/simple_animal/hostile/beastmaster) || target.animalism_controller)
 		to_chat(owner, span_warning("Над этим существом нельзя взять контроль."))
-		return POWER_CANCEL_ACTIVATION
-	var/roll = secret_vampireroll(get_a_manipulation(owner)+get_a_performance(owner), 8, owner)
-	if(roll < 1)
+		return FALSE
+	var/success_roll = secret_vampireroll(get_a_manipulation(owner)+get_a_performance(owner), 8, owner)
+	if(success_roll < 1)
 		to_chat(owner, span_warning("Не удалось взять зверя под контроль!"))
-		return POWER_CANCEL_ACTIVATION
+		owner.Stun(3 SECONDS)
+		owner.do_jitter_animation(10)
+		return FALSE
+	return TRUE
+
+/datum/discipline_power/animalism/subsume_the_spirit/activate(mob/living/simple_animal/hostile/beastmaster/target)
+	. = ..()
 	target.animalism_controller = owner
 	target.ckey = owner.client.ckey
 	target.client.init_verbs()
 	addtimer(CALLBACK(src, PROC_REF(give_end_action), target), 1)
 	log_game("[key_name(owner)] захватил контроль над зверем [target].")
 
-/datum/discipline_power/animalism/summon_bat/proc/give_end_action(mob/living/simple_animal/hostile/beastmaster/target)
+/datum/discipline_power/animalism/subsume_the_spirit/proc/give_end_action(mob/living/simple_animal/hostile/beastmaster/target)
 	if(target.client)
 		var/datum/action/end_animal/leave = new()
 		leave.Grant(target)

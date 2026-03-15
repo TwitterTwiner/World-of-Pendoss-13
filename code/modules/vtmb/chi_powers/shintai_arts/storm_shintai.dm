@@ -84,7 +84,7 @@
 		playsound(get_turf(target), 'code/modules/wod13/sounds/lightning.ogg', 100, FALSE)
 		if (isliving(target))
 			var/mob/living/L = target
-			L.Stun(0.5 SECONDS)
+			L.Immobilize(0.5 SECONDS)
 			L.electrocute_act(50, src, siemens_coeff = 1, flags = NONE)
 			return
 
@@ -153,7 +153,7 @@
 			if(prob(25))
 				var/turf/lightning_source = get_turf(caster)
 				lightning_source.Beam(shocked_mob, icon_state="lightning[rand(1,12)]", time = 0.5 SECONDS)
-				shocked_mob.Stun(0.5 SECONDS)
+				shocked_mob.Immobilize(0.5 SECONDS)
 				shocked_mob.electrocute_act(10, caster, siemens_coeff = 1, flags = NONE)
 				playsound(get_turf(shocked_mob), 'code/modules/wod13/sounds/lightning.ogg', 100, FALSE)
 
