@@ -760,9 +760,9 @@
 
 /datum/discipline_power/vicissitude/bloodform/activate()
 	. = ..()
-	if(owner.buckled)
-		to_chat(owner, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
-		return FALSE
+//	if(owner.buckled)
+//		to_chat(owner, span_warning("Нельзя превращаться будучи пристегнутым к чему-либо!"))
+//		return FALSE
 	Warform = new
 	Warform.transform(/mob/living/simple_animal/hostile/bloodcrawler, owner, TRUE, 0)
 
