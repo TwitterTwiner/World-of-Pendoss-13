@@ -502,24 +502,34 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/cauldron_of_blood
 
-/datum/status_effect/cauldron_of_blood/on_creation(mob/living/new_owner)
+/datum/status_effect/cauldron_of_blood/on_creation(mob/living/new_owner, success_count, zashita, thaum_damage_plus)
 	. = ..()
+	var/mob/living/L = owner
+	if(L)
+		if(!iskindred(L) && !iscathayan(L) && !isgarou(L) && !iswerewolf(L))
+			L.Stun(5 SECONDS, TRUE)
+		else
+			L.apply_damage(clamp(((success_count - zashita) * 12.5) + thaum_damage_plus, 12.5 + thaum_damage_plus, 75), CLONE)
+		animate(L, pixel_y = 16, color = "#ff0000", time = 5 SECONDS)
 
 /datum/status_effect/cauldron_of_blood/on_remove()
 	. = ..()
 	var/mob/living/L = owner
 	if(L)
-		if(L.stat != DEAD)
-			L.death()
-		var/list/items = list()
-		items |= L.get_equipped_items(TRUE)
-		for(var/obj/item/I in items)
-			L.dropItemToGround(I)
-		L.drop_all_held_items()
-		L.spawn_gibs()
-		L.spawn_gibs()
-		L.spawn_gibs()
-		qdel(L)
+		if(!iskindred(L) && !iscathayan(L) && !isgarou(L) && !iswerewolf(L))
+			if(L.stat != DEAD)
+				L.death()
+			var/list/items = list()
+			items |= L.get_equipped_items(TRUE)
+			for(var/obj/item/I in items)
+				L.dropItemToGround(I)
+			L.drop_all_held_items()
+			L.spawn_gibs()
+			L.spawn_gibs()
+			L.spawn_gibs()
+			qdel(L)
+		else
+			animate(L, pixel_y = 0, color = initial(L.color), time = 1 SECONDS)
 
 /datum/status_effect/hundred_deaths
 	id = "hundred_deaths"

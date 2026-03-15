@@ -144,6 +144,7 @@
 	var/obj/item/I = new typepath()
 	I.loc = owner.loc
 	I.conjured = TRUE
+	I.cost = 0
 	I.vanish_after(duration)
 
 	if(owner.put_in_hands(I))

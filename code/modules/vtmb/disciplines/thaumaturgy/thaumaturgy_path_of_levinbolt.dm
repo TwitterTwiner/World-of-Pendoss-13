@@ -158,7 +158,7 @@
 		if(ishuman(attacker))
 			var/mob/living/carbon/human/H = attacker
 			H.electrocution_animation(40)
-		attacker.Stun(1 SECONDS)
+		attacker.Immobilize(0.5 SECONDS)
 
 /datum/discipline_power/thaumaturgy_path_of_levinbolt/one/proc/spark_target_click(mob/source, atom/target, params)
 	SIGNAL_HANDLER
@@ -257,7 +257,7 @@
 			var/mob/living/carbon/human/H = attacker
 			H.electrocution_animation(40)
 		attacker.Jitter(2)
-		attacker.Stun(3 SECONDS)
+		attacker.Immobilize(0.5 SECONDS)
 		attacker.adjustFireLoss(30)
 
 /datum/discipline_power/thaumaturgy_path_of_levinbolt/three/proc/powerarray_target_click(mob/source, atom/target, params)
@@ -349,8 +349,8 @@
 	// Better chance to stun with more successes
 	var/stun_chance = min(30 + (success_roll * 15), 85)
 	if(bolt_energy >= 20 && prob(stun_chance))
-		var/stun_duration = (success_roll) SECONDS
-		current_target.Paralyze(stun_duration)
+		var/stun_duration = clamp(success_roll, 0.5, 2) SECONDS
+		current_target.Immobilize(stun_duration)
 		current_target.visible_message(span_warning("[current_target] convulses violently from the electrical shock!"))
 
 	// No duplicating targets
@@ -476,7 +476,7 @@
 		H.electrocution_animation(50)
 
 	if(prob(60))
-		target.Stun(1 SECONDS)
+		target.Immobilize(0.5 SECONDS)
 		target.visible_message(span_warning("[target] convulses from the electrical shock!"))
 
 	var/datum/effect_system/spark_spread/spark_system = new
@@ -495,7 +495,7 @@
 			var/mob/living/carbon/human/H = attacker
 			H.electrocution_animation(60)
 		addtimer(CALLBACK(attacker, TYPE_PROC_REF(/mob, emote), "scream"), 1)
-		attacker.Stun(4 SECONDS)
+		attacker.Immobilize(0.5 SECONDS)
 		attacker.electrocute_act(rand(10,20), owner, siemens_coeff = 1, flags = NONE)
 		var/datum/effect_system/spark_spread/spark_system = new
 		spark_system.set_up(5, 1, get_turf(attacker))

@@ -14,6 +14,8 @@
 	name = "Dominate power name"
 	desc = "Dominate power description"
 
+	vitae_cost = 0
+
 	activate_sound = 'code/modules/wod13/sounds/dominate.ogg'
 	var/dominate_me = FALSE
 
