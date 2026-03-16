@@ -161,7 +161,7 @@
 //	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
 	D.visible_message("<span class='warning'>[A] punches liver [D]!</span>", \
 					"<span class='userdanger'>Your liver blowed by [A]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", null, A)
-	to_chat(A, "<span class='danger'>You liver punch[D]!</span>")
+	to_chat(A, "<span class='danger'>You liver punch [D]!</span>")
 	playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	D.Knockdown(80)
 	log_combat(A, D, "punched liver(Police_Jiu)")
