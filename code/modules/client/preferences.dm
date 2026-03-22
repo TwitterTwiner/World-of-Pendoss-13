@@ -404,9 +404,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/reset_discipline()
 	discipline_types = list()
 	discipline_levels = list()
-	for (var/i in 1 to clane.clane_disciplines.len)
-		discipline_types += clane.clane_disciplines[i]
-		discipline_levels += 1
+	if(pref_species.id == "kindred")
+		for (var/i in 1 to clane.clane_disciplines.len)
+			discipline_types += clane.clane_disciplines[i]
+			discipline_levels += 1
 
 /datum/preferences/proc/reset_character()
 	slotlocked = 0
@@ -1315,7 +1316,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(pref_species.name == "Vampire")
 						max_age = 1000
 					if(pref_species.name == "Ghoul")
-						max_age = 500
+						max_age = 500							
 					total_age = rand(age, age+max_age)
 					reset_stats()
 
