@@ -1316,7 +1316,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(pref_species.name == "Vampire")
 						max_age = 1000
 					if(pref_species.name == "Ghoul")
-						max_age = 500							
+						max_age = 500
 					total_age = rand(age, age+max_age)
 					reset_stats()
 
