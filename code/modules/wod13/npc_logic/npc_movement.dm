@@ -82,6 +82,16 @@
 						else
 							SEND_SOUND(HM, sound('code/modules/wod13/sounds/sus.ogg', 0, 0, 75))
 							to_chat(HM, "<span class='userdanger'><b>SUSPICIOUS ACTION (murder)</b></span>")
+	if(presence_master)
+		var/mob/living/carbon/human/owner = presence_master
+		owner.puppets -= src
+		if(!length(owner.puppets))
+			for(var/datum/action/presence_stay/A in owner.actions)
+				if(A)
+					A.Remove(owner)
+			for(var/datum/action/presence_deaggro/A in owner.actions)
+				if(A)
+					A.Remove(owner)
 	remove_overlay(FIGHT_LAYER)
 	..()
 

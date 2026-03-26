@@ -43,7 +43,7 @@
 		owner.apply_status_effect(/datum/status_effect/pain_botch)
 		use_counter = 0
 	to_chat(owner, span_warning("You scratch your own skin, thirsting for pain."))
-	owner.Stun(1 SECONDS)
+	owner.Stun(3 SECONDS, TRUE)
 	owner.do_jitter_animation(3 SECONDS)
 
 /datum/discipline_power/dt_path_pain/activate(atom/target)

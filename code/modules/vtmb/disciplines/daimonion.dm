@@ -32,7 +32,7 @@
 	var/success_chance = secret_vampireroll(get_a_perception(target)+get_a_empathy(target), selfcontrol+4, owner, TRUE)
 	if(success_chance <= 0)
 		to_chat(owner, span_notice("Твоя магия угасла!"))
-		owner.Stun(3 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		return FALSE
 	return TRUE
 
@@ -221,7 +221,7 @@
 	var/success_chance = secret_vampireroll(get_a_wits(target)+get_a_intimidation(target), courage+4, owner)
 	if(success_chance <= 0)
 		to_chat(owner, span_notice("Твоя магия угасла!"))
-		owner.Stun(3 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
@@ -257,7 +257,7 @@
 	var/success_chance = secret_vampireroll(get_a_dexterity(target)+get_a_occult(target), 6, owner)
 	if(success_chance <= 0)
 		to_chat(owner, span_notice("Your magic fizzles out!"))
-		owner.Stun(3 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
@@ -294,7 +294,7 @@
 	var/success_chance = secret_vampireroll(lowest_stat, 6, target)
 	if(success_chance <= 0)
 		to_chat(owner, span_notice("Твоя магия угасла!"))
-		owner.Stun(3 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
@@ -322,7 +322,7 @@
 	var/success_chance = secret_vampireroll(get_a_intelligence(owner)+get_a_occult(owner), get_a_willpower(target), target)
 	if(success_chance <= 0)
 		to_chat(owner, span_notice("Your magic fizzles out!"))
-		owner.Stun(3 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE

@@ -84,7 +84,7 @@
 	var/roll_melpo = secret_vampireroll(get_a_wits(owner)+get_a_expression(owner), 7, owner)
 	if(roll_melpo == 0)
 		if(roll_melpo<0)
-			owner.Stun(3 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 			to_chat(owner, "Ты чувствуешь ужасную боль в горле...")
 		return FALSE
@@ -129,7 +129,7 @@
 	var/roll_madrigal = secret_vampireroll(get_a_charisma(owner)+get_a_expression(owner), 7, owner)
 	if(roll_madrigal == 0)
 		if(roll_madrigal<0)
-			owner.Stun(3 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 			to_chat(owner, "Ты чувствуешь ужасную боль в горле...")
 		return FALSE
@@ -173,7 +173,7 @@
 	var/roll_siren = secret_vampireroll(get_a_charisma(owner)+get_a_expression(owner), get_a_willpower(target), owner)
 	if(roll_siren == 0)
 		if(roll_siren<0)
-			owner.Stun(3 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 			to_chat(owner, "Ты чувствуешь ужасную боль в голове...")
 		return FALSE

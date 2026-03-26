@@ -58,7 +58,7 @@
 		to_chat(owner, "<span class='warning'>You fail at dominating!</span>")
 		owner.emote("stare")
 		if(mypower == -1)
-			owner.Stun(3 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 		return FALSE
 

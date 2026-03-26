@@ -38,7 +38,7 @@
 		return FALSE
 	else if(success_roll == 0)
 		to_chat(owner, span_notice("Your magic fizzles out!"))
-		owner.Stun(3 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE
