@@ -404,9 +404,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/reset_discipline()
 	discipline_types = list()
 	discipline_levels = list()
-	for (var/i in 1 to clane.clane_disciplines.len)
-		discipline_types += clane.clane_disciplines[i]
-		discipline_levels += 1
+	if(pref_species.id == "kindred")
+		for (var/i in 1 to clane.clane_disciplines.len)
+			discipline_types += clane.clane_disciplines[i]
+			discipline_levels += 1
 
 /datum/preferences/proc/reset_character()
 	slotlocked = 0
@@ -1447,6 +1448,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					if(pref_species.name == "Vampire")
 						max_age = 100 + white_list_age
+					if(pref_species.name == "Kuei-Jin")
+						max_age = 500
 					if(pref_species.name == "Ghoul")
 						max_age = 400
 					if(pref_species.name == "Werewolf")
