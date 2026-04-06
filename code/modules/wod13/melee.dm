@@ -766,13 +766,20 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("bludgeons", "bashes", "beats")
 	attack_verb_simple = list("bludgeon", "bash", "beat")
-	force = 30
+	force = 15
+	stamina_damage = 5
+	knockdown_time_carbon = (0.3 SECONDS)
+	cooldown = 0
 	wound_bonus = 15
 	block_chance = 10
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_SUITSTORE
 	w_class = WEIGHT_CLASS_NORMAL
 	is_wood = TRUE
 
+/obj/item/melee/classic_baton/vampire/attack(mob/living/target, mob/living/user)
+	. = ..()
+    target.apply_damage(35, STAMINA, BODY_ZONE_CHEST) 
+	target.Knockdown(1)
 
 /obj/item/melee/vampirearms/knife/switchblade
 	name = "switchblade"
