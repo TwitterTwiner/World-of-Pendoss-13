@@ -106,8 +106,6 @@
 					A.Remove(owner)
 						SEND_SOUND(HM, sound('code/modules/wod13/sounds/sus.ogg', 0, 0, 75))
 						to_chat(HM, "<span class='userdanger'><b>SUSPICIOUS ACTION (murder)</b></span>")
-            
-//		SEND_SIGNAL(last_attacker, COMSIG_KILL)
 
 	remove_overlay(FIGHT_LAYER)
 	..()
