@@ -72,6 +72,20 @@
 	bare_wound_bonus = 5
 	wound_bonus = 5
 
+/obj/projectile/beam/beam_rifle/vampire/c338
+	name = " .338 bullet"
+	damage = 80
+	armour_penetration = 45
+	bare_wound_bonus = -5
+	wound_bonus = 5
+
+/obj/projectile/beam/beam_rifle/vampire/c308
+	name = " .308 bullet"
+	damage = 50
+	armour_penetration = 15
+	bare_wound_bonus = -5
+	wound_bonus = 10
+
 /obj/projectile/beam/beam_rifle/vampire/vamp556mm
 	name = "5.56mm bullet"
 	damage = 45
@@ -198,6 +212,22 @@
 //	base_iconstate = "50"
 	icon_state = "45"
 	base_iconstate = "45"
+
+/obj/item/ammo_casing/vampire/c338
+	name = ".338 bullet casing"
+	desc = "A .338 bullet casing."
+	caliber = CALIBER_338
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c338
+	icon_state = "338"
+	base_iconstate = "338"
+
+/obj/item/ammo_casing/vampire/c308
+	name = ".308 bullet casing"
+	desc = "A .308 bullet casing."
+	caliber = CALIBER_308
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c308
+	icon_state = "308"
+	base_iconstate = "308"
 
 /obj/item/ammo_casing/vampire/c556mm
 	name = "5.56mm bullet casing"

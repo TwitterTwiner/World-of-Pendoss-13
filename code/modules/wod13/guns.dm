@@ -155,12 +155,14 @@
 
 /obj/item/gun/ballistic/automatic/vampire/deagle
 	name = "\improper Desert Eagle"
-	desc = "A powerful .44 handgun."
+//	desc = "A powerful .44 handgun."
+	desc = "A powerful .50 AE handgun."
 	icon_state = "deagle"
 	inhand_icon_state = "deagle"
 	worn_icon_state = "deagle"
 	w_class = WEIGHT_CLASS_NORMAL
-	mag_type = /obj/item/ammo_box/magazine/m44
+//	mag_type = /obj/item/ammo_box/magazine/m44
+	mag_type = /obj/item/ammo_box/magazine/m50
 	recoil = 3
 	burst_size = 1
 	fire_delay = 0
@@ -178,6 +180,7 @@
 	bolt_drop_sound = 'sound/weapons/gun/pistol/drop_small.ogg'
 	fire_sound_volume = 75
 	cost = 75
+	difficult = 1
 
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50)"
@@ -513,8 +516,9 @@
 /obj/item/ammo_box/magazine/internal/vampire/sniper
 	name = "sniper rifle internal magazine"
 	desc = "Oh god, this shouldn't be here"
-	ammo_type = /obj/item/ammo_casing/vampire/c556mm
-	caliber = CALIBER_556
+//	ammo_type = /obj/item/ammo_casing/vampire/c556mm
+	ammo_type = /obj/item/ammo_casing/vampire/c338
+	caliber = CALIBER_338
 	max_ammo = 5
 	multiload = TRUE
 
@@ -810,7 +814,7 @@
 	inhand_icon_state = "huntrifle"
 	worn_icon_state = "huntrifle"
 	w_class = WEIGHT_CLASS_BULKY
-	mag_type = /obj/item/ammo_box/magazine/internal/vampshotgun
+	mag_type = /obj/item/ammo_box/magazine/internal/vampire/hunt_rifle
 	bolt_wording = "bolt"
 	bolt_type = BOLT_TYPE_STANDARD
 	fire_sound = 'code/modules/wod13/sounds/rifle.ogg'
@@ -826,3 +830,4 @@
 	cost = 250
 	jamming_chance = 10
 
+/obj/item/ammo_box/magazine/internal/vampire/hunt_rifle
