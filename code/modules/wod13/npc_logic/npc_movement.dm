@@ -80,7 +80,6 @@
 						SEND_SOUND(HM, sound('code/modules/wod13/sounds/suspect.ogg', 0, 0, 75))
 						to_chat(HM, "<span class='userdanger'><b>POLICE ASSAULT IN PROGRESS</b></span>")
 					else
-
 						HM.AdjustHumanity(-1, 0)
 					HM.last_nonraid = world.time
 					HM.killed_count = HM.killed_count+1
@@ -104,8 +103,8 @@
 			for(var/datum/action/presence_deaggro/A in owner.actions)
 				if(A)
 					A.Remove(owner)
-						SEND_SOUND(HM, sound('code/modules/wod13/sounds/sus.ogg', 0, 0, 75))
-						to_chat(HM, "<span class='userdanger'><b>SUSPICIOUS ACTION (murder)</b></span>")
+					SEND_SOUND(HM, sound('code/modules/wod13/sounds/sus.ogg', 0, 0, 75))
+					to_chat(HM, "<span class='userdanger'><b>SUSPICIOUS ACTION (murder)</b></span>")
 
 	remove_overlay(FIGHT_LAYER)
 	..()
