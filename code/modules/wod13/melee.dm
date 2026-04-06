@@ -767,8 +767,8 @@
 	attack_verb_continuous = list("bludgeons", "bashes", "beats")
 	attack_verb_simple = list("bludgeon", "bash", "beat")
 	force = 20
-	stamina_damage = 20
-	knockdown_time_carbon = (1 SECONDS)
+	stamina_damage = 33
+	knockdown_time_carbon = (0.5 SECONDS)
 	cooldown = 0.8
 	wound_bonus = 15
 	block_chance = 10
@@ -778,8 +778,8 @@
 
 /obj/item/melee/classic_baton/vampire/attack(mob/living/target, mob/living/user)
 	. = ..()
-//    target.apply_damage(35, STAMINA, BODY_ZONE_CHEST) 
-	target.Knockdown(knockdown_time_carbon)
+    target.Stun(knockdown_time_carbon)
+	target.Knockdown(1)
 
 /obj/item/melee/vampirearms/knife/switchblade
 	name = "switchblade"
