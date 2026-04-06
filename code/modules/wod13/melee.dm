@@ -766,9 +766,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("bludgeons", "bashes", "beats")
 	attack_verb_simple = list("bludgeon", "bash", "beat")
-	force = 15
+	force = 20
 	stamina_damage = 0
-	knockdown_time_carbon = (0.3 SECONDS)
+	knockdown_time_carbon = (0.1 SECONDS)
 	cooldown = 0.8
 	wound_bonus = 15
 	block_chance = 10
