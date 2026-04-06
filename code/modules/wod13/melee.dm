@@ -767,9 +767,9 @@
 	attack_verb_continuous = list("bludgeons", "bashes", "beats")
 	attack_verb_simple = list("bludgeon", "bash", "beat")
 	force = 15
-	stamina_damage = 5
+	stamina_damage = 0
 	knockdown_time_carbon = (0.3 SECONDS)
-	cooldown = 0
+	cooldown = 0.8
 	wound_bonus = 15
 	block_chance = 10
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_SUITSTORE
