@@ -68,7 +68,7 @@
 	var/obj/item/organ/brain/brain = owner.getorganslot(ORGAN_SLOT_BRAIN)
 	if(brain)
 		brain.applyOrganDamage(-HEAL_BASHING_LETHAL * vitae_cost)
-
+	if(!HAS_TRAIT(owner, TRAIT_NON_INT))
 		for(var/i in 1 to min(vitae_cost, length(brain.get_traumas_type())))
 			var/datum/brain_trauma/healing_trauma = pick(brain.get_traumas_type())
 			brain.cure_trauma_type(healing_trauma, resilience = TRAUMA_RESILIENCE_WOUND)

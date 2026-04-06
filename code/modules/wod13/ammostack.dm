@@ -117,7 +117,11 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.Stun(25)
+		var/roll = secret_vampireroll(get_a_stamina(M), 6, M, TRUE)
+		if(roll <= 3)
+			M.Stun(15)
+			M.visible_message("<span class='danger'>[target] был оглушен дробью!</span>", \
+					"<span class='userdanger'>Ты оглушен дробью!</span>", "<span class='hear'>Ты слышишь металлический звук шариов!</span>", null, M)
 
 /obj/projectile/beam/beam_rifle/vampire/shotpellet
 	name = "12g shotgun pellet"

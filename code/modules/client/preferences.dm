@@ -404,9 +404,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/reset_discipline()
 	discipline_types = list()
 	discipline_levels = list()
-	for (var/i in 1 to clane.clane_disciplines.len)
-		discipline_types += clane.clane_disciplines[i]
-		discipline_levels += 1
+	if(pref_species.id == "kindred")
+		for (var/i in 1 to clane.clane_disciplines.len)
+			discipline_types += clane.clane_disciplines[i]
+			discipline_levels += 1
 
 /datum/preferences/proc/reset_character()
 	slotlocked = 0
@@ -1168,6 +1169,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			total += 15
 		if(701 to INFINITY)
 			total += 20
+
 	var/available = total - discipline_spent
 	var/list/all_stats = list(
 		"Strength", "Dexterity", "Stamina",
@@ -1201,6 +1203,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		log_game("[key_name(parent)]/[real_name] exceeds statpoints limit! spent=[spent_total], total=[available]")
 		blocked_slot = TRUE
 	true_experience = available - spent_total
+
 
 /datum/preferences/Topic(href, href_list, hsrc)			//yeah, gotta do this I guess..
 	. = ..()
@@ -1445,6 +1448,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					if(pref_species.name == "Vampire")
 						max_age = 100 + white_list_age
+					if(pref_species.name == "Kuei-Jin")
+						max_age = 500
 					if(pref_species.name == "Ghoul")
 						max_age = 400
 					if(pref_species.name == "Werewolf")
@@ -2576,6 +2581,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						reset_attributes()
 						true_experience = POINTS
 						total_age = age
+						generation = initial(generation)
 
 				if("mutant_color")
 					if(slotlocked)

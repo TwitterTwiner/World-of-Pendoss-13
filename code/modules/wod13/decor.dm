@@ -896,6 +896,7 @@
 						H.MyPath.trigger_morality("kill")
 					else
 						H.AdjustHumanity(-1, 0)
+					SEND_SIGNAL(starter, COMSIG_KILL)
 		L.gib()
 	..()
 
@@ -1237,7 +1238,9 @@
 	if(user.client)
 		if(!matrixing)
 			matrixing = TRUE
+			var/mob/living/L = user
 			if(do_after(user, 100, src))
+				L.remove_from_sect(L.vampire_faction)
 				cryoMob(user, src)
 				matrixing = FALSE
 			else
