@@ -778,7 +778,7 @@
 
 /obj/item/melee/classic_baton/vampire/attack(mob/living/target, mob/living/user)
 	. = ..()
-    target.Stun(knockdown_time_carbon)
+	target.Stun(knockdown_time_carbon)
 	target.Knockdown(1)
 
 /obj/item/melee/vampirearms/knife/switchblade
