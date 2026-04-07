@@ -778,8 +778,7 @@
 
 /obj/item/melee/classic_baton/vampire/attack(mob/living/target, mob/living/user)
 	. = ..()
-	target.Jitter(10)
-	target.drowsyness(10)
+	target.Stun(10)
 	target.Knockdown(1)
 
 /obj/item/melee/vampirearms/knife/switchblade
