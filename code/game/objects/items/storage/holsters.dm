@@ -48,7 +48,7 @@
 		/obj/item/ammo_box/vampire/c9mm/moonclip,
 		/obj/item/ammo_box/magazine/m44,
 		/obj/item/ammo_box/magazine/m50,
-		/obj/item/ammo_box/magazine/vamp45acp,
+		/obj/item/ammo_box/magazine/vampire/vamp45acp,
 		/obj/item/ammo_box/magazine/toy/pistol,
 		/obj/item/ammo_box/magazine/vampire/glock9mm,
 		/obj/item/ammo_box/magazine/vampire/glock45acp,	,

@@ -526,7 +526,7 @@
 		new /datum/data/mining_equipment("desert eagle magazine",	/obj/item/ammo_box/magazine/m44,	100),
 		new /datum/data/mining_equipment("Glock19 magazine",		/obj/item/ammo_box/magazine/vampire/glock9mm,	100),
 		new /datum/data/mining_equipment("9mm pistol magazine, 18 rounds",		/obj/item/ammo_box/magazine/semi9mm,	100),
-		new /datum/data/mining_equipment("Colt M1911 magazine",		/obj/item/ammo_box/magazine/vamp45acp,	50),
+		new /datum/data/mining_equipment("Colt M1911 magazine",		/obj/item/ammo_box/magazine/vampire/vamp45acp,	50),
 		new /datum/data/mining_equipment("baseball bat",	/obj/item/melee/vampirearms/baseball,	200),
 		new /datum/data/mining_equipment("knife",	/obj/item/melee/vampirearms/knife,	100),
 		new /datum/data/mining_equipment("switchblade",	/obj/item/melee/vampirearms/knife/switchblade, 50),

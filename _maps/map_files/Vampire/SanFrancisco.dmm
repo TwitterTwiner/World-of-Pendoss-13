@@ -35820,7 +35820,7 @@
 "hkY" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/m1911,
-/obj/item/ammo_box/magazine/vamp45acp,
+/obj/item/ammo_box/magazine/vampire/vamp45acp,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
 "hli" = (
@@ -38183,7 +38183,7 @@
 "ihM" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/m1911,
-/obj/item/ammo_box/magazine/vamp45acp,
+/obj/item/ammo_box/magazine/vampire/vamp45acp,
 /turf/open/floor/carpet/lone,
 /area/vtm/interior/giovanni)
 "iib" = (
@@ -50306,7 +50306,7 @@
 	pixel_y = 32
 	},
 /obj/item/gun/ballistic/automatic/vampire/m1911,
-/obj/item/ammo_box/magazine/vamp45acp,
+/obj/item/ammo_box/magazine/vampire/vamp45acp,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/police)
 "nwt" = (
@@ -72049,7 +72049,7 @@
 "wDz" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/m1911,
-/obj/item/ammo_box/magazine/vamp45acp,
+/obj/item/ammo_box/magazine/vampire/vamp45acp,
 /turf/closed/wall/vampwall/low,
 /area/vtm/interior/police)
 "wDJ" = (
