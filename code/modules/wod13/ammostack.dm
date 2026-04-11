@@ -67,21 +67,35 @@
 
 /obj/projectile/beam/beam_rifle/vampire/vamp50
 	name = ".50 bullet"
-	damage = 70
+	damage = 40
 	armour_penetration = 0
 	bare_wound_bonus = 5
 	wound_bonus = 5
 
 /obj/projectile/beam/beam_rifle/vampire/c338
 	name = " .338 bullet"
-	damage = 80
-	armour_penetration = 45
+	damage = 50
+	armour_penetration = 40
 	bare_wound_bonus = -5
 	wound_bonus = 5
 
+/obj/projectile/beam/beam_rifle/vampire/c338/on_hit(atom/target, blocked = FALSE)
+	. = ..()
+	if(isnpc(target))
+		var/mob/living/carbon/M = target
+		var/obj/item/bodypart/hit_limb = M.get_bodypart(def_zone)
+		var/obj/item/bodypart/head/hit = M.get_bodypart(BODY_ZONE_HEAD)
+		if(istype(hit_limb, hit))
+			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-head")
+			hit_limb.drop_limb()
+			qdel(hit_limb)
+		//	qdel(hit)
+	//	qdel(hit_limb)
+
+
 /obj/projectile/beam/beam_rifle/vampire/c308
 	name = " .308 bullet"
-	damage = 50
+	damage = 45
 	armour_penetration = 15
 	bare_wound_bonus = -5
 	wound_bonus = 10
@@ -529,6 +543,8 @@
 	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c308
 	icon_state = "s308"
 	base_iconstate = "s308"
+
+
 
 /obj/item/ammo_box/vampire/c338
 	name = "ammo box (.338)"
