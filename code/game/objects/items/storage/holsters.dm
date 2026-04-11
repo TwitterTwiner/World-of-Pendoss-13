@@ -51,7 +51,7 @@
 		/obj/item/ammo_box/magazine/vamp45acp,
 		/obj/item/ammo_box/magazine/toy/pistol,
 		/obj/item/ammo_box/magazine/glock9mm,
-		/obj/item/ammo_box/magazine/glock45acp,	,
+		/obj/item/ammo_box/magazine/vampire/glock45acp,	,
 		))
 
 /obj/item/storage/belt/holster/detective/full/PopulateContents()

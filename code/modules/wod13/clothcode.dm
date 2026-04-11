@@ -1466,7 +1466,7 @@
 
 /obj/item/storage/belt/holster/detective/vampire/fbi/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/vampire/glock21(src)
-	new /obj/item/ammo_box/magazine/glock45acp(src)
+	new /obj/item/ammo_box/magazine/vampire/glock45acp(src)
 
 
 //PENTEX

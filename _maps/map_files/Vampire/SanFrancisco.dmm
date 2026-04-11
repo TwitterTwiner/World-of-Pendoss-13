@@ -68702,7 +68702,7 @@
 "vks" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/glock21,
-/obj/item/ammo_box/magazine/glock45acp,
+/obj/item/ammo_box/magazine/vampire/glock45acp,
 /turf/closed/wall/vampwall/low,
 /area/vtm/interior/police)
 "vkF" = (
