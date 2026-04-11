@@ -514,7 +514,46 @@
 	ammo_type = /obj/item/ammo_casing/vampire/c556mm/silver
 	max_ammo = 60
 
+
+
+/obj/item/ammo_casing/vampire/c338
+	name = ".338 bullet casing"
+	desc = "A .338 bullet casing."
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c338
+	icon_state = "s338"
+	base_iconstate = "s338"
+
+/obj/item/ammo_casing/vampire/c308
+	name = ".308 bullet casing"
+	desc = "A .308 bullet casing."
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c308
+	icon_state = "s308"
+	base_iconstate = "s308"
+
+/obj/item/ammo_box/vampire/c338
+	name = "ammo box (.338)"
+	icon_state = "338_box"
+	ammo_type = /obj/item/ammo_casing/vampire/c338
+	max_ammo = 12
+	multiple_sprites = AMMO_BOX_FULL_EMPTY
+
+/obj/item/ammo_box/vampire/c308
+	name = "ammo box (.308)"
+	icon_state = "308_box"
+	ammo_type = /obj/item/ammo_casing/vampire/c308
+	max_ammo = 24
+	multiple_sprites = AMMO_BOX_FULL_EMPTY
+
 //obj/item/ammo_box/vampire/c12g/buck/silver
 //	name = "ammo box (12g, 00 buck silver)"
 //	icon_state = "s12box_buck"
 //	ammo_type = /obj/item/ammo_casing/vampire/c12g/buck/silver
+
+/obj/item/ammo_box/magazine/vampire
+	name = "magazine"
+	icon = 'code/modules/wod13/ammo.dmi'
+	icon_state = "s12box_buck"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
