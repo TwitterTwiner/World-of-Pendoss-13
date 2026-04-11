@@ -86,7 +86,7 @@
 	grid_width = 2 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
-/obj/item/ammo_box/magazine/glock9mm
+/obj/item/ammo_box/magazine/vampire/glock9mm
 	grid_width = 1 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 

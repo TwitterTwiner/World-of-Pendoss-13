@@ -1460,7 +1460,7 @@
 
 /obj/item/storage/belt/holster/detective/vampire/officer/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/vampire/glock19(src)
-	new /obj/item/ammo_box/magazine/glock9mm(src)
+	new /obj/item/ammo_box/magazine/vampire/glock9mm(src)
 
 /obj/item/storage/belt/holster/detective/vampire/fbi
 

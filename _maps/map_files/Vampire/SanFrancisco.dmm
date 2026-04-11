@@ -11575,7 +11575,7 @@
 "aSU" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/shop)
 "aSV" = (
@@ -37042,7 +37042,7 @@
 "hKP" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
 "hLb" = (
@@ -38141,8 +38141,8 @@
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/glasswalker)
 "ihg" = (
@@ -47334,8 +47334,8 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /obj/item/ammo_box/vampire/c9mm,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/police)
@@ -61104,7 +61104,7 @@
 /obj/machinery/light{
 	pixel_y = 32
 	},
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/police)
 "rZy" = (
@@ -68071,7 +68071,7 @@
 "uXp" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/closed/wall/vampwall/low,
 /area/vtm/interior/police)
 "uXT" = (
@@ -72746,7 +72746,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/endronoffice)
 "wSm" = (
