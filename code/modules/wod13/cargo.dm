@@ -254,7 +254,7 @@
 	name = "Weapon (desert eagle)"
 	desc = "Contains a desert eagle."
 	cost = 400
-	contains = list(/obj/item/gun/ballistic/automatic/vampire/deagle, /obj/item/ammo_box/magazine/m44)
+	contains = list(/obj/item/gun/ballistic/automatic/vampire/deagle, /obj/item/ammo_box/magazine/vampire/m50)
 	crate_name = "weapon crate"
 
 /datum/supply_pack/vampire/glock
@@ -317,7 +317,7 @@
 	name = "Weapon (Jaegerspas-XV)"
 	desc = "Contains a Jaegerspas-XV auto shotgun."
 	cost = 5000
-	contains = list(/obj/item/gun/ballistic/automatic/vampire/autoshotgun, /obj/item/ammo_box/magazine/vampautoshot)
+	contains = list(/obj/item/gun/ballistic/automatic/vampire/autoshotgun, /obj/item/ammo_box/magazine/vampire/vampautoshot)
 	crate_name = "weapon crate"
 
 /datum/supply_pack/vampire/ak74
@@ -423,14 +423,14 @@
 	name = "Ammo (3x Colt M1911 magazine)"
 	desc = "Contains three Colt M1911 magazines."
 	cost = 50
-	contains = list(/obj/item/ammo_box/magazine/vamp45acp, /obj/item/ammo_box/magazine/vamp45acp, /obj/item/ammo_box/magazine/vamp45acp)
+	contains = list(/obj/item/ammo_box/magazine/vampire/vamp45acp, /obj/item/ammo_box/magazine/vampire/vamp45acp, /obj/item/ammo_box/magazine/vampire/vamp45acp)
 	crate_name = "ammo crate"
 
 /datum/supply_pack/vampire/magazine_glock19
 	name = "Ammo (3x Glock19 magazine)"
 	desc = "Contains three Glock19 magazines."
 	cost = 100
-	contains = list(/obj/item/ammo_box/magazine/glock9mm, /obj/item/ammo_box/magazine/glock9mm, /obj/item/ammo_box/magazine/glock9mm)
+	contains = list(/obj/item/ammo_box/magazine/vampire/glock9mm, /obj/item/ammo_box/magazine/vampire/glock9mm, /obj/item/ammo_box/magazine/vampire/glock9mm)
 	crate_name = "ammo crate"
 
 /datum/supply_pack/vampire/magazine_beretta
@@ -451,7 +451,7 @@
 	name = "Ammo (3x desert eagle magazines)"
 	desc = "Contains three desert eagle magazine."
 	cost = 100
-	contains = list(/obj/item/ammo_box/magazine/m44, /obj/item/ammo_box/magazine/m44, /obj/item/ammo_box/magazine/m44)
+	contains = list(/obj/item/ammo_box/magazine/vampire/m50, /obj/item/ammo_box/magazine/vampire/m50, /obj/item/ammo_box/magazine/vampire/m50)
 	crate_name = "ammo crate"
 
 /datum/supply_pack/vampire/magazine_mp5

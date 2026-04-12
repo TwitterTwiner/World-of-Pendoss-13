@@ -87,6 +87,7 @@
 		var/obj/item/bodypart/head/hit = M.get_bodypart(BODY_ZONE_HEAD)
 		if(istype(hit_limb, hit))
 			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-head")
+			new /obj/effect/gibspawner/human(loc, M)
 			hit_limb.drop_limb()
 			qdel(hit_limb)
 		//	qdel(hit)

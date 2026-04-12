@@ -139,7 +139,7 @@
 	ammo_type = /obj/item/ammo_casing/vampire/c9mm
 	caliber = CALIBER_9MM
 	max_ammo = 6
-
+/*
 /obj/item/ammo_box/magazine/m44
 	name = "handgun magazine (.44)"
 	icon = 'code/modules/wod13/ammo.dmi'
@@ -152,7 +152,7 @@
 	caliber = CALIBER_44
 	max_ammo = 7
 	multiple_sprites = AMMO_BOX_FULL_EMPTY
-
+*/
 /obj/item/gun/ballistic/automatic/vampire/deagle
 	name = "\improper Desert Eagle"
 //	desc = "A powerful .44 handgun."
@@ -162,7 +162,7 @@
 	worn_icon_state = "deagle"
 	w_class = WEIGHT_CLASS_NORMAL
 //	mag_type = /obj/item/ammo_box/magazine/m44
-	mag_type = /obj/item/ammo_box/magazine/m50
+	mag_type = /obj/item/ammo_box/magazine/vampire/m50
 	recoil = 3
 	burst_size = 1
 	fire_delay = 0
@@ -182,7 +182,7 @@
 	cost = 75
 	difficult = 1
 
-/obj/item/ammo_box/magazine/m50
+/obj/item/ammo_box/magazine/vampire/m50
 	name = "handgun magazine (.50)"
 	icon = 'code/modules/wod13/ammo.dmi'
 	lefthand_file = 'code/modules/wod13/righthand.dmi'
@@ -204,13 +204,8 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	fire_sound_volume = 125 //MY EARS
 
-/obj/item/ammo_box/magazine/vamp45acp
+/obj/item/ammo_box/magazine/vampire/vamp45acp
 	name = "pistol magazine (.45 ACP)"
-	icon = 'code/modules/wod13/ammo.dmi'
-//	lefthand_file = 'code/modules/wod13/righthand.dmi'
-//	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "m1911"
 	ammo_type = /obj/item/ammo_casing/vampire/c45acp
 	caliber = CALIBER_45
@@ -224,7 +219,7 @@
 	inhand_icon_state = "m1911"
 	worn_icon_state = "m1911"
 	w_class = WEIGHT_CLASS_SMALL
-	mag_type = /obj/item/ammo_box/magazine/vamp45acp
+	mag_type = /obj/item/ammo_box/magazine/vampire/vamp45acp
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()
@@ -242,13 +237,8 @@
 	fire_sound_volume = 100
 	cost = 55
 
-/obj/item/ammo_box/magazine/glock9mm
+/obj/item/ammo_box/magazine/vampire/glock9mm
 	name = "automatic pistol magazine (9mm)"
-	icon = 'code/modules/wod13/ammo.dmi'
-//	lefthand_file = 'code/modules/wod13/righthand.dmi'
-//	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "glock19"
 	ammo_type = /obj/item/ammo_casing/vampire/c9mm
 	caliber = CALIBER_9MM
@@ -262,7 +252,7 @@
 	inhand_icon_state = "glock19"
 	worn_icon_state = "glock19"
 	w_class = WEIGHT_CLASS_SMALL
-	mag_type = /obj/item/ammo_box/magazine/glock9mm
+	mag_type = /obj/item/ammo_box/magazine/vampire/glock9mm
 	burst_size = 3
 	fire_delay = 1
 	bolt_type = BOLT_TYPE_LOCKING
@@ -279,13 +269,8 @@
 	fire_sound_volume = 100
 	cost = 70
 
-/obj/item/ammo_box/magazine/glock45acp
+/obj/item/ammo_box/magazine/vampire/glock45acp
 	name = "automatic pistol magazine (.45 ACP)"
-	icon = 'code/modules/wod13/ammo.dmi'
-//	lefthand_file = 'code/modules/wod13/righthand.dmi'
-//	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "glock21"
 	ammo_type = /obj/item/ammo_casing/vampire/c45acp
 	caliber = CALIBER_45
@@ -299,7 +284,7 @@
 	inhand_icon_state = "glock19"
 	worn_icon_state = "glock19"
 	w_class = WEIGHT_CLASS_SMALL
-	mag_type = /obj/item/ammo_box/magazine/glock45acp
+	mag_type = /obj/item/ammo_box/magazine/vampire/glock45acp
 	burst_size = 3
 	fire_delay = 1
 	bolt_type = BOLT_TYPE_LOCKING
@@ -316,13 +301,8 @@
 	fire_sound_volume = 100
 	cost = 150
 
-/obj/item/ammo_box/magazine/vamp9mm
+/obj/item/ammo_box/magazine/vampire/vamp9mm
 	name = "uzi magazine (9mm)"
-	icon = 'code/modules/wod13/ammo.dmi'
-	lefthand_file = 'code/modules/wod13/righthand.dmi'
-	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "uzi"
 	ammo_type = /obj/item/ammo_casing/vampire/c9mm
 	caliber = CALIBER_9MM
@@ -335,7 +315,7 @@
 	icon_state = "uzi"
 	inhand_icon_state = "uzi"
 	worn_icon_state = "uzi"
-	mag_type = /obj/item/ammo_box/magazine/vamp9mm
+	mag_type = /obj/item/ammo_box/magazine/vampire/vamp9mm
 	burst_size = 5
 	spread = 11
 	recoil = 5
@@ -346,13 +326,8 @@
 	fire_sound = 'code/modules/wod13/sounds/uzi.ogg'
 	cost = 175
 
-/obj/item/ammo_box/magazine/vamp9mp5
+/obj/item/ammo_box/magazine/vampire/vamp9mp5
 	name = "mp5 magazine (9mm)"
-	icon = 'code/modules/wod13/ammo.dmi'
-//	lefthand_file = 'code/modules/wod13/righthand.dmi'
-//	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "mp5"
 	ammo_type = /obj/item/ammo_casing/vampire/c9mm
 	caliber = CALIBER_9MM
@@ -366,7 +341,7 @@
 	icon = 'code/modules/wod13/48x32weapons.dmi'
 	inhand_icon_state = "mp5"
 	worn_icon_state = "mp5"
-	mag_type = /obj/item/ammo_box/magazine/vamp9mp5
+	mag_type = /obj/item/ammo_box/magazine/vampire/vamp9mp5
 	burst_size = 4
 	spread = 4
 	bolt_type = BOLT_TYPE_LOCKING
@@ -376,13 +351,8 @@
 	fire_sound = 'code/modules/wod13/sounds/mp5.ogg'
 	cost = 200
 
-/obj/item/ammo_box/magazine/vamp556
+/obj/item/ammo_box/magazine/vampire/vamp556
 	name = "carbine magazine (5.56mm)"
-	icon = 'code/modules/wod13/ammo.dmi'
-	lefthand_file = 'code/modules/wod13/righthand.dmi'
-	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "rifle"
 	ammo_type = /obj/item/ammo_casing/vampire/c556mm
 	caliber = CALIBER_556
@@ -397,7 +367,7 @@
 	inhand_icon_state = "rifle"
 	worn_icon_state = "rifle"
 	w_class = WEIGHT_CLASS_BULKY
-	mag_type = /obj/item/ammo_box/magazine/vamp556
+	mag_type = /obj/item/ammo_box/magazine/vampire/vamp556
 	burst_size = 2
 	fire_delay = 2
 	spread = 4
@@ -408,13 +378,8 @@
 	masquerade_violating = TRUE
 	cost = 250
 
-/obj/item/ammo_box/magazine/vamp545
+/obj/item/ammo_box/magazine/vampire/vamp545
 	name = "rifle magazine (5.45mm)"
-	icon = 'code/modules/wod13/ammo.dmi'
-//	lefthand_file = 'code/modules/wod13/righthand.dmi'
-//	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "ak"
 	ammo_type = /obj/item/ammo_casing/vampire/c545mm
 	caliber = CALIBER_545
@@ -435,7 +400,7 @@
 	inhand_icon_state = "ak74"
 	worn_icon_state = "ak74"
 	w_class = WEIGHT_CLASS_BULKY
-	mag_type = /obj/item/ammo_box/magazine/vamp545
+	mag_type = /obj/item/ammo_box/magazine/vampire/vamp545
 	recoil = 5
 	burst_size = 3
 	fire_delay = 3
@@ -447,13 +412,8 @@
 	masquerade_violating = TRUE
 	cost = 225
 
-/obj/item/ammo_box/magazine/vampaug
+/obj/item/ammo_box/magazine/vampire/vampaug
 	name = "AUG magazine (5.56mm)"
-	icon = 'code/modules/wod13/ammo.dmi'
-	lefthand_file = 'code/modules/wod13/righthand.dmi'
-	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "aug"
 	ammo_type = /obj/item/ammo_casing/vampire/c556mm
 	caliber = CALIBER_556
@@ -468,7 +428,7 @@
 	inhand_icon_state = "aug"
 	worn_icon_state = "aug"
 	w_class = WEIGHT_CLASS_BULKY
-	mag_type = /obj/item/ammo_box/magazine/vampaug
+	mag_type = /obj/item/ammo_box/magazine/vampire/vampaug
 	burst_size = 3
 	fire_delay = 2
 	spread = 3
@@ -480,7 +440,7 @@
 	cost = 350
 	is_iron = FALSE
 
-/obj/item/ammo_box/magazine/vampthompson
+/obj/item/ammo_box/magazine/vampire/vampthompson
 	name = "tommy gun magazine (.45 ACP)"
 	icon = 'code/modules/wod13/ammo.dmi'
 	icon_state = "thompson"
@@ -501,7 +461,7 @@
 	inhand_icon_state = "thompson"
 	worn_icon_state = "thompson"
 	w_class = WEIGHT_CLASS_NORMAL
-	mag_type = /obj/item/ammo_box/magazine/vampthompson
+	mag_type = /obj/item/ammo_box/magazine/vampire/vampthompson
 	recoil = 7
 	burst_size = 5
 	fire_delay = 3
@@ -513,7 +473,7 @@
 	masquerade_violating = TRUE
 	cost = 250
 
-/obj/item/ammo_box/magazine/internal/vampire/sniper
+/obj/item/ammo_box/magazine/vampire/sniper
 	name = "sniper rifle internal magazine"
 	desc = "Oh god, this shouldn't be here"
 //	ammo_type = /obj/item/ammo_casing/vampire/c556mm
@@ -521,6 +481,8 @@
 	caliber = CALIBER_338
 	max_ammo = 5
 	multiload = TRUE
+	icon_state = "sniper"
+	multiple_sprites = AMMO_BOX_FULL_EMPTY
 
 /obj/item/gun/ballistic/automatic/vampire/sniper
 	name = "sniper rifle"
@@ -530,7 +492,7 @@
 	inhand_icon_state = "sniper"
 	worn_icon_state = "sniper"
 	w_class = WEIGHT_CLASS_BULKY
-	mag_type = /obj/item/ammo_box/magazine/internal/vampire/sniper
+	mag_type = /obj/item/ammo_box/magazine/vampire/sniper
 	bolt_wording = "bolt"
 	bolt_type = BOLT_TYPE_STANDARD
 	semi_auto = FALSE
@@ -549,6 +511,7 @@
 	actions_types = list()
 	masquerade_violating = TRUE
 	cost = 250
+	difficult = 1
 
 /obj/item/ammo_box/magazine/internal/vampshotgun
 	name = "shotgun internal magazine"
@@ -579,13 +542,8 @@
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
 
-/obj/item/ammo_box/magazine/vampautoshot
+/obj/item/ammo_box/magazine/vampire/vampautoshot
 	name = "shotgun magazine (12ga)"
-	icon = 'code/modules/wod13/ammo.dmi'
-	lefthand_file = 'code/modules/wod13/righthand.dmi'
-	righthand_file = 'code/modules/wod13/lefthand.dmi'
-	worn_icon = 'code/modules/wod13/worn.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "spas15"
 	ammo_type = /obj/item/ammo_casing/vampire/c12g/buck
 	caliber = CALIBER_12G
@@ -600,7 +558,7 @@
 	inhand_icon_state = "spas15"
 	worn_icon_state = "rifle"
 	w_class = WEIGHT_CLASS_BULKY
-	mag_type = /obj/item/ammo_box/magazine/vampautoshot
+	mag_type = /obj/item/ammo_box/magazine/vampire/vampautoshot
 	burst_size = 1
 	fire_delay = 2
 	spread = 4
@@ -814,7 +772,7 @@
 	inhand_icon_state = "huntrifle"
 	worn_icon_state = "huntrifle"
 	w_class = WEIGHT_CLASS_BULKY
-	mag_type = /obj/item/ammo_box/magazine/internal/vampire/hunt_rifle
+	mag_type = /obj/item/ammo_box/magazine/vampire/hunt_rifle
 	bolt_wording = "bolt"
 	bolt_type = BOLT_TYPE_STANDARD
 	fire_sound = 'code/modules/wod13/sounds/rifle.ogg'
@@ -830,4 +788,8 @@
 	cost = 250
 	jamming_chance = 10
 
-/obj/item/ammo_box/magazine/internal/vampire/hunt_rifle
+/obj/item/ammo_box/magazine/vampire/hunt_rifle
+	name = "rifle magazine (.308 Winchester)"
+	icon_state = "huntrifle_mag"
+	max_ammo = 12
+	multiple_sprites = AMMO_BOX_FULL_EMPTY
