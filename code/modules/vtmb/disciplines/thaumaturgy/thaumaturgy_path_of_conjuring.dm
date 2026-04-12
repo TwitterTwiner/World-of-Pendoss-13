@@ -48,7 +48,7 @@
 		/obj/item/storage/pill_bottle/potassiodide,
 		/obj/item/bailer,
 		/obj/item/gun/ballistic/automatic/vampire/deagle,
-		/obj/item/ammo_box/magazine/m44,
+		/obj/item/ammo_box/magazine/vampire/m50,
 		/obj/item/gun/ballistic/automatic/vampire/uzi,
 		/obj/item/ammo_box/magazine/vamp9mm,
 		/obj/item/ammo_box/vampire/c9mm,

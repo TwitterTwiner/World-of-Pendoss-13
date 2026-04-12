@@ -39,7 +39,7 @@
 	shoes = /obj/item/clothing/shoes/vampire
 	r_pocket = /obj/item/vamp/keys/camarilla
 	l_pocket = /obj/item/vamp/phone/hound
-	backpack_contents = list(/obj/item/gun/ballistic/automatic/vampire/deagle=1, /obj/item/ammo_box/magazine/m44=1, /obj/item/ammo_box/vampire/c44=1, /obj/item/passport=1, /obj/item/cockclock=1, /obj/item/flashlight=1, /obj/item/masquerade_contract=1, /obj/item/vamp/keys/hack=1, /obj/item/vamp/creditcard=1, /obj/item/vampire_stake=2)
+	backpack_contents = list(/obj/item/gun/ballistic/automatic/vampire/deagle=1, /obj/item/ammo_box/magazine/vampire/m50=1, /obj/item/ammo_box/vampire/c44=1, /obj/item/passport=1, /obj/item/cockclock=1, /obj/item/flashlight=1, /obj/item/masquerade_contract=1, /obj/item/vamp/keys/hack=1, /obj/item/vamp/creditcard=1, /obj/item/vampire_stake=2)
 
 	backpack = /obj/item/storage/backpack
 	satchel = /obj/item/storage/backpack/satchel

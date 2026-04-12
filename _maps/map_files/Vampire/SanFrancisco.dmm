@@ -33440,7 +33440,7 @@
 "gmj" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch)
 "gml" = (
@@ -55841,7 +55841,7 @@
 /obj/structure/coclock,
 /obj/structure/table/wood/fancy/red,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
 "pKt" = (

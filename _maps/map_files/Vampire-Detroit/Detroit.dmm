@@ -1384,8 +1384,8 @@
 /area/space)
 "fD" = (
 /obj/structure/rack,
-/obj/item/ammo_box/magazine/m44,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
+/obj/item/ammo_box/magazine/vampire/m50,
 /turf/open/floor/plating/sidewalk/poor,
 /area/space)
 "fE" = (
@@ -5354,7 +5354,7 @@
 	dir = 4
 	},
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
 /obj/item/drinkable_bloodpack,
 /obj/item/drinkable_bloodpack,
 /obj/effect/turf_decal/siding/red{
@@ -6887,7 +6887,7 @@
 /obj/structure/table/reinforced,
 /obj/item/melee/vampirearms/katana,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
 /obj/item/drinkable_bloodpack,
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -7448,7 +7448,7 @@
 "Fs" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
 /obj/item/storage/box/handcuffs,
 /obj/item/drinkable_bloodpack,
 /turf/open/floor/plating/granite/black,
@@ -9833,10 +9833,10 @@
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
-/obj/item/ammo_box/magazine/m44,
-/obj/item/ammo_box/magazine/m44,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
+/obj/item/ammo_box/magazine/vampire/m50,
+/obj/item/ammo_box/magazine/vampire/m50,
+/obj/item/ammo_box/magazine/vampire/m50,
 /turf/open/floor/plating/parquetry,
 /area/space)
 "PL" = (
@@ -12216,7 +12216,7 @@
 "Zw" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
 /obj/item/storage/box/handcuffs,
 /obj/effect/turf_decal/siding/red{
 	dir = 4
