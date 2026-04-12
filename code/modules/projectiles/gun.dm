@@ -483,8 +483,10 @@
 			user.Stun(10)
 			golova.receive_damage(10)
 			to_chat(user, span_danger("[src] вылетело у тебя прямо из рук и ударило тебя по лицу!"))
-	if(user.MyPath)
-		user.MyPath.trigger_morality("gun_fail")
+
+	var/mob/living/carbon/C
+	if(C.MyPath)
+		C.MyPath.trigger_morality("gun_fail")
 
 
 /obj/item/gun/attack(mob/M as mob, mob/user)
