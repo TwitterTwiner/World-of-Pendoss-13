@@ -67230,7 +67230,7 @@
 	name = "Justice";
 	cost = 2000
 	},
-/obj/item/ammo_box/magazine/vampautoshot,
+/obj/item/ammo_box/magazine/vampire/vampautoshot,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police)
 "uHb" = (
