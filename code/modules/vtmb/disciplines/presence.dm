@@ -71,9 +71,9 @@
 			continue
 		if(get_trufaith_level(living_target) >= 3)
 			continue
-		/*var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_performance(owner), 7, owner, TRUE)
-		if(success_chance >= 3)*/
-		affected_mobs += living_target
+		var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_performance(owner), 7, owner, TRUE)
+		if(success_chance >= 3)
+			affected_mobs += living_target
 
 	if(!affected_mobs.len)
 		to_chat(owner, span_warning("Тебе не удаётся ни на кого произвести впечатление."))
@@ -248,13 +248,13 @@
 			continue
 		if(get_trufaith_level(living_target) >= 3)
 			continue
-		/*var/consience = 0
+		var/consience = 0
 		if(ishuman(living_target))
 			var/mob/living/carbon/human/human_target = living_target
-			consience = human_target.MyPath?.consience*/
-		/*var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_intimidation(owner), get_a_wits(living_target)+consience, owner, TRUE)
-		if(success_chance >= 3)*/
-		affected_mobs += living_target
+			consience = human_target.MyPath?.consience
+		var/success_chance = secret_vampireroll(get_a_charisma(owner)+get_a_intimidation(owner), get_a_wits(living_target)+consience, owner, TRUE)
+		if(success_chance >= 3)
+			affected_mobs += living_target
 
 	if(!affected_mobs.len)
 		to_chat(owner, span_warning("Тебе не удаётся ни кого запугать."))
@@ -365,7 +365,7 @@
 		to_chat(owner, "<span class='warning'>You fail at sway!</span>")
 		owner.emote("stare")
 		if(mypower == -1)
-			owner.Stun(3 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 		return FALSE
 
@@ -441,7 +441,7 @@
 		to_chat(owner, "<span class='warning'>You fail at sway!</span>")
 		owner.emote("stare")
 		if(mypower == -1)
-			owner.Stun(3 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 		return FALSE
 
@@ -501,7 +501,7 @@
 		to_chat(owner, "<span class='warning'>You fail at sway!</span>")
 		owner.emote("stare")
 		if(mypower == -1)
-			owner.Stun(3 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 		return FALSE
 
@@ -609,8 +609,13 @@
 			return
 		cool_down = world.time
 		var/mob/living/carbon/human/H = owner
-		H.whisper(pick("Остановись.", "Хватит.", "Прекрати."))
+		if(H.puppets.len == 1)
+			H.whisper(pick("Остановись.", "Хватит.", "Прекрати."))
+		else if(H.puppets.len > 1)
+			H.whisper(pick("Остановитесь.", "Хватит.", "Прекратите."))
 		to_chat(H, "Ты приказываешь своим подчиненным прекратить атаковать.")
 		for(var/mob/living/carbon/human/npc/N in H.puppets)
 			N.presence_enemies = list()
 			N.danger_source = null
+			N.a_intent = INTENT_HELP
+			N.walktarget = null

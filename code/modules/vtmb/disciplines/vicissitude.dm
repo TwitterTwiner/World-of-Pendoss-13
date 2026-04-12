@@ -162,7 +162,7 @@
 	switch(roll)
 		if(-INFINITY to -1)
 			to_chat(owner, span_warning("Твоя плоть противится изменению! Тебя корежит изнутри!"))
-			owner.Stun(5 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 			return
 		if(1)
@@ -290,7 +290,7 @@
 		return
 	for(var/i=0, i<roll, i++)
 		if(roll <=  0)
-			owner.Stun(5 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 			to_chat(owner, span_warning("Твоя плоть противится изменению! Тебя корежит изнутри!"))
 			break
@@ -393,7 +393,7 @@
 			if (!do_after(owner, time_delay))
 				return
 
-	owner.Stun(1 SECONDS)
+	owner.Stun(3 SECONDS, TRUE)
 	owner.do_jitter_animation(10)
 	playsound(get_turf(owner), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 

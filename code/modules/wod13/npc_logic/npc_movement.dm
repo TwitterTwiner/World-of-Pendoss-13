@@ -80,9 +80,30 @@
 						SEND_SOUND(HM, sound('code/modules/wod13/sounds/suspect.ogg', 0, 0, 75))
 						to_chat(HM, "<span class='userdanger'><b>POLICE ASSAULT IN PROGRESS</b></span>")
 					else
-						SEND_SOUND(HM, sound('code/modules/wod13/sounds/sus.ogg', 0, 0, 75))
-						to_chat(HM, "<span class='userdanger'><b>SUSPICIOUS ACTION (murder)</b></span>")
+						HM.AdjustHumanity(-1, 0)
+					HM.last_nonraid = world.time
+					HM.killed_count = HM.killed_count+1
+					if(!HM.warrant && !HM.ignores_warrant)
+						if(HM.killed_count >= 5)
+//							GLOB.fuckers |= HM
+							HM.warrant = TRUE
+							SEND_SOUND(HM, sound('code/modules/wod13/sounds/suspect.ogg', 0, 0, 75))
+							to_chat(HM, "<span class='userdanger'><b>POLICE ASSAULT IN PROGRESS</b></span>")
+						else
+							SEND_SOUND(HM, sound('code/modules/wod13/sounds/sus.ogg', 0, 0, 75))
+							to_chat(HM, "<span class='userdanger'><b>SUSPICIOUS ACTION (murder)</b></span>")
 		SEND_SIGNAL(last_attacker, COMSIG_KILL)
+	if(presence_master)
+		var/mob/living/carbon/human/owner = presence_master
+		owner.puppets -= src
+		if(!length(owner.puppets))
+			for(var/datum/action/presence_stay/A in owner.actions)
+				if(A)
+					A.Remove(owner)
+			for(var/datum/action/presence_deaggro/A in owner.actions)
+				if(A)
+					A.Remove(owner)
+
 	remove_overlay(FIGHT_LAYER)
 	..()
 

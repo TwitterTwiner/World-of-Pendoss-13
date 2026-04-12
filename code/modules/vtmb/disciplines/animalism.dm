@@ -33,19 +33,32 @@
 	effect_sound = 'code/modules/wod13/sounds/wolves.ogg'
 
 //SUMMON RAT
-/datum/discipline_power/animalism/summon_rat
-	name = "Skittering Critters"
-	desc = "Summons rats to follow you and gnaw on your enemies."
+/datum/discipline_power/animalism/feral_whispers
+	name = "Feral Whispers"
+	desc = "Imbue the beasts with your will."
 
 	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE | DISC_CHECK_LYING
 
+	range = 7
+	target_type = TARGET_LIVING
+
 	level = 1
+	vitae_cost = 0
 	violates_masquerade = FALSE
 
 	cooldown_length = 8 SECONDS
 
-/datum/discipline_power/animalism/summon_rat/activate()
+/datum/discipline_power/animalism/feral_whispers/activate(mob/living/simple_animal/hostile/beastmaster/target)
 	. = ..()
+	if(!istype(target, /mob/living/simple_animal/hostile/beastmaster) || target.animalism_controller)
+		to_chat(owner, span_warning("Над этим существом нельзя взять контроль."))
+		return FALSE
+	var/roll = secret_vampireroll(get_a_manipulation(owner)+get_a_intelligence(owner), 6, owner)
+	if(roll <= 1)
+		to_chat(owner, span_warning("Тебе не удалось взять контроль над этим зверем."))
+		owner.Stun(3 SECONDS, TRUE)
+		owner.do_jitter_animation(10)
+		return FALSE
 	var/limit = get_a_charisma(owner)+get_a_empathy(owner)
 	if(length(owner.beastmaster) >= limit)
 		var/mob/living/simple_animal/hostile/beastmaster/beast = pick(owner.beastmaster)
@@ -56,39 +69,32 @@
 		var/datum/action/beastmaster_deaggro/deaggro = new()
 		deaggro.Grant(owner)
 
-	var/mob/living/simple_animal/hostile/beastmaster/rat/rat = new(get_turf(owner))
-	rat.my_creator = owner
-	owner.beastmaster |= rat
-	rat.beastmaster = owner
+	var/mob/living/simple_animal/hostile/beastmaster/beaster = target
+	beaster.my_creator = owner
+	owner.beastmaster |= beaster
+	beaster.beastmaster = owner
+	if(owner in beaster.enemies)
+		beaster.enemies -= owner
+	if(beaster.targa == owner)
+		beaster.targa = null
 
 /datum/discipline_power/animalism/beckoning
 	name = "Beckoning"
 	desc = "A call that mystically summons animals of the chosen species."
 
-	check_flags = DISC_CHECK_CAPABLE
+	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE | DISC_CHECK_LYING
 
 	level = 2
+	vitae_cost = 0
 	violates_masquerade = TRUE
 
 	cooldown_length = 15 SECONDS
 
 /datum/discipline_power/animalism/beckoning/activate()
 	. = ..()
-	var/roll = secret_vampireroll(get_a_charisma(owner)+get_a_alertness(owner), 6, owner)
-	if(roll == -1)
-		return
 	var/limit = get_a_charisma(owner)+get_a_empathy(owner)
-	var/count = clamp(roll, 1, 5)
 	var/mob_type
 	var/sound_file
-	if(length(owner.beastmaster) >= limit)
-		var/mob/living/simple_animal/hostile/beastmaster/beast = pick(owner.beastmaster)
-		beast.death()
-	if(!length(owner.beastmaster))
-		var/datum/action/beastmaster_stay/stay = new()
-		stay.Grant(owner)
-		var/datum/action/beastmaster_deaggro/deaggro = new()
-		deaggro.Grant(owner)
 	var/area/A = get_area(owner)
 	if(istype(A, /area/vtm/forest))
 		switch(rand(1, 100))
@@ -124,13 +130,27 @@
 				mob_type = /mob/living/simple_animal/hostile/beastmaster/cat
 				sound_file = 'code/modules/wod13/sounds/animalism/cat_meow.ogg'
 				owner.emote("meow")
+	if(length(owner.beastmaster) >= limit)
+		playsound(owner.loc, sound_file, 75, TRUE)
+		to_chat(owner, span_warning("У тебя слишком много зверей под контролем чтобы призывать новых!"))
+		return FALSE
+	var/roll = secret_vampireroll(get_a_charisma(owner)+get_a_alertness(owner), 6, owner)
+	if(roll < 1)
+		to_chat(owner, span_warning("На твой зов никто не откликнулся."))
+		owner.Stun(3 SECONDS, TRUE)
+		owner.do_jitter_animation(10)
+		return FALSE
+	var/count = clamp(roll, 1, 3)
 	var/obj/effect/temp_visual/animalism_summon/animal = new /obj/effect/temp_visual/animalism_summon(owner.loc, "summoning")
 	QDEL_IN(animal, 35)
 	for(var/i = 1, i <= count, i++)
 		var/mob/living/simple_animal/hostile/beastmaster/beast = new mob_type(get_turf(owner))
-		beast.my_creator = owner
-		owner.beastmaster |= beast
-		beast.beastmaster = owner
+		beast.maxbloodpool = 0
+		beast.bloodpool = 0
+		var/loser_roll = secret_vampireroll(get_a_charisma(owner)+get_a_alertness(owner), 6, owner, TRUE)
+		if(loser_roll <= 1)
+			beast.enemies |= owner
+			beast.targa = owner
 	playsound(owner.loc, sound_file, 75, TRUE)
 //SUMMON WOLF
 /*
@@ -167,6 +187,8 @@
 		deaggro.Grant(owner)
 
 	var/mob/living/simple_animal/hostile/beastmaster/dog = new(get_turf(owner))
+	dog.maxbloodpool = 0
+	dog.bloodpool = 0
 	dog.my_creator = owner
 	owner.beastmaster |= dog
 	dog.beastmaster = owner
@@ -178,9 +200,10 @@
 
 	target_type = TARGET_LIVING
 	range = 7
-	check_flags = DISC_CHECK_CAPABLE
+	check_flags = DISC_CHECK_IMMOBILE | DISC_CHECK_CAPABLE | DISC_CHECK_LYING
 
 	level = 4
+	vitae_cost = 0
 
 	cooldown_length = 15 SECONDS
 
@@ -192,7 +215,7 @@
 	var/success_roll = secret_vampireroll(get_a_manipulation(owner)+get_a_performance(owner), 8, owner)
 	if(success_roll < 1)
 		to_chat(owner, span_warning("Не удалось взять зверя под контроль!"))
-		owner.Stun(3 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE

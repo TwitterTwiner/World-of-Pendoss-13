@@ -103,7 +103,7 @@
 	success_roll = secret_vampireroll(get_a_willpower(owner)+get_a_occult(owner), level+3, owner)
 	if(success_roll <= 0)
 		to_chat(owner, span_notice("Your magic fizzles out!"))
-		owner.Stun(3 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		owner.do_jitter_animation(10)
 		return FALSE
 	return TRUE

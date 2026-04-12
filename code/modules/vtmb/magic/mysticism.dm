@@ -135,8 +135,8 @@
 	maxbodytemp = 1500
 	faction = list("Lasombra")
 	pressure_resistance = 200
-	bloodpool = 1
-	maxbloodpool = 1
+	bloodpool = 0
+	maxbloodpool = 0
 
 /obj/abyssrune/identification
 	name = "Occult Items Identification"

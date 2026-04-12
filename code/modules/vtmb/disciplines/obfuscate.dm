@@ -237,7 +237,7 @@
 	switch(roll)
 		if(-INFINITY to -1)
 			to_chat(owner, span_warning("Твоя суть противится изменению! Тебя корежит изнутри!"))
-			owner.Stun(5 SECONDS)
+			owner.Stun(3 SECONDS, TRUE)
 			owner.do_jitter_animation(10)
 			return
 		if(1)
@@ -457,7 +457,7 @@
 //		return
 	if(proval)
 		to_chat(owner, "У тебя появляются образы в голове! Тебе становится страшно от видений!")
-		owner.Stun(10 SECONDS)
+		owner.Stun(3 SECONDS, TRUE)
 		owner.do_jitter_animation(10)
 		proval = 0
 		return
