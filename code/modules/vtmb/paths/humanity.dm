@@ -444,9 +444,8 @@
 			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_diablerie_jertva]</span>")
 
 		if("gun_fail")
-			var/replic_gun_fail = pick(" — Пуля очень многое меняет в жизни. Даже, если попадает в задницу.", " — Оружие, которым ты не умеешь пользоваться, будет обращено против тебя.", " — Это было небольшой ценой за ошибку. Ты мог лишиься гораздо большего.",
-			 " — Не стоит недооценивать опасность огнестрельного оружия, особенно если ты не умеешь им пользоваться.")
-			 to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_gun_fail]</span>")
+			var/replic_gun_fail = pick(" — Пуля очень многое меняет в жизни. Даже, если попадает в задницу.", " — Оружие, которым ты не умеешь пользоваться, будет обращено против тебя.", " — Это было небольшой ценой за ошибку. Ты мог лишиься гораздо большего.", " — Не стоит недооценивать опасность огнестрельного оружия, особенно если ты не умеешь им пользоваться.")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_gun_fail]</span>")
 
 	return TRUE
 //"slur" = 10, "attackfirst" = 9, "failing" = 8 "steal" = 7, "robbery" = 6, "drying" = 5, "drugdealing" = 4, "killparticipation" = 3, "killcommit" = 2, "sadism" = 1, "burningalive" = 1, "massmurder" = 0
