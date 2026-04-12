@@ -513,6 +513,13 @@
 	cost = 250
 	difficult = 1
 
+/obj/item/gun/ballistic/automatic/vampire/sniper/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	if(user.body_position == LYING_DOWN)
+		difficult = 0
+	. = ..()
+
+
+
 /obj/item/ammo_box/magazine/internal/vampshotgun
 	name = "shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/vampire/c12g
