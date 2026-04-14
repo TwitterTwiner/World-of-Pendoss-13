@@ -275,7 +275,7 @@
 	name = "Weapon (mini uzi)"
 	desc = "Contains a mini uzi."
 	cost = 1000
-	contains = list(/obj/item/gun/ballistic/automatic/vampire/uzi, /obj/item/ammo_box/magazine/vamp9mm)
+	contains = list(/obj/item/gun/ballistic/automatic/vampire/uzi, /obj/item/ammo_box/magazine/vampire/vamp9mm)
 	crate_name = "weapon crate"
 
 /datum/supply_pack/vampire/weaponrifle
@@ -465,7 +465,7 @@
 	name = "Ammo (3x mini uzi magazines)"
 	desc = "Contains three mini uzi magazines."
 	cost = 200
-	contains = list(/obj/item/ammo_box/magazine/vamp9mm, /obj/item/ammo_box/magazine/vamp9mm, /obj/item/ammo_box/magazine/vamp9mm)
+	contains = list(/obj/item/ammo_box/magazine/vampire/vamp9mm, /obj/item/ammo_box/magazine/vampire/vamp9mm, /obj/item/ammo_box/magazine/vampire/vamp9mm)
 	crate_name = "ammo crate"
 
 /datum/supply_pack/vampire/magazine_ar15

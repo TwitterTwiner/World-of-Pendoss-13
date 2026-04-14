@@ -1149,7 +1149,7 @@
 	dir = 8
 	},
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /obj/effect/turf_decal/siding/red{
 	dir = 1;
 	icon_state = "siding_line"
@@ -6840,8 +6840,8 @@
 /obj/structure/table/reinforced,
 /obj/item/melee/vampirearms/knife,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /turf/open/floor/plating/granite/black,
 /area/space)
 "Db" = (
@@ -7347,7 +7347,7 @@
 	dir = 4
 	},
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /turf/open/floor/plating/granite/black,
 /area/space)
 "EW" = (
@@ -9265,7 +9265,7 @@
 "Nv" = (
 /obj/structure/closet,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /turf/open/floor/plating/sidewalk/poor,
 /area/space)
 "Nz" = (
@@ -9560,8 +9560,8 @@
 "OI" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /turf/open/floor/plating/parquetry,
 /area/space)
 "OJ" = (

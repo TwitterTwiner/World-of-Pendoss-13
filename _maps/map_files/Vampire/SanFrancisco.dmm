@@ -38107,8 +38107,8 @@
 /obj/structure/rack,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "igF" = (
@@ -41568,8 +41568,8 @@
 /obj/structure/rack,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior)
 "jBN" = (
@@ -41657,7 +41657,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /obj/item/melee/vampirearms/baseball,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)

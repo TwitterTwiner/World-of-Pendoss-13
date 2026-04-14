@@ -398,6 +398,12 @@
 	ammo_type = /obj/item/ammo_casing/caseless/bolt
 	max_ammo = 30
 
+/obj/item/ammo_box/vampire/c50
+	name = "ammo box (.50)"
+	icon_state = "44box"
+	ammo_type = /obj/item/ammo_casing/vampire/c50
+	max_ammo = 60
+
 //obj/item/ammo_casing/vampire/c12g/buck/silver
 //	name = "silver 12g shell casing"
 //	desc = "A silver filled 12g shell casing."
