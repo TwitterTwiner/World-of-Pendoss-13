@@ -12,8 +12,8 @@
 	var/zoom_out_amt = 5.5
 	var/zoom_amt = 10
 	var/time_zoom = 15
-	var/range_x = 1500
-	var/range_y = 1500
+	var/range_x = 1200
+	var/range_y = 1200
 
 /obj/item/binoculars/Initialize(mapload)
 	. = ..()
