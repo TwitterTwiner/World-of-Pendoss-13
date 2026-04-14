@@ -11,7 +11,7 @@
 	var/mob/listeningTo
 	var/zoom_out_amt = 5.5
 	var/zoom_amt = 10
-	var/time_zoom = 10
+	var/time_zoom = 15
 	var/range_x = 1500
 	var/range_y = 1500
 
@@ -53,7 +53,7 @@
 			range_y = 0
 			range_x = -(initial(range_x))
 	user.client.view_size.zoomOut(zoom_out_amt, zoom_amt, user.dir)
-	animate(user.client, pixel_x = range_x, pixel_y = range_y, time = time_zoom, easing = SINE_EASING)
+	animate(user.client, pixel_x = range_x, pixel_y = range_y, time = time_zoom, easing = CIRCULAR_EASING|EASE_IN)
 
 
 /obj/item/binoculars/proc/rotate(atom/thing, old_dir, new_dir)

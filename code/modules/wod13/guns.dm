@@ -518,7 +518,7 @@
 			range_y = 0
 			range_x = -(initial(range_x))
 	owner.client.view_size.zoomOut(zoom_out, zoom_amt, owner.dir)
-	animate(owner.client, pixel_x = range_x, pixel_y = range_y, time = zoom_time, easing = SINE_EASING)
+	animate(owner.client, pixel_x = range_x, pixel_y = range_y, time = zoom_time, easing = CIRCULAR_EASING|EASE_IN)
 	scoped = TRUE
 
 /datum/action/item_action/scope/proc/un_scope(mob/owner)
