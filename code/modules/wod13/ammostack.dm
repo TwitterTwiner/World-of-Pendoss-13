@@ -144,7 +144,7 @@
 
 /obj/projectile/beam/beam_rifle/vampire/vamp12g/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	if(iscarbon(target))
+	if(iscarbon(target) && ishumanbasic(target))
 		var/mob/living/carbon/M = target
 		var/roll = secret_vampireroll(get_a_stamina(M), 6, M, TRUE)
 		if(roll <= 3)
