@@ -278,7 +278,8 @@
 	grid_width = 7 GRID_BOXES
 	grid_height = 10 GRID_BOXES
 
-/obj/item/ammo_box/magazine/vampire/sniper
+
+/obj/item/ammo_box/vampire/c338
 	grid_width = 2 GRID_BOXES
 	grid_height = 1 GRID_BOXES
 
