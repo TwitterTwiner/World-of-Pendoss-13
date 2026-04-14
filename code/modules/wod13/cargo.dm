@@ -303,7 +303,7 @@
 	name = "Weapon (sniper rifle)"
 	desc = "Contains a sniper rifle."
 	cost = 2000
-	contains = list(/obj/item/gun/ballistic/automatic/vampire/sniper)
+	contains = list(/obj/item/gun/ballistic/automatic/vampire/sniper, /obj/item/ammo_box/vampire/c338, /obj/item/ammo_box/magazine/vampire/sniper, /obj/item/ammo_box/magazine/vampire/sniper)
 	crate_name = "weapon crate"
 
 /datum/supply_pack/vampire/weaponcrossbow

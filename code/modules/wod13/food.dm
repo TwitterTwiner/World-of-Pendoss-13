@@ -523,6 +523,8 @@
 		new /datum/data/mining_equipment("hunt rifle",		/obj/item/gun/ballistic/rifle/boltaction/vampire, 800),
 		new /datum/data/mining_equipment("12ga shotgun shells, buckshot",/obj/item/ammo_box/vampire/c12g/buck,	1200),
 		new /datum/data/mining_equipment("12ga shotgun shells",/obj/item/ammo_box/vampire/c12g,	1200),
+		new /datum/data/mining_equipment(".308 Winchester ",/obj/item/ammo_box/vampire/c308,	500),
+		new /datum/data/mining_equipment(".338 ammo",/obj/item/ammo_box/vampire/c338,	600),
 		new /datum/data/mining_equipment("desert eagle magazine",	/obj/item/ammo_box/magazine/vampire/m50,	100),
 		new /datum/data/mining_equipment("Glock19 magazine",		/obj/item/ammo_box/magazine/vampire/glock9mm,	100),
 		new /datum/data/mining_equipment("9mm pistol magazine, 18 rounds",		/obj/item/ammo_box/magazine/semi9mm,	100),
