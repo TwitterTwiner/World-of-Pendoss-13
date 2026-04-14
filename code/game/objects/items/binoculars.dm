@@ -1,5 +1,3 @@
-#define KARL1 14
-#define KARL2 15
 /obj/item/binoculars
 	name = "binoculars"
 	desc = "Used for long-distance surveillance."
