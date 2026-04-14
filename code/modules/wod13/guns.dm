@@ -484,6 +484,52 @@
 	icon_state = "sniper"
 	multiple_sprites = AMMO_BOX_FULL_EMPTY
 
+/datum/action/item_action/scope
+	name = "Scope"
+	desc = "Use scope your's rifle"
+	button_icon_state = "scope"
+	var/range_x = 1000
+	var/range_y = 1000
+	var/zoom_time = 8
+	var/zoom_amt = 10
+	var/zoom_out = 5.5
+	var/scoped = FALSE
+
+/datum/action/item_action/scope/Trigger()
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(un_scope))
+	if(!scoped)
+		scope(owner)
+	else
+		un_scope(owner)
+
+/datum/action/item_action/scope/proc/scope(mob/owner)
+	var/direction = owner.dir
+	switch(direction)
+		if(NORTH)
+			range_x = 0
+			range_y = initial(range_y)
+		if(SOUTH)
+			range_x = 0
+			range_y = -(initial(range_y))
+		if(EAST)
+			range_x = (initial(range_x))
+			range_y = 0
+		if(WEST)
+			range_y = 0
+			range_x = -(initial(range_x))
+	owner.client.view_size.zoomOut(zoom_out, zoom_amt, owner.dir)
+	animate(owner.client, pixel_x = range_x, pixel_y = range_y, time = zoom_time, easing = SINE_EASING)
+	scoped = TRUE
+
+/datum/action/item_action/scope/proc/un_scope(mob/owner)
+	SIGNAL_HANDLER
+
+
+	owner.regenerate_icons()
+	owner.client.view_size.zoomIn()
+	scoped = FALSE
+
+
 /obj/item/gun/ballistic/automatic/vampire/sniper
 	name = "sniper rifle"
 	desc = "A long ranged weapon that does significant damage. No, you can't quickscope."
@@ -508,7 +554,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK
 	projectile_damage_multiplier = 3
-	actions_types = list()
+	actions_types = list(/datum/action/item_action/scope)
 	masquerade_violating = TRUE
 	cost = 250
 	difficult = 1
@@ -791,9 +837,10 @@
 	fire_delay = 3
 	burst_size = 1
 	actions_types = list()
-	masquerade_violating = TRUE
+	masquerade_violating = FALSE
 	cost = 250
 	jamming_chance = 10
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 
 /obj/item/ammo_box/magazine/vampire/hunt_rifle
 	name = "rifle magazine (.308 Winchester)"
