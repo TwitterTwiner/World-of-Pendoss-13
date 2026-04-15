@@ -542,7 +542,7 @@
 	bolt_wording = "bolt"
 	bolt_type = BOLT_TYPE_STANDARD
 	semi_auto = FALSE
-	internal_magazine = TRUE
+//	internal_magazine = TRUE
 	fire_sound = 'code/modules/wod13/sounds/sniper.ogg'
 	fire_sound_volume = 90
 	vary_fire_sound = FALSE
