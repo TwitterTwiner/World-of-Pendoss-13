@@ -725,7 +725,9 @@
 
 
 /datum/preferences/proc/Character_List(mob/user, list/dat)
-	dat += "Awaibal points: [true_experience]<BR>"
+	dat += "Awaibal points: [true_experience]"
+
+	dat += "<a href='byond://?_src_=prefs;preference=reset_list;task=input'> Reset points</a>"
 
 	dat += "<h2>[make_font_cool("ATTRIBUTES")]</h2>"
 
