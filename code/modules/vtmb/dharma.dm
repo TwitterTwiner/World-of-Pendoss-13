@@ -22,7 +22,7 @@
 	var/list/deserving = list()
 	var/list/judgement = list()
 
-	var/willpower = 4
+	var/willpower = 5
 
 	COOLDOWN_DECLARE(dharma_update)
 	COOLDOWN_DECLARE(po_call)
