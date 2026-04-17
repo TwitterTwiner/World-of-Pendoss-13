@@ -22,7 +22,7 @@
 	var/list/deserving = list()
 	var/list/judgement = list()
 
-	var/willpower = 1
+	var/willpower = 4
 
 	COOLDOWN_DECLARE(dharma_update)
 	COOLDOWN_DECLARE(po_call)
@@ -135,7 +135,7 @@
 	COOLDOWN_START(dharma, dharma_update, 15 SECONDS)
 
 	dharma.level = clamp(dharma.level + dot, 0, 6)
-	dharma.willpower = clamp(dharma.willpower, 0, dharma.level)
+	dharma.willpower = clamp(dharma.willpower+4, 0, dharma.level+4)
 	dharma.align_virtues(kueijin)
 
 	if(dot < 0)
@@ -144,7 +144,7 @@
 	else if(dot > 0)
 		SEND_SOUND(kueijin, sound('code/modules/wod13/sounds/dharma_increase.ogg', 0, 0, 75))
 		to_chat(kueijin, "<span class='userdanger'><b>DHARMA RISES!</b></span>")
-		dharma.willpower = min(dharma.level, dharma.willpower+1)
+		dharma.willpower = min(dharma.level+4, dharma.willpower+1)
 
 	if(dharma.level < 5)
 		for(var/datum/action/breathe_chi/breathe_action in kueijin.actions)
