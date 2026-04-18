@@ -135,7 +135,7 @@
 	COOLDOWN_START(dharma, dharma_update, 15 SECONDS)
 
 	dharma.level = clamp(dharma.level + dot, 0, 6)
-	dharma.willpower = clamp(dharma.willpower + 4, 0, dharma.level + 4)
+	dharma.willpower = clamp(dharma.willpower, 0, dharma.level + 4)
 	dharma.align_virtues(kueijin)
 
 	if(dot < 0)
