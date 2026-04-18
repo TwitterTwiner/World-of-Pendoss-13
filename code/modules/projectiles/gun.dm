@@ -421,7 +421,8 @@
 				add_hard = 3
 			if(target == user)
 				add_hard = -5
-			if(get_a_firearms(user) < 5)
+		//	if(get_a_firearms(user) >= 5)
+			if(get_a_perception(user) >= 5)
 				difficult = -1
 
 			var/successess = secret_vampireroll(used_roll+get_a_firearms(user), 4+add_hard+difficult, user)

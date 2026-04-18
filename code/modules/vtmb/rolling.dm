@@ -594,7 +594,7 @@ SUBSYSTEM_DEF(woddices)
 	if(iskindred(host) || isghoul(host))
 		if(host.vampire_faction == "Camarilla" || host.vampire_faction == "Anarchs" || host.vampire_faction == "Sabbat" || host.vampire_faction == "Giovanni" || host.vampire_faction == "Triad")
 			memories += "I belong to [host.vampire_faction] faction, I shouldn't disobey their rules."
-		if(host.generation)
+		if(host.generation && iskindred(host))
 			memories += "I'm from [host.generation] generation."
 		var/masquerade_level = " followed the Masquerade Tradition perfectly."
 		switch(host.masquerade)
