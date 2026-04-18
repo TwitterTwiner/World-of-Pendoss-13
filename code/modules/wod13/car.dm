@@ -394,7 +394,7 @@ SUBSYSTEM_DEF(carpool)
 	if(cost > 0)
 		health = min(maxhealth, health-cost)
 
-	if(health == 0)
+	if(health >= 0)
 		on = FALSE
 		set_light(0)
 		color = "#919191"
@@ -727,33 +727,8 @@ SUBSYSTEM_DEF(carpool)
 
 	else
 		speed_in_pixels = 0
-	/*	if(istype(A, /obj/transfer_point_vamp))
-			var/obj/transfer_point_vamp/TPV = A
-			last_pos["x"] = -100
-			last_pos["y"] = -100
-			last_pos["x_pix"] = -100
-			last_pos["y_pix"] = -100
-			last_pos["x_frwd"] = -100
-			last_pos["y_frwd"] = -100
-			to_chat(world, "[src.x],[src.y] bumped into TPV")
-		//	TPV.Bumped(src)
-		//	var/turf/T = get_step(TPV.exit, get_dir(src, TPV))
-			var/x_x = TPV.exit.x - 30
-			var/turf/T = locate(x_x, TPV.exit.y, TPV.exit.z)
-			to_chat(world, "[T]")
-		//	src.forceMove(T)
-			to_chat(world, "[src.x],[src.y] teleported by TPV [T.x], [T.y]")
-		//	src.forceMove(T)
-			for(var/mob/living/L in src)
-				if(L)
-					if(L.client)
-						L.client.pixel_x = 0
-						L.client.pixel_y = 0
-			return
-			*/
 		var/dam = prev_speed*2
 		playsound(src, 'code/modules/wod13/sounds/bump.ogg', 75, TRUE)
-	//	speed_in_pixels = 0
 		impact_delay = world.time
 		get_damage(dam, , dam)
 	last_pos["x_pix"] = 0
@@ -963,8 +938,8 @@ SUBSYSTEM_DEF(carpool)
 						if(istype(contact, /obj/transfer_point_vamp))
 							var/obj/transfer_point_vamp/TPV = contact
 							TPV.Bumped(src)
-						if(istype(A, /obj/structure)) /// structure for future itereations
-							var/obj/structure/hit_obj = A
+						if(istype(contact, /obj/structure)) /// structure for future itereations
+							var/obj/structure/hit_obj = contact
 							if(istype(hit_obj, /obj/structure/barrier_tape/police))
 								qdel(hit_obj)
 		var/turf/hit_turf
