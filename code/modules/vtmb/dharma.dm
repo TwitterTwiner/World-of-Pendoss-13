@@ -144,7 +144,7 @@
 	else if(dot > 0)
 		SEND_SOUND(kueijin, sound('code/modules/wod13/sounds/dharma_increase.ogg', 0, 0, 75))
 		to_chat(kueijin, "<span class='userdanger'><b>DHARMA RISES!</b></span>")
-		dharma.willpower = min(dharma.level + 4, dharma.willpower + 1)
+		dharma.willpower = max(dharma.level + 4, dharma.willpower + 1)
 
 	if(dharma.level < 5)
 		for(var/datum/action/breathe_chi/breathe_action in kueijin.actions)
