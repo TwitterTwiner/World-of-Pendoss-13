@@ -389,7 +389,7 @@
 					if(H.mind)
 						H.mind.dharma = new H.client.prefs.dharma_type()
 						H.mind.dharma.level = H.client.prefs.dharma_level
-						H.mind.dharma.willpower = H.client.prefs.dharma_level
+				//		H.mind.dharma.willpower = H.client.prefs.dharma_level
 						H.mind.dharma.Po = H.client.prefs.po_type
 						H.mind.dharma.Hun = H.client.prefs.hun
 						H.mind.dharma.on_gain(H)
