@@ -27,6 +27,10 @@ SUBSYSTEM_DEF(idlenpcpool)
 		var/list/idlelist = GLOB.simple_animals[AI_IDLE]
 		src.currentrun = idlelist.Copy()
 
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		if(O)
+			O.update_psyche()
+
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 

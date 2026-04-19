@@ -22,7 +22,8 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	invisibility = INVISIBILITY_OBSERVER
 	hud_type = /datum/hud/ghost
-	movement_type = GROUND | FLYING | PHASING //[Lucifernix] - phasing is what lets ghosts walk through walls, so I readded it
+	movement_type = GROUND | PHASING	// [BadTeammate] - Fuck you luci //[Lucifernix] - phasing is what lets ghosts walk through walls, so I readded it
+	move_resist = MOVE_FORCE_OVERPOWERING
 	light_system = MOVABLE_LIGHT
 	light_range = 1
 	light_power = 2
@@ -35,7 +36,7 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghost - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
-	var/movement_delay = 0 // [ChillRaccoon] - movement delay
+	var/movement_delay = 2 // [ChillRaccoon] - movement delay
 	var/atom/movable/following = null
 	var/fun_verbs = 0
 	var/image/ghostimage_default = null //this mobs ghost image without accessories and dirs
@@ -72,6 +73,44 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	var/datum/spawners_menu/spawners_menu
 	var/aghosted = FALSE
 
+	var/corpus = 10
+	var/psyche = 5
+	var/pathos = 5
+	var/area/vtm/myplace
+	var/obj/item/relic
+	var/mob/living/fetter
+
+	var/acting = FALSE
+	var/lastattack = 0
+
+	var/lastcorpusdamage = 0
+
+	var/lastslumber = - 1 MINUTES
+
+/mob/dead/observer/proc/damage_corpus()
+	if(lastcorpusdamage < world.time)
+		lastcorpusdamage = world.time+15 SECONDS
+		if(invisibility == 0)
+			lastcorpusdamage = world.time+2 SECONDS
+		corpus = max(0, corpus-1)
+		new /obj/effect/decal/remains/plasma (get_turf(src))
+		to_chat(src, "<span class='phobia'>You feel pain, like you did when you where alive!</span>")
+		playsound(get_turf(src), 'sound/effects/ghost.ogg', 100, TRUE)
+		for(var/mob/M in orange(7, src))
+			if(M)
+				to_chat(M, "<span class='phobia'>Something screeches through the fabric of existence...</span>")
+		if(hud_used)
+			hud_used.corpus_icon.icon_state = "corpus[corpus]"
+
+	if(corpus == 0)
+		if(client)
+			client.screen.Cut()
+			client.screen += client.void
+
+		var/mob/dead/new_player/M = new /mob/dead/new_player()
+		src << sound(null)
+		M.key = key
+
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
 
@@ -80,16 +119,16 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 		/mob/dead/observer/proc/open_spawners_menu,
 		/mob/dead/observer/proc/tray_view))
 
-	if(icon_state in GLOB.ghost_forms_with_directions_list)
-		ghostimage_default = image(src.icon,src,src.icon_state + "_nodir")
-	else
-		ghostimage_default = image(src.icon,src,src.icon_state)
-	ghostimage_default.override = TRUE
-	GLOB.ghost_images_default |= ghostimage_default
+//	if(icon_state in GLOB.ghost_forms_with_directions_list)
+//		ghostimage_default = image(src.icon,src,src.icon_state + "_nodir")
+//	else
+//		ghostimage_default = image(src.icon,src,src.icon_state)
+//	ghostimage_default.override = TRUE
+//	GLOB.ghost_images_default |= ghostimage_default
 
-	ghostimage_simple = image(src.icon,src,"ghost_nodir")
-	ghostimage_simple.override = TRUE
-	GLOB.ghost_images_simple |= ghostimage_simple
+//	ghostimage_simple = image(src.icon,src,"ghost_nodir")
+//	ghostimage_simple.override = TRUE
+//	GLOB.ghost_images_simple |= ghostimage_simple
 
 	updateallghostimages()
 
@@ -211,10 +250,10 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 
 	if(new_form)
 		icon_state = new_form
-		if(icon_state in GLOB.ghost_forms_with_directions_list)
-			ghostimage_default.icon_state = new_form + "_nodir" //if this icon has dirs, the default ghostimage must use its nodir version or clients with the preference set to default sprites only will see the dirs
-		else
-			ghostimage_default.icon_state = new_form
+//		if(icon_state in GLOB.ghost_forms_with_directions_list)
+//			ghostimage_default.icon_state = new_form + "_nodir" //if this icon has dirs, the default ghostimage must use its nodir version or clients with the preference set to default sprites only will see the dirs
+//		else
+//			ghostimage_default.icon_state = new_form
 
 	if(ghost_accs >= GHOST_ACCS_DIR && (icon_state in GLOB.ghost_forms_with_directions_list)) //if this icon has dirs AND the client wants to show them, we make sure we update the dir on movement
 		updatedir = 1
@@ -272,11 +311,43 @@ Works together with spawning an observer, noted above.
 		//if(key[1] != "@") // Skip aghosts.
 		stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
 		var/mob/dead/observer/ghost = new(src)	// Transfer safety to observer spawning proc.
+		if(istype(get_area(src), /area/vtm))
+			ghost.myplace = get_area(src)
+		var/list/relics = list()
+		for(var/obj/item/I in range(2, src))
+			if(I)
+				relics += I
+		for(var/obj/item/I in src.contents)
+			if(I)
+				relics += I
+		if(length(relics))
+			ghost.relic = pick(relics)
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if(H.Myself?.Lover?.owner)
+				ghost.fetter = H.Myself?.Lover?.owner
+			else if(H.Myself?.Friend?.owner)
+				ghost.fetter = H.Myself?.Friend?.owner
 		SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
 		ghost.can_reenter_corpse = can_reenter_corpse
 		// [ChillRaccoon] - setting mob icons
-		ghost.icon = src.icon // [ChillRaccoon] - We should transfer mob visuals to the ghost
-		ghost.overlays = src.overlays // [ChillRaccoon] - Overlays too, else we will not see wounds, hair, skin, and etc.
+		var/datum/preferences/P = GLOB.preferences_datums[ckey(key)]
+		if(P)
+			ghost.appearance = P.ghost_preview()
+			unset_busy_human_dummy(DUMMY_HUMAN_SLOT_GHOST)
+			ghost.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			ghost.invisibility = INVISIBILITY_OBSERVER
+			ghost.layer = GHOST_LAYER
+			var/mutable_appearance/ghost_overlay = mutable_appearance('icons/effects/64x64.dmi', "curse", ghost.layer-1)
+			ghost_overlay.pixel_x = -16
+			ghost_overlay.pixel_y = -16
+			ghost_overlay.alpha = 196
+			ghost.overlays += ghost_overlay
+		//	ghost.icon = src.icon // [ChillRaccoon] - We should transfer mob visuals to the ghost
+		//	ghost.overlays = src.overlays // [ChillRaccoon] - Overlays too, else we will not see wounds, hair, skin, and etc.
+			ghost.color = GLOB.CMNoir	// [BadTeammate] - BOOO SCARY GHOSTS AURA
+			ghost.alpha = 180
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/ghost_varspeed, multiplicative_slowdown = ghost.movement_delay)
 		// -------
 		ghost.key = key
 		ghost.client.init_verbs()
@@ -289,6 +360,10 @@ Works together with spawning an observer, noted above.
 
 		if(!can_reenter_corpse)	// Disassociates observer mind from the body mind
 			ghost.mind = null
+		if(length(relics))
+			var/result = tgui_input_list(ghost, "Choose a relic", "Relic", sortList(relics))
+			if(result)
+				ghost.relic = result
 		return ghost
 
 /mob/living/ghostize(can_reenter_corpse = TRUE, aghosted = FALSE)
@@ -296,6 +371,33 @@ Works together with spawning an observer, noted above.
 	if(. && can_reenter_corpse)
 		var/mob/dead/observer/ghost = .
 		ghost.mind.current?.med_hud_set_status()
+
+/mob/dead/observer/proc/update_psyche()
+	var/fetter_around = 0
+	if(fetter)
+		if(get_area(fetter) == get_area(src))
+			fetter_around = 1
+	var/relic_around = 0
+	if(relic)
+		if(get_area(relic) == get_area(src))
+			relic_around = 1
+	var/low_wall = 0
+	var/deaths_here = 0
+	if(istype(get_area(src), /area/vtm))
+		var/area/vtm/V = get_area(src)
+		if(V.wall_rating == 1)
+			low_wall = 1
+		if(V.deathcounter > 0)
+			deaths_here = 1
+	var/my_death_here = 0
+	if(get_area(src) == myplace)
+		my_death_here = 1
+	psyche = fetter_around+relic_around+low_wall+deaths_here+my_death_here
+	if(hud_used)
+		if(hud_used.psyche_icon)
+			hud_used.psyche_icon = "psyche[psyche]"
+		if(hud_used.pathos_icon)
+			hud_used.pathos_icon = "pathos[pathos]"
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -324,6 +426,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/Move(NewLoc, direct, glide_size_override = 32)
 	..()
+	update_zone_hud()
+	update_psyche()
+	dir = get_dir(loc, NewLoc)
+	if(acting)
+		return
+	if(lastslumber > world.time)
+		return
+	for(var/mob/living/L in NewLoc)
+		if(L)
+			if(L.a_intent == INTENT_HARM && L.lying_angle == 0 && L.dir != dir)
+				return
+			else
+				to_chat(L, "<span class='warning'>You feel cold air rushing through you.</span>")
 /*
 	if(updatedir)
 		setDir(direct)//only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
@@ -451,6 +566,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
+	if(!check_rights_for(client, R_ADMIN))
+		to_chat(src, "<span class='warning'>Available only for admins.</span>")
+		return
 	if(!orbit_menu)
 		orbit_menu = new(src)
 
@@ -459,6 +577,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
 	if (!istype(target))
+		return
+
+	if(!check_rights_for(client, R_ADMIN))
+		to_chat(src, "<span class='warning'>Available only for admins.</span>")
 		return
 
 	var/icon/I = icon(target.icon,target.icon_state,target.dir)
@@ -502,6 +624,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/list/dest = list() //List of possible destinations (mobs)
 		var/target = null	   //Chosen target.
 
+		if(!check_rights_for(client, R_ADMIN))
+			to_chat(src, "<span class='warning'>Available only for admins.</span>")
+			return
+
 		dest += getpois(mobs_only = TRUE) //Fill list, prompt user with list
 		target = tgui_input_list(src, "Please, select a player!", "Jump to Mob", dest)
 
@@ -544,7 +670,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/boo()
 	set category = "Ghost"
 	set name = "Boo!"
-	set desc= "Scare your crew members because of boredom!"
+	set desc= "Scare citizens because of boredom!"
 
 	if(bootime > world.time)
 		return

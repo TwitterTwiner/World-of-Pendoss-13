@@ -342,12 +342,22 @@
  * Furthermore, this proc shouldn't check can_hit_target - this should only be called if can hit target is already checked.
  * Also, we select_target to find what to process_hit first.
  */
+
+/turf/proc/damage_ghosts_on_me()
+	for(var/mob/dead/observer/G in src)
+		if(G)
+			G.damage_corpus()
+
 /obj/projectile/proc/Impact(atom/A)
 	if(!trajectory)
 		qdel(src)
 		return FALSE
 	if(impacted[A])		// NEVER doublehit
 		return FALSE
+	var/list/turfline = getline(starting,A)
+	for(var/turf/J in turfline)
+		if(J)
+			J.damage_ghosts_on_me()
 	var/datum/point/pcache = trajectory.copy_to()
 	var/turf/T = get_turf(A)
 	if(ricochets < ricochets_max && check_ricochet_flag(A) && check_ricochet(A))

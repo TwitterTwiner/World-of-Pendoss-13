@@ -906,6 +906,7 @@ SUBSYSTEM_DEF(carpool)
 		)
 		for(var/turf/T in get_line(src, check_turf_ahead))
 			if(T)
+				T.damage_ghosts_on_me()
 				if(length(T.unpassable))
 					for(var/contact in T.unpassable)
 						//make NPC move out of car's way
@@ -1013,6 +1014,20 @@ SUBSYSTEM_DEF(carpool)
 			return
 		if(HAS_TRAIT(H, TRAIT_RESTRAINED))
 			return
+	if(isobserver(mob))
+		gas = max(250, gas)
+		stage = 3
+		if(!on)
+			on = TRUE
+		if(locked)
+			locked = FALSE
+		if(!fari_on)
+			fari_on = TRUE
+			add_overlay(Fari)
+			cut_overlay(CarImage)
+			CarImage.add_overlay(CarLights)
+			add_overlay(CarImage)
+			playsound(src, 'sound/weapons/magin.ogg', 40, TRUE)
 	var/turn_speed = min(abs(speed_in_pixels) / 10, 3)
 	switch(direct)
 		if(NORTH)

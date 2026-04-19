@@ -311,6 +311,10 @@
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	if(mover.movement_type & PHASING)
+		if(isobserver(mover))
+			var/mob/dead/observer/obser = mover
+			if(opacity && !obser.aghosted)
+				return FALSE
 		return TRUE
 	. = CanAllowThrough(mover, target)
 	// This is cheaper than calling the proc every time since most things dont override CanPassThrough

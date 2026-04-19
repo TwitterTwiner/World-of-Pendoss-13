@@ -745,3 +745,37 @@
 				elysium_checks = 0
 				if(HAS_TRAIT(src, TRAIT_ELYSIUM))
 					REMOVE_TRAIT(src, TRAIT_ELYSIUM, "elysium")
+
+/mob/dead/observer/proc/update_zone_hud()
+	if(!client || !hud_used)
+		return
+	if(hud_used.zone_icon)
+		if(istype(get_area(src), /area/vtm))
+			var/area/vtm/V = get_area(src)
+//			message_atom.pixel_y = rand(12, 16)
+			hud_used.zone_icon.maptext_width = 96
+			hud_used.zone_icon.maptext_height = 24
+			hud_used.zone_icon.maptext_x = 30
+			hud_used.zone_icon.maptext_y = 8
+			hud_used.zone_icon.maptext = MAPTEXT(V.name)
+			hud_used.zone_icon.icon_state = "[V.zone_type]"
+			if(hud_used.secret_zone_icon)
+				hud_used.secret_zone_icon.maptext_width = 96
+				hud_used.secret_zone_icon.maptext_height = 24
+				hud_used.secret_zone_icon.maptext_x = 30
+				hud_used.secret_zone_icon.maptext_y = 0
+				hud_used.secret_zone_icon.color = "#727272"
+				var/starting_text
+				switch(V.zone_type)
+					if("battle")
+//						hud_used.secret_zone_icon.color = "#ff6565"
+						starting_text = "Combat"
+					if("masquerade")
+//						hud_used.secret_zone_icon.color = "#ffffff"
+						starting_text = "Neutral"
+					if("elysium")
+//						hud_used.secret_zone_icon.color = "#9bff65"
+						starting_text = "Safe"
+				if(V.zone_owner)
+					starting_text += " ([V.zone_owner])"
+				hud_used.secret_zone_icon.maptext = MAPTEXT(starting_text)

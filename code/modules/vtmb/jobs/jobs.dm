@@ -78,7 +78,11 @@
 	do_sparks(rand(5, 9), FALSE, user)
 	playsound(user.loc, 'code/modules/wod13/sounds/cross.ogg', 100, FALSE, 8, 0.9)
 	for(var/mob/living/M in get_hearers_in_view(4, user.loc))
-		bang(get_turf(M), M, user)
+		if(M)
+			bang(get_turf(M), M, user)
+	for(var/mob/dead/observer/O in range(5, user.loc))
+		if(O)
+			O.damage_corpus()
 
 /obj/item/card/id/hunter/proc/bang(turf/T, mob/living/M, mob/living/user)
 	if(M.stat == DEAD)	//They're dead!

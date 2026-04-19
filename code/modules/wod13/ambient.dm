@@ -24,6 +24,8 @@
 	var/zone_type = "masquerade"
 	var/zone_owner
 
+	var/deathcounter = 0
+
 /area/vtm/powered(chan)
 	if(!requires_power)
 		return TRUE

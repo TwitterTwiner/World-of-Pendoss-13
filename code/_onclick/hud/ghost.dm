@@ -2,16 +2,42 @@
 /atom/movable/screen/ghost
 	icon = 'code/modules/wod13/UI/buttons32.dmi'
 	plane = 45 // [ChillRaccoon] - 42 was a value by default
+	var/pathos_req = 0
+	var/psyche_min = 0
+	var/mob/dead/observer/G
+	var/last_activate = 0
 /*
 /atom/movable/screen/ghost/MouseEntered()
 	flick(icon_state + "_anim", src)
 */
+
+/atom/movable/screen/ghost/Click()
+	if(!G)
+		G = usr
+	if(G.corpus == 0)
+		return
+	if((G.lastslumber <= world.time) || (G.lastcorpusdamage <= world.time))
+		to_chat(G, "<span class='warning'>You can't use this arcanoi right now.</span>")
+		return
+	if(last_activate > world.time)
+		to_chat(G, "<span class='warning'>It's too early!</span>")
+		return
+	if(G.psyche < psyche_min)
+		to_chat(G, "<span class='warning'>Connection with your Psyche is too low. Being near your fetters and anchors would raise it.</span>")
+		return
+	if(G.pathos < pathos_req)
+		to_chat(G, "<span class='warning'>You don't have enough Pathos. Try slumbering for a minute.</span>")
+		return
+	last_activate = world.time+15 SECONDS
+	G.pathos = max(0, G.pathos-pathos_req)
+	G.update_psyche()
+
 /atom/movable/screen/ghost/jumptomob
 	name = "Jump to mob"
 	icon_state = "jumptomob"
 
 /atom/movable/screen/ghost/jumptomob/Click()
-	var/mob/dead/observer/G = usr
+	. = ..()
 	G.jumptomob()
 
 /atom/movable/screen/ghost/orbit
@@ -19,7 +45,7 @@
 	icon_state = "orbit"
 
 /atom/movable/screen/ghost/orbit/Click()
-	var/mob/dead/observer/G = usr
+	. = ..()
 	G.follow()
 
 /atom/movable/screen/ghost/reenter_corpse
@@ -27,15 +53,17 @@
 	icon_state = "reenter_corpse"
 
 /atom/movable/screen/ghost/reenter_corpse/Click()
-	var/mob/dead/observer/G = usr
+	. = ..()
 	G.reenter_corpse()
 
 /atom/movable/screen/ghost/teleport
 	name = "Teleport"
 	icon_state = "teleport"
+	pathos_req = 2
+	psyche_min = 2
 
 /atom/movable/screen/ghost/teleport/Click()
-	var/mob/dead/observer/G = usr
+	. = ..()
 	G.dead_tele()
 
 /atom/movable/screen/ghost/pai
@@ -43,35 +71,302 @@
 	icon_state = "pai"
 
 /atom/movable/screen/ghost/pai/Click()
-	var/mob/dead/observer/G = usr
+	. = ..()
 	G.register_pai()
 
+/atom/movable/screen/ghost/respawn
+	name = "Respawn"
+	icon_state = "respawn"
+
+/atom/movable/screen/ghost/respawn/Click()
+	. = ..()
+	G.abandon_mob()
+
+/atom/movable/screen/ghost/keening
+	name = "Keening"
+	icon_state = "keening"
+	pathos_req = 1
+	psyche_min = 1
+
+/atom/movable/screen/ghost/keening/Click()
+	. = ..()
+	var/msg = input("Message:", text("Enter the text you wish to appear to everyone within view:")) as text|null
+	msg = trim(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+	if (!msg)
+		return
+	for(var/mob/M in view(7,G))
+		to_chat(M, "<b>distant voice</b> says, \"<span class='hypnophrase'>[msg]</span>\"")
+
+/atom/movable/screen/ghost/slumber
+	name = "Slumber"
+	icon_state = "slumber"
+
+/atom/movable/screen/ghost/slumber/Click()
+	. = ..()
+	G.lastslumber = world.time + 1 MINUTES
+	var/matrix/M = matrix()
+	M.Turn(90)
+	G.transform = M
+	spawn(1 MINUTES)
+		G.transform = null
+		G.pathos = min(10, G.pathos+1)
+		G.corpus = min(10, G.corpus+1)
+
+/atom/movable/screen/ghost/outrage
+	name = "Outrage"
+	icon_state = "outrage"
+	pathos_req = 4
+	psyche_min = 4
+
+/atom/movable/screen/ghost/outrage/Click()
+	. = ..()
+	for(var/obj/item/I in get_area(G))
+		if(I)
+			var/atom/throw_target = get_edge_target_turf(I, pick(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
+			I.throw_at(throw_target, rand(2, 4), 5, G)
+	for(var/mob/living/L in get_area(G))
+		if(L)
+			var/atom/throw_target = get_edge_target_turf(L, pick(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
+			L.throw_at(throw_target, 3, 4, G)
+	for(var/obj/machinery/light/H in get_area(G))
+		if(H)
+			H.flicker()
+
+/atom/movable/screen/ghost/lifeweb
+	name = "Lifeweb"
+	icon_state = "lifeweb"
+	pathos_req = 2
+	psyche_min = 2
+
+/atom/movable/screen/ghost/lifeweb/Click()
+	. = ..()
+	G.lifeweb()
+
+/mob/dead/observer/proc/lifeweb() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
+	if(isobserver(usr)) //Make sure they're an observer!
+		var/list/dest = list() //List of possible destinations (mobs)
+		var/target = null	   //Chosen target.
+
+		dest += getpois(mobs_only = TRUE, skip_mindless = TRUE) //Fill list, prompt user with list
+		target = tgui_input_list(src, "Please, select a soul!", "Jump to Soul", dest)
+
+		if (!target)//Make sure we actually have a target
+			return
+		else
+			var/mob/M = dest[target] //Destination mob
+			var/mob/A = src			 //Source mob
+			var/turf/T = get_turf(M) //Turf of the destination mob
+
+			if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
+				A.forceMove(T)
+				A.update_parallax_contents()
+			else
+				to_chat(A, "<span class='danger'>This soul is not located in the material world.</span>")
+
+/atom/movable/screen/ghost/fascinate
+	name = "Fascinate"
+	icon_state = "fascinate"
+	pathos_req = 3
+	psyche_min = 3
+
+/atom/movable/screen/ghost/fascinate/Click()
+	. = ..()
+	var/msg = input("Order:", text("Enter the text you wish to force everyone within view to obey:")) as text|null
+	msg = trim(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+	if (!msg)
+		return
+	voice_of_ghost_god(msg, G, base_multiplier = 1, message_admins = TRUE)
+
+/atom/movable/screen/ghost/inhabit
+	name = "Inhabit"
+	icon_state = "inhabit"
+
+/atom/movable/screen/ghost/inhabit/Click()
+	if(!G)
+		G = usr
+	if(!istype(G.loc, /turf))
+		G.forceMove(get_turf(G))
+	else
+		. = ..()
+		var/list/inhabits = list()
+		for(var/obj/item/I in range(1, G))
+			if(I)
+				inhabits += I
+		for(var/obj/vampire_car/V in range(1, G))
+			if(V)
+				inhabits += V
+		if(!length(inhabits) && G.relic)
+			inhabits += G.relic
+		var/result = tgui_input_list(usr, "Choose an object to inhabit", "Inhabit", sortList(inhabits))
+		if(result)
+			if(G.relic == result)
+				G.forceMove(result)
+			else
+				if(G.psyche < 3)
+					to_chat(G, "<span class='warning'>Connection with your Psyche is too low. Being near your fetters and anchors would raise it.</span>")
+					return
+				if(G.pathos < 3)
+					to_chat(G, "<span class='warning'>You don't have enough Pathos. Try slumbering for a minute.</span>")
+					return
+				G.pathos = max(0, G.pathos-3)
+				G.forceMove(result)
+
+/atom/movable/screen/ghost/pandemonium
+	name = "Pandemonium"
+	icon_state = "pandemonium"
+	pathos_req = 5
+	psyche_min = 5
+
+/atom/movable/screen/ghost/pandemonium/Click()
+	. = ..()
+	new /mob/living/simple_animal/hostile/abyss_tentacle (get_turf(G))
+	for(var/turf/open/O in view(8, G))
+		if(O)
+			if(prob(25))
+				new /mob/living/simple_animal/hostile/abyss_tentacle (O)
+
+/atom/movable/screen/ghost/puppetry
+	name = "Puppetry"
+	icon_state = "puppetry"
+	pathos_req = 5
+	psyche_min = 5
+	var/datum/puppetry/P
+
+/datum/action/reghost
+	name = "Re-Enter Ghost"
+	button_icon_state = "ghost"
+	var/datum/puppetry/puppetr
+
+/datum/action/reghost/Trigger()
+	if(owner.key)
+		owner.stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
+		var/mob/dead/observer/ghost = new(owner)	// Transfer safety to observer spawning proc.
+		SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
+		var/datum/preferences/P = GLOB.preferences_datums[ckey(owner.key)]
+		if(P)
+			ghost.appearance = P.ghost_preview()
+			unset_busy_human_dummy(DUMMY_HUMAN_SLOT_GHOST)
+			ghost.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			ghost.invisibility = INVISIBILITY_OBSERVER
+			ghost.layer = GHOST_LAYER
+			var/mutable_appearance/ghost_overlay = mutable_appearance('icons/effects/64x64.dmi', "curse", ghost.layer-1)
+			ghost_overlay.pixel_x = -16
+			ghost_overlay.pixel_y = -16
+			ghost_overlay.alpha = 196
+			ghost.overlays += ghost_overlay
+		//	ghost.icon = src.icon // [ChillRaccoon] - We should transfer mob visuals to the ghost
+		//	ghost.overlays = src.overlays // [ChillRaccoon] - Overlays too, else we will not see wounds, hair, skin, and etc.
+			ghost.color = GLOB.CMNoir	// [BadTeammate] - BOOO SCARY GHOSTS AURA
+			ghost.alpha = 180
+		ghost.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/ghost_varspeed, multiplicative_slowdown = ghost.movement_delay)
+		// -------
+		ghost.key = owner.key
+//		ghost.client.init_verbs()
+//		ghost.client = .client
+		ghost.mind = puppetr.mind
+		ghost.relic = puppetr.relic
+		ghost.myplace = puppetr.myplace
+		ghost.fetter = puppetr.fetter
+		if(isliving(puppetr.backseat.loc))
+			var/mob/living/L = puppetr.backseat.loc
+			L.key = puppetr.backseat.key
+			qdel(puppetr.backseat)
+			qdel(puppetr)
+
+
+/atom/movable/screen/ghost/puppetry/Click()
+	if(!G)
+		G = usr
+	var/mob/living/puppet
+	for(var/mob/living/L in get_turf(G))
+		if(L)
+			puppet = L
+	if(puppet)
+		. = ..()
+		if(!P)
+			P = new ()
+			P.backseat = new (puppet)
+			P.fetter = G.fetter
+			P.relic = G.relic
+			P.myplace = G.myplace
+			P.mind = G.mind
+			if(puppet.key)
+				P.backseat.key = puppet.key
+			puppet.key = G.key
+			var/datum/action/reghost/R = new
+			R.puppetr = P
+			R.Grant(puppet)
+	else
+		to_chat(G, "<span class='warning'>You need to be on a same turf as target.</span>")
+
+/datum/puppetry
+	var/mob/living/split_personality/backseat
+	var/mob/living/fetter
+	var/obj/item/relic
+	var/area/vtm/myplace
+	var/datum/mind/mind
+
+/atom/movable/screen/ghost/embody
+	name = "Embody"
+	icon_state = "embody"
+	pathos_req = 4
+	psyche_min = 4
+
+/atom/movable/screen/ghost/embody/Click()
+	if(!G)
+		G = usr
+	if(G.invisibility == 0)
+		G.invisibility = INVISIBILITY_OBSERVER
+		G.alpha = 180
+	else
+		. = ..()
+		G.invisibility = 0
+		G.alpha = 255
+
+/atom/movable/screen/ghost/pathos
+	name = "Pathos"
+	icon = 'icons/hud/wraith_hud.dmi'
+	icon_state = "pathos10"
+
+/atom/movable/screen/ghost/psyche
+	name = "Psyche"
+	icon = 'icons/hud/wraith_hud.dmi'
+	icon_state = "psyche0"
+
+/atom/movable/screen/ghost/corpus
+	name = "Corpus"
+	icon = 'icons/hud/wraith_corpus.dmi'
+	icon_state = "corpus10"
 
 // [ChillRaccoon] - LFWB like ghost GUI
 
-/*
+
 /atom/movable/screen/fullscreen/ghost/lfwbLike
 	icon = 'icons/hud/fullscreen.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/atom/movable/screen/fullscreen/ghost/lfwbLike/New()
+/atom/movable/screen/fullscreen/ghost/lfwbLike/screenLayer1/New()
 	..()
 	var/matrix/M = matrix()
-	M.Scale(1.3, 1) // client.view has 19x19
+	M.Scale(1.5, 1.5)
 	src.transform = M
 
 /atom/movable/screen/fullscreen/ghost/lfwbLike/screenLayer1 // [ChillRaccoon] - this layer should overlap screenLayer2
 	name = ""
 	icon_state = "ghost1"
-	alpha = 170
-	plane = 43
+	icon_state = "curse1"
+	layer = UI_DAMAGE_LAYER
+	alpha = 160
+	color = list(0.3,0.3,0.3,0,\
+				0.3,0.3,0.3,0,\
+				0.3,0.3,0.3,0,\
+				0.0,0.0,0.0,1,)
 
 /atom/movable/screen/fullscreen/ghost/lfwbLike/screenLayer2
 	name = ""
 	icon_state = "ghost2"
-	alpha = 100
-	plane = 42
-*/
+	alpha = 128
+
 /datum/hud/ghost/New(mob/owner)
 	..()
 	static_noise = new /atom/movable/screen()
@@ -83,15 +378,15 @@
 	static_inventory += static_noise
 
 	var/atom/movable/screen/using
-	using = new /atom/movable/screen/ghost/jumptomob()
-	using.screen_loc = ui_ghost_jumptomob
-	using.hud = src
-	static_inventory += using
+//	using = new /atom/movable/screen/ghost/jumptomob()
+//	using.screen_loc = ui_ghost_jumptomob
+//	using.hud = src
+//	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/orbit()
-	using.screen_loc = ui_ghost_orbit
-	using.hud = src
-	static_inventory += using
+//	using = new /atom/movable/screen/ghost/orbit()
+//	using.screen_loc = ui_ghost_orbit
+//	using.hud = src
+//	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/reenter_corpse()
 	using.screen_loc = ui_ghost_reenter_corpse
@@ -102,6 +397,86 @@
 	using.screen_loc = ui_ghost_teleport
 	using.hud = src
 	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/respawn()
+	using.screen_loc = ui_ghost_respawn
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/keening()
+	using.screen_loc = ui_ghost_keening
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/slumber()
+	using.screen_loc = ui_ghost_slumber
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/outrage()
+	using.screen_loc = ui_ghost_outrage
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/lifeweb()
+	using.screen_loc = ui_ghost_lifeweb
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/fascinate()
+	using.screen_loc = ui_ghost_fascinate
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/inhabit()
+	using.screen_loc = ui_ghost_inhabit
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/pandemonium()
+	using.screen_loc = ui_ghost_pandemonium
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/puppetry()
+	using.screen_loc = ui_ghost_puppetry
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/embody()
+	using.screen_loc = ui_ghost_embody
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/fullscreen_hud/ghost()
+	using.screen_loc = ui_full_inventory
+	using.hud = src
+	static_inventory += using
+
+	zone_icon = new /atom/movable/screen/vtm_zone()
+	zone_icon.screen_loc = ui_vtm_zone
+	zone_icon.hud = src
+	static_inventory += zone_icon
+
+	secret_zone_icon = new /atom/movable/screen()
+	secret_zone_icon.screen_loc = ui_vtm_zone
+	secret_zone_icon.hud = src
+	static_inventory += secret_zone_icon
+
+	pathos_icon = new /atom/movable/screen/ghost/pathos()
+	pathos_icon.screen_loc = ui_full_inventory
+	pathos_icon.hud = src
+	static_inventory += pathos_icon
+
+	psyche_icon = new /atom/movable/screen/ghost/psyche()
+	psyche_icon.screen_loc = ui_full_inventory
+	psyche_icon.hud = src
+	static_inventory += psyche_icon
+
+	corpus_icon = new /atom/movable/screen/ghost/corpus()
+	corpus_icon.screen_loc = ui_ghost_corpus
+	corpus_icon.hud = src
+	static_inventory += corpus_icon
 
 //	using = new /atom/movable/screen/ghost/pai()
 //	using.screen_loc = ui_ghost_pai
@@ -116,7 +491,7 @@
 
 	// [ChillRaccoon] - LFWB like GUI implementation
 
-/*
+
 	using = new /atom/movable/screen/fullscreen/ghost/lfwbLike/screenLayer1
 	using.hud = src
 	using.screen_loc = "CENTER-7,CENTER-7"
@@ -126,7 +501,7 @@
 	using.hud = src
 	using.screen_loc = "CENTER-7,CENTER-7"
 	static_inventory += using
-*/
+
 /datum/hud/ghost/show_hud(version = 0, mob/viewmob)
 	// don't show this HUD if observing; show the HUD of the observee
 	var/mob/dead/observer/O = mymob

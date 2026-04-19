@@ -194,9 +194,23 @@
 //Ghosts
 #define ui_ghost_jumptomob "SOUTH:6,CENTER-3:24"
 #define ui_ghost_orbit "SOUTH:6,CENTER-2:24"
-#define ui_ghost_reenter_corpse "SOUTH:6,CENTER-1:24"
-#define ui_ghost_teleport "SOUTH:6,CENTER:24"
+#define ui_ghost_respawn "WEST-4:16,SOUTH+5:24"
+#define ui_ghost_keening "WEST-4:16,SOUTH+6:24"
+#define ui_ghost_reenter_corpse "WEST-4:16,SOUTH+4:24"
+#define ui_ghost_teleport "WEST-4:16,SOUTH+3:24"
 #define ui_ghost_pai "SOUTH: 6, CENTER+1:24"
 #define ui_ghost_mafia "SOUTH: 6, CENTER+2:24"
+
+#define ui_ghost_slumber "WEST-3:16,SOUTH+3:24"
+#define ui_ghost_outrage "WEST-3:16,SOUTH+4:24"
+#define ui_ghost_lifeweb "WEST-3:16,SOUTH+5:24"
+#define ui_ghost_fascinate "WEST-3:16,SOUTH+6:24"
+
+#define ui_ghost_inhabit "WEST-2:16,SOUTH+3:24"
+#define ui_ghost_pandemonium "WEST-2:16,SOUTH+4:24"
+#define ui_ghost_puppetry "WEST-2:16,SOUTH+5:24"
+#define ui_ghost_embody "WEST-2:16,SOUTH+6:24"
+
+#define ui_ghost_corpus "WEST-3,NORTH-2:16"
 
 #define ui_wanted_lvl "NORTH,11"

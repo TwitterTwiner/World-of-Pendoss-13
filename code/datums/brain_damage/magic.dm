@@ -33,7 +33,7 @@
 
 /datum/brain_trauma/magic/poltergeist/on_life()
 	..()
-	if(prob(4))
+	if(prob(5))
 		var/most_violent = -1 //So it can pick up items with 0 throwforce if there's nothing else
 		var/obj/item/throwing
 		for(var/obj/item/I in view(5, get_turf(owner)))

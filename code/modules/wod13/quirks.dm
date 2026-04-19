@@ -647,6 +647,40 @@ Dancer
 	lose_text = "<span class='notice'>You don't feel charismatic anymore.</span>"
 	allowed_species = list("Vampire", "Kuei-Jin")
 
+/datum/quirk/ghostanger
+	name = "Ghost's Anger"
+	desc = "I seems you pissed off a ghost some time ago, and they still seek their revenge."
+	value = -2
+	gain_text = "<span class='notice'>You feel undead presence.</span>"
+	lose_text = "<span class='notice'>You feel safe from ghosts again.</span>"
+
+/datum/quirk/ghostanger/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.gain_trauma(/datum/brain_trauma/magic/poltergeist)
+	H.gain_trauma(/datum/brain_trauma/magic/stalker)
+
+/datum/quirk/wallsense
+	name = "Wall Sense"
+	desc = "You've always seen more than others. Especially the Wall, which keeps the material world from Umbra. In that Wall there are unknown passages you find from time to time."
+	value = 4
+	gain_text = "<span class='notice'>You sense the Umbra.</span>"
+	lose_text = "<span class='notice'>You feel materialistic again.</span>"
+
+/datum/quirk/wallsense/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.gain_trauma(/datum/brain_trauma/special/bluespace_prophet)
+
+/datum/quirk/imaginaryfriend
+	name = "Imaginary Friend"
+	desc = "You met them at a very strange time in your life. <b>Does not guarantee spawning with a player</b>."
+	value = 0
+	gain_text = "<span class='notice'>You feel undead presence.</span>"
+	lose_text = "<span class='notice'>You feel safe from ghosts again.</span>"
+
+/datum/quirk/imaginaryfriend/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.gain_trauma(/datum/brain_trauma/special/imaginary_friend)
+
 /datum/quirk/tower
 	name = "Tower"
 	desc = "You are tall."

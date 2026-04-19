@@ -51,6 +51,76 @@
 		return
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below
+
+	if(istype(loc, /obj/item) && lastattack <= world.time)
+		lastattack = world.time+1 SECONDS
+		var/obj/item/I = loc
+		I.throw_at(get_turf(A), rand(2, 4), 5, src)
+
+	if(get_dist(src, A) <= 1)
+		if(isliving(A))
+			if(invisibility == 0 && lastattack <= world.time)
+				do_attack_animation(A)
+				lastattack = world.time+1 SECONDS
+				var/mob/living/L = A
+				L.apply_damage(15, CLONE, BODY_ZONE_CHEST, wound_bonus=CANT_WOUND)
+				for(var/mob/M in viewers(7, src))
+					if(M)
+						to_chat(M, "<span class='warning'>[src] tears through [A]'s flesh...")
+		if(istype(A, /obj/structure/vampdoor))
+			var/obj/structure/vampdoor/V = A
+			if(!V.locked)
+				if(!acting)
+					acting = TRUE
+					spawn(0.5 SECONDS)
+						acting = FALSE
+						if(V.closed)
+							playsound(V, V.open_sound, 75, TRUE)
+							V.icon_state = "[V.baseicon]-0"
+							V.density = FALSE
+							V.opacity = FALSE
+							V.layer = OPEN_DOOR_LAYER
+							to_chat(src, "<span class='notice'>You open [V].</span>")
+							V.closed = FALSE
+						else
+							for(var/mob/living/L in V.loc)
+								if(L)
+									playsound(src, V.lock_sound, 75, TRUE)
+									to_chat(src, "<span class='warning'>[L] is preventing you from closing [V].</span>")
+									return
+							playsound(V, V.close_sound, 75, TRUE)
+							V.icon_state = "[V.baseicon]-1"
+							V.density = TRUE
+							if(!V.glass)
+								V.opacity = TRUE
+							V.layer = ABOVE_ALL_MOB_LAYER
+							to_chat(src, "<span class='notice'>You close [V].</span>")
+							V.closed = TRUE
+			else
+				V.pixel_z = V.pixel_z+rand(-1, 1)
+				V.pixel_w = V.pixel_w+rand(-1, 1)
+				playsound(V, 'code/modules/wod13/sounds/knock.ogg', 75, TRUE)
+				to_chat(src, "<span class='warning'>[V] is locked!</span>")
+				spawn(2)
+					V.pixel_z = initial(V.pixel_z)
+					V.pixel_w = initial(V.pixel_w)
+		if(istype(A, /obj/manholeup))
+			if(!acting)
+				acting = TRUE
+				spawn(0.5 SECONDS)
+					acting = FALSE
+					var/turf/destination = get_step_multiz(A, UP)
+					forceMove(destination)
+					playsound(A, 'code/modules/wod13/sounds/manhole.ogg', 50, TRUE)
+		if(istype(A, /obj/manholedown))
+			if(!acting)
+				acting = TRUE
+				spawn(0.5 SECONDS)
+					acting = FALSE
+					var/turf/destination = get_step_multiz(A, DOWN)
+					forceMove(destination)
+					playsound(A, 'code/modules/wod13/sounds/manhole.ogg', 50, TRUE)
+
 	A.attack_ghost(src)
 
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you

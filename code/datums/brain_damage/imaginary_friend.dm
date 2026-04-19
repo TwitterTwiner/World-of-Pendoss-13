@@ -102,12 +102,18 @@
 	hide.Grant(src)
 
 /mob/camera/imaginary_friend/proc/setup_friend()
-	var/gender = pick(MALE, FEMALE)
-	real_name = random_unique_name(gender)
-	name = real_name
-	var/datum/job/sacjob = SSjob.GetJob("Taxi Driver")
-	var/datum/preferences/sacface = client.prefs
-	human_image = get_flat_human_icon(null, sacjob, sacface)
+	var/datum/preferences/P = GLOB.preferences_datums[ckey(key)]
+	if(P)
+		real_name = P.real_name
+		name = real_name
+		var/datum/job/sacjob = SSjob.GetJob("Taxi Driver")
+		human_image = get_flat_human_icon(null, sacjob, P)
+//	var/gender = pick(MALE, FEMALE)
+//	real_name = random_unique_name(gender)
+//	name = real_name
+//	var/datum/job/sacjob = SSjob.GetJob("Taxi Driver")
+//	var/datum/preferences/sacface = client.prefs
+//	human_image = get_flat_human_icon(null, sacjob, sacface)
 
 /mob/camera/imaginary_friend/proc/Show()
 	if(!client) //nobody home

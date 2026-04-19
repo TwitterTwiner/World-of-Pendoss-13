@@ -127,6 +127,8 @@
 			var/obj/vampire_car/V = O
 			if(V.driver == mob)
 				return O.relaymove(mob, direct)
+			else if(isobserver(mob))
+				return O.relaymove(mob, direct)
 			else
 				return FALSE
 		else

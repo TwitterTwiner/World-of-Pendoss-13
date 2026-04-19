@@ -6,6 +6,9 @@
 	plane = HUD_PLANE
 	icon = 'code/modules/wod13/UI/full.dmi'
 
+/atom/movable/screen/fullscreen_hud/ghost
+	icon = 'code/modules/wod13/UI/full_ghost.dmi'
+
 /atom/movable/screen/human/toggle
 	name = "toggle"
 	icon_state = "toggle"

@@ -380,9 +380,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			ghost.aghosted = !ghost.aghosted
 			ghost.movement_type = FLYING | GROUND | PHASING
 			ghost.sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
-			ghost.icon = null
-			ghost.icon_state = null
-			ghost.overlays = null
+			ghost.remove_movespeed_modifier(/datum/movespeed_modifier/ghost_varspeed)
 			ghost.client.color = null
 			var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]
 			ghost_hud.remove_from_hud(ghost)
@@ -402,9 +400,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		//sets aghost-specific properties here instead of in the ghostize proc
 		ghost.movement_type = FLYING | GROUND | PHASING
 		ghost.sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
-		ghost.icon = null
-		ghost.icon_state = null
-		ghost.overlays = null
+		ghost.remove_movespeed_modifier(/datum/movespeed_modifier/ghost_varspeed)
 		ghost.client.color = null
 		ghost.aghosted = TRUE
 		var/datum/atom_hud/ghost_hud = GLOB.huds[DATA_HUD_GHOST]

@@ -48,11 +48,11 @@
 	voice_of_god(message, owner, list("colossus","yell"), 2.5, include_owner, FALSE)
 
 /datum/brain_trauma/special/bluespace_prophet
-	name = "Bluespace Prophecy"
-	desc = "Patient can sense the bob and weave of bluespace around them, showing them passageways no one else can see."
+	name = "Wall Sense"
+	desc = "Patient can sense the bob and weave of the Wall around them, showing them passageways no one else can see."
 	scan_desc = "bluespace attunement"
-	gain_text = "<span class='notice'>You feel the bluespace pulsing around you...</span>"
-	lose_text = "<span class='warning'>The faint pulsing of bluespace fades into silence.</span>"
+	gain_text = "<span class='notice'>You feel the Wall pulsing between the Umbra and this world...</span>"
+	lose_text = "<span class='warning'>The faint pulsing of the Wall fades into silence.</span>"
 	var/next_portal = 0
 
 /datum/brain_trauma/special/bluespace_prophet/on_life()
@@ -91,8 +91,8 @@
 		second.seer = owner
 
 /obj/effect/hallucination/simple/bluespace_stream
-	name = "bluespace stream"
-	desc = "You see a hidden pathway through bluespace..."
+	name = "Umbra stream"
+	desc = "You see a hidden pathway through the Wall..."
 	image_icon = 'icons/effects/effects.dmi'
 	image_state = "bluestream"
 	image_layer = ABOVE_MOB_LAYER
@@ -112,7 +112,7 @@
 		"is pulled into an invisible vortex, vanishing from sight")
 	var/slip_out_message = pick("silently fades in", "leaps out of thin air","appears", "walks out of an invisible doorway",\
 		"slides out of a fold in spacetime")
-	to_chat(user, "<span class='notice'>You try to align with the bluespace stream...</span>")
+	to_chat(user, "<span class='notice'>You try to align with the Umbra stream...</span>")
 	if(do_after(user, 20, target = src))
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(src))
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(linked_to))

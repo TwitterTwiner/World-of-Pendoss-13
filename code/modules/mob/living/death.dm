@@ -84,6 +84,10 @@
 	set_stat(DEAD)
 	unset_machine()
 	timeofdeath = world.time
+	if(key)
+		if(istype(get_area(src), /area/vtm))
+			var/area/vtm/V = get_area(src)
+			V.deathcounter = V.deathcounter+1
 	if (client?.ckey)
 		GLOB.respawn_timers[client.ckey] = timeofdeath
 	tod = station_time_timestamp()

@@ -307,6 +307,10 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, src)
 	if(canPassSelf || (mover.movement_type & PHASING))
+		if(isobserver(mover))
+			var/mob/dead/observer/obser = mover
+			if(opacity && !obser.aghosted)
+				return FALSE
 		for(var/i in contents)
 			if(QDELETED(mover))
 				return FALSE		//We were deleted, do not attempt to proceed with movement.
@@ -317,6 +321,10 @@ GLOBAL_LIST_EMPTY(station_turfs)
 				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
 					return FALSE
 				if((mover.movement_type & PHASING))
+					if(isobserver(mover))
+						var/mob/dead/observer/obser = mover
+						if(thing.opacity && !obser.aghosted)
+							return FALSE
 					mover.Bump(thing)
 					continue
 				else
