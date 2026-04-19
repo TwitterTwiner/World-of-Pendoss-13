@@ -387,7 +387,10 @@ Works together with spawning an observer, noted above.
 		if(hud_used?.fetter_icon)
 			hud_used.fetter_icon.cut_overlays()
 	var/relic_around = 0
+	var/in_relic = 0
 	if(relic)
+		if(loc == relic)
+			in_relic = 1
 		if(hud_used?.relic_icon)
 			hud_used.relic_icon.cut_overlays()
 			var/icon/I = icon(initial(relic.icon), initial(relic.icon_state))
@@ -405,10 +408,12 @@ Works together with spawning an observer, noted above.
 			low_wall = 1
 		if(V.deathcounter > 0)
 			deaths_here = 1
+		if(V.deathcounter >= 5)
+			deaths_here = 2
 	var/my_death_here = 0
 	if(get_area(src) == myplace)
 		my_death_here = 1
-	psyche = fetter_around+relic_around+low_wall+deaths_here+my_death_here
+	psyche = clamp(fetter_around+relic_around+low_wall+deaths_here+my_death_here+in_relic+1, 0, 5)
 	if(hud_used?.psyche_icon)
 		hud_used.psyche_icon.icon_state = "psyche[psyche]"
 	if(hud_used?.pathos_icon)
