@@ -15,6 +15,7 @@
 	var/range_x = 450
 	var/range_y = 450
 
+
 /obj/item/binoculars/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
