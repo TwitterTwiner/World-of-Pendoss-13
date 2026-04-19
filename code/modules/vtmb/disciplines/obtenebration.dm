@@ -523,7 +523,7 @@ GLOBAL_LIST_EMPTY(global_tentacle_grabs)
 	. = ..()
 	if(summoner)
 		owner = summoner
-	if(owner.tentacle_aggro_mode)
+	if(owner?.tentacle_aggro_mode)
 		aggro_mode = owner.tentacle_aggro_mode
 
 	COOLDOWN_START(src, grab_cooldown, 1 SECONDS)

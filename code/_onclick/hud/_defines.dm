@@ -211,6 +211,9 @@
 #define ui_ghost_puppetry "WEST-2:16,SOUTH+5:24"
 #define ui_ghost_embody "WEST-2:16,SOUTH+6:24"
 
+#define ui_ghost_fetter "WEST-3,SOUTH+8"
+#define ui_ghost_relic "WEST-2,SOUTH+8"
+
 #define ui_ghost_corpus "WEST-3,NORTH-2:16"
 
 #define ui_wanted_lvl "NORTH,11"

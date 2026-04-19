@@ -245,6 +245,11 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		m.temporarilyRemoveItemFromInventory(src, TRUE)
 	for(var/X in actions)
 		qdel(X)
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		if(O)
+			if(O.relic == src)
+				O.corpus = 1
+				O.damage_corpus()		//Goodbye
 	return ..()
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)

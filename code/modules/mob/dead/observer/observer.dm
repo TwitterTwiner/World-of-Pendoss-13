@@ -88,6 +88,8 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	var/lastslumber = - 1 MINUTES
 
 /mob/dead/observer/proc/damage_corpus()
+	if (check_rights_for(client, R_ADMIN))
+		return
 	if(lastcorpusdamage < world.time)
 		lastcorpusdamage = world.time+15 SECONDS
 		if(invisibility == 0)
@@ -311,8 +313,6 @@ Works together with spawning an observer, noted above.
 		//if(key[1] != "@") // Skip aghosts.
 		stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
 		var/mob/dead/observer/ghost = new(src)	// Transfer safety to observer spawning proc.
-		if(istype(get_area(src), /area/vtm))
-			ghost.myplace = get_area(src)
 		var/list/relics = list()
 		for(var/obj/item/I in range(2, src))
 			if(I)
@@ -360,6 +360,8 @@ Works together with spawning an observer, noted above.
 
 		if(!can_reenter_corpse)	// Disassociates observer mind from the body mind
 			ghost.mind = null
+		if(istype(get_area(ghost), /area/vtm))
+			ghost.myplace = get_area(ghost)
 		if(length(relics))
 			var/result = tgui_input_list(ghost, "Choose a relic", "Relic", sortList(relics))
 			if(result)
@@ -375,12 +377,26 @@ Works together with spawning an observer, noted above.
 /mob/dead/observer/proc/update_psyche()
 	var/fetter_around = 0
 	if(fetter)
+		if(hud_used?.fetter_icon)
+			hud_used.fetter_icon.cut_overlays()
+			var/mutable_appearance/M = fetter.appearance
+			hud_used.fetter_icon.add_overlay(M)
 		if(get_area(fetter) == get_area(src))
 			fetter_around = 1
+	else
+		if(hud_used?.fetter_icon)
+			hud_used.fetter_icon.cut_overlays()
 	var/relic_around = 0
 	if(relic)
+		if(hud_used?.relic_icon)
+			hud_used.relic_icon.cut_overlays()
+			var/icon/I = icon(initial(relic.icon), initial(relic.icon_state))
+			hud_used.relic_icon.add_overlay(I)
 		if(get_area(relic) == get_area(src))
 			relic_around = 1
+	else
+		if(hud_used?.relic_icon)
+			hud_used.relic_icon.cut_overlays()
 	var/low_wall = 0
 	var/deaths_here = 0
 	if(istype(get_area(src), /area/vtm))
@@ -393,11 +409,10 @@ Works together with spawning an observer, noted above.
 	if(get_area(src) == myplace)
 		my_death_here = 1
 	psyche = fetter_around+relic_around+low_wall+deaths_here+my_death_here
-	if(hud_used)
-		if(hud_used.psyche_icon)
-			hud_used.psyche_icon = "psyche[psyche]"
-		if(hud_used.pathos_icon)
-			hud_used.pathos_icon = "pathos[pathos]"
+	if(hud_used?.psyche_icon)
+		hud_used.psyche_icon.icon_state = "psyche[psyche]"
+	if(hud_used?.pathos_icon)
+		hud_used.pathos_icon.icon_state = "pathos[pathos]"
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -425,7 +440,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	ghostize(FALSE)
 
 /mob/dead/observer/Move(NewLoc, direct, glide_size_override = 32)
-	..()
 	update_zone_hud()
 	update_psyche()
 	dir = get_dir(loc, NewLoc)
@@ -439,6 +453,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				return
 			else
 				to_chat(L, "<span class='warning'>You feel cold air rushing through you.</span>")
+	var/obj/transfer_point_vamp/V = locate() in NewLoc
+	if(V)
+		V.Bumped(src)
+	..()
 /*
 	if(updatedir)
 		setDir(direct)//only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own

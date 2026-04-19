@@ -86,6 +86,10 @@
 	if(mob.control_object)
 		return Move_object(direct)
 	if(!isliving(mob))
+		var/atom/O = mob.loc
+		if(istype(O, /obj/vampire_car))
+			var/obj/vampire_car/V = O
+			return V.relaymove(mob, direct)
 		return mob.Move(n, direct)
 	if(mob.stat == DEAD)
 		mob.ghostize()
@@ -126,8 +130,6 @@
 		if(istype(O, /obj/vampire_car))
 			var/obj/vampire_car/V = O
 			if(V.driver == mob)
-				return O.relaymove(mob, direct)
-			else if(isobserver(mob))
 				return O.relaymove(mob, direct)
 			else
 				return FALSE

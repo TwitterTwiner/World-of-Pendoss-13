@@ -1,6 +1,7 @@
 
 /atom/movable/screen/ghost
 	icon = 'code/modules/wod13/UI/buttons32.dmi'
+	icon_state = "wraith_template"
 	plane = 45 // [ChillRaccoon] - 42 was a value by default
 	var/pathos_req = 0
 	var/psyche_min = 0
@@ -14,47 +15,49 @@
 /atom/movable/screen/ghost/Click()
 	if(!G)
 		G = usr
+		G.update_psyche()
 	if(G.corpus == 0)
-		return
-	if((G.lastslumber <= world.time) || (G.lastcorpusdamage <= world.time))
+		return FALSE
+	if((G.lastslumber > world.time) || (G.lastcorpusdamage > world.time))
 		to_chat(G, "<span class='warning'>You can't use this arcanoi right now.</span>")
-		return
+		return FALSE
 	if(last_activate > world.time)
 		to_chat(G, "<span class='warning'>It's too early!</span>")
-		return
+		return FALSE
 	if(G.psyche < psyche_min)
 		to_chat(G, "<span class='warning'>Connection with your Psyche is too low. Being near your fetters and anchors would raise it.</span>")
-		return
+		return FALSE
 	if(G.pathos < pathos_req)
 		to_chat(G, "<span class='warning'>You don't have enough Pathos. Try slumbering for a minute.</span>")
-		return
+		return FALSE
 	last_activate = world.time+15 SECONDS
 	G.pathos = max(0, G.pathos-pathos_req)
 	G.update_psyche()
+	return TRUE
 
 /atom/movable/screen/ghost/jumptomob
 	name = "Jump to mob"
 	icon_state = "jumptomob"
 
 /atom/movable/screen/ghost/jumptomob/Click()
-	. = ..()
-	G.jumptomob()
+	if(..())
+		G.jumptomob()
 
 /atom/movable/screen/ghost/orbit
 	name = "Orbit"
 	icon_state = "orbit"
 
 /atom/movable/screen/ghost/orbit/Click()
-	. = ..()
-	G.follow()
+	if(..())
+		G.follow()
 
 /atom/movable/screen/ghost/reenter_corpse
 	name = "Reenter corpse"
 	icon_state = "reenter_corpse"
 
 /atom/movable/screen/ghost/reenter_corpse/Click()
-	. = ..()
-	G.reenter_corpse()
+	if(..())
+		G.reenter_corpse()
 
 /atom/movable/screen/ghost/teleport
 	name = "Teleport"
@@ -63,24 +66,24 @@
 	psyche_min = 2
 
 /atom/movable/screen/ghost/teleport/Click()
-	. = ..()
-	G.dead_tele()
+	if(..())
+		G.dead_tele()
 
 /atom/movable/screen/ghost/pai
 	name = "pAI Candidate"
 	icon_state = "pai"
 
 /atom/movable/screen/ghost/pai/Click()
-	. = ..()
-	G.register_pai()
+	if(..())
+		G.register_pai()
 
 /atom/movable/screen/ghost/respawn
 	name = "Respawn"
 	icon_state = "respawn"
 
 /atom/movable/screen/ghost/respawn/Click()
-	. = ..()
-	G.abandon_mob()
+	if(..())
+		G.abandon_mob()
 
 /atom/movable/screen/ghost/keening
 	name = "Keening"
@@ -89,28 +92,28 @@
 	psyche_min = 1
 
 /atom/movable/screen/ghost/keening/Click()
-	. = ..()
-	var/msg = input("Message:", text("Enter the text you wish to appear to everyone within view:")) as text|null
-	msg = trim(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
-	if (!msg)
-		return
-	for(var/mob/M in view(7,G))
-		to_chat(M, "<b>distant voice</b> says, \"<span class='hypnophrase'>[msg]</span>\"")
+	if(..())
+		var/msg = input("Message:", text("Enter the text you wish to appear to everyone within view:")) as text|null
+		msg = trim(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+		if (!msg)
+			return
+		for(var/mob/M in view(7,G))
+			to_chat(M, "<b>distant voice</b> says, \"<span class='hypnophrase'>[msg]</span>\"")
 
 /atom/movable/screen/ghost/slumber
 	name = "Slumber"
 	icon_state = "slumber"
 
 /atom/movable/screen/ghost/slumber/Click()
-	. = ..()
-	G.lastslumber = world.time + 1 MINUTES
-	var/matrix/M = matrix()
-	M.Turn(90)
-	G.transform = M
-	spawn(1 MINUTES)
-		G.transform = null
-		G.pathos = min(10, G.pathos+1)
-		G.corpus = min(10, G.corpus+1)
+	if(..())
+		G.lastslumber = world.time + 1 MINUTES
+		var/matrix/M = matrix()
+		M.Turn(90)
+		G.transform = M
+		spawn(1 MINUTES)
+			G.transform = null
+			G.pathos = min(10, G.pathos+max(1, G.psyche))
+			G.corpus = min(10, G.corpus+max(1, G.psyche))
 
 /atom/movable/screen/ghost/outrage
 	name = "Outrage"
@@ -119,18 +122,18 @@
 	psyche_min = 4
 
 /atom/movable/screen/ghost/outrage/Click()
-	. = ..()
-	for(var/obj/item/I in get_area(G))
-		if(I)
-			var/atom/throw_target = get_edge_target_turf(I, pick(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
-			I.throw_at(throw_target, rand(2, 4), 5, G)
-	for(var/mob/living/L in get_area(G))
-		if(L)
-			var/atom/throw_target = get_edge_target_turf(L, pick(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
-			L.throw_at(throw_target, 3, 4, G)
-	for(var/obj/machinery/light/H in get_area(G))
-		if(H)
-			H.flicker()
+	if(..())
+		for(var/obj/item/I in get_area(G))
+			if(I)
+				var/atom/throw_target = get_edge_target_turf(I, pick(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
+				I.throw_at(throw_target, rand(2, 4), 5, G)
+		for(var/mob/living/L in get_area(G))
+			if(L)
+				var/atom/throw_target = get_edge_target_turf(L, pick(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
+				L.throw_at(throw_target, 3, 4, G)
+		for(var/obj/machinery/light/H in get_area(G))
+			if(H)
+				H.flicker()
 
 /atom/movable/screen/ghost/lifeweb
 	name = "Lifeweb"
@@ -139,8 +142,8 @@
 	psyche_min = 2
 
 /atom/movable/screen/ghost/lifeweb/Click()
-	. = ..()
-	G.lifeweb()
+	if(..())
+		G.lifeweb()
 
 /mob/dead/observer/proc/lifeweb() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	if(isobserver(usr)) //Make sure they're an observer!
@@ -170,12 +173,12 @@
 	psyche_min = 3
 
 /atom/movable/screen/ghost/fascinate/Click()
-	. = ..()
-	var/msg = input("Order:", text("Enter the text you wish to force everyone within view to obey:")) as text|null
-	msg = trim(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
-	if (!msg)
-		return
-	voice_of_ghost_god(msg, G, base_multiplier = 1, message_admins = TRUE)
+	if(..())
+		var/msg = input("Order:", text("Enter the text you wish to force everyone within view to obey:")) as text|null
+		msg = trim(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+		if (!msg)
+			return
+		voice_of_ghost_god(msg, G, base_multiplier = 1, message_admins = TRUE)
 
 /atom/movable/screen/ghost/inhabit
 	name = "Inhabit"
@@ -187,29 +190,29 @@
 	if(!istype(G.loc, /turf))
 		G.forceMove(get_turf(G))
 	else
-		. = ..()
-		var/list/inhabits = list()
-		for(var/obj/item/I in range(1, G))
-			if(I)
-				inhabits += I
-		for(var/obj/vampire_car/V in range(1, G))
-			if(V)
-				inhabits += V
-		if(!length(inhabits) && G.relic)
-			inhabits += G.relic
-		var/result = tgui_input_list(usr, "Choose an object to inhabit", "Inhabit", sortList(inhabits))
-		if(result)
-			if(G.relic == result)
-				G.forceMove(result)
-			else
-				if(G.psyche < 3)
-					to_chat(G, "<span class='warning'>Connection with your Psyche is too low. Being near your fetters and anchors would raise it.</span>")
-					return
-				if(G.pathos < 3)
-					to_chat(G, "<span class='warning'>You don't have enough Pathos. Try slumbering for a minute.</span>")
-					return
-				G.pathos = max(0, G.pathos-3)
-				G.forceMove(result)
+		if(..())
+			var/list/inhabits = list()
+			for(var/obj/item/I in range(1, G))
+				if(I)
+					inhabits += I
+			for(var/obj/vampire_car/V in range(1, G))
+				if(V)
+					inhabits += V
+			if(!length(inhabits) && G.relic)
+				inhabits += G.relic
+			var/result = tgui_input_list(usr, "Choose an object to inhabit", "Inhabit", sortList(inhabits))
+			if(result)
+				if(G.relic == result)
+					G.forceMove(result)
+				else
+					if(G.psyche < 3)
+						to_chat(G, "<span class='warning'>Connection with your Psyche is too low. Being near your fetters and anchors would raise it.</span>")
+						return
+					if(G.pathos < 3)
+						to_chat(G, "<span class='warning'>You don't have enough Pathos. Try slumbering for a minute.</span>")
+						return
+					G.pathos = max(0, G.pathos-3)
+					G.forceMove(result)
 
 /atom/movable/screen/ghost/pandemonium
 	name = "Pandemonium"
@@ -218,12 +221,12 @@
 	psyche_min = 5
 
 /atom/movable/screen/ghost/pandemonium/Click()
-	. = ..()
-	new /mob/living/simple_animal/hostile/abyss_tentacle (get_turf(G))
-	for(var/turf/open/O in view(8, G))
-		if(O)
-			if(prob(25))
-				new /mob/living/simple_animal/hostile/abyss_tentacle (O)
+	if(..())
+		new /mob/living/simple_animal/hostile/abyss_tentacle (get_turf(G))
+		for(var/turf/open/O in view(8, G))
+			if(O)
+				if(prob(25))
+					new /mob/living/simple_animal/hostile/abyss_tentacle (O)
 
 /atom/movable/screen/ghost/puppetry
 	name = "Puppetry"
@@ -272,7 +275,7 @@
 			L.key = puppetr.backseat.key
 			qdel(puppetr.backseat)
 			qdel(puppetr)
-
+			src.Remove(owner)
 
 /atom/movable/screen/ghost/puppetry/Click()
 	if(!G)
@@ -282,20 +285,20 @@
 		if(L)
 			puppet = L
 	if(puppet)
-		. = ..()
-		if(!P)
-			P = new ()
-			P.backseat = new (puppet)
-			P.fetter = G.fetter
-			P.relic = G.relic
-			P.myplace = G.myplace
-			P.mind = G.mind
-			if(puppet.key)
-				P.backseat.key = puppet.key
-			puppet.key = G.key
-			var/datum/action/reghost/R = new
-			R.puppetr = P
-			R.Grant(puppet)
+		if(..())
+			if(!P)
+				P = new ()
+				P.backseat = new (puppet)
+				P.fetter = G.fetter
+				P.relic = G.relic
+				P.myplace = G.myplace
+				P.mind = G.mind
+				if(puppet.key)
+					P.backseat.key = puppet.key
+				puppet.key = G.key
+				var/datum/action/reghost/R = new
+				R.puppetr = P
+				R.Grant(puppet)
 	else
 		to_chat(G, "<span class='warning'>You need to be on a same turf as target.</span>")
 
@@ -319,9 +322,9 @@
 		G.invisibility = INVISIBILITY_OBSERVER
 		G.alpha = 180
 	else
-		. = ..()
-		G.invisibility = 0
-		G.alpha = 255
+		if(..())
+			G.invisibility = 0
+			G.alpha = 255
 
 /atom/movable/screen/ghost/pathos
 	name = "Pathos"
@@ -477,6 +480,16 @@
 	corpus_icon.screen_loc = ui_ghost_corpus
 	corpus_icon.hud = src
 	static_inventory += corpus_icon
+
+	fetter_icon = new /atom/movable/screen/ghost()
+	fetter_icon.screen_loc = ui_ghost_fetter
+	fetter_icon.hud = src
+	static_inventory += fetter_icon
+
+	relic_icon = new /atom/movable/screen/ghost()
+	relic_icon.screen_loc = ui_ghost_relic
+	relic_icon.hud = src
+	static_inventory += relic_icon
 
 //	using = new /atom/movable/screen/ghost/pai()
 //	using.screen_loc = ui_ghost_pai
