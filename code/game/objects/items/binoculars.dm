@@ -11,9 +11,9 @@
 	var/mob/listeningTo
 	var/zoom_out_amt = 5.5
 	var/zoom_amt = 10
-	var/time_zoom = 15
-	var/range_x = 1200
-	var/range_y = 1200
+	var/time_zoom = 7
+	var/range_x = 450
+	var/range_y = 450
 
 /obj/item/binoculars/Initialize(mapload)
 	. = ..()
