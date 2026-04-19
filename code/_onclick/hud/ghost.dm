@@ -275,6 +275,8 @@
 			L.key = puppetr.backseat.key
 			qdel(puppetr.backseat)
 			qdel(puppetr)
+			if(isnpc(L))
+				L.add_movespeed_modifier(/datum/movespeed_modifier/npc)
 			src.Remove(owner)
 
 /atom/movable/screen/ghost/puppetry/Click()
@@ -283,7 +285,10 @@
 	var/mob/living/puppet
 	for(var/mob/living/L in get_turf(G))
 		if(L)
-			puppet = L
+			if(isnpc(L))
+				puppet = L
+			else if(!ishuman(L))
+				puppet = L
 	if(puppet)
 		if(..())
 			if(!P)
@@ -299,6 +304,7 @@
 				var/datum/action/reghost/R = new
 				R.puppetr = P
 				R.Grant(puppet)
+				puppet.remove_movespeed_modifier(/datum/movespeed_modifier/npc)
 	else
 		to_chat(G, "<span class='warning'>You need to be on a same turf as target.</span>")
 
