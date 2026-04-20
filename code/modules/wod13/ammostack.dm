@@ -67,10 +67,39 @@
 
 /obj/projectile/beam/beam_rifle/vampire/vamp50
 	name = ".50 bullet"
-	damage = 70
+	damage = 40
 	armour_penetration = 0
 	bare_wound_bonus = 5
 	wound_bonus = 5
+
+/obj/projectile/beam/beam_rifle/vampire/c338
+	name = " .338 bullet"
+	damage = 50
+	armour_penetration = 40
+	bare_wound_bonus = -5
+	wound_bonus = 5
+
+/obj/projectile/beam/beam_rifle/vampire/c338/on_hit(atom/target, blocked = FALSE)
+	. = ..()
+	if(isnpc(target))
+		var/mob/living/carbon/M = target
+		var/obj/item/bodypart/hit_limb = M.get_bodypart(def_zone)
+		var/obj/item/bodypart/head/hit = M.get_bodypart(BODY_ZONE_HEAD)
+		if(istype(hit_limb, hit))
+			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-head")
+			new /obj/effect/gibspawner/human(loc, M)
+			hit_limb.drop_limb()
+			qdel(hit_limb)
+		//	qdel(hit)
+	//	qdel(hit_limb)
+
+
+/obj/projectile/beam/beam_rifle/vampire/c308
+	name = " .308 bullet"
+	damage = 45
+	armour_penetration = 15
+	bare_wound_bonus = -5
+	wound_bonus = 10
 
 /obj/projectile/beam/beam_rifle/vampire/vamp556mm
 	name = "5.56mm bullet"
@@ -115,7 +144,7 @@
 
 /obj/projectile/beam/beam_rifle/vampire/vamp12g/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	if(iscarbon(target))
+	if(iscarbon(target) && ishumanbasic(target))
 		var/mob/living/carbon/M = target
 		var/roll = secret_vampireroll(get_a_stamina(M), 6, M, TRUE)
 		if(roll <= 3)
@@ -198,6 +227,22 @@
 //	base_iconstate = "50"
 	icon_state = "45"
 	base_iconstate = "45"
+
+/obj/item/ammo_casing/vampire/c338
+	name = ".338 bullet casing"
+	desc = "A .338 bullet casing."
+	caliber = CALIBER_338
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c338
+	icon_state = "338"
+	base_iconstate = "338"
+
+/obj/item/ammo_casing/vampire/c308
+	name = ".308 bullet casing"
+	desc = "A .308 bullet casing."
+	caliber = CALIBER_308
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c308
+	icon_state = "308"
+	base_iconstate = "308"
 
 /obj/item/ammo_casing/vampire/c556mm
 	name = "5.56mm bullet casing"
@@ -353,6 +398,12 @@
 	ammo_type = /obj/item/ammo_casing/caseless/bolt
 	max_ammo = 30
 
+/obj/item/ammo_box/vampire/c50
+	name = "ammo box (.50)"
+	icon_state = "44box"
+	ammo_type = /obj/item/ammo_casing/vampire/c50
+	max_ammo = 60
+
 //obj/item/ammo_casing/vampire/c12g/buck/silver
 //	name = "silver 12g shell casing"
 //	desc = "A silver filled 12g shell casing."
@@ -484,7 +535,48 @@
 	ammo_type = /obj/item/ammo_casing/vampire/c556mm/silver
 	max_ammo = 60
 
+
+
+/obj/item/ammo_casing/vampire/c338
+	name = ".338 bullet casing"
+	desc = "A .338 bullet casing."
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c338
+	icon_state = "s338"
+	base_iconstate = "s338"
+
+/obj/item/ammo_casing/vampire/c308
+	name = ".308 bullet casing"
+	desc = "A .308 bullet casing."
+	projectile_type = /obj/projectile/beam/beam_rifle/vampire/c308
+	icon_state = "s308"
+	base_iconstate = "s308"
+
+
+
+/obj/item/ammo_box/vampire/c338
+	name = "ammo box (.338)"
+	icon_state = "338_box"
+	ammo_type = /obj/item/ammo_casing/vampire/c338
+	max_ammo = 12
+	multiple_sprites = AMMO_BOX_FULL_EMPTY
+
+/obj/item/ammo_box/vampire/c308
+	name = "ammo box (.308)"
+	icon_state = "308_box"
+	ammo_type = /obj/item/ammo_casing/vampire/c308
+	max_ammo = 24
+	multiple_sprites = AMMO_BOX_FULL_EMPTY
+
 //obj/item/ammo_box/vampire/c12g/buck/silver
 //	name = "ammo box (12g, 00 buck silver)"
 //	icon_state = "s12box_buck"
 //	ammo_type = /obj/item/ammo_casing/vampire/c12g/buck/silver
+
+/obj/item/ammo_box/magazine/vampire
+	name = "magazine"
+	icon = 'code/modules/wod13/ammo.dmi'
+	icon_state = "s12box_buck"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'

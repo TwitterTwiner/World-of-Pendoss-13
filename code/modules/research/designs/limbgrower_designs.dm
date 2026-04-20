@@ -79,7 +79,7 @@
 	id = "glockmagazine"
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/fuel/oil = 50)
-	build_path = /obj/item/ammo_box/magazine/glock45acp
+	build_path = /obj/item/ammo_box/magazine/vampire/glock45acp
 	category = list("initial", "Herculean Firearms Incorporated")
 
 /datum/design/c45acp

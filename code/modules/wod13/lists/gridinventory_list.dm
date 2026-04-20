@@ -86,7 +86,7 @@
 	grid_width = 2 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
-/obj/item/ammo_box/magazine/glock9mm
+/obj/item/ammo_box/magazine/vampire/glock9mm
 	grid_width = 1 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
@@ -94,7 +94,7 @@
 	grid_width = 2 GRID_BOXES
 	grid_height = 1 GRID_BOXES
 
-/obj/item/ammo_box/magazine/glock45acp
+/obj/item/ammo_box/magazine/vampire/glock45acp
 	grid_width = 1 GRID_BOXES
 	grid_height = 1 GRID_BOXES
 
@@ -106,7 +106,7 @@
 	grid_width = 2 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
-/obj/item/ammo_box/magazine/vamp9mm
+/obj/item/ammo_box/magazine/vampire/vamp9mm
 	grid_width = 1 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
@@ -130,7 +130,7 @@
 	grid_width = 2 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
-/obj/item/ammo_box/magazine/m44
+/obj/item/ammo_box/magazine/vampire/m50
 	grid_width = 1 GRID_BOXES
 	grid_height = 1 GRID_BOXES
 
@@ -142,7 +142,7 @@
 	grid_width = 2 GRID_BOXES
 	grid_height = 1 GRID_BOXES
 
-/obj/item/ammo_box/magazine/vamp45acp
+/obj/item/ammo_box/magazine/vampire/vamp45acp
 	grid_width = 1 GRID_BOXES
 	grid_height = 1 GRID_BOXES
 
@@ -277,3 +277,9 @@
 /obj/item/kirbyplants
 	grid_width = 7 GRID_BOXES
 	grid_height = 10 GRID_BOXES
+
+
+/obj/item/ammo_box/vampire/c338
+	grid_width = 2 GRID_BOXES
+	grid_height = 1 GRID_BOXES
+

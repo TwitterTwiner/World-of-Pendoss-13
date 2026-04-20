@@ -11,6 +11,10 @@
 	var/mob/listeningTo
 	var/zoom_out_amt = 5.5
 	var/zoom_amt = 10
+	var/time_zoom = 7
+	var/range_x = 450
+	var/range_y = 450
+
 
 /obj/item/binoculars/Initialize(mapload)
 	. = ..()
@@ -34,7 +38,24 @@
 	user.visible_message("<span class='notice'>[user] holds [src] up to [user.p_their()] eyes.</span>", "<span class='notice'>You hold [src] up to your eyes.</span>")
 	inhand_icon_state = "binoculars_wielded"
 	user.regenerate_icons()
+//	var/direction = get_direction(user)
+	var/direction = user.dir
+	switch(direction)
+		if(NORTH)
+			range_x = 0
+			range_y = initial(range_y)
+		if(SOUTH)
+			range_x = 0
+			range_y = -(initial(range_y))
+		if(EAST)
+			range_x = (initial(range_x))
+			range_y = 0
+		if(WEST)
+			range_y = 0
+			range_x = -(initial(range_x))
 	user.client.view_size.zoomOut(zoom_out_amt, zoom_amt, user.dir)
+	animate(user.client, pixel_x = range_x, pixel_y = range_y, time = time_zoom, easing = CIRCULAR_EASING|EASE_IN)
+
 
 /obj/item/binoculars/proc/rotate(atom/thing, old_dir, new_dir)
 	SIGNAL_HANDLER

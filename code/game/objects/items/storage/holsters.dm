@@ -46,12 +46,12 @@
 		/obj/item/gun/ballistic/automatic/vampire/glock19,
 		/obj/item/gun/ballistic/automatic/vampire/glock21,
 		/obj/item/ammo_box/vampire/c9mm/moonclip,
-		/obj/item/ammo_box/magazine/m44,
+		/obj/item/ammo_box/magazine/vampire/m50,
 		/obj/item/ammo_box/magazine/m50,
-		/obj/item/ammo_box/magazine/vamp45acp,
+		/obj/item/ammo_box/magazine/vampire/vamp45acp,
 		/obj/item/ammo_box/magazine/toy/pistol,
-		/obj/item/ammo_box/magazine/glock9mm,
-		/obj/item/ammo_box/magazine/glock45acp,	,
+		/obj/item/ammo_box/magazine/vampire/glock9mm,
+		/obj/item/ammo_box/magazine/vampire/glock45acp,	,
 		))
 
 /obj/item/storage/belt/holster/detective/full/PopulateContents()

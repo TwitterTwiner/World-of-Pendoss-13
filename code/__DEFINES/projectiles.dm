@@ -36,6 +36,10 @@
 #define CALIBER_N762		"n762"
 
 #define CALIBER_545		"545mm"
+
+#define CALIBER_338		".338"
+
+#define CALIBER_308		".308"
 /// The caliber used by the the M-90gl Carbine, and NT-ARG 'Boarder'.
 #define CALIBER_A556		"a556"
 /// The caliber used by bolt action rifles.
