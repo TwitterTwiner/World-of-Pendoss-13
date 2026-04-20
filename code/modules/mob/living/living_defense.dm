@@ -10,6 +10,8 @@
 		playsound_local(loc, 'code/modules/wod13/sounds/obfuscate_deactivate.ogg', 50, FALSE)
 
 	switch(attack_flag)
+		if(STAMINA)
+			total_cubes += get_a_stamina(src)
 		if(BASHING)
 			total_cubes += get_a_stamina(src)
 		if(LETHAL)
@@ -25,7 +27,7 @@
 	if(!fortitude_negation)
 		total_cubes += get_fortitude_dices(src)+get_visceratika_dices(src)+get_bloodshield_dices(src)+get_lasombra_dices(src)+get_tzimisce_dices(src)
 
-	if(attack_flag == BASHING || attack_flag == LETHAL || attack_flag == AGGRAVATED)
+	if(attack_flag == BASHING || attack_flag == LETHAL || attack_flag == AGGRAVATED || attack_flag == STAMINA)
 		var/final_block = secret_vampireroll(total_cubes, 6, src, silent, FALSE)
 		if(final_block == -1)
 			if(penetrated_text)
