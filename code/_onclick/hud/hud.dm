@@ -60,6 +60,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/ghost/pathos_icon
 	var/atom/movable/screen/ghost/psyche_icon
 	var/atom/movable/screen/ghost/corpus_icon
+	var/atom/movable/screen/ghost/angst_icon
 
 	var/atom/movable/screen/ghost/fetter_icon
 	var/atom/movable/screen/ghost/relic_icon

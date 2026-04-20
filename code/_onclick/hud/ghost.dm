@@ -139,6 +139,13 @@
 			if(!G.damaged_when_slumber)
 				G.transform = null
 				G.corpus = min(10, G.corpus+max(1, G.psyche))
+				if(G.relic)
+					if(G.loc == G.relic)
+						G.angst = 0
+					else
+						G.angst = max(G.angst-max(1, G.psyche), 0)
+				else
+					G.angst = 0
 			else
 				G.damaged_when_slumber = FALSE
 
@@ -384,6 +391,11 @@
 	icon = 'icons/hud/wraith_corpus.dmi'
 	icon_state = "corpus10"
 
+/atom/movable/screen/ghost/angst
+	name = "Angst"
+	icon = 'icons/hud/wraith_angst.dmi'
+	icon_state = "angst0"
+
 /atom/movable/screen/ghost/passion
 	name = "Passion"
 	icon = 'icons/hud/wraith_passion.dmi'
@@ -528,6 +540,11 @@
 	corpus_icon.screen_loc = ui_ghost_corpus
 	corpus_icon.hud = src
 	static_inventory += corpus_icon
+
+	angst_icon = new /atom/movable/screen/ghost/angst()
+	angst_icon.screen_loc = ui_ghost_angst
+	angst_icon.hud = src
+	static_inventory += angst_icon
 
 	passion_icon = new /atom/movable/screen/ghost/passion()
 	passion_icon.screen_loc = ui_ghost_passion

@@ -74,11 +74,16 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	var/aghosted = FALSE
 
 	var/corpus = 10
+	var/angst = 0
+	var/lastangst = 0
 	var/psyche = 5
 	var/pathos = 5
 	var/area/vtm/myplace
 	var/obj/item/relic
 	var/mob/living/fetter
+
+	var/mob/camera/shadow
+	var/image/current_image
 
 	var/acting = FALSE
 	var/lastattack = 0
@@ -164,6 +169,9 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 			M.key = key
 
 /mob/dead/observer/Initialize(mapload)
+	shadow = new(get_turf(src))
+	current_image = image('code/modules/wod13/wraith_shadow.dmi', shadow, "shadow", ABOVE_LIGHTING_LAYER)
+	current_image.override = TRUE
 	set_invisibility(GLOB.observer_default_invisibility)
 
 	add_verb(src, list(
@@ -507,7 +515,56 @@ Works together with spawning an observer, noted above.
 		hud_used.pathos_icon.icon_state = "pathos[pathos]"
 	if(hud_used?.passion_icon)
 		hud_used.passion_icon.icon_state = "[passion]"
+	switch(psyche)
+		if(0)
+			if(lastangst+30 SECONDS < world.time)
+				lastangst = world.time
+				angst = min(angst+1, 10)
+				to_chat(src, "<span class='warning'>You feel your Shadow approaching...</span>")
+		if(1)
+			if(lastangst+60 SECONDS < world.time)
+				lastangst = world.time
+				angst = min(angst+1, 10)
+				to_chat(src, "<span class='warning'>You feel your Shadow approaching...</span>")
+		if(2)
+			if(lastangst+90 SECONDS < world.time)
+				lastangst = world.time
+				angst = min(angst+1, 10)
+				to_chat(src, "<span class='warning'>You feel your Shadow approaching...</span>")
+		if(3)
+			if(lastangst+120 SECONDS < world.time)
+				lastangst = world.time
+				angst = min(angst+1, 10)
+				to_chat(src, "<span class='warning'>You feel your Shadow approaching...</span>")
+		if(4)
+			if(lastangst+150 SECONDS < world.time)
+				lastangst = world.time
+				angst = min(angst+1, 10)
+				to_chat(src, "<span class='warning'>You feel your Shadow approaching...</span>")
+		if(5)
+			lastangst = world.time
 
+	if(hud_used?.angst_icon)
+		hud_used.angst_icon.icon_state = "angst[angst]"
+
+	if(client)
+		client.images.Remove(current_image)
+		if(angst == 10 && corpus > 0)
+			client.images |= current_image
+			if(get_dist(get_turf(src), shadow) <= 1)
+				corpus = 1
+				damage_corpus()
+			var/shadowphrase = list("ЭТО ВСЁ ТВОЯ ВИНА", "ТЫ БЕЗДАРНОСТЬ", "ДАЖЕ БУДУЧИ МЁРТВЫМ ТЫ ОСТАЁШЬСЯ НИКЧЁМНЫМ", "ТЕБЕ ЛУЧШЕ ЗАБЫТЬСЯ НАВСЕГДА", "СЕЙЧАС ТЕБЕ СТАНЕТ ЕЩЁ ХУЖЕ")
+			if(prob(10))
+				to_chat(src, "<span class='phobia'>[pick(shadowphrase)]</span>")
+			if(shadow.x > x)
+				shadow.x = shadow.x-1
+			if(shadow.x < x)
+				shadow.x = shadow.x+1
+			if(shadow.y > y)
+				shadow.y = shadow.y-1
+			if(shadow.y < y)
+				shadow.y = shadow.y+1
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
 */
@@ -550,6 +607,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/obj/transfer_point_vamp/V = locate() in NewLoc
 	if(V)
 		V.Bumped(src)
+	if(get_dist(get_turf(src), shadow) > 7)
+		var/list/openturfs = list()
+		for(var/turf/open/O in view(6, src))
+			if(O)
+				if(get_dist(get_turf(src), O) >= 4)
+					openturfs += O
+		if(length(openturfs))
+			shadow.forceMove(pick(openturfs))
 	..()
 /*
 	if(updatedir)

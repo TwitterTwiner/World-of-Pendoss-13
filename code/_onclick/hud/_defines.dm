@@ -216,5 +216,6 @@
 #define ui_ghost_passion "WEST-3:16,SOUTH+9"
 
 #define ui_ghost_corpus "WEST-3,NORTH-2:16"
+#define ui_ghost_angst "WEST-4:16,NORTH-3:16"
 
 #define ui_wanted_lvl "NORTH,11"
