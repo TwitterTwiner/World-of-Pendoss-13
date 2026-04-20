@@ -135,6 +135,7 @@
 		var/matrix/M = matrix()
 		M.Turn(90)
 		G.transform = M
+		G.lastangst = world.time
 		spawn(1 MINUTES)
 			if(!G.damaged_when_slumber)
 				G.transform = null
@@ -146,6 +147,7 @@
 						G.angst = max(G.angst-max(1, G.psyche), 0)
 				else
 					G.angst = 0
+				G.lastangst = world.time
 			else
 				G.damaged_when_slumber = FALSE
 
