@@ -5,7 +5,7 @@
 	"massmurder" = 0, "diablerie" = 0, "cpr" = 0, "shockpaddles" = 0, "donate" = 0, "dance" = 0, "animaldrink" = 0, "ratdrink" = 0, "packetdrink" = 0,
 	"baddrink" = 0, "gooddrink" = 0, "firstfeed" = 0, "suncoming" = 0, "rotshreck" = 0, "bloodhunger" = 0, "pretorpor" = 0, "jumpfail" = 0, "jumpsuccess" = 0,
 	"deadexamine" = 0, "onfire" = 0, "highspeed" = 0, "attacked" = 0, "attackedfail" = 0, "gettingdrunk" = 0, "talkenough" = 0, "cleanenough" = 0, "gettinghigh" = 0,
-	"corpseitems" = 0, "friendmeet" = 0, "lovermeet" = 0)
+	"corpseitems" = 0, "friendmeet" = 0, "lovermeet" = 0, "diablerie_jertva" = 0, "diablerie_jertva_uspeh" = 0, "diablerie_success" = 0, "gun_fail" = 0)
 
 
 /datum/morality_path/humanity/trigger_morality(trig_event)
@@ -442,6 +442,10 @@
 		if ("diablerie_jertva")
 			var/replic_diablerie_jertva = pick(" — Констатирую: Нас пожирают.", " — Меня кто-то ест... Чувствую это...", " — Почему я чувствую, что меня кто-то пожирает изнутри?")
 			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_diablerie_jertva]</span>")
+
+		if("gun_fail")
+			var/replic_gun_fail = pick(" — Пуля очень многое меняет в жизни. Даже, если попадает в задницу.", " — Оружие, которым ты не умеешь пользоваться, будет обращено против тебя.", " — Это было небольшой ценой за ошибку. Ты мог лишиься гораздо большего.", " — Не стоит недооценивать опасность огнестрельного оружия, особенно если ты не умеешь им пользоваться.")
+			to_chat(owner, "<font size=12>[icon2html('icons/consience.png', owner)]</font> <span class='comradio'><b>CONSCIENCE</b></span><span class='discosay'>[replic_gun_fail]</span>")
 
 	return TRUE
 //"slur" = 10, "attackfirst" = 9, "failing" = 8 "steal" = 7, "robbery" = 6, "drying" = 5, "drugdealing" = 4, "killparticipation" = 3, "killcommit" = 2, "sadism" = 1, "burningalive" = 1, "massmurder" = 0

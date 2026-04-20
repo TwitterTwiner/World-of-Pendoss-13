@@ -11575,7 +11575,7 @@
 "aSU" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/shop)
 "aSV" = (
@@ -33440,7 +33440,7 @@
 "gmj" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch)
 "gml" = (
@@ -35820,7 +35820,7 @@
 "hkY" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/m1911,
-/obj/item/ammo_box/magazine/vamp45acp,
+/obj/item/ammo_box/magazine/vampire/vamp45acp,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
 "hli" = (
@@ -37042,7 +37042,7 @@
 "hKP" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
 "hLb" = (
@@ -38107,8 +38107,8 @@
 /obj/structure/rack,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "igF" = (
@@ -38141,8 +38141,8 @@
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/glasswalker)
 "ihg" = (
@@ -38183,7 +38183,7 @@
 "ihM" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/m1911,
-/obj/item/ammo_box/magazine/vamp45acp,
+/obj/item/ammo_box/magazine/vampire/vamp45acp,
 /turf/open/floor/carpet/lone,
 /area/vtm/interior/giovanni)
 "iib" = (
@@ -41568,8 +41568,8 @@
 /obj/structure/rack,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior)
 "jBN" = (
@@ -41657,7 +41657,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate,
 /obj/item/gun/ballistic/automatic/vampire/uzi,
-/obj/item/ammo_box/magazine/vamp9mm,
+/obj/item/ammo_box/magazine/vampire/vamp9mm,
 /obj/item/melee/vampirearms/baseball,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
@@ -47334,8 +47334,8 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /obj/item/ammo_box/vampire/c9mm,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/police)
@@ -50306,7 +50306,7 @@
 	pixel_y = 32
 	},
 /obj/item/gun/ballistic/automatic/vampire/m1911,
-/obj/item/ammo_box/magazine/vamp45acp,
+/obj/item/ammo_box/magazine/vampire/vamp45acp,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/police)
 "nwt" = (
@@ -55841,7 +55841,7 @@
 /obj/structure/coclock,
 /obj/structure/table/wood/fancy/red,
 /obj/item/gun/ballistic/automatic/vampire/deagle,
-/obj/item/ammo_box/magazine/m44,
+/obj/item/ammo_box/magazine/vampire/m50,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
 "pKt" = (
@@ -61104,7 +61104,7 @@
 /obj/machinery/light{
 	pixel_y = 32
 	},
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/police)
 "rZy" = (
@@ -67230,7 +67230,7 @@
 	name = "Justice";
 	cost = 2000
 	},
-/obj/item/ammo_box/magazine/vampautoshot,
+/obj/item/ammo_box/magazine/vampire/vampautoshot,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police)
 "uHb" = (
@@ -68071,7 +68071,7 @@
 "uXp" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/closed/wall/vampwall/low,
 /area/vtm/interior/police)
 "uXT" = (
@@ -68702,7 +68702,7 @@
 "vks" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/glock21,
-/obj/item/ammo_box/magazine/glock45acp,
+/obj/item/ammo_box/magazine/vampire/glock45acp,
 /turf/closed/wall/vampwall/low,
 /area/vtm/interior/police)
 "vkF" = (
@@ -72049,7 +72049,7 @@
 "wDz" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/m1911,
-/obj/item/ammo_box/magazine/vamp45acp,
+/obj/item/ammo_box/magazine/vampire/vamp45acp,
 /turf/closed/wall/vampwall/low,
 /area/vtm/interior/police)
 "wDJ" = (
@@ -72746,7 +72746,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/item/gun/ballistic/automatic/vampire/glock19,
-/obj/item/ammo_box/magazine/glock9mm,
+/obj/item/ammo_box/magazine/vampire/glock9mm,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/endronoffice)
 "wSm" = (

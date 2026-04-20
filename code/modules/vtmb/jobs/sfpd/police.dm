@@ -38,7 +38,7 @@
 	id = /obj/item/card/id/police
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/vamp/keys/police
-	backpack_contents = list(/obj/item/melee/classic_baton/vampire=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/glock9mm=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/box/handcuffs=1, /obj/item/food/donut/choco=1, /obj/item/storage/firstaid/ifak=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/vampire=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/vampire/glock9mm=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/box/handcuffs=1, /obj/item/food/donut/choco=1, /obj/item/storage/firstaid/ifak=1)
 
 /datum/outfit/job/police_officer/post_equip(mob/living/carbon/human/H)
 	..()
@@ -91,7 +91,7 @@
 	id = /obj/item/card/id/police/coroner
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/vamp/keys/police
-	backpack_contents = list(/obj/item/screwdriver=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/glock9mm=1, /obj/item/cockclock=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/firstaid/regular=1)
+	backpack_contents = list(/obj/item/screwdriver=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/vampire/glock9mm=1, /obj/item/cockclock=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/firstaid/regular=1)
 
 /datum/outfit/job/police_coroner/post_equip(mob/living/carbon/human/H)
 	..()
@@ -142,7 +142,7 @@
 	id = /obj/item/card/id/police/sergeant
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/vamp/keys/police/secure
-	backpack_contents = list(/obj/item/melee/classic_baton/vampire=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/glock9mm=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/box/handcuffs=1 , /obj/item/food/donut/choco = 1, /obj/item/storage/firstaid/ifak=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/vampire=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/vampire/glock9mm=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/box/handcuffs=1 , /obj/item/food/donut/choco = 1, /obj/item/storage/firstaid/ifak=1)
 
 /datum/outfit/job/police_sergeant/post_equip(mob/living/carbon/human/H)
 	..()
@@ -194,7 +194,7 @@
 	id = /obj/item/card/id/police/lieutenant
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/vamp/keys/police/secure/lieutenant
-	backpack_contents = list(/obj/item/melee/classic_baton/vampire=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/glock9mm=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/box/handcuffs=1, /obj/item/food/donut/choco=1, /obj/item/storage/firstaid/ifak=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/vampire=1, /obj/item/passport=1, /obj/item/ammo_box/vampire/c9mm=1, /obj/item/gun/ballistic/automatic/vampire/glock19=1, /obj/item/ammo_box/magazine/vampire/glock9mm=1, /obj/item/radio/cop=1, /obj/item/vamp/creditcard=1, /obj/item/storage/box/handcuffs=1, /obj/item/food/donut/choco=1, /obj/item/storage/firstaid/ifak=1)
 
 /datum/outfit/job/police_lieutenant/post_equip(mob/living/carbon/human/H)
 	..()

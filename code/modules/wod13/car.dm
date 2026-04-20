@@ -350,6 +350,11 @@ SUBSYSTEM_DEF(carpool)
 		. += "<span class='notice'>\nYou see the following people inside:</span>"
 		for(var/mob/living/rider in src)
 			. += "<span class='notice'>* [rider]</span>"
+/*
+/obj/vampire_car/update_overlays()
+	. = ..()
+		LITTLE LATER, WHEN OTHER JOBS WILL BE DONE
+*/
 
 /obj/vampire_car/proc/get_damage(cost, mob/living/bumped_into, onbump_force)
 	if(cost > 0)
@@ -389,7 +394,7 @@ SUBSYSTEM_DEF(carpool)
 	if(cost > 0)
 		health = min(maxhealth, health-cost)
 
-	if(health == 0)
+	if(health >= 0)
 		on = FALSE
 		set_light(0)
 		color = "#919191"
@@ -699,25 +704,16 @@ SUBSYSTEM_DEF(carpool)
 				playsound(src, 'code/modules/wod13/sounds/bump.ogg', 50, TRUE)
 				speed_in_pixels = round(speed_in_pixels * 0.5)
 				hit_mob.Knockdown(1 SECONDS)
-	else
-		playsound(src, 'code/modules/wod13/sounds/bump.ogg', 75, TRUE)
-		speed_in_pixels = 0
-		impact_delay = world.time
-	if(driver && istype(A, /mob/living/carbon/human/npc))
-		var/mob/living/carbon/human/npc/NPC = A
-		NPC.Aggro(driver, TRUE)
-		if(ishuman(driver))
-			var/mob/living/carbon/human/ryangosling = driver
-			if(ryangosling.MyPath)
-				ryangosling.MyPath.trigger_morality("attackfirst")
-	last_pos["x_pix"] = 0
-	last_pos["y_pix"] = 0
-	for(var/mob/living/L in src)
-		if(L)
-			if(L.client)
-				L.client.pixel_x = 0
-				L.client.pixel_y = 0
-	if(istype(A, /mob/living))
+
+//		if(driver && istype(A, /mob/living/carbon/human/npc))
+		if(driver && isnpc(A))
+			var/mob/living/carbon/human/npc/NPC = A
+			NPC.Aggro(driver, TRUE)
+			if(ishuman(driver))
+				var/mob/living/carbon/human/ryangosling = driver
+				if(ryangosling.MyPath)
+					ryangosling.MyPath.trigger_morality("attackfirst")
+
 		var/dam = prev_speed
 		if(cat)
 			return
@@ -727,10 +723,23 @@ SUBSYSTEM_DEF(carpool)
 			var/mob/living/Livedyoung = A
 			var/atom/throw_target = get_edge_target_turf(src, dir)
 			Livedyoung.throw_at(throw_target, max(1, abs(prev_speed)/32), 4, driver)
+
+
 	else
+		speed_in_pixels = 0
 		var/dam = prev_speed*2
+		playsound(src, 'code/modules/wod13/sounds/bump.ogg', 75, TRUE)
+		impact_delay = world.time
 		get_damage(dam, , dam)
-	return
+	last_pos["x_pix"] = 0
+	last_pos["y_pix"] = 0
+	for(var/mob/living/L in src)
+		if(L)
+			if(L.client)
+				L.client.pixel_x = 0
+				L.client.pixel_y = 0
+
+//	return
 
 //// TRUCK ////
 
@@ -927,6 +936,13 @@ SUBSYSTEM_DEF(carpool)
 									COOLDOWN_START(NPC, car_dodge, 2 SECONDS)
 									if(prob(50))
 										NPC.RealisticSay(pick(NPC.socialrole.car_dodged))
+						if(istype(contact, /obj/transfer_point_vamp))
+							var/obj/transfer_point_vamp/TPV = contact
+							TPV.Bumped(src)
+						if(istype(contact, /obj/structure)) /// structure for future itereations
+							var/obj/structure/hit_obj = contact
+							if(istype(hit_obj, /obj/structure/barrier_tape/police))
+								qdel(hit_obj)
 		var/turf/hit_turf
 		var/list/in_line = get_line(src, check_turf)
 		for(var/turf/T in in_line)

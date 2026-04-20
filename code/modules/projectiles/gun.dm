@@ -338,7 +338,9 @@
 			add_hard = 3
 		if(target == user)
 			add_hard = -4
-		var/successess = secret_vampireroll(used_roll+get_a_firearms(user), 5+add_hard, user)
+		if(get_a_firearms(user) < 5)
+			difficult = -1
+		var/successess = secret_vampireroll(used_roll+get_a_firearms(user), 5+add_hard+difficult, user)
 //		if(successess == -1)
 //			shoot_with_empty_chamber(user)
 //			firing_burst = FALSE
@@ -419,8 +421,13 @@
 				add_hard = 3
 			if(target == user)
 				add_hard = -5
+		//	if(get_a_firearms(user) >= 5)
+			if(get_a_perception(user) >= 5)
+				difficult = -1
+
 			var/successess = secret_vampireroll(used_roll+get_a_firearms(user), 4+add_hard+difficult, user)
 			if(successess == -1)
+				botch_moment(user)
 				shoot_with_empty_chamber(user)
 				return
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
@@ -450,6 +457,38 @@
 
 /obj/item/gun/proc/reset_semicd()
 	semicd = FALSE
+
+/obj/item/gun/proc/botch_moment(mob/living/user)
+	var/obj/item/bodypart/arm
+	var/gun_hand = LEFT_HANDS
+	var/obj/item/bodypart/head/golova = user.get_bodypart(BODY_ZONE_HEAD)
+
+	if(user.held_items[RIGHT_HANDS] == src)
+		gun_hand = RIGHT_HANDS
+	switch(gun_hand)
+		if(LEFT_HANDS)
+			arm = user.get_bodypart(BODY_ZONE_L_ARM)
+		if(RIGHT_HANDS)
+			arm = user.get_bodypart(BODY_ZONE_R_ARM)
+	switch(rand(1,3))
+		if(1)
+			arm.force_wound_upwards(/datum/wound/blunt/critical)
+			user.adjustBruteLoss(10, TRUE)
+			to_chat(user, span_danger("Ты не смог проконтролировать отдачу и твоя рука ужасно повреждена!"))
+		if(2)
+			user.soundbang_act(5, 10, 1, 2)
+			new /obj/effect/dummy/lighting_obj (loc, 2, 4, COLOR_WHITE, 2)
+			user.flash_act(intensity = 1.25)
+			to_chat(user, span_danger("Внезапная вспышка и металлический звук твоего оружия тебя оглушили!!"))
+		if(3)
+			user.Stun(10)
+			golova.receive_damage(10)
+			to_chat(user, span_danger("[src] вылетело у тебя прямо из рук и ударило тебя по лицу!"))
+
+	var/mob/living/carbon/C
+	if(C.MyPath)
+		C.MyPath.trigger_morality("gun_fail")
+
 
 /obj/item/gun/attack(mob/M as mob, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
