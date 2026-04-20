@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define iszomboid(A) (istype(A, /mob/living/simple_animal/hostile/zombie))
 
-#define isauspexavatar(A) (istype(A, /mob/dead/observer/avatar))
+#define isauspexavatar(A) (istype(A, /mob/camera/auspex))
 
 //Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))

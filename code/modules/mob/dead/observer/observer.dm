@@ -460,6 +460,9 @@ Works together with spawning an observer, noted above.
 			hud_used.fetter_icon.maptext = MAPTEXT("[dir2text(get_dir(get_turf(src), get_turf(fetter)))] [get_dist(get_turf(src), get_turf(fetter))]")
 		if(get_area(fetter) == get_area(src))
 			fetter_around = 1
+			if(get_dist(get_turf(src), get_turf(fetter)) <= 4)
+				if(passion == "love")
+					restore_pathos()
 	else
 		if(hud_used?.fetter_icon)
 			hud_used.fetter_icon.cut_overlays()
@@ -551,6 +554,14 @@ Works together with spawning an observer, noted above.
 		client.images.Remove(current_image)
 		if(angst == 10 && corpus > 0)
 			client.images |= current_image
+			if(get_dist(get_turf(src), shadow) > 7)
+				var/list/openturfs = list()
+				for(var/turf/open/O in view(6, src))
+					if(O)
+						if(get_dist(get_turf(src), O) >= 4)
+							openturfs += O
+				if(length(openturfs))
+					shadow.forceMove(pick(openturfs))
 			if(get_dist(get_turf(src), shadow) <= 1)
 				corpus = 1
 				damage_corpus()
