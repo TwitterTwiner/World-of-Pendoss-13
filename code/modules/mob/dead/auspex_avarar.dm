@@ -51,6 +51,7 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 	return holder.say(message)
 
 /mob/camera/auspex/Move(NewLoc, Dir = 0)
+	dir = get_dir(get_turf(src), NewLoc)
 	forceMove(NewLoc)
 
 /mob/camera/auspex/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
