@@ -87,16 +87,51 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 
 	var/lastslumber = - 1 MINUTES
 
+	var/lastpathosrestore = - 30 SECONDS
+
+	var/passion = "curiousity"	//Love, Anger, Revenge
+
+	var/mob/living/lastattacker
+
+/obj/item/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_NECROMANCY_KNOWLEDGE))
+		for(var/mob/dead/observer/O in GLOB.player_list)
+			if(O)
+				if(O.relic == src)
+					var/soul_loc = "But they're far away from here..."
+					if(get_area(O) == get_area(src))
+						soul_loc = "And they seem to be somewhere close..."
+					to_chat(user, "<span class='hypnophrase'>This item is a relic to a ghost. [soul_loc]</span>")
+
+/obj/item/attack_self(mob/user)
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		if(O)
+			if(O.relic == src)
+				to_chat(O, "<span class='hypnophrase'>A NEW HAND TOUCHES THE RELIC</span>")
+				to_chat(user, "<span class='warning'>You feel cold air surrounding you...</span>")
+				O.forceMove(get_turf(src))
+	. = ..()
+
+/mob/dead/observer/proc/restore_pathos()
+	if(lastpathosrestore < world.time)
+		lastpathosrestore = world.time + 30 SECONDS
+		pathos = min(pathos+1, 10)
+
 /mob/dead/observer/proc/damage_corpus()
 	if (check_rights_for(client, R_ADMIN))
 		return
+	transform = null
+	damaged_when_slumber = TRUE
+	slumbercooldown = world.time + 2 MINUTES
+	lastslumber = world.time
 	if(lastcorpusdamage < world.time)
 		lastcorpusdamage = world.time+15 SECONDS
 		if(invisibility == 0)
 			lastcorpusdamage = world.time+2 SECONDS
 		corpus = max(0, corpus-1)
 		new /obj/effect/decal/remains/plasma (get_turf(src))
-		to_chat(src, "<span class='phobia'>You feel pain, like you did when you where alive!</span>")
+		to_chat(src, "<span class='danger'>You feel pain, like you did when you where alive!</span>")
 		playsound(get_turf(src), 'sound/effects/ghost.ogg', 100, TRUE)
 		for(var/mob/M in orange(7, src))
 			if(M)
@@ -105,13 +140,28 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 			hud_used.corpus_icon.icon_state = "corpus[corpus]"
 
 	if(corpus == 0)
-		if(client)
-			client.screen.Cut()
-			client.screen += client.void
+		relic = null
+//		qdel(relic)
+		var/area/are
+		for(var/area/A in world)
+			if(A.name == "Backrooms")
+				are = A
 
-		var/mob/dead/new_player/M = new /mob/dead/new_player()
-		src << sound(null)
-		M.key = key
+		if(are)
+			var/list/L = list()
+			for(var/turf/T in get_area_turfs(are.type))
+				L+=T
+
+			usr.forceMove(pick(L))
+			update_parallax_contents()
+		else
+			if(client)
+				client.screen.Cut()
+				client.screen += client.void
+
+			var/mob/dead/new_player/M = new /mob/dead/new_player()
+			src << sound(null)
+			M.key = key
 
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -328,6 +378,10 @@ Works together with spawning an observer, noted above.
 				ghost.fetter = H.Myself?.Lover?.owner
 			else if(H.Myself?.Friend?.owner)
 				ghost.fetter = H.Myself?.Friend?.owner
+			for(var/mob/living/L in GLOB.player_list)
+				if(L)
+					if(L.true_real_name == H.lastattacker)
+						ghost.lastattacker = L
 		SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
 		ghost.can_reenter_corpse = can_reenter_corpse
 		// [ChillRaccoon] - setting mob icons
@@ -366,6 +420,16 @@ Works together with spawning an observer, noted above.
 			var/result = tgui_input_list(ghost, "Choose a relic", "Relic", sortList(relics))
 			if(result)
 				ghost.relic = result
+		var/list/passions = list("anger", "curiousity")
+		if(ghost.fetter)
+			passions += "love"
+		if(isliving(src))
+			var/mob/living/liv = src
+			if(liv.lastattacker)
+				passions += "revenge"
+		var/strast = tgui_input_list(ghost, "Choose a passion", "Passion", sortList(passions))
+		if(strast)
+			ghost.passion = strast
 		return ghost
 
 /mob/living/ghostize(can_reenter_corpse = TRUE, aghosted = FALSE)
@@ -381,11 +445,29 @@ Works together with spawning an observer, noted above.
 			hud_used.fetter_icon.cut_overlays()
 			var/mutable_appearance/M = fetter.appearance
 			hud_used.fetter_icon.add_overlay(M)
+			hud_used.fetter_icon.maptext_width = 96
+			hud_used.fetter_icon.maptext_height = 24
+			hud_used.fetter_icon.maptext_x = -16
+			hud_used.fetter_icon.maptext_y = -8
+			hud_used.fetter_icon.maptext = MAPTEXT("[dir2text(get_dir(get_turf(src), get_turf(fetter)))] [get_dist(get_turf(src), get_turf(fetter))]")
 		if(get_area(fetter) == get_area(src))
 			fetter_around = 1
 	else
 		if(hud_used?.fetter_icon)
 			hud_used.fetter_icon.cut_overlays()
+	if(passion == "revenge")
+		if(hud_used?.passion_icon)
+			hud_used.passion_icon.cut_overlays()
+			if(lastattacker)
+				var/mutable_appearance/M = lastattacker.appearance
+				hud_used.passion_icon.add_overlay(M)
+				hud_used.passion_icon.maptext_width = 96
+				hud_used.passion_icon.maptext_height = 24
+//			hud_used.fetter_icon.maptext_x = -16
+				hud_used.passion_icon.maptext_y = 24
+				hud_used.passion_icon.maptext = MAPTEXT("[dir2text(get_dir(get_turf(src), get_turf(fetter)))] [get_dist(get_turf(src), get_turf(fetter))]")
+			else
+				hud_used.passion_icon.maptext = MAPTEXT("")
 	var/relic_around = 0
 	var/in_relic = 0
 	if(relic)
@@ -395,6 +477,11 @@ Works together with spawning an observer, noted above.
 			hud_used.relic_icon.cut_overlays()
 			var/icon/I = icon(initial(relic.icon), initial(relic.icon_state))
 			hud_used.relic_icon.add_overlay(I)
+			hud_used.relic_icon.maptext_width = 96
+			hud_used.relic_icon.maptext_height = 24
+			hud_used.fetter_icon.maptext_x = 16
+			hud_used.relic_icon.maptext_y = -8
+			hud_used.relic_icon.maptext = MAPTEXT("[dir2text(get_dir(get_turf(src), get_turf(relic)))] [get_dist(get_turf(src), get_turf(relic))]")
 		if(get_area(relic) == get_area(src))
 			relic_around = 1
 	else
@@ -413,11 +500,13 @@ Works together with spawning an observer, noted above.
 	var/my_death_here = 0
 	if(get_area(src) == myplace)
 		my_death_here = 1
-	psyche = clamp(fetter_around+relic_around+low_wall+deaths_here+my_death_here+in_relic+1, 0, 5)
+	psyche = clamp(fetter_around+relic_around+low_wall+deaths_here+my_death_here+in_relic, 0, 5)
 	if(hud_used?.psyche_icon)
 		hud_used.psyche_icon.icon_state = "psyche[psyche]"
 	if(hud_used?.pathos_icon)
 		hud_used.pathos_icon.icon_state = "pathos[pathos]"
+	if(hud_used?.passion_icon)
+		hud_used.passion_icon.icon_state = "[passion]"
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -498,6 +587,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!can_reenter_corpse)
 		to_chat(src, "<span class='warning'>You cannot re-enter your body.</span>")
 		return
+	if(corpus == 0)
+		return
 
 	var/mob/living/carbon/human/original_body = mind.current
 
@@ -563,6 +654,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc= "Teleport to a location"
 	if(!isobserver(usr))
 		to_chat(usr, "<span class='warning'>Not when you're not dead!</span>")
+		return
+	if(corpus == 0)
 		return
 	var/list/filtered = list()
 	for(var/V in GLOB.sortedAreas)
@@ -781,6 +874,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	set name = "Possess!"
 	set desc= "Take over the body of a mindless creature!"
+
+	if(corpus == 0)
+		return
 
 	var/list/possessible = list()
 	for(var/mob/living/L in GLOB.alive_mob_list)

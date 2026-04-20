@@ -7,6 +7,8 @@
 	var/psyche_min = 0
 	var/mob/dead/observer/G
 	var/last_activate = 0
+	var/usable = FALSE
+	var/nocorpus = FALSE
 /*
 /atom/movable/screen/ghost/MouseEntered()
 	flick(icon_state + "_anim", src)
@@ -16,8 +18,12 @@
 	if(!G)
 		G = usr
 		G.update_psyche()
-	if(G.corpus == 0)
+	if(!usable)
 		return FALSE
+	if(G.corpus == 0)
+		if(!nocorpus)
+			to_chat(G, "<span class='warning'>You lost all of your corpus!</span>")
+			return FALSE
 	if((G.lastslumber > world.time) || (G.lastcorpusdamage > world.time))
 		to_chat(G, "<span class='warning'>You can't use this arcanoi right now.</span>")
 		return FALSE
@@ -33,11 +39,13 @@
 	last_activate = world.time+15 SECONDS
 	G.pathos = max(0, G.pathos-pathos_req)
 	G.update_psyche()
+	to_chat(G, "<span class='notice'>You activate [name]</span>")
 	return TRUE
 
 /atom/movable/screen/ghost/jumptomob
 	name = "Jump to mob"
 	icon_state = "jumptomob"
+	usable = TRUE
 
 /atom/movable/screen/ghost/jumptomob/Click()
 	if(..())
@@ -46,6 +54,7 @@
 /atom/movable/screen/ghost/orbit
 	name = "Orbit"
 	icon_state = "orbit"
+	usable = TRUE
 
 /atom/movable/screen/ghost/orbit/Click()
 	if(..())
@@ -54,6 +63,7 @@
 /atom/movable/screen/ghost/reenter_corpse
 	name = "Reenter corpse"
 	icon_state = "reenter_corpse"
+	usable = TRUE
 
 /atom/movable/screen/ghost/reenter_corpse/Click()
 	if(..())
@@ -64,6 +74,7 @@
 	icon_state = "teleport"
 	pathos_req = 2
 	psyche_min = 2
+	usable = TRUE
 
 /atom/movable/screen/ghost/teleport/Click()
 	if(..())
@@ -72,6 +83,7 @@
 /atom/movable/screen/ghost/pai
 	name = "pAI Candidate"
 	icon_state = "pai"
+	usable = TRUE
 
 /atom/movable/screen/ghost/pai/Click()
 	if(..())
@@ -80,6 +92,8 @@
 /atom/movable/screen/ghost/respawn
 	name = "Respawn"
 	icon_state = "respawn"
+	usable = TRUE
+	nocorpus = TRUE
 
 /atom/movable/screen/ghost/respawn/Click()
 	if(..())
@@ -90,6 +104,7 @@
 	icon_state = "keening"
 	pathos_req = 1
 	psyche_min = 1
+	usable = TRUE
 
 /atom/movable/screen/ghost/keening/Click()
 	if(..())
@@ -103,23 +118,36 @@
 /atom/movable/screen/ghost/slumber
 	name = "Slumber"
 	icon_state = "slumber"
+	pathos_req = 1
+	usable = TRUE
+
+/mob/dead/observer
+	var/damaged_when_slumber = FALSE
+	var/slumbercooldown = 0
+	var/list/exploredareas = list()
 
 /atom/movable/screen/ghost/slumber/Click()
+	if(G.slumbercooldown >= world.time)
+		to_chat(G, "<span class='warning'>You can't slumber that quickly after loosing corpus!</span>")
 	if(..())
+		G.damaged_when_slumber = FALSE
 		G.lastslumber = world.time + 1 MINUTES
 		var/matrix/M = matrix()
 		M.Turn(90)
 		G.transform = M
 		spawn(1 MINUTES)
-			G.transform = null
-			G.pathos = min(10, G.pathos+max(1, G.psyche))
-			G.corpus = min(10, G.corpus+max(1, G.psyche))
+			if(!G.damaged_when_slumber)
+				G.transform = null
+				G.corpus = min(10, G.corpus+max(1, G.psyche))
+			else
+				G.damaged_when_slumber = FALSE
 
 /atom/movable/screen/ghost/outrage
 	name = "Outrage"
 	icon_state = "outrage"
 	pathos_req = 4
 	psyche_min = 4
+	usable = TRUE
 
 /atom/movable/screen/ghost/outrage/Click()
 	if(..())
@@ -131,6 +159,9 @@
 			if(L)
 				var/atom/throw_target = get_edge_target_turf(L, pick(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
 				L.throw_at(throw_target, 3, 4, G)
+				if(G.passion == "revenge")
+					if(L == G.lastattacker)
+						G.restore_pathos()
 		for(var/obj/machinery/light/H in get_area(G))
 			if(H)
 				H.flicker()
@@ -140,6 +171,7 @@
 	icon_state = "lifeweb"
 	pathos_req = 2
 	psyche_min = 2
+	usable = TRUE
 
 /atom/movable/screen/ghost/lifeweb/Click()
 	if(..())
@@ -171,6 +203,7 @@
 	icon_state = "fascinate"
 	pathos_req = 3
 	psyche_min = 3
+	usable = TRUE
 
 /atom/movable/screen/ghost/fascinate/Click()
 	if(..())
@@ -183,6 +216,7 @@
 /atom/movable/screen/ghost/inhabit
 	name = "Inhabit"
 	icon_state = "inhabit"
+	usable = TRUE
 
 /atom/movable/screen/ghost/inhabit/Click()
 	if(!G)
@@ -219,6 +253,7 @@
 	icon_state = "pandemonium"
 	pathos_req = 5
 	psyche_min = 5
+	usable = TRUE
 
 /atom/movable/screen/ghost/pandemonium/Click()
 	if(..())
@@ -233,6 +268,7 @@
 	icon_state = "puppetry"
 	pathos_req = 5
 	psyche_min = 5
+	usable = TRUE
 	var/datum/puppetry/P
 
 /datum/action/reghost
@@ -320,6 +356,7 @@
 	icon_state = "embody"
 	pathos_req = 4
 	psyche_min = 4
+	usable = TRUE
 
 /atom/movable/screen/ghost/embody/Click()
 	if(!G)
@@ -346,6 +383,11 @@
 	name = "Corpus"
 	icon = 'icons/hud/wraith_corpus.dmi'
 	icon_state = "corpus10"
+
+/atom/movable/screen/ghost/passion
+	name = "Passion"
+	icon = 'icons/hud/wraith_passion.dmi'
+//	icon_state = "corpus10"
 
 // [ChillRaccoon] - LFWB like ghost GUI
 
@@ -486,6 +528,11 @@
 	corpus_icon.screen_loc = ui_ghost_corpus
 	corpus_icon.hud = src
 	static_inventory += corpus_icon
+
+	passion_icon = new /atom/movable/screen/ghost/passion()
+	passion_icon.screen_loc = ui_ghost_passion
+	passion_icon.hud = src
+	static_inventory += passion_icon
 
 	fetter_icon = new /atom/movable/screen/ghost()
 	fetter_icon.screen_loc = ui_ghost_fetter

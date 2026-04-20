@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	var/atom/movable/screen/ghost/fetter_icon
 	var/atom/movable/screen/ghost/relic_icon
+	var/atom/movable/screen/ghost/passion_icon
 
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden

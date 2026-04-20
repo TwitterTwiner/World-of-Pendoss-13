@@ -58,12 +58,24 @@
 		I.throw_at(get_turf(A), rand(2, 4), 5, src)
 
 	if(get_dist(src, A) <= 1)
+		if(isclosedturf(A))
+			if(corpus > 1)
+				var/phasethrough = alert(src, "Do you wish to spend your corpus to pass this wall?", "Phase Through", "Yes", "No")
+				if(phasethrough == "Yes")
+					damage_corpus()
+					forceMove(A)
 		if(isliving(A))
+			var/mob/living/L = A
+			if(!L.key)
+				to_chat(src, "<span class='warning'>[A] seems to ignore you, like you're invisible...")
+				return
 			if(invisibility == 0 && lastattack <= world.time)
 				do_attack_animation(A)
 				lastattack = world.time+1 SECONDS
-				var/mob/living/L = A
 				L.apply_damage(15, CLONE, BODY_ZONE_CHEST, wound_bonus=CANT_WOUND)
+				if(L == lastattacker)
+					if(passion == "revenge")
+						restore_pathos()
 				for(var/mob/M in viewers(7, src))
 					if(M)
 						to_chat(M, "<span class='warning'>[src] tears through [A]'s flesh...")

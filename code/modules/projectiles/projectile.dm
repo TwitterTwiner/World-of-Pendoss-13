@@ -293,6 +293,14 @@
 	else
 		L.log_message("has been shot by [firer] with [src]", LOG_ATTACK, color="orange")
 
+	for(var/mob/dead/observer/O in range(7, L))
+		if(O)
+			if(O.passion == "revenge")
+				if(O.lastattacker == L)
+					O.restore_pathos()
+			if(O.passion == "anger")
+				O.restore_pathos()
+
 	return BULLET_ACT_HIT
 
 /obj/projectile/proc/vol_by_damage()

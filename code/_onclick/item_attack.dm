@@ -100,6 +100,13 @@
 	M.lastattackerckey = user.ckey
 	M.lastattacked_time = world.time
 	user.lastattacked = M
+	for(var/mob/dead/observer/O in range(7, M))
+		if(O)
+			if(O.passion == "revenge")
+				if(M == O.lastattacker)
+					O.restore_pathos()
+			if(O.passion == "anger")
+				O.restore_pathos()
 
 	if(force && M == user && user.client)
 		user.client.give_award(/datum/award/achievement/misc/selfouch, user)

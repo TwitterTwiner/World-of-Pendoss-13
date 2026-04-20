@@ -631,6 +631,17 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, M)
 	SEND_SIGNAL(M, COMSIG_ENTER_AREA, src) //The atom that enters the area
+	if(isobserver(M))
+		var/mob/dead/observer/O = M
+		if(O.passion == "curiousity")
+			if(O.lastpathosrestore < world.time)
+				var/explored_already = FALSE
+				for(var/area/A in O.exploredareas)
+					if(A == src)
+						explored_already = TRUE
+				if(!explored_already)
+					O.restore_pathos()
+					O.exploredareas += src
 	if(!isliving(M))
 		return
 

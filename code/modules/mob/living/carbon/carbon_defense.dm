@@ -492,6 +492,12 @@
 	if(M == src && check_self_for_injuries())
 		return
 
+	if(M.key)
+		for(var/mob/dead/observer/O in range(7, M))
+			if(O)
+				if(O.passion == "love")
+					O.restore_pathos()
+
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
 		if(ishuman(src))

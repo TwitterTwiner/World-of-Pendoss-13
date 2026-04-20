@@ -1496,6 +1496,13 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		target.lastattacked_time = world.time
 		user.lastattacked = target
 		user.dna.species.spec_unarmedattacked(user, target)
+		for(var/mob/dead/observer/O in range(7, target))
+			if(O)
+				if(O.passion == "revenge")
+					if(target == O.lastattacker)
+						O.restore_pathos()
+				if(O.passion == "anger")
+					O.restore_pathos()
 
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)

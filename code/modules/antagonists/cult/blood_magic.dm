@@ -390,6 +390,13 @@
 	user.lastattacked = M
 	M.lastattackerckey = user.ckey
 	M.lastattacked_time = world.time
+	for(var/mob/dead/observer/O in range(7, M))
+		if(O)
+			if(O.passion == "revenge")
+				if(M == O.lastattacker)
+					O.restore_pathos()
+				if(O.passion == "anger")
+					O.restore_pathos()
 
 /obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity)
 	. = ..()

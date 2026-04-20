@@ -213,6 +213,7 @@
 
 #define ui_ghost_fetter "WEST-3,SOUTH+8"
 #define ui_ghost_relic "WEST-2,SOUTH+8"
+#define ui_ghost_passion "WEST-3:16,SOUTH+9"
 
 #define ui_ghost_corpus "WEST-3,NORTH-2:16"
 

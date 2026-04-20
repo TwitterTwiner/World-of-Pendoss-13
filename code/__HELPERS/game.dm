@@ -416,7 +416,9 @@
 		return candidates
 
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		candidates += G
+		if(G)
+			if(G.corpus > 0)
+				candidates += G
 
 	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates)
 
