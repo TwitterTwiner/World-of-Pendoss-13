@@ -664,6 +664,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>You cannot re-enter your body.</span>")
 		return
 	if(corpus == 0)
+		to_chat(src, "check")
 		return
 
 	var/mob/living/carbon/human/original_body = mind.current
