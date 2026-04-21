@@ -677,6 +677,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	mind.current.key = key
 	mind.current.client.init_verbs()
 	original_body.soul_state = SOUL_PRESENT
+	to_chat(src, "Check")
 	return TRUE
 
 /mob/dead/observer/verb/stay_dead()
