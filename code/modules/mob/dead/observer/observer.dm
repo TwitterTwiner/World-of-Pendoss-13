@@ -586,7 +586,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 //	if(stat != DEAD)
 //		death()
-	if(stat == DEAD)
+	if(stat == DEAD && !isobserver(src)
 		ghostize(TRUE)
 		return TRUE
 	return FALSE
