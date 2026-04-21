@@ -127,6 +127,8 @@
 	var/list/exploredareas = list()
 
 /atom/movable/screen/ghost/slumber/Click()
+	if(!G)
+		G = usr
 	if(G.slumbercooldown >= world.time)
 		to_chat(G, "<span class='warning'>You can't slumber that quickly after loosing corpus!</span>")
 	if(..())
