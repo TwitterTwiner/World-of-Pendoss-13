@@ -652,7 +652,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	Moved(oldloc, direct)
 */
-/mob/dead/observer/verb/reenter_corpse()
+/mob/dead/observer/proc/reenter_corpse()
 	set category = "Ghost"
 	set name = "Re-enter Corpse"
 	if(!client)
@@ -664,7 +664,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>You cannot re-enter your body.</span>")
 		return
 	if(corpus == 0)
-		to_chat(src, "check")
 		return
 
 	var/mob/living/carbon/human/original_body = mind.current
@@ -678,7 +677,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	mind.current.key = key
 	mind.current.client.init_verbs()
 	original_body.soul_state = SOUL_PRESENT
-	to_chat(src, "Check")
 	return TRUE
 
 /mob/dead/observer/verb/stay_dead()
