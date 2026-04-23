@@ -380,16 +380,20 @@ Works together with spawning an observer, noted above.
 				relics += I
 		if(length(relics))
 			ghost.relic = pick(relics)
+		var/list/enemieslist = list()
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(H.Myself?.Lover?.owner)
 				ghost.fetter = H.Myself?.Lover?.owner
 			else if(H.Myself?.Friend?.owner)
 				ghost.fetter = H.Myself?.Friend?.owner
+			if(H.Myself?.Enemy?.owner)
+				enemieslist += H.Myself?.Enemy?.owner
 			for(var/mob/living/L in GLOB.player_list)
 				if(L)
 					if(L.true_real_name == H.lastattacker)
-						ghost.lastattacker = L
+						enemieslist += L
+//						ghost.lastattacker = L
 		SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
 		ghost.can_reenter_corpse = can_reenter_corpse
 		// [ChillRaccoon] - setting mob icons
@@ -431,13 +435,19 @@ Works together with spawning an observer, noted above.
 		var/list/passions = list("anger", "curiousity")
 		if(ghost.fetter)
 			passions += "love"
-		if(isliving(src))
-			var/mob/living/liv = src
-			if(liv.lastattacker)
-				passions += "revenge"
+//		if(isliving(src))
+//			var/mob/living/liv = src
+		if(length(enemieslist))
+			passions += "revenge"
+
 		var/strast = tgui_input_list(ghost, "Choose a passion", "Passion", sortList(passions))
 		if(strast)
 			ghost.passion = strast
+			if(strast == "revenge")
+				ghost.lastattacker = pick(enemieslist)
+				var/enemi = tgui_input_list(ghost, "Who's your main rival?", "Revenge", sortList(enemieslist))
+				if(enemi)
+					ghost.lastattacker = enemi
 		return ghost
 
 /mob/living/ghostize(can_reenter_corpse = TRUE, aghosted = FALSE)
