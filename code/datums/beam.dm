@@ -138,6 +138,9 @@
 	anchored = TRUE
 	var/datum/beam/owner
 
+/obj/effect/ebeam/invisible
+	invisibility = INVISIBILITY_LEVEL_OBFUSCATE+5
+
 /obj/effect/ebeam/Destroy()
 	owner = null
 	return ..()
