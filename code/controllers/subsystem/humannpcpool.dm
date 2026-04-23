@@ -17,6 +17,10 @@ SUBSYSTEM_DEF(humannpcpool)
 
 /datum/controller/subsystem/humannpcpool/fire(resumed = FALSE)
 
+	for(var/mob/spectre/S in GLOB.spectre_list)
+		if(S)
+			S.handle_haunting()
+
 	if (!resumed)
 		var/list/activelist = GLOB.npc_list
 		src.currentrun = activelist.Copy()

@@ -123,8 +123,63 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 		lastpathosrestore = world.time + 30 SECONDS
 		pathos = min(pathos+1, 10)
 
+/mob/spectre
+	name = "???"
+	desc = "It's coming closer..."
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "curseblob"
+	density = FALSE
+	anchored = TRUE
+	movement_type = GROUND | PHASING | FLYING
+	invisibility = INVISIBILITY_OBSERVER
+	move_resist = MOVE_FORCE_OVERPOWERING
+	layer = GHOST_LAYER
+	stat = DEAD
+	alpha = 180
+
+	var/mob/dead/observer/target
+
+/mob/spectre/Initialize()
+	. = ..()
+	color = GLOB.CMNoir
+	GLOB.spectre_list += src
+
+/mob/spectre/Destroy()
+	GLOB.spectre_list -= src
+	. = ..()
+
+/mob/spectre/proc/handle_haunting()
+	if(target)
+		if(get_dist(src, get_turf(target)) > 7)
+			target = null
+		if(target.corpus == 0)
+			target = null
+
+	if(target)
+		if(x > target.x)
+			x = x-1
+		if(x < target.x)
+			x = x+1
+		if(y > target.y)
+			y = y-1
+		if(y < target.y)
+			y = y+1
+		if(get_dist(src, get_turf(target)) <= 1)
+			target.damage_corpus()
+	else
+		for(var/mob/dead/observer/O in viewers(7, src))
+			if(O)
+				if(O.corpus > 0)
+					target = O
+		if(!target)
+			if(prob(10))
+				var/nextstep = get_step(src, pick(NORTH, SOUTH, EAST, WEST))
+				forceMove(nextstep)
+
 /mob/dead/observer/proc/damage_corpus()
 	if (check_rights_for(client, R_ADMIN))
+		return
+	if(corpus == 0)
 		return
 	transform = null
 	damaged_when_slumber = TRUE
@@ -143,6 +198,8 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 				to_chat(M, "<span class='phobia'>Something screeches through the fabric of existence...</span>")
 		if(hud_used)
 			hud_used.corpus_icon.icon_state = "corpus[corpus]"
+
+	var/turf/tur = get_turf(src)
 
 	if(corpus == 0)
 		relic = null
@@ -167,6 +224,7 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 			var/mob/dead/new_player/M = new /mob/dead/new_player()
 			src << sound(null)
 			M.key = key
+		new /mob/spectre (tur)
 
 /mob/dead/observer/Initialize(mapload)
 	shadow = new(get_turf(src))

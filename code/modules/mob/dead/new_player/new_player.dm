@@ -420,7 +420,7 @@
 					H.hud_used.ui_announcement.maptext_height = 32
 					H.hud_used.ui_announcement.maptext_x = -16
 					H.hud_used.ui_announcement.maptext_y = 32
-					H.hud_used.ui_announcement.maptext = MAPTEXT("[SSmapping.config.map_name], [SScity_time.timeofnight]")
+					H.hud_used.ui_announcement.maptext = MAPTEXT("[SSmapping.config.map_name], [week2text(SScity_time.get_dayofweek())], [SScity_time.timeofnight]")
 					H.hud_used.ui_announcement.color = "#000000"
 					animate(H.hud_used.ui_announcement, color = "#ffffff", time = 5, loop = 1)
 					spawn(5 SECONDS)

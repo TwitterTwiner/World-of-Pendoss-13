@@ -9,6 +9,8 @@ SUBSYSTEM_DEF(city_time)
 
 	var/timeofnight = "21:00"
 
+	var/dayofweek = 1
+
 /proc/get_next_hour(number)
 	if(number == 23)
 		return 0
@@ -21,8 +23,41 @@ SUBSYSTEM_DEF(city_time)
 	else
 		return "[number]"
 
+/proc/week2text(number)
+	switch(number)
+		if(1)
+			return "Monday"
+		if(2)
+			return "Tuesday"
+		if(3)
+			return "Wednesday"
+		if(4)
+			return "Thursday"
+		if(5)
+			return "Friday"
+		if(6)
+			return "Saturday"
+		if(7)
+			return "Sunday"
+	return "None"
+
+/datum/controller/subsystem/city_time/proc/get_dayofweek()
+	if(hour < 21 && hour >= 0)
+		if(dayofweek+1 > 7)
+			return dayofweek-6
+		else
+			return dayofweek+1
+	else
+		return dayofweek
+
 /datum/controller/subsystem/city_time
 	var/won
+
+/datum/controller/subsystem/city_time/Initialize()
+	if(GLOB.round_id)
+		dayofweek = (GLOB.round_id-1) % 7
+	else
+		dayofweek = rand(1, 7)
 
 /datum/controller/subsystem/city_time/fire()
 	if(minutes == 59)
