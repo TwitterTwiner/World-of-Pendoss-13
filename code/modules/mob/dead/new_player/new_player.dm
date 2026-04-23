@@ -389,7 +389,7 @@
 					if(H.mind)
 						H.mind.dharma = new H.client.prefs.dharma_type()
 						H.mind.dharma.level = H.client.prefs.dharma_level
-						H.mind.dharma.willpower = H.client.prefs.dharma_level
+				//		H.mind.dharma.willpower = H.client.prefs.dharma_level
 						H.mind.dharma.Po = H.client.prefs.po_type
 						H.mind.dharma.Hun = H.client.prefs.hun
 						H.mind.dharma.on_gain(H)
@@ -420,7 +420,7 @@
 					H.hud_used.ui_announcement.maptext_height = 32
 					H.hud_used.ui_announcement.maptext_x = -16
 					H.hud_used.ui_announcement.maptext_y = 32
-					H.hud_used.ui_announcement.maptext = MAPTEXT("[SSmapping.config.map_name], [SScity_time.timeofnight]")
+					H.hud_used.ui_announcement.maptext = MAPTEXT("[SSmapping.config.map_name], [week2text(SScity_time.get_dayofweek())], [SScity_time.timeofnight]")
 					H.hud_used.ui_announcement.color = "#000000"
 					animate(H.hud_used.ui_announcement, color = "#ffffff", time = 5, loop = 1)
 					spawn(5 SECONDS)

@@ -266,13 +266,77 @@
 	psyche_min = 5
 	usable = TRUE
 
+/obj/ghostwall
+	icon = 'icons/hud/wraith_passion.dmi'
+	density = TRUE
+	anchored = TRUE
+	opacity = FALSE
+	layer = ABOVE_MOB_LAYER
+
+/obj/fallingfloor
+	density = FALSE
+	anchored = TRUE
+	opacity = FALSE
+
+/atom/movable/screen/ghost/pandemonium/proc/shoot_projectile(turf/marker, set_angle)
+	if(!isnum(set_angle) && (!marker || marker == loc))
+		return
+	var/turf/startloc = get_turf(src)
+	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
+	P.preparePixelProjectile(marker, startloc)
+	P.firer = src
+	P.fire(set_angle)
+
 /atom/movable/screen/ghost/pandemonium/Click()
 	if(..())
-		new /mob/living/simple_animal/hostile/abyss_tentacle (get_turf(G))
-		for(var/turf/open/O in view(8, G))
-			if(O)
-				if(prob(25))
-					new /mob/living/simple_animal/hostile/abyss_tentacle (O)
+		for(var/turf/open/T in range(7, G))
+			if(T)
+				if(get_dist(G, T) == 7)
+					var/obj/ghostwall/gwall = new (T)
+					spawn(30 SECONDS)
+						qdel(gwall)
+				else
+					if(prob(50))
+						var/turftype = T.type
+						var/umbral = T.umbra
+						var/obj/fallingfloor/flor = new (T)
+						flor.icon = T.icon
+						flor.icon_state = T.icon_state
+						flor.layer = T.layer
+						var/matrix/M1 = matrix()
+						M1.Scale(1.5, 1.5)
+						var/matrix/M2 = matrix()
+						M2.Scale(0.1, 0.1)
+						M2.Turn(pick(-180, 180))
+						animate(flor, transform = M1, time = 2 SECONDS, loop = 1)
+						spawn(2 SECONDS)
+							var/turf/open/chasm/C = new (T)
+							animate(flor, transform = M2, alpha = 128, time = 1 SECONDS, loop = 1)
+							spawn(1 SECONDS)
+								qdel(flor)
+								spawn(27 SECONDS)
+									var/turf/open/T2 = new turftype (C)
+									T2.umbra = umbral
+		var/turf/start_turf = get_step(get_turf(G), pick(GLOB.alldirs))
+		var/counter = 8
+		var/negative = pick(TRUE, FALSE)
+		for(var/i in 1 to 80)
+			if(negative)
+				counter--
+			else
+				counter++
+			if(counter > 16)
+				counter = 1
+			if(counter < 1)
+				counter = 16
+			shoot_projectile(start_turf, counter * 22.5)
+			sleep(1)
+
+//		new /mob/living/simple_animal/hostile/abyss_tentacle (get_turf(G))
+//		for(var/turf/open/O in view(8, G))
+//			if(O)
+//				if(prob(25))
+//					new /mob/living/simple_animal/hostile/abyss_tentacle (O)
 
 /atom/movable/screen/ghost/puppetry
 	name = "Puppetry"
