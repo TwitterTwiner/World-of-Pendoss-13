@@ -300,6 +300,8 @@
 						var/turftype = T.type
 						var/umbral = T.umbra
 						var/obj/fallingfloor/flor = new (T)
+						flor.icon = T.icon
+						flor.icon_state = T.icon_state
 						flor.layer = T.layer
 						var/matrix/M1 = matrix()
 						M1.Scale(1.5, 1.5)
