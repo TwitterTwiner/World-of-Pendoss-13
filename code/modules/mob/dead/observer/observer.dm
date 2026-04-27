@@ -471,22 +471,25 @@ Works together with spawning an observer, noted above.
 		//	ghost.overlays = src.overlays // [ChillRaccoon] - Overlays too, else we will not see wounds, hair, skin, and etc.
 			ghost.color = GLOB.CMNoir	// [BadTeammate] - BOOO SCARY GHOSTS AURA
 			ghost.alpha = 180
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/ghost_varspeed, multiplicative_slowdown = ghost.movement_delay)
+
+	//	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/ghost_varspeed, multiplicative_slowdown = ghost.movement_delay)
 		// -------
 		ghost.key = key
 		ghost.client.init_verbs()
 		ghost.client = src.client
 		ghost.aghosted = aghosted
 		if(aghosted)
+			ghost.movement_delay = 0
 			// to_chat(ghost.client, "Check rights - [check_rights_for(ghost.client, R_ADMIN)]")
 			ghost.sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 			ghost.movement_type = FLYING | PHASING | GROUND // [ChillRaccoon] - makes us available to go through dens objects [Lucifernix] - It was += that made aghosts unable to phase here.
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/ghost_varspeed, multiplicative_slowdown = ghost.movement_delay)
 
 		if(!can_reenter_corpse)	// Disassociates observer mind from the body mind
 			ghost.mind = null
 		if(istype(get_area(ghost), /area/vtm))
 			ghost.myplace = get_area(ghost)
-		if(length(relics))
+		if(length(relics) && !aghosted)
 			var/result = tgui_input_list(ghost, "Choose a relic", "Relic", sortList(relics))
 			if(result)
 				ghost.relic = result
@@ -497,15 +500,15 @@ Works together with spawning an observer, noted above.
 //			var/mob/living/liv = src
 		if(length(enemieslist))
 			passions += "revenge"
-
-		var/strast = tgui_input_list(ghost, "Choose a passion", "Passion", sortList(passions))
-		if(strast)
-			ghost.passion = strast
-			if(strast == "revenge")
-				ghost.lastattacker = pick(enemieslist)
-				var/enemi = tgui_input_list(ghost, "Who's your main rival?", "Revenge", sortList(enemieslist))
-				if(enemi)
-					ghost.lastattacker = enemi
+		if(!aghosted)
+			var/strast = tgui_input_list(ghost, "Choose a passion", "Passion", sortList(passions))
+			if(strast)
+				ghost.passion = strast
+				if(strast == "revenge")
+					ghost.lastattacker = pick(enemieslist)
+					var/enemi = tgui_input_list(ghost, "Who's your main rival?", "Revenge", sortList(enemieslist))
+					if(enemi)
+						ghost.lastattacker = enemi
 		return ghost
 
 /mob/living/ghostize(can_reenter_corpse = TRUE, aghosted = FALSE)

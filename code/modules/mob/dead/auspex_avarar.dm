@@ -17,60 +17,11 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 	invisibility = INVISIBILITY_LEVEL_OBFUSCATE+5
 	see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+5
 	can_reenter_corpse = TRUE
+	hud_type = /datum/hud/auspex_avatar
+	movement_delay = 0
+	movement_type = FLYING | GROUND | PHASING
+
 	var/mob_biotype = MOB_SPIRIT
-
-/mob/camera/auspex
-	name = "Auspex Eye"
-	real_name = "Auspex Eye"
-	desc = ""
-	icon = 'icons/mob/cameramob.dmi'
-	icon_state = "marker"
-	mouse_opacity = MOUSE_OPACITY_ICON
-	move_on_shuttle = FALSE
-	see_in_dark = 8
-	invisibility = INVISIBILITY_LEVEL_OBFUSCATE+5
-	see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+5
-	layer = MOB_LAYER
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	sight = SEE_SELF|SEE_THRU
-	movement_type = GROUND|PHASING|FLYING
-	initial_language_holder = /datum/language_holder/universal
-
-	var/mob/living/holder
-
-/mob/camera/auspex/Initialize(mapload)
-	. = ..()
-	add_to_avatar_list()
-
-/mob/camera/auspex/Destroy()
-	remove_from_avatar_list()
-
-	return ..()
-
-/mob/camera/auspex/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	return holder.say(message)
-
-/mob/camera/auspex/Move(NewLoc, Dir = 0)
-	forceMove(NewLoc)
-
-/mob/camera/auspex/forceMove(atom/destination)
-	dir = get_dir(get_turf(src), destination)
-	loc = destination
-
-/mob/camera/auspex/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	. = ..()
-	var/atom/movable/to_follow = speaker
-	if(radio_freq)
-		var/atom/movable/virtualspeaker/V = speaker
-		to_follow = V.source
-	var/link
-	link = FOLLOW_LINK(src, to_follow)
-	// Create map text prior to modifying message for goonchat
-	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
-		create_chat_message(speaker, message_language, raw_message, spans)
-	// Recompose the message, because it's scrambled by default
-	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
-	to_chat(src, "[link] [message]")
 
 /mob/dead/observer/avatar/Initialize(mapload)
 	. = ..()
@@ -86,6 +37,26 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 	remove_from_avatar_list()
 
 	return ..()
+
+/mob/dead/observer/avatar/Move(NewLoc, direct, glide_size_override = 32)
+	dir = get_dir(loc, NewLoc)
+	for(var/mob/living/L in NewLoc)
+		if(L)
+			if(L.a_intent == INTENT_HARM && L.lying_angle == 0 && L.dir != dir)
+				return
+			else
+				to_chat(L, "<span class='warning'>You feel cold air rushing through you.</span>")
+
+	var/obj/transfer_point_vamp/V = locate() in NewLoc
+	if(V)
+		V.Bumped(src)
+	..()
+
+/mob/dead/observer/avatar/update_psyche()
+	return
+
+/mob/dead/observer/avatar/damage_corpus()
+	return
 
 /mob/dead/observer/avatar/reenter_corpse()
 	if(!client)
@@ -131,25 +102,107 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 
 ///////////// HUMAN PROCS ////////////
 
-/mob/living/carbon/human/proc/enter_avatar()
+/mob/proc/enter_avatar()
 	RETURN_TYPE(/mob/dead/observer/avatar)
 
-	stop_sound_channel(CHANNEL_HEARTBEAT)
-	var/mob/camera/auspex/auspex_avatar = new(src)
+//	var/mob/living/carbon/human/auspex_avatar = new(src)
+	var/mob/dead/observer/avatar/auspex_avatar = new(src)
+
+
+	auspex_avatar.key = key
+	auspex_avatar.client.init_verbs()
+	auspex_avatar.client = src.client
+
 
 	SStgui.on_transfer(src, auspex_avatar)
+
+	auspex_avatar.icon = src.icon
+	auspex_avatar.overlays = src.overlays
+
+	auspex_avatar.client.init_verbs()
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTEARS
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTWHISPER
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTSIGHT
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTRADIO
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTPDA
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTLAWS
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_LOGIN_LOGOUT
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_DEAD
+
+	auspex_avatar.Beam(BeamTarget = src, icon_state = "medbeam", beam_type= /obj/effect/ebeam/invisible)
+	/*
 	auspex_avatar.appearance = appearance
-	auspex_avatar.key = client.key
-//	auspex_avatar.client = src.client
+	auspex_avatar.key = key
+	auspex_avatar.client = src.client
 	auspex_avatar.client.init_verbs()
 	auspex_avatar.holder = src
 	auspex_avatar.real_name = real_name
 	auspex_avatar.name = real_name
+	auspex_avatar.mind = mind
+	auspex_avatar.client_mobs_in_contents = client_mobs_in_contents
+	auspex_avatar.Login()
 	auspex_avatar.alpha = 180
+	auspex_avatar.Beam(BeamTarget = src, icon_state = "medbeam", beam_type= /obj/effect/ebeam/invisible)
 	var/datum/action/reenterauspex/R = new
 	R.Grant(auspex_avatar)
+*/
+//	return auspex_avatar
 
-	return auspex_avatar
+
+/*
+/mob/auspex
+	name = "Auspex Eye"
+	real_name = "Auspex Eye"
+	desc = ""
+	icon = 'icons/mob/cameramob.dmi'
+	icon_state = "marker"
+	mouse_opacity = MOUSE_OPACITY_ICON
+//	move_on_shuttle = FALSE
+	see_in_dark = 8
+	invisibility = INVISIBILITY_LEVEL_OBFUSCATE+5
+	see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+5
+	layer = MOB_LAYER
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	sight = SEE_SELF|SEE_THRU
+	movement_type = GROUND|PHASING|FLYING
+	initial_language_holder = /datum/language_holder/universal
+
+	var/mob/living/holder
+
+/mob/auspex/Initialize(mapload)
+	. = ..()
+	add_to_avatar_list()
+
+/mob/auspex/Destroy()
+	remove_from_avatar_list()
+
+	return ..()
+
+/mob/auspex/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	return holder.say(message)
+
+/mob/auspex/Move(NewLoc, Dir = 0)
+	. = ..()
+
+/mob/auspex/forceMove(atom/destination)
+	dir = get_dir(get_turf(src), destination)
+	loc = destination
+
+/mob/auspex/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	. = ..()
+	var/atom/movable/to_follow = speaker
+	if(radio_freq)
+		var/atom/movable/virtualspeaker/V = speaker
+		to_follow = V.source
+	var/link
+	link = FOLLOW_LINK(src, to_follow)
+	// Create map text prior to modifying message for goonchat
+	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
+		create_chat_message(speaker, message_language, raw_message, spans)
+	// Recompose the message, because it's scrambled by default
+	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
+	to_chat(src, "[link] [message]")
+
 
 /datum/action/reenterauspex
 	name = "Re-Enter Body"
@@ -157,9 +210,12 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 
 /datum/action/reenterauspex/Trigger()
 	if(isauspexavatar(usr))
-		var/mob/camera/auspex/A = usr
+		var/mob/auspex/A = usr
 		SStgui.on_transfer(A, A.holder)
 		A.holder.key = A.key
 		A.holder.client = A.client
 		A.holder.client.init_verbs()
 		qdel(A)
+
+	*/
+

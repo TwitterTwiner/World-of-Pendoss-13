@@ -680,3 +680,80 @@
 		return
 	. = ..()
 
+
+/atom/movable/screen/ghost/auspex/reenter_corpse
+	name = "Reenter corpse"
+	icon_state = "reenter_corpse"
+	usable = TRUE
+
+/atom/movable/screen/ghost/auspex/reenter_corpse/Click()
+	..()
+	G.reenter_corpse()
+
+/datum/hud/auspex_avatar/New(mob/owner)
+	..()
+	static_noise = new /atom/movable/screen()
+	static_noise.mouse_opacity = 0
+	static_noise.icon = 'icons/hud/screen_gen.dmi'
+	static_noise.screen_loc = "WEST,SOUTH to EAST,NORTH"
+	static_noise.icon_state = "static_base"
+	static_noise.alpha = 6
+	static_inventory += static_noise
+
+	var/atom/movable/screen/using
+
+	using = new /atom/movable/screen/ghost/auspex/reenter_corpse
+	using.screen_loc = ui_ghost_outrage
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/fullscreen/ghost/lfwbLike/screenLayer1
+	using.hud = src
+	using.screen_loc = "CENTER-7,CENTER-7"
+	static_inventory += using
+
+	using = new /atom/movable/screen/fullscreen/ghost/lfwbLike/screenLayer2
+	using.hud = src
+	using.screen_loc = "CENTER-7,CENTER-7"
+	static_inventory += using
+
+	using = new /atom/movable/screen/fullscreen_hud/ghost()
+	using.screen_loc = ui_full_inventory
+	using.hud = src
+	static_inventory += using
+
+	zone_icon = new /atom/movable/screen/vtm_zone()
+	zone_icon.screen_loc = ui_vtm_zone
+	zone_icon.hud = src
+	static_inventory += zone_icon
+
+	secret_zone_icon = new /atom/movable/screen()
+	secret_zone_icon.screen_loc = ui_vtm_zone
+	secret_zone_icon.hud = src
+	static_inventory += secret_zone_icon
+
+/datum/hud/auspex_avatar/show_hud(version = 0, mob/viewmob)
+	// don't show this HUD if observing; show the HUD of the observee
+	var/mob/dead/observer/avatar/O = mymob
+	if (istype(O) && O.observetarget)
+		plane_masters_update()
+		return FALSE
+
+	. = ..()
+	if(!.)
+		return
+	var/mob/screenmob = viewmob || mymob
+	/* // [ChillRaccoon] - do a little trolling
+	if(!screenmob.client.prefs.ghost_hud)
+		screenmob.client.screen -= static_inventory
+	else*/
+	//if(!check_rights_for(screenmob.client, R_ADMIN)) // [ChillRaccoon] - administration shouldn't see overlays
+	// to_chat(screenmob.client, "Check rights (overlays) - [check_rights_for(screenmob.client, R_ADMIN)]")
+
+	screenmob.client.screen += static_inventory
+
+/datum/hud/auspex_avatar/reorganize_alerts(mob/viewmob)
+	var/mob/dead/observer/avatar/O = mymob
+	if (istype(O) && O.observetarget)
+		return
+	. = ..()

@@ -21,10 +21,11 @@
 	false_report_weight = 0
 
 /datum/game_mode/extended/announced/generate_station_goals()
-	for(var/T in subtypesof(/datum/station_goal))
+/*	for(var/T in subtypesof(/datum/station_goal))
 		var/datum/station_goal/G = new T
 		station_goals += G
 		G.on_report()
+*/
 
 /datum/game_mode/extended/check_finished(force_ending)
 	if(force_ending)

@@ -18,6 +18,7 @@ GLOBAL_LIST_EMPTY(auspex_users)
 	activate_sound = 'code/modules/wod13/sounds/auspex.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/auspex_deactivate.ogg'
 	var/health = FALSE
+	var/obj/item/organ/eyes/eye
 
 /datum/discipline_power/auspex/post_gain()
 	. = ..()
@@ -26,10 +27,17 @@ GLOBAL_LIST_EMPTY(auspex_users)
 
 /datum/discipline_power/auspex/activate()
 	. = ..()
+	if(iscarbon(owner))
+		eye = owner.getorganslot(ORGAN_SLOT_EYES)
+		eye.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+maxlevel
+		owner.update_sight()
 	owner.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+maxlevel /// {T.WINER} - Временный фикс на +20, так как почему то си инвизибил лвл обфус меньше обфус инвизибл
 
 /datum/discipline_power/auspex/deactivate()
 	. = ..()
+	if(iscarbon(owner))
+		eye = owner.getorganslot(ORGAN_SLOT_EYES)
+		eye.see_invisible = SEE_INVISIBLE_FACTION
 	owner.see_invisible = SEE_INVISIBLE_LEVEL_OBFUSCATE+0
 
 //HEIGHTENED SENSES
