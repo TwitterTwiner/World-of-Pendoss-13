@@ -40849,6 +40849,14 @@
 /obj/effect/decal/graffiti,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior)
+"jqd" = (
+/mob/living/simple_animal/pet/cat/vampire{
+	name = "Boris";
+	color = "FF0000";
+	desc = "Blood Kitty!!"
+	},
+/turf/open/floor/carpet,
+/area/vtm/theatre)
 "jqi" = (
 /obj/structure/vampipe{
 	dir = 4;
@@ -254638,7 +254646,7 @@ bkk
 aKE
 aKE
 geu
-aHS
+jqd
 aHS
 aHS
 aHS
