@@ -680,6 +680,16 @@
 		return
 	. = ..()
 
+/atom/movable/screen/ghost/appearance/auspex
+	name = "Appearance"
+	icon_state = "auspex"
+	pathos_req = 0
+	psyche_min = 0
+	usable = TRUE
+
+/atom/movable/screen/ghost/appearance/auspex/Click()
+	if(..())
+		G.showing()
 
 /atom/movable/screen/ghost/auspex/reenter_corpse
 	name = "Reenter corpse"
@@ -704,6 +714,11 @@
 
 	using = new /atom/movable/screen/ghost/auspex/reenter_corpse
 	using.screen_loc = ui_ghost_outrage
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/appearance/auspex
+	using.screen_loc = ui_ghost_lifeweb
 	using.hud = src
 	static_inventory += using
 

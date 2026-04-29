@@ -100,6 +100,23 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 /mob/dead/observer/avatar/ManualFollow(atom/movable/target)
 	return
 
+/mob/dead/observer/proc/showing()
+	var/mob_in = mind.current
+	var/mob/living/carbon/C
+	if(iscarbon(mob_in))
+		C = mob_in
+	if(invisibility == 0)
+		invisibility = INVISIBILITY_OBSERVER
+		alpha = 180
+	else
+		invisibility = 0
+		alpha = 255
+		if(C.MyPath)
+			C.MyPath.willpower -= 1
+		addtimer(CALLBACK(src, PROC_REF(showing)), 10 SECONDS)
+
+
+
 ///////////// HUMAN PROCS ////////////
 
 /mob/proc/enter_avatar()
