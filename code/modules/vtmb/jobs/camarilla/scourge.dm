@@ -57,7 +57,7 @@
 	icon_state = "Camarilla Agent"
 
 //////////////////////////////////////////////////////////////////////////
-
+/*
 /datum/job/vamp/milleniumsecurity
 	title = "Millenium security"
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
@@ -119,3 +119,4 @@
 /obj/effect/landmark/start/milleniumsecurity
 	name = "Millenium security"
 	icon_state = "Camarilla Agent"
+*/

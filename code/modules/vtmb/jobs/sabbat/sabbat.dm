@@ -27,17 +27,9 @@
 		H.mind.add_antag_datum(/datum/antagonist/sabbatist)
 	GLOB.sabbatites += H
 
-	var/my_name = "Tyler"
-	if(H.gender == MALE)
-		my_name = pick(GLOB.first_names_male)
-	else
-		my_name = pick(GLOB.first_names_female)
-	var/my_surname = pick(GLOB.last_names)
-	H.fully_replace_character_name(null,"[my_name] [my_surname]")
+	make_shovelhaed(H)
 //Commented out code for future sabbat character setup
 /*
-	H.generation = 13
-	H.clane = null
 
 	H.maxHealth = round((initial(H.maxHealth)-initial(H.maxHealth)/4)+(initial(H.maxHealth)/4)*(H.physique+13-H.generation))
 	H.health = round((initial(H.health)-initial(H.health)/4)+(initial(H.health)/4)*(H.physique+13-H.generation))
@@ -56,7 +48,7 @@
 	H.forceMove(D.loc)
 	var/list/loadouts = list("Doctor", "Supply Technician", "Street Janitor", "Graveyard Keeper", "Taxi Driver", "Police Officer", "Citizen")
 	spawn()
-		var/loadout_type = input(H, "Choose your Mask:", "Loadout") as anything in loadouts
+		var/loadout_type = input(H, "Choose your Background:", "Loadout") as anything in loadouts
 		switch(loadout_type)
 			if("Doctor")
 				H.equipOutfit(/datum/outfit/job/vdoctor)
@@ -174,6 +166,36 @@
 	remove_verb(H, /datum/job/sabbatist/verb/setup_character)
 
 */
+
+/datum/outfit/job/sabbatist/proc/random_clane()
+	var/clan = pick(/datum/vampireclane/gangrel/city, /datum/vampireclane/brujah, /datum/vampireclane/nosferatu, /datum/vampireclane/toreador)
+	return clan
+
+/datum/outfit/job/sabbatist/proc/make_shovelhaed(mob/living/carbon/human/H)
+	var/my_name = "Tyler"
+	if(H.gender == MALE)
+		my_name = pick(GLOB.first_names_male)
+	else
+		my_name = pick(GLOB.first_names_female)
+	var/my_surname = pick(GLOB.last_names)
+	H.fully_replace_character_name(null,"[my_name] [my_surname]")
+
+	randomize_human(H)
+
+	H.generation = 13
+	var/clan = random_clane()
+	var/datum/vampireclane/clane = new clan
+	var/datum/vampireclane/CLN = new clane.type()
+	H.clane = CLN
+	var/list/datum/discipline/adding_disciplines = list()
+	for(var/i in 1 to CLN.clane_disciplines.len)
+		var/type_to_create = CLN.clane_disciplines[i]
+		var/level = pick(1, 2, 3)
+		var/datum/discipline/discipline = new type_to_create(level)
+		adding_disciplines += discipline
+
+	for(var/datum/discipline/discipline in adding_disciplines)
+		H.give_discipline(discipline)
 
 /obj/effect/landmark/start/sabbatist
 	name = "Sabbatist"
