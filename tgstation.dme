@@ -3536,7 +3536,6 @@
 #include "code\modules\vtmb\jobs\city\stripper.dm"
 #include "code\modules\vtmb\jobs\city\taxi.dm"
 #include "code\modules\vtmb\jobs\garou\gaia.dm"
-#include "code\modules\vtmb\jobs\garou\weaver.dm"
 #include "code\modules\vtmb\jobs\garou\wyrm.dm"
 #include "code\modules\vtmb\jobs\sabbat\noddist.dm"
 #include "code\modules\vtmb\jobs\sabbat\sabbat.dm"
