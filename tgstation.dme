@@ -3539,6 +3539,8 @@
 #include "code\modules\vtmb\jobs\garou\wyrm.dm"
 #include "code\modules\vtmb\jobs\sabbat\noddist.dm"
 #include "code\modules\vtmb\jobs\sabbat\sabbat.dm"
+#include "code\modules\vtmb\jobs\sabbat\shovelhead.dm"
+#include "code\modules\vtmb\jobs\sabbat\team_datum.dm"
 #include "code\modules\vtmb\jobs\sfpd\fbi.dm"
 #include "code\modules\vtmb\jobs\sfpd\memory.dm"
 #include "code\modules\vtmb\jobs\sfpd\national_guard.dm"

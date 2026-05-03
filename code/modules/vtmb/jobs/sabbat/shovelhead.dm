@@ -1,139 +1,3 @@
-/datum/job/vamp/sabbat_priest
-	title = "Priest"
-	department_head = list("Caine")
-	faction = "Vampire"
-	total_positions = 1
-	spawn_positions = 1
-	supervisors = "Dark Father"
-	selection_color = "#6c0404"
-
-	outfit = /datum/outfit/job/sabbat_priest
-
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_SRV
-	display_order = JOB_DISPLAY_ORDER_SABBAT_PRIEST
-	exp_type_department = EXP_TYPE_SABBAT
-
-	allowed_species = list("Vampire")
-	allowed_bloodlines = list("Brujah", "Nosferatu", "Gangrel", "City Gangrel", "Toreador", "Malkavian", "Ventrue", "Banu Haqim", "Banu Haqim Sorcerer", "Banu Haqim Vizier", "Followers of Set", "Tzimisce", "Lasombra", "Kiasyd", "Caitiff", "Cappadocian", "Salubri Warrior")
-
-	v_duty = "Gehenna is nigh. Secure this city for the Army of Caine through diplomacy or violence."
-	minimal_masquerade = 0
-	max_generation = 9
-
-/datum/outfit/job/sabbat_priest
-	name = "Priest"
-	jobtype = /datum/job/vamp/sabbat_priest
-
-	uniform = /obj/item/clothing/under/vampire/baali
-	shoes = /obj/item/clothing/shoes/vampire
-	l_pocket = /obj/item/vamp/phone
-	r_pocket = /obj/item/vamp/keys/sabbat
-	backpack_contents = list(/obj/item/passport=1, /obj/item/vamp/creditcard=1)
-
-/datum/outfit/job/sabbat_priest/pre_equip(mob/living/carbon/human/H)
-	..()
-	H.add_to_sect("Sabbat")
-	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/vampire/baali/female
-		shoes = /obj/item/clothing/shoes/vampire/heels
-
-/obj/effect/landmark/start/sabbat_priest
-	name = "Priest"
-
-/////////////////////////////////////////////////////////////////////////////
-
-/datum/job/vamp/sabbat_ductus
-	title = "Ductus"
-	department_head = list("Caine")
-	faction = "Vampire"
-	total_positions = 1
-	spawn_positions = 1
-	supervisors = "Priest and Dark Father"
-	selection_color = "#6c0404"
-
-	outfit = /datum/outfit/job/sabbat_ductus
-
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_SRV
-	display_order = JOB_DISPLAY_ORDER_SABBAT_DUCTUS
-	exp_type_department = EXP_TYPE_SABBAT
-
-	allowed_species = list("Vampire")
-	allowed_bloodlines = list("Brujah", "Nosferatu", "Gangrel", "City Gangrel", "Toreador", "Malkavian", "Ventrue", "Banu Haqim", "Banu Haqim Sorcerer", "Banu Haqim Vizier", "Followers of Set", "Tzimisce", "Lasombra", "Kiasyd", "Caitiff", "Cappadocian", "Salubri Warrior")
-
-	v_duty = "You are entrusted by you priest to lead the pack forward to victory, do not fail him."
-	minimal_masquerade = 0
-	max_generation = 9
-
-/datum/outfit/job/sabbat_ductus
-	name = "Ductus"
-	jobtype = /datum/job/vamp/sabbat_ductus
-
-	uniform = /obj/item/clothing/under/vampire/punk
-	shoes = /obj/item/clothing/shoes/vampire/sneakers
-	l_pocket = /obj/item/vamp/phone
-	r_pocket = /obj/item/vamp/keys/sabbat
-	backpack_contents = list(/obj/item/passport=1, /obj/item/vamp/creditcard=1)
-
-/datum/outfit/job/sabbat_ductus/pre_equip(mob/living/carbon/human/H)
-	..()
-	H.add_to_sect("Sabbat")
-
-/obj/effect/landmark/start/sabbat_ductus
-	name = "Ductus"
-
-/////////////////////////////////////////////////////////////////////////////
-
-/datum/job/vamp/sabbat
-	title = "Pack Member"
-	department_head = list("Caine")
-	faction = "Vampire"
-	total_positions = 4
-	spawn_positions = 4
-	supervisors = "Priest and Dark Father"
-	selection_color = "#6c0404"
-
-	outfit = /datum/outfit/job/sabbat
-
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_SRV
-	display_order = JOB_DISPLAY_ORDER_SABBAT
-	exp_type_department = EXP_TYPE_SABBAT
-
-	allowed_species = list("Vampire")
-	allowed_bloodlines = list("Brujah", "Nosferatu", "Gangrel", "City Gangrel", "Toreador", "Malkavian", "Ventrue", "Banu Haqim", "Banu Haqim Sorcerer", "Banu Haqim Vizier", "Followers of Set", "Tzimisce", "Lasombra", "Kiasyd", "Caitiff", "Cappadocian", "Salubri Warrior")
-
-	v_duty = "Your pack infiltrated the city to secure it for the Sabbat."
-	experience_addition = 0
-	minimal_masquerade = 0
-	max_generation = 10
-
-/datum/outfit/job/sabbat
-	name = "Pack Member"
-	jobtype = /datum/job/vamp/sabbat
-
-	uniform = /obj/item/clothing/under/vampire/bandit
-	shoes = /obj/item/clothing/shoes/vampire/sneakers
-	l_pocket = /obj/item/vamp/phone
-	r_pocket = /obj/item/vamp/keys/sabbat
-	backpack_contents = list(/obj/item/passport=1, /obj/item/vamp/creditcard=1)
-
-/datum/outfit/job/sabbat/pre_equip(mob/living/carbon/human/H)
-	..()
-	H.add_to_sect("Sabbat")
-
-/obj/effect/landmark/start/sabbat
-	name = "Pack Member"
-
-/////////////////////////////////////////////////////////////////////////////
-
 /datum/outfit/job/sabbatist
 	name = "Sabbatist"
 //	l_pocket = /obj/item/vamp/phone
@@ -163,17 +27,9 @@
 		H.mind.add_antag_datum(/datum/antagonist/sabbatist)
 	GLOB.sabbatites += H
 
-	var/my_name = "Tyler"
-	if(H.gender == MALE)
-		my_name = pick(GLOB.first_names_male)
-	else
-		my_name = pick(GLOB.first_names_female)
-	var/my_surname = pick(GLOB.last_names)
-	H.fully_replace_character_name(null,"[my_name] [my_surname]")
+	make_shovelhaed(H)
 //Commented out code for future sabbat character setup
 /*
-	H.generation = 13
-	H.clane = null
 
 	H.maxHealth = round((initial(H.maxHealth)-initial(H.maxHealth)/4)+(initial(H.maxHealth)/4)*(H.physique+13-H.generation))
 	H.health = round((initial(H.health)-initial(H.health)/4)+(initial(H.health)/4)*(H.physique+13-H.generation))
@@ -192,7 +48,7 @@
 	H.forceMove(D.loc)
 	var/list/loadouts = list("Doctor", "Supply Technician", "Street Janitor", "Graveyard Keeper", "Taxi Driver", "Police Officer", "Citizen")
 	spawn()
-		var/loadout_type = input(H, "Choose your Mask:", "Loadout") as anything in loadouts
+		var/loadout_type = input(H, "Choose your Background:", "Loadout") as anything in loadouts
 		switch(loadout_type)
 			if("Doctor")
 				H.equipOutfit(/datum/outfit/job/vdoctor)
@@ -311,6 +167,37 @@
 
 */
 
-/obj/effect/landmark/start/sabbatist
-	name = "Sabbatist"
-//	delete_after_roundstart = FALSE
+/datum/outfit/job/sabbatist/proc/random_clane()
+	var/clan = pick(/datum/vampireclane/gangrel/city, /datum/vampireclane/brujah, /datum/vampireclane/nosferatu, /datum/vampireclane/toreador)
+	return clan
+
+/datum/outfit/job/sabbatist/proc/make_shovelhaed(mob/living/carbon/human/H)
+	var/my_name = "Tyler"
+	if(H.gender == MALE)
+		my_name = pick(GLOB.first_names_male)
+	else
+		my_name = pick(GLOB.first_names_female)
+	var/my_surname = pick(GLOB.last_names)
+	H.fully_replace_character_name(null,"[my_name] [my_surname]")
+
+	randomize_human(H)
+
+	H.generation = 13
+	var/clan = random_clane()
+	var/datum/vampireclane/clane = new clan
+	var/datum/vampireclane/CLN = new clane.type()
+	H.clane = CLN
+	var/list/datum/discipline/adding_disciplines = list()
+	for(var/i in 1 to CLN.clane_disciplines.len)
+		var/type_to_create = CLN.clane_disciplines[i]
+		var/level = pick(1, 2, 3)
+		var/datum/discipline/discipline = new type_to_create(level)
+		adding_disciplines += discipline
+
+	for(var/datum/discipline/discipline in adding_disciplines)
+		H.give_discipline(discipline)
+
+/obj/effect/landmark/start/sabbatist/shovelhead
+	name = "Sabbatist Shovelhead"
+	delete_after_roundstart = FALSE
+
