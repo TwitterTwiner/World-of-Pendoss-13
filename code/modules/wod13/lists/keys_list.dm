@@ -3,7 +3,6 @@
 	accesslocks = list(
 		"camarilla",
 		"prince",
-		"clerk",
 		"milleniumCommon",
 		"millenium_delivery",
 		"theatre"
@@ -25,7 +24,7 @@
 	name = "Millenium Chief Operating Officer keys"
 	accesslocks = list(
 		"camarilla",
-		"clerk",
+		"prince",
 		"milleniumCommon",
 		"millenium_delivery",
 		"theatre"
@@ -161,7 +160,7 @@
 	accesslocks = list(
 		"bianchi",
 		"giovanni",
-		"nigrimancy"
+		"graveyard"
 	)
 	color = "#99FF99"
 
@@ -171,7 +170,7 @@
 		"bianchi",
 		"bianchiboss",
 		"giovanni",
-		"nigrimancy"
+		"graveyard"
 	)
 	color = "#66AA66"
 
@@ -203,7 +202,7 @@
 /obj/item/vamp/keys/old_clan_tzimisce
 	name = "Regal keys"
 	accesslocks = list(
-		"old_clan_tzimisce"
+		"tzimisce"
 	)
 
 /obj/item/vamp/keys/malkav
@@ -330,10 +329,12 @@
 	)
 	color = "#225d3c"
 
-/obj/item/vamp/keys/children_of_gaia
-	name = "Green-touched keys"
+//GAIA
+
+/obj/item/vamp/keys/ranger
+	name = "Park ranger keys"
 	accesslocks = list(
-		"children"
+		"ranger"
 	)
 	color = "#578000"
 

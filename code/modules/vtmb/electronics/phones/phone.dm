@@ -865,32 +865,48 @@
 /obj/item/vamp/phone/endron_lead
 	exchange_num = 485
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Branch Lead")
+		list(NETWORK_ID = WYRM_NETWORK, OUR_ROLE = "Endron Branch Lead")
 		)
 
 /obj/item/vamp/phone/endron_exec
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Executive")
+		list(NETWORK_ID = WYRM_NETWORK, OUR_ROLE = "Endron Executive")
 		)
 
 /obj/item/vamp/phone/endron_affairs
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Internal Affairs Agent")
+		list(NETWORK_ID = WYRM_NETWORK, OUR_ROLE = "Endron Internal Affairs Agent")
 		)
 
 /obj/item/vamp/phone/endron_sec_chief
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Chief of Security")
+		list(NETWORK_ID = WYRM_NETWORK, OUR_ROLE = "Endron Chief of Security")
 		)
 
 /obj/item/vamp/phone/endron_security
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Security Agent")
+		list(NETWORK_ID = WYRM_NETWORK, OUR_ROLE = "Endron Security Agent")
 		)
 
 /obj/item/vamp/phone/endron_employee
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Employee", USE_JOB_TITLE = TRUE)
+		list(NETWORK_ID = WYRM_NETWORK, OUR_ROLE = "Endron Employee", USE_JOB_TITLE = TRUE)
+		)
+
+/obj/item/vamp/phone/westerneye_voice
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = GAIA_NETWORK, OUR_ROLE = "Park Manager"),
+		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Park Manager")
+		)
+
+/obj/item/vamp/phone/westerneye_arm
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = GAIA_NETWORK, OUR_ROLE = "Park Chief Ranger")
+		)
+
+/obj/item/vamp/phone/westerneye_ranger
+	contact_networks_pre_init = list(
+		list(NETWORK_ID = GAIA_NETWORK, OUR_ROLE = "Park Ranger")
 		)
 
 // MISC PROCS

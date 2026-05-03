@@ -15956,7 +15956,7 @@
 /area/vtm/church)
 "bjw" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /turf/open/floor/plating/saint,
 /area/vtm/church)
 "bjx" = (
@@ -21817,7 +21817,7 @@
 /area/vtm/church)
 "bGb" = (
 /obj/structure/table/wood,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /obj/item/storage/book/bible,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/church)
@@ -21958,7 +21958,7 @@
 /area/vtm/church)
 "bGv" = (
 /obj/structure/table/wood,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /obj/item/storage/book/bible,
 /obj/flag/vatican{
 	pixel_y = 30
@@ -23117,7 +23117,7 @@
 "bOU" = (
 /obj/structure/table/wood,
 /obj/item/storage/book/bible,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/church)
 "bOW" = (
@@ -42105,7 +42105,7 @@
 /area/vtm/unionsquare)
 "jQA" = (
 /obj/structure/table/wood,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /turf/open/floor/plating/saint,
 /area/vtm/church)
 "jQM" = (
@@ -46857,7 +46857,7 @@
 "lVC" = (
 /obj/structure/table/wood,
 /obj/item/storage/book/bible,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /obj/item/virgin_mary{
 	pixel_y = 30
 	},
@@ -63428,7 +63428,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/storage/book/bible,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/church)
 "taw" = (
@@ -65985,7 +65985,7 @@
 "uhV" = (
 /obj/structure/table/wood,
 /obj/item/storage/book/bible,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /turf/open/floor/plating/church,
 /area/vtm/church)
 "uic" = (
@@ -74781,7 +74781,7 @@
 "xOu" = (
 /obj/structure/table/wood,
 /obj/item/storage/book/bible,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "xOC" = (

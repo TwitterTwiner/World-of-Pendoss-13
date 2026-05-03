@@ -108,6 +108,12 @@ GLOBAL_LIST_INIT(spiral_positions, list(
 	"Endron Employee"
 ))
 
+GLOBAL_LIST_INIT(gaia_positions, list(
+	"Voice of the Goddess",
+	"Arm of the Goddess",
+	"Park Ranger"
+))
+
 GLOBAL_LIST_INIT(ss13, list(
 	"SS13",
 ))
@@ -130,7 +136,8 @@ GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_GANG = list("jobs" = gang_positions, "color" = "#e6d9b3"),
 	EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#98493d"),
 	EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#fa0207"),
-	EXP_TYPE_SPIRAL = list("jobs" = spiral_positions, "color" = "#015334")
+	EXP_TYPE_SPIRAL = list("jobs" = spiral_positions, "color" = "#015334"),
+	EXP_TYPE_GAIA = list("jobs" = gaia_positions, "color" = "#a8c74d")
 ))
 
 
@@ -149,7 +156,8 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_WAREHOUSE = list("titles" = warehouse_positions),
 	EXP_TYPE_CHURCH = list("titles" = church_positions),
 	EXP_TYPE_NATIONAL_SECURITY = list("titles" = national_security_positions),
-	EXP_TYPE_SPIRAL = list("titles" = spiral_positions)
+	EXP_TYPE_SPIRAL = list("titles" = spiral_positions),
+	EXP_TYPE_GAIA = list("titles" = gaia_positions)
 ))
 
 GLOBAL_LIST_INIT(exp_specialmap, list(

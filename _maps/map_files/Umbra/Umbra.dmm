@@ -9120,7 +9120,7 @@
 /area/vtm/interior/umbra)
 "UZ" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/card/id/hunter,
+/obj/item/card/id/vamp/hunter,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/saint{
 	umbra = 1

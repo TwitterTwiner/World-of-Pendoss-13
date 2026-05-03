@@ -431,6 +431,22 @@
 	desc = "Congratulations, Wagie."
 	access = list(10)
 
+	/obj/item/card/id/vamp/garou/park
+	name = "Park Ranger badge"
+	desc = "You protect the parks, but do you protect the city?"
+	icon_state = "id3"
+	worn_icon_state = "id3"
+	access = list(9,10)
+
+/obj/item/card/id/vamp/garou/park/chief
+	name = "Park Chief badge"
+	desc = "You protect the parks, but do you protect the city?"
+
+/obj/item/card/id/vamp/garou/park/ranger
+	name = "Park Ranger badge"
+	desc = "You protect the parks, but do you protect the city?"
+
+
 /datum/antagonist/ambitious
 	name = "Ambitious"
 	roundend_category = "ambitious"

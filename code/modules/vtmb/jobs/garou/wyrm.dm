@@ -41,7 +41,7 @@
 	jobtype = /datum/job/vamp/garou/spiral/lead
 
 	ears = /obj/item/p25radio
-	id = /obj/item/card/id/vamp/endron_lead
+	id = /obj/item/card/id/vamp/garou/spiral/lead
 	uniform =  /obj/item/clothing/under/pentex/pentex_executive_suit
 	shoes = /obj/item/clothing/shoes/vampire
 	l_pocket = /obj/item/vamp/phone/endron_lead
@@ -51,7 +51,7 @@
 /datum/outfit/job/garou/endronlead/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/pentex/pentex_executive_suitskirt
+		uniform = /obj/item/clothing/under/pentex/pentex_executiveskirt
 		shoes = /obj/item/clothing/shoes/vampire/heels
 
 /obj/effect/landmark/start/garou/spiral/lead
@@ -105,7 +105,7 @@
 	jobtype = /datum/job/vamp/garou/spiral/executive
 
 	ears = /obj/item/p25radio
-	id = /obj/item/card/id/vamp/endron_executive
+	id = /obj/item/card/id/vamp/garou/spiral/executive
 	uniform =  /obj/item/clothing/under/pentex/pentex_suit
 	shoes = /obj/item/clothing/shoes/vampire
 	l_pocket = /obj/item/vamp/phone/endron_exec
@@ -164,7 +164,7 @@
 	jobtype = /datum/job/vamp/garou/spiral/employee
 
 	ears = /obj/item/p25radio
-	id = /obj/item/card/id/vamp/endron
+	id = /obj/item/card/id/vamp/garou/spiral/employee
 	uniform = /obj/item/clothing/under/pentex/pentex_longleeve
 	shoes = /obj/item/clothing/shoes/vampire
 	r_pocket = /obj/item/vamp/keys/pentex

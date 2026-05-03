@@ -205,6 +205,10 @@
 	desc = "Some slick-looking clothes."
 	icon_state = "slickback"
 
+/obj/item/clothing/under/vampire/slickback/alt
+	desc = "Some dark slick-looking clothes."
+	icon_state = "slickback_alt"
+
 /obj/item/clothing/under/vampire/burlesque
 	desc = "Some burlesque clothes."
 	icon_state = "burlesque"
@@ -263,6 +267,11 @@
 	name = "Security guard uniform"
 	desc = "Some guard clothes."
 	icon_state = "guard"
+
+obj/item/clothing/under/vampire/ranger
+	name = "Ranger uniform"
+	desc = "Some ranger clothes."
+	icon_state = "ranger"
 
 //JOBS
 
@@ -749,7 +758,10 @@
 	desc = "Best noir clothes for night. Provides some kind of protection."
 	icon_state = "trench1"
 	armor = list(BASHING = 2, LETHAL = 2, AGGRAVATED = 0, MELEE = 25, BULLET = 25, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 10, WOUND = 25)
-
+	allowed = list(
+		/obj/item/vampire_stake,
+		/obj/item/flashlight
+	)
 /obj/item/clothing/suit/vampire/trench/white
 	icon_state = "trench1w"
 

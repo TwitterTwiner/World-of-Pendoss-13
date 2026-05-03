@@ -205,7 +205,7 @@
 	return ..()
 
 /obj/machinery/mineral/equipment_vendor/fastfood/police/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id/police))
+	if(istype(I, /obj/item/card/id/vamp/police))
 		if(world.time - last_card_use_time >= 2 MINUTES)
 			points = points+15
 			last_card_use_time = world.time

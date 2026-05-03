@@ -31,7 +31,7 @@
 	name = "Voice of the Goddess"
 	jobtype = /datum/job/vamp/garou/westerneye/voice
 
-	id = /obj/item/card/id/vamp/park
+	id = /obj/item/card/id/vamp/garou/park
 	uniform =  /obj/item/clothing/under/vampire/office
 	suit = /obj/item/clothing/suit/vampire/coat
 	shoes = /obj/item/clothing/shoes/vampire/brown
@@ -78,13 +78,13 @@
 	name = "Park Chief Ranger"
 	jobtype = /datum/job/vamp/garou/westerneye/arm
 
-	id = /obj/item/card/id/vamp/park_ranger/chief
+	id = /obj/item/card/id/vamp/garou/park/chief
 	head = /obj/item/clothing/head/fedora/beige
 	uniform =  /obj/item/clothing/under/vampire/ranger
 	shoes = /obj/item/clothing/shoes/vampire/brown
 	l_pocket = /obj/item/vamp/phone/westerneye_arm
 	r_pocket = /obj/item/vamp/keys/ranger
-	backpack_contents = list(/obj/item/gun/ballistic/automatic/vampire/m1911 = 1, /obj/item/ammo_box/magazine/vamp45acp = 1, /obj/item/veil_contract=1, /obj/item/passport=1, /obj/item/vamp/creditcard=1)
+	backpack_contents = list(/obj/item/gun/ballistic/automatic/vampire/m1911 = 1, /obj/item/ammo_box/magazine/vampire/vamp45acp = 1, /obj/item/veil_contract=1, /obj/item/passport=1, /obj/item/vamp/creditcard=1)
 
 /obj/effect/landmark/start/garou/westerneye/arm
 	name = "Arm of the Goddess"
@@ -125,13 +125,13 @@
 	name = "Park Ranger"
 	jobtype = /datum/job/vamp/garou/westerneye/ranger
 
-	id = /obj/item/card/id/vamp/park_ranger
+	id = /obj/item/card/id/vamp/garou/park/ranger
 	head = /obj/item/clothing/head/fedora/beige
 	uniform =  /obj/item/clothing/under/vampire/ranger
 	shoes = /obj/item/clothing/shoes/vampire/brown
 	l_pocket = /obj/item/vamp/phone/westerneye_ranger
 	r_pocket = /obj/item/vamp/keys/ranger
-	backpack_contents = list(/obj/item/gun/ballistic/automatic/vampire/m1911 = 1, /obj/item/ammo_box/magazine/vamp45acp = 1, /obj/item/passport=1, /obj/item/vamp/creditcard=1)
+	backpack_contents = list(/obj/item/gun/ballistic/automatic/vampire/m1911 = 1, /obj/item/ammo_box/magazine/vampire/vamp45acp = 1, /obj/item/passport=1, /obj/item/vamp/creditcard=1)
 
 /obj/effect/landmark/start/garou/westerneye/ranger
 	name = "Park Ranger"
