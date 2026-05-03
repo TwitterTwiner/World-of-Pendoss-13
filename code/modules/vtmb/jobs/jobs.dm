@@ -434,8 +434,8 @@
 	/obj/item/card/id/vamp/garou/park
 	name = "Park Ranger badge"
 	desc = "You protect the parks, but do you protect the city?"
-	icon_state = "id3"
-	worn_icon_state = "id3"
+	icon_state = "id4"
+	worn_icon_state = "id4"
 	access = list(9,10)
 
 /obj/item/card/id/vamp/garou/park/chief
