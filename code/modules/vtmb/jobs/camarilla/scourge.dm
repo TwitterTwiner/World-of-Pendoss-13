@@ -32,7 +32,7 @@
 	jobtype = /datum/job/vamp/hound
 
 	ears = /obj/item/p25radio
-	id = /obj/item/card/id/camarilla
+	id = /obj/item/card/id/vamp/camarilla
 	uniform = /obj/item/clothing/under/vampire/agent
 	gloves = /obj/item/clothing/gloves/vampire/work
 	suit = /obj/item/clothing/suit/vampire/trench
@@ -96,7 +96,7 @@
 	jobtype = /datum/job/vamp/milleniumsecurity
 
 	ears = /obj/item/p25radio
-	id = /obj/item/card/id/chunk
+	id = /obj/item/card/id/vamp/chunk
 	uniform = /obj/item/clothing/under/vampire/guard
 	gloves = /obj/item/clothing/gloves/vampire/work
 	suit = /obj/item/clothing/suit/vampire/vest

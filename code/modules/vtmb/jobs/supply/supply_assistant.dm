@@ -31,7 +31,7 @@
 	name = "Supply Technician"
 	jobtype = /datum/job/vamp/supply
 
-	id = /obj/item/card/id/supplytech
+	id = /obj/item/card/id/vamp/supplytech
 	uniform = /obj/item/clothing/under/vampire/supply
 	gloves = /obj/item/clothing/gloves/vampire/work
 	l_pocket = /obj/item/vamp/phone/supply_tech

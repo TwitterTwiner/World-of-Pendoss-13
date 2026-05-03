@@ -11,7 +11,7 @@
 	gloves = /obj/item/clothing/gloves/vampire/work
 	suit = /obj/item/clothing/suit/vampire/vest/swat
 	head = /obj/item/clothing/head/vampire/swat
-	id = /obj/item/card/id/police
+	id = /obj/item/card/id/vamp/police
 	back = /obj/item/storage/backpack/satchel/swat
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/vamp556 = 3,

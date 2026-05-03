@@ -30,7 +30,7 @@
 	name = "Archivist"
 	jobtype = /datum/job/vamp/archivist
 
-	id = /obj/item/card/id/archive
+	id = /obj/item/card/id/vamp/archive
 	shoes = /obj/item/clothing/shoes/vampire
 	uniform = /obj/item/clothing/under/vampire/archivist
 	r_pocket = /obj/item/vamp/keys/archive

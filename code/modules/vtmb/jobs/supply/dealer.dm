@@ -36,7 +36,7 @@
 	name = "Dealer"
 	jobtype = /datum/job/vamp/dealer
 
-	id = /obj/item/card/id/dealer
+	id = /obj/item/card/id/vamp/dealer
 	uniform = /obj/item/clothing/under/vampire/suit
 	shoes = /obj/item/clothing/shoes/vampire/brown
 	glasses = /obj/item/clothing/glasses/vampire/sun

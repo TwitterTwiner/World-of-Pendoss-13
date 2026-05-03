@@ -34,7 +34,7 @@
 	shoes = /obj/item/clothing/shoes/vampire
 	suit = /obj/item/clothing/suit/vampire/jacket/fbi
 	belt = /obj/item/storage/belt/holster/detective/vampire/fbi
-	id = /obj/item/card/id/police/fbi
+	id = /obj/item/card/id/vamp/police/fbi
 	gloves = /obj/item/clothing/gloves/vampire/investigator
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/radio/cop

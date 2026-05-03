@@ -32,7 +32,7 @@
 /datum/outfit/job/bogatyr
 	name = "Bogatyr"
 	jobtype = /datum/job/vamp/bogatyr
-	id = /obj/item/card/id/bogatyr
+	id = /obj/item/card/id/vamp/bogatyr
 	uniform = /obj/item/clothing/under/vampire/bogatyr
 	suit = /obj/item/clothing/suit/vampire/caftan
 	head = /obj/item/clothing/head/berendeyka
