@@ -636,6 +636,46 @@
 	path = /obj/item/clothing/under/vampire/prince/female
 	allowed_roles = list("Prince")
 
+/datum/gear/uniform/suit/millenium
+	display_name = "Purple suit from \"Millenim\" collection"
+	path = /obj/item/clothing/under/vampire/millenium_purple
+
+/datum/gear/uniform/suit/guard_purple
+	display_name = "Purple guard suit"
+	path = /obj/item/clothing/under/vampire/guard_purple
+
+/datum/gear/uniform/suit/purple_black
+	display_name = "Purple with black suit"
+	path = /obj/item/clothing/under/vampire/purple_black
+
+/datum/gear/uniform/suit/purple_black_skirt
+	display_name = "Purple with black suit with skirt"
+	path = /obj/item/clothing/under/vampire/purple_black/female
+
+/datum/gear/uniform/suit/purple
+	display_name = "Purple suit"
+	path = /obj/item/clothing/under/vampire/purple
+
+/datum/gear/uniform/suit/purple_skirt
+	display_name = "Purple suit with skirt"
+	path = /obj/item/clothing/under/vampire/purple/female
+
+/datum/gear/uniform/suit/blue_black
+	display_name = "Blue with black suit"
+	path = /obj/item/clothing/under/vampire/blue_black
+
+/datum/gear/uniform/suit/blue_black_skirt
+	display_name = "Blue with black suit with skirt"
+	path = /obj/item/clothing/under/vampire/blue_black/female
+
+/datum/gear/uniform/suit/blue
+	display_name = "Blue suit"
+	path = /obj/item/clothing/under/vampire/blue
+
+/datum/gear/uniform/suit/blue_skirt
+	display_name = "Blue suit with skirt"
+	path = /obj/item/clothing/under/vampire/blue/female
+
 // Skirt
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt

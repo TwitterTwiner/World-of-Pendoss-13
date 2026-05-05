@@ -222,6 +222,16 @@
 	desc = "Some usual clothes."
 	icon_state = "emo"
 
+/obj/item/clothing/under/vampire/millenium_purple
+	name = "Black suit with purple shirt"
+	desc = "a fashionable suit from a recent collection."
+	icon_state = "millenium_agent"
+
+/obj/item/clothing/under/vampire/guard_purple
+	name = "Purple guy uniform"
+	desc = "Some purple clothes... for guards, maybe?"
+	icon_state = "millenium_guard"
+
 //WOMEN
 
 /obj/item/clothing/under/vampire/black
@@ -245,6 +255,38 @@
 /obj/item/clothing/under/vampire/business
 	desc = "Some rich clothes."
 	icon_state = "business"
+
+/obj/item/clothing/under/vampire/purple_black
+	name = "Black suit with purple shirt"
+	desc = "Buisnes suit"
+	icon_state = "black_with_purple_suit"
+
+/obj/item/clothing/under/vampire/purple_black/female
+	icon_state = "black_with_purple_suit"
+
+/obj/item/clothing/under/vampire/purple
+	name = "Purple suit"
+	desc = "Some purple clothes."
+	icon_state = "purple_suit"
+
+/obj/item/clothing/under/vampire/purple/female
+	icon_state = "purple_suit_f"
+
+/obj/item/clothing/under/vampire/blue
+	name = "Blue suit"
+	desc = "Some blue clothes."
+	icon_state = "blue_suit"
+
+/obj/item/clothing/under/vampire/blue/female
+	icon_state = "blue_suit_f"
+
+/obj/item/clothing/under/vampire/blue_black
+	name = "Black suit with blue shirt"
+	desc = "Buisnes suit"
+	icon_state = "black_with_blue_suit"
+
+/obj/item/clothing/under/vampire/blue_black/female
+	icon_state = "black_with_blue_suit_f"
 
 //Homeless
 
@@ -762,6 +804,7 @@ obj/item/clothing/under/vampire/ranger
 		/obj/item/vampire_stake,
 		/obj/item/flashlight
 	)
+
 /obj/item/clothing/suit/vampire/trench/white
 	icon_state = "trench1w"
 
