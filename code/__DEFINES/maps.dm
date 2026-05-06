@@ -79,6 +79,14 @@ require only minor tweaks.
 	ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
 #define ZTRAITS_UMBRA ZTRAITS_LAVALAND
 
+#define ZTRAITS_PENUMBRA_LAYOUT list(\
+	list(ZTRAIT_UP = 1, ZTRAIT_BASETURF = /turf/open/floor/plating),\
+	list(ZTRAIT_UP = 1, ZTRAIT_DOWN = -1, ZTRAIT_BASETURF = /turf/open/floor/plating),\
+	list(ZTRAIT_UP = 1, ZTRAIT_DOWN = -1, ZTRAIT_BASETURF = /turf/open/floor/plating),\
+	list(ZTRAIT_DOWN = -1, ZTRAIT_BASETURF = /turf/open/floor/plating),\
+	list(ZTRAIT_BASETURF = /turf/open/floor/plating)\
+)
+
 #define DL_NAME "name"
 #define DL_TRAITS "traits"
 #define DECLARE_LEVEL(NAME, TRAITS) list(DL_NAME = NAME, DL_TRAITS = TRAITS)
