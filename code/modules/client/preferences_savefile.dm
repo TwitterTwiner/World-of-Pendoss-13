@@ -388,6 +388,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["diablerist"], diablerist)
 	READ_FILE(S["know_diablerie"], know_diablerie)
 	READ_FILE(S["auspice_level"], auspice_level)
+	READ_FILE(S["extra_gnosis"], extra_gnosis)
 	READ_FILE(S["humanity"], humanity)
 	READ_FILE(S["enlightement"], enlightenment)
 	READ_FILE(S["consience"], consience)
@@ -750,6 +751,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	free_occult        = sanitize_integer(free_occult, 0, 5, 0)
 
 	auspice_level			= sanitize_integer(auspice_level, 1, 5, initial(auspice_level))
+	extra_gnosis			= sanitize_integer(extra_gnosis, 0, 5, initial(extra_gnosis))
 	discipline1level				= sanitize_integer(discipline1level, 1, 5, initial(discipline1level))
 	discipline2level				= sanitize_integer(discipline2level, 1, 5, initial(discipline2level))
 	discipline3level				= sanitize_integer(discipline3level, 1, 5, initial(discipline3level))
@@ -900,6 +902,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["true_experience"]			, true_experience)
 	WRITE_FILE(S["trufaith_level"]			, trufaith_level)
 	WRITE_FILE(S["auspice_level"]			, auspice_level)
+	WRITE_FILE(S["extra_gnosis"]			, extra_gnosis)
 
 	WRITE_FILE(S["a_priorities"], priorities)
 	WRITE_FILE(S["abl_prior"], abl_prior)
