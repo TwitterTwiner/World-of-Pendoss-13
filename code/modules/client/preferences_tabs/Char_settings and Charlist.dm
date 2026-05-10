@@ -276,6 +276,11 @@
 		dat += "<b>Clane/Bloodline:</b> <a href='byond://?_src_=prefs;preference=clane;task=input'>[clane.name]</a><BR>"
 		dat += "<b>Description:</b> [clane.desc]<BR>"
 		dat += "<b>Curse:</b> [clane.curse]<BR>"
+		if(length(clane.alternative_sprites))
+			if(clane_sprite in clane.alternative_sprites)
+				dat += "<b>Appearance:</b> <a href='byond://?_src_=prefs;preference=clane_sprite;task=input'>[clane_sprite]</a><BR>"
+		else
+			clane_sprite = clane.alt_sprite
 		if(length(clane.accessories))
 			if(clane_accessory in clane.accessories)
 				dat += "<b>Marks:</b> <a href='byond://?_src_=prefs;preference=clane_acc;task=input'>[clane_accessory]</a><BR>"

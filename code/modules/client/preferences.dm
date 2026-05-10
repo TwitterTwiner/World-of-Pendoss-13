@@ -237,6 +237,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/auspice_level = 1
 
 	var/clane_accessory
+	var/clane_sprite
 
 	var/dharma_type = /datum/dharma
 	var/dharma_level = 1
@@ -1483,6 +1484,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		//				return
 
 
+				if("reset_list")
+					if((alert("Are you sure you want to reset your character list?", "Confirmation", "Yes", "No") == "Yes"))
+						reset_discipline()
+						reset_stats()
+
 
 				if("blood_type")
 					if(slotlocked)
@@ -1820,6 +1826,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/result = input(user, "Select a mark", "Marks") as null|anything in clane.accessories
 					if(result)
 						clane_accessory = result
+
+				if("clane_sprite")
+					if(pref_species.id != "kindred")
+						return
+
+					if(!length(clane.alternative_sprites))
+						clane_sprite = clane.alt_sprite
+						return
+					var/result = input(user, "Select a sprite", "Sprite Selection") as null|anything in clane.alternative_sprites
+					if(result)
+						clane_sprite = result
 
 				if("clane")
 					if(slotlocked || !(pref_species.id == "kindred"))
@@ -3196,6 +3213,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/datum/vampireclane/CLN = new clane.type()
 		character.clane = CLN
 		character.clane.current_accessory = clane_accessory
+		character.clane.alt_sprite = clane_sprite
 		character.maxbloodpool = get_gen_bloodpool(generation-generation_bonus)
 		character.bloodpool = rand(2, character.maxbloodpool)
 		character.generation = generation-generation_bonus

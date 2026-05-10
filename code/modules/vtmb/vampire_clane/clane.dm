@@ -16,6 +16,7 @@ And it also helps for the character set panel
 	var/clane_curse //There should be a reference here.
 	///The Clan's unique body sprite
 	var/alt_sprite
+	var/list/alternative_sprites = list()
 	///If the Clan's unique body sprites need to account for skintone
 	var/alt_sprite_greyscale = FALSE
 	var/no_hair
