@@ -322,7 +322,7 @@
 /mob/dead/new_player/proc/LateChoices()
 	GLOB.latejoin_menu.ui_interact(src)
 
-/mob/dead/new_player/proc/create_character(transfer_after)
+/mob/dead/new_player/proc/create_character(transfer_after, shovelhead = FALSE)
 	spawning = 1
 	close_spawn_windows()
 
@@ -362,10 +362,10 @@
 	. = H
 	new_character = .
 	if(transfer_after)
-		transfer_character()
+		transfer_character(shovelhead)
 //	if(client.prefs.archtype)
 //		H.__archetype = new client.prefs.archtype
-/mob/dead/new_player/proc/transfer_character()
+/mob/dead/new_player/proc/transfer_character(shovelhead = FALSE)
 	. = new_character
 	if(.)
 		new_character.key = key		//Manually transfer the key to log them in,
@@ -381,7 +381,8 @@
 					H.add_quirk(/datum/quirk/light_step)
 					H.add_quirk(/datum/quirk/skittish)
 					H.add_quirk(/datum/quirk/pushover)
-				H.create_disciplines()
+				if(!shovelhead)
+					H.create_disciplines()
 				if(H.client.prefs.ambitious)
 					if(H.mind)
 						H.mind.add_antag_datum(/datum/antagonist/ambitious)
