@@ -465,7 +465,7 @@
  */
 /datum/discipline_power/proc/do_masquerade_violation(atom/target)
 	if (violates_masquerade)
-		if (owner.CheckEyewitness(target ? target : owner, owner, 7, TRUE))
+		if (owner.CheckEyewitness(target ? target : owner, owner, 7, TRUE, TRUE))
 			//TODO: detach this from being a human
 			if (ishuman(owner))
 				var/mob/living/carbon/human/human = owner

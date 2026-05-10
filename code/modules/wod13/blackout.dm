@@ -277,7 +277,7 @@ SUBSYSTEM_DEF(witness_pool)
 						AdjustMasquerade(-1)
 				else
 					//gargoyles, nosferatu, skeletons, that kind of thing
-					if (CheckEyewitness(H, H, 7, FALSE))
+					if (CheckEyewitness(H, H, 7, FALSE, TRUE))
 						AdjustMasquerade(-1)
 
 		if(HAS_TRAIT(H, TRAIT_UNMASQUERADE))
