@@ -8,6 +8,7 @@
 		/datum/discipline/mytherceria
 	)
 	alt_sprite = "kiasyd"
+	alternative_sprites = list("kiasyd")
 	no_facial = TRUE
 	male_clothes = /obj/item/clothing/under/vampire/archivist
 	female_clothes = /obj/item/clothing/under/vampire/archivist

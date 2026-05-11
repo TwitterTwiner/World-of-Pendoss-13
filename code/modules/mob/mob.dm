@@ -445,8 +445,11 @@
 		if(ishuman(A) || isitem(A))
 			var/mob/living/carbon/human/ueban = src
 			var/dist = get_dist(ueban, A)
+			var/need_dist = 1		/// distance to A when you can instantly examine
 			var/time = 25+dist
-			if( dist > 1 && !do_mob(src, src, max(1, time-((get_a_perception(ueban)+get_a_investigation(ueban))*2))))
+			if(ishuman(A))
+				need_dist = -1
+			if(dist > need_dist && !do_mob(src, src, max(1, time-((get_a_perception(ueban)+get_a_investigation(ueban))*2))))
 				return
 
 	if(isturf(A) && !(sight & SEE_TURFS) && !(A in view(client ? client.view : world.view, src)))

@@ -1896,6 +1896,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								clane_accessory = "none"
 							else
 								clane_accessory = pick(clane.accessories)
+						if(length(clane.alternative_sprites) >= 2)
+							clane_sprite = pick(clane.alternative_sprites)
+
 				if("auspice_level")
 					var/cost = max(10, auspice_level * 10)
 					if ((true_experience < cost) || (auspice_level >= 3))
@@ -3213,7 +3216,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/datum/vampireclane/CLN = new clane.type()
 		character.clane = CLN
 		character.clane.current_accessory = clane_accessory
-		character.clane.alt_sprite = clane_sprite
+		if(clane_sprite)
+			character.clane.alt_sprite = clane_sprite
 		character.maxbloodpool = get_gen_bloodpool(generation-generation_bonus)
 		character.bloodpool = rand(2, character.maxbloodpool)
 		character.generation = generation-generation_bonus
