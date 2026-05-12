@@ -23,9 +23,9 @@
 
 /datum/vampire_goal/proc/get_result()
 	if(check_completion())
-		return "<li>[name] :  <span class='greentext'>Completed!</span></li>"
+		return "<li>[name] :  <span class='greentext'>ВЫПОЛНЕНО!</span></li>"
 	else
-		return "<li>[name] : <span class='redtext'>Failed!</span></li>"
+		return "<li>[name] : <span class='redtext'>ПРОВАЛ!</span></li>"
 
 /datum/vampire_goal/Destroy()
 	SSticker.mode.vampire_goals -= src

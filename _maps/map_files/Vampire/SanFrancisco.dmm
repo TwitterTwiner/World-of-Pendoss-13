@@ -15639,7 +15639,7 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/gastarbaiters,
-/obj/item/card/id/supplytech{
+/obj/item/card/id/vamp/supplytech{
 	id_type_name = "tech shop badge";
 	name = "tech shop badge"
 	},
@@ -17001,6 +17001,13 @@
 /obj/effect/decal/wallpaper/paper/rich,
 /turf/closed/wall/vampwall/rich,
 /area/vtm/cabinet)
+"bnN" = (
+/obj/effect/decal/bordur,
+/turf/closed/wall/mineral/plastitanium{
+	alpha = 230;
+	color = "#000000"
+	},
+/area/vtm/interior)
 "bnO" = (
 /obj/structure/closet/crate/coffin{
 	pixel_y = 5
@@ -25070,6 +25077,14 @@
 /obj/effect/decal/cleanable/trash_wood,
 /turf/open/floor/plating/concrete,
 /area/vtm/anarch)
+"cKG" = (
+/obj/effect/decal/bordur{
+	dir = 1
+	},
+/turf/closed/wall/mineral/plastitanium{
+	color = "#000000"
+	},
+/area/vtm/interior)
 "cKH" = (
 /obj/structure/chair/wood{
 	dir = 4;
@@ -25757,6 +25772,15 @@
 /obj/item/storage/box/syringes,
 /turf/open/floor/plating/concrete,
 /area/vtm/theatre)
+"dcE" = (
+/obj/effect/decal/asphaltline/alt{
+	dir = 4;
+	pixel_y = -14
+	},
+/turf/closed/wall/mineral/plastitanium{
+	color = "#000000"
+	},
+/area/vtm/interior)
 "dcT" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 9
@@ -25928,6 +25952,11 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/interior/endronfacility)
+"dfA" = (
+/turf/closed/wall/mineral/plastitanium{
+	color = "#000000"
+	},
+/area/vtm/interior)
 "dfX" = (
 /obj/effect/decal/daroof/red{
 	dir = 8
@@ -27321,6 +27350,13 @@
 /obj/effect/turf_decal/stripes/white/line,
 /turf/open/floor/plating/rough,
 /area/vtm/interior/delivery_garage/mt_office)
+"dJu" = (
+/obj/effect/decal/bordur,
+/turf/closed/wall/mineral/plastitanium{
+	alpha = 170;
+	color = "#000000"
+	},
+/area/vtm/interior)
 "dJC" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -28864,7 +28900,8 @@
 "eoD" = (
 /obj/transfer_point_vamp{
 	id = 11;
-	color = "#000000"
+	color = "#000000";
+	alpha = 200
 	},
 /turf/open/floor/plating/asphalt,
 /area/vtm/interior)
@@ -35814,6 +35851,15 @@
 	},
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/chinatown)
+"hmh" = (
+/obj/effect/decal/bordur{
+	dir = 1
+	},
+/turf/closed/wall/mineral/plastitanium{
+	alpha = 230;
+	color = "#000000"
+	},
+/area/vtm/interior)
 "hmk" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -37030,6 +37076,14 @@
 /obj/effect/landmark/start/graveyardkeeper,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
+"hMi" = (
+/obj/transfer_point_vamp{
+	id = 771;
+	color = "#000000";
+	alpha = 200
+	},
+/turf/open/floor/plating/asphalt,
+/area/vtm/interior)
 "hMu" = (
 /obj/structure/trashbag,
 /obj/structure/trashbag{
@@ -37807,6 +37861,12 @@
 /obj/machinery/iv_drip,
 /turf/open/floor/plating/vampplating,
 /area/vtm/clinic)
+"ibS" = (
+/turf/closed/wall/mineral/plastitanium{
+	alpha = 170;
+	color = "#000000"
+	},
+/area/vtm/interior)
 "ibV" = (
 /obj/effect/decal/wallpaper/red,
 /turf/closed/wall/vampwall/bar,
@@ -42316,6 +42376,12 @@
 	dir = 4
 	},
 /area/vtm/northbeach)
+"jWY" = (
+/obj/effect/decal/bordur,
+/turf/closed/wall/mineral/plastitanium{
+	color = "#000000"
+	},
+/area/vtm/interior)
 "jXm" = (
 /obj/structure/chair/sofa/corp/left{
 	color = "#77A532";
@@ -43631,7 +43697,8 @@
 "kzR" = (
 /obj/transfer_point_vamp{
 	id = 44;
-	color = "#000000"
+	color = "#000000";
+	alpha = 200
 	},
 /turf/open/floor/plating/asphalt,
 /area/vtm/interior)
@@ -47825,6 +47892,17 @@
 /obj/item/clothing/under/rank/prisoner,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/police)
+"msH" = (
+/obj/effect/decal/bordur{
+	dir = 1
+	},
+/obj/transfer_point_vamp{
+	id = 222;
+	color = "#000000";
+	alpha = 200
+	},
+/turf/open/floor/plating/sidewalk/poor,
+/area/vtm/interior)
 "msL" = (
 /obj/structure/closet{
 	anchored = 1
@@ -48190,6 +48268,14 @@
 	},
 /turf/open/floor/plating/vampwood,
 /area/vtm)
+"mBs" = (
+/obj/transfer_point_vamp{
+	id = 111;
+	color = "#000000";
+	alpha = 200
+	},
+/turf/open/floor/plating/asphalt,
+/area/vtm/interior)
 "mBD" = (
 /obj/structure/urinal{
 	pixel_y = 32
@@ -53703,6 +53789,12 @@
 /obj/matrix,
 /turf/open/floor/plating/asphalt,
 /area/vtm/graveyard/interior)
+"oSB" = (
+/turf/closed/wall/mineral/plastitanium{
+	alpha = 230;
+	color = "#000000"
+	},
+/area/vtm/interior)
 "oSI" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -54832,7 +54924,8 @@
 /obj/effect/decal/bordur,
 /obj/transfer_point_vamp{
 	id = 10;
-	color = "#000000"
+	color = "#000000";
+	alpha = 200
 	},
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/interior)
@@ -56404,6 +56497,15 @@
 /obj/structure/marker_beacon/burgundy,
 /turf/open/floor/plating/ice{
 	temperature = 293.15
+	},
+/area/vtm/interior)
+"pZz" = (
+/obj/effect/decal/bordur{
+	dir = 1
+	},
+/turf/closed/wall/mineral/plastitanium{
+	alpha = 170;
+	color = "#000000"
 	},
 /area/vtm/interior)
 "pZP" = (
@@ -60091,6 +60193,18 @@
 /obj/effect/landmark/start/vjanitor,
 /turf/open/floor/plating/vampcanalplating,
 /area/vtm/interior/vjanitor)
+"rEb" = (
+/obj/effect/decal/asphaltline/alt{
+	dir = 4;
+	pixel_y = -14
+	},
+/obj/transfer_point_vamp{
+	id = 881;
+	color = "#000000";
+	alpha = 200
+	},
+/turf/open/floor/plating/asphalt,
+/area/vtm/interior)
 "rEi" = (
 /obj/effect/decal/bordur{
 	dir = 8
@@ -62243,6 +62357,14 @@
 "sCj" = (
 /turf/open/floor/plating/parquetry/rich,
 /area/vtm/church)
+"sCo" = (
+/obj/transfer_point_vamp{
+	id = 99;
+	color = "#000000";
+	alpha = 200
+	},
+/turf/open/floor/plating/asphalt,
+/area/vtm/interior)
 "sCr" = (
 /obj/structure/table,
 /obj/machinery/p25transceiver{
@@ -62532,7 +62654,8 @@
 	},
 /obj/transfer_point_vamp{
 	id = 22;
-	color = "#000000"
+	color = "#000000";
+	alpha = 200
 	},
 /turf/open/floor/plating/asphalt,
 /area/vtm/interior)
@@ -70127,6 +70250,15 @@
 /obj/item/pen,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/clinic)
+"vPS" = (
+/obj/effect/decal/bordur,
+/obj/transfer_point_vamp{
+	id = 661;
+	color = "#000000";
+	alpha = 200
+	},
+/turf/open/floor/plating/sidewalk/poor,
+/area/vtm/interior)
 "vQb" = (
 /obj/effect/decal/bordur{
 	dir = 4
@@ -71393,6 +71525,16 @@
 /obj/item/reagent_containers/food/drinks/bottle/vampirewater,
 /turf/open/floor/plating/vampplating,
 /area/vtm/prince)
+"wre" = (
+/obj/effect/decal/asphaltline/alt{
+	dir = 4;
+	pixel_y = -14
+	},
+/turf/closed/wall/mineral/plastitanium{
+	alpha = 170;
+	color = "#000000"
+	},
+/area/vtm/interior)
 "wrm" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
@@ -73748,7 +73890,8 @@
 "xqJ" = (
 /obj/transfer_point_vamp{
 	id = 33;
-	color = "#000000"
+	color = "#000000";
+	alpha = 200
 	},
 /turf/open/floor/plating/asphalt,
 /area/vtm/interior)
@@ -75593,6 +75736,16 @@
 "yeP" = (
 /turf/closed/wall/vampwall/market/low/window,
 /area/vtm/interior/techshop)
+"yeS" = (
+/obj/effect/decal/asphaltline/alt{
+	dir = 4;
+	pixel_y = -14
+	},
+/turf/closed/wall/mineral/plastitanium{
+	alpha = 230;
+	color = "#000000"
+	},
+/area/vtm/interior)
 "yfc" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -284633,7 +284786,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+acJ
 ajs
 iCd
 wWE
@@ -284890,14 +285043,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
+acJ
 ajs
-iCd
-wWE
-uMt
-wWE
-wWE
-wZx
+jWY
+dfA
+dcE
+dfA
+dfA
+cKG
 ajs
 acJ
 aaa
@@ -285147,14 +285300,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
+acJ
 ajs
-iCd
-wWE
-uMt
-wWE
-wWE
-wZx
+bnN
+oSB
+yeS
+oSB
+oSB
+hmh
 ajs
 acJ
 aaa
@@ -285406,12 +285559,12 @@ aaa
 aaa
 acJ
 ajs
-tpQ
-cMw
-dBS
-eZJ
-euc
-oIw
+vPS
+hMi
+rEb
+sCo
+mBs
+msH
 ajs
 acJ
 aaa
@@ -285663,12 +285816,12 @@ aaa
 aaa
 acJ
 ajs
-iCd
-wWE
-uMt
-wWE
-wWE
-wZx
+dJu
+ibS
+wre
+ibS
+ibS
+pZz
 ajs
 acJ
 aaa
