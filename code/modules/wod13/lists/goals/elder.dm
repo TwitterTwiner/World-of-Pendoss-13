@@ -1,5 +1,5 @@
-/datum/vampire_goal/elder
-	name = "Diablerize a Caine"
+//datum/vampire_goal/elder
+//	name = "Диаблеризировать Каина"
 
 
 

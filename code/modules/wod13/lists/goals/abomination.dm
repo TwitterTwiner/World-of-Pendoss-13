@@ -1,5 +1,5 @@
 /datum/vampire_goal/abomination
-	name = "Ismail Samsa's son"
+	name = "Появление сына Измаила Самсы"
 	/// Ssve city from ugly abomination...
 	completed = TRUE
 

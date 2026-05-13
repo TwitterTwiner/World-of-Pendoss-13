@@ -1,5 +1,5 @@
 /datum/vampire_goal/masquerade
-	name = "Support the masquerade"
+	name = "Сохранение Маскарада"
 //	desc = "Maintain the masquerade at all costs."
 
 
