@@ -55,6 +55,9 @@
 		GLOB.lobby_screen.update(client)
 		return TRUE
 	if(href_list["show_preferences"])
+		if(!SSloadout)
+			to_chat(usr, "<span class='notice'>Система ещё не загружена.</span>")
+			return FALSE
 		client.prefs.ShowChoices(src)
 		return TRUE
 	if(href_list["ready"])
