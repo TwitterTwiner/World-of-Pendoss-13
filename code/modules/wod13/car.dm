@@ -676,9 +676,13 @@ SUBSYSTEM_DEF(carpool)
 	if(istype(A, /obj/structure)) /// structure for future itereations
 		var/obj/structure/hit_obj = A
 		if(istype(hit_obj, /obj/structure/barrier_tape/police))
-			qdel(hit_obj)
+	//		qdel(hit_obj)
 			return
+	if(istype(A, /obj/transfer_point_vamp))
+		return
 	if(istype(A, /mob/living))
+		if(A == driver)
+			return
 		var/mob/living/hit_mob = A
 		if(HAS_TRAIT(hit_mob, TRAIT_MOVE_FLYING))
 			return
@@ -738,6 +742,8 @@ SUBSYSTEM_DEF(carpool)
 			if(L.client)
 				L.client.pixel_x = 0
 				L.client.pixel_y = 0
+
+	to_chat(world, "[A], [A.x], [A.y], [A.z])")
 
 //	return
 
@@ -913,6 +919,8 @@ SUBSYSTEM_DEF(carpool)
 			y + (moved_y < 0 ? -1 : 1) * round(max(abs(moved_y), 18) / 16), \
 			z
 		)
+		if(!check_turf_ahead)
+			return
 		for(var/turf/T in get_line(src, check_turf_ahead))
 			if(T)
 				T.damage_ghosts_on_me()
@@ -939,11 +947,14 @@ SUBSYSTEM_DEF(carpool)
 						if(istype(contact, /obj/transfer_point_vamp))
 							var/obj/transfer_point_vamp/TPV = contact
 							TPV.Bumped(src)
+							return
 						if(istype(contact, /obj/structure)) /// structure for future itereations
 							var/obj/structure/hit_obj = contact
 							if(istype(hit_obj, /obj/structure/barrier_tape/police))
 								qdel(hit_obj)
 		var/turf/hit_turf
+		if(!check_turf)
+			return
 		var/list/in_line = get_line(src, check_turf)
 		for(var/turf/T in in_line)
 			if(T)
@@ -960,6 +971,10 @@ SUBSYSTEM_DEF(carpool)
 						if(!hit_turf || dist_to_hit < get_dist_in_pixels(last_pos["x"]*32+last_pos["x_pix"], last_pos["y"]*32+last_pos["y_pix"], hit_turf.x*32, hit_turf.y*32))
 							hit_turf = T
 		if(hit_turf)
+			for(var/contact in hit_turf.unpassable)
+				if(istype(contact, /mob/living))
+					if(contact == driver)
+						hit_turf.unpassable -= contact
 			Bump(pick(hit_turf.unpassable))
 //			impact_delay = world.time
 //			to_chat(world, "I can't pass that [hit_turf] at [hit_turf.x] x [hit_turf.y] cause of [pick(hit_turf.unpassable)] FUCK")
