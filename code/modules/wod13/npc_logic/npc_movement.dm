@@ -4,7 +4,7 @@
 /obj/effect/landmark/npc_spawn_point
 /obj/effect/landmark/npc_spawn_point/Initialize(mapload)
 	. = ..()
-	GLOB.npc_spawn_points |= src
+	GLOB.npc_spawn_points += src
 /obj/effect/landmark/npcbeacon/directed
 	name = "NPC traffic"
 	icon_state = "npc"
@@ -281,8 +281,10 @@
 	if(!staying)
 		lifespan = lifespan+1
 	if(SSmasquerade.last_level == "breach")
+		var/iscop = istype(socialrole, /datum/socialrole/police) || istype(socialrole, /datum/socialrole/swat) || istype(socialrole,/datum/socialrole/hunter )
+	//	var/isswat = istype(socialrole, /datum/socialrole/swat)
 		if(route_optimisation())
-			if(!presence_master)
+			if(!presence_master && !iscop)
 				qdel(src)
 	if(lifespan >= 2000)
 		if(route_optimisation())
@@ -324,8 +326,8 @@
 				set_glide_size(DELAY_TO_GLIDE_SIZE(total_multiplicative_slowdown()))
 				walk_away(src, danger_source, reqsteps, total_multiplicative_slowdown())
 			if((my_weapon || fights_anyway) && isliving(danger_source))         ///////////  Какой-то ушуй(рантайм) от гранат и пытается получить от них id, хотя danger_source определен, как мобик
-				var/obj/item/card/id/id_card = danger_source.get_idcard(FALSE)
-				if(!istype(id_card, /obj/item/card/id/police))
+				var/obj/item/card/id/vamp/id_card = danger_source.get_idcard(FALSE)
+				if(!istype(id_card, /obj/item/card/id/vamp/police))
 					if(!spawned_weapon && my_weapon)
 						my_weapon.forceMove(loc)
 						drop_all_held_items()
