@@ -1630,7 +1630,7 @@
 	uniforms = list(/obj/item/clothing/under/vampire/police)
 	hats = list(/obj/item/clothing/head/vampire/police)
 	suits = list(/obj/item/clothing/suit/vampire/vest/police)
-	id_type = /obj/item/card/id/police
+	id_type = /obj/item/card/id/vamp/police
 	pockets = list(/obj/item/stack/dollar/rand)
 
 	male_phrases = list("Я наблюдаю за тобой.",
@@ -2175,3 +2175,12 @@
 	my_weapon = new choice
 //	ignores_warrant = TRUE
 	AssignSocialRole(/datum/socialrole/camarilla)
+
+/mob/living/carbon/human/npc/camarilla/ghoul/handle_automated_action()
+	. = ..()
+	if(stat < 1)
+		for(var/mob/living/carbon/human/H in oviewers(5, src))
+			if(H)
+				if(H.bloodhunted)
+					Aggro(H, FALSE)
+
