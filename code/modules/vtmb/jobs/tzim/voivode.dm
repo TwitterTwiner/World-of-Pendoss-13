@@ -30,7 +30,7 @@
 /datum/outfit/job/voivode
 	name = "Voivode"
 	jobtype = /datum/job/vamp/voivode
-	id = /obj/item/card/id/voivode
+	id = /obj/item/card/id/vamp/voivode
 	uniform = /obj/item/clothing/under/vampire/voivode
 	suit = /obj/item/clothing/suit/vampire/caftan/white
 	head = /obj/item/clothing/head/berendeyka/white

@@ -44,7 +44,8 @@
 	var/const/waittime_l = 600
 	var/const/waittime_h = 1800 // started at 1800
 
-	var/list/datum/station_goal/station_goals = list()
+//	var/list/datum/station_goal/station_goals = list()
+	var/list/datum/vampire_goal/vampire_goals = list()
 
 	var/allow_persistence_save = TRUE
 
@@ -521,7 +522,7 @@
 	while(possible.len && goal_weights < STATION_GOAL_BUDGET)
 		var/datum/station_goal/picked = pick_n_take(possible)
 		goal_weights += initial(picked.weight)
-		station_goals += new picked
+		vampire_goals += new picked
 
 
 /datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report

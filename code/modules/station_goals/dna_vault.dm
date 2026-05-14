@@ -162,7 +162,7 @@
 		fillers += F
 
 	if(SSticker.mode)
-		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
+		for(var/datum/station_goal/dna_vault/G in SSticker.mode.vampire_goals)
 			animals_max = G.animal_count
 			plants_max = G.plant_count
 			dna_max = G.human_count

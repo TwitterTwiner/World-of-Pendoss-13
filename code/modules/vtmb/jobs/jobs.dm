@@ -24,49 +24,22 @@
 
 //ID
 
-/obj/item/card/id/prince/AltClick(mob/user)
+/obj/item/card/id/vamp
+	name = "vampire card"
+	desc = "debug item"
+	icon = 'code/modules/wod13/items.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
+	worn_icon = 'code/modules/wod13/worn.dmi'
+
+/obj/item/card/id/vamp/AltClick(mob/user)
 	return
 
-/obj/item/card/id/sheriff/AltClick(mob/user)
-	return
-
-/obj/item/card/id/camarilla/AltClick(mob/user)
-	return
-
-/obj/item/card/id/clerk/AltClick(mob/user)
-	return
-
-/obj/item/card/id/anarch/AltClick(mob/user)
-	return
-
-/obj/item/card/id/clinic/AltClick(mob/user)
-	return
-
-/obj/item/card/id/archive/AltClick(mob/user)
-	return
-
-/obj/item/card/id/cleaning/AltClick(mob/user)
-	return
-
-/obj/item/card/id/dealer/AltClick(mob/user)
-	return
-
-/obj/item/card/id/supplytech/AltClick(mob/user)
-	return
-
-/obj/item/card/id/hunter/AltClick(mob/user)
-	return
-
-/obj/item/card/id/primogen/AltClick(mob/user)
-	return
-
-/obj/item/card/id/police/AltClick(mob/user)
-	return
-
-/obj/item/card/id/hunter
+/obj/item/card/id/vamp/hunter
 	var/last_detonated = 0
 
-/obj/item/card/id/hunter/attack_self(mob/user)
+/obj/item/card/id/vamp/hunter/attack_self(mob/user)
 	. = ..()
 	if(last_detonated+300 > world.time)
 		return
@@ -84,14 +57,14 @@
 		if(O)
 			O.damage_corpus()
 
-/obj/item/card/id/hunter/proc/bang(turf/T, mob/living/M, mob/living/user)
+/obj/item/card/id/vamp/hunter/proc/bang(turf/T, mob/living/M, mob/living/user)
 	if(M.stat == DEAD)	//They're dead!
 		return
 	var/mob/living/carbon/human/H
 	if(ishuman(M))
 		H = M
 	if(H)
-		for(var/obj/item/card/id/hunter/HUNT in H.contents)
+		for(var/obj/item/card/id/vamp/hunter/HUNT in H.contents)
 			if(HUNT)
 				if(H.mind)
 					if(H.mind.holy_role == HOLY_ROLE_PRIEST || get_trufaith_level(H) >= 1)
@@ -110,7 +83,7 @@
 	if(affected_by_faith && M.flash_act(affect_silicon = 1))
 		M.Immobilize(max(10/max(1,distance), 5))
 
-/obj/item/card/id/hunter/attack(mob/living/target, mob/living/user)
+/obj/item/card/id/vamp/hunter/attack(mob/living/target, mob/living/user)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		return
@@ -126,7 +99,7 @@
 			H.electrocution_animation(50)
 			to_chat(H, "<span class='userdanger'>The God has punished you for your sins!</span>", confidential = TRUE)
 
-/obj/item/card/id/prince
+/obj/item/card/id/vamp/prince
 	name = "leader badge"
 	id_type_name = "leader badge"
 	desc = "King in the castle!"
@@ -140,7 +113,7 @@
 	worn_icon_state = "id6"
 	access = list(1,2)
 
-/obj/item/card/id/sheriff
+/obj/item/card/id/vamp/sheriff
 	name = "head security badge"
 	id_type_name = "head security badge"
 	desc = "A badge which shows honour and dedication."
@@ -154,7 +127,7 @@
 	worn_icon_state = "id4"
 	access = list(1,2)
 
-/obj/item/card/id/camarilla
+/obj/item/card/id/vamp/camarilla
 	name = "security badge"
 	id_type_name = "security badge"
 	desc = "A badge which shows honour and dedication."
@@ -168,7 +141,7 @@
 	worn_icon_state = "id3"
 	access = list(2)
 
-/obj/item/card/id/clerk
+/obj/item/card/id/vamp/clerk
 	name = "clerk badge"
 	id_type_name = "clerk badge"
 	desc = "A badge which shows buerocracy qualification."
@@ -182,7 +155,7 @@
 	worn_icon_state = "id1"
 	access = list(2)
 
-/obj/item/card/id/anarch
+/obj/item/card/id/vamp/anarch
 	name = "biker badge"
 	id_type_name = "biker badge"
 	desc = "A badge which shows protest and anarchy."
@@ -195,7 +168,7 @@
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id5"
 
-/obj/item/card/id/clinic
+/obj/item/card/id/vamp/clinic
 	name = "medical badge"
 	id_type_name = "medical badge"
 	desc = "A badge which shows medical qualification."
@@ -209,7 +182,7 @@
 	worn_icon_state = "id2"
 	access = list(3)
 
-/obj/item/card/id/archive
+/obj/item/card/id/vamp/archive
 	name = "scholar badge"
 	id_type_name = "scholar badge"
 	desc = "A badge which shows a love of culture."
@@ -222,7 +195,7 @@
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id7"
 
-/obj/item/card/id/regent
+/obj/item/card/id/vamp/regent
 	name = "erudite scholar badge"
 	id_type_name = "erudite scholar badge"
 	desc = "A badge which shows a deep understanding of culture."
@@ -235,7 +208,7 @@
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id7_regent"
 
-/obj/item/card/id/cleaning
+/obj/item/card/id/vamp/cleaning
 	name = "janitor badge"
 	id_type_name = "janitor badge"
 	desc = "A badge which shows cleaning employment."
@@ -249,7 +222,7 @@
 	worn_icon_state = "id8"
 	access = list(4)
 
-/obj/item/card/id/graveyard
+/obj/item/card/id/vamp/graveyard
 	name = "keeper badge"
 	id_type_name = "keeper badge"
 	desc = "A badge which shows graveyard employment."
@@ -263,7 +236,7 @@
 	worn_icon_state = "id8"
 	access = list(5)
 
-/obj/item/card/id/dealer
+/obj/item/card/id/vamp/dealer
 	name = "business badge"
 	id_type_name = "business badge"
 	desc = "A badge which shows business."
@@ -277,7 +250,7 @@
 	worn_icon_state = "id9"
 	access = list(6)
 
-/obj/item/card/id/supplytech
+/obj/item/card/id/vamp/supplytech
 	name = "technician badge"
 	id_type_name = "technician badge"
 	desc = "A badge which shows supply employment."
@@ -291,7 +264,7 @@
 	worn_icon_state = "id10"
 	access = list(6)
 
-/obj/item/card/id/hunter
+/obj/item/card/id/vamp/hunter
 	name = "cross"
 	id_type_name = "cross"
 	desc = "When you come into the land that the Lord your God is giving you, you must not learn to imitate the abhorrent practices of those nations. No one shall be found among you who makes a son or daughter pass through fire, or who practices divination, or is a soothsayer, or an augur, or a sorcerer, or one who casts spells, or who consults ghosts or spirits, or who seeks oracles from the dead. For whoever does these things is abhorrent to the Lord; it is because of such abhorrent practices that the Lord your God is driving them out before you (Deuteronomy 18:9-12)."
@@ -304,7 +277,7 @@
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id11"
 
-/obj/item/card/id/primogen
+/obj/item/card/id/vamp/primogen
 	name = "mysterious primogen badge"
 	id_type_name = "mysterious primogen badge"
 	desc = "Sponsored by the Shadow Government."
@@ -318,7 +291,7 @@
 	worn_icon_state = "id12"
 	access = list(2)
 
-/obj/item/card/id/police
+/obj/item/card/id/vamp/police
 	name = "police officer badge"
 	id_type_name = "police officer badge"
 	desc = "Sponsored by the Government."
@@ -332,27 +305,27 @@
 	worn_icon_state = "id13"
 	access = list(8)
 
-/obj/item/card/id/police/sergeant
+/obj/item/card/id/vamp/police/sergeant
 	name = "police sergeant badge"
 	desc = "Sponsored by the Government. This one seems slightly more worn down than all the others."
 	access = list(7,8)
 
-/obj/item/card/id/police/coroner
+/obj/item/card/id/vamp/police/coroner
 	name = "police coroner badge"
 	icon_state = "id2"
 	access = list(7,8)
 
-/obj/item/card/id/police/lieutenant
+/obj/item/card/id/vamp/police/lieutenant
 	name = "police lieutenant badge"
 	desc = "Sponsored by the Government. This one has a chrome plated finish."
 	access = list(7,8)
 
-/obj/item/card/id/police/fbi
+/obj/item/card/id/vamp/police/fbi
 	name = "fbi special agent badge"
 	desc = "Sponsored by the Government. This one has all the bells and whistles."
 	access = list(8)
 
-/obj/item/card/id/voivode
+/obj/item/card/id/vamp/voivode
 	name = "ancient badge"
 	id_type_name ="ancient badge"
 	desc = "You have to wear this filthy thing to be recognized."
@@ -365,7 +338,7 @@
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id12"
 
-/obj/item/card/id/bogatyr
+/obj/item/card/id/vamp/bogatyr
 	name = "dusty badge"
 	id_type_name ="dusty badge"
 	desc = "You have to wear this because the Voivode wants you to."
@@ -379,7 +352,7 @@
 	worn_icon_state = "id12"
 
 
-/obj/item/card/id/bahari
+/obj/item/card/id/vamp/bahari
 	name = "cultist badge"
 	id_type_name = "cultist badge"
 	desc = "This shows your devotion to the dark mother."
@@ -392,7 +365,7 @@
 	worn_icon = 'code/modules/wod13/worn.dmi'
 	worn_icon_state = "id14"
 
-/obj/item/card/id/noddist
+/obj/item/card/id/vamp/noddist
 	name = "cultist badge"
 	id_type_name = "cultist badge"
 	desc = "This shows your devotion to the dark father."
@@ -406,7 +379,7 @@
 	worn_icon_state = "id15"
 
 // GAROU
-/obj/item/card/id/garou
+/obj/item/card/id/vamp/garou
 	name = "Base Garou ID"
 	id_type_name = "Coder Moment badge"
 	desc = "DO NOT USE THIS, THIS IS FOR CODE FOUNDATION ONLY. IF YOU SEE THIS, REPORT IT AS A BUG."
@@ -420,43 +393,59 @@
 	worn_icon_state = "id5"
 
 //ENDRON
-/obj/item/card/id/garou/spiral
+/obj/item/card/id/vamp/garou/spiral
 	icon_state = "id9"
 	worn_icon_state = "id9"
 
-/obj/item/card/id/garou/spiral/lead
+/obj/item/card/id/vamp/garou/spiral/lead
 	name = "Endron Branch Leader card"
 	desc = "How bad can you possibly be?"
 	access = list(9,10)
 
-/obj/item/card/id/garou/spiral/executive
+/obj/item/card/id/vamp/garou/spiral/executive
 	name = "Endron Executive card"
 	desc = "All the customers are buying."
 	access = list(9,10)
 
-/obj/item/card/id/garou/spiral/affairs
+/obj/item/card/id/vamp/garou/spiral/affairs
 	name = "Endron Internal Affairs card"
 	desc = "And the Lawyers are denying."
 	access = list(9,10)
 
-/obj/item/card/id/garou/spiral/secchief
+/obj/item/card/id/vamp/garou/spiral/secchief
 	name = "Endron Chief of Security badge"
 	icon_state = "id3"
 	worn_icon_state = "id3"
 	desc = "Its not illegal if nobody finds out about it. Now if only Endron would pay for a single tank for you."
 	access = list(9,10)
 
-/obj/item/card/id/garou/spiral/sec
+/obj/item/card/id/vamp/garou/spiral/sec
 	name = "Endron Security Agent badge"
 	icon_state = "id3"
 	worn_icon_state = "id3"
 	desc = "Corporate Security, a step above a mall cop. Better paid than a real cop."
 	access = list(10)
 
-/obj/item/card/id/garou/spiral/employee
+/obj/item/card/id/vamp/garou/spiral/employee
 	name = "Endron Employee card"
 	desc = "Congratulations, Wagie."
 	access = list(10)
+
+	/obj/item/card/id/vamp/garou/park
+	name = "Park Ranger badge"
+	desc = "You protect the parks, but do you protect the city?"
+	icon_state = "id4"
+	worn_icon_state = "id4"
+	access = list(9,10)
+
+/obj/item/card/id/vamp/garou/park/chief
+	name = "Park Chief badge"
+	desc = "You protect the parks, but do you protect the city?"
+
+/obj/item/card/id/vamp/garou/park/ranger
+	name = "Park Ranger badge"
+	desc = "You protect the parks, but do you protect the city?"
+
 
 /datum/antagonist/ambitious
 	name = "Ambitious"

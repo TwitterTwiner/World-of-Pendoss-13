@@ -89,6 +89,8 @@
 #define EXP_TYPE_NATIONAL_SECURITY      "National Security"
 #define EXP_TYPE_SPIRAL    "Hive of the Poisoned Shore"
 #define EXP_TYPE_CHURCH         "Church"
+#define EXP_TYPE_GAIA    "Western Eye"
+#define EXP_TYPE_SABBAT		"Sabbat Pack"
 #define EXP_TYPE_SPECIAL		"Special"
 #define EXP_TYPE_GHOST			"Ghost"
 #define EXP_TYPE_ADMIN			"Admin"

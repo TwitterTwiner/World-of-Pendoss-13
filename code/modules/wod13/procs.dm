@@ -179,7 +179,7 @@
 				return TRUE
 	return FALSE
 
-/mob/living/proc/CheckEyewitness(mob/living/source, mob/attacker, range = 0, affects_source = FALSE)
+/mob/living/proc/CheckEyewitness(mob/living/source, mob/attacker, range = 0, affects_source = FALSE, masquerade_violation = FALSE)
 	var/actual_range = max(1, round(range*(attacker.alpha/255)))
 	/*
 	if(SScityweather.fogging)
@@ -210,6 +210,10 @@
 						if(NPC.backinvisible(attacker))
 							seenby |= NPC
 							NPC.Aggro(attacker, FALSE)
+				if(masquerade_violation)
+					NPC.see_violator(source)
+
+
 		if(length(seenby) >= 1)
 			return TRUE
 		return FALSE

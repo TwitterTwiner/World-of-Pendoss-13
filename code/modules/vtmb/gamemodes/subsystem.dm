@@ -20,6 +20,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 
 	var/setted_up = FALSE
 	var/list/datum/job/jobs = list()
+	var/new_person = FALSE
 
 /datum/controller/subsystem/bad_guys_party/proc/setup_occupations()
 	var/list/all_jobs = subtypesof(/datum/job)
@@ -62,6 +63,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 				go_on_next_fire = TRUE
 				Next = new /datum/outfit/job/sabbatist()
 				setting = null
+				new_person = TRUE
 			if("hunter")
 				if(Next)
 					qdel(Next)
@@ -114,6 +116,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 						max_candidates = 3
 						species_restrict = list("Ghoul", "Vampire")
 						go_on_next_fire = TRUE
+						new_person = TRUE
 						Next = new /datum/outfit/job/sabbatist()
 			/*		if(3)
 						//kuei-jin
@@ -203,7 +206,7 @@ SUBSYSTEM_DEF(bad_guys_party)
 
 	SSjob.AssignRole(src, "Citizen", 1, TRUE)
 
-	var/mob/living/character = create_character(TRUE)	//creates the human and transfers vars and mind
+	var/mob/living/character = create_character(TRUE, SSbad_guys_party.new_person)	//creates the human and transfers vars and mind
 	SSbad_guys_party.Next.equip(H = character, visualsOnly = FALSE)
 	var/atom/movable/screen/splash/Spl = new(character.client, TRUE)
 	Spl.Fade(TRUE)

@@ -7,4 +7,7 @@
 #define WAREHOUSE_NETWORK "warehouse"
 #define TRIADS_NETWORK "triads"
 #define VAMPIRE_LEADER_NETWORK "vampire_leader"
-#define ENDRON_NETWORK "endron"
+
+#define WEAVER_NETWORK "weaver"
+#define WYRM_NETWORK "wyrm"
+#define GAIA_NETWORK "gaia"

@@ -30,7 +30,7 @@
 	name = "Street Janitor"
 	jobtype = /datum/job/vamp/vjanitor
 
-	id = /obj/item/card/id/cleaning
+	id = /obj/item/card/id/vamp/cleaning
 	uniform = /obj/item/clothing/under/vampire/janitor
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/vamp/keys/cleaning

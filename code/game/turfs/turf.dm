@@ -309,7 +309,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(canPassSelf || (mover.movement_type & PHASING))
 		if(isobserver(mover))
 			var/mob/dead/observer/obser = mover
-			if(opacity && !obser.aghosted)
+			if(opacity && !obser.aghosted && !isavatar(obser))
 				return FALSE
 		for(var/i in contents)
 			if(QDELETED(mover))
@@ -323,7 +323,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 				if((mover.movement_type & PHASING))
 					if(isobserver(mover))
 						var/mob/dead/observer/obser = mover
-						if(thing.opacity && !obser.aghosted)
+						if(thing.opacity && !obser.aghosted && !isavatar(obser))
 							return FALSE
 					mover.Bump(thing)
 					continue

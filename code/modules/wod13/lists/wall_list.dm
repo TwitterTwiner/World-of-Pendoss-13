@@ -274,6 +274,14 @@
 	icon_state = "wood-window"
 	window = /obj/structure/window/fulltile
 
+
+/obj/effect/wall_shadow
+	icon = 'our_secrets/shadow.dmi'
+	icon_state = "shadow"
+	density = 0
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYERS_LAYER
+
 //////////////////////////// WALLPAPERS ////////////////////////
 
 /obj/effect/decal/wallpaper/low

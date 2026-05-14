@@ -119,6 +119,7 @@
 	baggage_limit = 60
 
 /obj/vampire_car/track/ambulance
+	icon = 'code/modules/wod13/icons_newvechle/car_ambulance.dmi'
 	icon_state = "ambulance"
 	lighticon = "lights2"
 	access = "clinic"
@@ -142,7 +143,7 @@
 	access = "giovanni"
 
 
-///// NEW ///////////////////////
+///// NEW ////////////////////////
 
 /obj/vampire_car/chevrolet
 	name = "chevrolet"

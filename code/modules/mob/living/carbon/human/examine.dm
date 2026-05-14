@@ -514,7 +514,7 @@
 		if (iskindred(src) && is_face_visible())
 			if(clane)
 				switch(clane.alt_sprite)
-					if ("nosferatu")
+					if ("nosferatu" || "nosferatu_rotten")
 						msg += "<span class='danger'><b>[p_they(TRUE)] look[p_s()] utterly deformed and inhuman!</b></span><br>"
 					if ("gargoyle")
 						msg += "<span class='danger'><b>[p_they(TRUE)] seem[p_s()] to be made out of stone!</b></span><br>"

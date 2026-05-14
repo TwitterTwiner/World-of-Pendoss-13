@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(humannpcpool)
 	wait = 3 SECONDS
 
 	var/list/currentrun = list()
-	var/npc_max = 50
+	var/npc_max = 150
 
 /datum/controller/subsystem/humannpcpool/stat_entry(msg)
 	var/list/activelist = GLOB.npc_list
@@ -36,6 +36,7 @@ SUBSYSTEM_DEF(humannpcpool)
 			GLOB.npc_list -= NPC		//HUH??? A BUG? NO WAY
 			GLOB.alive_npc_list -= NPC
 //			if(QDELETED(NPC))
+			npclost()
 			log_world("Found a null in npc list!")
 //			else
 //				log_world("Found a dead NPC in npc list!")
@@ -45,6 +46,8 @@ SUBSYSTEM_DEF(humannpcpool)
 		if(MC_TICK_CHECK)
 			return
 		NPC.handle_automated_movement()
+		npclost()
+
 
 /datum/controller/subsystem/humannpcpool/proc/npclost()
 	while(length(GLOB.alive_npc_list) < npc_max)
@@ -52,6 +55,11 @@ SUBSYSTEM_DEF(humannpcpool)
 		var/NEPIS = pick(/mob/living/carbon/human/npc/police, /mob/living/carbon/human/npc/bandit, /mob/living/carbon/human/npc/hobo, /mob/living/carbon/human/npc/walkby, /mob/living/carbon/human/npc/business)
 		if(prob(3))
 			NEPIS = /mob/living/carbon/human/npc/hunter
+
+		if(length(SSbloodhunt.hunted) && !GLOB.camarilla_autoritories)
+			if(length(GLOB.camarilla_autoritories) <= 0)
+		//		if(prob(10))
+				NEPIS = /mob/living/carbon/human/npc/camarilla/ghoul
 
 		if(SSmasquerade.last_level == "moderate")
 			NEPIS = pick(/mob/living/carbon/human/npc/police, /mob/living/carbon/human/npc/swat)
@@ -101,3 +109,4 @@ SUBSYSTEM_DEF(actionnpcpool)
 		if(MC_TICK_CHECK)
 			return
 		NPC.handle_automated_action()
+		SShumannpcpool.npclost()

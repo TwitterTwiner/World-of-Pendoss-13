@@ -100,12 +100,24 @@ GLOBAL_LIST_INIT(gang_positions, list(
 	"Monk"
 ))
 
+GLOBAL_LIST_INIT(sabbat_positions, list(
+	"Priest",
+	"Ductus",
+	"Pack Member"
+))
+
 GLOBAL_LIST_INIT(spiral_positions, list(
 	"Endron Branch Lead",
 	"Endron Branch Executive",
 	"Endron Chief of Security",
 	"Endron Security Agent",
 	"Endron Employee"
+))
+
+GLOBAL_LIST_INIT(gaia_positions, list(
+	"Voice of the Goddess",
+	"Arm of the Goddess",
+	"Park Ranger"
 ))
 
 GLOBAL_LIST_INIT(ss13, list(
@@ -127,18 +139,21 @@ GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_CHURCH = list("jobs" = church_positions, "color" = "#ffffb3"),
 	EXP_TYPE_POLICE = list("jobs" = police_positions, "color" = "#b3c6ff"),
 	EXP_TYPE_NATIONAL_SECURITY = list("jobs" = national_security_positions, "color" = "#b3b8ff"),
+	EXP_TYPE_SABBAT = list("jobs" = sabbat_positions, "color" = "#9c2626"),
 	EXP_TYPE_GANG = list("jobs" = gang_positions, "color" = "#e6d9b3"),
 	EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#98493d"),
 	EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#fa0207"),
-	EXP_TYPE_SPIRAL = list("jobs" = spiral_positions, "color" = "#015334")
+	EXP_TYPE_SPIRAL = list("jobs" = spiral_positions, "color" = "#015334"),
+	EXP_TYPE_GAIA = list("jobs" = gaia_positions, "color" = "#a8c74d")
 ))
 
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
-	EXP_TYPE_CREW = list("titles" = command_positions | church_positions | camarilla_council_positions | citizen_positions | police_positions | national_security_positions | anarch_positions | services_positions  | giovanni_positions | tzimisce_positions | warehouse_positions | tremere_positions | gang_positions | spiral_positions), // crew positions
+	EXP_TYPE_CREW = list("titles" = command_positions | church_positions | camarilla_council_positions | citizen_positions | police_positions | national_security_positions | anarch_positions | services_positions  | giovanni_positions | tzimisce_positions | warehouse_positions | tremere_positions | gang_positions | spiral_positions | gaia_positions | sabbat_positions), // crew positions
 	EXP_TYPE_CAMARILLIA = list("titles" = command_positions),
 	EXP_TYPE_TREMERE = list("titles" = tremere_positions),
 	EXP_TYPE_ANARCH = list("titles" = anarch_positions),
+	EXP_TYPE_SABBAT = list("titles" = sabbat_positions),
 	EXP_TYPE_GANG = list("titles" = gang_positions),
 	EXP_TYPE_OTHER_CITIZEN = list("titles" = citizen_positions),
 	EXP_TYPE_COUNCIL = list("titles" = camarilla_council_positions),
@@ -149,7 +164,8 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_WAREHOUSE = list("titles" = warehouse_positions),
 	EXP_TYPE_CHURCH = list("titles" = church_positions),
 	EXP_TYPE_NATIONAL_SECURITY = list("titles" = national_security_positions),
-	EXP_TYPE_SPIRAL = list("titles" = spiral_positions)
+	EXP_TYPE_SPIRAL = list("titles" = spiral_positions),
+	EXP_TYPE_GAIA = list("titles" = gaia_positions)
 ))
 
 GLOBAL_LIST_INIT(exp_specialmap, list(

@@ -205,6 +205,10 @@
 	desc = "Some slick-looking clothes."
 	icon_state = "slickback"
 
+/obj/item/clothing/under/vampire/slickback/alt
+	desc = "Some dark slick-looking clothes."
+	icon_state = "slickback_alt"
+
 /obj/item/clothing/under/vampire/burlesque
 	desc = "Some burlesque clothes."
 	icon_state = "burlesque"
@@ -217,6 +221,16 @@
 	name = "Uncolorful attire"
 	desc = "Some usual clothes."
 	icon_state = "emo"
+
+/obj/item/clothing/under/vampire/millenium_purple
+	name = "Black suit with purple shirt"
+	desc = "a fashionable suit from a recent collection."
+	icon_state = "millenium_agent"
+
+/obj/item/clothing/under/vampire/guard_purple
+	name = "Purple guy uniform"
+	desc = "Some purple clothes... for guards, maybe?"
+	icon_state = "millenium_guard"
 
 //WOMEN
 
@@ -242,6 +256,38 @@
 	desc = "Some rich clothes."
 	icon_state = "business"
 
+/obj/item/clothing/under/vampire/purple_black
+	name = "Black suit with purple shirt"
+	desc = "Buisnes suit"
+	icon_state = "black_with_purple_suit"
+
+/obj/item/clothing/under/vampire/purple_black/female
+	icon_state = "black_with_purple_suit"
+
+/obj/item/clothing/under/vampire/purple
+	name = "Purple suit"
+	desc = "Some purple clothes."
+	icon_state = "purple_suit"
+
+/obj/item/clothing/under/vampire/purple/female
+	icon_state = "purple_suit_f"
+
+/obj/item/clothing/under/vampire/blue
+	name = "Blue suit"
+	desc = "Some blue clothes."
+	icon_state = "blue_suit"
+
+/obj/item/clothing/under/vampire/blue/female
+	icon_state = "blue_suit_f"
+
+/obj/item/clothing/under/vampire/blue_black
+	name = "Black suit with blue shirt"
+	desc = "Buisnes suit"
+	icon_state = "black_with_blue_suit"
+
+/obj/item/clothing/under/vampire/blue_black/female
+	icon_state = "black_with_blue_suit_f"
+
 //Homeless
 
 /obj/item/clothing/under/vampire/homeless
@@ -263,6 +309,11 @@
 	name = "Security guard uniform"
 	desc = "Some guard clothes."
 	icon_state = "guard"
+
+obj/item/clothing/under/vampire/ranger
+	name = "Ranger uniform"
+	desc = "Some ranger clothes."
+	icon_state = "ranger"
 
 //JOBS
 
@@ -749,6 +800,10 @@
 	desc = "Best noir clothes for night. Provides some kind of protection."
 	icon_state = "trench1"
 	armor = list(BASHING = 2, LETHAL = 2, AGGRAVATED = 0, MELEE = 25, BULLET = 25, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 10, WOUND = 25)
+	allowed = list(
+		/obj/item/vampire_stake,
+		/obj/item/flashlight
+	)
 
 /obj/item/clothing/suit/vampire/trench/white
 	icon_state = "trench1w"

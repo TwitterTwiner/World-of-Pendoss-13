@@ -32,7 +32,7 @@
 	uniform = /obj/item/clothing/under/vampire/graveyard
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
-	id = /obj/item/card/id/hunter
+	id = /obj/item/card/id/vamp/hunter
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/flashlight
 	l_hand = /obj/item/vamp/keys/church
@@ -84,7 +84,7 @@
 	uniform = /obj/item/clothing/under/vampire/graveyard
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie/leader
-	id = /obj/item/card/id/hunter
+	id = /obj/item/card/id/vamp/hunter
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/flashlight
 	l_hand = /obj/item/vamp/keys/church
@@ -140,7 +140,7 @@
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
 	suit = /obj/item/clothing/suit/chaplainsuit/bishoprobe
 	head = /obj/item/clothing/head/bishopmitre
-	id = /obj/item/card/id/hunter
+	id = /obj/item/card/id/vamp/hunter
 	l_pocket = /obj/item/vamp/phone
 	r_pocket = /obj/item/flashlight
 	l_hand = /obj/item/vamp/keys/church

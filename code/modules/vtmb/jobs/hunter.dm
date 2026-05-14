@@ -2,7 +2,7 @@
 	name = "Hunter"
 	uniform = /obj/item/clothing/under/vampire/graveyard
 	r_pocket = /obj/item/flashlight
-	id = /obj/item/card/id/hunter
+	id = /obj/item/card/id/vamp/hunter
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
 	l_pocket = /obj/item/vamp/keys/church
 	backpack_contents = list(

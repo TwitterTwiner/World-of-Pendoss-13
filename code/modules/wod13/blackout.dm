@@ -189,8 +189,8 @@ SUBSYSTEM_DEF(witness_pool)
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/pull = pulling
 					if(pull.stat == DEAD)
-						var/obj/item/card/id/id_card = get_idcard(FALSE)
-						if(!istype(id_card, /obj/item/card/id/clinic))
+						var/obj/item/card/id/vamp/id_card = get_idcard(FALSE)
+						if(!istype(id_card, /obj/item/card/id/vamp/clinic))
 							if(CheckEyewitness(H, H, 7, FALSE))
 								if(last_loot_check+50 <= world.time)
 									last_loot_check = world.time
@@ -207,8 +207,8 @@ SUBSYSTEM_DEF(witness_pool)
 			for(var/obj/item/I in contents)
 				if(I)
 					if(I.masquerade_violating)
-						var/obj/item/card/id/id_card = get_idcard(FALSE)
-						if(!istype(id_card, /obj/item/card/id/clinic))
+						var/obj/item/card/id/vamp/id_card = get_idcard(FALSE)
+						if(!istype(id_card, /obj/item/card/id/vamp/clinic))
 							if(CheckEyewitness(H, H, 7, FALSE))
 								if(last_loot_check+50 <= world.time)
 									last_loot_check = world.time
@@ -277,7 +277,7 @@ SUBSYSTEM_DEF(witness_pool)
 						AdjustMasquerade(-1)
 				else
 					//gargoyles, nosferatu, skeletons, that kind of thing
-					if (CheckEyewitness(H, H, 7, FALSE))
+					if (CheckEyewitness(H, H, 7, FALSE, TRUE))
 						AdjustMasquerade(-1)
 
 		if(HAS_TRAIT(H, TRAIT_UNMASQUERADE))

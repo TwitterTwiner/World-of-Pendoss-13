@@ -699,6 +699,16 @@
 	status = LIGHT_BROKEN
 	icon_state = "tube-broken"
 
+/obj/machinery/light/tonnel
+	bulb_colour = "#d4a31cd6"
+	icon_state = "tube_tonnel"
+	base_state = "tube_tonnel"
+
+/obj/machinery/light/white
+	icon_state = "tube_white"
+	base_state = "tube_white"
+
+
 /obj/effect/decal/painting
 	name = "painting"
 	icon = 'code/modules/wod13/icons.dmi'

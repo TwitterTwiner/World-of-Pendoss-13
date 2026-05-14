@@ -142,7 +142,7 @@
 			new /obj/item/molotov(src)
 		if(4)
 			new /obj/item/storage/book/bible(src)
-			new /obj/item/card/id/hunter(src)
+			new /obj/item/card/id/vamp/hunter(src)
 		if(5)
 			new /obj/item/clothing/neck/stethoscope(src)
 			new	/obj/item/scalpel(src)

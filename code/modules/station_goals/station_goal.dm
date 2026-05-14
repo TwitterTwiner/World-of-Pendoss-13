@@ -33,7 +33,7 @@
 		return "<li>[name] : <span class='redtext'>Failed!</span></li>"
 
 /datum/station_goal/Destroy()
-	SSticker.mode.station_goals -= src
+	SSticker.mode.vampire_goals -= src
 	. = ..()
 
 /datum/station_goal/Topic(href, href_list)

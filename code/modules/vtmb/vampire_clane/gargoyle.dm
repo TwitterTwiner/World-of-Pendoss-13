@@ -8,6 +8,7 @@
 		/datum/discipline/visceratika
 	)
 	alt_sprite = "gargoyle"
+	alternative_sprites = list("gargoyle")
 	no_facial = TRUE
 	violating_appearance = TRUE
 	male_clothes = /obj/item/clothing/under/vampire/malkavian

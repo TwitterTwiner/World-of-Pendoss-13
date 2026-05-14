@@ -30,7 +30,7 @@
 	jobtype = /datum/job/vamp/primogen_malkavian
 
 	ears = /obj/item/p25radio
-	id = /obj/item/card/id/primogen
+	id = /obj/item/card/id/vamp/primogen
 	glasses = /obj/item/clothing/glasses/vampire/sun
 	uniform = /obj/item/clothing/under/vampire/primogen_malkavian
 	suit = /obj/item/clothing/suit/vampire/trench/malkav
@@ -79,7 +79,7 @@
 	name = "Primogen Nosferatu"
 	jobtype = /datum/job/vamp/primogen_nosferatu
 
-	id = /obj/item/card/id/primogen
+	id = /obj/item/card/id/vamp/primogen
 	mask = /obj/item/clothing/mask/vampire/shemagh
 	glasses = /obj/item/clothing/glasses/vampire/sun
 	uniform = /obj/item/clothing/under/vampire/suit
@@ -125,7 +125,7 @@
 	name = "Primogen Ventrue"
 	jobtype = /datum/job/vamp/primogen_ventrue
 
-	id = /obj/item/card/id/primogen
+	id = /obj/item/card/id/vamp/primogen
 	glasses = /obj/item/clothing/glasses/vampire/sun
 	uniform = /obj/item/clothing/under/vampire/suit
 	suit = /obj/item/clothing/suit/vampire/trench
@@ -170,7 +170,7 @@
 	name = "Primogen Toreador"
 	jobtype = /datum/job/vamp/primogen_toreador
 
-	id = /obj/item/card/id/primogen
+	id = /obj/item/card/id/vamp/primogen
 	glasses = /obj/item/clothing/glasses/vampire/sun
 	uniform = /obj/item/clothing/under/vampire/primogen_toreador
 	suit = /obj/item/clothing/suit/vampire/trench/alt
@@ -217,7 +217,7 @@
 	name = "Primogen Brujah"
 	jobtype = /datum/job/vamp/primogen_brujah
 
-	id = /obj/item/card/id/primogen
+	id = /obj/item/card/id/vamp/primogen
 	glasses = /obj/item/clothing/glasses/vampire/yellow
 	uniform = /obj/item/clothing/under/vampire/punk
 	suit = /obj/item/clothing/suit/vampire/jacket/punk

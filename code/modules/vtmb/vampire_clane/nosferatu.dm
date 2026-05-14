@@ -2,7 +2,9 @@
 	name = "Nosferatu"
 	desc = "The Nosferatu wear their curse on the outside. Their bodies horribly twisted and deformed through the Embrace, they lurk on the fringes of most cities, acting as spies and brokers of information. Using animals and their own supernatural capacity to hide, nothing escapes the eyes of the so-called Sewer Rats."
 	curse = "Masquerade-violating appearance."
+
 	alt_sprite = "nosferatu"
+	alternative_sprites = list("nosferatu", "nosferatu_rotten")
 //	no_hair = TRUE		//Pyotr from Hunter the Parenting had hair and it didn't go out of place in the setting. I'll do limited hairstyles
 	no_facial = TRUE
 	clane_disciplines = list(
@@ -27,8 +29,8 @@
 	violating_appearance = TRUE
 	male_clothes = /obj/item/clothing/under/vampire/nosferatu
 	female_clothes = /obj/item/clothing/under/vampire/nosferatu/female
-	accessories = list("nosferatu_ears", "nosferatu_face")
-	accessories_layers = list("nosferatu_ears" = UPPER_EARS_LAYER, "nosferatu_face" = BODY_LAYER)
+	accessories = list("nosferatu_ears", "none")
+	accessories_layers = list("nosferatu_ears" = UPPER_EARS_LAYER)
 	current_accessory = "nosferatu_ears"
 	clan_keys = /obj/item/vamp/keys/nosferatu
 

@@ -36,7 +36,7 @@
 	name = "Baron"
 	jobtype = /datum/job/vamp/barkeeper
 
-	id = /obj/item/card/id/anarch
+	id = /obj/item/card/id/vamp/anarch
 	glasses = /obj/item/clothing/glasses/vampire/sun
 	uniform = /obj/item/clothing/under/vampire/bar
 	suit = /obj/item/clothing/suit/vampire/jacket/better
