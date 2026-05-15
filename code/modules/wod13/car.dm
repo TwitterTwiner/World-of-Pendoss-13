@@ -743,8 +743,6 @@ SUBSYSTEM_DEF(carpool)
 				L.client.pixel_x = 0
 				L.client.pixel_y = 0
 
-	to_chat(world, "[A], [A.x], [A.y], [A.z])")
-
 //	return
 
 //// TRUCK ////
