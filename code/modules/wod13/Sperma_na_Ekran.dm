@@ -45,6 +45,9 @@
 	var/reading
 
 /client/proc/text_to_all()
+	set name = "Global screen text"
+	set category = "Admin.Fun"
+	set desc = "This should be helpfull for testing purposes"
 
 //	var/list/to_who = list("Всем", "Камарилья", "Шабаш", "Анархи")
 	var/novii_text = input(src, "Что вы хотите написать:", "Глобальный текст")  as text|null
