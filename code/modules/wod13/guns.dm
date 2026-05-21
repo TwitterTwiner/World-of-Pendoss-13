@@ -809,7 +809,7 @@
 	name = "custom pistol magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/vampire/c9mm/silver
 
-/obj/item/ammo_box/magazine/vamp556/hunt
+/obj/item/ammo_box/magazine/vampire/vamp556/hunt
 	name = "rifle magazine (5.56mm)"
 	icon_state = "hunt556"
 	max_ammo = 20

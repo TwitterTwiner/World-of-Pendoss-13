@@ -5,7 +5,7 @@
 	mask = /obj/item/clothing/mask/vampire/gasmask/swat
 	glasses = /obj/item/clothing/glasses/vampire/swat
 	r_pocket = /obj/item/flashlight
-	l_pocket = /obj/item/ammo_box/magazine/vamp556
+	l_pocket =/obj/item/ammo_box/magazine/vampire/vamp556
 	shoes = /obj/item/clothing/shoes/vampire/jackboots/swat
 	belt = /obj/item/gun/ballistic/automatic/vampire/ar15
 	gloves = /obj/item/clothing/gloves/vampire/work
@@ -14,7 +14,7 @@
 	id = /obj/item/card/id/vamp/police
 	back = /obj/item/storage/backpack/satchel/swat
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/vamp556 = 3,
+		/obj/item/ammo_box/magazine/vampire/vamp556 = 3,
 		/obj/item/radio/cop = 1,
 		/obj/item/vamp/keys/hack=2,
 		/obj/item/storage/firstaid/ifak=1,

@@ -12339,7 +12339,7 @@
 "ZY" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/vampire/ar15,
-/obj/item/ammo_box/magazine/vamp556,
+/obj/item/ammo_box/magazine/vampire/vamp556,
 /turf/open/floor/plating/parquetry,
 /area/space)
 "ZZ" = (

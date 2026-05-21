@@ -80,7 +80,7 @@
 		/obj/item/storage/pill_bottle/ephedrine,
 		/obj/item/gas_can/full,
 		/obj/item/gun/ballistic/automatic/vampire/ar15,
-		/obj/item/ammo_box/magazine/vamp556,
+		/obj/item/ammo_box/magazine/vampire/vamp556,
 		/obj/item/gun/ballistic/automatic/vampire/aug,
 		/obj/item/ammo_box/magazine/vampaug,
 		/obj/item/gun/ballistic/automatic/vampire/sniper,
