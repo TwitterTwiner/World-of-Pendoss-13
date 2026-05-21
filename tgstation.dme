@@ -3679,4 +3679,5 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+#include "our_secrets\dynamic_fov.dm"
 // END_INCLUDE
