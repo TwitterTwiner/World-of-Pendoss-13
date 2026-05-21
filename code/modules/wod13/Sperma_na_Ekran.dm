@@ -44,6 +44,17 @@
 	alpha = 0
 	var/reading
 
+/client/proc/text_to_all()
+
+//	var/list/to_who = list("Всем", "Камарилья", "Шабаш", "Анархи")
+	var/novii_text = input(src, "Что вы хотите написать:", "Глобальный текст")  as text|null
+	if(!novii_text)
+		return
+
+	for(var/i in GLOB.player_list)
+		var/mob/M = i
+		M.intro_Sperma(novii_text)
+
 /mob/proc/into_fisheye()
 	var/obj/screen/fullscreen/fisheye/F = new()
 	client.screen += F
