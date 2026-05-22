@@ -336,8 +336,5 @@
 		return
 	invisibility = posobj.umbra? 0 : INVISIBILITY_ABSTRACT
 
-/atom/movable/screen/parallax_layer/umbra/update_o()
-	return
-
 /atom/movable/screen/parallax_layer/planet/update_o()
 	return //Shit won't move
