@@ -276,7 +276,7 @@ Used by the AI doomsday and the self-destruct nuke.
 		add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE)
 
 	if(config.minetype == "umbra")
-		LoadGroup(FailedZs, "Umbra", "map_files/Umbra", "Umbra.dmm", default_traits = ZTRAITS_UMBRA)
+		LoadGroup(FailedZs, "Umbra", "map_files/Umbra", "Umbra.dmm", traits = ZTRAITS_PENUMBRA_LAYOUT, default_traits = ZTRAITS_UMBRA)
 	else if (!isnull(config.minetype) && config.minetype != "none")
 		INIT_ANNOUNCE("WARNING: An unknown minetype '[config.minetype]' was set! This is being ignored! Update the maploader code!")
 #endif

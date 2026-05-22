@@ -67,6 +67,40 @@
 	if(tribe.tribe_trait == TRAIT_CORAX)
 		ADD_TRAIT(C, TRAIT_CORAX, tribe)
 
+	if(tribe.tribe_trait != TRAIT_CORAX)
+		var/datum/action/gift/step_sideways/SS_human = new()
+		SS_human.Grant(C)
+		if(lupus)
+			var/datum/action/gift/step_sideways/SS_lupus = new()
+			SS_lupus.Grant(lupus)
+		if(crinos)
+			var/datum/action/gift/step_sideways/SS_crinos = new()
+			SS_crinos.Grant(crinos)
+
+		var/datum/action/gift/peek/PK_human = new()
+		PK_human.Grant(C)
+		if(lupus)
+			var/datum/action/gift/peek/PK_lupus = new()
+			PK_lupus.Grant(lupus)
+		if(crinos)
+			var/datum/action/gift/peek/PK_crinos = new()
+			PK_crinos.Grant(crinos)
+
+	var/datum/action/gift/meditate/MD_human = new()
+	MD_human.Grant(C)
+	if(lupus)
+		var/datum/action/gift/meditate/MD_lupus = new()
+		MD_lupus.Grant(lupus)
+	if(crinos)
+		var/datum/action/gift/meditate/MD_crinos = new()
+		MD_crinos.Grant(crinos)
+	if(cor_crinos)
+		var/datum/action/gift/meditate/MD_cor_crinos = new()
+		MD_cor_crinos.Grant(cor_crinos)
+	if(corvid)
+		var/datum/action/gift/meditate/MD_corvid = new()
+		MD_corvid.Grant(corvid)
+
 /**
  * Sets the breed of a shapeshifter, or what form
  * they were born in and naturally stay in. If that

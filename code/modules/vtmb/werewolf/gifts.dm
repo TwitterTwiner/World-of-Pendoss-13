@@ -1231,4 +1231,562 @@
 						to_chat(caster,"<b>Damage taken:<b><br>BRUTE: [victim.getBruteLoss()]<br>OXY: [victim.getOxyLoss()]<br>TOXIN: [victim.getToxLoss()]<br>BURN: [victim.getFireLoss()]<br>CLONE: [victim.getCloneLoss()]")
 						to_chat(caster, "Last melee attacker: [victim.lastattacker]") //guns behave weirdly
 
+
+GLOBAL_LIST_INIT(step_sideways_z_pairs, list(
+	"2" = 6,
+	"3" = 7,
+	"4" = 8,
+	"5" = 9,
+	"6" = 2,
+	"7" = 3,
+	"8" = 4,
+	"9" = 5,
+))
+
+GLOBAL_LIST_INIT(step_sideways_earth_zlevels, list(2, 3, 4, 5))
+GLOBAL_LIST_INIT(step_sideways_penumbra_zlevels, list(6, 7, 8, 9))
+GLOBAL_LIST_INIT(step_sideways_deep_umbra_zlevels, list(10))
+
+/proc/get_paired_zlevel(z)
+	var/key = "[z]"
+	if(key in GLOB.step_sideways_z_pairs)
+		return GLOB.step_sideways_z_pairs[key]
+	return 0
+
+/proc/is_penumbra_zlevel(z)
+	return (z in GLOB.step_sideways_penumbra_zlevels)
+
+/proc/is_earth_zlevel(z)
+	return (z in GLOB.step_sideways_earth_zlevels)
+
+/proc/is_deep_umbra_zlevel(z)
+	return (z in GLOB.step_sideways_deep_umbra_zlevels)
+
+/proc/is_umbra_realm_zlevel(z)
+	return is_penumbra_zlevel(z) || is_deep_umbra_zlevel(z)
+
+/datum/action/gift/step_sideways
+	name = "Step Sideways"
+	desc = "Cross the Gauntlet that separates the physical world from the Penumbra."
+	button_icon_state = "step_sideways"
+	check_flags = AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
+	rage_req = 0
+	gnosis_req = 0
+	var/casting = FALSE
+	var/step_cooldown = 15 SECONDS
+	COOLDOWN_DECLARE(step_cd)
+
+/datum/action/gift/step_sideways/Trigger()
+	if(!COOLDOWN_FINISHED(src, step_cd))
+		to_chat(owner, span_warning("You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, step_cd))] before crossing the Gauntlet again."))
+		return
+	if(casting)
+		to_chat(owner, span_warning("You are already crossing the Gauntlet!"))
+		return
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/C = owner
+	if(C.stat >= SOFT_CRIT)
+		return
+	if(C.in_frenzy)
+		to_chat(C, span_warning("You cannot focus your spirit while in frenzy!"))
+		return
+	if(!C.auspice)
+		return
+	if(C.auspice.gnosis < 1)
+		to_chat(C, span_warning("You don't have enough <b>GNOSIS</b> to step sideways!"))
+		SEND_SOUND(C, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
+		return
+
+	var/turf/here = get_turf(C)
+	if(!here)
+		return
+	var/going_to_penumbra
+	if(is_earth_zlevel(here.z))
+		going_to_penumbra = TRUE
+	else if(is_penumbra_zlevel(here.z))
+		going_to_penumbra = FALSE
+	else
+		to_chat(C, span_warning("The Gauntlet here is too thick to pierce - you cannot Step Sideways from this place."))
+		SEND_SOUND(C, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
+		return
+
+	adjust_gnosis(-1, C, FALSE)
+	COOLDOWN_START(src, step_cd, step_cooldown)
+
+	to_chat(C, span_notice("You feel for the seam of the Gauntlet..."))
+	var/successes = secret_vampireroll(C.auspice.start_gnosis, 7, C, FALSE, TRUE, 0)
+
+	if(successes == -1)
+		to_chat(C, span_userdanger("Your spirit recoils violently as the Gauntlet rejects you!"))
+		C.Stun(3 SECONDS)
+		playsound(get_turf(C), 'code/modules/wod13/sounds/werewolf_cast_failed.ogg', 75, FALSE)
+		return
+
+	if(successes == 0)
+		to_chat(C, span_warning("The Gauntlet refuses to part for you..."))
+		playsound(get_turf(C), 'code/modules/wod13/sounds/werewolf_cast_failed.ogg', 75, FALSE)
+		return
+
+	var/turf/target = find_step_sideways_target(C, going_to_penumbra)
+	if(!target)
+		to_chat(C, span_warning("You cannot find a path through the Gauntlet here..."))
+		return
+
+	var/cast_time = max(2 SECONDS, (7 - successes) SECONDS)
+	casting = TRUE
+	to_chat(C, span_notice("You begin to step sideways, the world around you growing thin..."))
+	playsound(get_turf(C), 'code/modules/wod13/sounds/portal.ogg', 75, FALSE)
+	var/matrix/start_matrix = matrix(C.transform)
+	var/matrix/cast_matrix = matrix(C.transform)
+	cast_matrix.Scale(0.85, 0.85)
+	var/initial_alpha = C.alpha
+	animate(C, alpha = 0, transform = cast_matrix, time = cast_time, easing = SINE_EASING)
+
+	if(!do_after(C, cast_time, target = C, timed_action_flags = IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(check_still_casting), C)))
+		casting = FALSE
+		animate(C, alpha = initial_alpha, transform = start_matrix, time = 2)
+		to_chat(C, span_warning("Your concentration breaks - you are pulled back to the material world!"))
+		return
+
+	casting = FALSE
+	C.stop_pulling()
+
+	if(going_to_penumbra && C.CheckEyewitness(C, C, 5, FALSE))
+		C.adjust_veil(-1, honoradj = -1)
+
+	C.forceMove(target)
+	C.alpha = initial_alpha
+	C.transform = start_matrix
+	playsound(target, 'code/modules/wod13/sounds/portal_enter.ogg', 75, FALSE)
+	to_chat(C, span_notice(going_to_penumbra ? "You step into the spirit world." : "You step back into the material world."))
+
+/datum/action/gift/step_sideways/proc/check_still_casting(mob/living/carbon/C)
+	if(!C || QDELETED(C))
+		return FALSE
+	if(C.in_frenzy)
+		return FALSE
+	return TRUE
+
+/proc/is_step_sideways_safe(turf/T, going_to_penumbra)
+	if(!T)
+		return FALSE
+	if(going_to_penumbra)
+		if(!is_penumbra_zlevel(T.z))
+			return FALSE
+	else
+		if(!is_earth_zlevel(T.z))
+			return FALSE
+	if(istype(T, /turf/open/water))
+		return FALSE
+	if(istype(T, /turf/open/floor/plating/vampocean))
+		return FALSE
+	if(istype(T, /turf/open/floor/plating/beach/water))
+		return FALSE
+	if(T.is_blocked_turf())
+		return FALSE
+	return TRUE
+
+/proc/find_safe_turf_near(turf/center, going_to_penumbra, search_radius = 4)
+	if(!center)
+		return null
+	if(is_step_sideways_safe(center, going_to_penumbra))
+		return center
+	var/turf/best = null
+	var/best_dist = INFINITY
+	for(var/turf/candidate in range(search_radius, center))
+		if(!is_step_sideways_safe(candidate, going_to_penumbra))
+			continue
+		var/d = get_dist(candidate, center)
+		if(d < best_dist)
+			best_dist = d
+			best = candidate
+	return best
+
+/proc/find_step_sideways_target(mob/living/source, going_to_penumbra)
+	if(!source)
+		return null
+	var/turf/source_turf = get_turf(source)
+	if(!source_turf)
+		return null
+	var/paired_z = get_paired_zlevel(source_turf.z)
+	if(!paired_z)
+		return null
+	var/turf/direct_target = locate(source_turf.x, source_turf.y, paired_z)
+	return find_safe_turf_near(direct_target, going_to_penumbra, 6)
+
+/datum/action/gift/meditate
+	name = "Meditate"
+	desc = "Sit still and reach for Gnosis."
+	button_icon_state = "meditation"
+	check_flags = AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
+	rage_req = 0
+	gnosis_req = 0
+	var/meditating = FALSE
+	var/meditate_cooldown = 60 SECONDS
+	COOLDOWN_DECLARE(meditate_cd)
+
+/datum/action/gift/meditate/Trigger()
+	if(!COOLDOWN_FINISHED(src, meditate_cd))
+		to_chat(owner, span_warning("You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, meditate_cd))] before meditating again."))
+		return
+	if(meditating)
+		to_chat(owner, span_warning("You are already meditating!"))
+		return
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/C = owner
+	if(C.stat >= SOFT_CRIT)
+		return
+	if(C.in_frenzy)
+		to_chat(C, span_warning("You cannot focus your spirit while in frenzy!"))
+		return
+	if(!C.auspice)
+		return
+	if(C.auspice.gnosis >= C.auspice.start_gnosis)
+		to_chat(C, span_warning("Your spirit is already full of <b>GNOSIS</b>."))
+		return
+
+	var/turf/here = get_turf(C)
+	if(!here)
+		return
+
+	var/my_tribe = C.auspice.tribe?.name
+	var/is_bsd = (my_tribe == "Black Spiral Dancers")
+
+	var/found_friendly_totem = FALSE
+	var/found_hostile_totem = FALSE
+	for(var/obj/structure/werewolf_totem/W in GLOB.totems)
+		if(!W || W.totem_health <= 0)
+			continue
+		if(get_dist(C, W) > 5)
+			continue
+		var/totem_is_bsd = (W.tribe == "Black Spiral Dancers")
+		if(totem_is_bsd == is_bsd)
+			found_friendly_totem = TRUE
+			break
+		else
+			found_hostile_totem = TRUE
+
+	if(!found_friendly_totem && found_hostile_totem)
+		to_chat(C, span_warning("A hostile totem nearby refuses to share its strength with you."))
+		return
+
+	var/in_umbra = is_umbra_realm_zlevel(here.z)
+
+	var/cast_time
+	if(found_friendly_totem)
+		cast_time = 15 SECONDS
+	else if(in_umbra)
+		cast_time = 40 SECONDS
+	else
+		to_chat(C, span_warning("There is no place of power here to draw upon."))
+		SEND_SOUND(C, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
+		return
+
+	COOLDOWN_START(src, meditate_cd, meditate_cooldown)
+	meditating = TRUE
+	var/start_msg
+	var/self_msg
+	if(is_bsd)
+		start_msg = "[C] drops to one knee, breath shuddering as the Wyrm's whispers crawl into [C.p_their()] mind..."
+		self_msg = "You kneel and open yourself to the Wyrm's corruption..."
+	else if(HAS_TRAIT(C, TRAIT_CORAX) || iscorax(C) || iscorvid(C) || iscoraxcrinos(C))
+		start_msg = "[C] tilts [C.p_their()] head and grows still, listening to Helios on the wind..."
+		self_msg = "You still yourself and listen to the song of Helios..."
+	else
+		start_msg = "[C] drops to one knee and closes [C.p_their()] eyes, listening for Gaia's voice..."
+		self_msg = "You kneel and open yourself to Gaia's embrace..."
+
+	C.visible_message(span_notice(start_msg), span_notice(self_msg))
+	if(is_bsd)
+		playsound(get_turf(C), 'sound/ambience/antag/bloodcult.ogg', 35, FALSE)
+	else
+		playsound(get_turf(C), 'code/modules/wod13/sounds/inspire.ogg', 35, FALSE)
+
+	if(!do_after(C, cast_time, target = C, extra_checks = CALLBACK(src, PROC_REF(check_still_meditating), C)))
+		meditating = FALSE
+		to_chat(C, span_warning("Your meditation is broken."))
+		return
+
+	meditating = FALSE
+	adjust_gnosis(1, C, TRUE)
+	if(is_bsd)
+		to_chat(C, span_notice("The Wyrm's strength flows into you."))
+	else
+		to_chat(C, span_notice("Gaia's strength flows into you."))
+
+/datum/action/gift/meditate/proc/check_still_meditating(mob/living/carbon/C)
+	if(!C || QDELETED(C))
+		return FALSE
+	if(C.in_frenzy)
+		return FALSE
+	return TRUE
+
+/mob/camera/penumbra_peek
+	name = "Peeking Eye"
+	real_name = "Peeking Eye"
+	desc = "A glimpse through the Gauntlet."
+	icon = 'icons/mob/cameramob.dmi'
+	icon_state = "marker"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	move_on_shuttle = FALSE
+	invisibility = 0
+	see_invisible = SEE_INVISIBLE_LIVING
+	layer = MOB_LAYER
+	sight = NONE
+	movement_type = GROUND|PHASING|FLYING
+	initial_language_holder = /datum/language_holder/universal
+	alpha = 0
+	density = FALSE
+	var/mob/living/carbon/holder
+
+/mob/camera/penumbra_peek/Initialize(mapload, mob/living/carbon/owner_body)
+	. = ..()
+	holder = owner_body
+	if(holder)
+		RegisterSignal(holder, COMSIG_LIVING_DEATH, PROC_REF(force_return))
+		RegisterSignal(holder, COMSIG_PARENT_QDELETING, PROC_REF(force_return))
+		addtimer(CALLBACK(src, PROC_REF(periodic_check)), 2 SECONDS, TIMER_LOOP)
+	for(var/i in 1 to 4)
+		addtimer(CALLBACK(src, PROC_REF(flicker_nearby_lights)), i * 1 SECONDS)
+
+/mob/camera/penumbra_peek/proc/flicker_nearby_lights()
+	if(QDELETED(src))
+		return
+	var/list/found = list()
+	for(var/obj/machinery/light/L in view(7, src))
+		found += L
+	if(!length(found))
+		return
+	var/picks = min(rand(1, 3), length(found))
+	for(var/i in 1 to picks)
+		var/obj/machinery/light/L = pick_n_take(found)
+		_penumbra_force_flicker(L)
+
+/proc/_penumbra_force_flicker(obj/machinery/light/L)
+	set waitfor = FALSE
+	if(QDELETED(L) || L.flickering)
+		return
+	L.flickering = TRUE
+	var/saved_on = L.on
+	var/saved_range = L.light_range
+	var/saved_power = L.light_power
+	var/saved_color = L.light_color
+	for(var/i in 1 to rand(6, 12))
+		if(QDELETED(L))
+			break
+		L.on = !L.on
+		L.update_icon()
+		if(L.on)
+			L.set_light(L.brightness, L.bulb_power, L.bulb_colour)
+		else
+			L.set_light(0)
+		sleep(rand(5, 15))
+	if(!QDELETED(L))
+		L.on = saved_on
+		L.update_icon()
+		L.set_light(saved_range, saved_power, saved_color)
+		L.flickering = FALSE
+
+/mob/camera/penumbra_peek/Destroy()
+	if(holder)
+		UnregisterSignal(holder, list(COMSIG_LIVING_DEATH, COMSIG_PARENT_QDELETING))
+		holder = null
+	return ..()
+
+/mob/camera/penumbra_peek/Move(NewLoc, Dir = 0)
+	return
+
+/mob/camera/penumbra_peek/forceMove(atom/destination)
+	loc = destination
+
+/mob/camera/penumbra_peek/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	return
+
+/mob/camera/penumbra_peek/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	. = ..()
+	var/atom/movable/to_follow = speaker
+	if(radio_freq)
+		var/atom/movable/virtualspeaker/V = speaker
+		to_follow = V.source
+	var/link
+	link = FOLLOW_LINK(src, to_follow)
+	if(client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
+		create_chat_message(speaker, message_language, raw_message, spans)
+	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
+	to_chat(src, "[link] [message]")
+
+/mob/camera/penumbra_peek/proc/periodic_check()
+	if(QDELETED(src) || QDELETED(holder))
+		return
+	if(holder.stat >= SOFT_CRIT || holder.in_frenzy)
+		force_return()
+
+/mob/camera/penumbra_peek/proc/force_return()
+	SIGNAL_HANDLER
+	if(QDELETED(src))
+		return
+	if(holder && client)
+		var/client/C = client
+		SStgui.on_transfer(src, holder)
+		holder.key = key
+		holder.client = C
+		holder.client?.init_verbs()
+		to_chat(holder, span_notice("Your sight returns to your body."))
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 1)
+
+/datum/action/gift/peek
+	name = "Peek Through the Gauntlet"
+	desc = "From the spirit world, glimpse the material plane at your current location. Rolls Gnosis at difficulty 7 - more successes shorten the rite. Costs 1 Gnosis."
+	button_icon_state = "peek"
+	check_flags = AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
+	rage_req = 0
+	gnosis_req = 0
+	var/peek_cooldown = 30 SECONDS
+	COOLDOWN_DECLARE(peek_cd)
+	var/casting = FALSE
+
+/datum/action/gift/peek/Trigger()
+	if(!COOLDOWN_FINISHED(src, peek_cd))
+		to_chat(owner, span_warning("You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, peek_cd))] before peeking again."))
+		return
+	if(casting)
+		to_chat(owner, span_warning("You are already focusing your sight!"))
+		return
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/C = owner
+	if(C.stat >= SOFT_CRIT)
+		return
+	if(C.in_frenzy)
+		to_chat(C, span_warning("You cannot focus your spirit while in frenzy!"))
+		return
+	if(HAS_TRAIT(C, TRAIT_CORAX) || iscorax(C) || iscoraxcrinos(C) || iscorvid(C))
+		return
+	if(!C.auspice)
+		return
+	if(C.auspice.gnosis < 1)
+		to_chat(C, span_warning("You don't have enough <b>GNOSIS</b> to peek through the Gauntlet!"))
+		SEND_SOUND(C, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
+		return
+
+	var/turf/here = get_turf(C)
+	if(!here)
+		return
+	if(!is_penumbra_zlevel(here.z))
+		to_chat(C, span_warning("You can only peek into the material world while standing within the Penumbra."))
+		return
+
+	var/paired_z = get_paired_zlevel(here.z)
+	if(!paired_z)
+		to_chat(C, span_warning("The Gauntlet here is too thick to see through."))
+		return
+	var/turf/peek_target = locate(here.x, here.y, paired_z)
+	if(!peek_target)
+		to_chat(C, span_warning("You cannot find the matching point on the other side."))
+		return
+
+	COOLDOWN_START(src, peek_cd, peek_cooldown)
+
+	to_chat(C, span_notice("You reach with your spirit's sight..."))
+	var/successes = secret_vampireroll(C.auspice.start_gnosis, 7, C, FALSE, TRUE, 0)
+
+	if(successes == -1)
+		adjust_gnosis(-1, C, FALSE)
+		to_chat(C, span_userdanger("Your sight tears as the Gauntlet rejects you!"))
+		C.Stun(3 SECONDS)
+		playsound(get_turf(C), 'code/modules/wod13/sounds/werewolf_cast_failed.ogg', 75, FALSE)
+		return
+
+	if(successes == 0)
+		adjust_gnosis(-1, C, FALSE)
+		to_chat(C, span_warning("Your sight cannot pierce the veil today..."))
+		playsound(get_turf(C), 'code/modules/wod13/sounds/werewolf_cast_failed.ogg', 75, FALSE)
+		return
+
+	var/cast_time = max(2 SECONDS, (7 - successes) SECONDS)
+	casting = TRUE
+	C.visible_message(span_notice("[C] kneels and gazes through the Gauntlet..."), span_notice("You begin to focus your sight through the Gauntlet..."))
+	playsound(get_turf(C), 'code/modules/wod13/sounds/inspire.ogg', 35, FALSE)
+
+	if(!do_after(C, cast_time, target = C, extra_checks = CALLBACK(src, PROC_REF(check_still_focusing), C)))
+		casting = FALSE
+		to_chat(C, span_warning("Your focus breaks!"))
+		return
+
+	casting = FALSE
+	adjust_gnosis(-1, C, FALSE)
+
+	var/mob/camera/penumbra_peek/peek_eye = new(peek_target, C)
+	peek_eye.real_name = C.real_name
+	peek_eye.name = "[C.real_name]'s Sight"
+
+	if(C.client)
+		SStgui.on_transfer(C, peek_eye)
+		peek_eye.key = C.key
+		peek_eye.client?.init_verbs()
+
+	var/datum/action/penumbra_peek_return/return_action = new()
+	return_action.Grant(peek_eye)
+
+	to_chat(peek_eye, span_notice("Your spirit's eye opens upon the material world..."))
+	SEND_SOUND(peek_eye, sound('code/modules/wod13/sounds/portal.ogg', 0, 0, 75))
+
+/datum/action/gift/peek/proc/check_still_focusing(mob/living/carbon/C)
+	if(!C || QDELETED(C))
+		return FALSE
+	if(C.in_frenzy)
+		return FALSE
+	return TRUE
+
+/datum/action/penumbra_peek_return
+	name = "Return to your Body"
+	desc = "Pull your spirit's sight back to your physical form."
+	button_icon_state = "peek"
+	icon_icon = 'code/modules/wod13/werewolf_abilities.dmi'
+	button_icon = 'code/modules/wod13/werewolf_abilities.dmi'
+	check_flags = NONE
+
+/datum/action/penumbra_peek_return/Trigger()
+	if(!istype(owner, /mob/camera/penumbra_peek))
+		return
+	var/mob/camera/penumbra_peek/peek_eye = owner
+	peek_eye.force_return()
+
+/datum/client_colour/penumbra
+	colour = list(
+		0.7, 0.15, 0.15, 0,
+		0.15, 0.75, 0.15, 0,
+		0.25, 0.25, 0.85, 0,
+		0, 0, 0, 1,
+	)
+	priority = 1000
+	fade_in = 1 SECONDS
+	fade_out = 1 SECONDS
+
+/mob/living
+	var/penumbra_atmosphere_active = FALSE
+
+/mob/living/proc/update_penumbra_atmosphere()
+	var/in_penumbra = is_penumbra_zlevel(z)
+	if(in_penumbra && !penumbra_atmosphere_active)
+		add_client_colour(/datum/client_colour/penumbra)
+		ADD_TRAIT(src, TRAIT_NIGHT_VISION, "penumbra_atmosphere")
+		update_sight()
+		penumbra_atmosphere_active = TRUE
+	else if(!in_penumbra && penumbra_atmosphere_active)
+		remove_client_colour(/datum/client_colour/penumbra)
+		REMOVE_TRAIT(src, TRAIT_NIGHT_VISION, "penumbra_atmosphere")
+		update_sight()
+		penumbra_atmosphere_active = FALSE
+
+/mob/living/onTransitZ(old_z, new_z)
+	..()
+	update_penumbra_atmosphere()
+
+/mob/living/Login()
+	..()
+	update_penumbra_atmosphere()
+
 #undef DOGGY_ANIMATION_COOLDOWN

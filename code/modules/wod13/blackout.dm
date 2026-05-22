@@ -76,9 +76,6 @@ SUBSYSTEM_DEF(witness_pool)
 					if((W.tribe == "Black Spiral Dancers") ? is_bsd : !is_bsd)
 						if(get_area(W) == get_area(src) && client)
 							gaining_rage = FALSE
-							if(last_gnosis_buff+300 < world.time)
-								last_gnosis_buff = world.time
-								adjust_gnosis(1, src, TRUE)
 		if(iscorvid(src))
 			gaining_rage = FALSE // Corax will ideally be talking a lot, not having passive rage generation should also make them weaker in combat.
 		if(iscoraxcrinos(src))
@@ -343,9 +340,6 @@ SUBSYSTEM_DEF(witness_pool)
 					if((W.tribe == "Black Spiral Dancers") ? is_bsd : !is_bsd)
 						if(get_area(W) == get_area(src) && client)
 							gaining_rage = FALSE
-							if(last_gnosis_buff+300 < world.time)
-								last_gnosis_buff = world.time
-								adjust_gnosis(1, src, TRUE)
 
 		if(auspice?.breed_form != FORM_HOMID && !(HAS_TRAIT(src, TRAIT_CORAX)))
 			if(gaining_rage && client)

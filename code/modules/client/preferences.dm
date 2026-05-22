@@ -235,6 +235,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/werewolf_name
 	var/auspice_level = 1
+	var/extra_gnosis = 0
 
 	var/clane_accessory
 	var/clane_sprite
@@ -2436,6 +2437,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						hun += 1
 						po += 1
 
+				if("gnosis_buy")
+					if(pref_species.name != "Werewolf")
+						return
+					if(extra_gnosis >= 5)
+						return
+					if(true_experience < 2)
+						return
+					true_experience -= 2
+					extra_gnosis += 1
+
 				if("trufaith_buy")
 					if(pref_species.name != "Human" && pref_species.id != "kindred")
 						return
@@ -3353,6 +3364,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.auspice.tribe = tribe
 		character.auspice.on_gain(character)
 		character.auspice.set_breed(breed, character)
+		if(extra_gnosis)
+			character.auspice.start_gnosis = clamp(character.auspice.start_gnosis + extra_gnosis, 1, 10)
+			character.auspice.gnosis = character.auspice.start_gnosis
 		character.auspice.willpower = 6+auspice_level
 		if(character.transformator?.crinos_form && character.transformator?.lupus_form && !HAS_TRAIT(character, TRAIT_CORAX))
 			var/mob/living/carbon/werewolf/crinos/crinos = character.transformator.crinos_form?.resolve()

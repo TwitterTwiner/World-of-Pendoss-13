@@ -210,6 +210,16 @@
 		if(true_experience >= 1 && auspice_level != 3)
 			dat += "<a href='byond://?_src_=prefs;preference=auspice_level;task=input'>Increase ([1])</a>"
 		dat += "<b>Initial Rage:</b> •[auspice.start_rage > 1 ? "•" : "o"][auspice.start_rage > 2 ? "•" : "o"][auspice.start_rage > 3 ? "•" : "o"][auspice.start_rage > 4 ? "•" : "o"]([auspice.start_rage])<BR>"
+		var/breed_gnosis = 1
+		switch(breed)
+			if(BREED_LUPUS, BREED_CORVID)
+				breed_gnosis = 5
+			if(BREED_METIS)
+				breed_gnosis = 3
+		dat += "<b>Initial Gnosis:</b> [breed_gnosis + extra_gnosis]/[breed_gnosis + 5]"
+		if(true_experience >= 2 && extra_gnosis < 5)
+			dat += " <a href='byond://?_src_=prefs;preference=gnosis_buy;task=input'>Increase (2)</a>"
+		dat += "<BR>"
 		var/gifts_text = ""
 		var/num_of_gifts = 0
 		for(var/i in 1 to auspice_level)

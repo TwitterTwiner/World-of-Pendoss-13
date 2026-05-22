@@ -248,13 +248,15 @@
 					M.climbing = FALSE
 		if(istype(A, /obj/structure/vampdoor))
 			if(iscrinos(src) || iscoraxcrinos(src))
-				var/obj/structure/vampdoor/V = A
-				playsound(get_turf(A), 'code/modules/wod13/sounds/get_bent.ogg', 100, FALSE)
-				var/obj/item/shield/door/D = new(get_turf(A))
-				D.icon_state = V.baseicon
-				var/atom/throw_target = get_edge_target_turf(A, dir)
-				D.throw_at(throw_target, rand(2, 4), 4, src)
-				qdel(A)
+				var/mob/living/carbon/werewolf/breaker = src
+				if(breaker.a_intent == INTENT_HARM || breaker.in_frenzy)
+					var/obj/structure/vampdoor/V = A
+					playsound(get_turf(A), 'code/modules/wod13/sounds/get_bent.ogg', 100, FALSE)
+					var/obj/item/shield/door/D = new(get_turf(A))
+					D.icon_state = V.baseicon
+					var/atom/throw_target = get_edge_target_turf(A, dir)
+					D.throw_at(throw_target, rand(2, 4), 4, src)
+					qdel(A)
 
 	if(iscrinos(src) || iscoraxcrinos(src))
 		if(!W)
