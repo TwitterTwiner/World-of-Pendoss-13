@@ -686,6 +686,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				return
 			else
 				to_chat(L, "<span class='warning'>You feel cold air rushing through you.</span>")
+				return
+
 	var/obj/transfer_point_vamp/V = locate() in NewLoc
 	if(V)
 		V.Bumped(src)
