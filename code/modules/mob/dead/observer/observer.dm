@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	invisibility = INVISIBILITY_OBSERVER
 	hud_type = /datum/hud/ghost
 	movement_type = GROUND | PHASING	// [BadTeammate] - Fuck you luci //[Lucifernix] - phasing is what lets ghosts walk through walls, so I readded it
-	move_resist = MOVE_FORCE_OVERPOWERING
+//	move_resist = MOVE_FORCE_OVERPOWERING
 	light_system = MOVABLE_LIGHT
 	light_range = 1
 	light_power = 2
