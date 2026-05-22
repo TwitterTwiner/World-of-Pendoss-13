@@ -680,13 +680,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	if(lastslumber > world.time)
 		return
-	for(var/mob/living/L in NewLoc)
-		if(L)
-			if(L.a_intent == INTENT_HARM && L.lying_angle == 0 && L.dir != dir)
-				return
-			else
-				to_chat(L, "<span class='warning'>You feel cold air rushing through you.</span>")
-				return
+//	for(var/mob/living/L in NewLoc)
+//		if(L)
+//			if(L.a_intent == INTENT_HARM && L.lying_angle == 0 && L.dir != dir)
+//				return
+//			else
+//				to_chat(L, "<span class='warning'>You feel cold air rushing through you.</span>")
+//				return
 
 	var/obj/transfer_point_vamp/V = locate() in NewLoc
 	if(V)
