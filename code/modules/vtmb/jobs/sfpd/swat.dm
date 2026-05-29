@@ -102,9 +102,9 @@
 
 /datum/antagonist/swat/proc/pick_car()
 	if(swat_team)
-		swat_team.choose_landmark()
-//		var/obj/effect/landmark/start/D = swat_team.dislocation
-		owner.current.forceMove(swat_team.dislocation.loc)
+		if(swat_team.choose_landmark())
+			var/dst = get_turf(swat_team.dislocation)
+			owner.current.forceMove(dst)
 
 /datum/antagonist/swat/proc/forge_objectives()
 	spawn(2 SECONDS)
@@ -326,14 +326,14 @@
 		objectives += O
 
 /datum/team/swat/proc/choose_landmark()
-	var/list/landmarkslist = list()
-	for(var/obj/effect/landmark/start/S in GLOB.start_landmarks_list)
-		if(S.name == name)
-			landmarkslist += S
-	dislocation = pick(landmarkslist)
-	var/obj/vampire_car/van/swat/swat = new(dislocation)
+	if(!SSjob.latejoin_trackers.len)
+		return FALSE
+	var/location = pick(SSjob.latejoin_trackers)
+	dislocation = location
+	var/obj/vampire_car/van/swat/swat = new /obj/vampire_car/van/swat(dislocation)
 	swat.locked = 0
 	swat.on = 1
+	return TRUE
 
 
 /datum/team/swat/roundend_report()
