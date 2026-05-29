@@ -37,10 +37,19 @@
 			our_turf.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			return FALSE
 	if(init)
+
 		var/atom/movable/shitta = new(our_turf)
 		shitta.vis_contents += below_turf
 		if(get_step(get_step_multiz(shitta, DOWN), NORTH))
 			shitta.vis_contents += get_step(get_step_multiz(shitta, DOWN), NORTH)
+//		if(get_step(get_step_multiz(shitta, UP), SOUTH))
+//			shitta.vis_contents += get_step(get_step_multiz(shitta, UP), SOUTH)
+
+		// Remove any real shadow atoms so shadows from other z-levels don't show up
+		for(var/i in shitta.vis_contents)
+			if(istype(i, /turf/closed/wall))
+				var/turf/closed/wall/W = i
+				 qdel(W.SHDW)
 		shitta.pixel_y = -24
 		shitta.plane = our_turf.plane
 		shitta.layer = our_turf.layer
