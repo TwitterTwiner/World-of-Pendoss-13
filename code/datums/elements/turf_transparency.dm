@@ -54,7 +54,7 @@
 				var/shadow = W.SHDW
 				qdel(shadow)
 			//	shitta.vis_contents -= shadow
-				to_chat(world, "AAAAAффффф")
+			//	to_chat(world, "AAAAAффффф")
 		shitta.pixel_y = -24
 		shitta.plane = our_turf.plane
 		shitta.layer = our_turf.layer
