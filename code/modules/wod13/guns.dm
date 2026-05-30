@@ -526,7 +526,7 @@
 
 
 	owner.regenerate_icons()
-	if(owner.client.view_size.zoomed)
+	if(owner.client.view_size)
 		owner.client.view_size.zoomIn()
 		scoped = FALSE
 
