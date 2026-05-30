@@ -526,8 +526,9 @@
 
 
 	owner.regenerate_icons()
-	owner.client.view_size.zoomIn()
-	scoped = FALSE
+	if(owner.client.view_size.zoomed)
+		owner.client.view_size.zoomIn()
+		scoped = FALSE
 
 
 /obj/item/gun/ballistic/automatic/vampire/sniper
@@ -845,5 +846,6 @@
 /obj/item/ammo_box/magazine/vampire/hunt_rifle
 	name = "rifle magazine (.308 Winchester)"
 	icon_state = "huntrifle_mag"
+	ammo_type = /obj/item/ammo_casing/vampire/c308
 	max_ammo = 12
 	multiple_sprites = AMMO_BOX_FULL_EMPTY
