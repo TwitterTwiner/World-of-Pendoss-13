@@ -483,7 +483,7 @@
 //		dat += "<br><b>Don The Ultimate Gamer Cloak?:</b><BR><a href ='byond://??_src_=prefs;preference=playtime_reward_cloak'>[(playtime_reward_cloak) ? "Enabled" : "Disabled"]</a><BR></td>"
 	var/use_skintones = pref_species.use_skintones
 	if(use_skintones)
-		if(!clane?.name == "Cappadocian")
+		if(!(clane?.name == "Cappadocian"))
 			dat += APPEARANCE_CATEGORY_COLUMN
 
 			dat += "<h3>[make_font_cool("SKIN")]</h3>"
