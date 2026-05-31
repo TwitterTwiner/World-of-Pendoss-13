@@ -8,7 +8,7 @@
 		/datum/discipline/necromancy
 	)
 	violating_appearance = FALSE
-	alt_sprite = "human"
+	alt_sprite = "rotten1"
 	alt_sprite_greyscale = TRUE
 
 	whitelisted = TRUE
