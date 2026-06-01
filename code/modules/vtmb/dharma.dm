@@ -197,11 +197,11 @@
 			if(dharma.tenets_done[i] == 0)
 				dharma.tenets_done[i] = 1
 				to_chat(cathayan, "<span class='nicegreen'>You find this action helping you on your path ([dharma.get_done_tenets()]/[length(dharma.tenets)]).</span>")
-
+	var/needs_update = 0
 	for(var/i in dharma.fails)
 		if(i == action)
 			to_chat(cathayan, "<span class='userdanger'>This action is against your path's philosophy.</span>")
-			update_dharma(cathayan, -1)
+			needs_update += -1
 
 	var/tenets_needed = length(dharma.tenets)
 	var/tenets_done = 0
@@ -213,7 +213,10 @@
 	if(tenets_done >= tenets_needed)
 		for(var/i in dharma.tenets)
 			dharma.tenets_done[i] = 0
-		update_dharma(cathayan, 1)
+		needs_update += 1
+
+	if(needs_update != 0)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(update_dharma), cathayan, needs_update), 0)
 
 	dharma.chi_check(cathayan)
 
