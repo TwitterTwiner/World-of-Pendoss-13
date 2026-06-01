@@ -276,7 +276,7 @@
 
 
 /obj/effect/wall_shadow
-	icon = 'our_secrets/shadow.dmi'
+	icon = 'code/modules/wod13/icons/shadow.dmi'
 	icon_state = "shadow"
 	density = 0
 	plane = GAME_PLANE
