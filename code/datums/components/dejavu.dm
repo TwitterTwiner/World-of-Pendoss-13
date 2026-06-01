@@ -135,7 +135,7 @@
 	if(!last_move_dir)
 		return
 	dejavu_visual_effect(L)
-	step(L, last_move_dir)
+	step(L, last_move_dir) //
 
 /datum/component/dejavu/proc/dejavu_visual_effect(mob/living/L, power = 1)
 	var/glitch_range = 3 * power
