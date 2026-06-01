@@ -95,7 +95,6 @@
 		else
 			var/atom/movable/master = parent
 			dejavu_visual_effect(master, power = 2)
-			var/turf/current_turf = get_turf(master)
 			master.forceMove(starting_turf)
 			dejavu_visual_effect(master, power = 3)
 
