@@ -9,7 +9,7 @@
 
 /datum/keybinding/client/communication/say/down(client/user, turf/target)
 	. = ..()
-	if(.)
+	if(. || HAS_TRAIT(user, TRAIT_DEJAVU))
 		return
 	winset(user, null, "command=[user.tgui_say_create_open_command(SAY_CHANNEL)];")
 	winset(user, "tgui_say.browser", "focus=true")
@@ -37,7 +37,7 @@
 
 /datum/keybinding/client/communication/me/down(client/user, turf/target)
 	. = ..()
-	if(.)
+	if(. || HAS_TRAIT(user, TRAIT_DEJAVU))
 		return
 	winset(user, null, "command=[user.tgui_say_create_open_command(ME_CHANNEL)]")
 	winset(user, "tgui_say.browser", "focus=true")

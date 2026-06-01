@@ -174,10 +174,11 @@
 
 	if(isliving(M) && isliving(src) && get_celerity_dices(src) >= 3)
 		SEND_SIGNAL(src, COSMIG_MOB_RUN_INTO_SOMEONE, M)
-		if(last_mobbump == 0 || last_mobbump+1 SECONDS < world.time)
+		var/mob/living/bumped = M
+		var/mob/living/bumper = src
+		var/bump_cooldown = istype(bumped, /mob/living/simple_animal) ? 1 : 0.5 SECONDS
+		if(last_mobbump == 0 || last_mobbump+bump_cooldown < world.time)
 			last_mobbump = world.time
-			var/mob/living/bumped = M
-			var/mob/living/bumper = src
 			var/chance = secret_vampireroll(get_a_dexterity(bumper)+get_celerity_dices(bumper), 6, bumper)
 			var/damage = secret_vampireroll(get_a_strength(bumper)+get_a_brawl(bumper), 6, bumper, TRUE)
 			var/atom/throw_bumped = get_edge_target_turf(bumped, get_dir(bumped, get_step_away(bumped, bumper)))
@@ -194,9 +195,9 @@
 			else if(get_celerity_dices(bumper) >= 3)
 				damage = damage * 5
 			if(istype(bumped, /mob/living/simple_animal))
-				damage *= 5
-				lower_limit *= 5
-				upper_limit *= 5
+				damage = max(50, damage*5)
+				lower_limit = max(50, lower_limit*5)
+				upper_limit = max(50, upper_limit*5)
 				no_downside = TRUE
 			if(get_celerity_dices(bumped) >= 3)
 				if(ishuman(bumped))
@@ -205,11 +206,12 @@
 						if(iskindred(human_bumped) || isgarou(human_bumped) || iscathayan(human_bumped) || isgarou(human_bumped))
 							playsound(bumper, "sound/effects/pop_expl.ogg", 75)
 							human_bumped.SwitchBlocking()
-							bumper.Knockdown(1 SECONDS)
 							bumper.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
 							bumper.throw_at(throw_bumper, throw_distance, throw_distance, bumper, TRUE)
+							bumper.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/celerity_bump_slowdown, multiplicative_slowdown = 0.5)
 							return
-				if(chance >= 3)
+				var/chance_bumped = secret_vampireroll(get_a_dexterity(bumped)+get_celerity_dices(bumped), 6, bumped)
+				if(chance_bumped >= 3)
 					var/dir = get_dir(bumper, bumped)
 					var/list/side_dirs = list(turn(dir, 90), turn(dir, -90))
 					var/list/valid_dirs = list()
@@ -223,7 +225,6 @@
 						return
 			playsound(bumper, "sound/effects/pop_expl.ogg", 75)
 			if(bumped.attributes.fortitude_bonus >= 1)
-				bumper.Knockdown(1 SECONDS)
 				bumper.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
 				bumper.throw_at(throw_bumper, throw_distance, throw_distance, bumper, TRUE)
 				return
@@ -232,19 +233,21 @@
 				if(human_bumped.blocking)
 					if(iskindred(human_bumped) || isgarou(human_bumped) || iscathayan(human_bumped) || isgarou(human_bumped))
 						human_bumped.SwitchBlocking()
-						bumper.Knockdown(1 SECONDS)
 						bumper.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
 						bumper.throw_at(throw_bumper, throw_distance, throw_distance, bumper, TRUE)
 					return
 			if(chance >= 3)
 				bumped.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
-				bumped.Knockdown(1 SECONDS)
-				bumped.throw_at(throw_bumped, throw_distance, throw_distance, bumped, TRUE)
+				if(!QDELETED(bumped))
+					bumped.throw_at(throw_bumped, throw_distance, throw_distance, bumped, TRUE)
+					bumped.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/celerity_bump_slowdown, multiplicative_slowdown = 1)
+					addtimer(CALLBACK(bumped, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/celerity_bump_slowdown), 1.1 SECONDS)
 			else
 				if(!no_downside)
 					bumper.adjustBruteLoss(clamp(damage, lower_limit, upper_limit))
-					bumper.Knockdown(1 SECONDS)
 					bumper.throw_at(throw_bumper, throw_distance, throw_distance, bumper, TRUE)
+					bumper.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/celerity_bump_slowdown, multiplicative_slowdown = 1)
+					addtimer(CALLBACK(bumper, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/celerity_bump_slowdown), 1.1 SECONDS)
 
 	//If they're a human, and they're not in help intent, block pushing
 	if(ishuman(M) && (M.a_intent != INTENT_HELP))

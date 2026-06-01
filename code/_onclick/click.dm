@@ -573,6 +573,8 @@
 
 /// Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(atom/A)
+	if(HAS_TRAIT(src, TRAIT_DEJAVU))
+		return
 	if( buckled || stat != CONSCIOUS || !A || !x || !y || !A.x || !A.y )
 		return
 	var/dx = A.x - x

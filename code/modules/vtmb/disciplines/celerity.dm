@@ -11,6 +11,10 @@
 	activate_sound = 'code/modules/wod13/sounds/celerity_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/celerity_deactivate.ogg'
 
+/datum/movespeed_modifier/celerity_bump_slowdown
+	variable = TRUE
+	id = "celerity_bump_slowdown"
+
 /datum/discipline_power/celerity/proc/celerity_visual(datum/discipline_power/celerity/source, atom/newloc, dir)
 	SIGNAL_HANDLER
 

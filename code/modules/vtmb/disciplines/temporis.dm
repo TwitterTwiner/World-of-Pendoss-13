@@ -25,6 +25,10 @@
 
 	return POWER_CANCEL_ACTIVATION
 
+/mob/living
+	var/disc_cooldown_multiplier = 1
+	var/disc_duration_multiplier = 1
+
 //HOURGLASS OF THE MIND
 /datum/discipline_power/temporis/hourglass_of_the_mind
 	name = "Hourglass of the Mind"
@@ -54,7 +58,14 @@
 
 /datum/discipline_power/temporis/recurring_contemplation/activate(mob/living/target)
 	. = ..()
-	target.AddComponent(/datum/component/dejavu, rewinds = 4, interval = 2 SECONDS)
+	var/roll = secret_vampireroll(get_a_manipulation(owner) + get_a_empathy(owner), get_a_willpower(target), owner)
+	if(roll < 3)
+		to_chat(owner, span_warning("Тебе не удалось погрузить [target] в рекурсию."))
+		return FALSE
+	var/rewinds = roll * 2
+	var/interval = 1.5 SECONDS
+	to_chat(owner, span_notice("Ты отправляешь [target] во временную петлю."))
+	target.AddComponent(/datum/component/dejavu, rewinds, interval)
 
 /mob/living
 	var/temporis_lapse = FALSE
@@ -84,19 +95,24 @@
 	if(target.temporis_lapse)
 		to_chat(owner, span_warning("Цель уже под эффектом!"))
 		return
+	to_chat(owner, span_notice("Ты замедляешь восприятие [target]."))
 	addtimer(CALLBACK(src, PROC_REF(lapse_activation), target, roll), 1 TURNS)
 
 /datum/discipline_power/temporis/lapse/proc/lapse_activation(mob/living/target, dices)
 	target.temporis_lapse = TRUE
 	target.add_movespeed_modifier(/datum/movespeed_modifier/temporis)
+	target.next_move_modifier += 1
+	target.disc_cooldown_multiplier += 1
 	addtimer(CALLBACK(src, PROC_REF(lapse_deactivation), target), dices TURNS)
 
 /datum/discipline_power/temporis/lapse/proc/lapse_deactivation(mob/living/target)
 	target.temporis_lapse = FALSE
 	target.remove_movespeed_modifier(/datum/movespeed_modifier/temporis)
+	target.next_move_modifier -= 1
+	target.disc_cooldown_multiplier -= 1
 
 /datum/movespeed_modifier/temporis
-	multiplicative_slowdown = 7.5
+	multiplicative_slowdown = 1
 
 //PATIENCE OF THE NORNS
 /datum/discipline_power/temporis/patience_of_the_norns
@@ -203,6 +219,8 @@
 	RegisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION, PROC_REF(celerity_explode))
 	style.teach(owner, make_temporary = TRUE)
 	owner.attributes.celerity_bonus += 5
+	owner.disc_cooldown_multiplier -= 0.7 // cd 3x as fast
+	owner.disc_duration_multiplier += 0.5 // dur 1.5x longer
 
 /datum/discipline_power/temporis/clothos_gift/deactivate()
 	. = ..()
@@ -213,6 +231,8 @@
 	UnregisterSignal(owner, COMSIG_POWER_PRE_ACTIVATION)
 	style.remove(owner)
 	owner.attributes.celerity_bonus -= 5
+	owner.disc_cooldown_multiplier += 0.7
+	owner.disc_duration_multiplier -= 0.5
 
 /datum/discipline_power/temporis/clothos_gift/proc/temporis_blur(datum/discipline_power/temporis/source, atom/newloc, dir)
 	SIGNAL_HANDLER
