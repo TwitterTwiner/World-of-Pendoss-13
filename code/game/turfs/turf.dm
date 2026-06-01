@@ -164,6 +164,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(isliving(user))
 		var/mob/living/Living = user
 		if(get_potence_dices(Living) >= 1)
+			Living.changeNext_move(CLICK_CD_MELEE)
 			for(var/mob/living/L in get_turf(src))
 				if(L != user)
 					L.attack_hand(user)

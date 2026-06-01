@@ -49,6 +49,10 @@
 	var/cooldown_override = FALSE
 	/// List of Discipline power types that cannot be activated alongside this power and share a cooldown with it.
 	var/list/grouped_powers
+	/// Discipline cooldown multiplier. 0.5 = cooldown is halved, for example.
+	var/cooldown_multiplier = 1
+	/// Discipline duration multiplier. 2 = duration is twice as long, for example.
+	var/duration_multiplier = 1
 
 	/* NOT MEANT TO BE OVERRIDDEN */
 	/// Timer(s) tracking the duration of the power. Can have multiple if multi_activate is true.
@@ -213,6 +217,11 @@
 			to_chat(owner, span_warning("You cannot cast [src] without free hands!"))
 		return FALSE
 
+	if (HAS_TRAIT(owner, TRAIT_DEJAVU))
+		if (alert)
+			to_chat(owner, span_warning("You cannot cast [src] while trapped in Recurring Contemplation!"))
+		return FALSE
+
 	//respect pacifism, prevent hostile Discipline usage from pacifists
 	if (hostile && HAS_TRAIT(owner, TRAIT_PACIFISM))
 		if (alert)
@@ -349,6 +358,9 @@
  */
 /datum/discipline_power/proc/pre_activation(atom/target)
 	SHOULD_NOT_OVERRIDE(TRUE)
+
+	cooldown_multiplier = owner.disc_cooldown_multiplier
+	duration_multiplier = owner.disc_duration_multiplier
 
 	//resources are still spent if activation is theoretically possible, but it gets prevented
 	spend_resources()
@@ -509,7 +521,7 @@
 		return
 
 	//REFACTOR ME
-	var/full_duration_length = duration_length + owner.discipline_time_plus
+	var/full_duration_length = (duration_length + owner.discipline_time_plus) * duration_multiplier
 	duration_timers.Add(addtimer(CALLBACK(src, PROC_REF(duration_expire), target), full_duration_length, TIMER_STOPPABLE | TIMER_DELETE_ME))
 
 /**
@@ -526,8 +538,8 @@
 /datum/discipline_power/proc/do_cooldown(on_activation = FALSE)
 	if (multi_activate && !on_activation)
 		return
-
-	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(cooldown_expire)), cooldown_length, TIMER_STOPPABLE | TIMER_DELETE_ME)
+	var/full_cooldown_length = cooldown_length * cooldown_multiplier
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(cooldown_expire)), full_cooldown_length, TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /**
  * Checks if activation is possible through can_activate(), then calls pre_activation() if it is.

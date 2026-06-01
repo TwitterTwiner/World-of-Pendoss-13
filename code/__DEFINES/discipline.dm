@@ -49,6 +49,8 @@
 #define DISC_CHECK_SEE (1<<7)
 ///Caster must see the target directly (without the usage of auspex for example)
 #define DISC_CHECK_DIRECT_SEE (1<<8)
+/// Caster must not be under the effects of Recurring Contemplation (dejavu)
+#define DISC_CHECK_DEJAVU (1<<9)
 
 //power type defines, will be useful when it's made generic
 ///Power is a Discipline of the Vampire: The Masquerade game line
