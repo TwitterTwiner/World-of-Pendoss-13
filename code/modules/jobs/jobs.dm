@@ -101,7 +101,7 @@ GLOBAL_LIST_INIT(gang_positions, list(
 ))
 
 GLOBAL_LIST_INIT(sabbat_positions, list(
-	"Priest",
+	"Sabbat Priest",
 	"Ductus",
 	"Pack Member"
 ))

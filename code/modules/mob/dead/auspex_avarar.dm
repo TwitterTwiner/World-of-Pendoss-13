@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 		alpha = 180
 	else
 		invisibility = 0
-		alpha = 255
+		alpha = 100
 		if(C.MyPath)
 			C.MyPath.willpower -= 1
 		addtimer(CALLBACK(src, PROC_REF(showing)), 10 SECONDS)

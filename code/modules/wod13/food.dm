@@ -343,7 +343,8 @@
 	prize_list = list(new /datum/data/mining_equipment("summer thaw cola can",	/obj/item/reagent_containers/food/drinks/bottle/vampirecola/summer_thaw,	5),
 		new /datum/data/mining_equipment("thaw cola can",	/obj/item/reagent_containers/food/drinks/soda_cans/vampirecola/blue,	5),
 		new /datum/data/mining_equipment("thaw cola bottle",	/obj/item/reagent_containers/food/drinks/bottle/vampirecola/blue,	8),
-		new /datum/data/mining_equipment("kings beer", /obj/item/reagent_containers/food/drinks/beer/vampire/blue_stripe, 8)
+		new /datum/data/mining_equipment("kings beer", /obj/item/reagent_containers/food/drinks/beer/vampire/blue_stripe, 8),
+		new /datum/data/mining_equipment("burger", /obj/item/food/vampire/burger, 10)
 	)
 
 /obj/machinery/mineral/equipment_vendor/fastfood/gummaguts

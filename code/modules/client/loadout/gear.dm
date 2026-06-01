@@ -9,6 +9,8 @@
 	var/cost = 0
 	///Slot to equip to.
 	var/slot
+	//
+	var/required_finance = 0
 	///Roles that can spawn with this item.
 	var/list/allowed_roles
 	///Stop certain species from receiving this gear

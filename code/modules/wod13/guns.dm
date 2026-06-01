@@ -526,8 +526,9 @@
 
 
 	owner.regenerate_icons()
-	owner.client.view_size.zoomIn()
-	scoped = FALSE
+	if(owner.client.view_size)
+		owner.client.view_size.zoomIn()
+		scoped = FALSE
 
 
 /obj/item/gun/ballistic/automatic/vampire/sniper
@@ -809,7 +810,7 @@
 	name = "custom pistol magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/vampire/c9mm/silver
 
-/obj/item/ammo_box/magazine/vamp556/hunt
+/obj/item/ammo_box/magazine/vampire/vamp556/hunt
 	name = "rifle magazine (5.56mm)"
 	icon_state = "hunt556"
 	max_ammo = 20
@@ -845,5 +846,6 @@
 /obj/item/ammo_box/magazine/vampire/hunt_rifle
 	name = "rifle magazine (.308 Winchester)"
 	icon_state = "huntrifle_mag"
+	ammo_type = /obj/item/ammo_casing/vampire/c308
 	max_ammo = 12
 	multiple_sprites = AMMO_BOX_FULL_EMPTY

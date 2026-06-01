@@ -14,6 +14,8 @@
 	whitelisted = TRUE
 
 /datum/vampireclane/cappadocian/on_gain(mob/living/carbon/human/H)
+	H.skin_tone = "albino"
+/*
 	var/years_undead = H.chronological_age - H.age
 	switch(years_undead)
 		if (-INFINITY to 100)
@@ -26,7 +28,7 @@
 			rot_body(4)
 
 	..()
-
+*/
 /datum/vampireclane/cappadocian/post_gain(mob/living/carbon/human/H)
 	. = ..()
 

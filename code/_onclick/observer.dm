@@ -71,8 +71,8 @@
 				return
 			if(invisibility == 0 && lastattack <= world.time)
 				do_attack_animation(A)
-				lastattack = world.time+1 SECONDS
-				L.apply_damage(15, CLONE, BODY_ZONE_CHEST, wound_bonus=CANT_WOUND)
+				lastattack = world.time+5 SECONDS
+				L.apply_damage(10, CLONE, BODY_ZONE_CHEST, wound_bonus=CANT_WOUND)
 				if(L == lastattacker)
 					if(passion == "revenge")
 						restore_pathos()

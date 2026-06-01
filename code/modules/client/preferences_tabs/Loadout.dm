@@ -1,8 +1,8 @@
 /datum/preferences/proc/calculate_loadout_dots()
-	loadout_slots_max = CONFIG_GET(number/max_loadout_items)
+	loadout_slots_max = CONFIG_GET(number/max_loadout_items) + Finance
 	loadout_slots = length(equipped_gear)
 
-	loadout_dots_max = CONFIG_GET(number/base_loadout_points)
+	loadout_dots_max = CONFIG_GET(number/base_loadout_points) + Finance
 	loadout_dots = CONFIG_GET(number/base_loadout_points)
 	if(!equipped_gear || !length(equipped_gear))
 		return
