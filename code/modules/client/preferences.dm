@@ -701,6 +701,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//		return soldier_priorities
 	return 0
 
+/datum/preferences/proc/get_minimum_allowed_generation(allow_uninitialized_whitelists = FALSE)
+	if(allow_uninitialized_whitelists && !SSwhitelists?.initialized)
+		return 7
+
+	var/checked_ckey = parent?.ckey
+	if(!checked_ckey)
+		return 10
+
+	if(SSwhitelists.is_whitelisted(checked_ckey, "gen7", real_name))
+		return 7
+	if(SSwhitelists.is_whitelisted(checked_ckey, "gen8", real_name))
+		return 8
+	if(SSwhitelists.is_whitelisted(checked_ckey, "gen9", real_name))
+		return 9
+	return 10
+
 /datum/preferences/proc/get_gen_attribute_limit()
 	var/level
 
@@ -2525,13 +2541,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if((clane?.name == "Caitiff") || slotlocked)
 						return
 
-					var/min_gen = 10
-					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen9", real_name))
-						min_gen = 9
-					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen8", real_name))
-						min_gen = 8
-					if(SSwhitelists.is_whitelisted(user?.client?.ckey, "gen7", real_name))
-						min_gen = 7
+					var/min_gen = get_minimum_allowed_generation()
 					var/new_gen = input(user, "Select your generation ([min_gen]-13, lower = fewer job slots):", "Character Preference") as num|null
 					if(new_gen)
 						new_gen = clamp(new_gen, min_gen, 13)
