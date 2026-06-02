@@ -94,8 +94,8 @@
 	BG.beastmaster = last_activator
 	H.beastmaster |= BG
 	BG.my_creator = last_activator
-	BG.melee_damage_lower = BG.melee_damage_lower+activator_bonus
-	BG.melee_damage_upper = BG.melee_damage_upper+activator_bonus
+	BG.melee_damage_lower = BG.melee_damage_lower+activator_bonus/2
+	BG.melee_damage_upper = BG.melee_damage_upper+activator_bonus/2
 	playsound(loc, 'sound/magic/voidblink.ogg', 50, FALSE)
 	if(length(H.beastmaster) > get_a_intelligence(H)+get_a_occult(H))
 		var/mob/living/simple_animal/hostile/beastmaster/B = pick(H.beastmaster)
@@ -119,12 +119,12 @@
 	response_disarm_simple = "gently push aside"
 	emote_taunt = list("gnashes")
 	speed = 0
-	maxHealth = 200
-	health = 200
+	maxHealth = 50
+	health = 50
 
 	obj_damage = 50
-	melee_damage_lower = 40
-	melee_damage_upper = 40
+	melee_damage_lower = 10
+	melee_damage_upper = 10
 	attack_verb_continuous = "gouges"
 	attack_verb_simple = "gouge"
 	attack_sound = 'sound/creatures/venus_trap_hit.ogg'

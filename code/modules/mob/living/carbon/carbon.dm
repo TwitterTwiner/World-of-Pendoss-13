@@ -139,7 +139,6 @@
 				src.epic_fall()
 		playsound(src,'sound/weapons/punch1.ogg',50,TRUE)
 
-
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(stat)
@@ -295,7 +294,7 @@
 
 		var/travel_time = distance * 0.5
 		spawn(travel_time)
-			if(get_dist(loc, adjusted_target) <= 1 && get_potence_dices(H) > 0)
+			if(get_dist(loc, adjusted_target) <= 1 && get_potence_dices(H) > 0 && H.a_intent == INTENT_HARM)
 				H.epic_fall()
 
 

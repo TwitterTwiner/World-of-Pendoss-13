@@ -310,7 +310,7 @@
 	desc = "Some guard clothes."
 	icon_state = "guard"
 
-obj/item/clothing/under/vampire/ranger
+/obj/item/clothing/under/vampire/ranger
 	name = "Ranger uniform"
 	desc = "Some ranger clothes."
 	icon_state = "ranger"

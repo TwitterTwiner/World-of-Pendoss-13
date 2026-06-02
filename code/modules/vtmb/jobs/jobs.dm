@@ -431,7 +431,7 @@
 	desc = "Congratulations, Wagie."
 	access = list(10)
 
-	/obj/item/card/id/vamp/garou/park
+/obj/item/card/id/vamp/garou/park
 	name = "Park Ranger badge"
 	desc = "You protect the parks, but do you protect the city?"
 	icon_state = "id4"
