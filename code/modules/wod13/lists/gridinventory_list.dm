@@ -122,7 +122,7 @@
 	grid_width = 2 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
-/obj/item/ammo_box/magazine/vamp9mp5
+/obj/item/ammo_box/magazine/vampire/vamp9mp5
 	grid_width = 1 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
@@ -150,7 +150,7 @@
 	grid_width = 2 GRID_BOXES
 	grid_height = 1 GRID_BOXES
 
-/obj/item/ammo_box/magazine/vamp556
+/obj/item/ammo_box/magazine/vampire/vamp556
 	grid_width = 1 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
@@ -186,7 +186,7 @@
 	grid_width = 8 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 
-/obj/item/ammo_box/magazine/vampthompson
+/obj/item/ammo_box/magazine/vampire/vampthompson
 	grid_width = 2 GRID_BOXES
 	grid_height = 2 GRID_BOXES
 

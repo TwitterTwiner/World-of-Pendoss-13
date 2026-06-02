@@ -1,5 +1,5 @@
 /datum/job/vamp/sabbat_priest
-	title = "Priest"
+	title = "Sabbat Priest"
 	department_head = list("Caine")
 	faction = "Vampire"
 	total_positions = 1

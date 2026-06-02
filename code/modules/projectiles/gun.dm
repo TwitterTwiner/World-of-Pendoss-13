@@ -485,7 +485,7 @@
 			golova.receive_damage(10)
 			to_chat(user, span_danger("[src] вылетело у тебя прямо из рук и ударило тебя по лицу!"))
 
-	var/mob/living/carbon/C
+	var/mob/living/carbon/C = user
 	if(C.MyPath)
 		C.MyPath.trigger_morality("gun_fail")
 

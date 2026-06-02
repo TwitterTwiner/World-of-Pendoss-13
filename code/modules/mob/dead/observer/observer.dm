@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(CMNoir, list(0.3,0.3,0.3,0,\
 	invisibility = INVISIBILITY_OBSERVER
 	hud_type = /datum/hud/ghost
 	movement_type = GROUND | PHASING	// [BadTeammate] - Fuck you luci //[Lucifernix] - phasing is what lets ghosts walk through walls, so I readded it
-	move_resist = MOVE_FORCE_OVERPOWERING
+//	move_resist = MOVE_FORCE_OVERPOWERING
 	light_system = MOVABLE_LIGHT
 	light_range = 1
 	light_power = 2
@@ -680,12 +680,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	if(lastslumber > world.time)
 		return
-	for(var/mob/living/L in NewLoc)
-		if(L)
-			if(L.a_intent == INTENT_HARM && L.lying_angle == 0 && L.dir != dir)
-				return
-			else
-				to_chat(L, "<span class='warning'>You feel cold air rushing through you.</span>")
+//	for(var/mob/living/L in NewLoc)
+//		if(L)
+//			if(L.a_intent == INTENT_HARM && L.lying_angle == 0 && L.dir != dir)
+//				return
+//			else
+//				to_chat(L, "<span class='warning'>You feel cold air rushing through you.</span>")
+//				return
+
 	var/obj/transfer_point_vamp/V = locate() in NewLoc
 	if(V)
 		V.Bumped(src)

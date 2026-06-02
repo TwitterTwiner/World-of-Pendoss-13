@@ -1915,6 +1915,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								clane_accessory = pick(clane.accessories)
 						if(length(clane.alternative_sprites) >= 2)
 							clane_sprite = pick(clane.alternative_sprites)
+						else
+							clane_sprite = null
 
 				if("auspice_level")
 					var/cost = max(10, auspice_level * 10)

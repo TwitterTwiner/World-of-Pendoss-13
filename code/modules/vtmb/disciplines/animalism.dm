@@ -147,6 +147,7 @@
 		var/mob/living/simple_animal/hostile/beastmaster/beast = new mob_type(get_turf(owner))
 		beast.maxbloodpool = 0
 		beast.bloodpool = 0
+		beast.beastmaster = owner
 		var/loser_roll = secret_vampireroll(get_a_charisma(owner)+get_a_alertness(owner), 6, owner, TRUE)
 		if(loser_roll <= 1)
 			beast.enemies |= owner

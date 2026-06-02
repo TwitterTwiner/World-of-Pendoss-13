@@ -125,8 +125,20 @@
 	access = "clinic"
 	baggage_limit = 60
 	delivery_capacity = 5
+	var/migalka = FALSE
+	var/last_color_change = 0
 
-
+/obj/vampire_car/track/ambulance/handle_caring()
+	if(migalka)
+		if(last_color_change+10 <= world.time)
+			last_color_change = world.time
+			set_light(0)
+			set_light(4, 6, "#ff0000")
+	else
+		if(last_color_change+10 <= world.time)
+			last_color_change = world.time
+			set_light(0)
+	..()
 
 /////// LIMUSINES //////////////////
 

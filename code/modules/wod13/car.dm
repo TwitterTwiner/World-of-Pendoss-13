@@ -650,7 +650,7 @@ SUBSYSTEM_DEF(carpool)
 				B.Grant(src)
 				var/datum/action/carr/baggage/G = new()
 				G.Grant(src)
-				if(istype(V, /obj/vampire_car/police))
+				if(istype(V, /obj/vampire_car/police) || istype(V, /obj/vampire_car/track/ambulance))
 					var/datum/action/carr/migalka/M = new()
 					M.Grant(src)
 			else if(length(V.passengers) < V.max_passengers)
@@ -742,8 +742,6 @@ SUBSYSTEM_DEF(carpool)
 			if(L.client)
 				L.client.pixel_x = 0
 				L.client.pixel_y = 0
-
-	to_chat(world, "[A], [A.x], [A.y], [A.z])")
 
 //	return
 

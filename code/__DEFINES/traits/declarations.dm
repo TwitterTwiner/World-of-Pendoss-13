@@ -11,6 +11,8 @@
 #define TRAIT_FORCED_STANDING	"forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED		"handsblocked"
+/// Prevents the use of Disciplines while trapped in a dejavu temporal loop
+#define TRAIT_DEJAVU			"dejavu"
 /// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
 #define TRAIT_UI_BLOCKED		"uiblocked"
 /// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.

@@ -5,7 +5,7 @@
 	mask = /obj/item/clothing/mask/vampire/gasmask/swat
 	glasses = /obj/item/clothing/glasses/vampire/swat
 	r_pocket = /obj/item/flashlight
-	l_pocket = /obj/item/ammo_box/magazine/vamp556
+	l_pocket =/obj/item/ammo_box/magazine/vampire/vamp556
 	shoes = /obj/item/clothing/shoes/vampire/jackboots/swat
 	belt = /obj/item/gun/ballistic/automatic/vampire/ar15
 	gloves = /obj/item/clothing/gloves/vampire/work
@@ -14,7 +14,7 @@
 	id = /obj/item/card/id/vamp/police
 	back = /obj/item/storage/backpack/satchel/swat
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/vamp556 = 3,
+		/obj/item/ammo_box/magazine/vampire/vamp556 = 3,
 		/obj/item/radio/cop = 1,
 		/obj/item/vamp/keys/hack=2,
 		/obj/item/storage/firstaid/ifak=1,
@@ -102,9 +102,9 @@
 
 /datum/antagonist/swat/proc/pick_car()
 	if(swat_team)
-		swat_team.choose_landmark()
-//		var/obj/effect/landmark/start/D = swat_team.dislocation
-		owner.current.forceMove(swat_team.dislocation.loc)
+		if(swat_team.choose_landmark())
+			var/dst = get_turf(swat_team.dislocation)
+			owner.current.forceMove(dst)
 
 /datum/antagonist/swat/proc/forge_objectives()
 	spawn(2 SECONDS)
@@ -326,14 +326,14 @@
 		objectives += O
 
 /datum/team/swat/proc/choose_landmark()
-	var/list/landmarkslist = list()
-	for(var/obj/effect/landmark/start/S in GLOB.start_landmarks_list)
-		if(S.name == name)
-			landmarkslist += S
-	dislocation = pick(landmarkslist)
-	var/obj/vampire_car/van/swat/swat = new(dislocation)
+	if(!SSjob.latejoin_trackers.len)
+		return FALSE
+	var/location = pick(SSjob.latejoin_trackers)
+	dislocation = location
+	var/obj/vampire_car/van/swat/swat = new /obj/vampire_car/van/swat(dislocation)
 	swat.locked = 0
 	swat.on = 1
+	return TRUE
 
 
 /datum/team/swat/roundend_report()

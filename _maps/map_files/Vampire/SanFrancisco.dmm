@@ -23243,8 +23243,8 @@
 /obj/structure/rack,
 /obj/item/gun/ballistic/automatic/vampire/thompson,
 /obj/item/gun/ballistic/automatic/vampire/thompson,
-/obj/item/ammo_box/magazine/vampthompson,
-/obj/item/ammo_box/magazine/vampthompson,
+/obj/item/ammo_box/magazine/vampire/vampthompson,
+/obj/item/ammo_box/magazine/vampire/vampthompson,
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "bRS" = (
@@ -42069,7 +42069,7 @@
 "jMO" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/gun/ballistic/automatic/vampire/sniper{
-	mag_type = /obj/item/ammo_box/magazine/vamp556;
+	mag_type = /obj/item/ammo_box/magazine/vampire/vamp556;
 	name = "Hegemon";
 	fire_sound_volume = 30;
 	rack_sound_volume = 30;
@@ -42081,7 +42081,7 @@
 	internal_magazine = 0;
 	fire_delay = 25
 	},
-/obj/item/ammo_box/magazine/vamp556,
+/obj/item/ammo_box/magazine/vampire/vamp556,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
 "jMY" = (
@@ -45105,7 +45105,7 @@
 /area/vtm)
 "lfX" = (
 /obj/item/gun/ballistic/automatic/vampire/thompson,
-/obj/item/ammo_box/magazine/vampthompson,
+/obj/item/ammo_box/magazine/vampire/vampthompson,
 /obj/structure/rack,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
@@ -48255,8 +48255,8 @@
 /obj/structure/rack,
 /obj/item/gun/ballistic/automatic/vampire/mp5,
 /obj/item/gun/ballistic/automatic/vampire/mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
 "mzT" = (
@@ -52178,7 +52178,7 @@
 	desc = "As perfectly cared for as the day you met her. The pride of the family, with antique ownership license and a polished sheen. No one can stop you out walking with your wife.";
 	name = "The Dontessa"
 	},
-/obj/item/ammo_box/magazine/vampthompson,
+/obj/item/ammo_box/magazine/vampire/vampthompson,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior)
 "ohQ" = (
@@ -55510,7 +55510,7 @@
 /area/vtm/interior/delivery/oops_office)
 "pCV" = (
 /obj/item/gun/ballistic/automatic/vampire/ar15,
-/obj/item/ammo_box/magazine/vamp556,
+/obj/item/ammo_box/magazine/vampire/vamp556,
 /obj/structure/closet/crate/secure/weapon{
 	req_one_access = list(3,4)
 	},
@@ -56883,7 +56883,7 @@
 	req_one_access_txt = "0"
 	},
 /obj/item/gun/ballistic/automatic/vampire/thompson,
-/obj/item/ammo_box/magazine/vampthompson,
+/obj/item/ammo_box/magazine/vampire/vampthompson,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/police)
@@ -59648,7 +59648,7 @@
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/item/gun/ballistic/automatic/vampire/mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
 /obj/item/ammo_box/vampire/c9mm,
 /turf/open/floor/plating/rough,
 /area/vtm/interior/police)
@@ -60929,8 +60929,8 @@
 /obj/structure/rack,
 /obj/item/gun/ballistic/automatic/vampire/mp5,
 /obj/item/gun/ballistic/automatic/vampire/mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior)
 "rTM" = (
@@ -66798,7 +66798,7 @@
 	req_one_access_txt = null
 	},
 /obj/item/gun/ballistic/automatic/vampire/mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
 /obj/item/ammo_box/vampire/c9mm,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/endronoffice)
@@ -68889,7 +68889,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/item/gun/ballistic/automatic/vampire/mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
 /obj/item/ammo_box/vampire/c9mm,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/endronoffice)
@@ -69402,7 +69402,7 @@
 /area/vtm/interior)
 "vxY" = (
 /obj/item/gun/ballistic/automatic/vampire/mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
 /obj/structure/closet/crate/secure/weapon{
 	req_one_access = list(3,4)
 	},
@@ -70462,7 +70462,7 @@
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/item/gun/ballistic/automatic/vampire/mp5,
-/obj/item/ammo_box/magazine/vamp9mp5,
+/obj/item/ammo_box/magazine/vampire/vamp9mp5,
 /obj/item/ammo_box/vampire/c9mm,
 /turf/open/floor/plating/rough,
 /area/vtm/interior/police)
@@ -75427,7 +75427,7 @@
 "xXa" = (
 /obj/structure/table,
 /obj/item/gun/ballistic/automatic/vampire/thompson,
-/obj/item/ammo_box/magazine/vampthompson,
+/obj/item/ammo_box/magazine/vampire/vampthompson,
 /turf/open/floor/carpet/lone,
 /area/vtm/interior/giovanni)
 "xXi" = (
