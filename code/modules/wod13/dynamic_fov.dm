@@ -77,12 +77,30 @@
 
 	. = ..()
 
+	add_fovik()
+
+/mob/living/proc/add_fovik()
 	for(var/plane in typesof(/atom/movable/screen/wall_fov) - /atom/movable/screen/wall_fov)
 		var/atom/movable/screen/PM = new plane(client)
 		client.screen += PM
 
-	if(!istype(src, /mob/dead/observer) || !istype(src, /mob/dead/observer/avatar))
-		client.screen += new /atom/movable/screen/walls
+	client.screen += new /atom/movable/screen/walls
+
+
+/mob/living/proc/remove_fovik()
+	for(var/plane in client.screen)
+		if(istype(plane, /atom/movable/screen/wall_fov))
+			client.screen -= plane
+		if(istype(plane,/atom/movable/screen/walls))
+			client.screen -= plane
+
+/datum/discipline_power/auspex/heightened_senses/activate()
+	. = ..()
+	owner.remove_fovik()
+
+/datum/discipline_power/auspex/heightened_senses/deactivate()
+	. = ..()
+	owner.add_fovik()
 
 
 /turf/closed/wall
