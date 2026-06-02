@@ -46,8 +46,8 @@
 //			shitta.vis_contents += get_step(get_step_multiz(shitta, UP), SOUTH)
 
 		// Remove any real shadow atoms so shadows from other z-levels don't show up
-		var/atom/movable/A
-		var/n = shitta.vis_contents.len
+//		var/atom/movable/A
+//		var/n = shitta.vis_contents.len
 		for(var/i in shitta.vis_contents)
 			if(istype(i, /turf/closed/wall))
 				var/turf/closed/wall/W = i
@@ -60,8 +60,8 @@
 		shitta.layer = our_turf.layer
 		shitta.mouse_opacity = 0
 		shitta.anchored = TRUE
-//		shitta.add_filter("z_level_blur", 1, list(type = "blur", size = 5))
-	//	our_turf.vis_contents += below_turf
+//		shitta.add_filter("z_level_blur", 1, list(type = "blur", size = 0.75))
+//		our_turf.vis_contents += below_turf
 	if(isclosedturf(our_turf)) //Show girders below closed turfs
 		var/mutable_appearance/girder_underlay = mutable_appearance('icons/obj/structures.dmi', "girder", layer = TURF_LAYER-0.01)
 		girder_underlay.appearance_flags = RESET_ALPHA | RESET_COLOR
